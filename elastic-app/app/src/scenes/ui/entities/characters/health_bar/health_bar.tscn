@@ -1,0 +1,195 @@
+[gd_scene load_steps=10 format=3 uid="uid://cbpnyk2l8gqtq"]
+
+[ext_resource type="Script" uid="uid://bp0dcxlxghvw7" path="res://src/scenes/ui/entities/characters/health_bar/health_bar.gd" id="1_svjpu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kv82x"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gs1u5"]
+bg_color = Color(0.190762, 0.190762, 0.190762, 1)
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.192157, 0.192157, 0.192157, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5vndr"]
+bg_color = Color(0.417008, 0.100368, 0.152642, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.27451, 0.109804, 0.12549, 1)
+border_blend = true
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gs1u5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kv82x"]
+bg_color = Color(0.10748, 0.10748, 0.10748, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8l8ff"]
+bg_color = Color(0.190277, 0.213313, 0.403032, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.165789, 0.115406, 0.362581, 1)
+border_blend = true
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ddrul"]
+bg_color = Color(0.215902, 0.215902, 0.215902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ior83"]
+bg_color = Color(0.329158, 0.329158, 0.329158, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.156863, 0.156863, 0.156863, 0)
+border_blend = true
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[node name="HealthBar" type="Control"]
+custom_minimum_size = Vector2(60, 40)
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_svjpu")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="OutsidePanel" type="PanelContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_kv82x")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/OutsidePanel"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="MainHealthPanel" type="PanelContainer" parent="MarginContainer/OutsidePanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="HealthBarFill" type="ProgressBar" parent="MarginContainer/OutsidePanel/VBoxContainer/MainHealthPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_styles/background = SubResource("StyleBoxFlat_gs1u5")
+theme_override_styles/fill = SubResource("StyleBoxFlat_5vndr")
+value = 50.0
+show_percentage = false
+
+[node name="CenterContainer" type="HBoxContainer" parent="MarginContainer/OutsidePanel/VBoxContainer/MainHealthPanel"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/OutsidePanel/VBoxContainer/MainHealthPanel/CenterContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_gs1u5")
+
+[node name="Center" type="CenterContainer" parent="MarginContainer/OutsidePanel/VBoxContainer/MainHealthPanel/CenterContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/OutsidePanel/VBoxContainer/MainHealthPanel/CenterContainer/PanelContainer/Center"]
+layout_mode = 2
+theme_override_constants/margin_top = 1
+
+[node name="HealthText" type="Label" parent="MarginContainer/OutsidePanel/VBoxContainer/MainHealthPanel/CenterContainer/PanelContainer/Center/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 10
+text = "50/100"
+horizontal_alignment = 1
+
+[node name="ArmorContainer" type="PanelContainer" parent="MarginContainer/OutsidePanel/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ArmorBarFill" type="ProgressBar" parent="MarginContainer/OutsidePanel/VBoxContainer/ArmorContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_styles/background = SubResource("StyleBoxFlat_kv82x")
+theme_override_styles/fill = SubResource("StyleBoxFlat_8l8ff")
+value = 50.0
+show_percentage = false
+
+[node name="CenterContainer" type="HBoxContainer" parent="MarginContainer/OutsidePanel/VBoxContainer/ArmorContainer"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/OutsidePanel/VBoxContainer/ArmorContainer/CenterContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_gs1u5")
+
+[node name="Center" type="CenterContainer" parent="MarginContainer/OutsidePanel/VBoxContainer/ArmorContainer/CenterContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/OutsidePanel/VBoxContainer/ArmorContainer/CenterContainer/PanelContainer/Center"]
+layout_mode = 2
+theme_override_constants/margin_top = 1
+
+[node name="ArmorText" type="Label" parent="MarginContainer/OutsidePanel/VBoxContainer/ArmorContainer/CenterContainer/PanelContainer/Center/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 10
+text = "50/100"
+horizontal_alignment = 1
+
+[node name="BlockContainer" type="PanelContainer" parent="MarginContainer/OutsidePanel/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="BlockBarFill" type="ProgressBar" parent="MarginContainer/OutsidePanel/VBoxContainer/BlockContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_styles/background = SubResource("StyleBoxFlat_ddrul")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ior83")
+value = 50.0
+show_percentage = false
+
+[node name="CenterContainer" type="HBoxContainer" parent="MarginContainer/OutsidePanel/VBoxContainer/BlockContainer"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/OutsidePanel/VBoxContainer/BlockContainer/CenterContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_gs1u5")
+
+[node name="Center" type="CenterContainer" parent="MarginContainer/OutsidePanel/VBoxContainer/BlockContainer/CenterContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/OutsidePanel/VBoxContainer/BlockContainer/CenterContainer/PanelContainer/Center"]
+layout_mode = 2
+theme_override_constants/margin_top = 1
+
+[node name="BlockText" type="Label" parent="MarginContainer/OutsidePanel/VBoxContainer/BlockContainer/CenterContainer/PanelContainer/Center/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 10
+text = "50/100"
+horizontal_alignment = 1

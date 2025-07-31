@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cka5aovpfoi80"]
+
+[ext_resource type="Script" uid="uid://bgnlh0vdr1toe" path="res://src/scenes/ui/click_and_drag/click_and_drag.gd" id="1_rbhau"]
+
+[node name="ClickAndDrag" type="Node2D"]
+script = ExtResource("1_rbhau")

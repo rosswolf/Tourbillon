@@ -1,0 +1,102 @@
+[
+  {
+	"mob_template_id": "goblin_scout",
+	"display_name": "Goblin Scout",
+	"max_health": 55,
+	"max_armor": 0,
+	"is_flying": false,
+	"movement": 1,
+	"sweet_spot": 1,
+	"in_range_1": "block=5, attack_melee=8",
+	"in_range_2": "block=15",
+	"in_range_3": "attack_melee=25",
+	"in_range_4": "block=20",
+	"out_of_range_1": "move=1, block=10",
+	"out_of_range_2": "move=1,  attack_melee=10",
+	"out_of_range_3": "move=1, attack=8x2"
+  },
+  {
+	"mob_template_id": "bar_goblin",
+	"display_name": "Torch Goblin",
+	"max_health": 20,
+	"max_armor": 5,
+	"is_flying": false,
+	"movement": 2,
+	"sweet_spot": 2,
+	"in_range_1": "slime=1",
+	"in_range_2": "slime=1, heal_ally=5",
+	"in_range_3": "attack=4, heal_ally=5",
+	"out_of_range_1": "move=3, slime=1",
+	"out_of_range_2": "move=3, heal_ally=10",
+	"out_of_range_3": "move=3, heal_ally=10"
+  },
+  {
+	"mob_template_id": "noob_goblin",
+	"display_name": "Noob Goblin",
+	"max_health": 30,
+	"max_armor": 0,
+	"is_flying": false,
+	"movement": 1,
+	"sweet_spot": 4,
+	"in_range_1": "attack=12",
+	"in_range_2": "attack=3x5",
+	"out_of_range_1": "move=1,attack=8"
+  },
+  {
+	"mob_template_id": "drunken_500_year_old",
+	"display_name": "Drunken 500 Year old",
+	"max_health": 100,
+	"max_armor": 0,
+	"is_flying": false,
+	"movement": 1,
+	"sweet_spot": 6,
+	"in_range_1": "attack=1",
+	"in_range_2": "attack=12",
+	"in_range_3": "attack=3",
+	"out_of_range_1": "move=3,attack=4"
+  },
+  {
+	"mob_template_id": "bandit_minion",
+	"display_name": "Bandit"
+  },
+  {
+	"mob_template_id": "bandit_ringleader",
+	"display_name": "Bandit Leader"
+  },
+  {
+	"mob_template_id": "bandit_gun"
+  },
+  {
+	"mob_template_id": "mutated_rabbit"
+  },
+  {
+	"mob_template_id": "mutated_squirrel"
+  },
+  {
+	"mob_template_id": "mutated_three_headed_dog"
+  },
+  {
+	"mob_template_id": "genetic_velociraptor"
+  },
+  {
+	"mob_template_id": "genetic_sabre_tooth_tiger"
+  },
+  {
+	"mob_template_id": "nightmare_shadow"
+  },
+  {
+	"mob_template_id": "nightmare_cthulu"
+  },
+  {
+	"mob_template_id": "nightmare_octopus"
+  },
+  {
+	"mob_template_id": "robot_old_sentry"
+  },
+  {
+	"mob_template_id": "robot_old_drone"
+  },
+  {
+	"mob_template_id": "robot_old_tank"
+  }
+]

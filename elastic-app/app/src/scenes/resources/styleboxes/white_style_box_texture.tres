@@ -1,0 +1,7 @@
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://dah2vpns0fu5y"]
+
+[ext_resource type="Texture2D" uid="uid://g11neswlaaig" path="res://owned_assets/GUI_test2.png" id="1_0ytmu"]
+
+[resource]
+texture = ExtResource("1_0ytmu")
+region_rect = Rect2(112, 680, 810, 194)

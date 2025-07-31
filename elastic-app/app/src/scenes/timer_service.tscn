@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://juprtc07vfnr"]
+
+[ext_resource type="Script" uid="uid://27767tgt544t" path="res://src/scenes/timer_service.gd" id="1_awntf"]
+
+[node name="TimerService" type="Node2D"]
+script = ExtResource("1_awntf")

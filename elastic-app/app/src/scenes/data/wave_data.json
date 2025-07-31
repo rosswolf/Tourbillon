@@ -1,0 +1,56 @@
+[
+  {
+	"wave_template_id": "starting_wave",
+	"wave_difficulty": 1,
+	"wave_mobs": {
+	  "goblin_scout": "5",
+	  "bar_goblin": "6",
+	  "noob_goblin": "8"
+	},
+	"arena_size": 10,
+	"hero_spawn_location": 0
+  },
+  {
+	"wave_template_id": "bandit_0",
+	"wave_difficulty": 0,
+	"wave_mobs": {
+	  "bandit_archer": "1"
+	},
+	"arena_size": 12,
+	"hero_spawn_location": 8,
+	"__NOEX Notes": "The Lone Ranger"
+  },
+  {
+	"wave_template_id": "mutate_0",
+	"wave_difficulty": 0,
+	"wave_mobs": {
+	  "mutated_rabbit": "1",
+	  "mutated_squirrel": "9"
+	},
+	"arena_size": 10,
+	"hero_spawn_location": 5,
+	"__NOEX Notes": "1 careless.  1 damage unit.  Move attack move."
+  },
+  {
+	"wave_template_id": "nightmare_0",
+	"wave_difficulty": 0,
+	"wave_mobs": {
+	  "nightmare_bird": "4"
+	},
+	"arena_size": 8,
+	"hero_spawn_location": 1,
+	"__NOEX Notes": "Flying"
+  },
+  {
+	"wave_difficulty": 1
+  },
+  {
+	"wave_difficulty": 1
+  },
+  {
+	"wave_difficulty": 1
+  },
+  {
+	"wave_difficulty": 1
+  }
+]

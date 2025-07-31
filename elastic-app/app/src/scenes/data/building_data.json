@@ -1,0 +1,146 @@
+[
+  {
+	"building_template_id": "town_hall",
+	"display_name": "Your town hall.  If you lose it, you lose.",
+	"building_color": "Building.BuildingColor.RED",
+	"max_health": 10000,
+	"effect_type": "Effect.EffectType.NONE",
+	"trigger_effect_params": {
+	  "how_many": "1"
+	}
+  },
+  {
+	"building_template_id": "basic_turret",
+	"display_name": "A run for the mill turret",
+	"building_color": "Building.BuildingColor.RED",
+	"max_health": 1000,
+	"effect_type": "Effect.EffectType.NONE"
+  },
+  {
+	"building_template_id": "bank",
+	"display_name": "The bank",
+	"building_color": "Building.BuildingColor.RED",
+	"max_health": 1000,
+	"effect_type": "Effect.EffectType.ONE_TIME",
+	"trigger_effect_id": "effect_generate_gold",
+	"trigger_effect_params": {
+	  "how_many": "200"
+	}
+  },
+  {
+	"building_template_id": "scout_turret",
+	"display_name": "A turret designed for scouting",
+	"building_color": "Building.BuildingColor.RED",
+	"max_health": 100,
+	"effect_type": "Effect.EffectType.NONE"
+  },
+  {
+	"building_template_id": "clickable",
+	"display_name": "A clickable building",
+	"building_color": "Building.BuildingColor.RED",
+	"max_health": 100,
+	"effect_type": "Effect.EffectType.ACTIVATABLE",
+	"trigger_effect_id": "effect_generate_gold",
+	"trigger_effect_params": {
+	  "how_many": "77"
+	}
+  },
+  {
+	"building_template_id": "splash_turret",
+	"display_name": "A turret with splash damage",
+	"building_color": "Building.BuildingColor.RED",
+	"max_health": 3000,
+	"effect_type": "Effect.EffectType.NONE"
+  },
+  {
+	"building_template_id": "gear_building",
+	"display_name": "A geared building",
+	"building_color": "Building.BuildingColor.RED",
+	"max_health": 1000,
+	"effect_type": "Effect.EffectType.SIGNAL_ONLY"
+  },
+  {
+	"building_template_id": "button_building_red",
+	"display_name": "A triggering red building",
+	"building_color": "Building.BuildingColor.RED",
+	"max_health": 1000,
+	"effect_type": "Effect.EffectType.ACTIVATABLE",
+	"trigger_effect_cost": {
+	  "TowerResource.Type.RED_TRIGGER": "1"
+	}
+  },
+  {
+	"building_template_id": "button_building_green",
+	"display_name": "A triggering green building",
+	"building_color": "Building.BuildingColor.GREEN",
+	"max_health": 1000,
+	"effect_type": "Effect.EffectType.ACTIVATABLE",
+	"trigger_effect_cost": {
+	  "TowerResource.Type.GREEN_TRIGGER": "1"
+	}
+  },
+  {
+	"building_template_id": "button_building_blue",
+	"display_name": "A triggering blue building",
+	"building_color": "Building.BuildingColor.BLUE",
+	"max_health": 1000,
+	"effect_type": "Effect.EffectType.ACTIVATABLE",
+	"trigger_effect_cost": {
+	  "TowerResource.Type.BLUE_TRIGGER": "1"
+	}
+  },
+  {
+	"building_template_id": "invisible_connector",
+	"display_name": "Invisible connecting building",
+	"building_color": "Building.BuildingColor.BLUE",
+	"max_health": 1000,
+	"effect_type": "Effect.EffectType.SIGNAL_ONLY",
+	"gear_effect_id": "effect_none"
+  },
+  {
+	"building_template_id": "gear_basic_attack",
+	"display_name": "Basic attack gear",
+	"building_color": "Building.BuildingColor.RED",
+	"max_health": 1000,
+	"effect_type": "Effect.EffectType.SIGNAL_ONLY",
+	"gear_effect_id": "effect_basic_attack",
+	"gear_effect_params": {
+	  "damage": "2"
+	},
+	"visual_numeral": 2,
+	"visual_name": "attack_left_to_right"
+  },
+  {
+	"building_template_id": "gear_basic_block",
+	"display_name": "basic block gear",
+	"building_color": "Building.BuildingColor.RED",
+	"max_health": 1000,
+	"effect_type": "Effect.EffectType.SIGNAL_ONLY",
+	"gear_effect_id": "effect_basic_block",
+	"gear_effect_params": {
+	  "block": "2"
+	},
+	"visual_numeral": 2,
+	"visual_name": "block"
+  },
+  {
+	"building_template_id": "consume_card",
+	"display_name": "Consumes your cards",
+	"building_color": "Building.BuildingColor.RED",
+	"max_health": 1000
+  },
+  {
+	"building_template_id": "end_turn_button",
+	"display_name": "Ends your turn",
+	"building_color": "Building.BuildingColor.RED",
+	"max_health": 1000,
+	"effect_type": "Effect.EffectType.ACTIVATABLE"
+  },
+  {
+	"building_template_id": "rock",
+	"display_name": "A rock",
+	"building_color": "Building.BuildingColor.RED",
+	"max_health": 1000,
+	"effect_type": "Effect.EffectType.NONE"
+  }
+]

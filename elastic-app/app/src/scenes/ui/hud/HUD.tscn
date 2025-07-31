@@ -1,0 +1,15 @@
+[gd_scene load_steps=5 format=3 uid="uid://dckcqckqo0abj"]
+
+[ext_resource type="Script" uid="uid://bnqoegwbq8hew" path="res://src/scenes/ui/hud/hud.gd" id="1_hu4tt"]
+[ext_resource type="PackedScene" uid="uid://bwl8lbvy0uxgu" path="res://src/scenes/ui/hud/PauseModal.tscn" id="4_ur5f3"]
+[ext_resource type="PackedScene" uid="uid://blp7o1jclufvr" path="res://src/scenes/ui/hud/card_selection_modal.tscn" id="5_3hgph"]
+[ext_resource type="PackedScene" uid="uid://boundwpeua3rd" path="res://src/scenes/ui/hud/GameOverModal.tscn" id="7_mk5fb"]
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_hu4tt")
+
+[node name="PauseModal" parent="." instance=ExtResource("4_ur5f3")]
+
+[node name="CardSelectionModal" parent="." instance=ExtResource("5_3hgph")]
+
+[node name="GameOverModal" parent="." instance=ExtResource("7_mk5fb")]

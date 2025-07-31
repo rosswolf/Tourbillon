@@ -1,0 +1,30 @@
+[
+  {
+    "template_name": "knight",
+    "display_name": "Knight",
+    "image_name": "knight",
+    "starting_health": 60,
+    "starting_max_health": 60,
+    "starting_armor": 10,
+    "starting_max_armor": 15,
+    "starting_relic": "training_gloves",
+    "starting_training": 2,
+    "starting_instinct": 3,
+    "starting_gold": 100,
+    "default_targeting": "Battleground.OrderPriority.CLOSEST"
+  },
+  {
+    "template_name": "berzerker",
+    "display_name": "Berzerker",
+    "image_name": "knight",
+    "starting_health": 40,
+    "starting_max_health": 55,
+    "starting_armor": 0,
+    "starting_max_armor": 0,
+    "starting_relic": "training_gloves",
+    "starting_training": 2,
+    "starting_instinct": 3,
+    "starting_gold": 90,
+    "default_targeting": "Battleground.OrderPriority.CLOSEST"
+  }
+]

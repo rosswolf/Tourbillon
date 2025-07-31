@@ -1,0 +1,18 @@
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://dnrdx5ya51g58"]
+
+[ext_resource type="FontFile" uid="uid://uuu2fap63a8h" path="res://src/scenes/resources/fonts/BlackFlag.ttf" id="1_362lk"]
+[ext_resource type="StyleBox" uid="uid://c8rexd5cc2ftl" path="res://src/scenes/resources/styleboxes/black_style_box_texture.tres" id="2_ay7kt"]
+[ext_resource type="StyleBox" uid="uid://dah2vpns0fu5y" path="res://src/scenes/resources/styleboxes/white_style_box_texture.tres" id="3_rl3dw"]
+[ext_resource type="StyleBox" uid="uid://cs237t68tfran" path="res://src/scenes/resources/styleboxes/red_style_box_texture.tres" id="4_1evsp"]
+
+[resource]
+Button/colors/font_color = Color(0, 0, 0, 1)
+Button/colors/font_disabled_color = Color(0.835731, 0.876509, 0.986868, 0.5)
+Button/colors/font_focus_color = Color(0.894118, 0, 0, 1)
+Button/colors/font_hover_color = Color(0.894118, 0, 0, 1)
+Button/font_sizes/font_size = 18
+Button/fonts/font = ExtResource("1_362lk")
+Button/styles/focus = ExtResource("3_rl3dw")
+Button/styles/hover = ExtResource("2_ay7kt")
+Button/styles/normal = ExtResource("3_rl3dw")
+Button/styles/pressed = ExtResource("4_1evsp")
