@@ -1,17 +1,14 @@
-[gd_scene load_steps=12 format=3 uid="uid://b8apg4aqwojm7"]
+[gd_scene load_steps=9 format=3 uid="uid://b8apg4aqwojm7"]
 
 [ext_resource type="Script" uid="uid://dtu25hj7ookvm" path="res://src/scenes/game.gd" id="1_7uq6d"]
-[ext_resource type="Theme" uid="uid://dnrdx5ya51g58" path="res://src/scenes/resources/themes/theme_one.tres" id="2_3msxb"]
-[ext_resource type="Texture2D" uid="uid://da3dlqkd8tv7a" path="res://cc0_assets/nature.jpg" id="2_276xm"]
-[ext_resource type="PackedScene" uid="uid://ch1tv0n54uue6" path="res://src/scenes/ui/engine/engine_template.tscn" id="2_xq6wo"]
+[ext_resource type="Texture2D" uid="uid://bva6617mxquta" path="res://cc0_assets/underwater_crop.jpg" id="2_gh3at"]
 [ext_resource type="PackedScene" uid="uid://dx62gxy64qd47" path="res://src/scenes/ui/hud/menu_bar.tscn" id="3_bd8mh"]
 [ext_resource type="PackedScene" uid="uid://dbu6a2pg1iju5" path="res://src/scenes/ui/hand/HandContainer.tscn" id="3_yufto"]
 [ext_resource type="PackedScene" uid="uid://3yoqe2hx1j1g" path="res://src/scenes/ui/battleground/ui_battleground.tscn" id="4_5dxuo"]
-[ext_resource type="PackedScene" uid="uid://03uikxa5r302" path="res://src/scenes/ui/icons/targeting/targeting_icon.tscn" id="6_h2mn8"]
 [ext_resource type="PackedScene" uid="uid://cka5aovpfoi80" path="res://src/scenes/ui/click_and_drag/click_and_drag.tscn" id="10_6e0h8"]
 [ext_resource type="PackedScene" uid="uid://dckcqckqo0abj" path="res://src/scenes/ui/hud/HUD.tscn" id="10_bd8mh"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_flib5"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gh3at"]
 
 [node name="Game" type="Control"]
 layout_mode = 3
@@ -29,9 +26,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_276xm")
+texture = ExtResource("2_gh3at")
 expand_mode = 2
-stretch_mode = 6
+stretch_mode = 5
 
 [node name="MainVBoxContainer" type="VBoxContainer" parent="Background"]
 layout_mode = 1
@@ -41,21 +38,28 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="PanelContainer" type="PanelContainer" parent="Background/MainVBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_gh3at")
+
+[node name="TopHBoxContainer" type="HBoxContainer" parent="Background/MainVBoxContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Background/MainVBoxContainer/PanelContainer/TopHBoxContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+
+[node name="UiBattleground" parent="Background/MainVBoxContainer/PanelContainer/TopHBoxContainer" instance=ExtResource("4_5dxuo")]
+layout_mode = 2
+
 [node name="MenuBar" parent="Background/MainVBoxContainer" instance=ExtResource("3_bd8mh")]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 1
-
-[node name="UiBattleground" parent="Background/MainVBoxContainer" instance=ExtResource("4_5dxuo")]
-layout_mode = 2
 
 [node name="BotHBoxContainer" type="HBoxContainer" parent="Background/MainVBoxContainer"]
 layout_mode = 2
-
-[node name="EngineTemplate" parent="Background/MainVBoxContainer/BotHBoxContainer" instance=ExtResource("2_xq6wo")]
-custom_minimum_size = Vector2(550, 390)
-layout_mode = 2
-size_flags_horizontal = 1
-size_flags_vertical = 3
 
 [node name="UIVBoxContainer" type="VBoxContainer" parent="Background/MainVBoxContainer/BotHBoxContainer"]
 layout_mode = 2
@@ -76,34 +80,6 @@ horizontal_scroll_mode = 0
 unique_name_in_owner = true
 layout_mode = 2
 columns = 17
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Background/MainVBoxContainer/BotHBoxContainer/UIVBoxContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="TargetingPanelContainer" type="CenterContainer" parent="Background/MainVBoxContainer/BotHBoxContainer/UIVBoxContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="GenericTargetingIcon" parent="Background/MainVBoxContainer/BotHBoxContainer/UIVBoxContainer/HBoxContainer/VBoxContainer/TargetingPanelContainer" instance=ExtResource("6_h2mn8")]
-layout_mode = 2
-size_flags_horizontal = 1
-
-[node name="EndTurnPanelContainer" type="PanelContainer" parent="Background/MainVBoxContainer/BotHBoxContainer/UIVBoxContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_flib5")
-
-[node name="MarginContainer" type="MarginContainer" parent="Background/MainVBoxContainer/BotHBoxContainer/UIVBoxContainer/HBoxContainer/VBoxContainer/EndTurnPanelContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
-
-[node name="EndTurnButton" type="Button" parent="Background/MainVBoxContainer/BotHBoxContainer/UIVBoxContainer/HBoxContainer/VBoxContainer/EndTurnPanelContainer/MarginContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-theme = ExtResource("2_3msxb")
-text = "END TURN"
 
 [node name="CardMarginContainer" type="MarginContainer" parent="Background/MainVBoxContainer/BotHBoxContainer/UIVBoxContainer"]
 layout_mode = 2

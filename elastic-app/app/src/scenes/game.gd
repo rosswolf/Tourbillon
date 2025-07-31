@@ -6,7 +6,6 @@ extends Control
 	$Background/MainVBoxContainer/BotHBoxContainer/UIVBoxContainer/HBoxContainer/VBoxContainer/TargetingPanelContainer/GenericTargetingIcon
 
 func _ready() -> void:
-	%EndTurnButton.pressed.connect(__end_turn)
 	
 	GlobalSignals.core_card_drawn.connect(__on_card_drawn)
 	GlobalSignals.core_card_removed_from_hand.connect(__on_card_removed_from_hand)

@@ -78,7 +78,7 @@ func __on_start_battle():
 	hero.reset_start_of_battle()
 	__load_hand()
 	
-	battleground.spawn_new_stage(1)
+	#battleground.spawn_new_stage(1)
 	allow_activations()
 	GlobalSignals.signal_core_begin_turn()
 		
