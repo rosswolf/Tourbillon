@@ -25,7 +25,7 @@ static var effect_map: Dictionary[String, InternalEffect] = {
 		func(source: Entity, params: Dictionary):
 			var amount: int = int(params.get("param", 0))
 			return await GlobalGameManager.battleground.mob_heal_ally(source, amount),
-		[Mob]
+		[]
 	),
 	"pull": InternalEffect.new(
 		func(source: Entity, params: Dictionary):
@@ -53,18 +53,15 @@ static var effect_map: Dictionary[String, InternalEffect] = {
 	"dash": InternalEffect.new(
 		func(source: Entity, params: Dictionary):
 			return await GlobalGameManager.battleground.unit_dash(source),
-		[Hero, Mob]
+		[Hero]
 	),
 	"heal": InternalEffect.new(
 		func(source: Entity, params: Dictionary):
 			var how_many = int(params.get("param"))
 			if source is Hero:
 				GlobalGameManager.hero.health.increment(how_many)
-				return true
-			else:
-				var mob: Mob = source as Mob
-				mob.health.increment(how_many),
-		[Hero, Mob]
+				return true,
+		[Hero]
 	),
 	"add_armor": InternalEffect.new(
 		func(source: Entity, params: Dictionary):
@@ -117,107 +114,33 @@ static var effect_map: Dictionary[String, InternalEffect] = {
 	"none":  InternalEffect.new(
 		func(source: Entity, params: Dictionary):
 			return true,
-		[Hero, Mob, Card]
+		[Hero, Card]
 		),
 	"attack_melee": InternalEffect.new(
 		func(source: Entity, params: Dictionary):
 			var damage: int = int(params.get("param", 0))
 			return await GlobalGameManager.battleground.unit_attack_melee(source, damage),
-		[Hero, Mob]
+		[Hero]
 	),
 	"attack": InternalEffect.new(
 		func(source: Entity, params: Dictionary):
 			var damage: int = int(params.get("param", 0))
 			return await GlobalGameManager.battleground.unit_attack_range(source, damage),
-		[Hero, Mob]
+		[Hero]
 	),
 	"block": InternalEffect.new(
 		func(source: Entity, params: Dictionary):
 			var new_block = int(params.get("param"))
 			if source is Hero:
 				GlobalGameManager.hero.block.increment(new_block)
-				return true
-			else:
-				var mob: Mob = source as Mob
-				mob.block.increment(new_block),
-		[Hero, Mob]
+				return true,
+		[Hero]
 	),
 	"remove_card_from_deck": InternalEffect.new(
 		func(source: Entity, params: Dictionary):
 			GlobalGameManager.library.move_card_to_zone(source.instance_id, Library.Zone.EXILED, Library.Zone.BEING_PLAYED)
 			return true,
 		[Card]
-	),
-	"stun": InternalEffect.new(
-		func(source: Entity, params: Dictionary):
-			var damage_priority: Battleground.OrderPriority = params.get("damage_priority", Battleground.OrderPriority.LEFT_TO_RIGHT)
-			GlobalGameManager.battleground.stun_mob(damage_priority)
-			return true,
-		[Hero]
-	),
-	"trip": InternalEffect.new(
-		func(source: Entity, params: Dictionary):
-			var damage_priority: Battleground.OrderPriority = params.get("damage_priority", Battleground.OrderPriority.LEFT_TO_RIGHT)
-			var amount: int = params.get("param", 1)
-			GlobalGameManager.battleground.trip_mob(damage_priority, amount)
-			return true,
-		[Hero]
-	),
-	"knockback": InternalEffect.new(
-		func(source: Entity, params: Dictionary):
-			var amount: int = params.get("param", 1)
-			GlobalGameManager.battleground.knockback_mob(amount)
-			return true,
-		[Hero]
-	),
-	"slime": InternalEffect.new(
-		func(source: Entity, params: Dictionary):
-			var amount: int = params.get("param", 1)
-			for i in range(amount):
-				var slimed = Card.load_card("curse", "card_slimed")
-				GlobalGameManager.library.add_card_to_zone(slimed, Library.Zone.GRAVEYARD)
-				# TODO signal for slime card UI
-			return true,
-		[Mob]
-	),
-	"reduce_block": InternalEffect.new(
-		func(source: Entity, params: Dictionary):
-			#TODO
-			return false,
-		[Mob]
-	),
-	"weaken":InternalEffect.new(
-		func(source: Entity, params: Dictionary):
-			#TODO
-			return false,
-		[Mob]
-	),
-	"increase_strength": InternalEffect.new(
-		func(source: Entity, params: Dictionary):
-			#TODO
-			return false,
-		[Mob]
-	),
-	"move": InternalEffect.new(
-		func(source: Entity, params: Dictionary):
-			var amount: int = params.get("param", 1)
-			await GlobalGameManager.battleground.move_mob_toward_sweet_spot(source, amount)
-			return true,
-		[Mob]
-	),
-	"engage": InternalEffect.new(
-		func(source: Entity, params: Dictionary):
-			var amount: int = params.get("param", 1)
-			await GlobalGameManager.battleground.move_mob_engage(source, amount)
-			return true,
-		[Mob]
-	),
-	"retreat": InternalEffect.new(
-		func(source: Entity, params: Dictionary):
-			var amount: int = params.get("param", 1)
-			await GlobalGameManager.battleground.move_mob_retreat(source, amount)
-			return true,
-		[Mob]
 	),
 }
 

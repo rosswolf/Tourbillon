@@ -5,34 +5,13 @@ class_name GameResource
 enum Type {
 	UNKNOWN,
 	GOLD,
-	BLOCK,
-	ARMOR,
-	MAX_ARMOR,
-	CURRENT_HEALTH,
-	MAX_HEALTH,
-	INSTINCT,
-	TRAINING_POINTS,
-	ENDURANCE,
-	RED_TRIGGER,
-	GREEN_TRIGGER,
-	BLUE_TRIGGER,
-	RANDOM_TRIGGER,
-	ALL_TRIGGER,
+	TIME,
+	ENERGY,
+	FORCE,
+	DEPTH,
 	NONE
 }
 
-# The background color when displaying the cost on the card
-static func get_activation_background_color(type: Type) -> Color:
-	if type == Type.RED_TRIGGER:
-		return Color.RED
-	elif type == Type.BLUE_TRIGGER:
-		return Color.BLUE
-	elif type == Type.GREEN_TRIGGER:
-		return Color.GREEN
-	elif type == Type.ALL_TRIGGER:
-		return Color.BLACK
-	else:
-		return Color.GRAY	 
 		
 class ResourceAccessor:
 	class __SpecificResourceAccessor:
@@ -56,33 +35,25 @@ class ResourceAccessor:
 			setter.call(getter.call() - amount)
 	
 	var __resources: Dictionary = {
-		GameResource.Type.BLOCK: __SpecificResourceAccessor.new(
-			func(): return GlobalGameManager.hero.block.amount,
-			func(value): GlobalGameManager.hero.block.amount = value
-		),
-		GameResource.Type.CURRENT_HEALTH: __SpecificResourceAccessor.new(
-			func(): return GlobalGameManager.hero.health.amount,
-			func(value): GlobalGameManager.hero.health.amount = value
-		),
-		GameResource.Type.MAX_HEALTH: __SpecificResourceAccessor.new(
-			func(): return GlobalGameManager.hero.health.max_amount,
-			func(value): GlobalGameManager.hero.health.max_amount = value
-		),
 		GameResource.Type.GOLD: __SpecificResourceAccessor.new(
 			func(): return GlobalGameManager.hero.gold.amount,
 			func(value): GlobalGameManager.hero.gold.amount = value
 		),
-		GameResource.Type.INSTINCT: __SpecificResourceAccessor.new(
-			func(): return GlobalGameManager.hero.instinct.amount,
-			func(value): GlobalGameManager.hero.instinct.amount = value
+		GameResource.Type.TIME: __SpecificResourceAccessor.new(
+			func(): return GlobalGameManager.hero.time.amount,
+			func(value): GlobalGameManager.hero.time.amount = value
 		),
-		GameResource.Type.ENDURANCE: __SpecificResourceAccessor.new(
-			func(): return GlobalGameManager.hero.endurance.amount,
-			func(value): GlobalGameManager.hero.endurance.amount = value
+		GameResource.Type.ENERGY: __SpecificResourceAccessor.new(
+			func(): return GlobalGameManager.hero.energy.max_amount,
+			func(value): GlobalGameManager.hero.energy.max_amount = value
 		),
-		GameResource.Type.TRAINING_POINTS: __SpecificResourceAccessor.new(
-			func(): return GlobalGameManager.hero.training_points.amount,
-			func(value): GlobalGameManager.hero.training_points.amount = value
+		GameResource.Type.FORCE: __SpecificResourceAccessor.new(
+			func(): return GlobalGameManager.hero.force.amount,
+			func(value): GlobalGameManager.hero.force.amount = value
+		),
+		GameResource.Type.DEPTH: __SpecificResourceAccessor.new(
+			func(): return GlobalGameManager.hero.depth.amount,
+			func(value): GlobalGameManager.hero.depth.amount = value
 		),
 	}
 	

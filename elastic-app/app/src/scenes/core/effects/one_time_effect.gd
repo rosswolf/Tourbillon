@@ -36,9 +36,7 @@ func activate(source: Entity):
 	# TODO(virtual) if we decide to have cards carry effects onto the things they
 	# activate.. then unpack them here and put them in paramters.  
 	
-	if source is Mob or source is Hero:
-		return __base_f.call(source, parameters)
-	elif source is Card:
+	if source is Card:
 		parameters["card"] = source
 		return __base_f.call(GlobalGameManager.hero, parameters)
 	else:

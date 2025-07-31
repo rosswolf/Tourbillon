@@ -1,13 +1,5 @@
 extends Node
 
-static var MOB_SPRITES = {
-	"knight": preload("res://src/scenes/ui/entities/characters/sprites/heroes/knight.tres"),
-	"goblin_scout": preload("res://src/scenes/ui/entities/characters/sprites/mobs/goblin_scout.tres"),
-	"bar_goblin": preload("res://src/scenes/ui/entities/characters/sprites/mobs/bar_goblin.tres"),
-	"noob_goblin": preload("res://src/scenes/ui/entities/characters/sprites/mobs/noob_goblin.tres"),
-	"drunken_500_year_old":preload("res://src/scenes/ui/entities/characters/sprites/mobs/drunken_500_year_old.tres"),
-	"zombie":preload("res://src/scenes/ui/entities/characters/sprites/mobs/zombie.tres")
-}
 
 
 

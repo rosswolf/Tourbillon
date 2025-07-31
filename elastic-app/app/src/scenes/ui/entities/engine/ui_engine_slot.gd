@@ -203,12 +203,3 @@ func set_activation_type(type: GlobalUtilities.TriggerType) -> void:
 	activation_button.visible = true
 	trigger_resource = GlobalUtilities.get_associated_trigger_resource(type)
 	
-	# Load the corresponding image
-	if trigger_resource == GameResource.Type.GREEN_TRIGGER:
-		activation_image.texture = GlobalUtilities.load_image("green_activation_trigger_button")
-	elif trigger_resource == GameResource.Type.RED_TRIGGER:
-		activation_image.texture = GlobalUtilities.load_image("red_activation_trigger_button")
-	elif trigger_resource == GameResource.Type.BLUE_TRIGGER:
-		activation_image.texture = GlobalUtilities.load_image("blue_activation_trigger_button")
-	else:
-		printerr("Attempted to load undefined trigger type")

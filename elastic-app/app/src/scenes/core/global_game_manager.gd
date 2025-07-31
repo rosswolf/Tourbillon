@@ -8,7 +8,6 @@ var instance_catalog: InstanceCatalog
 var library: Library
 var hero: Hero
 var relic_manager: RelicManager
-var battleground: Battleground
 
 var hand_size: int = 5
 var current_act = 1
@@ -49,8 +48,7 @@ func __load_hand() -> void:
 		
 func __handle_activation(source_instance_id: String, target_instance_id: String):
 	GlobalGameManager.activate(source_instance_id, target_instance_id)
-	if battleground.check_mobs_defeated():
-		end_battle()
+
 
 func __on_start_game():
 	reset_game_state()
@@ -63,10 +61,8 @@ func __on_start_game():
 	instance_catalog = InstanceCatalog.new()
 	library = Library.new()
 	relic_manager = RelicManager.new()
-	battleground = Battleground.new()
 	hero = Hero.load_hero(hero_template_id)
 
-	add_relic(hero.starting_relic)
 	__load_cards()
 	
 	# TODO: temporary, will be called via signal
@@ -87,7 +83,6 @@ func __on_card_discarded(card_instance_id: String):
 	if card == null:
 		assert(false, "Card was null when retrieving from instance catalog: " + card_instance_id)
 		return
-	hero.set_targeting(card.targeting)
 			
 func allow_activations():
 	__activations_allowed = true
@@ -103,14 +98,11 @@ func reset_game_state():
 		hero.queue_free()
 	if relic_manager:
 		relic_manager.queue_free()
-	if battleground:
-		battleground.queue_free()
 	
 	instance_catalog = null
 	library = null
 	hero = null
 	relic_manager = null
-	battleground = null
 	
 func activate(source_id: String, target_id: String):	
 	if not __activations_allowed:
@@ -133,14 +125,10 @@ func get_selected_card() -> Card:
 	return instance_catalog.get_instance(
 		GlobalSelectionManager.get_selected()) as Card
 
-func add_relic(relic_template_id: String) -> void:
-	var relic: Relic = relic_manager.add_relic(relic_template_id)
-	GlobalSignals.signal_core_relic_added(relic)
 	
 func end_turn():
 	GlobalSignals.signal_core_end_turn()
 	disallow_activations()
-	await battleground.resolve_mob_turns()
 	library.draw_new_hand(hand_size)
 	hero.reset_turn_resources()
 	allow_activations()

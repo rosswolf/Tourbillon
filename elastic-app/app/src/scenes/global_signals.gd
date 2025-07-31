@@ -139,10 +139,6 @@ signal core_card_removed_from_hand(card_instance_id: String)
 func signal_core_card_removed_from_hand(card_instance_id: String):
 	core_card_removed_from_hand.emit(card_instance_id)
 
-signal core_targeting_changed(targeting: Battleground.OrderPriority)
-func signal_core_targeting_changed(targeting: Battleground.OrderPriority):
-	core_targeting_changed.emit(targeting)
-
 signal core_hero_resource_changed(type: GameResource.Type, new_amount: int)
 func signal_core_hero_resource_changed(type: GameResource.Type, new_amount: int):
 	core_hero_resource_changed.emit(type, new_amount)

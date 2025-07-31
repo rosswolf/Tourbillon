@@ -16,7 +16,6 @@ var rarity: RarityType
 var rules_text: String
 var art_image_uid: String
 var cursor_image_uid: String
-var targeting: Battleground.OrderPriority
 
 # Cost to play the card.  Usually resources.  
 var cost: Cost
@@ -82,7 +81,6 @@ class CardBuilder extends Entity.EntityBuilder:
 	var __art_image_uid: String = ""
 	var __cursor_image_uid: String = ""
 	var __rules_text: String = ""
-	var __targeting: Battleground.OrderPriority = Battleground.OrderPriority.UNKNOWN
 	var __required_resources: Dictionary[GameResource.Type, int] = {}
 	var __slot_effect: String
 	var __instinct_effect: String
@@ -115,10 +113,6 @@ class CardBuilder extends Entity.EntityBuilder:
 	func with_instinct_effect(move_descriptor: String) -> EntityBuilder:
 		__instinct_effect = move_descriptor
 		return self
-	
-	func with_targeting(targeting: Battleground.OrderPriority) -> EntityBuilder:
-		__targeting = targeting
-		return self
 		
 	func with_card_cost(required_resources: Dictionary) -> CardBuilder:
 		for key in required_resources.keys():
@@ -126,11 +120,7 @@ class CardBuilder extends Entity.EntityBuilder:
 			__required_resources[key] = num_required
 		return self
 		
-	func with_trigger_resource(trigger: GameResource.Type) -> CardBuilder:
-		__trigger_resource = trigger
-		if trigger == GameResource.Type.RANDOM_TRIGGER:
-			__trigger_resource = GlobalUtilities.get_random_trigger_resource()
-		return self
+
 
 	func build() -> Card:
 		var card = Card.new()
@@ -145,7 +135,6 @@ class CardBuilder extends Entity.EntityBuilder:
 			card.__instinct_effect = MoveDescriptorEffect.new(__instinct_effect, cost)
 		card.group_template_id = __group_template_id
 		card.rarity = __card_rarity
-		card.targeting = __targeting
 		#card.art_image_uid = __art_image_uid
 		card.cursor_image_uid = __cursor_image_uid
 		card.rules_text = __rules_text
@@ -205,11 +194,9 @@ static func build_new_card_from_template(card_template_id: String, card_template
 	builder.with_group_template_id(card_template_data.get("group_template_id"))
 	builder.with_rarity(rarity)
 	#builder.with_art_image_uid(card_template_data.get("art_image_uid"))
-	builder.with_targeting(card_template_data.get("next_target_type", Battleground.OrderPriority.UNKNOWN))
 	builder.with_cursor_image_uid(card_template_data.get("cursor_image_uid"))
 	builder.with_display_name(card_template_data.get("display_name"))
 	builder.with_instinct_effect(card_template_data.get("instinct_effect",""))
-	builder.with_trigger_resource(card_template_data.get("trigger_resource", GameResource.Type.NONE))
 	builder.with_slot_effect(card_template_data.get("slot_effect",""))
 	
 	if rarity == Card.RarityType.DEFAULT:

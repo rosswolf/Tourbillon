@@ -32,20 +32,6 @@ func get_engine_trigger_types() -> Array[TriggerType]:
 	
 	return activation_types
 
-func get_random_trigger_resource() -> GameResource.Type:
-	var trigger_type: TriggerType = temp_rng.randi() % TriggerType.size()
-	return get_associated_trigger_resource(trigger_type)
-
-func get_associated_trigger_resource(trigger_type: TriggerType) -> GameResource.Type:
-	if trigger_type == TriggerType.GREEN:
-		return GameResource.Type.GREEN_TRIGGER
-	elif trigger_type == TriggerType.RED:
-		return GameResource.Type.RED_TRIGGER
-	elif trigger_type == TriggerType.BLUE:
-		return GameResource.Type.BLUE_TRIGGER
-	else:
-		printerr("Attempted to load undefined trigger type")
-		return GameResource.Type.UNKNOWN
 
 func load_image(name: String) -> Texture2D:
 	return load_image_uid(UidManager.UIDS[name])

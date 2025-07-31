@@ -35,24 +35,6 @@ func set_card_data(card: Card) -> void:
 	
 	add_slot_icon("blue_energy", str(card.cost.get_energy_cost()), %TopHBoxContainer, GameIcon.TextSize.SMALL)
 	
-	if card.trigger_resource == GameResource.Type.RED_TRIGGER:
-		add_slot_icon("red_t", "", %TopHBoxContainer, GameIcon.TextSize.SMALL)
-	elif card.trigger_resource == GameResource.Type.BLUE_TRIGGER:
-		add_slot_icon("blue_t", "", %TopHBoxContainer,GameIcon.TextSize.SMALL)
-	elif card.trigger_resource == GameResource.Type.GREEN_TRIGGER:
-		add_slot_icon("green_t", "", %TopHBoxContainer,GameIcon.TextSize.SMALL)
-	elif card.trigger_resource == GameResource.Type.ALL_TRIGGER:
-		add_slot_icon("black_t", "", %TopHBoxContainer, GameIcon.TextSize.SMALL)
-
-		
-	var targeting: Battleground.OrderPriority = card.targeting
-	if targeting != Battleground.OrderPriority.IGNORE:
-		var targeting_text: String = Battleground.OrderPriority.find_key(card.targeting)
-		add_slot_icon("targeting", targeting_text.replace("_"," "), %TargetingBoxContainer, GameIcon.TextSize.VERY_SMALL)
-	else:
-		%NextLabel.visible = false
-		
-	#card_image.texture = GlobalUtilities.load_image_uid(card.art_image_uid)
 		
 
 func add_slot_icon(name: String, value: String, container: Container, font_size: GameIcon.TextSize) -> void:

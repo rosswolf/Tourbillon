@@ -38,7 +38,6 @@ func __build_enum_mappings():
 	# Auto-generate mappings from enum definitions
 	__add_enum_mapping("Card.RarityType", Card.RarityType)
 	__add_enum_mapping("GameResource.Type", GameResource.Type)
-	__add_enum_mapping("Battleground.OrderPriority", Battleground.OrderPriority)
 
 func __add_enum_mapping(prefix: String, enum_dict: Dictionary):
 	for key in enum_dict:

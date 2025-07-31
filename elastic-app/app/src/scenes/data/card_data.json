@@ -7,10 +7,10 @@
 	"rules_text": "2 block",
 	"cursor_image_uid": "bn2g3exmr776o",
 	"card_cost": {
-	  "GameResource.Type.INSTINCT": "0"
+	  "GameResource.Type.ENERGY": "0"
 	},
-	"instinct_effect": "block=2",
-	"slot_effect": "block=2",
+	"instinct_effect": "none=0",
+	"slot_effect": "none=0",
 	"next_target_type": "Battleground.OrderPriority.IGNORE",
 	"trigger_resource": "GameResource.Type.NONE",
 	"card_rarity": "Card.RarityType.DEFAULT",
@@ -24,10 +24,10 @@
 	"rules_text": "Attack \n10 damage",
 	"cursor_image_uid": "bn2g3exmr776o",
 	"card_cost": {
-	  "GameResource.Type.INSTINCT": "1"
+	  "GameResource.Type.ENERGY": "1"
 	},
-	"instinct_effect": "attack=60",
-	"slot_effect": "attack=60",
+	"instinct_effect": "none=0",
+	"slot_effect": "none=0",
 	"next_target_type": "Battleground.OrderPriority.CLOSEST",
 	"trigger_resource": "GameResource.Type.NONE",
 	"card_rarity": "Card.RarityType.STARTING"
@@ -40,10 +40,10 @@
 	"rules_text": "Dash and then attack 6 damage",
 	"cursor_image_uid": "bn2g3exmr776o",
 	"card_cost": {
-	  "GameResource.Type.INSTINCT": "1"
+	  "GameResource.Type.ENERGY": ""
 	},
-	"instinct_effect": "dash=0, attack=60",
-	"slot_effect": "dash=0, attack=60",
+	"instinct_effect": "none=0",
+	"slot_effect": "none=0",
 	"next_target_type": "Battleground.OrderPriority.CLOSEST",
 	"trigger_resource": "GameResource.Type.NONE",
 	"card_rarity": "Card.RarityType.STARTING"
@@ -56,10 +56,10 @@
 	"rules_text": "Bump target enemy",
 	"cursor_image_uid": "bn2g3exmr776o",
 	"card_cost": {
-	  "GameResource.Type.INSTINCT": "1"
+	  "GameResource.Type.ENERGY": "1"
 	},
-	"instinct_effect": "bump=0",
-	"slot_effect": "bump=0",
+	"instinct_effect": "none=0",
+	"slot_effect": "none=0",
 	"next_target_type": "Battleground.OrderPriority.CLOSEST",
 	"trigger_resource": "GameResource.Type.RED_TRIGGER",
 	"card_rarity": "Card.RarityType.STARTING"
@@ -72,10 +72,10 @@
 	"rules_text": "10 armor",
 	"cursor_image_uid": "bn2g3exmr776o",
 	"card_cost": {
-	  "GameResource.Type.INSTINCT": "1"
+	  "GameResource.Type.ENERGY": "1"
 	},
-	"instinct_effect": "add_armor=10",
-	"slot_effect": "add_armor=10",
+	"instinct_effect": "none=0",
+	"slot_effect": "none=0",
 	"next_target_type": "Battleground.OrderPriority.IGNORE",
 	"trigger_resource": "GameResource.Type.RANDOM_TRIGGER",
 	"card_rarity": "Card.RarityType.STARTING"
@@ -88,10 +88,10 @@
 	"rules_text": "6 block",
 	"cursor_image_uid": "bn2g3exmr776o",
 	"card_cost": {
-	  "GameResource.Type.INSTINCT": "1"
+	  "GameResource.Type.ENERGY": "1"
 	},
-	"instinct_effect": "block=6",
-	"slot_effect": "block=6",
+	"instinct_effect": "none=0",
+	"slot_effect": "none=0",
 	"next_target_type": "Battleground.OrderPriority.CLOSEST",
 	"trigger_resource": "GameResource.Type.NONE",
 	"card_rarity": "Card.RarityType.STARTING"
@@ -104,10 +104,10 @@
 	"rules_text": "4 block, 4 armor",
 	"cursor_image_uid": "bn2g3exmr776o",
 	"card_cost": {
-	  "GameResource.Type.INSTINCT": "1"
+	  "GameResource.Type.ENERGY": "1"
 	},
-	"instinct_effect": "add_armor=4, block=4",
-	"slot_effect": "add_armor=4, block=4",
+	"instinct_effect": "none=0",
+	"slot_effect": "none=0",
 	"next_target_type": "Battleground.OrderPriority.HIGHEST_HP",
 	"trigger_resource": "GameResource.Type.BLUE_TRIGGER",
 	"card_rarity": "Card.RarityType.STARTING"
@@ -120,10 +120,10 @@
 	"rules_text": "Knockback 1 + Tripped",
 	"cursor_image_uid": "bn2g3exmr776o",
 	"card_cost": {
-	  "GameResource.Type.INSTINCT": "1"
+	  "GameResource.Type.ENERGY": "1"
 	},
-	"instinct_effect": "trip=0, knockback=1",
-	"slot_effect": "trip=0, knockback=1",
+	"instinct_effect": "none=0",
+	"slot_effect": "none=0",
 	"next_target_type": "Battleground.OrderPriority.HIGHEST_HP",
 	"trigger_resource": "GameResource.Type.GREEN_TRIGGER",
 	"card_rarity": "Card.RarityType.STARTING"
@@ -136,10 +136,10 @@
 	"rules_text": "10 damage in a 3 slot circle",
 	"cursor_image_uid": "bn2g3exmr776o",
 	"card_cost": {
-	  "GameResource.Type.INSTINCT": "2"
+	  "GameResource.Type.ENERGY": "2"
 	},
-	"instinct_effect": "aoe3_attack=10",
-	"slot_effect": "aoe3_attack=10",
+	"instinct_effect": "none=0",
+	"slot_effect": "none=0",
 	"next_target_type": "Battleground.OrderPriority.FARTHEST",
 	"trigger_resource": "GameResource.Type.ALL_TRIGGER",
 	"card_rarity": "Card.RarityType.COMMON"
@@ -151,9 +151,10 @@
 	"rules_text": "Consume to remove this from your deck",
 	"cursor_image_uid": "bn2g3exmr776o",
 	"card_cost": {
-	  "GameResource.Type.INSTINCT": "0"
+	  "GameResource.Type.ENERGY": "0"
 	},
-	"instinct_effect": "remove_card_from_deck=0",
+	"instinct_effect": "none=0",
+	"slot_effect": "none=0",
 	"next_target_type": "Battleground.OrderPriority.IGNORE",
 	"trigger_resource": "GameResource.Type.GREEN_TRIGGER",
 	"card_rarity": "Card.RarityType.COMMON"
@@ -166,10 +167,10 @@
 	"rules_text": "20 Damage, set hero armor to 0",
 	"cursor_image_uid": "bn2g3exmr776o",
 	"card_cost": {
-	  "GameResource.Type.INSTINCT": "1"
+	  "GameResource.Type.ENERGY": "1"
 	},
-	"instinct_effect": "attack=20, set_armor=0",
-	"slot_effect": "attack=20, set_armor=0",
+	"instinct_effect": "none=0",
+	"slot_effect": "none=0",
 	"next_target_type": "Battleground.OrderPriority.FARTHEST",
 	"trigger_resource": "GameResource.Type.BLUE_TRIGGER",
 	"card_rarity": "Card.RarityType.COMMON"
@@ -182,10 +183,10 @@
 	"rules_text": "Twice - Dash-Attack 6 damage",
 	"cursor_image_uid": "bn2g3exmr776o",
 	"card_cost": {
-	  "GameResource.Type.INSTINCT": "1"
+	  "GameResource.Type.ENERGY": "1"
 	},
-	"instinct_effect": "dash=0, attack=6, dash=0, attack=6",
-	"slot_effect": "dash=0, attack=6, dash=0, attack=6",
+	"instinct_effect": "none=0",
+	"slot_effect": "none=0",
 	"next_target_type": "Battleground.OrderPriority.CLOSEST",
 	"trigger_resource": "GameResource.Type.RED_TRIGGER",
 	"card_rarity": "Card.RarityType.COMMON"
@@ -198,10 +199,10 @@
 	"rules_text": "8 Damage and Trip",
 	"cursor_image_uid": "bn2g3exmr776o",
 	"card_cost": {
-	  "GameResource.Type.INSTINCT": "1"
+	  "GameResource.Type.ENERGY": "1"
 	},
-	"instinct_effect": "attack=8, trip=",
-	"slot_effect": "attack=8, trip=",
+	"instinct_effect": "none=0",
+	"slot_effect": "none=0",
 	"next_target_type": "Battleground.OrderPriority.HIGHEST_HP",
 	"trigger_resource": "GameResource.Type.GREEN_TRIGGER",
 	"card_rarity": "Card.RarityType.COMMON"

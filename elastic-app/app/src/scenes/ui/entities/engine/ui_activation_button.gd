@@ -29,8 +29,5 @@ func card_activation_type_matches() -> bool:
 		return false
 		
 	var card: Card = GlobalGameManager.get_selected_card()
-	
-	if card.trigger_resource == GameResource.Type.ALL_TRIGGER:
-		return true
 		
 	return card.trigger_resource == engine_slot.trigger_resource

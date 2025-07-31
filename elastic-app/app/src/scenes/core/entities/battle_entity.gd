@@ -4,7 +4,6 @@ class_name BattleEntity
 var health: CappedResource
 var block: CappedResource
 var armor: CappedResource
-var facing: Arena.Facing = Arena.Facing.UNKNOWN
 
 var __status_effects: Dictionary[StatusEffect.Type, int] = {}
 

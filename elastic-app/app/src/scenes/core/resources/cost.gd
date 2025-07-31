@@ -82,4 +82,4 @@ func __can_satisfy_requirement(resource_type: GameResource.Type, amount: int) ->
 	return resource_accesor.get_count(resource_type) >= amount
 	
 func get_energy_cost() -> int:		
-	return requirements.get(GameResource.Type.INSTINCT, 0)			
+	return requirements.get(GameResource.Type.ENERGY, 0)			
