@@ -1,209 +1,209 @@
 [
   {
-    "card_template_id": "knight_default",
-    "group_template_id": "knight",
-    "card_count": 1,
-    "display_name": "Basic Block",
-    "rules_text": "2 block",
-    "cursor_image_uid": "bn2g3exmr776o",
-    "card_cost": {
-      "GameResource.Type.INSTINCT": "0"
-    },
-    "instinct_effect": "block=2",
-    "slot_effect": "block=2",
-    "next_target_type": "Battleground.OrderPriority.IGNORE",
-    "trigger_resource": "GameResource.Type.NONE",
-    "card_rarity": "Card.RarityType.DEFAULT",
-    "tags": "DEFAULT_CARD"
+	"card_template_id": "knight_default",
+	"group_template_id": "knight",
+	"card_count": 1,
+	"display_name": "Basic Block",
+	"rules_text": "2 block",
+	"cursor_image_uid": "bn2g3exmr776o",
+	"card_cost": {
+	  "GameResource.Type.INSTINCT": "0"
+	},
+	"instinct_effect": "block=2",
+	"slot_effect": "block=2",
+	"next_target_type": "Battleground.OrderPriority.IGNORE",
+	"trigger_resource": "GameResource.Type.NONE",
+	"card_rarity": "Card.RarityType.DEFAULT",
+	"tags": "DEFAULT_CARD"
   },
   {
-    "card_template_id": "card_basic_attack",
-    "group_template_id": "knight",
-    "card_count": 2,
-    "display_name": "Attack",
-    "rules_text": "Attack \n10 damage",
-    "cursor_image_uid": "bn2g3exmr776o",
-    "card_cost": {
-      "GameResource.Type.INSTINCT": "1"
-    },
-    "instinct_effect": "attack=60",
-    "slot_effect": "attack=60",
-    "next_target_type": "Battleground.OrderPriority.CLOSEST",
-    "trigger_resource": "GameResource.Type.NONE",
-    "card_rarity": "Card.RarityType.STARTING"
+	"card_template_id": "card_basic_attack",
+	"group_template_id": "knight",
+	"card_count": 2,
+	"display_name": "Attack",
+	"rules_text": "Attack \n10 damage",
+	"cursor_image_uid": "bn2g3exmr776o",
+	"card_cost": {
+	  "GameResource.Type.INSTINCT": "1"
+	},
+	"instinct_effect": "attack=60",
+	"slot_effect": "attack=60",
+	"next_target_type": "Battleground.OrderPriority.CLOSEST",
+	"trigger_resource": "GameResource.Type.NONE",
+	"card_rarity": "Card.RarityType.STARTING"
   },
   {
-    "card_template_id": "card_dash_attack",
-    "group_template_id": "knight",
-    "card_count": 2,
-    "display_name": "Dash Attack",
-    "rules_text": "Dash and then attack 6 damage",
-    "cursor_image_uid": "bn2g3exmr776o",
-    "card_cost": {
-      "GameResource.Type.INSTINCT": "1"
-    },
-    "instinct_effect": "dash=0, attack=60",
-    "slot_effect": "dash=0, attack=60",
-    "next_target_type": "Battleground.OrderPriority.CLOSEST",
-    "trigger_resource": "GameResource.Type.NONE",
-    "card_rarity": "Card.RarityType.STARTING"
+	"card_template_id": "card_dash_attack",
+	"group_template_id": "knight",
+	"card_count": 2,
+	"display_name": "Dash Attack",
+	"rules_text": "Dash and then attack 6 damage",
+	"cursor_image_uid": "bn2g3exmr776o",
+	"card_cost": {
+	  "GameResource.Type.INSTINCT": "1"
+	},
+	"instinct_effect": "dash=0, attack=60",
+	"slot_effect": "dash=0, attack=60",
+	"next_target_type": "Battleground.OrderPriority.CLOSEST",
+	"trigger_resource": "GameResource.Type.NONE",
+	"card_rarity": "Card.RarityType.STARTING"
   },
   {
-    "card_template_id": "card_bob_and_weave",
-    "group_template_id": "knight",
-    "card_count": 1,
-    "display_name": "Fist Bump",
-    "rules_text": "Bump target enemy",
-    "cursor_image_uid": "bn2g3exmr776o",
-    "card_cost": {
-      "GameResource.Type.INSTINCT": "1"
-    },
-    "instinct_effect": "bump=0",
-    "slot_effect": "bump=0",
-    "next_target_type": "Battleground.OrderPriority.CLOSEST",
-    "trigger_resource": "GameResource.Type.RED_TRIGGER",
-    "card_rarity": "Card.RarityType.STARTING"
+	"card_template_id": "card_bob_and_weave",
+	"group_template_id": "knight",
+	"card_count": 1,
+	"display_name": "Fist Bump",
+	"rules_text": "Bump target enemy",
+	"cursor_image_uid": "bn2g3exmr776o",
+	"card_cost": {
+	  "GameResource.Type.INSTINCT": "1"
+	},
+	"instinct_effect": "bump=0",
+	"slot_effect": "bump=0",
+	"next_target_type": "Battleground.OrderPriority.CLOSEST",
+	"trigger_resource": "GameResource.Type.RED_TRIGGER",
+	"card_rarity": "Card.RarityType.STARTING"
   },
   {
-    "card_template_id": "card_mend",
-    "group_template_id": "knight",
-    "card_count": 1,
-    "display_name": "Mend",
-    "rules_text": "10 armor",
-    "cursor_image_uid": "bn2g3exmr776o",
-    "card_cost": {
-      "GameResource.Type.INSTINCT": "1"
-    },
-    "instinct_effect": "add_armor=10",
-    "slot_effect": "add_armor=10",
-    "next_target_type": "Battleground.OrderPriority.IGNORE",
-    "trigger_resource": "GameResource.Type.RANDOM_TRIGGER",
-    "card_rarity": "Card.RarityType.STARTING"
+	"card_template_id": "card_mend",
+	"group_template_id": "knight",
+	"card_count": 1,
+	"display_name": "Mend",
+	"rules_text": "10 armor",
+	"cursor_image_uid": "bn2g3exmr776o",
+	"card_cost": {
+	  "GameResource.Type.INSTINCT": "1"
+	},
+	"instinct_effect": "add_armor=10",
+	"slot_effect": "add_armor=10",
+	"next_target_type": "Battleground.OrderPriority.IGNORE",
+	"trigger_resource": "GameResource.Type.RANDOM_TRIGGER",
+	"card_rarity": "Card.RarityType.STARTING"
   },
   {
-    "card_template_id": "card_defend",
-    "group_template_id": "knight",
-    "card_count": 2,
-    "display_name": "Shields Up!",
-    "rules_text": "6 block",
-    "cursor_image_uid": "bn2g3exmr776o",
-    "card_cost": {
-      "GameResource.Type.INSTINCT": "1"
-    },
-    "instinct_effect": "block=6",
-    "slot_effect": "block=6",
-    "next_target_type": "Battleground.OrderPriority.CLOSEST",
-    "trigger_resource": "GameResource.Type.NONE",
-    "card_rarity": "Card.RarityType.STARTING"
+	"card_template_id": "card_defend",
+	"group_template_id": "knight",
+	"card_count": 2,
+	"display_name": "Shields Up!",
+	"rules_text": "6 block",
+	"cursor_image_uid": "bn2g3exmr776o",
+	"card_cost": {
+	  "GameResource.Type.INSTINCT": "1"
+	},
+	"instinct_effect": "block=6",
+	"slot_effect": "block=6",
+	"next_target_type": "Battleground.OrderPriority.CLOSEST",
+	"trigger_resource": "GameResource.Type.NONE",
+	"card_rarity": "Card.RarityType.STARTING"
   },
   {
-    "card_template_id": "card_wall",
-    "group_template_id": "knight",
-    "card_count": 1,
-    "display_name": "The Wall",
-    "rules_text": "4 block, 4 armor",
-    "cursor_image_uid": "bn2g3exmr776o",
-    "card_cost": {
-      "GameResource.Type.INSTINCT": "1"
-    },
-    "instinct_effect": "add_armor=4, block=4",
-    "slot_effect": "add_armor=4, block=4",
-    "next_target_type": "Battleground.OrderPriority.HIGHEST_HP",
-    "trigger_resource": "GameResource.Type.BLUE_TRIGGER",
-    "card_rarity": "Card.RarityType.STARTING"
+	"card_template_id": "card_wall",
+	"group_template_id": "knight",
+	"card_count": 1,
+	"display_name": "The Wall",
+	"rules_text": "4 block, 4 armor",
+	"cursor_image_uid": "bn2g3exmr776o",
+	"card_cost": {
+	  "GameResource.Type.INSTINCT": "1"
+	},
+	"instinct_effect": "add_armor=4, block=4",
+	"slot_effect": "add_armor=4, block=4",
+	"next_target_type": "Battleground.OrderPriority.HIGHEST_HP",
+	"trigger_resource": "GameResource.Type.BLUE_TRIGGER",
+	"card_rarity": "Card.RarityType.STARTING"
   },
   {
-    "card_template_id": "card_shield_bash",
-    "group_template_id": "knight",
-    "card_count": 1,
-    "display_name": "Shield Bash",
-    "rules_text": "Knockback 1 + Tripped",
-    "cursor_image_uid": "bn2g3exmr776o",
-    "card_cost": {
-      "GameResource.Type.INSTINCT": "1"
-    },
-    "instinct_effect": "trip=0, knockback=1",
-    "slot_effect": "trip=0, knockback=1",
-    "next_target_type": "Battleground.OrderPriority.HIGHEST_HP",
-    "trigger_resource": "GameResource.Type.GREEN_TRIGGER",
-    "card_rarity": "Card.RarityType.STARTING"
+	"card_template_id": "card_shield_bash",
+	"group_template_id": "knight",
+	"card_count": 1,
+	"display_name": "Shield Bash",
+	"rules_text": "Knockback 1 + Tripped",
+	"cursor_image_uid": "bn2g3exmr776o",
+	"card_cost": {
+	  "GameResource.Type.INSTINCT": "1"
+	},
+	"instinct_effect": "trip=0, knockback=1",
+	"slot_effect": "trip=0, knockback=1",
+	"next_target_type": "Battleground.OrderPriority.HIGHEST_HP",
+	"trigger_resource": "GameResource.Type.GREEN_TRIGGER",
+	"card_rarity": "Card.RarityType.STARTING"
   },
   {
-    "card_template_id": "card_grenade",
-    "group_template_id": "knight",
-    "card_count": 1,
-    "display_name": "Grenade",
-    "rules_text": "10 damage in a 3 slot circle",
-    "cursor_image_uid": "bn2g3exmr776o",
-    "card_cost": {
-      "GameResource.Type.INSTINCT": "2"
-    },
-    "instinct_effect": "aoe3_attack=10",
-    "slot_effect": "aoe3_attack=10",
-    "next_target_type": "Battleground.OrderPriority.FARTHEST",
-    "trigger_resource": "GameResource.Type.ALL_TRIGGER",
-    "card_rarity": "Card.RarityType.COMMON"
+	"card_template_id": "card_grenade",
+	"group_template_id": "knight",
+	"card_count": 1,
+	"display_name": "Grenade",
+	"rules_text": "10 damage in a 3 slot circle",
+	"cursor_image_uid": "bn2g3exmr776o",
+	"card_cost": {
+	  "GameResource.Type.INSTINCT": "2"
+	},
+	"instinct_effect": "aoe3_attack=10",
+	"slot_effect": "aoe3_attack=10",
+	"next_target_type": "Battleground.OrderPriority.FARTHEST",
+	"trigger_resource": "GameResource.Type.ALL_TRIGGER",
+	"card_rarity": "Card.RarityType.COMMON"
   },
   {
-    "card_template_id": "card_slimed",
-    "group_template_id": "curse",
-    "display_name": "Slime",
-    "rules_text": "Consume to remove this from your deck",
-    "cursor_image_uid": "bn2g3exmr776o",
-    "card_cost": {
-      "GameResource.Type.INSTINCT": "0"
-    },
-    "instinct_effect": "remove_card_from_deck=0",
-    "next_target_type": "Battleground.OrderPriority.IGNORE",
-    "trigger_resource": "GameResource.Type.GREEN_TRIGGER",
-    "card_rarity": "Card.RarityType.COMMON"
+	"card_template_id": "card_slimed",
+	"group_template_id": "curse",
+	"display_name": "Slime",
+	"rules_text": "Consume to remove this from your deck",
+	"cursor_image_uid": "bn2g3exmr776o",
+	"card_cost": {
+	  "GameResource.Type.INSTINCT": "0"
+	},
+	"instinct_effect": "remove_card_from_deck=0",
+	"next_target_type": "Battleground.OrderPriority.IGNORE",
+	"trigger_resource": "GameResource.Type.GREEN_TRIGGER",
+	"card_rarity": "Card.RarityType.COMMON"
   },
   {
-    "card_template_id": "card_witness_me",
-    "group_template_id": "knight",
-    "card_count": 2,
-    "display_name": "Witness Me",
-    "rules_text": "20 Damage, set hero armor to 0",
-    "cursor_image_uid": "bn2g3exmr776o",
-    "card_cost": {
-      "GameResource.Type.INSTINCT": "1"
-    },
-    "instinct_effect": "attack=20, set_armor=0",
-    "slot_effect": "attack=20, set_armor=0",
-    "next_target_type": "Battleground.OrderPriority.FARTHEST",
-    "trigger_resource": "GameResource.Type.BLUE_TRIGGER",
-    "card_rarity": "Card.RarityType.COMMON"
+	"card_template_id": "card_witness_me",
+	"group_template_id": "knight",
+	"card_count": 2,
+	"display_name": "Witness Me",
+	"rules_text": "20 Damage, set hero armor to 0",
+	"cursor_image_uid": "bn2g3exmr776o",
+	"card_cost": {
+	  "GameResource.Type.INSTINCT": "1"
+	},
+	"instinct_effect": "attack=20, set_armor=0",
+	"slot_effect": "attack=20, set_armor=0",
+	"next_target_type": "Battleground.OrderPriority.FARTHEST",
+	"trigger_resource": "GameResource.Type.BLUE_TRIGGER",
+	"card_rarity": "Card.RarityType.COMMON"
   },
   {
-    "card_template_id": "card_double_dash",
-    "group_template_id": "knight",
-    "card_count": 2,
-    "display_name": "Double Dash",
-    "rules_text": "Twice - Dash-Attack 6 damage",
-    "cursor_image_uid": "bn2g3exmr776o",
-    "card_cost": {
-      "GameResource.Type.INSTINCT": "1"
-    },
-    "instinct_effect": "dash=0, attack=6, dash=0, attack=6",
-    "slot_effect": "dash=0, attack=6, dash=0, attack=6",
-    "next_target_type": "Battleground.OrderPriority.CLOSEST",
-    "trigger_resource": "GameResource.Type.RED_TRIGGER",
-    "card_rarity": "Card.RarityType.COMMON"
+	"card_template_id": "card_double_dash",
+	"group_template_id": "knight",
+	"card_count": 2,
+	"display_name": "Double Dash",
+	"rules_text": "Twice - Dash-Attack 6 damage",
+	"cursor_image_uid": "bn2g3exmr776o",
+	"card_cost": {
+	  "GameResource.Type.INSTINCT": "1"
+	},
+	"instinct_effect": "dash=0, attack=6, dash=0, attack=6",
+	"slot_effect": "dash=0, attack=6, dash=0, attack=6",
+	"next_target_type": "Battleground.OrderPriority.CLOSEST",
+	"trigger_resource": "GameResource.Type.RED_TRIGGER",
+	"card_rarity": "Card.RarityType.COMMON"
   },
   {
-    "card_template_id": "card_tussle",
-    "group_template_id": "knight",
-    "card_count": 2,
-    "display_name": "Tussle",
-    "rules_text": "8 Damage and Trip",
-    "cursor_image_uid": "bn2g3exmr776o",
-    "card_cost": {
-      "GameResource.Type.INSTINCT": "1"
-    },
-    "instinct_effect": "attack=8, trip=",
-    "slot_effect": "attack=8, trip=",
-    "next_target_type": "Battleground.OrderPriority.HIGHEST_HP",
-    "trigger_resource": "GameResource.Type.GREEN_TRIGGER",
-    "card_rarity": "Card.RarityType.COMMON"
+	"card_template_id": "card_tussle",
+	"group_template_id": "knight",
+	"card_count": 2,
+	"display_name": "Tussle",
+	"rules_text": "8 Damage and Trip",
+	"cursor_image_uid": "bn2g3exmr776o",
+	"card_cost": {
+	  "GameResource.Type.INSTINCT": "1"
+	},
+	"instinct_effect": "attack=8, trip=",
+	"slot_effect": "attack=8, trip=",
+	"next_target_type": "Battleground.OrderPriority.HIGHEST_HP",
+	"trigger_resource": "GameResource.Type.GREEN_TRIGGER",
+	"card_rarity": "Card.RarityType.COMMON"
   }
 ]

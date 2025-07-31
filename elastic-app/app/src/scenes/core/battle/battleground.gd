@@ -274,12 +274,12 @@ func spawn_wave(wave_template_id: String):
 
 	arena.add_and_signal(GlobalGameManager.hero, player_location)
 	
-	for mob_template_id in mobs_to_spawn.keys():
-		var mob_location = int(mobs_to_spawn[mob_template_id]) 
+	for mob_spawn_index in mobs_to_spawn.keys():
+		var mob_template_id: String = mobs_to_spawn[mob_spawn_index]
 		var mob: Mob = Mob.load_mob(mob_template_id)
 		mob.facing = Arena.Facing.LEFT
 		mobs[mob.instance_id] = mob
-		arena.add_and_signal(mob, mob_location)
+		arena.add_and_signal(mob, int(mob_spawn_index))
 
 func aoe_attack(source: BattleEntity, damage: int, aoe_size: int) -> bool:
 	if aoe_size % 2 == 0:
