@@ -6,7 +6,7 @@
     "starting_health": 60,
     "starting_max_health": 60,
     "starting_armor": 10,
-    "starting_max_armor": 15,
+    "starting_max_armor": 10,
     "starting_relic": "training_gloves",
     "starting_training": 2,
     "starting_instinct": 3,

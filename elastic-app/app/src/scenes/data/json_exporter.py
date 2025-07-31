@@ -457,14 +457,14 @@ def main():
     # Hardcoded mapping of spreadsheet IDs to output filenames
     # Each entry represents one complete Google Sheets document (always reads GID 0)
     sheets_to_export = {
-        "12ZJ9CV9qjUP3igGJsfWrHQjxy_aUh2y4MVubG1O__8s": "card_data.json",
+        "1VayKOODhGrxUEf0MdBXALYNtBA2Wv6c1hCr-FO1Xo6M": "card_data.json",
         # Add more spreadsheet IDs here:
-        "1dacEGq28zHN21ZojqRrMXrEsyanhghJoFdTRz1V3fcs": "mob_data.json",
-        "1fX5Si592mGkeDyVMA48qjHaC7GOwd7bZyi8McvsAQx0": "configuration_data.json",
-        "1w2h494q3yxCkRsYv4PkKj0fgp4au6uiOAR26hrE4DbQ": "wave_data.json",
-        "157E1FrQ4tU8eE8Se-YBqd3DQ3iMCX6iUCQBx7LDeU3w": "relic_data.json",
-        "1PPcyousMYFPLGC57uwfKYpdAhLTzuh_pQk9wNNY8GFI": "icon_data.json",
-        "1UHiTlTiPHfHmTl6mpk1ZmGvFQ9r0PipTCKF1WkfJYaw": "hero_data.json"
+        "1lVpf2otmFaxlxKUI_LK8dzTiAsSMIQW2K421_urDeDg": "mob_data.json",
+        "1vqf7i3FQPI4C9p0ME3kDnCa9u6fGjIg7Z1loQryfIz0": "configuration_data.json",
+        "1xa8_S08EFnjsSBAaKCZ4okflLWUSzm9vcjAQcHIY2os": "wave_data.json",
+        "163_WvC6Vsa9Q5mAgRh296npPyaEmd2iEPF7OAki7b5Q": "relic_data.json",
+        "1rJPpGNARZ-ZtTRWjehFTeM_ru6Urf6qB-UuxzzeSsMY": "icon_data.json",
+        "1fIkbi6B80U6fXNYX1Gq3w4UqOP-z_vpqEsyAEKcb2ss": "hero_data.json"
     }
 
     print("📊 Hardcoded Google Sheets to JSON Exporter")
