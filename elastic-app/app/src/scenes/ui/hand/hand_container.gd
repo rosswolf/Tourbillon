@@ -33,7 +33,7 @@ func add_card(card_ui: CardUI, card: Card) -> void:
 	# Add the card as a child if it's not already
 	# TODO: check that instance id is not already in dict
 	add_child(card_ui)
-	card_ui.set_card_data(card)
+	await card_ui.set_card_data(card)
 	
 	__cards[card_ui.card_data.instance_id] = card_ui
 	
