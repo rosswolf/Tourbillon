@@ -1,0 +1,33 @@
+[gd_scene load_steps=2 format=3 uid="uid://cdrmk3kaqi6nh"]
+
+[ext_resource type="Script" uid="uid://d4g3ldqhweeoa" path="res://src/scenes/ui/meters/revealed_resources_panel.gd" id="1_qjm2q"]
+
+[node name="RevealedResourcesPanel" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_qjm2q")
+
+[node name="RevealedResourceVbox" type="VBoxContainer" parent="."]
+unique_name_in_owner = true
+
+[node name="ResourceContainerTemplate" type="PanelContainer" parent="RevealedResourceVbox"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="RevealedResourceVbox/ResourceContainerTemplate"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="RevealedResourceVbox/ResourceContainerTemplate/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="ResourceLabel" type="Label" parent="RevealedResourceVbox/ResourceContainerTemplate/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Eggs:"
+
+[node name="ResourceAmount" type="Label" parent="RevealedResourceVbox/ResourceContainerTemplate/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = " 2"

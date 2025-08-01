@@ -232,27 +232,34 @@ func add_card_to_deck(card: Card) -> void:
 func add_cards_to_deck(cards: Array[Card]) -> void:
 	for card in cards:
 		add_card_to_deck(card)
-		
-func draw_new_hand(hand_size: int):
+
+func discard_hand():
 	for card in hand.get_all_cards():
 		move_card_to_zone(card.instance_id, Zone.GRAVEYARD, Zone.HAND)
 		signal_card_removed_from_hand(card.instance_id)
 		# for each card in hand, discard it.  
-	
-	if hand_size > deck.get_count() + graveyard.get_count():
-		hand_size = deck.get_count() + graveyard.get_count()
-		#assert(false, "not enough cards to draw the desired hand size " + str(hand_size))	
 		
-	for i in range(hand_size):
+func draw_card(how_many: int):
+	for i in range(how_many):
 		if deck.get_count() == 0:
 			for c in graveyard.get_all_cards():
 				move_card_to_zone(c.instance_id, Zone.DECK, Zone.GRAVEYARD)
 			deck.shuffle()
 		
 		var next_card: Card = deck.draw_top()
-		add_card_to_zone(next_card, Zone.HAND)
-		
-		signal_card_drawn(next_card.instance_id)
+		if next_card:
+			add_card_to_zone(next_card, Zone.HAND)
+			
+			signal_card_drawn(next_card.instance_id)
+	
+func draw_new_hand(desired_hand_size: int):
+	discard_hand()
+	
+	if desired_hand_size > deck.get_count() + graveyard.get_count():
+		desired_hand_size = deck.get_count() + graveyard.get_count()
+		#assert(false, "not enough cards to draw the desired hand size " + str(hand_size))	
+	
+	draw_card(desired_hand_size)
 	
 func get_cards_for_selection() -> Array[Card]:	
 	var selectable_cards: Array[Card] = []

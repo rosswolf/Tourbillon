@@ -3,14 +3,14 @@
 	"card_template_id": "knight_default",
 	"group_template_id": "knight",
 	"card_count": 1,
-	"display_name": "Basic Block",
-	"rules_text": "2 block",
+	"display_name": "A",
+	"rules_text": "add_energy=5, draw_card=2",
 	"cursor_image_uid": "bqvm4vgi4c0dn",
 	"card_cost": {
 	  "GameResource.Type.ENERGY": "0"
 	},
-	"instinct_effect": "none=0",
-	"slot_effect": "none=0",
+	"instinct_effect": "add_energy=5, draw_card=2",
+	"slot_effect": "add_energy=5, draw_card=2",
 	"next_target_type": "Battleground.OrderPriority.IGNORE",
 	"trigger_resource": "GameResource.Type.NONE",
 	"card_rarity": "Card.RarityType.DEFAULT",
@@ -20,14 +20,14 @@
 	"card_template_id": "card_basic_attack",
 	"group_template_id": "knight",
 	"card_count": 2,
-	"display_name": "Attack",
-	"rules_text": "Attack \n10 damage",
+	"display_name": "B",
+	"rules_text": "add_energy=5, draw_card=2",
 	"cursor_image_uid": "bqvm4vgi4c0dn",
 	"card_cost": {
 	  "GameResource.Type.ENERGY": "1"
 	},
-	"instinct_effect": "none=0",
-	"slot_effect": "none=0",
+	"instinct_effect": "add_energy=5, draw_card=2",
+	"slot_effect": "add_energy=5, draw_card=2",
 	"next_target_type": "Battleground.OrderPriority.CLOSEST",
 	"trigger_resource": "GameResource.Type.NONE",
 	"card_rarity": "Card.RarityType.STARTING"
@@ -36,14 +36,14 @@
 	"card_template_id": "card_dash_attack",
 	"group_template_id": "knight",
 	"card_count": 2,
-	"display_name": "Dash Attack",
-	"rules_text": "Dash and then attack 6 damage",
+	"display_name": "C",
+	"rules_text": "add_energy=5, draw_card=2",
 	"cursor_image_uid": "bqvm4vgi4c0dn",
 	"card_cost": {
 	  "GameResource.Type.ENERGY": ""
 	},
-	"instinct_effect": "none=0",
-	"slot_effect": "none=0",
+	"instinct_effect": "add_energy=5, draw_card=2",
+	"slot_effect": "add_energy=5, draw_card=2",
 	"next_target_type": "Battleground.OrderPriority.CLOSEST",
 	"trigger_resource": "GameResource.Type.NONE",
 	"card_rarity": "Card.RarityType.STARTING"
@@ -52,14 +52,14 @@
 	"card_template_id": "card_bob_and_weave",
 	"group_template_id": "knight",
 	"card_count": 1,
-	"display_name": "Fist Bump",
-	"rules_text": "Bump target enemy",
+	"display_name": "D",
+	"rules_text": "add_energy=5, draw_card=2",
 	"cursor_image_uid": "bqvm4vgi4c0dn",
 	"card_cost": {
 	  "GameResource.Type.ENERGY": "1"
 	},
-	"instinct_effect": "none=0",
-	"slot_effect": "none=0",
+	"instinct_effect": "add_energy=5, draw_card=2",
+	"slot_effect": "add_energy=5, draw_card=2",
 	"next_target_type": "Battleground.OrderPriority.CLOSEST",
 	"trigger_resource": "GameResource.Type.RED_TRIGGER",
 	"card_rarity": "Card.RarityType.STARTING"
@@ -68,14 +68,14 @@
 	"card_template_id": "card_mend",
 	"group_template_id": "knight",
 	"card_count": 1,
-	"display_name": "Mend",
-	"rules_text": "10 armor",
+	"display_name": "E",
+	"rules_text": "add_energy=5, draw_card=2",
 	"cursor_image_uid": "bqvm4vgi4c0dn",
 	"card_cost": {
 	  "GameResource.Type.ENERGY": "1"
 	},
-	"instinct_effect": "none=0",
-	"slot_effect": "none=0",
+	"instinct_effect": "add_energy=5, draw_card=2",
+	"slot_effect": "add_energy=5, draw_card=2",
 	"next_target_type": "Battleground.OrderPriority.IGNORE",
 	"trigger_resource": "GameResource.Type.RANDOM_TRIGGER",
 	"card_rarity": "Card.RarityType.STARTING"
@@ -84,14 +84,14 @@
 	"card_template_id": "card_defend",
 	"group_template_id": "knight",
 	"card_count": 2,
-	"display_name": "Shields Up!",
-	"rules_text": "6 block",
+	"display_name": "F",
+	"rules_text": "add_energy=5, draw_card=2",
 	"cursor_image_uid": "bqvm4vgi4c0dn",
 	"card_cost": {
 	  "GameResource.Type.ENERGY": "1"
 	},
-	"instinct_effect": "none=0",
-	"slot_effect": "none=0",
+	"instinct_effect": "add_energy=5, draw_card=2",
+	"slot_effect": "add_energy=5, draw_card=2",
 	"next_target_type": "Battleground.OrderPriority.CLOSEST",
 	"trigger_resource": "GameResource.Type.NONE",
 	"card_rarity": "Card.RarityType.STARTING"
@@ -100,14 +100,14 @@
 	"card_template_id": "card_wall",
 	"group_template_id": "knight",
 	"card_count": 1,
-	"display_name": "The Wall",
-	"rules_text": "4 block, 4 armor",
+	"display_name": "G",
+	"rules_text": "add_time=20, draw_card=2",
 	"cursor_image_uid": "bqvm4vgi4c0dn",
 	"card_cost": {
 	  "GameResource.Type.ENERGY": "1"
 	},
-	"instinct_effect": "none=0",
-	"slot_effect": "none=0",
+	"instinct_effect": "add_time=20, draw_card=2",
+	"slot_effect": "add_time=20, draw_card=2",
 	"next_target_type": "Battleground.OrderPriority.HIGHEST_HP",
 	"trigger_resource": "GameResource.Type.BLUE_TRIGGER",
 	"card_rarity": "Card.RarityType.STARTING"
@@ -116,14 +116,14 @@
 	"card_template_id": "card_shield_bash",
 	"group_template_id": "knight",
 	"card_count": 1,
-	"display_name": "Shield Bash",
-	"rules_text": "Knockback 1 + Tripped",
+	"display_name": "H",
+	"rules_text": "add_time=20, draw_card=2",
 	"cursor_image_uid": "bqvm4vgi4c0dn",
 	"card_cost": {
 	  "GameResource.Type.ENERGY": "1"
 	},
-	"instinct_effect": "none=0",
-	"slot_effect": "none=0",
+	"instinct_effect": "add_time=20, draw_card=2",
+	"slot_effect": "add_time=20, draw_card=2",
 	"next_target_type": "Battleground.OrderPriority.HIGHEST_HP",
 	"trigger_resource": "GameResource.Type.GREEN_TRIGGER",
 	"card_rarity": "Card.RarityType.STARTING"
@@ -132,14 +132,14 @@
 	"card_template_id": "card_grenade",
 	"group_template_id": "knight",
 	"card_count": 1,
-	"display_name": "Grenade",
-	"rules_text": "10 damage in a 3 slot circle",
+	"display_name": "I",
+	"rules_text": "add_time=20, draw_card=2",
 	"cursor_image_uid": "bqvm4vgi4c0dn",
 	"card_cost": {
 	  "GameResource.Type.ENERGY": "2"
 	},
-	"instinct_effect": "none=0",
-	"slot_effect": "none=0",
+	"instinct_effect": "add_time=20, draw_card=2",
+	"slot_effect": "add_time=20, draw_card=2",
 	"next_target_type": "Battleground.OrderPriority.FARTHEST",
 	"trigger_resource": "GameResource.Type.ALL_TRIGGER",
 	"card_rarity": "Card.RarityType.COMMON"
@@ -147,14 +147,14 @@
   {
 	"card_template_id": "card_slimed",
 	"group_template_id": "curse",
-	"display_name": "Slime",
-	"rules_text": "Consume to remove this from your deck",
+	"display_name": "J",
+	"rules_text": "add_time=20, draw_card=2",
 	"cursor_image_uid": "bqvm4vgi4c0dn",
 	"card_cost": {
 	  "GameResource.Type.ENERGY": "0"
 	},
-	"instinct_effect": "none=0",
-	"slot_effect": "none=0",
+	"instinct_effect": "add_time=20, draw_card=2",
+	"slot_effect": "add_time=20, draw_card=2",
 	"next_target_type": "Battleground.OrderPriority.IGNORE",
 	"trigger_resource": "GameResource.Type.GREEN_TRIGGER",
 	"card_rarity": "Card.RarityType.COMMON"
@@ -163,14 +163,14 @@
 	"card_template_id": "card_witness_me",
 	"group_template_id": "knight",
 	"card_count": 2,
-	"display_name": "Witness Me",
-	"rules_text": "20 Damage, set hero armor to 0",
+	"display_name": "K",
+	"rules_text": "add_time=20, draw_card=2",
 	"cursor_image_uid": "bqvm4vgi4c0dn",
 	"card_cost": {
 	  "GameResource.Type.ENERGY": "1"
 	},
-	"instinct_effect": "none=0",
-	"slot_effect": "none=0",
+	"instinct_effect": "add_time=20, draw_card=2",
+	"slot_effect": "add_time=20, draw_card=2",
 	"next_target_type": "Battleground.OrderPriority.FARTHEST",
 	"trigger_resource": "GameResource.Type.BLUE_TRIGGER",
 	"card_rarity": "Card.RarityType.COMMON"
@@ -179,14 +179,14 @@
 	"card_template_id": "card_double_dash",
 	"group_template_id": "knight",
 	"card_count": 2,
-	"display_name": "Double Dash",
-	"rules_text": "Twice - Dash-Attack 6 damage",
+	"display_name": "L",
+	"rules_text": "add_time=20, draw_card=2",
 	"cursor_image_uid": "bqvm4vgi4c0dn",
 	"card_cost": {
 	  "GameResource.Type.ENERGY": "1"
 	},
-	"instinct_effect": "none=0",
-	"slot_effect": "none=0",
+	"instinct_effect": "add_time=20, draw_card=2",
+	"slot_effect": "add_time=20, draw_card=2",
 	"next_target_type": "Battleground.OrderPriority.CLOSEST",
 	"trigger_resource": "GameResource.Type.RED_TRIGGER",
 	"card_rarity": "Card.RarityType.COMMON"
@@ -195,14 +195,14 @@
 	"card_template_id": "card_tussle",
 	"group_template_id": "knight",
 	"card_count": 2,
-	"display_name": "Tussle",
-	"rules_text": "8 Damage and Trip",
+	"display_name": "M",
+	"rules_text": "add_time=20, draw_card=2",
 	"cursor_image_uid": "bqvm4vgi4c0dn",
 	"card_cost": {
 	  "GameResource.Type.ENERGY": "1"
 	},
-	"instinct_effect": "none=0",
-	"slot_effect": "none=0",
+	"instinct_effect": "add_time=20, draw_card=2",
+	"slot_effect": "add_time=20, draw_card=2",
 	"next_target_type": "Battleground.OrderPriority.HIGHEST_HP",
 	"trigger_resource": "GameResource.Type.GREEN_TRIGGER",
 	"card_rarity": "Card.RarityType.COMMON"

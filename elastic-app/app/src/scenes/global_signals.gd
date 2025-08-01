@@ -46,9 +46,19 @@ func signal_ui_card_unhovered(card_instance_id: String):
 	ui_card_unhovered.emit(card_instance_id)
 
 # Core Signal Functions
+
+signal core_time_replenished(amount: float)
+func signal_core_time_replenished(amount: float):
+	core_time_replenished.emit(amount)
+
 signal core_time_added(amount: float)
 func signal_core_time_added(amount: float):
 	core_time_added.emit(amount)
+	
+# Core Signal Functions
+signal core_time_set(amount: float)
+func signal_core_time_set(amount: float):
+	core_time_set.emit(amount)
 
 signal core_begin_turn()
 func signal_core_begin_turn():
@@ -129,6 +139,7 @@ func signal_core_card_selection():
 	
 signal core_card_drawn(card_instance_id: String)
 func signal_core_card_drawn(card_instance_id: String):
+	print("signal core card drawn")
 	core_card_drawn.emit(card_instance_id)
 
 signal core_card_played_but_cant_satisfy_cost(card_instance_id: String)

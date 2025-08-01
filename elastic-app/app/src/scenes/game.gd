@@ -62,6 +62,9 @@ func __on_relic_added(relic: Relic) -> void:
 	relic_icon.set_relic(relic)
 	
 	%RelicGridContainer.add_child(relic_icon)
+	
+func get_time_remaining():
+	return %AirMeter.time_remaining
 
 func __on_relic_removed(relic_instance_id: String) -> void:
 	#TODO: slow implementation, if needed make a scene for containing the relics

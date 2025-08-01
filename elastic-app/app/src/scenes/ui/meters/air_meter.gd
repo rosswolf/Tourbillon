@@ -1,6 +1,6 @@
 extends Control
 
-var default_timer_max: float = 300.0
+var default_timer_max: float = 20.0
 
 const MENU: String = "res://src/scenes/main_menu.tscn"
 
@@ -20,13 +20,20 @@ var time_remaining: float:
 
 func _ready():
 	print(timer_max)
-	%Timer.wait_time = 300
 	%Timer.timeout.connect(_on_timer_timeout)
-	%Timer.start()
+	%Timer.start(timer_max)
 	%ProgressBar.value = pct(%Timer.time_left, timer_max)
 	GlobalSignals.core_time_added.connect(__on_time_added)
+	#GlobalSignals.core_time_set.connect(__on_time_set)
+	GlobalSignals.core_time_replenished.connect(__on_time_replenished)
+
+
+func __on_time_replenished(amount: float):
+	time_remaining = time_remaining + amount
 
 func __on_time_added(amount: float):
+	var total = time_remaining + amount
+	timer_max = max(timer_max, total)
 	time_remaining = time_remaining + amount
 	
 func pct(numerator: float, denominator: float):
@@ -50,5 +57,5 @@ func render_label(time_left: float):
 	return str(minute) + ":" + "%02d" % second + "." + "%02d" % centisecond
 
 func _on_timer_timeout():
-	print("done")
-	#FadeToBlack.go_to_scene(MENU)
+	#print("done")
+	FadeToBlack.go_to_scene(MENU)

@@ -136,11 +136,33 @@ static var effect_map: Dictionary[String, InternalEffect] = {
 				return true,
 		[Hero]
 	),
-	"remove_card_from_deck": InternalEffect.new(
+	"replenish_time": InternalEffect.new(
 		func(source: Entity, params: Dictionary):
-			GlobalGameManager.library.move_card_to_zone(source.instance_id, Library.Zone.EXILED, Library.Zone.BEING_PLAYED)
+			var amount = int(params.get("param"))
+			GlobalGameManager.hero.time.replenish_time(amount)
 			return true,
-		[Card]
+		[Hero, Card] 
+	),
+	"add_time": InternalEffect.new(
+		func(source: Entity, params: Dictionary):
+			var amount = int(params.get("param"))
+			GlobalGameManager.hero.time.add_time(amount)
+			return true,
+		[Hero, Card] 
+	),
+	"add_energy": InternalEffect.new(
+		func(source: Entity, params: Dictionary):
+			var amount = int(params.get("param"))
+			GlobalGameManager.hero.energy.increment(amount)
+			return true,
+		[Hero, Card] 
+	),
+	"draw_card": InternalEffect.new(
+		func(source: Entity, params: Dictionary):
+			var amount = int(params.get("param"))
+			GlobalGameManager.library.draw_card(amount)
+			return true,
+		[Hero, Card] 
 	),
 }
 
