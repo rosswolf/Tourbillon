@@ -30,5 +30,10 @@
   {
 	"configuration_name": "weak_multiplier",
 	"configuration_value": 0.5
+  },
+  {
+	"configuration_name": "default_card_durability",
+	"configuration_value": 2,
+	"_NOEX notes": "default number of uses per card"
   }
 ]

@@ -1,6 +1,8 @@
 extends Node
 
 class_name Entity
+static func _get_type_string():
+	return "Entity"
 
 var __template_id: String  # Private variable
 var template_id: String:  # Public read-only property

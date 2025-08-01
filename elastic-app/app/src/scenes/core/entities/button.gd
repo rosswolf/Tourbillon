@@ -1,5 +1,7 @@
 extends Entity
 class_name EngineButtonEntity
+static func _get_type_string():
+	return "EngineButtonEntity"
 
 var engine_slot: EngineSlot
 var is_activation_button: bool

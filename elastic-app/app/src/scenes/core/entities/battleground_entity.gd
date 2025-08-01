@@ -1,6 +1,7 @@
 extends Entity
 class_name BattlegroundEntity
-
+static func _get_type_string():
+	return "BattlegroundEntity"
 
 func _get_type() -> Entity.EntityType:
 	return Entity.EntityType.BATTLEGROUND

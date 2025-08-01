@@ -31,7 +31,7 @@ func _init(template_id: String,  params: Dictionary, cost: Cost = null):
 	effect_name = template_id
 
 func activate(source: Entity):
-	print("Taking effect " + __effect_template_id)
+	#print("Taking effect " + __effect_template_id)
 	
 	# TODO(virtual) if we decide to have cards carry effects onto the things they
 	# activate.. then unpack them here and put them in paramters.  
@@ -43,7 +43,7 @@ func activate(source: Entity):
 		assert(false, "Unexpected source type")
 
 
-func is_valid_target(source: Entity, target: Entity, pos: Vector2) -> bool:
+func _is_valid_source(source: Entity) -> bool:
 	#if _effect_type != EffectType.ACTIVATABLE:
 		#return false
 	var satisfy_target_requirments = Effect.source_is_valid(source, __valid_source_types)

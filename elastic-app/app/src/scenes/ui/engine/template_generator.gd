@@ -22,7 +22,7 @@ static func generate_knight_default_template(engine_template: EngineTemplate) ->
 	# Start Knight-specific skill already slotted
 	var default_slot = engine_template.get_slot(2,0)
 	default_slot.attach_card(GlobalGameManager.instance_catalog.get_instance("knight_default"),)
-	GlobalGameManager.library.move_card_to_zone("knight_default", Library.Zone.SLOTTED, Library.Zone.DEFAULT_LIBRARY)
+	GlobalGameManager.library.move_card_to_zone2("knight_default", Library.Zone.DEFAULT_LIBRARY, Library.Zone.SLOTTED)
 
 	# Connections
 	engine_template.add_one_way_connection(2,0,1,0)

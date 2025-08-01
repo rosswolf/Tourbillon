@@ -19,6 +19,7 @@ func _ready():
 	GlobalSignals.ui_started_battle.connect(__on_start_battle)
 	GlobalSignals.ui_execute_selected_onto_hovered.connect(__handle_activation)
 	GlobalSignals.core_card_discarded.connect(__on_card_discarded)
+	GlobalSignals.core_card_played.connect(__on_card_played)
 	
 
 func __load_cards() -> void:
@@ -77,6 +78,13 @@ func __on_start_battle():
 	#battleground.spawn_new_stage(1)
 	allow_activations()
 	GlobalSignals.signal_core_begin_turn()
+		
+func __on_card_played(card_instance_id: String):
+	var card: Card = instance_catalog.get_instance(card_instance_id) as Card
+	if card == null:
+		assert(false, "Card was null when retrieving from instance catalog: " + card_instance_id)
+		return	
+	card.durability.decrement(1)
 		
 func __on_card_discarded(card_instance_id: String):
 	var card: Card = instance_catalog.get_instance(card_instance_id) as Card

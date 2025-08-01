@@ -70,7 +70,7 @@ func activate_selected_onto_hovered(last_pos):
 	if __selected == "":
 		return
 	else:
-		print("execute: " + __selected + " " + __hovered)
+		#print("execute: " + __selected + " " + __hovered)
 		GlobalSignals.signal_ui_execute_selected_onto_hovered(__selected, __hovered)
 		_clear_selected_force()
 		

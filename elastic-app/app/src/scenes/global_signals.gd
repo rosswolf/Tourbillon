@@ -139,7 +139,6 @@ func signal_core_card_selection():
 	
 signal core_card_drawn(card_instance_id: String)
 func signal_core_card_drawn(card_instance_id: String):
-	print("signal core card drawn")
 	core_card_drawn.emit(card_instance_id)
 
 signal core_card_played(card_instance_id: String)

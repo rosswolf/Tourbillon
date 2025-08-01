@@ -1,6 +1,8 @@
 extends Entity
 
 class_name Card
+static func _get_type_string():
+	return "Card"
 
 enum RarityType {
 	UNKNOWN,
@@ -25,6 +27,8 @@ var __slot_effect: MoveDescriptorEffect
 
 var trigger_resource: GameResource.Type = GameResource.Type.UNKNOWN
 
+var durability: CappedResource
+
 		
 func activate_slot_effect(source: Entity, target: Entity) -> bool:
 	if not __slot_effect._could_satisfy_costs(source, target) or \
@@ -34,21 +38,25 @@ func activate_slot_effect(source: Entity, target: Entity) -> bool:
 	return __slot_effect.activate(source)
 	
 func activate_instinct_effect(source: Entity, target: Entity) -> bool:
+	
+	if not __instinct_effect._is_valid_source(source):
+		return false
+	
 	if not __instinct_effect._could_satisfy_costs(source, target) or \
 			not __instinct_effect._execute_satisfy_costs(source, target):
 		return false
 	
-	GlobalGameManager.library.move_card_to_zone(instance_id, Library.Zone.BEING_PLAYED, Library.Zone.HAND)
+	GlobalGameManager.library.move_card_to_zone2(instance_id, Library.Zone.HAND, Library.Zone.BEING_PLAYED)
 	var succeeded = __instinct_effect.activate(source)
 	if succeeded:
-		GlobalGameManager.library.move_card_to_zone(instance_id, Library.Zone.GRAVEYARD, Library.Zone.BEING_PLAYED)
+		GlobalGameManager.library.move_card_to_zone2(instance_id, Library.Zone.BEING_PLAYED, Library.Zone.GRAVEYARD)
 		GlobalSignals.signal_core_card_played(instance_id)
 		GlobalSignals.signal_core_card_removed_from_hand(instance_id)
 	else:
 		# Effects need to return true to succeed, this will help us track down issues. 
 		# Usually the issue is some void return instead of a boolean true
 		assert(false, "Failed to activate effect " + __instinct_effect.effect_name)
-		GlobalGameManager.library.move_card_to_zone(instance_id, Library.Zone.HAND, Library.Zone.BEING_PLAYED)
+		GlobalGameManager.library.move_card_to_zone2(instance_id, Library.Zone.BEING_PLAYED, Library.Zone.HAND)
 	return succeeded
 	
 func _get_type() -> Entity.EntityType:
@@ -68,6 +76,7 @@ class CardBuilder extends Entity.EntityBuilder:
 	var __slot_effect: String
 	var __instinct_effect: String
 	var __trigger_resource: GameResource.Type = GameResource.Type.UNKNOWN
+	var __max_durability: int = StaticData.get_int("default_card_durability")
 	
 	func with_group_template_id(group_template_id: String) -> CardBuilder:
 		__group_template_id = group_template_id
@@ -123,6 +132,10 @@ class CardBuilder extends Entity.EntityBuilder:
 		card.rules_text = __rules_text
 		card.cost = cost
 		card.trigger_resource = __trigger_resource
+		
+		var on_change: Callable = func(value): if value == 0: OneTimeEffect.new("durability_hit_zero", {}).activate(card)
+		var none: Callable = func(value): pass
+		card.durability = CappedResource.new(__max_durability, __max_durability, on_change, none, true)
 		return card
 
 static func load_card(group_template_id: String, card_template_id: String) -> Card:

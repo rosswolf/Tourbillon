@@ -32,6 +32,12 @@ func _execute_satisfy_costs(source: Entity, target: Entity) -> bool:
 			
 	return true
 	
+func _is_valid_source(source: Entity):
+	for effect in effects:
+		if not effect._is_valid_source(source):
+			return false	
+	return true
+	
 func activate(source: Entity):
 	var result: bool = true
 	for effect in effects:

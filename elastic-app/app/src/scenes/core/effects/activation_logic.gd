@@ -30,9 +30,9 @@ static func activate_engine(card: Card, button: EngineButtonEntity) -> bool:
 		# the first slot is not activatable
 		return false
 		
-	GlobalGameManager.library.move_card_to_zone(card.instance_id, Library.Zone.BEING_PLAYED, Library.Zone.HAND)
+	GlobalGameManager.library.move_card_to_zone2(card.instance_id, Library.Zone.HAND, Library.Zone.BEING_PLAYED)
 	button.engine_slot.activate(card)
-	GlobalGameManager.library.move_card_to_zone(card.instance_id, Library.Zone.GRAVEYARD, Library.Zone.BEING_PLAYED)
+	GlobalGameManager.library.move_card_to_zone2(card.instance_id, Library.Zone.BEING_PLAYED, Library.Zone.GRAVEYARD)
 	GlobalSignals.signal_core_card_discarded(card.instance_id)
 	GlobalSignals.signal_core_card_removed_from_hand(card.instance_id)
 	
@@ -55,7 +55,7 @@ static func slot_card_in_engine(card: Card, button: EngineButtonEntity) -> bool:
 	GlobalGameManager.hero.training_points.decrement(training_value)
 	
 	button.engine_slot.attach_card(card)
-	GlobalGameManager.library.move_card_to_zone(card.instance_id, Library.Zone.SLOTTED, Library.Zone.HAND)
+	GlobalGameManager.library.move_card_to_zone2(card.instance_id, Library.Zone.HAND, Library.Zone.SLOTTED)
 	GlobalSignals.signal_core_card_removed_from_hand(card.instance_id)
 	
 	return true

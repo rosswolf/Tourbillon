@@ -1,5 +1,7 @@
 extends Entity
 class_name BattleEntity
+static func _get_type_string():
+	return "BattleEntity"
 
 var health: CappedResource
 var block: CappedResource

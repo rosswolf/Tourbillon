@@ -94,9 +94,9 @@ func detach_card() -> void:
 	
 	#TODO: should this not be in the UI code?
 	if GlobalGameManager.relic_manager.has_relic("training_gloves"):	
-		GlobalGameManager.library.move_card_to_zone(attached_card.instance_id, Library.Zone.HAND, Library.Zone.SLOTTED)
+		GlobalGameManager.library.move_card_to_zone2(attached_card.instance_id, Library.Zone.SLOTTED, Library.Zone.HAND)
 	else:
-		GlobalGameManager.library.move_card_to_zone(attached_card.instance_id, Library.Zone.GRAVEYARD, Library.Zone.SLOTTED)
+		GlobalGameManager.library.move_card_to_zone2(attached_card.instance_id, Library.Zone.SLOTTED, Library.Zone.GRAVEYARD)
 	attached_card = null
 	slotted_image.texture = null
 	slotted_image.visible = false

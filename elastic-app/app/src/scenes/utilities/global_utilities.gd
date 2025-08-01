@@ -6,6 +6,12 @@ enum TriggerType {
 	BLUE
 }
 
+static func get_enum_name(enum_dict, enum_value) -> String:
+	var keys = enum_dict.keys()
+	var values = enum_dict.values()
+	var index = values.find(enum_value)
+	return keys[index] if index != -1 else "UNKNOWN"
+
 var temp_rng = RandomNumberGenerator.new()
 
 func set_seed(world_seed: int) -> void:

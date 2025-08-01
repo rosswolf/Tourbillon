@@ -146,7 +146,6 @@ static var effect_map: Dictionary[String, InternalEffect] = {
 	),
 	"add_time": InternalEffect.new(
 		func(source: Entity, params: Dictionary):
-			print("read time: " + str(UiController.air_meter.time_remaining))
 			var amount = int(params.get("param"))
 			GlobalGameManager.hero.time.add_time(amount)
 			return true,
@@ -165,6 +164,14 @@ static var effect_map: Dictionary[String, InternalEffect] = {
 			GlobalGameManager.library.draw_card(amount)
 			return true,
 		[Hero, Card] 
+	),
+	"durability_hit_zero": InternalEffect.new(
+		func(source: Entity, params: Dictionary):
+			print("card destroyed " + source.instance_id)
+			var card: Card = params.get("card") as Card
+			GlobalGameManager.library.move_card_to_zone2(card.instance_id, Library.Zone.ANY, Library.Zone.EXILED)
+			return true,
+		[Card, Hero] 
 	),
 }
 
@@ -195,8 +202,16 @@ static var intent_map: Dictionary[String, Intent] = {
 }
 
 static func source_is_valid(source: Entity, valid_types: Array):
-	var source_class = source.get_class()
-	return source_class in valid_types
+	var valid_type_strings: Array[String] = []
+	for type in valid_types:
+		valid_type_strings.append(type._get_type_string())
+		
+	return source._get_type_string() in valid_type_strings or Entity._get_type_string() in valid_type_strings
+	
+
+func _is_valid_source(source: Entity):
+	assert(false, "sub classes need to override _is_valid_source")
+	return false
 	
 func _could_satisfy_costs(source: Entity, target: Entity) -> bool:
 	assert(false, "sub classes need to override _could_satisfy_costs")

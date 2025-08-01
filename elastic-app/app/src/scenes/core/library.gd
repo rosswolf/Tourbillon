@@ -178,7 +178,11 @@ func add_card_to_zone(card: Card, zone: Zone):
 	
 
 # Move a card from specified zone to its current zone.  
-func move_card_to_zone(card_instance_id: String, new_zone: Zone, from_zone: Zone, override_limit: bool = false) -> bool:
+func move_card_to_zone2(card_instance_id: String, from_zone: Zone, to_zone: Zone, override_limit: bool = false) -> bool:
+	var c: Card = GlobalGameManager.instance_catalog.get_instance(card_instance_id) as Card
+	
+	print(" Moving card " + card_instance_id + " " + c.display_name + " from: " + GlobalUtilities.get_enum_name(Library.Zone, from_zone) + " to: " + GlobalUtilities.get_enum_name(Library.Zone, to_zone) )
+	
 	if not card_zone_map.has(card_instance_id):
 		printerr(card_instance_id + " not in card_zone_map")
 		return false
@@ -188,6 +192,7 @@ func move_card_to_zone(card_instance_id: String, new_zone: Zone, from_zone: Zone
 	var current_zone_obj = _get_zone_object(current_zone)
 	
 	if from_zone != Library.Zone.ANY and current_zone != from_zone:
+		print("not moving card as it wasn't in the expected zone.  This may be ok.")
 		return false
 	
 	# Remove from current zone
@@ -197,7 +202,7 @@ func move_card_to_zone(card_instance_id: String, new_zone: Zone, from_zone: Zone
 		return false
 	
 	# Add to new zone
-	var new_zone_obj = _get_zone_object(new_zone)
+	var new_zone_obj = _get_zone_object(to_zone)
 	if new_zone_obj.__zone_type == Zone.HAND and hand.get_count() >= max_hand_size and not override_limit:
 		print("hit max hand size")
 		return false
@@ -205,7 +210,7 @@ func move_card_to_zone(card_instance_id: String, new_zone: Zone, from_zone: Zone
 	new_zone_obj.add_card(card)
 	
 	# Update zone map
-	card_zone_map[card_instance_id] = new_zone
+	card_zone_map[card_instance_id] = to_zone
 	
 	return true
 
@@ -228,22 +233,22 @@ func add_cards_to_deck(cards: Array[Card]) -> void:
 
 func discard_hand():
 	for card in hand.get_all_cards():
-		move_card_to_zone(card.instance_id, Zone.GRAVEYARD, Zone.HAND)
-		GlobalSignals.signal_core_card_removed_from_hand(card_instance_id)
+		move_card_to_zone2(card.instance_id, Zone.HAND, Zone.GRAVEYARD)
+		GlobalSignals.signal_core_card_removed_from_hand(card.instance_id)
 		# for each card in hand, discard it.  
 		
 func draw_card(how_many: int):
 	for i in range(how_many):
 		if deck.get_count() == 0:
 			for c in graveyard.get_all_cards():
-				move_card_to_zone(c.instance_id, Zone.DECK, Zone.GRAVEYARD)
+				move_card_to_zone2(c.instance_id, Zone.GRAVEYARD, Zone.DECK)
 			deck.shuffle()
 		
 		var next_card: Card = deck.draw_top()
 		if next_card:
 			add_card_to_zone(next_card, Zone.HAND)
 			
-			GlobalSignals.signal_core_card_drawn(card_instance_id)
+			GlobalSignals.signal_core_card_drawn(next_card.instance_id)
 	
 func draw_new_hand(desired_hand_size: int):
 	discard_hand()

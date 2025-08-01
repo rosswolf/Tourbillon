@@ -1,5 +1,7 @@
 extends BattleEntity
 class_name Hero
+static func _get_type_string():
+	return "Hero"
 
 
 var image_name: String

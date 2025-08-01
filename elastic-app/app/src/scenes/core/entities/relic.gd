@@ -1,5 +1,7 @@
 extends Entity
 class_name Relic
+static func _get_type_string():
+	return "Relic"
 
 var description: String
 var image_name: String
