@@ -142,6 +142,10 @@ func signal_core_card_drawn(card_instance_id: String):
 	print("signal core card drawn")
 	core_card_drawn.emit(card_instance_id)
 
+signal core_card_played(card_instance_id: String)
+func signal_core_card_played(card_instance_id: String):
+	core_card_played.emit(card_instance_id)
+
 signal core_card_played_but_cant_satisfy_cost(card_instance_id: String)
 func signal_core_card_played_but_cant_satisfy_cost(card_instance_id: String):
 	core_card_played_but_cant_satisfy_cost.emit(card_instance_id)
