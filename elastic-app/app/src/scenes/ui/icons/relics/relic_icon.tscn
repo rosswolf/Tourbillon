@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://627s8p4r4mnp" path="res://src/scenes/ui/icons/relics/relic_icon.gd" id="1_cekjs"]
 [ext_resource type="Texture2D" uid="uid://bqvm4vgi4c0dn" path="res://cc0_assets/white_glowing_circle.png" id="2_liuyj"]
-[ext_resource type="Theme" uid="uid://ebjibaj7r6n3" path="res://src/scenes/resources/themes/green_label.tres" id="3_qcs8v"]
+[ext_resource type="Theme" uid="uid://ebjibaj7r6n3" path="res://src/scenes/theme/green_label.tres" id="3_qcs8v"]
 
 [node name="RelicIcon" type="Control"]
 z_index = 9

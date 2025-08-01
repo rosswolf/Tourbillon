@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://lsyqbgq5wewa" path="res://owned_assets/one_way_better.png" id="3_5dn06"]
 [ext_resource type="Texture2D" uid="uid://bek6ia05dcloc" path="res://owned_assets/slot_red.png" id="4_5dn06"]
 [ext_resource type="PackedScene" uid="uid://b6wxj3e1l1avb" path="res://src/scenes/ui/entities/engine/ui_activation_button.tscn" id="4_syjp6"]
-[ext_resource type="Theme" uid="uid://can0aogukups5" path="res://src/scenes/resources/themes/purple_label.tres" id="6_vdd31"]
+[ext_resource type="Theme" uid="uid://can0aogukups5" path="res://src/scenes/theme/purple_label.tres" id="6_vdd31"]
 
 [node name="EngineSlot" type="TextureButton"]
 self_modulate = Color(0.14902, 0.152941, 1, 1)

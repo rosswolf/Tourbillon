@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b61kbebi5bq7x" path="res://src/scenes/ui/icons/slot_icons/slot_icon.gd" id="1_qdcrt"]
 [ext_resource type="Texture2D" uid="uid://ctscla6enlb4r" path="res://owned_assets/icons/shield_icon2.png" id="2_ouln6"]
-[ext_resource type="Theme" uid="uid://mdv6ns2bkvo" path="res://src/scenes/resources/themes/black_label.tres" id="3_qdcrt"]
+[ext_resource type="Theme" uid="uid://mdv6ns2bkvo" path="res://src/scenes/theme/black_label.tres" id="3_qdcrt"]
 
 [node name="SlotIcon" type="Control"]
 layout_mode = 3

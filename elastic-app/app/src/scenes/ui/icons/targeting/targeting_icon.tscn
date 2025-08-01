@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://03uikxa5r302"]
 
 [ext_resource type="Script" uid="uid://c2t4rewd5uyqo" path="res://src/scenes/ui/icons/targeting/targeting_icon.gd" id="1_6fm30"]
-[ext_resource type="Theme" uid="uid://mdv6ns2bkvo" path="res://src/scenes/resources/themes/black_label.tres" id="2_rqety"]
+[ext_resource type="Theme" uid="uid://mdv6ns2bkvo" path="res://src/scenes/theme/black_label.tres" id="2_rqety"]
 [ext_resource type="Texture2D" uid="uid://cetaxsxa60i2i" path="res://owned_assets/targeting_reticule.png" id="3_7q5ox"]
 
 [node name="GenericTargetingIcon" type="Control"]

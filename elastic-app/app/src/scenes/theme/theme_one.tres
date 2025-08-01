@@ -1,9 +1,9 @@
 [gd_resource type="Theme" load_steps=5 format=3 uid="uid://dnrdx5ya51g58"]
 
-[ext_resource type="FontFile" uid="uid://uuu2fap63a8h" path="res://src/scenes/resources/fonts/BlackFlag.ttf" id="1_362lk"]
-[ext_resource type="StyleBox" uid="uid://c8rexd5cc2ftl" path="res://src/scenes/resources/styleboxes/black_style_box_texture.tres" id="2_ay7kt"]
-[ext_resource type="StyleBox" uid="uid://dah2vpns0fu5y" path="res://src/scenes/resources/styleboxes/white_style_box_texture.tres" id="3_rl3dw"]
-[ext_resource type="StyleBox" uid="uid://cs237t68tfran" path="res://src/scenes/resources/styleboxes/red_style_box_texture.tres" id="4_1evsp"]
+[ext_resource type="FontFile" uid="uid://uuu2fap63a8h" path="res://src/scenes/theme/fonts/BlackFlag.ttf" id="1_362lk"]
+[ext_resource type="StyleBox" uid="uid://c8rexd5cc2ftl" path="res://src/scenes/theme/styleboxes/black_style_box_texture.tres" id="2_ay7kt"]
+[ext_resource type="StyleBox" uid="uid://dah2vpns0fu5y" path="res://src/scenes/theme/styleboxes/white_style_box_texture.tres" id="3_rl3dw"]
+[ext_resource type="StyleBox" uid="uid://cs237t68tfran" path="res://src/scenes/theme/styleboxes/red_style_box_texture.tres" id="4_1evsp"]
 
 [resource]
 Button/colors/font_color = Color(0, 0, 0, 1)

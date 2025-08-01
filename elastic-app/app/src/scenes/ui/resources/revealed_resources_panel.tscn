@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cdrmk3kaqi6nh"]
 
-[ext_resource type="Script" uid="uid://d4g3ldqhweeoa" path="res://src/scenes/ui/meters/revealed_resources_panel.gd" id="1_qjm2q"]
+[ext_resource type="Script" uid="uid://d4g3ldqhweeoa" path="res://src/scenes/ui/resources/revealed_resources_panel.gd" id="1_qjm2q"]
 
 [node name="RevealedResourcesPanel" type="Control"]
 layout_mode = 3
@@ -9,6 +9,7 @@ script = ExtResource("1_qjm2q")
 
 [node name="RevealedResourceVbox" type="VBoxContainer" parent="."]
 unique_name_in_owner = true
+layout_mode = 0
 
 [node name="ResourceContainerTemplate" type="PanelContainer" parent="RevealedResourceVbox"]
 unique_name_in_owner = true

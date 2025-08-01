@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" uid="uid://dtu25hj7ookvm" path="res://src/scenes/game.gd" id="1_7uq6d"]
 [ext_resource type="Texture2D" uid="uid://bva6617mxquta" path="res://cc0_assets/underwater_crop.jpg" id="2_gh3at"]
-[ext_resource type="PackedScene" uid="uid://cdrmk3kaqi6nh" path="res://src/scenes/ui/meters/revealed_resources_panel.tscn" id="3_6e0h8"]
+[ext_resource type="PackedScene" uid="uid://cdrmk3kaqi6nh" path="res://src/scenes/ui/resources/revealed_resources_panel.tscn" id="3_6e0h8"]
 [ext_resource type="PackedScene" uid="uid://dx62gxy64qd47" path="res://src/scenes/ui/hud/menu_bar.tscn" id="3_bd8mh"]
 [ext_resource type="PackedScene" uid="uid://dbu6a2pg1iju5" path="res://src/scenes/ui/hand/HandContainer.tscn" id="3_yufto"]
 [ext_resource type="PackedScene" uid="uid://3yoqe2hx1j1g" path="res://src/scenes/ui/battleground/ui_battleground.tscn" id="4_5dxuo"]
-[ext_resource type="PackedScene" uid="uid://cupye5bbn2jch" path="res://src/scenes/ui/meters/air_meter.tscn" id="6_flib5"]
+[ext_resource type="PackedScene" uid="uid://cupye5bbn2jch" path="res://src/scenes/ui/resources/air_meter.tscn" id="6_flib5"]
 [ext_resource type="Shader" uid="uid://dktsayggtgauf" path="res://src/scenes/water_effect.gdshader" id="9_h2mn8"]
 [ext_resource type="PackedScene" uid="uid://cka5aovpfoi80" path="res://src/scenes/ui/click_and_drag/click_and_drag.tscn" id="10_6e0h8"]
 [ext_resource type="PackedScene" uid="uid://dckcqckqo0abj" path="res://src/scenes/ui/hud/HUD.tscn" id="10_bd8mh"]

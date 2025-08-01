@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cupye5bbn2jch"]
 
-[ext_resource type="Script" uid="uid://degkdcgeu02n5" path="res://src/scenes/ui/meters/air_meter.gd" id="1_lohet"]
+[ext_resource type="Script" uid="uid://degkdcgeu02n5" path="res://src/scenes/ui/resources/air_meter.gd" id="1_lohet"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_svue2"]
 
