@@ -21,6 +21,8 @@ func _ready() -> void:
 	%AudioStreamPlayer.play()
 	%AudioStreamPlayer.finished.connect(__on_audio_finished)
 	
+	UiController.air_meter = %AirMeter
+	
 	GlobalSignals.signal_ui_started_game()
 
 

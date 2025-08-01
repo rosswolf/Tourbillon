@@ -1,5 +1,7 @@
 extends Control
 
+class_name AirMeter
+
 var default_timer_max: float = 20.0
 
 const MENU: String = "res://src/scenes/main_menu.tscn"

@@ -138,6 +138,7 @@ static var effect_map: Dictionary[String, InternalEffect] = {
 	),
 	"replenish_time": InternalEffect.new(
 		func(source: Entity, params: Dictionary):
+			
 			var amount = int(params.get("param"))
 			GlobalGameManager.hero.time.replenish_time(amount)
 			return true,
@@ -145,6 +146,7 @@ static var effect_map: Dictionary[String, InternalEffect] = {
 	),
 	"add_time": InternalEffect.new(
 		func(source: Entity, params: Dictionary):
+			print("read time: " + str(UiController.air_meter.time_remaining))
 			var amount = int(params.get("param"))
 			GlobalGameManager.hero.time.add_time(amount)
 			return true,

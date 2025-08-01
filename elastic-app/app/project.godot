@@ -26,6 +26,7 @@ PreloadScenes="*res://src/scenes/ui/entities/preload_scenes.gd"
 FadeToBlack="*res://src/scenes/ui/transitions/FadeToBlack.tscn"
 GlobalUtilities="*res://src/scenes/utilities/global_utilities.gd"
 UidManager="*res://src/scenes/utilities/uid_manager.gd"
+UiController="*res://src/scenes/ui/ui_controller.gd"
 
 [debug]
 
