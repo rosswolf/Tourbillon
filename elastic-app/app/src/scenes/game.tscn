@@ -1,14 +1,38 @@
-[gd_scene load_steps=9 format=3 uid="uid://b8apg4aqwojm7"]
+[gd_scene load_steps=13 format=3 uid="uid://b8apg4aqwojm7"]
 
 [ext_resource type="Script" uid="uid://dtu25hj7ookvm" path="res://src/scenes/game.gd" id="1_7uq6d"]
 [ext_resource type="Texture2D" uid="uid://bva6617mxquta" path="res://cc0_assets/underwater_crop.jpg" id="2_gh3at"]
 [ext_resource type="PackedScene" uid="uid://dx62gxy64qd47" path="res://src/scenes/ui/hud/menu_bar.tscn" id="3_bd8mh"]
 [ext_resource type="PackedScene" uid="uid://dbu6a2pg1iju5" path="res://src/scenes/ui/hand/HandContainer.tscn" id="3_yufto"]
 [ext_resource type="PackedScene" uid="uid://3yoqe2hx1j1g" path="res://src/scenes/ui/battleground/ui_battleground.tscn" id="4_5dxuo"]
+[ext_resource type="PackedScene" uid="uid://cupye5bbn2jch" path="res://src/scenes/ui/meters/air_meter.tscn" id="6_flib5"]
+[ext_resource type="Shader" uid="uid://dktsayggtgauf" path="res://src/scenes/water_effect.gdshader" id="9_h2mn8"]
 [ext_resource type="PackedScene" uid="uid://cka5aovpfoi80" path="res://src/scenes/ui/click_and_drag/click_and_drag.tscn" id="10_6e0h8"]
 [ext_resource type="PackedScene" uid="uid://dckcqckqo0abj" path="res://src/scenes/ui/hud/HUD.tscn" id="10_bd8mh"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gh3at"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_flib5"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6e0h8"]
+shader = ExtResource("9_h2mn8")
+shader_parameter/color = Color(0.845268, 0.910617, 1, 1)
+shader_parameter/frequency = 1.0
+shader_parameter/compress = 1.0
+shader_parameter/add_light = 0.05
+shader_parameter/scale = 0.76
+shader_parameter/speed = 0.0299776
+shader_parameter/x_angle = 1.57
+shader_parameter/y_angle = 1.57
+shader_parameter/base_alpha = 0.7
+shader_parameter/refraction_ratio = 5.63
+shader_parameter/clear = 0.0
+shader_parameter/surf_sinpowder = 8.0
+shader_parameter/surf_speed = 1.0
+shader_parameter/surf_angle = 1.57
+shader_parameter/surf_magnitude = 0.0
+shader_parameter/s11 = 2.221
+shader_parameter/sinpowder = 8.0
 
 [node name="Game" type="Control"]
 layout_mode = 3
@@ -96,7 +120,33 @@ custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 size_flags_vertical = 8
 
+[node name="MarginContainer" type="MarginContainer" parent="Background/MainVBoxContainer/BotHBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="PanelContainer" type="PanelContainer" parent="Background/MainVBoxContainer/BotHBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_flib5")
+
+[node name="AirMeter" parent="Background/MainVBoxContainer/BotHBoxContainer/MarginContainer/PanelContainer" instance=ExtResource("6_flib5")]
+custom_minimum_size = Vector2(170, 400)
+layout_mode = 2
+size_flags_horizontal = 8
+
 [node name="ClickAndDrag" parent="." instance=ExtResource("10_6e0h8")]
 
 [node name="HUD" parent="." instance=ExtResource("10_bd8mh")]
 unique_name_in_owner = true
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_6e0h8")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -4.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2

@@ -46,6 +46,10 @@ func signal_ui_card_unhovered(card_instance_id: String):
 	ui_card_unhovered.emit(card_instance_id)
 
 # Core Signal Functions
+signal core_time_added(amount: float)
+func signal_core_time_added(amount: float):
+	core_time_added.emit(amount)
+
 signal core_begin_turn()
 func signal_core_begin_turn():
 	core_begin_turn.emit()
