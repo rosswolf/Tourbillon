@@ -5,7 +5,7 @@
 	"card_count": 1,
 	"display_name": "Basic Block",
 	"rules_text": "2 block",
-	"cursor_image_uid": "bn2g3exmr776o",
+	"cursor_image_uid": "bqvm4vgi4c0dn",
 	"card_cost": {
 	  "GameResource.Type.ENERGY": "0"
 	},
@@ -22,7 +22,7 @@
 	"card_count": 2,
 	"display_name": "Attack",
 	"rules_text": "Attack \n10 damage",
-	"cursor_image_uid": "bn2g3exmr776o",
+	"cursor_image_uid": "bqvm4vgi4c0dn",
 	"card_cost": {
 	  "GameResource.Type.ENERGY": "1"
 	},
@@ -38,7 +38,7 @@
 	"card_count": 2,
 	"display_name": "Dash Attack",
 	"rules_text": "Dash and then attack 6 damage",
-	"cursor_image_uid": "bn2g3exmr776o",
+	"cursor_image_uid": "bqvm4vgi4c0dn",
 	"card_cost": {
 	  "GameResource.Type.ENERGY": ""
 	},
@@ -54,7 +54,7 @@
 	"card_count": 1,
 	"display_name": "Fist Bump",
 	"rules_text": "Bump target enemy",
-	"cursor_image_uid": "bn2g3exmr776o",
+	"cursor_image_uid": "bqvm4vgi4c0dn",
 	"card_cost": {
 	  "GameResource.Type.ENERGY": "1"
 	},
@@ -70,7 +70,7 @@
 	"card_count": 1,
 	"display_name": "Mend",
 	"rules_text": "10 armor",
-	"cursor_image_uid": "bn2g3exmr776o",
+	"cursor_image_uid": "bqvm4vgi4c0dn",
 	"card_cost": {
 	  "GameResource.Type.ENERGY": "1"
 	},
@@ -86,7 +86,7 @@
 	"card_count": 2,
 	"display_name": "Shields Up!",
 	"rules_text": "6 block",
-	"cursor_image_uid": "bn2g3exmr776o",
+	"cursor_image_uid": "bqvm4vgi4c0dn",
 	"card_cost": {
 	  "GameResource.Type.ENERGY": "1"
 	},
@@ -102,7 +102,7 @@
 	"card_count": 1,
 	"display_name": "The Wall",
 	"rules_text": "4 block, 4 armor",
-	"cursor_image_uid": "bn2g3exmr776o",
+	"cursor_image_uid": "bqvm4vgi4c0dn",
 	"card_cost": {
 	  "GameResource.Type.ENERGY": "1"
 	},
@@ -118,7 +118,7 @@
 	"card_count": 1,
 	"display_name": "Shield Bash",
 	"rules_text": "Knockback 1 + Tripped",
-	"cursor_image_uid": "bn2g3exmr776o",
+	"cursor_image_uid": "bqvm4vgi4c0dn",
 	"card_cost": {
 	  "GameResource.Type.ENERGY": "1"
 	},
@@ -134,7 +134,7 @@
 	"card_count": 1,
 	"display_name": "Grenade",
 	"rules_text": "10 damage in a 3 slot circle",
-	"cursor_image_uid": "bn2g3exmr776o",
+	"cursor_image_uid": "bqvm4vgi4c0dn",
 	"card_cost": {
 	  "GameResource.Type.ENERGY": "2"
 	},
@@ -149,7 +149,7 @@
 	"group_template_id": "curse",
 	"display_name": "Slime",
 	"rules_text": "Consume to remove this from your deck",
-	"cursor_image_uid": "bn2g3exmr776o",
+	"cursor_image_uid": "bqvm4vgi4c0dn",
 	"card_cost": {
 	  "GameResource.Type.ENERGY": "0"
 	},
@@ -165,7 +165,7 @@
 	"card_count": 2,
 	"display_name": "Witness Me",
 	"rules_text": "20 Damage, set hero armor to 0",
-	"cursor_image_uid": "bn2g3exmr776o",
+	"cursor_image_uid": "bqvm4vgi4c0dn",
 	"card_cost": {
 	  "GameResource.Type.ENERGY": "1"
 	},
@@ -181,7 +181,7 @@
 	"card_count": 2,
 	"display_name": "Double Dash",
 	"rules_text": "Twice - Dash-Attack 6 damage",
-	"cursor_image_uid": "bn2g3exmr776o",
+	"cursor_image_uid": "bqvm4vgi4c0dn",
 	"card_cost": {
 	  "GameResource.Type.ENERGY": "1"
 	},
@@ -197,7 +197,7 @@
 	"card_count": 2,
 	"display_name": "Tussle",
 	"rules_text": "8 Damage and Trip",
-	"cursor_image_uid": "bn2g3exmr776o",
+	"cursor_image_uid": "bqvm4vgi4c0dn",
 	"card_cost": {
 	  "GameResource.Type.ENERGY": "1"
 	},
