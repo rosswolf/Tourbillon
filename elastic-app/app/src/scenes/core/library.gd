@@ -168,11 +168,7 @@ func initialize_cards(rare_cards: Array[Card], uncommon_cards: Array[Card],
 func print_hand_size():
 	print(hand.get_count())
 	
-func signal_card_drawn(card_instance_id):
-	GlobalSignals.signal_core_card_drawn(card_instance_id)
 	
-func signal_card_removed_from_hand(card_instance_id):
-	GlobalSignals.signal_core_card_removed_from_hand(card_instance_id)
 	
 # Add a new card to a specific zone
 func add_card_to_zone(card: Card, zone: Zone):
@@ -180,9 +176,6 @@ func add_card_to_zone(card: Card, zone: Zone):
 	zone_obj.add_card(card)
 	card_zone_map[card.instance_id] = zone
 	
-	#if zone == Zone.HAND:
-		#signal_card_drawn(card.instance_id)
-		#signal_hand_changed()
 
 # Move a card from specified zone to its current zone.  
 func move_card_to_zone(card_instance_id: String, new_zone: Zone, from_zone: Zone, override_limit: bool = false) -> bool:
@@ -236,7 +229,7 @@ func add_cards_to_deck(cards: Array[Card]) -> void:
 func discard_hand():
 	for card in hand.get_all_cards():
 		move_card_to_zone(card.instance_id, Zone.GRAVEYARD, Zone.HAND)
-		signal_card_removed_from_hand(card.instance_id)
+		GlobalSignals.signal_core_card_removed_from_hand(card_instance_id)
 		# for each card in hand, discard it.  
 		
 func draw_card(how_many: int):
@@ -250,7 +243,7 @@ func draw_card(how_many: int):
 		if next_card:
 			add_card_to_zone(next_card, Zone.HAND)
 			
-			signal_card_drawn(next_card.instance_id)
+			GlobalSignals.signal_core_card_drawn(card_instance_id)
 	
 func draw_new_hand(desired_hand_size: int):
 	discard_hand()
