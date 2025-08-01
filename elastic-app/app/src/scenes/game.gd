@@ -19,9 +19,13 @@ func _ready() -> void:
 	var audio_stream = load(GRAVITY_MP3)
 	%AudioStreamPlayer.stream = audio_stream
 	%AudioStreamPlayer.play()
+	%AudioStreamPlayer.finished.connect(__on_audio_finished)
 	
 	GlobalSignals.signal_ui_started_game()
 
+
+func __on_audio_finished():
+	%AudioStreamPlayer.play()  # Restart when finished
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
