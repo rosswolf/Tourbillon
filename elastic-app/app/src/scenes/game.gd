@@ -2,6 +2,8 @@ extends Control
 
 #Game.gd
 
+var GRAVITY_MP3: String = "res://pixabay assets/gravity-193874.mp3"
+
 @onready var targeting_icon: TargetingIcon = \
 	$Background/MainVBoxContainer/BotHBoxContainer/UIVBoxContainer/HBoxContainer/VBoxContainer/TargetingPanelContainer/GenericTargetingIcon
 
@@ -12,6 +14,11 @@ func _ready() -> void:
 	GlobalSignals.core_relic_added.connect(__on_relic_added)
 	GlobalSignals.core_relic_removed.connect(__on_relic_removed)
 	GlobalSignals.core_card_removed_from_hand.connect(__on_card_removed_from_hand)
+	
+	
+	var audio_stream = load(GRAVITY_MP3)
+	%AudioStreamPlayer.stream = audio_stream
+	%AudioStreamPlayer.play()
 	
 	GlobalSignals.signal_ui_started_game()
 
