@@ -42,7 +42,7 @@ func activate_instinct_effect(source: Entity, target: Entity) -> bool:
 	var succeeded = __instinct_effect.activate(source)
 	if succeeded:
 		GlobalGameManager.library.move_card_to_zone(instance_id, Library.Zone.GRAVEYARD, Library.Zone.BEING_PLAYED)
-		GlobalSignals.signal_core_card_discarded(instance_id)
+		GlobalSignals.signal_core_card_played(instance_id)
 		GlobalSignals.signal_core_card_removed_from_hand(instance_id)
 	else:
 		# Effects need to return true to succeed, this will help us track down issues. 
@@ -50,23 +50,6 @@ func activate_instinct_effect(source: Entity, target: Entity) -> bool:
 		assert(false, "Failed to activate effect " + __instinct_effect.effect_name)
 		GlobalGameManager.library.move_card_to_zone(instance_id, Library.Zone.HAND, Library.Zone.BEING_PLAYED)
 	return succeeded
-
-#func _signal_and_activate_effect(effect: Effect, source: Entity, target: Entity) -> bool:
-	#if not effect._execute_satisfy_costs(source, target):
-		#return false
-#
-	#GlobalGameManager.library.move_card_to_zone(instance_id, Library.Zone.BEING_PLAYED, Library.Zone.HAND)
-	#var succeeded = effect.activate(source)
-	#if succeeded:
-		#GlobalGameManager.library.move_card_to_zone(instance_id, Library.Zone.GRAVEYARD, Library.Zone.BEING_PLAYED)
-		#GlobalSignals.signal_core_card_discarded(instance_id)
-	#else:
-		## Effects need to return true to succeed, this will help us track down issues. 
-		## Usually the issue is some void return instead of a boolean true
-		#assert(false, "Failed to activate effect " + effect.effect_name)
-		#GlobalGameManager.library.move_card_to_zone(instance_id, Library.Zone.HAND, Library.Zone.BEING_PLAYED)
-	#return succeeded
-
 	
 func _get_type() -> Entity.EntityType:
 	return Entity.EntityType.CARD
