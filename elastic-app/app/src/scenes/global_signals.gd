@@ -137,6 +137,12 @@ signal core_card_slotted(instance_id: String)
 func signal_core_card_slotted(instance_id: String):
 	core_card_slotted.emit(instance_id)
 
+signal core_slot_add_cooldown(instance_id: String, duration: float)
+func signal_core_slot_add_cooldown(instance_id: String, duration: float):
+	core_slot_add_cooldown.emit(instance_id, duration)
+
+
+
 signal core_card_selection()
 func signal_core_card_selection():
 	core_card_selection.emit()

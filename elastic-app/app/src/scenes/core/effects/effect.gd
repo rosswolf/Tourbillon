@@ -167,9 +167,16 @@ static var effect_map: Dictionary[String, InternalEffect] = {
 	),
 	"durability_hit_zero": InternalEffect.new(
 		func(source: Entity, params: Dictionary):
-			print("card destroyed " + source.instance_id)
 			var card: Card = params.get("card") as Card
 			GlobalGameManager.library.move_card_to_zone2(card.instance_id, Library.Zone.ANY, Library.Zone.EXILED)
+			return true,
+		[Card, Hero] 
+	),
+	"cooldown":  InternalEffect.new(
+		func(source: Entity, params: Dictionary):
+			var amount: float = float(params.get("param"))
+			var card: Card = params.get("card") as Card
+			GlobalSignals.signal_core_slot_add_cooldown(card.instance_id, amount)
 			return true,
 		[Card, Hero] 
 	),

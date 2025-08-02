@@ -6,6 +6,7 @@ class_name EngineSlot
 
 var attached_card: Card
 var is_activatable: bool
+var timer_duration: float
 
 func _ready() -> void:
 	super._ready()
@@ -13,17 +14,32 @@ func _ready() -> void:
 	create_button_entity(self, false)
 	
 	self.pressed.connect(__on_refresh_slot_manually)
-	GlobalSignals.core_end_turn.connect(__on_end_turn)
 	
 	# Hide nodes we don't need yet
 	await get_tree().process_frame
 	top_container.visible = true
 	bottom_container.visible = false
+	
+	GlobalSignals.core_slot_add_cooldown.connect(__on_cooldown)
 
-func __on_end_turn() -> void:
-	pass
-	#if not is_activatable:
-	#	reactivate_slot()
+func _process(delta):
+	if %Timer.time_left != 0:
+		%ProgressBar.value = pct(%Timer.time_left, timer_duration)
+
+func __on_cooldown(instance_id: String, duration: float):
+	if instance_id == attached_card.instance_id:
+		deactivate_slot()
+		timer_duration = duration
+		%Timer.one_shot = true
+		%Timer.timeout.connect(func():reactivate_slot())
+		%Timer.start(timer_duration)
+		%ProgressBar.value = pct(%Timer.time_left, timer_duration)
+
+func pct(numerator: float, denominator: float):
+	if denominator <= 0.001:
+		return 0.0
+	else:
+		return 100.0 * numerator / denominator	
 	
 func has_card() -> bool:
 	return attached_card != null
@@ -60,6 +76,7 @@ func detach_card() -> void:
 func deactivate_slot() -> void:	
 	is_activatable = false
 	# Gray out the slot image
+	
 
 func reactivate_slot() -> void:	
 	is_activatable = true
