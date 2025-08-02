@@ -21,12 +21,11 @@
 	"group_template_id": "knight",
 	"card_count": 1,
 	"display_name": "A",
-	"rules_text": "add_time=20, draw_card=2",
+	"rules_text": "build",
 	"cursor_image_uid": "bqvm4vgi4c0dn",
 	"card_cost": {
 	  "GameResource.Type.ENERGY": "1"
 	},
-	"instinct_effect": "add_time=20, draw_card=2",
 	"slot_effect": "add_time=20, draw_card=2",
 	"next_target_type": "Battleground.OrderPriority.CLOSEST",
 	"trigger_resource": "GameResource.Type.NONE",
@@ -37,12 +36,11 @@
 	"group_template_id": "knight",
 	"card_count": 1,
 	"display_name": "B",
-	"rules_text": "add_time=20, draw_card=2",
+	"rules_text": "build",
 	"cursor_image_uid": "bqvm4vgi4c0dn",
 	"card_cost": {
 	  "GameResource.Type.ENERGY": ""
 	},
-	"instinct_effect": "add_time=20, draw_card=2",
 	"slot_effect": "add_time=20, draw_card=2",
 	"next_target_type": "Battleground.OrderPriority.CLOSEST",
 	"trigger_resource": "GameResource.Type.NONE",
@@ -53,12 +51,11 @@
 	"group_template_id": "knight",
 	"card_count": 1,
 	"display_name": "C",
-	"rules_text": "add_time=20, draw_card=2",
+	"rules_text": "build",
 	"cursor_image_uid": "bqvm4vgi4c0dn",
 	"card_cost": {
 	  "GameResource.Type.ENERGY": "1"
 	},
-	"instinct_effect": "add_time=20, draw_card=2",
 	"slot_effect": "add_time=20, draw_card=2",
 	"next_target_type": "Battleground.OrderPriority.CLOSEST",
 	"trigger_resource": "GameResource.Type.RED_TRIGGER",
@@ -69,12 +66,11 @@
 	"group_template_id": "knight",
 	"card_count": 1,
 	"display_name": "D",
-	"rules_text": "add_time=20, draw_card=2",
+	"rules_text": "build",
 	"cursor_image_uid": "bqvm4vgi4c0dn",
 	"card_cost": {
 	  "GameResource.Type.ENERGY": "1"
 	},
-	"instinct_effect": "add_time=20, draw_card=2",
 	"slot_effect": "add_time=20, draw_card=2",
 	"next_target_type": "Battleground.OrderPriority.IGNORE",
 	"trigger_resource": "GameResource.Type.RANDOM_TRIGGER",

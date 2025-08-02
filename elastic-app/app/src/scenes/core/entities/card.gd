@@ -29,6 +29,12 @@ var trigger_resource: GameResource.Type = GameResource.Type.UNKNOWN
 
 var durability: CappedResource
 
+
+func has_instinct_effect():
+	return __instinct_effect != null
+	
+func has_slot_effect():
+	return __slot_effect != null
 		
 func activate_slot_effect(source: Entity, target: Entity) -> bool:
 	if not __slot_effect._could_satisfy_costs(source, target) or \

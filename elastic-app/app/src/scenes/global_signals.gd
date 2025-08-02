@@ -133,6 +133,10 @@ signal core_mob_intent_updated(mob_instance_id: String)
 func signal_core_mob_intent_updated(mob_instance_id: String):
 	core_mob_intent_updated.emit(mob_instance_id)
 
+signal core_card_slotted(instance_id: String)
+func signal_core_card_slotted(instance_id: String):
+	core_card_slotted.emit(instance_id)
+
 signal core_card_selection()
 func signal_core_card_selection():
 	core_card_selection.emit()

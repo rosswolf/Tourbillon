@@ -1,12 +1,25 @@
-[gd_scene load_steps=4 format=3 uid="uid://bdv6fowx8kfhr"]
+[gd_scene load_steps=4 format=3 uid="uid://wy7704thugnd"]
 
-[ext_resource type="Script" uid="uid://du50u01gtttvk" path="res://src/scenes/ui/battleground/ui_battleground_slot.gd" id="1_im1xt"]
 [ext_resource type="Texture2D" uid="uid://cetaxsxa60i2i" path="res://owned_assets/targeting_reticule.png" id="2_qlsmu"]
+
+[sub_resource type="GDScript" id="GDScript_im1xt"]
+script/source = "extends VBoxContainer
+
+class_name UiBattlegroundSlot
+
+@onready var targeting_preview = %TargetingPreview
+
+func add_targeting_preview_icon():
+	targeting_preview.show()
+	
+func remove_targeting_preview_icon():
+	targeting_preview.hide()
+"
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_a3n04"]
 
 [node name="UiBattlegroundSlot" type="VBoxContainer"]
-script = ExtResource("1_im1xt")
+script = SubResource("GDScript_im1xt")
 
 [node name="Fill" type="PanelContainer" parent="."]
 layout_mode = 2
