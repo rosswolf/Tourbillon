@@ -19,7 +19,6 @@ var amount: int:
 		return __amount
 	set(value):
 		if __can_die and __amount == 0:
-			GlobalGameManager.end_game()
 			return
 		var new_amount = clamp(value, 0, __max_amount)
 		if __amount != new_amount:
@@ -29,7 +28,7 @@ var amount: int:
 					
 var __can_die: bool
 
-func _init(starting_amount: int, max_amount: int, on_change: Callable, on_max_change: Callable, can_die: bool):
+func _init(starting_amount: int, max_amount: int, on_change: Callable, on_max_change: Callable, can_die: bool = false):
 	__on_change = on_change
 	__on_max_change = on_max_change
 	__max_amount = max_amount

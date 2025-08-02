@@ -60,4 +60,5 @@ func render_label(time_left: float):
 
 func _on_timer_timeout():
 	#print("done")
-	FadeToBlack.go_to_scene(MENU)
+	GlobalGameManager.end_game()
+	#FadeToBlack.go_to_scene(MENU)

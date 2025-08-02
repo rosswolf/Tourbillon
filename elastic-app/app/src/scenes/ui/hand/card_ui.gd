@@ -6,6 +6,7 @@ extends Control
 @onready var card_title = $TitlePanel/Title 
 @onready var card_description = $DescriptionPanel/Description
 @onready var icon_container = $IconContainer
+@onready var durability_label = $TargetingBoxContainer/DurabilityLabel
 
 #@onready var card_image = $ImagePanel/Image
 #@onready var activation_color_panel = $ActivationContainer/ActivationColorPanel
@@ -32,6 +33,7 @@ func set_card_data(card: Card) -> void:
 	# Update UI elements
 	card_title.text = card.display_name
 	card_description.text = card.rules_text
+	durability_label.text = "Durability: " + str(card.durability.amount) + "/" + str(card.durability.max_amount)
 	
 	add_slot_icon("blue_energy", str(card.cost.get_energy_cost()), %TopHBoxContainer, GameIcon.TextSize.SMALL)
 	
