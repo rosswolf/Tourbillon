@@ -6,9 +6,8 @@
 	"display_name": "X",
 	"rules_text": "add_time=20, draw_card=2",
 	"cursor_image_uid": "bqvm4vgi4c0dn",
-	"card_cost": {
-	  "GameResource.Type.ENERGY": "0"
-	},
+	"durability_max": 2,
+	"card_cost": 0,
 	"instinct_effect": "add_time=20, draw_card=2",
 	"slot_effect": "add_time=20, draw_card=2",
 	"card_rarity": "Card.RarityType.DEFAULT",
@@ -21,9 +20,8 @@
 	"display_name": "A",
 	"rules_text": "build",
 	"cursor_image_uid": "bqvm4vgi4c0dn",
-	"card_cost": {
-	  "GameResource.Type.ENERGY": "1"
-	},
+	"durability_max": 2,
+	"card_cost": 1,
 	"slot_effect": "add_time=20, draw_card=2, cooldown=20",
 	"card_rarity": "Card.RarityType.STARTING"
   },
@@ -34,9 +32,8 @@
 	"display_name": "B",
 	"rules_text": "build",
 	"cursor_image_uid": "bqvm4vgi4c0dn",
-	"card_cost": {
-	  "GameResource.Type.ENERGY": ""
-	},
+	"durability_max": 2,
+	"card_cost": 0,
 	"slot_effect": "add_time=20, draw_card=2, cooldown=20",
 	"card_rarity": "Card.RarityType.STARTING"
   },
@@ -47,9 +44,8 @@
 	"display_name": "C",
 	"rules_text": "build",
 	"cursor_image_uid": "bqvm4vgi4c0dn",
-	"card_cost": {
-	  "GameResource.Type.ENERGY": "1"
-	},
+	"durability_max": 2,
+	"card_cost": 1,
 	"slot_effect": "add_time=20, draw_card=2, cooldown=20",
 	"card_rarity": "Card.RarityType.STARTING"
   },
@@ -60,9 +56,8 @@
 	"display_name": "D",
 	"rules_text": "build",
 	"cursor_image_uid": "bqvm4vgi4c0dn",
-	"card_cost": {
-	  "GameResource.Type.ENERGY": "1"
-	},
+	"durability_max": 2,
+	"card_cost": 1,
 	"slot_effect": "add_time=20, draw_card=2, cooldown=20",
 	"card_rarity": "Card.RarityType.STARTING"
   },
@@ -73,9 +68,8 @@
 	"display_name": "E",
 	"rules_text": "add_time=20, draw_card=2",
 	"cursor_image_uid": "bqvm4vgi4c0dn",
-	"card_cost": {
-	  "GameResource.Type.ENERGY": "1"
-	},
+	"durability_max": 2,
+	"card_cost": 1,
 	"instinct_effect": "add_time=20, draw_card=2",
 	"slot_effect": "add_time=20, draw_card=2",
 	"card_rarity": "Card.RarityType.STARTING"
@@ -87,9 +81,8 @@
 	"display_name": "F",
 	"rules_text": "add_time=20, draw_card=2",
 	"cursor_image_uid": "bqvm4vgi4c0dn",
-	"card_cost": {
-	  "GameResource.Type.ENERGY": "1"
-	},
+	"durability_max": 2,
+	"card_cost": 1,
 	"instinct_effect": "add_time=20, draw_card=2",
 	"slot_effect": "add_time=20, draw_card=2",
 	"card_rarity": "Card.RarityType.STARTING"
@@ -101,9 +94,8 @@
 	"display_name": "G",
 	"rules_text": "add_time=20, draw_card=2",
 	"cursor_image_uid": "bqvm4vgi4c0dn",
-	"card_cost": {
-	  "GameResource.Type.ENERGY": "1"
-	},
+	"durability_max": 2,
+	"card_cost": 1,
 	"instinct_effect": "add_time=20, draw_card=2",
 	"slot_effect": "add_time=20, draw_card=2",
 	"card_rarity": "Card.RarityType.STARTING"
@@ -115,9 +107,8 @@
 	"display_name": "H",
 	"rules_text": "add_time=20, draw_card=2",
 	"cursor_image_uid": "bqvm4vgi4c0dn",
-	"card_cost": {
-	  "GameResource.Type.ENERGY": "2"
-	},
+	"durability_max": 2,
+	"card_cost": 2,
 	"instinct_effect": "add_time=20, draw_card=2",
 	"slot_effect": "add_time=20, draw_card=2",
 	"card_rarity": "Card.RarityType.COMMON"
@@ -129,9 +120,8 @@
 	"display_name": "I",
 	"rules_text": "add_time=20, draw_card=2",
 	"cursor_image_uid": "bqvm4vgi4c0dn",
-	"card_cost": {
-	  "GameResource.Type.ENERGY": "0"
-	},
+	"durability_max": 2,
+	"card_cost": 0,
 	"instinct_effect": "add_time=20, draw_card=2",
 	"slot_effect": "add_time=20, draw_card=2",
 	"card_rarity": "Card.RarityType.COMMON"
@@ -143,9 +133,8 @@
 	"display_name": "J",
 	"rules_text": "add_time=20, draw_card=2",
 	"cursor_image_uid": "bqvm4vgi4c0dn",
-	"card_cost": {
-	  "GameResource.Type.ENERGY": "1"
-	},
+	"durability_max": 2,
+	"card_cost": 1,
 	"instinct_effect": "add_time=20, draw_card=2",
 	"slot_effect": "add_time=20, draw_card=2",
 	"card_rarity": "Card.RarityType.COMMON"
@@ -157,9 +146,8 @@
 	"display_name": "K",
 	"rules_text": "add_time=20, draw_card=2",
 	"cursor_image_uid": "bqvm4vgi4c0dn",
-	"card_cost": {
-	  "GameResource.Type.ENERGY": "1"
-	},
+	"durability_max": 2,
+	"card_cost": 1,
 	"instinct_effect": "add_time=20, draw_card=2",
 	"slot_effect": "add_time=20, draw_card=2",
 	"card_rarity": "Card.RarityType.COMMON"
@@ -171,9 +159,8 @@
 	"display_name": "L",
 	"rules_text": "add_time=20, draw_card=2",
 	"cursor_image_uid": "bqvm4vgi4c0dn",
-	"card_cost": {
-	  "GameResource.Type.ENERGY": "1"
-	},
+	"durability_max": 2,
+	"card_cost": 1,
 	"instinct_effect": "add_time=20, draw_card=2",
 	"slot_effect": "add_time=20, draw_card=2",
 	"card_rarity": "Card.RarityType.COMMON"
