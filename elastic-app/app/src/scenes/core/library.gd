@@ -259,7 +259,7 @@ func draw_new_hand(desired_hand_size: int):
 	
 	draw_card(desired_hand_size)
 	
-func get_cards_for_selection() -> Array[Card]:	
+func get_cards_for_selection(selection_id: String) -> Array[Card]:	
 	var selectable_cards: Array[Card] = []
 	
 	while selectable_cards.size() < card_selection_count:
@@ -303,7 +303,7 @@ func __get_card_for_selection(selectable_cards: Array[Card], card_library: ZoneC
 			break
 	
 	if selected_card == null:
-		print("Failed to select a unique card from library (this should not happen once we have a lot of cards): " + str(card_library._zone_type))
+		assert(false, "Failed to select a unique card from library (this should not happen once we have a lot of cards): " + str(card_library.__zone_type))
 		# TODO: figure out how we should handle this later
 		
 	# Add the rejected cards back in to the bottom of the library

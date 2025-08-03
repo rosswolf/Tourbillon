@@ -72,6 +72,13 @@ static var effect_map: Dictionary[String, InternalEffect] = {
 			return true,
 		{"source":[Hero, Card]}
 	),
+	"shop": InternalEffect.new(
+		func(source: Entity, params: Dictionary):
+			var shop_type: String = params.get("param")
+			GlobalSignals.signal_core_card_selection(shop_type)
+			return true,
+		{"source":[Hero, Card]}
+	)
 }
 
 static var intent_map: Dictionary[String, Intent] = {

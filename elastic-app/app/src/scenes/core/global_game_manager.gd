@@ -142,9 +142,6 @@ func end_turn():
 	allow_activations()
 	GlobalSignals.signal_core_begin_turn()
 
-func end_battle():
-	GlobalSignals.signal_core_arena_destroyed("junk")
-	GlobalSignals.signal_core_card_selection()
 
 func end_game():
 	GlobalSignals.signal_core_game_over()

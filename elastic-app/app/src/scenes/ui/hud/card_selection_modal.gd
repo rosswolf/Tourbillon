@@ -9,7 +9,7 @@ var cards: Array[Card] = []
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	hide()
-	process_mode = Node.PROCESS_MODE_WHEN_PAUSED
+	#process_mode = Node.PROCESS_MODE_WHEN_PAUSED
 	GlobalSignals.core_card_selection.connect(__on_card_selection)	
 
 
@@ -21,11 +21,11 @@ func resume() -> void:
 	GlobalSignals.signal_ui_started_battle()
 	
 	hide()
-	get_tree().paused = false 
+	#get_tree().paused = false 
 	animation_player.play_backwards("blur")
 	
-func __on_card_selection() -> void:
-	get_tree().paused = true
+func __on_card_selection(selection_id: String) -> void:
+	#get_tree().paused = true
 	
 	# Remove any existing child nodes from hbox
 	for child in hbox.get_children():
@@ -33,7 +33,7 @@ func __on_card_selection() -> void:
 	
 	hbox.alignment = BoxContainer.ALIGNMENT_CENTER
 		
-	cards = GlobalGameManager.library.get_cards_for_selection()	
+	cards = GlobalGameManager.library.get_cards_for_selection("test")	
 	for card in cards:
 		__add_card_as_button(card)
 		

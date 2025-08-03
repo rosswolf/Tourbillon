@@ -59,9 +59,9 @@ func get_intent_amount() -> int:
 		if move_piece.has_value and intent in [Intent.ATTACK_MELEE, Intent.ATTACK_RANGED]:
 			result = 0
 			if move_piece.repeat == 1:
-				result += move_piece.value
+				result += int(move_piece.value)
 			else:
-				result += move_piece.value * move_piece.repeat
+				result += int(move_piece.value) * move_piece.repeat
 	return result
 	
 static func load_empty_move() -> MoveDescriptorEffect:
