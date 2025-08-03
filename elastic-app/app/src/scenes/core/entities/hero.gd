@@ -10,8 +10,8 @@ var starting_relic: String
 
 var gold: CappedResource
 var time: TimeResource
+var energy: EnergyResource
 
-var energy: CappedResource
 var force: CappedResource
 var depth: CappedResource
 
@@ -20,15 +20,26 @@ func _init():
 
 class TimeResource:
 
-	func add_time(amount: float):
-		GlobalSignals.signal_core_time_added(amount)
+	func add_time(color: Air.AirColor, amount: float):
+		GlobalSignals.signal_core_time_added(color, amount)
 		
-	func replenish_time(amount: float):
-		GlobalSignals.signal_core_time_replenished(amount)
+	func replenish_time(color: Air.AirColor, amount: float):
+		GlobalSignals.signal_core_time_replenished(color, amount)
 	
-	func set_time(amount: float):
-		GlobalSignals.signal_core_time_set(amount)
+	func set_time(color: Air.AirColor, amount: float):
+		GlobalSignals.signal_core_time_set(color, amount)
 	
+class EnergyResource:
+
+	func add_energy(color: Air.AirColor, amount: float):
+		GlobalSignals.signal_core_energy_added(color, amount)
+		
+	func replenish_energy(color: Air.AirColor, amount: float):
+		GlobalSignals.signal_core_energy_replenished(color, amount)
+	
+	func set_energy(color: Air.AirColor, amount: float):
+		GlobalSignals.signal_core_energy_set(color, amount)	
+
 
 func get_type() -> Entity.EntityType:
 	return Entity.EntityType.HERO
@@ -108,7 +119,7 @@ class HeroBuilder extends Entity.EntityBuilder:
 		#hero.time = hero.construct_capped_resource(5*60, 5*60*1000, false, GameResource.Type.TIME)
 		hero.force = hero.construct_capped_resource(0, default_max, false, GameResource.Type.FORCE)
 		hero.depth = hero.construct_capped_resource(10, default_max, false, GameResource.Type.DEPTH)
-		hero.energy = hero.construct_capped_resource(0, default_max, false, GameResource.Type.ENERGY)
+		#hero.energy = hero.construct_capped_resource(0, default_max, false, GameResource.Type.ENERGY)
 		hero.gold = hero.construct_capped_resource(__starting_gold, default_max, false, GameResource.Type.GOLD)
 		
 		return hero

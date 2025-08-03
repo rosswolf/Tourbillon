@@ -38,6 +38,7 @@ func __build_enum_mappings():
 	# Auto-generate mappings from enum definitions
 	__add_enum_mapping("Card.RarityType", Card.RarityType)
 	__add_enum_mapping("GameResource.Type", GameResource.Type)
+	__add_enum_mapping("Air.AirColor", Air.AirColor)
 
 func __add_enum_mapping(prefix: String, enum_dict: Dictionary):
 	for key in enum_dict:
@@ -59,7 +60,7 @@ func _ready():
 	mob_data = load_json_file(mob_data_path)
 	configuration_data = load_json_file(configuration_data_path)
 	icon_data = load_json_file(icon_data_path)
-	wave_data = load_json_file(wave_data_path)
+	goals_data = load_json_file(goals_data_path)
 	relic_data = load_json_file(relic_data_path)
 	hero_data = load_json_file(hero_data_path)
 	goals_data = load_json_file(goals_data_path)
@@ -67,7 +68,7 @@ func _ready():
 	# Build indices for fast lookups
 	card_data_indices = build_field_indices(card_data)
 	mob_data_indices = build_field_indices(mob_data)
-	wave_data_indices = build_field_indices(wave_data)
+	goals_data_indices = build_field_indices(goals_data)
 	relic_data_indices = build_field_indices(relic_data)
 	hero_data_indices = build_field_indices(hero_data)
 	relic_data_indices = build_field_indices(goals_data)
@@ -142,8 +143,8 @@ func get_data_type_name(data_dict: Dictionary) -> String:
 		return "card"
 	elif data_dict == mob_data:
 		return "mob"
-	elif data_dict == wave_data:
-		return "wave"
+	elif data_dict == goals_data:
+		return "goal"
 	elif data_dict == relic_data:
 		return "relic"
 	elif data_dict == hero_data:
@@ -167,8 +168,8 @@ func get_data_and_indices_for_type(data_type: String) -> Array:
 			return [card_data, card_data_indices]
 		"mob":
 			return [mob_data, mob_data_indices]
-		"wave":
-			return [wave_data, wave_data_indices]
+		"goal":
+			return [goals_data, goals_data_indices]
 		"relic":
 			return [relic_data, relic_data_indices]
 		"icon":
@@ -196,8 +197,8 @@ func lookup_in_data(data_dict: Dictionary, field_to_filter: String, filter_value
 		indices = card_data_indices
 	elif data_dict == mob_data:
 		indices = mob_data_indices
-	elif data_dict == wave_data:
-		indices = wave_data_indices
+	elif data_dict == goals_data:
+		indices = goals_data_indices
 	elif data_dict == relic_data:
 		indices = relic_data_indices
 	elif data_dict == hero_data:

@@ -115,14 +115,10 @@ class CardBuilder extends Entity.EntityBuilder:
 		__instinct_effect = move_descriptor
 		return self
 		
-	#func with_card_cost(required_resources: Dictionary) -> CardBuilder:
-		#for key in required_resources.keys():
-			#var num_required: int = required_resources[key] as int
-			#__required_resources[key] = num_required
-		#return self
-	
-	func with_card_cost(energy_cost: int) -> CardBuilder:
-		__required_resources[GameResource.Type.ENERGY] = energy_cost
+	func with_card_cost(required_resources: Dictionary) -> CardBuilder:
+		for key in required_resources.keys():
+			var num_required: int = required_resources[key] as int
+			__required_resources[key] = num_required
 		return self
 	
 	func with_durability(durability_in: int) -> CardBuilder:
@@ -216,7 +212,7 @@ static func build_new_card_from_template(card_template_id: String, card_template
 		builder.with_instance_id(card_template_id)
 	
 	builder.with_durability(int(card_template_data.get("durability_max", 1)))
-	builder.with_card_cost(int(card_template_data.get("card_cost", 0)))	
+	builder.with_card_cost(card_template_data.get("card_cost"))
 	builder.with_rules_text(card_template_data.get("rules_text",""))
 	var card = builder.build()
 	return card

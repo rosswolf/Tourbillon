@@ -80,6 +80,25 @@ func __can_satisfy_requirement(resource_type: GameResource.Type, amount: int) ->
 		return false
 	var resource_accesor = GameResource.ResourceAccessor.new()
 	return resource_accesor.get_count(resource_type) >= amount
+	#
+func get_energy_color() -> Air.AirColor:		
+	if requirements.has(Air.AirColor.RED):
+		return Air.AirColor.RED
+	if requirements.has(Air.AirColor.BLUE):
+		return Air.AirColor.BLUE
+	if requirements.has(Air.AirColor.ORANGE):
+		return Air.AirColor.ORANGE
+	
+	return Air.AirColor.NONE
+	#return requirements.get(GameResource.Type.RED_ENERGY, 0)			
 	
 func get_energy_cost() -> int:		
-	return requirements.get(GameResource.Type.ENERGY, 0)			
+	if requirements.has(Air.AirColor.RED):
+		return requirements[Air.AirColor.RED]
+	if requirements.has(Air.AirColor.BLUE):
+		return requirements[Air.AirColor.BLUE]
+	if requirements.has(Air.AirColor.ORANGE):
+		return requirements[Air.AirColor.ORANGE]
+	
+	return 0
+	#return requirements.get(GameResource.Type.RED_ENERGY, 0)		

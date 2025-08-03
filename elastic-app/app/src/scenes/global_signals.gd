@@ -47,18 +47,32 @@ func signal_ui_card_unhovered(card_instance_id: String):
 
 # Core Signal Functions
 
-signal core_time_replenished(amount: float)
-func signal_core_time_replenished(amount: float):
-	core_time_replenished.emit(amount)
+signal core_time_set(color: Air.AirColor, amount: float)
+func signal_core_time_set(color: Air.AirColor, amount: float):
+	core_time_set.emit(color, amount)
 
-signal core_time_added(amount: float)
-func signal_core_time_added(amount: float):
-	core_time_added.emit(amount)
+signal core_time_replenished(color: Air.AirColor, amount: float)
+func signal_core_time_replenished(color: Air.AirColor, amount: float):
+	core_time_replenished.emit(color, amount)
+
+signal core_time_added(color: Air.AirColor, amount: float)
+func signal_core_time_added(color: Air.AirColor, amount: float):
+	core_time_added.emit(color, amount)
+	
+signal core_energy_set(color: Air.AirColor, amount: float)
+func signal_core_energy_set(color: Air.AirColor, amount: float):
+	core_energy_set.emit(color, amount)	
+	
+signal core_energy_replenished(color: Air.AirColor, amount: float)
+func signal_core_energy_replenished(color: Air.AirColor, amount: float):
+	core_energy_replenished.emit(color, amount)
+
+signal core_energy_added(color: Air.AirColor, amount: float)
+func signal_core_energy_added(color: Air.AirColor, amount: float):
+	core_energy_added.emit(color, amount)	
 	
 # Core Signal Functions
-signal core_time_set(amount: float)
-func signal_core_time_set(amount: float):
-	core_time_set.emit(amount)
+
 
 signal core_begin_turn()
 func signal_core_begin_turn():

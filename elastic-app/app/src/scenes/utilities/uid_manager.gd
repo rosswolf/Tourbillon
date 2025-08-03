@@ -28,4 +28,6 @@ static var SLOT_ICON_UIDS: Dictionary[String, String] = {
 	"black_t" = "cn251mriu1ngn",
 	"energy" = "bqvm4vgi4c0dn",
 	"blue_energy" = "dqaiaxeje5m6r",
+	"red_energy" = "bkskdgrprxsrw",
+	"orange_energy" = "cpegqxuj4ay1t",
 }

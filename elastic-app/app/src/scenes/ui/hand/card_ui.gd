@@ -8,6 +8,13 @@ extends Control
 @onready var icon_container = $IconContainer
 @onready var durability_label = $TargetingBoxContainer/DurabilityLabel
 
+var energy_icons: Dictionary[Air.AirColor, String] = {
+	Air.AirColor.ORANGE: "orange_energy",
+	Air.AirColor.BLUE: "blue_energy",
+	Air.AirColor.RED: "red_energy",
+	Air.AirColor.NONE: "none_energy"
+}
+
 #@onready var card_image = $ImagePanel/Image
 #@onready var activation_color_panel = $ActivationContainer/ActivationColorPanel
 
@@ -36,7 +43,10 @@ func set_card_data(card: Card) -> void:
 	if card.durability.amount <= 0:
 		durability_label.text = "Durability: " + str(card.durability.amount) + "/" + str(card.durability.max_amount)
 	
-	add_slot_icon("blue_energy", str(card.cost.get_energy_cost()), %TopHBoxContainer, GameIcon.TextSize.SMALL)
+	var energy_color: Air.AirColor = card.cost.get_energy_color()
+	
+	
+	add_slot_icon(energy_icons[card.cost.get_energy_color()], str(card.cost.get_energy_cost()), %TopHBoxContainer, GameIcon.TextSize.SMALL)
 	
 		
 

@@ -32,14 +32,14 @@ static var effect_map: Dictionary[String, InternalEffect] = {
 		func(source: Entity, params: Dictionary):
 			
 			var amount = int(params.get("param"))
-			GlobalGameManager.hero.time.replenish_time(amount)
+			#GlobalGameManager.hero.time.replenish_time(amount)
 			return true,
 		{"source":[Hero, Card]}
 	),
 	"add_time": InternalEffect.new(
 		func(source: Entity, params: Dictionary):
 			var amount = int(params.get("param"))
-			GlobalGameManager.hero.time.add_time(amount)
+			#GlobalGameManager.hero.time.add_time(amount)
 			return true,
 		{"source":[Hero, Card]}
 	),

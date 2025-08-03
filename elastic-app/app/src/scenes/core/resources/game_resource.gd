@@ -5,8 +5,12 @@ class_name GameResource
 enum Type {
 	UNKNOWN,
 	GOLD,
-	TIME,
-	ENERGY,
+	RED_TIME,
+	ORANGE_TIME,
+	BLUE_TIME,
+	RED_ENERGY,
+	ORANGE_ENERGY,
+	BLUE_ENERGY,
 	FORCE,
 	DEPTH,
 	NONE
@@ -39,13 +43,30 @@ class ResourceAccessor:
 			func(): return GlobalGameManager.hero.gold.amount,
 			func(value): GlobalGameManager.hero.gold.amount = value
 		),
-		GameResource.Type.TIME: __SpecificResourceAccessor.new(
-			func(): return GlobalGameManager.hero.time.amount,
-			func(value): GlobalGameManager.hero.time.amount = value
+		# TODO
+		GameResource.Type.RED_TIME: __SpecificResourceAccessor.new(
+			func(): assert(false,""),
+			func(value): assert(false,"")
 		),
-		GameResource.Type.ENERGY: __SpecificResourceAccessor.new(
-			func(): return GlobalGameManager.hero.energy.max_amount,
-			func(value): GlobalGameManager.hero.energy.max_amount = value
+		GameResource.Type.ORANGE_TIME: __SpecificResourceAccessor.new(
+			func(): assert(false,""),
+			func(value): assert(false,"")
+		),	
+		GameResource.Type.BLUE_TIME: __SpecificResourceAccessor.new(
+			func(): assert(false,""),
+			func(value): assert(false,"")
+		),
+		GameResource.Type.RED_ENERGY: __SpecificResourceAccessor.new(
+			func(): assert(false,""),
+			func(value): assert(false,"")
+		),
+		GameResource.Type.ORANGE_ENERGY: __SpecificResourceAccessor.new(
+			func(): assert(false,""),
+			func(value): assert(false,"")
+		),
+		GameResource.Type.BLUE_ENERGY: __SpecificResourceAccessor.new(
+			func(): assert(false,""),
+			func(value): assert(false,"")
 		),
 		GameResource.Type.FORCE: __SpecificResourceAccessor.new(
 			func(): return GlobalGameManager.hero.force.amount,

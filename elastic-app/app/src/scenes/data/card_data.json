@@ -7,7 +7,9 @@
 	"rules_text": "add_time=20, draw_card=2",
 	"cursor_image_uid": "bqvm4vgi4c0dn",
 	"durability_max": 2,
-	"card_cost": 0,
+	"card_cost": {
+	  "Air.AirColor.RED": "0"
+	},
 	"instinct_effect": "add_time=20, draw_card=2",
 	"slot_effect": "add_time=20, draw_card=2",
 	"card_rarity": "Card.RarityType.DEFAULT",
@@ -21,7 +23,9 @@
 	"rules_text": "shop",
 	"cursor_image_uid": "bqvm4vgi4c0dn",
 	"durability_max": 2,
-	"card_cost": 1,
+	"card_cost": {
+	  "Air.AirColor.RED": "0"
+	},
 	"instinct_effect": "shop=foo",
 	"card_rarity": "Card.RarityType.STARTING"
   },
@@ -33,7 +37,9 @@
 	"rules_text": "build",
 	"cursor_image_uid": "bqvm4vgi4c0dn",
 	"durability_max": 2,
-	"card_cost": 0,
+	"card_cost": {
+	  "Air.AirColor.RED": "0"
+	},
 	"slot_effect": "add_time=20, draw_card=2, cooldown=20",
 	"card_rarity": "Card.RarityType.STARTING"
   },
@@ -45,7 +51,9 @@
 	"rules_text": "add_time=30",
 	"cursor_image_uid": "bqvm4vgi4c0dn",
 	"durability_max": 2,
-	"card_cost": 1,
+	"card_cost": {
+	  "Air.AirColor.RED": "0"
+	},
 	"instinct_effect": "add_time=30",
 	"card_rarity": "Card.RarityType.STARTING"
   },
@@ -57,7 +65,9 @@
 	"rules_text": "add_time=30",
 	"cursor_image_uid": "bqvm4vgi4c0dn",
 	"durability_max": 2,
-	"card_cost": 1,
+	"card_cost": {
+	  "Air.AirColor.RED": "0"
+	},
 	"instinct_effect": "add_time=30",
 	"card_rarity": "Card.RarityType.STARTING"
   },
@@ -69,7 +79,9 @@
 	"rules_text": "add_time=20, draw_card=2",
 	"cursor_image_uid": "bqvm4vgi4c0dn",
 	"durability_max": 2,
-	"card_cost": 1,
+	"card_cost": {
+	  "Air.AirColor.RED": "0"
+	},
 	"instinct_effect": "add_time=20, draw_card=2",
 	"slot_effect": "add_time=20, draw_card=2",
 	"card_rarity": "Card.RarityType.STARTING"
@@ -82,7 +94,9 @@
 	"rules_text": "add_time=20, draw_card=2",
 	"cursor_image_uid": "bqvm4vgi4c0dn",
 	"durability_max": 2,
-	"card_cost": 1,
+	"card_cost": {
+	  "Air.AirColor.RED": "0"
+	},
 	"instinct_effect": "add_time=20, draw_card=2",
 	"slot_effect": "add_time=20, draw_card=2",
 	"card_rarity": "Card.RarityType.STARTING"
@@ -95,7 +109,9 @@
 	"rules_text": "add_time=20, draw_card=2",
 	"cursor_image_uid": "bqvm4vgi4c0dn",
 	"durability_max": 2,
-	"card_cost": 1,
+	"card_cost": {
+	  "Air.AirColor.RED": "0"
+	},
 	"instinct_effect": "add_time=20, draw_card=2",
 	"slot_effect": "add_time=20, draw_card=2",
 	"card_rarity": "Card.RarityType.STARTING"
@@ -108,7 +124,9 @@
 	"rules_text": "replenish_time=30",
 	"cursor_image_uid": "bqvm4vgi4c0dn",
 	"durability_max": 5,
-	"card_cost": 2,
+	"card_cost": {
+	  "Air.AirColor.RED": "0"
+	},
 	"instinct_effect": "replenish_time=30",
 	"card_rarity": "Card.RarityType.COMMON"
   },
@@ -120,7 +138,9 @@
 	"rules_text": "draw_card=7",
 	"cursor_image_uid": "bqvm4vgi4c0dn",
 	"durability_max": 1,
-	"card_cost": 2,
+	"card_cost": {
+	  "Air.AirColor.RED": "0"
+	},
 	"instinct_effect": "draw_card=7",
 	"card_rarity": "Card.RarityType.COMMON"
   },
@@ -132,7 +152,9 @@
 	"rules_text": "click to draw",
 	"cursor_image_uid": "bqvm4vgi4c0dn",
 	"durability_max": 2,
-	"card_cost": 1,
+	"card_cost": {
+	  "Air.AirColor.RED": "0"
+	},
 	"slot_effect": "draw_card=1, cooldown=30",
 	"card_rarity": "Card.RarityType.COMMON"
   },
@@ -144,7 +166,9 @@
 	"rules_text": "add_energy=4",
 	"cursor_image_uid": "bqvm4vgi4c0dn",
 	"durability_max": 2,
-	"card_cost": 1,
+	"card_cost": {
+	  "Air.AirColor.RED": "0"
+	},
 	"instinct_effect": "add_energy=4",
 	"card_rarity": "Card.RarityType.COMMON"
   },
@@ -156,7 +180,9 @@
 	"rules_text": "add_energy=1, cooldown=5",
 	"cursor_image_uid": "bqvm4vgi4c0dn",
 	"durability_max": 2,
-	"card_cost": 1,
+	"card_cost": {
+	  "Air.AirColor.RED": "0"
+	},
 	"slot_effect": "add_energy=1, cooldown=5",
 	"card_rarity": "Card.RarityType.COMMON"
   }
