@@ -34,35 +34,35 @@ static var effect_map: Dictionary[String, InternalEffect] = {
 			var amount = int(params.get("param"))
 			GlobalGameManager.hero.time.replenish_time(amount)
 			return true,
-		{"source":[Hero]}
+		{"source":[Hero, Card]}
 	),
 	"add_time": InternalEffect.new(
 		func(source: Entity, params: Dictionary):
 			var amount = int(params.get("param"))
 			GlobalGameManager.hero.time.add_time(amount)
 			return true,
-		{"source":[Hero]}
+		{"source":[Hero, Card]}
 	),
 	"add_energy": InternalEffect.new(
 		func(source: Entity, params: Dictionary):
 			var amount = int(params.get("param"))
 			GlobalGameManager.hero.energy.increment(amount)
 			return true,
-		{"source":[Hero]} 
+		{"source":[Hero, Card]}
 	),
 	"draw_card": InternalEffect.new(
 		func(source: Entity, params: Dictionary):
 			var amount = int(params.get("param"))
 			GlobalGameManager.library.draw_card(amount)
 			return true,
-		{"source":[Hero]}
+		{"source":[Hero, Card]}
 	),
 	"durability_hit_zero": InternalEffect.new(
 		func(source: Entity, params: Dictionary):
 			var card: Card = params.get("card") as Card
 			GlobalGameManager.library.move_card_to_zone2(card.instance_id, Library.Zone.ANY, Library.Zone.EXILED)
 			return true,
-		{"source":[Hero]}
+		{"source":[Hero, Card]}
 	),
 	"cooldown":  InternalEffect.new(
 		func(source: Entity, params: Dictionary):
@@ -70,7 +70,7 @@ static var effect_map: Dictionary[String, InternalEffect] = {
 			var card: Card = params.get("card") as Card
 			GlobalSignals.signal_core_slot_add_cooldown(card.instance_id, amount)
 			return true,
-		{"source":[Hero]} 
+		{"source":[Hero, Card]}
 	),
 }
 
@@ -105,7 +105,10 @@ static func entity_in_types(source: Entity, valid_types: Array):
 	for type in valid_types:
 		valid_type_strings.append(type._get_type_string())
 		
-	return source._get_type_string() in valid_type_strings or Entity._get_type_string() in valid_type_strings
+	var type_string = "None"
+	if source != null:
+		type_string = source._get_type_string()
+	return type_string in valid_type_strings or Entity._get_type_string() in valid_type_strings
 	
 
 

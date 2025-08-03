@@ -48,7 +48,7 @@ func activate_instinct_effect(source: Entity, target: Entity) -> bool:
 	if not __instinct_effect._is_valid_source(source):
 		return false
 	
-	if not __instinct_effect.is_valid_target(target):
+	if not __instinct_effect._is_valid_target(target):
 		return false
 	
 	if not __instinct_effect._could_satisfy_costs(source, target) or \

@@ -42,11 +42,11 @@
 	"group_template_id": "knight",
 	"card_count": 1,
 	"display_name": "C",
-	"rules_text": "build",
+	"rules_text": "add_time=30",
 	"cursor_image_uid": "bqvm4vgi4c0dn",
 	"durability_max": 2,
 	"card_cost": 1,
-	"slot_effect": "add_time=20, draw_card=2, cooldown=20",
+	"instinct_effect": "add_time=30",
 	"card_rarity": "Card.RarityType.STARTING"
   },
   {
@@ -54,11 +54,11 @@
 	"group_template_id": "knight",
 	"card_count": 1,
 	"display_name": "D",
-	"rules_text": "build",
+	"rules_text": "add_time=30",
 	"cursor_image_uid": "bqvm4vgi4c0dn",
 	"durability_max": 2,
 	"card_cost": 1,
-	"slot_effect": "add_time=20, draw_card=2, cooldown=20",
+	"instinct_effect": "add_time=30",
 	"card_rarity": "Card.RarityType.STARTING"
   },
   {

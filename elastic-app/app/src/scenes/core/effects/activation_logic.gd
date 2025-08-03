@@ -16,7 +16,8 @@ static func activate(source: Entity, target: Entity) -> bool:
 		var card: Card = source as Card
 		if card.has_instinct_effect():
 			return activate_instinct(card, target)
-			
+		elif card.has_slot_effect():
+			return slot_card_in_battleground(card)
 				
 	return false
 
