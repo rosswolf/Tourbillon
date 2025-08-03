@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://boundwpeua3rd"]
 
 [ext_resource type="Script" uid="uid://clujuvr10o8wy" path="res://src/scenes/ui/hud/game_over_modal.gd" id="1_r0pla"]
-[ext_resource type="Shader" uid="uid://l6siyho1xvwp" path="res://src/scenes/ui/hud/Blur.gdshader" id="2_nfxuy"]
+[ext_resource type="Shader" path="res://src/scenes/ui/hud/Blur.gdshader" id="2_nfxuy"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1npdy"]
 shader = ExtResource("2_nfxuy")
@@ -175,11 +175,13 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="QuitToMain" type="Button" parent="PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
 process_mode = 3
 layout_mode = 2
 text = "QUIT TO MAIN MENU"
 
 [node name="ExitGame" type="Button" parent="PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
 process_mode = 3
 layout_mode = 2
 text = "EXIT GAME"
@@ -188,6 +190,3 @@ text = "EXIT GAME"
 libraries = {
 &"": SubResource("AnimationLibrary_odh1t")
 }
-
-[connection signal="pressed" from="PanelContainer/VBoxContainer/QuitToMain" to="." method="_on_quit_to_main_pressed"]
-[connection signal="pressed" from="PanelContainer/VBoxContainer/ExitGame" to="." method="_on_exit_game_pressed"]

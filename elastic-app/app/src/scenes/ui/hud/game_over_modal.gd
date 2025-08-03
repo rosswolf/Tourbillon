@@ -8,6 +8,9 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_WHEN_PAUSED
 	
 	GlobalSignals.core_game_over.connect(__on_game_over)
+	%QuitToMain.pressed.connect(__on_quit_to_main_pressed)
+	%ExitGame.pressed.connect(__on_exit_game_pressed)
+	
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -27,7 +30,7 @@ func __on_game_over():
 
 func __on_quit_to_main_pressed() -> void:
 	resume()
-	GlobalSignals.signal_ui_quit_to_main()
+	FadeToBlack.go_to_scene("res://src/scenes/main_menu.tscn")
 
 func __on_exit_game_pressed() -> void:
 	get_tree().quit()
