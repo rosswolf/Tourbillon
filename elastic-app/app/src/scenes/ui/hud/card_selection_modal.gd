@@ -18,7 +18,7 @@ func _process(delta: float) -> void:
 	pass
 	
 func resume() -> void:
-	GlobalSignals.signal_ui_started_battle()
+	#GlobalSignals.signal_ui_started_battle()
 	
 	hide()
 	#get_tree().paused = false 
