@@ -1,189 +1,292 @@
 [
   {
-	"card_template_id": "knight_default",
-	"group_template_id": "knight",
-	"card_count": 0,
-	"display_name": "X",
-	"rules_text": "add_time=20, draw_card=2",
-	"cursor_image_uid": "bqvm4vgi4c0dn",
-	"durability_max": 2,
-	"card_cost": {
-	  "Air.AirColor.RED": "0"
-	},
-	"instinct_effect": "add_time=20, draw_card=2",
-	"slot_effect": "add_time=20, draw_card=2",
-	"card_rarity": "Card.RarityType.DEFAULT",
-	"tags": "DEFAULT_CARD"
+    "card_template_id": "card_shop_card",
+    "group_template_id": "knight",
+    "card_count": 1,
+    "display_name": "What have we here",
+    "rules_text": "buy a card",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "durability_max": 5,
+    "card_cost": {
+      "Air.AirColor.RED": "0"
+    },
+    "instinct_effect": "shop=card",
+    "card_rarity": "Card.RarityType.STARTING"
   },
   {
-	"card_template_id": "card_basic_attack",
-	"group_template_id": "knight",
-	"card_count": 1,
-	"display_name": "A",
-	"rules_text": "shop",
-	"cursor_image_uid": "bqvm4vgi4c0dn",
-	"durability_max": 2,
-	"card_cost": {
-	  "Air.AirColor.RED": "0"
-	},
-	"instinct_effect": "shop=foo",
-	"card_rarity": "Card.RarityType.STARTING"
+    "card_template_id": "card_shop_slot",
+    "group_template_id": "knight",
+    "card_count": 1,
+    "display_name": "Found something",
+    "rules_text": "buy a tool",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "durability_max": 2,
+    "card_cost": {
+      "Air.AirColor.ORANGE": "0"
+    },
+    "instinct_effect": "shop=slot",
+    "card_rarity": "Card.RarityType.STARTING"
   },
   {
-	"card_template_id": "card_dash_attack",
-	"group_template_id": "knight",
-	"card_count": 1,
-	"display_name": "B",
-	"rules_text": "build",
-	"cursor_image_uid": "bqvm4vgi4c0dn",
-	"durability_max": 2,
-	"card_cost": {
-	  "Air.AirColor.RED": "0"
-	},
-	"slot_effect": "add_time=20, draw_card=2, cooldown=20",
-	"card_rarity": "Card.RarityType.STARTING"
+    "card_template_id": "card_10s_all",
+    "group_template_id": "knight",
+    "card_count": 1,
+    "display_name": "Glory",
+    "rules_text": "replenish 10s all colors, draw 3 cards",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "durability_max": 3,
+    "card_cost": {
+      "Air.AirColor.None": "0"
+    },
+    "instinct_effect": "add_red_time=10, add_blue_time=10, add_orange_time=10, draw_card=3",
+    "card_rarity": "Card.RarityType.STARTING"
   },
   {
-	"card_template_id": "card_bob_and_weave",
-	"group_template_id": "knight",
-	"card_count": 1,
-	"display_name": "C",
-	"rules_text": "add_time=30",
-	"cursor_image_uid": "bqvm4vgi4c0dn",
-	"durability_max": 2,
-	"card_cost": {
-	  "Air.AirColor.RED": "0"
-	},
-	"instinct_effect": "add_time=30",
-	"card_rarity": "Card.RarityType.STARTING"
+    "card_template_id": "slot_click_to_draw",
+    "group_template_id": "knight",
+    "card_count": 1,
+    "display_name": "Strange gearbox",
+    "rules_text": {
+      "activate": "draw a card, 10s cooldown"
+    },
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "durability_max": 1,
+    "card_cost": {
+      "Air.AirColor.BLUE": "0"
+    },
+    "slot_effect": "draw_card=1,cooldown=10",
+    "card_rarity": "Card.RarityType.STARTING"
   },
   {
-	"card_template_id": "card_mend",
-	"group_template_id": "knight",
-	"card_count": 1,
-	"display_name": "D",
-	"rules_text": "add_time=30",
-	"cursor_image_uid": "bqvm4vgi4c0dn",
-	"durability_max": 2,
-	"card_cost": {
-	  "Air.AirColor.RED": "0"
-	},
-	"instinct_effect": "add_time=30",
-	"card_rarity": "Card.RarityType.STARTING"
+    "card_template_id": "card_red_time",
+    "group_template_id": "knight",
+    "card_count": 1,
+    "display_name": "Ruby",
+    "rules_text": "replenish 20s red, draw 1 card",
+    "card_cost": {
+      "Air.AirColor.RED": "0"
+    },
+    "instinct_effect": "add_red_time=20, draw_card=1",
+    "card_rarity": "Card.RarityType.STARTING"
   },
   {
-	"card_template_id": "card_defend",
-	"group_template_id": "knight",
-	"card_count": 0,
-	"display_name": "E",
-	"rules_text": "add_time=20, draw_card=2",
-	"cursor_image_uid": "bqvm4vgi4c0dn",
-	"durability_max": 2,
-	"card_cost": {
-	  "Air.AirColor.RED": "0"
-	},
-	"instinct_effect": "add_time=20, draw_card=2",
-	"slot_effect": "add_time=20, draw_card=2",
-	"card_rarity": "Card.RarityType.STARTING"
+    "card_template_id": "card_blue_time",
+    "group_template_id": "knight",
+    "card_count": 1,
+    "display_name": "Sapphire",
+    "rules_text": "replenish 20s blue, draw 1 card",
+    "card_cost": {
+      "Air.AirColor.BLUE": "0"
+    },
+    "instinct_effect": "add_blue_time=20, draw_card=1",
+    "card_rarity": "Card.RarityType.STARTING"
   },
   {
-	"card_template_id": "card_wall",
-	"group_template_id": "knight",
-	"card_count": 0,
-	"display_name": "F",
-	"rules_text": "add_time=20, draw_card=2",
-	"cursor_image_uid": "bqvm4vgi4c0dn",
-	"durability_max": 2,
-	"card_cost": {
-	  "Air.AirColor.RED": "0"
-	},
-	"instinct_effect": "add_time=20, draw_card=2",
-	"slot_effect": "add_time=20, draw_card=2",
-	"card_rarity": "Card.RarityType.STARTING"
+    "card_template_id": "card_orange_time",
+    "group_template_id": "knight",
+    "card_count": 1,
+    "display_name": "Firestone",
+    "rules_text": "replenish 20s orange, draw 1 card",
+    "card_cost": {
+      "Air.AirColor.ORANGE": "0"
+    },
+    "instinct_effect": "add_orange_time=20, draw_card=1",
+    "card_rarity": "Card.RarityType.STARTING"
   },
   {
-	"card_template_id": "card_shield_bash",
-	"group_template_id": "knight",
-	"card_count": 0,
-	"display_name": "G",
-	"rules_text": "add_time=20, draw_card=2",
-	"cursor_image_uid": "bqvm4vgi4c0dn",
-	"durability_max": 2,
-	"card_cost": {
-	  "Air.AirColor.RED": "0"
-	},
-	"instinct_effect": "add_time=20, draw_card=2",
-	"slot_effect": "add_time=20, draw_card=2",
-	"card_rarity": "Card.RarityType.STARTING"
+    "card_template_id": "knight_default",
+    "group_template_id": "knight",
+    "card_count": 0,
+    "display_name": "X",
+    "rules_text": "add_time=20, draw_card=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "durability_max": 2,
+    "card_cost": {
+      "Air.AirColor.RED": "0"
+    },
+    "instinct_effect": "shop=foo",
+    "slot_effect": "shop=foo",
+    "card_rarity": "Card.RarityType.DEFAULT",
+    "tags": "DEFAULT_CARD"
   },
   {
-	"card_template_id": "card_grenade",
-	"group_template_id": "knight",
-	"card_count": 1,
-	"display_name": "H",
-	"rules_text": "replenish_time=30",
-	"cursor_image_uid": "bqvm4vgi4c0dn",
-	"durability_max": 5,
-	"card_cost": {
-	  "Air.AirColor.RED": "0"
-	},
-	"instinct_effect": "replenish_time=30",
-	"card_rarity": "Card.RarityType.COMMON"
+    "card_template_id": "card_basic_attack",
+    "group_template_id": "knight",
+    "card_count": 0,
+    "display_name": "A",
+    "rules_text": "shop",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "durability_max": 2,
+    "card_cost": {
+      "Air.AirColor.RED": "0"
+    },
+    "instinct_effect": "shop=foo",
+    "slot_effect": "shop=foo",
+    "card_rarity": "Card.RarityType.STARTING"
   },
   {
-	"card_template_id": "card_slimed",
-	"group_template_id": "curse",
-	"card_count": 1,
-	"display_name": "I",
-	"rules_text": "draw_card=7",
-	"cursor_image_uid": "bqvm4vgi4c0dn",
-	"durability_max": 1,
-	"card_cost": {
-	  "Air.AirColor.RED": "0"
-	},
-	"instinct_effect": "draw_card=7",
-	"card_rarity": "Card.RarityType.COMMON"
+    "card_template_id": "card_dash_attack",
+    "group_template_id": "knight",
+    "card_count": 0,
+    "display_name": "B",
+    "rules_text": "build",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "durability_max": 2,
+    "card_cost": {
+      "Air.AirColor.RED": "0"
+    },
+    "instinct_effect": "shop=foo",
+    "slot_effect": "shop=foo",
+    "card_rarity": "Card.RarityType.STARTING"
   },
   {
-	"card_template_id": "card_witness_me",
-	"group_template_id": "knight",
-	"card_count": 1,
-	"display_name": "J",
-	"rules_text": "click to draw",
-	"cursor_image_uid": "bqvm4vgi4c0dn",
-	"durability_max": 2,
-	"card_cost": {
-	  "Air.AirColor.RED": "0"
-	},
-	"slot_effect": "draw_card=1, cooldown=30",
-	"card_rarity": "Card.RarityType.COMMON"
+    "card_template_id": "card_bob_and_weave",
+    "group_template_id": "knight",
+    "card_count": 0,
+    "display_name": "C",
+    "rules_text": "add_time=30",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "durability_max": 2,
+    "card_cost": {
+      "Air.AirColor.RED": "0"
+    },
+    "instinct_effect": "shop=foo",
+    "slot_effect": "shop=foo",
+    "card_rarity": "Card.RarityType.STARTING"
   },
   {
-	"card_template_id": "card_double_dash",
-	"group_template_id": "knight",
-	"card_count": 1,
-	"display_name": "K",
-	"rules_text": "add_energy=4",
-	"cursor_image_uid": "bqvm4vgi4c0dn",
-	"durability_max": 2,
-	"card_cost": {
-	  "Air.AirColor.RED": "0"
-	},
-	"instinct_effect": "add_energy=4",
-	"card_rarity": "Card.RarityType.COMMON"
+    "card_template_id": "card_mend",
+    "group_template_id": "knight",
+    "card_count": 0,
+    "display_name": "D",
+    "rules_text": "add_time=30",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "durability_max": 2,
+    "card_cost": {
+      "Air.AirColor.RED": "0"
+    },
+    "instinct_effect": "shop=foo",
+    "slot_effect": "shop=foo",
+    "card_rarity": "Card.RarityType.STARTING"
   },
   {
-	"card_template_id": "card_tussle",
-	"group_template_id": "knight",
-	"card_count": 1,
-	"display_name": "L",
-	"rules_text": "add_energy=1, cooldown=5",
-	"cursor_image_uid": "bqvm4vgi4c0dn",
-	"durability_max": 2,
-	"card_cost": {
-	  "Air.AirColor.RED": "0"
-	},
-	"slot_effect": "add_energy=1, cooldown=5",
-	"card_rarity": "Card.RarityType.COMMON"
+    "card_template_id": "card_defend",
+    "group_template_id": "knight",
+    "card_count": 0,
+    "display_name": "E",
+    "rules_text": "add_time=20, draw_card=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "durability_max": 2,
+    "card_cost": {
+      "Air.AirColor.RED": "0"
+    },
+    "instinct_effect": "shop=foo",
+    "slot_effect": "shop=foo",
+    "card_rarity": "Card.RarityType.STARTING"
+  },
+  {
+    "card_template_id": "card_wall",
+    "group_template_id": "knight",
+    "card_count": 0,
+    "display_name": "F",
+    "rules_text": "add_time=20, draw_card=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "durability_max": 2,
+    "card_cost": {
+      "Air.AirColor.RED": "0"
+    },
+    "instinct_effect": "shop=foo",
+    "slot_effect": "shop=foo",
+    "card_rarity": "Card.RarityType.STARTING"
+  },
+  {
+    "card_template_id": "card_shield_bash",
+    "group_template_id": "knight",
+    "card_count": 0,
+    "display_name": "G",
+    "rules_text": "add_time=20, draw_card=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "durability_max": 2,
+    "card_cost": {
+      "Air.AirColor.RED": "0"
+    },
+    "instinct_effect": "shop=foo",
+    "slot_effect": "shop=foo",
+    "card_rarity": "Card.RarityType.STARTING"
+  },
+  {
+    "card_template_id": "card_grenade",
+    "group_template_id": "knight",
+    "card_count": 0,
+    "display_name": "H",
+    "rules_text": "replenish_time=30",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "durability_max": 5,
+    "card_cost": {
+      "Air.AirColor.RED": "0"
+    },
+    "instinct_effect": "shop=foo",
+    "slot_effect": "shop=foo",
+    "card_rarity": "Card.RarityType.COMMON"
+  },
+  {
+    "card_template_id": "card_slimed",
+    "group_template_id": "curse",
+    "card_count": 0,
+    "display_name": "I",
+    "rules_text": "draw_card=7",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "durability_max": 1,
+    "card_cost": {
+      "Air.AirColor.RED": "0"
+    },
+    "instinct_effect": "shop=foo",
+    "slot_effect": "shop=foo",
+    "card_rarity": "Card.RarityType.COMMON"
+  },
+  {
+    "card_template_id": "card_witness_me",
+    "group_template_id": "knight",
+    "card_count": 0,
+    "display_name": "J",
+    "rules_text": "click to draw",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "durability_max": 2,
+    "card_cost": {
+      "Air.AirColor.RED": "0"
+    },
+    "instinct_effect": "shop=foo",
+    "slot_effect": "shop=foo",
+    "card_rarity": "Card.RarityType.COMMON"
+  },
+  {
+    "card_template_id": "card_double_dash",
+    "group_template_id": "knight",
+    "card_count": 0,
+    "display_name": "K",
+    "rules_text": "add_energy=4",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "durability_max": 2,
+    "card_cost": {
+      "Air.AirColor.RED": "0"
+    },
+    "instinct_effect": "shop=foo",
+    "slot_effect": "shop=foo",
+    "card_rarity": "Card.RarityType.COMMON"
+  },
+  {
+    "card_template_id": "card_tussle",
+    "group_template_id": "knight",
+    "card_count": 0,
+    "display_name": "L",
+    "rules_text": "add_energy=1, cooldown=5",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "durability_max": 2,
+    "card_cost": {
+      "Air.AirColor.RED": "0"
+    },
+    "instinct_effect": "shop=foo",
+    "slot_effect": "shop=foo",
+    "card_rarity": "Card.RarityType.COMMON"
   }
 ]

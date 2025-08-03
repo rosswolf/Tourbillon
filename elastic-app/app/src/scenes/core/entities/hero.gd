@@ -20,26 +20,31 @@ func _init():
 
 class TimeResource:
 
-	func add_time(color: Air.AirColor, amount: float):
-		GlobalSignals.signal_core_time_added(color, amount)
-		
 	func replenish_time(color: Air.AirColor, amount: float):
 		GlobalSignals.signal_core_time_replenished(color, amount)
 	
-	func set_time(color: Air.AirColor, amount: float):
+	func set_time_capped(color: Air.AirColor, amount: float):
 		GlobalSignals.signal_core_time_set(color, amount)
+		
+	func add_max_time(color: Air.AirColor, amount: float):
+		GlobalSignals.signal_core_max_time_added(color, amount)
+	
+	func set_max_time(color: Air.AirColor, amount: float):
+		GlobalSignals.signal_core_max_time_set(color, amount)
 	
 class EnergyResource:
-
-	func add_energy(color: Air.AirColor, amount: float):
-		GlobalSignals.signal_core_energy_added(color, amount)
-		
 	func replenish_energy(color: Air.AirColor, amount: float):
 		GlobalSignals.signal_core_energy_replenished(color, amount)
 	
-	func set_energy(color: Air.AirColor, amount: float):
+	func set_energy_capped(color: Air.AirColor, amount: float):
 		GlobalSignals.signal_core_energy_set(color, amount)	
 
+	func add_max_energy(color: Air.AirColor, amount: float):
+		GlobalSignals.signal_core_max_energy_added(color, amount)
+	
+	func set_max_energy(color: Air.AirColor, amount: float):
+		GlobalSignals.signal_core_max_energy_set(color, amount)
+		
 
 func get_type() -> Entity.EntityType:
 	return Entity.EntityType.HERO

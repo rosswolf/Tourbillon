@@ -55,9 +55,14 @@ signal core_time_replenished(color: Air.AirColor, amount: float)
 func signal_core_time_replenished(color: Air.AirColor, amount: float):
 	core_time_replenished.emit(color, amount)
 
-signal core_time_added(color: Air.AirColor, amount: float)
-func signal_core_time_added(color: Air.AirColor, amount: float):
-	core_time_added.emit(color, amount)
+signal core_max_time_set(color: Air.AirColor, amount: float)
+func signal_core_max_time_set(color: Air.AirColor, amount: float):
+	core_max_time_set.emit(color, amount)		
+	
+signal core_max_time_added(color: Air.AirColor, amount: float)
+func signal_core_max_time_added(color: Air.AirColor, amount: float):
+	core_max_time_added.emit(color, amount)			
+
 	
 signal core_energy_set(color: Air.AirColor, amount: float)
 func signal_core_energy_set(color: Air.AirColor, amount: float):
@@ -67,9 +72,17 @@ signal core_energy_replenished(color: Air.AirColor, amount: float)
 func signal_core_energy_replenished(color: Air.AirColor, amount: float):
 	core_energy_replenished.emit(color, amount)
 
-signal core_energy_added(color: Air.AirColor, amount: float)
-func signal_core_energy_added(color: Air.AirColor, amount: float):
-	core_energy_added.emit(color, amount)	
+signal core_max_energy_set(color: Air.AirColor, amount: float)
+func signal_core_max_energy_set(color: Air.AirColor, amount: float):
+	core_max_energy_set.emit(color, amount)		
+	
+signal core_max_energy_added(color: Air.AirColor, amount: float)
+func signal_core_max_energy_added(color: Air.AirColor, amount: float):
+	core_max_energy_added.emit(color, amount)			
+
+
+
+
 	
 # Core Signal Functions
 

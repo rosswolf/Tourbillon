@@ -22,34 +22,46 @@ enum Intent {
 	MOVE
 }
 
+static func color_signal(signal_name: String, color: Air.AirColor):
+	return InternalEffect.new(
+		func(source: Entity, params: Dictionary):
+			var amount = int(params.get("param"))
+			GlobalSignals.emit_signal(signal_name, color, amount)
+			return true,
+		{"source":[Hero, Card]})
+
 static var effect_map: Dictionary[String, InternalEffect] = {
 	"none":  InternalEffect.new(
 		func(source: Entity, params: Dictionary):
 			return true,
 		{} 
 	),
-	"replenish_time": InternalEffect.new(
-		func(source: Entity, params: Dictionary):
-			
-			var amount = int(params.get("param"))
-			#GlobalGameManager.hero.time.replenish_time(amount)
-			return true,
-		{"source":[Hero, Card]}
-	),
-	"add_time": InternalEffect.new(
-		func(source: Entity, params: Dictionary):
-			var amount = int(params.get("param"))
-			#GlobalGameManager.hero.time.add_time(amount)
-			return true,
-		{"source":[Hero, Card]}
-	),
-	"add_energy": InternalEffect.new(
-		func(source: Entity, params: Dictionary):
-			var amount = int(params.get("param"))
-			GlobalGameManager.hero.energy.increment(amount)
-			return true,
-		{"source":[Hero, Card]}
-	),
+	"add_red_energy": color_signal("core_energy_replenished", Air.AirColor.RED),
+	"add_blue_energy": color_signal("core_energy_replenished", Air.AirColor.BLUE),
+	"add_orange_energy": color_signal("core_energy_replenished", Air.AirColor.ORANGE),
+	"set_red_energy":color_signal("core_energy_set", Air.AirColor.RED),
+	"set_blue_energy": color_signal("core_energy_set", Air.AirColor.BLUE),
+	"set_orange_energy": color_signal("core_energy_set", Air.AirColor.ORANGE),
+	"add_max_red_energy": color_signal("core_max_energy_added", Air.AirColor.RED),
+	"add_max_blue_energy": color_signal("core_max_energy_added", Air.AirColor.BLUE),	
+	"add_max_orange_energy": color_signal("core_max_energy_added", Air.AirColor.ORANGE),
+	"set_max_red_energy": color_signal("core_max_energy_set", Air.AirColor.RED),
+	"set_max_blue_energy": color_signal("core_max_energy_set", Air.AirColor.BLUE),	
+	"set_max_orange_energy": color_signal("core_max_energy_set", Air.AirColor.ORANGE),
+	
+	"add_red_time": color_signal("core_time_replenished", Air.AirColor.RED),
+	"add_blue_time": color_signal("core_time_replenished", Air.AirColor.BLUE),
+	"add_orange_time": color_signal("core_time_replenished", Air.AirColor.ORANGE),
+	"set_red_time": color_signal("core_time_set", Air.AirColor.RED),
+	"set_blue_time": color_signal("core_time_set", Air.AirColor.BLUE),
+	"set_orange_time": color_signal("core_time_set", Air.AirColor.ORANGE),
+	"add_max_red_time": color_signal("core_max_time_added", Air.AirColor.RED),
+	"add_max_blue_time": color_signal("core_max_time_added", Air.AirColor.BLUE),	
+	"add_max_orange_time": color_signal("core_max_time_added", Air.AirColor.ORANGE),
+	"set_max_red_time": color_signal("core_max_time_set", Air.AirColor.RED),
+	"set_max_blue_time": color_signal("core_max_time_set", Air.AirColor.BLUE),	
+	"set_max_orange_time": color_signal("core_max_time_set", Air.AirColor.ORANGE),
+
 	"draw_card": InternalEffect.new(
 		func(source: Entity, params: Dictionary):
 			var amount = int(params.get("param"))

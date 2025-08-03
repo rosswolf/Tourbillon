@@ -5,7 +5,7 @@ class_name AirMeter
 @export var rightmost_style: bool = false
 @export var air_color: Air.AirColor = Air.AirColor.UNKNOWN
 @export var default_timer_max: float = 20.0
-@export var default_max_units: int = 1
+@export var default_max_energy: float = 1.0
 
 @onready var timer: Timer = find_child("Timer")
 @onready var progress_bar: ProgressBar = find_child("ProgressBar")  
@@ -14,25 +14,13 @@ class_name AirMeter
 @onready var units_display: Label = find_child("UnitsDisplay")
 const MENU: String = "res://src/scenes/main_menu.tscn"
 
-var __timer_max: float = 0.0
+var __timer_max: float = 1.0
 var timer_max: float:
 	get:
-		return __timer_max
+		return max(1.0, __timer_max)
 	set(value):
-		__timer_max = value
-
-var __max_units: int = 0
-var max_units: int:
-	get:
-		return __max_units
-	set(value):
-		__max_units = value
-
-# Core relationship: time is master, units derive from time
-var current_units: float:
-	get: 
-		return (time_remaining / timer_max) * max_units
-
+		__timer_max = max(1.0, value)
+		
 var time_remaining: float:
 	get: 
 		return timer.time_left
@@ -40,14 +28,36 @@ var time_remaining: float:
 		var new_value = min(timer_max, value)
 		timer.start(new_value)
 
+var __max_energy: float = 1.0
+var max_energy: float:
+	get:
+		return max(1.0, __max_energy)
+	set(value):
+		__max_energy = max(1.0, value)
+
+# Core relationship: time is primary, units derive from time
+var current_energy: float:
+	get: 
+		return (time_remaining / timer_max) * max_energy
+
+
 func _ready():
 	timer_max = default_timer_max
-	max_units = default_max_units
+	max_energy = default_max_energy
 	timer.timeout.connect(_on_timer_timeout)
 	timer.start(timer_max)
 	progress_bar.value = pct(timer.time_left, timer_max)
-	GlobalSignals.core_time_added.connect(__on_time_added)
 	GlobalSignals.core_time_replenished.connect(__on_time_replenished)
+	GlobalSignals.core_time_set.connect(__on_time_set)
+		
+	GlobalSignals.core_max_time_set.connect(__on_max_time_set)
+	GlobalSignals.core_max_time_added.connect(__on_max_time_added)	
+		
+	GlobalSignals.core_energy_set.connect(__on_energy_set)
+	GlobalSignals.core_energy_replenished.connect(__on_energy_replenished)
+		
+	GlobalSignals.core_max_energy_added.connect(__on_max_energy_added)
+	GlobalSignals.core_max_energy_set.connect(__on_max_energy_set)
 	
 	if rightmost_style:
 		change_corner_radius()
@@ -67,39 +77,75 @@ func change_corner_radius():
 		fill_style.corner_radius_bottom_right = 22
 		progress_bar.add_theme_stylebox_override("fill", fill_style)
 
+
+
+	
+func __on_energy_replenished(target_color: Air.AirColor, amount: float):
+	if target_color == air_color:
+		add_energy_capped(amount)
+
+func __on_energy_set(target_color: Air.AirColor, amount: float):
+	if target_color == air_color:
+		set_energy_capped(amount)
+
+func __on_max_energy_added(target_color: Air.AirColor, amount: float):
+	if target_color == air_color:
+		add_max_energy(amount)
+
+func __on_max_energy_set(target_color: Air.AirColor, amount: float):
+	if target_color == air_color:
+		set_max_energy(amount)
+
+func __on_time_replenished(target_color: Air.AirColor, amount: float):
+	if target_color == air_color:
+		time_remaining = time_remaining + amount
+	
+func __on_time_set(target_color: Air.AirColor, amount: float):
+	if target_color == air_color:
+		time_remaining = amount
+
+
+func __on_max_time_added(target_color: Air.AirColor, amount: float):
+	if target_color == air_color:
+		add_max_time(amount)
+
+func __on_max_time_set(target_color: Air.AirColor, amount: float):
+	if target_color == air_color:
+		set_max_time(amount)
+
 # Add units (converts to time and adds it)
-func add_units(amount: float):
-	var time_per_unit = timer_max / max_units
-	var time_to_add = amount * time_per_unit
+func add_energy_capped(amount: float):
+	var time_per_unit: float = timer_max / max_energy
+	var time_to_add: float = amount * time_per_unit
 	time_remaining = time_remaining + time_to_add
-
+	
 # Spend units (converts to time and removes it)
-func spend_units(amount: float):
-	var time_per_unit = timer_max / max_units
-	var time_to_remove = amount * time_per_unit
-	time_remaining = max(0, time_remaining - time_to_remove)
+func set_energy_capped(amount: float):
+	var time_per_unit: float = timer_max / max_energy
+	var new_time: float = amount * time_per_unit
+	time_remaining = max(0, new_time)
 
-# Increase max capacity (keeps current units percentage)
-func add_max_units(amount: int):
-	var current_percentage = time_remaining / timer_max
-	max_units += amount
-	# Keep the same time, so units automatically adjust via the getter
+func add_max_energy(amount: float):
+	var current_time_proportion: float = time_remaining / timer_max
+	max_energy += amount
+	# Keep the same time proportion, energy will adjust automatically
+	time_remaining = current_time_proportion * timer_max
 
-# Set max capacity (keeps current units percentage)
-func set_max_units(new_max: int):
-	var current_percentage = time_remaining / timer_max
-	max_units = new_max
-	# Keep the same time, so units automatically adjust
+func set_max_energy(new_max: float):
+	var current_time_proportion: float = time_remaining / timer_max
+	max_energy = new_max
+	# Keep the same time proportion, energy will adjust automatically  
+	time_remaining = current_time_proportion * timer_max
 
-# Legacy time-based methods (now internally convert through units)
-func __on_time_replenished(amount: float):
-	# If this was meant to add time directly, keep it
-	time_remaining = time_remaining + amount
+func add_max_time(amount: float):
+	var current_time_proportion: float = time_remaining / timer_max
+	timer_max = timer_max + amount
+	time_remaining = current_time_proportion * timer_max
 
-func __on_time_added(amount: float):
-	var total = time_remaining + amount
-	timer_max = max(timer_max, total)
-	time_remaining = time_remaining + amount
+func set_max_time(amount: float):
+	var current_time_proportion: float = time_remaining / timer_max
+	timer_max = amount
+	time_remaining = current_time_proportion * timer_max
 
 func pct(numerator: float, denominator: float):
 	if denominator <= 0.001:
@@ -131,7 +177,7 @@ func render_label(time_left: float):
 	return str(minute) + ":" + "%02d" % second + "." + "%02d" % centisecond
 
 func get_whole_remaining_units():
-	return int(floor(current_units))
+	return int(floor(current_energy))
 
 func _on_timer_timeout():
 	GlobalGameManager.end_game()
