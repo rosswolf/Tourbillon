@@ -7,6 +7,8 @@ var GRAVITY_MP3: String = "res://pixabay assets/gravity-193874.mp3"
 @onready var targeting_icon: TargetingIcon = \
 	$Background/MainVBoxContainer/BotHBoxContainer/UIVBoxContainer/HBoxContainer/VBoxContainer/TargetingPanelContainer/GenericTargetingIcon
 
+var meters: Dictionary[Air.AirColor, AirMeter] = {}
+
 func _ready() -> void:
 	
 	GlobalSignals.core_card_drawn.connect(__on_card_drawn)
@@ -20,8 +22,12 @@ func _ready() -> void:
 	%AudioStreamPlayer.stream = audio_stream
 	#%AudioStreamPlayer.play()
 	%AudioStreamPlayer.finished.connect(__on_audio_finished)
+
+	UiController.meters = meters
 	
-	UiController.air_meter = %AirMeter
+	meters[Air.AirColor.RED] = %RedAirMeter
+	meters[Air.AirColor.BLUE] = %BlueAirMeter
+	meters[Air.AirColor.ORANGE] = %OrangeAirMeter
 	
 	GlobalSignals.signal_ui_started_game()
 
@@ -65,8 +71,11 @@ func __on_relic_added(relic: Relic) -> void:
 	
 	%RelicGridContainer.add_child(relic_icon)
 	
-func get_time_remaining():
-	return %AirMeter.time_remaining
+func get_time_remaining(color: Air.AirColor) -> float:
+	if meters.has(color):
+		return meters[color].time_remaining
+	else:
+		return 0.0
 
 func __on_relic_removed(relic_instance_id: String) -> void:
 	#TODO: slow implementation, if needed make a scene for containing the relics
