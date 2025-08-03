@@ -16,9 +16,9 @@ var mob_data: Dictionary = {}
 var mob_data_path = "res://src/scenes/data/mob_data.json"
 var mob_data_indices = {}
 
-var wave_data: Dictionary = {}
-var wave_data_path = "res://src/scenes/data/wave_data.json"
-var wave_data_indices = {}
+var goals_data: Dictionary = {}
+var goals_data_path = "res://src/scenes/data/wave_data.json"
+var goals_data_indices = {}
 
 var relic_data: Dictionary = {}
 var relic_data_path = "res://src/scenes/data/relic_data.json"
@@ -62,6 +62,7 @@ func _ready():
 	wave_data = load_json_file(wave_data_path)
 	relic_data = load_json_file(relic_data_path)
 	hero_data = load_json_file(hero_data_path)
+	goals_data = load_json_file(goals_data_path)
 	
 	# Build indices for fast lookups
 	card_data_indices = build_field_indices(card_data)
@@ -69,6 +70,7 @@ func _ready():
 	wave_data_indices = build_field_indices(wave_data)
 	relic_data_indices = build_field_indices(relic_data)
 	hero_data_indices = build_field_indices(hero_data)
+	relic_data_indices = build_field_indices(goals_data)
 
 func build_field_indices(data_dict: Dictionary) -> Dictionary:
 	"""Build reverse indices for all fields to enable O(1) lookups"""
@@ -421,9 +423,9 @@ func get_mob_by_id(mob_id: String) -> Dictionary:
 	"""Direct O(1) lookup for mob by ID"""
 	return mob_data.get(mob_id, {})
 
-func get_wave_by_id(wave_id: String) -> Dictionary:
+func get_goals_by_id(wave_id: String) -> Dictionary:
 	"""Direct O(1) lookup for wave by ID"""
-	return wave_data.get(wave_id, {})
+	return goals_data.get(wave_id, {})
 
 func get_relic_by_id(relic_id: String) -> Dictionary:
 	"""Direct O(1) lookup for relic by ID"""

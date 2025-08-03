@@ -191,15 +191,19 @@ func signal_core_battleground_targeting_preview_changed(space_index: int):
 
 
 signal stats_cards_drawn(amount: int)
-func signal_stats_card_draw(amount: int):
+func signal_stats_cards_drawn(amount: int):
 	stats_cards_drawn.emit()		
 	
 signal stats_cards_popped(amount: int)
-func signal_stats_card_pop(amount: int):
+func signal_stats_cards_popped(amount: int):
 	stats_cards_popped.emit()
+
+signal stats_cards_played(amount: int)
+func signal_stats_cards_played(amount: int):
+	stats_cards_played.emit()	
 	
 signal stats_cards_slotted(amount: int)
-func signal_stats_card_slotted(amount: int):
+func signal_stats_cards_slotted(amount: int):
 	stats_cards_slotted.emit()
 	
 signal stats_energy_spent(amount: int)

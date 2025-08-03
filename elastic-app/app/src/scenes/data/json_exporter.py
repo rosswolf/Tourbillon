@@ -461,7 +461,7 @@ def main():
         # Add more spreadsheet IDs here:
         "1lVpf2otmFaxlxKUI_LK8dzTiAsSMIQW2K421_urDeDg": "mob_data.json",
         "1vqf7i3FQPI4C9p0ME3kDnCa9u6fGjIg7Z1loQryfIz0": "configuration_data.json",
-        "1xa8_S08EFnjsSBAaKCZ4okflLWUSzm9vcjAQcHIY2os": "wave_data.json",
+        "1xa8_S08EFnjsSBAaKCZ4okflLWUSzm9vcjAQcHIY2os": "goals_data.json",
         "163_WvC6Vsa9Q5mAgRh296npPyaEmd2iEPF7OAki7b5Q": "relic_data.json",
         "1rJPpGNARZ-ZtTRWjehFTeM_ru6Urf6qB-UuxzzeSsMY": "icon_data.json",
         "1fIkbi6B80U6fXNYX1Gq3w4UqOP-z_vpqEsyAEKcb2ss": "hero_data.json"
