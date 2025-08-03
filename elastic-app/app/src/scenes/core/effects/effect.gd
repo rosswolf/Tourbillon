@@ -7,10 +7,12 @@ var effect_name: String = ""
 class InternalEffect:
 	var __f: Callable
 	var __valid_source_types: Array
+	var __valid_target_types: Array
 	
-	func _init(f: Callable, valid_source_types: Array):
+	func _init(f: Callable, valid_types: Dictionary[String, Array]):
 		__f = f
-		__valid_source_types = valid_source_types
+		__valid_source_types = valid_types.get("source", [Entity])
+		__valid_target_types = valid_types.get("target", [Entity])
 						
 enum Intent {
 	UNKNOWN,
@@ -21,120 +23,10 @@ enum Intent {
 }
 
 static var effect_map: Dictionary[String, InternalEffect] = {
-	"heal_ally": InternalEffect.new(
-		func(source: Entity, params: Dictionary):
-			var amount: int = int(params.get("param", 0))
-			return await GlobalGameManager.battleground.mob_heal_ally(source, amount),
-		[]
-	),
-	"pull": InternalEffect.new(
-		func(source: Entity, params: Dictionary):
-			return await GlobalGameManager.battleground.unit_pull(source),
-		[Hero]
-	),
-	"bump": InternalEffect.new(
-		func(source: Entity, params: Dictionary):
-			return await GlobalGameManager.battleground.bump(source),
-		[Hero]
-	),
-	"aoe3_attack": InternalEffect.new(
-		func(source: Entity, params: Dictionary):
-			var damage: int = int(params.get("param", 0))
-			return await GlobalGameManager.battleground.aoe_attack(GlobalGameManager.hero, damage, 3),
-		[Hero]
-	),
-	#"attack_direction": InternalEffect.new(
-		#func(source: Entity, params: Dictionary):
-			#var damage: int = int(params.get("param", 0))
-			#var targeting: Battleground.OrderPriority = int(params.get("targeting", Battleground.OrderPriority.UNKNOWN))
-			#return await GlobalGameManager.battleground.unit_attack_with_targeting(source, damage, targeting),
-		#[Hero]
-	#),
-	"dash": InternalEffect.new(
-		func(source: Entity, params: Dictionary):
-			return await GlobalGameManager.battleground.unit_dash(source),
-		[Hero]
-	),
-	"heal": InternalEffect.new(
-		func(source: Entity, params: Dictionary):
-			var how_many = int(params.get("param"))
-			if source is Hero:
-				GlobalGameManager.hero.health.increment(how_many)
-				return true,
-		[Hero]
-	),
-	"add_armor": InternalEffect.new(
-		func(source: Entity, params: Dictionary):
-			var value = int(params.get("param"))
-			GlobalGameManager.hero.armor.increment(value)
-			return true,
-		[Hero]
-	),
-	"set_armor": InternalEffect.new(
-		func(source: Entity, params: Dictionary):
-			var value = int(params.get("param"))
-			GlobalGameManager.hero.armor.amount = value
-			return true,
-		[Hero]
-	),
-	"add_gold": InternalEffect.new(
-		func(source: Entity, params: Dictionary):
-			var how_many = int(params.get("param"))
-			GlobalGameManager.hero.gold.increment(how_many)
-			return true,
-		[Hero]
-	),
-	"add_instinct": InternalEffect.new(
-		func(source: Entity, params: Dictionary):
-			var how_many = int(params.get("param"))
-			GlobalGameManager.hero.instinct.increment(how_many)
-			return true,
-		[Hero]
-	),
-	"add_training": InternalEffect.new(
-		func(source: Entity, params: Dictionary):
-			var how_many = int(params.get("param"))
-			GlobalGameManager.hero.training_points.increment(how_many)
-			return true,
-		[Hero]
-	),
-	"add_endurance": InternalEffect.new(
-		func(source: Entity, params: Dictionary):
-			var how_many = int(params.get("param"))
-			GlobalGameManager.hero.endurance.increment(how_many)
-			return true,
-		[Hero]
-	),
-	#"jump": InternalEffect.new(
-		#func(source: Entity, params: Dictionary):
-			##TODO: implement move
-			#return true,
-		#[Hero, Mob]
-	#),
 	"none":  InternalEffect.new(
 		func(source: Entity, params: Dictionary):
 			return true,
-		[Hero, Card]
-		),
-	"attack_melee": InternalEffect.new(
-		func(source: Entity, params: Dictionary):
-			var damage: int = int(params.get("param", 0))
-			return await GlobalGameManager.battleground.unit_attack_melee(source, damage),
-		[Hero]
-	),
-	"attack": InternalEffect.new(
-		func(source: Entity, params: Dictionary):
-			var damage: int = int(params.get("param", 0))
-			return await GlobalGameManager.battleground.unit_attack_range(source, damage),
-		[Hero]
-	),
-	"block": InternalEffect.new(
-		func(source: Entity, params: Dictionary):
-			var new_block = int(params.get("param"))
-			if source is Hero:
-				GlobalGameManager.hero.block.increment(new_block)
-				return true,
-		[Hero]
+		{} 
 	),
 	"replenish_time": InternalEffect.new(
 		func(source: Entity, params: Dictionary):
@@ -142,35 +34,35 @@ static var effect_map: Dictionary[String, InternalEffect] = {
 			var amount = int(params.get("param"))
 			GlobalGameManager.hero.time.replenish_time(amount)
 			return true,
-		[Hero, Card] 
+		{"source":[Hero]}
 	),
 	"add_time": InternalEffect.new(
 		func(source: Entity, params: Dictionary):
 			var amount = int(params.get("param"))
 			GlobalGameManager.hero.time.add_time(amount)
 			return true,
-		[Hero, Card] 
+		{"source":[Hero]}
 	),
 	"add_energy": InternalEffect.new(
 		func(source: Entity, params: Dictionary):
 			var amount = int(params.get("param"))
 			GlobalGameManager.hero.energy.increment(amount)
 			return true,
-		[Hero, Card] 
+		{"source":[Hero]} 
 	),
 	"draw_card": InternalEffect.new(
 		func(source: Entity, params: Dictionary):
 			var amount = int(params.get("param"))
 			GlobalGameManager.library.draw_card(amount)
 			return true,
-		[Hero, Card] 
+		{"source":[Hero]}
 	),
 	"durability_hit_zero": InternalEffect.new(
 		func(source: Entity, params: Dictionary):
 			var card: Card = params.get("card") as Card
 			GlobalGameManager.library.move_card_to_zone2(card.instance_id, Library.Zone.ANY, Library.Zone.EXILED)
 			return true,
-		[Card, Hero] 
+		{"source":[Hero]}
 	),
 	"cooldown":  InternalEffect.new(
 		func(source: Entity, params: Dictionary):
@@ -178,7 +70,7 @@ static var effect_map: Dictionary[String, InternalEffect] = {
 			var card: Card = params.get("card") as Card
 			GlobalSignals.signal_core_slot_add_cooldown(card.instance_id, amount)
 			return true,
-		[Card, Hero] 
+		{"source":[Hero]} 
 	),
 }
 
@@ -208,7 +100,7 @@ static var intent_map: Dictionary[String, Intent] = {
 	"aoe3_attack" : Intent.UNKNOWN
 }
 
-static func source_is_valid(source: Entity, valid_types: Array):
+static func entity_in_types(source: Entity, valid_types: Array):
 	var valid_type_strings: Array[String] = []
 	for type in valid_types:
 		valid_type_strings.append(type._get_type_string())
@@ -216,8 +108,13 @@ static func source_is_valid(source: Entity, valid_types: Array):
 	return source._get_type_string() in valid_type_strings or Entity._get_type_string() in valid_type_strings
 	
 
+
 func _is_valid_source(source: Entity):
 	assert(false, "sub classes need to override _is_valid_source")
+	return false
+	
+func _is_valid_target(target: Entity):
+	assert(false, "sub classes need to override _is_valid_target")
 	return false
 	
 func _could_satisfy_costs(source: Entity, target: Entity) -> bool:

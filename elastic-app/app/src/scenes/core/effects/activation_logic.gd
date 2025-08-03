@@ -5,13 +5,18 @@ static func activate(source: Entity, target: Entity) -> bool:
 	var source_type = get_type(source)
 	var target_type = get_type(target)
 	
-	if source_type == Entity.EntityType.CARD:
+	if source_type == Entity.EntityType.CARD and target_type == Entity.EntityType.BATTLEGROUND:
 		var card: Card = source as Card
 		
 		if card.has_instinct_effect():
 			return activate_instinct(card)
 		elif card.has_slot_effect():
 			return slot_card_in_battleground(card)
+	elif source_type == Entity.EntityType.CARD and target_type == Entity.EntityType.ENGINE_BUTTON:
+		var card: Card = source as Card
+		if card.has_instinct_effect():
+			return activate_instinct(card, target)
+			
 				
 	return false
 
@@ -31,10 +36,10 @@ static func slot_card_in_battleground(card: Card) -> bool:
 	
 	return true
 	
-static func activate_instinct(card: Card) -> bool:	
+static func activate_instinct(card: Card, target: Entity = null) -> bool:	
 	if card.__instinct_effect == null:
 		#TODO: check if this will actually be null
 		return false
 		
-	return card.activate_instinct_effect(card, null)
+	return card.activate_instinct_effect(card, target)
 	

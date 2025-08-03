@@ -38,6 +38,12 @@ func _is_valid_source(source: Entity):
 			return false	
 	return true
 	
+func _is_valid_target(source: Entity):
+	for effect in effects:
+		if not effect._is_valid_target(source):
+			return false	
+	return true
+	
 func activate(source: Entity):
 	var result: bool = true
 	for effect in effects:
