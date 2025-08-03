@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dx62gxy64qd47" path="res://src/scenes/ui/hud/menu_bar.tscn" id="3_bd8mh"]
 [ext_resource type="PackedScene" uid="uid://dbu6a2pg1iju5" path="res://src/scenes/ui/hand/HandContainer.tscn" id="3_yufto"]
 [ext_resource type="PackedScene" uid="uid://3yoqe2hx1j1g" path="res://src/scenes/ui/battleground/ui_battleground.tscn" id="4_5dxuo"]
-[ext_resource type="PackedScene" uid="uid://cupye5bbn2jch" path="res://src/scenes/ui/resources/air_meter.tscn" id="6_flib5"]
+[ext_resource type="PackedScene" uid="uid://cupye5bbn2jch" path="res://src/scenes/ui/resources/air_meter.tscn" id="8_bd8mh"]
 [ext_resource type="Shader" uid="uid://dktsayggtgauf" path="res://src/scenes/water_effect.gdshader" id="9_h2mn8"]
 [ext_resource type="PackedScene" uid="uid://cka5aovpfoi80" path="res://src/scenes/ui/click_and_drag/click_and_drag.tscn" id="10_6e0h8"]
 [ext_resource type="PackedScene" uid="uid://dckcqckqo0abj" path="res://src/scenes/ui/hud/HUD.tscn" id="10_bd8mh"]
@@ -126,18 +126,48 @@ size_flags_vertical = 8
 
 [node name="MarginContainer" type="MarginContainer" parent="Background/MainVBoxContainer/BotHBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_right = 20
+theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 20
 
 [node name="PanelContainer" type="PanelContainer" parent="Background/MainVBoxContainer/BotHBoxContainer/MarginContainer"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_flib5")
 
-[node name="AirMeter" parent="Background/MainVBoxContainer/BotHBoxContainer/MarginContainer/PanelContainer" instance=ExtResource("6_flib5")]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(170, 400)
+[node name="BlueAirMeter" parent="Background/MainVBoxContainer/BotHBoxContainer/MarginContainer/PanelContainer" instance=ExtResource("8_bd8mh")]
+custom_minimum_size = Vector2(60, 400)
 layout_mode = 2
-size_flags_horizontal = 8
+air_color = 3
+default_timer_max = 60.0
+
+[node name="MarginContainer2" type="MarginContainer" parent="Background/MainVBoxContainer/BotHBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 20
+
+[node name="PanelContainer" type="PanelContainer" parent="Background/MainVBoxContainer/BotHBoxContainer/MarginContainer2"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_flib5")
+
+[node name="RedAirMeter" parent="Background/MainVBoxContainer/BotHBoxContainer/MarginContainer2/PanelContainer" instance=ExtResource("8_bd8mh")]
+custom_minimum_size = Vector2(60, 400)
+layout_mode = 2
+air_color = 1
+default_timer_max = 30.0
+
+[node name="MarginContainer3" type="MarginContainer" parent="Background/MainVBoxContainer/BotHBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="PanelContainer" type="PanelContainer" parent="Background/MainVBoxContainer/BotHBoxContainer/MarginContainer3"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_flib5")
+
+[node name="OrangeAirMeter" parent="Background/MainVBoxContainer/BotHBoxContainer/MarginContainer3/PanelContainer" instance=ExtResource("8_bd8mh")]
+custom_minimum_size = Vector2(60, 400)
+layout_mode = 2
+rightmost_style = true
+air_color = 2
+default_timer_max = 45.0
 
 [node name="ClickAndDrag" parent="." instance=ExtResource("10_6e0h8")]
 
