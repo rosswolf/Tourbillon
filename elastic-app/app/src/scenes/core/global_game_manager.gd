@@ -84,7 +84,8 @@ func __on_card_played(card_instance_id: String):
 	if card == null:
 		assert(false, "Card was null when retrieving from instance catalog: " + card_instance_id)
 		return	
-	card.durability.decrement(1)
+	if card.durability.amount > 0:
+		card.durability.decrement(1)
 		
 func __on_card_discarded(card_instance_id: String):
 	var card: Card = instance_catalog.get_instance(card_instance_id) as Card
