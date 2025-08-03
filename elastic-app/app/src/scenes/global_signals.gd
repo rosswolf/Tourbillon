@@ -188,3 +188,24 @@ func signal_core_max_hand_size_reached():
 signal core_battleground_targeting_preview_changed(space_index: int)
 func signal_core_battleground_targeting_preview_changed(space_index: int):
 	core_battleground_targeting_preview_changed.emit(space_index)
+
+
+signal stats_cards_drawn(amount: int)
+func signal_stats_card_draw(amount: int):
+	stats_cards_drawn.emit()		
+	
+signal stats_cards_popped(amount: int)
+func signal_stats_card_pop(amount: int):
+	stats_cards_popped.emit()
+	
+signal stats_cards_slotted(amount: int)
+func signal_stats_card_slotted(amount: int):
+	stats_cards_slotted.emit()
+	
+signal stats_energy_spent(amount: int)
+func signal_stats_energy_spent(amount: int):
+	stats_energy_spent.emit()
+
+signal stats_gold_spent(amount: int)
+func signal_stats_gold_spent(amount: int):
+	stats_gold_spent.emit()
