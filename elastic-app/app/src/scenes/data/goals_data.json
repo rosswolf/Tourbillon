@@ -1,0 +1,18 @@
+[
+  {
+    "template_name": "draw_10_cards",
+    "display_name": "Glide",
+    "text": "draw 10 cards",
+    "stat_to_succeed": "cards_drawn>=10",
+    "fail_when": "never",
+    "reward": "shop=minor"
+  },
+  {
+    "template_name": "draw_20_cards",
+    "display_name": "Hustle",
+    "text": "draw 20 cards",
+    "stat_to_succeed": "cards_drawn>=20",
+    "fail_when": "time>180",
+    "reward": "shop=draw"
+  }
+]
