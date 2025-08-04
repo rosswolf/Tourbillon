@@ -33,7 +33,7 @@ func __on_card_selection(selection_id: String) -> void:
 	
 	hbox.alignment = BoxContainer.ALIGNMENT_CENTER
 		
-	cards = GlobalGameManager.library.get_cards_for_selection("test")	
+	cards = GlobalGameManager.library.get_cards_for_selection(selection_id)
 	for card in cards:
 		__add_card_as_button(card)
 		

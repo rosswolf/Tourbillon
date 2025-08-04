@@ -203,7 +203,7 @@ static func build_new_card_from_template(card_template_id: String, card_template
 	builder.with_rarity(rarity)
 	#builder.with_art_image_uid(card_template_data.get("art_image_uid"))
 	builder.with_cursor_image_uid(card_template_data.get("cursor_image_uid"))
-	builder.with_display_name(card_template_data.get("display_name"))
+	#builder.with_display_name(card_template_data.get("display_name"))
 	builder.with_instinct_effect(card_template_data.get("instinct_effect",""))
 	builder.with_slot_effect(card_template_data.get("slot_effect",""))
 	

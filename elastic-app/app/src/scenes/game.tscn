@@ -134,6 +134,7 @@ layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_flib5")
 
 [node name="BlueAirMeter" parent="Background/MainVBoxContainer/BotHBoxContainer/MarginContainer/PanelContainer" instance=ExtResource("8_bd8mh")]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(60, 400)
 layout_mode = 2
 air_color = 3
@@ -148,6 +149,7 @@ layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_flib5")
 
 [node name="RedAirMeter" parent="Background/MainVBoxContainer/BotHBoxContainer/MarginContainer2/PanelContainer" instance=ExtResource("8_bd8mh")]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(60, 400)
 layout_mode = 2
 air_color = 1
@@ -163,6 +165,7 @@ layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_flib5")
 
 [node name="OrangeAirMeter" parent="Background/MainVBoxContainer/BotHBoxContainer/MarginContainer3/PanelContainer" instance=ExtResource("8_bd8mh")]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(60, 400)
 layout_mode = 2
 rightmost_style = true

@@ -65,6 +65,7 @@ class PublicSheetsToJsonExporter:
         Special handling for "params" fields - expands them to top-level properties.
         Validates for duplicate column names.
         Omits empty values entirely.
+        Supports enum prefixes in column headers (e.g., "color:My.Enum.Path").
         
         Args:
             data (list): Raw spreadsheet data
@@ -83,18 +84,34 @@ class PublicSheetsToJsonExporter:
         included_columns = []
         excluded_columns = []
         all_column_names = set()  # Track all column names for duplicate detection
+        column_enum_prefixes = {}  # Track enum prefixes for each column
         
         for i, header in enumerate(headers):
             header_clean = header.strip()
             if header_clean.upper().startswith("NOEX"):
                 excluded_columns.append((i, header_clean))
             else:
-                included_columns.append((i, header_clean))
-                
-                # Check for duplicate column names
-                if header_clean.lower() in all_column_names:
-                    raise ValueError(f"Duplicate column name found: '{header_clean}'. Column names must be unique.")
-                all_column_names.add(header_clean.lower())
+                # Check if header contains enum prefix
+                if ':' in header_clean:
+                    actual_header, enum_prefix = header_clean.split(':', 1)
+                    actual_header = actual_header.strip()
+                    enum_prefix = enum_prefix.strip()
+                    column_enum_prefixes[i] = enum_prefix
+                    included_columns.append((i, actual_header))
+                    
+                    # Check for duplicate column names
+                    if actual_header.lower() in all_column_names:
+                        raise ValueError(f"Duplicate column name found: '{actual_header}'. Column names must be unique.")
+                    all_column_names.add(actual_header.lower())
+                    
+                    print(f"Column '{actual_header}' will use enum prefix: {enum_prefix}")
+                else:
+                    included_columns.append((i, header_clean))
+                    
+                    # Check for duplicate column names
+                    if header_clean.lower() in all_column_names:
+                        raise ValueError(f"Duplicate column name found: '{header_clean}'. Column names must be unique.")
+                    all_column_names.add(header_clean.lower())
         
         # Log what we're including/excluding
         included_headers = [header for _, header in included_columns]
@@ -125,14 +142,18 @@ class PublicSheetsToJsonExporter:
                 if not raw_value or not raw_value.strip():
                     continue
                 
+                # Get enum prefix for this column if it exists
+                enum_prefix = column_enum_prefixes.get(column_index, None)
+                
                 # Convert value (handles arrays, numbers, booleans, etc.)
-                converted_value = self._convert_value(raw_value, header)
+                converted_value = self._convert_value(raw_value, header, enum_prefix)
                 row_dict[header] = converted_value
                 
                 # Special handling for "params" fields - expand key:value pairs to top-level properties
                 if header.lower() == "params" and isinstance(raw_value, str) and raw_value.strip():
                     # Check if this contains key:value pairs (either single or multiple with separators)
                     if ':' in raw_value:
+                        # Note: Don't pass enum_prefix here since params fields handle their own keys
                         params_dict = self._parse_params_field(raw_value)
                         
                         # Check for conflicts between params and existing columns
@@ -162,16 +183,54 @@ class PublicSheetsToJsonExporter:
         
         return json_data
     
-    def _convert_value(self, value, field_name=""):
+    def _apply_enum_prefix(self, value, enum_prefix):
+        """
+        Apply enum prefix to a value if appropriate.
+        Only applies if the value looks like an enum constant (all caps or mixed case identifier).
+        
+        Args:
+            value (str): The value to potentially prefix
+            enum_prefix (str): The enum prefix to apply
+            
+        Returns:
+            str: The value with prefix applied if appropriate
+        """
+        if not enum_prefix or not isinstance(value, str):
+            return value
+        
+        value = value.strip()
+        
+        # Don't apply prefix if:
+        # 1. Value already contains the prefix
+        # 2. Value already contains a dot (suggesting it's already a full path)
+        # 3. Value is a number or boolean literal
+        # 4. Value starts with "__CONFIG_REF__" (configuration reference)
+        if (enum_prefix in value or 
+            '.' in value or 
+            value.isdigit() or 
+            value.lower() in ['true', 'false'] or
+            value.startswith("__CONFIG_REF__")):
+            return value
+        
+        # Apply prefix if value looks like an enum constant
+        # (contains only letters, numbers, and underscores)
+        if value.replace('_', '').replace('-', '').isalnum():
+            return f"{enum_prefix}.{value}"
+        
+        return value
+    
+    def _convert_value(self, value, field_name="", enum_prefix=None):
         """
         Convert a cell value to the appropriate data type.
         Handles arrays separated by the configured separator.
         Handles configuration references in format configurationData.key_name.
         Special handling for key:value pairs - always converts to dictionary.
+        Applies enum prefixes when provided.
         
         Args:
             value (str): Raw cell value
             field_name (str): Name of the field (for context)
+            enum_prefix (str): Optional enum prefix to apply to appropriate values
             
         Returns:
             Various types: Converted value (string, int, float, bool, list, or dict)
@@ -185,7 +244,7 @@ class PublicSheetsToJsonExporter:
         if ':' in value:
             # Try to parse as key:value pairs first
             try:
-                parsed_dict = self._parse_params_field(value)
+                parsed_dict = self._parse_params_field(value, enum_prefix)
                 if parsed_dict:  # If we successfully parsed key:value pairs, return the dict
                     return parsed_dict
             except:
@@ -206,6 +265,10 @@ class PublicSheetsToJsonExporter:
                 # Check for configuration reference in array item
                 converted_item = self._resolve_configuration_reference(item)
                 
+                # Apply enum prefix if appropriate
+                if enum_prefix and isinstance(converted_item, str):
+                    converted_item = self._apply_enum_prefix(converted_item, enum_prefix)
+                
                 if isinstance(converted_item, str) and converted_item.isdigit():
                     converted_array.append(int(converted_item))
                 elif isinstance(converted_item, str) and self._is_float(converted_item):
@@ -219,6 +282,10 @@ class PublicSheetsToJsonExporter:
         
         # Check for configuration reference in single value
         resolved_value = self._resolve_configuration_reference(value)
+        
+        # Apply enum prefix if appropriate (before type conversion)
+        if enum_prefix and isinstance(resolved_value, str):
+            resolved_value = self._apply_enum_prefix(resolved_value, enum_prefix)
         
         # Single value conversion
         if isinstance(resolved_value, str):
@@ -260,14 +327,16 @@ class PublicSheetsToJsonExporter:
         
         return value
 
-    def _parse_params_field(self, value):
+    def _parse_params_field(self, value, enum_prefix=None):
         """
         Parse parameter field in format A:B|C:D into dictionary.
         Handles configuration references in parameter values.
-        Keys and values are kept as strings for later enum resolution in Godot.
+        Keys are kept as strings and might have enum prefix applied.
+        Values are kept as strings for later enum resolution in Godot.
         
         Args:
             value (str): Parameter string in format key:value|key:value
+            enum_prefix (str): Optional enum prefix to apply to keys
             
         Returns:
             dict: Dictionary with parsed key-value pairs (all keys and values as strings)
@@ -295,25 +364,38 @@ class PublicSheetsToJsonExporter:
                 key = key.strip()
                 val = val.strip()
                 
+                # Apply enum prefix to the KEY if appropriate
+                if enum_prefix and isinstance(key, str):
+                    prefixed_key = self._apply_enum_prefix(key, enum_prefix)
+                else:
+                    prefixed_key = key
+                
                 # Check for duplicate keys within params (case-insensitive for conflict detection)
-                key_lower = key.lower()
+                key_lower = prefixed_key.lower()
                 if key_lower in used_param_keys:
-                    raise ValueError(f"Duplicate parameter key found in params field: '{key}'")
+                    raise ValueError(f"Duplicate parameter key found in params field: '{prefixed_key}'")
                 used_param_keys.add(key_lower)
                 
-                # Resolve configuration references in parameter values but keep keys as-is for enum resolution
+                # Resolve configuration references in parameter values
                 resolved_val = self._resolve_configuration_reference(val)
                 
-                # Store with original key (which might be an enum reference) for Godot to resolve
-                params_dict[key] = resolved_val
+                # Store with prefixed key
+                params_dict[prefixed_key] = resolved_val
             else:
                 # Handle malformed pairs - treat as key with empty value
                 key = pair.strip()
-                key_lower = key.lower()
+                
+                # Apply enum prefix to the KEY if appropriate
+                if enum_prefix and isinstance(key, str):
+                    prefixed_key = self._apply_enum_prefix(key, enum_prefix)
+                else:
+                    prefixed_key = key
+                    
+                key_lower = prefixed_key.lower()
                 if key_lower in used_param_keys:
-                    raise ValueError(f"Duplicate parameter key found in params field: '{key}'")
+                    raise ValueError(f"Duplicate parameter key found in params field: '{prefixed_key}'")
                 used_param_keys.add(key_lower)
-                params_dict[key] = ""
+                params_dict[prefixed_key] = ""
         
         return params_dict
     

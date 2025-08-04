@@ -7,12 +7,13 @@ extends Control
 @onready var card_description = $DescriptionPanel/Description
 @onready var icon_container = $IconContainer
 @onready var durability_label = $TargetingBoxContainer/DurabilityLabel
+@onready var is_building = $IsBuilding
 
-var energy_icons: Dictionary[Air.AirColor, String] = {
-	Air.AirColor.ORANGE: "orange_energy",
-	Air.AirColor.BLUE: "blue_energy",
-	Air.AirColor.RED: "red_energy",
-	Air.AirColor.NONE: "none_energy"
+var energy_icons: Dictionary[GameResource.Type, String] = {
+	GameResource.Type.ORANGE_ENERGY: "orange_energy",
+	GameResource.Type.BLUE_ENERGY: "blue_energy",
+	GameResource.Type.RED_ENERGY: "red_energy",
+	GameResource.Type.NONE: "none_energy"
 }
 
 #@onready var card_image = $ImagePanel/Image
@@ -40,14 +41,17 @@ func set_card_data(card: Card) -> void:
 	# Update UI elements
 	card_title.text = card.display_name
 	card_description.text = card.rules_text
-	if card.durability.amount <= 0:
+	if card.durability.amount >= 0:
 		durability_label.text = "Durability: " + str(card.durability.amount) + "/" + str(card.durability.max_amount)
-	
-	var energy_color: Air.AirColor = card.cost.get_energy_color()
-	
-	
+	else:
+		durability_label.text = ""
+		
 	add_slot_icon(energy_icons[card.cost.get_energy_color()], str(card.cost.get_energy_cost()), %TopHBoxContainer, GameIcon.TextSize.SMALL)
 	
+	if not card.has_instinct_effect() and card.has_slot_effect():
+		is_building.visible = true
+	else:
+		is_building.visible = false
 		
 
 func add_slot_icon(name: String, value: String, container: Container, font_size: GameIcon.TextSize) -> void:

@@ -1,5 +1,7 @@
 extends Control
 
+class_name Game
+
 #Game.gd
 
 var GRAVITY_MP3: String = "res://pixabay assets/gravity-193874.mp3"
@@ -22,18 +24,19 @@ func _ready() -> void:
 	%AudioStreamPlayer.stream = audio_stream
 	#%AudioStreamPlayer.play()
 	%AudioStreamPlayer.finished.connect(__on_audio_finished)
-
-	UiController.meters = meters
 	
 	meters[Air.AirColor.RED] = %RedAirMeter
 	meters[Air.AirColor.BLUE] = %BlueAirMeter
 	meters[Air.AirColor.ORANGE] = %OrangeAirMeter
+	
+	UiController.meters = meters
 	
 	GlobalSignals.signal_ui_started_game()
 
 
 func __on_audio_finished():
 	%AudioStreamPlayer.play()  # Restart when finished
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

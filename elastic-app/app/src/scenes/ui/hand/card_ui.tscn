@@ -1,9 +1,21 @@
-[gd_scene load_steps=4 format=3 uid="uid://cxnk0uabwanfn"]
+[gd_scene load_steps=5 format=3 uid="uid://cxnk0uabwanfn"]
 
 [ext_resource type="Script" uid="uid://di4ponjh5gtye" path="res://src/scenes/ui/hand/card_ui.gd" id="1_tt30y"]
 [ext_resource type="Texture2D" uid="uid://cw88cktjnkuf6" path="res://cc0_assets/water_card_template_blank.png" id="2_tt30y"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_transparent"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tt30y"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
 
 [node name="CardUi" type="Control"]
 custom_minimum_size = Vector2(130, 190)
@@ -79,3 +91,13 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 8
 text = "Durability"
+
+[node name="IsBuilding" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 116.0
+offset_top = 5.0
+offset_right = 132.0
+offset_bottom = 21.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tt30y")

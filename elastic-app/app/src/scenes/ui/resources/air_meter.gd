@@ -5,7 +5,7 @@ class_name AirMeter
 @export var rightmost_style: bool = false
 @export var air_color: Air.AirColor = Air.AirColor.UNKNOWN
 @export var default_timer_max: float = 20.0
-@export var default_max_energy: float = 1.0
+@export var default_max_energy: float = 7.0
 
 @onready var timer: Timer = find_child("Timer")
 @onready var progress_bar: ProgressBar = find_child("ProgressBar")  

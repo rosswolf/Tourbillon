@@ -45,28 +45,28 @@ class ResourceAccessor:
 		),
 		# TODO
 		GameResource.Type.RED_TIME: __SpecificResourceAccessor.new(
-			func(): assert(false,""),
-			func(value): assert(false,"")
+			func(): return UiController.meters[Air.AirColor.RED].time_remaining,
+			func(value): GlobalSignals.signal_core_time_set(Air.AirColor.RED, value)
 		),
 		GameResource.Type.ORANGE_TIME: __SpecificResourceAccessor.new(
-			func(): assert(false,""),
-			func(value): assert(false,"")
+			func(): return UiController.meters[Air.AirColor.ORANGE].time_remaining,
+			func(value): GlobalSignals.signal_core_time_set(Air.AirColor.ORANGE, value)
 		),	
 		GameResource.Type.BLUE_TIME: __SpecificResourceAccessor.new(
-			func(): assert(false,""),
-			func(value): assert(false,"")
+			func(): return UiController.meters[Air.AirColor.BLUE].time_remaining,
+			func(value): GlobalSignals.signal_core_time_set(Air.AirColor.BLUE, value)
 		),
 		GameResource.Type.RED_ENERGY: __SpecificResourceAccessor.new(
-			func(): assert(false,""),
-			func(value): assert(false,"")
+			func(): return UiController.meters[Air.AirColor.RED].current_energy,
+			func(value): GlobalSignals.signal_core_energy_set(Air.AirColor.RED, value)
 		),
 		GameResource.Type.ORANGE_ENERGY: __SpecificResourceAccessor.new(
-			func(): assert(false,""),
-			func(value): assert(false,"")
+			func(): return UiController.meters[Air.AirColor.ORANGE].current_energy,
+			func(value): GlobalSignals.signal_core_energy_set(Air.AirColor.ORANGE, value)
 		),
 		GameResource.Type.BLUE_ENERGY: __SpecificResourceAccessor.new(
-			func(): assert(false,""),
-			func(value): assert(false,"")
+			func(): return UiController.meters[Air.AirColor.BLUE].current_energy,
+			func(value): GlobalSignals.signal_core_energy_set(Air.AirColor.BLUE, value)
 		),
 		GameResource.Type.FORCE: __SpecificResourceAccessor.new(
 			func(): return GlobalGameManager.hero.force.amount,
