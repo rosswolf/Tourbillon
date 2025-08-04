@@ -12,6 +12,7 @@ var card: Card:
 		return __card
 	set(new_value): 
 		if new_value != __card:
+			
 			if __card != null:
 				__card = null
 				GlobalSignals.signal_core_card_unslotted(instance_id)

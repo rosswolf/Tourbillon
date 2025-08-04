@@ -38,7 +38,7 @@ func __on_card_slotted(target_slot_id: String):
 func __on_card_unslotted(target_slot_id: String):
 	if target_slot_id == __button_entity.instance_id:
 		%Name.text = ""
-		%MainPanel.visible = true
+		%MainPanel.visible = false
 		deactivate_slot()
 
 func _process(delta):
