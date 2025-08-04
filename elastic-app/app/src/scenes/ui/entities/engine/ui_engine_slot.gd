@@ -8,6 +8,7 @@ var attached_card: Card
 var is_activatable: bool
 var timer_duration: float
 
+
 func _ready() -> void:
 	super._ready()
 	is_activatable = true
@@ -21,6 +22,8 @@ func _ready() -> void:
 	bottom_container.visible = false
 	
 	GlobalSignals.core_slot_add_cooldown.connect(__on_cooldown)
+	%CardPreview.visible = false
+	
 
 func _process(delta):
 	if %Timer.time_left != 0:
@@ -57,9 +60,7 @@ func attach_card(card: Card) -> void:
 		else:
 			print("Couldn't load icon because not in SLOT_ICON_UIDS: " + move.name)
 		
-	
-	# If we only have one icon, we need to increase the font size
-	await get_tree().process_frame
+	%CardPreview.set_card_data(card)
 	
 func detach_card() -> void:
 	if attached_card == null:
@@ -87,4 +88,10 @@ func __on_refresh_slot_manually() -> void:
 		attached_card.__slot_effect.activate(attached_card)
 		GlobalSignals.signal_ui_slot_activated(name, attached_card.instance_id)
 		
-	
+func _on_mouse_entered() -> void:
+	super._on_mouse_entered()
+	%CardPreview.visible = true
+
+func _on_mouse_exited() -> void:
+	super._on_mouse_exited()
+	%CardPreview.visible = false

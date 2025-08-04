@@ -90,6 +90,13 @@ static var effect_map: Dictionary[String, InternalEffect] = {
 			GlobalSignals.signal_core_card_selection(shop_type)
 			return true,
 		{"source":[Hero, Card]}
+	),
+	"add_gold": InternalEffect.new(
+		func(source: Entity, params: Dictionary):
+			var amount: int = int(params.get("param"))
+			GlobalGameManager.hero.gold.increment(amount)
+			return true,
+		{"source":[Hero, Card]}
 	)
 }
 
