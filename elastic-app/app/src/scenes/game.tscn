@@ -138,7 +138,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(60, 400)
 layout_mode = 2
 air_color = 3
-default_timer_max = 60.0
+default_timer_max = 300.0
 
 [node name="MarginContainer2" type="MarginContainer" parent="Background/MainVBoxContainer/BotHBoxContainer"]
 layout_mode = 2
@@ -153,7 +153,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(60, 400)
 layout_mode = 2
 air_color = 1
-default_timer_max = 30.0
+default_timer_max = 120.0
 
 [node name="MarginContainer3" type="MarginContainer" parent="Background/MainVBoxContainer/BotHBoxContainer"]
 layout_mode = 2
@@ -170,7 +170,7 @@ custom_minimum_size = Vector2(60, 400)
 layout_mode = 2
 rightmost_style = true
 air_color = 2
-default_timer_max = 45.0
+default_timer_max = 75.0
 
 [node name="ClickAndDrag" parent="." instance=ExtResource("10_6e0h8")]
 

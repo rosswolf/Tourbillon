@@ -21,7 +21,7 @@ func _ready():
 	GlobalSignals.core_card_discarded.connect(__on_card_discarded)
 	GlobalSignals.core_card_played.connect(__on_card_played)
 	GlobalSignals.core_card_destroyed.connect(__on_card_destroyed)
-	GlobalSignals.ui_slot_activated.connect(__on_ui_slot_activated)
+	GlobalSignals.core_slot_activated.connect(__on_core_slot_activated)
 	
 	
 	
@@ -104,7 +104,7 @@ func __on_card_destroyed(card_instance_id: String):
 		return
 	GlobalGameManager.library.move_card_to_zone2(card.instance_id, Library.Zone.ANY, Library.Zone.EXILED)
 			
-func __on_ui_slot_activated(card_instance_id: String):
+func __on_core_slot_activated(card_instance_id: String):
 	var card: Card = instance_catalog.get_instance(card_instance_id) as Card
 	if card == null:
 		assert(false, "Card was null when retrieving from instance catalog: " + card_instance_id)

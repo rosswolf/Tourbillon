@@ -160,7 +160,7 @@
 	"card_cost": {
 	  "GameResource.Type.ORANGE_ENERGY": "1"
 	},
-	"slot_effect": "add_red_time=20, draw_card=1",
+	"slot_effect": "add_red_time=20, draw_card=1, cooldown=20",
 	"card_rarity": "Card.RarityType.STARTING"
   },
   {
@@ -174,7 +174,7 @@
 	"card_cost": {
 	  "GameResource.Type.RED_ENERGY": "1"
 	},
-	"slot_effect": "add_blue_time=20, draw_card=1",
+	"slot_effect": "add_blue_time=20, draw_card=1, cooldown=20",
 	"card_rarity": "Card.RarityType.STARTING"
   },
   {
@@ -188,7 +188,7 @@
 	"card_cost": {
 	  "GameResource.Type.BLUE_ENERGY": "1"
 	},
-	"slot_effect": "add_orange_time=20, draw_card=1",
+	"slot_effect": "add_orange_time=20, draw_card=1, cooldown=20",
 	"card_rarity": "Card.RarityType.STARTING"
   },
   {

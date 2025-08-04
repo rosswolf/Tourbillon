@@ -13,19 +13,19 @@ static func activate(source: Entity, target: Entity) -> bool:
 		
 		if card.has_instinct_effect():
 			return activate_instinct(card)
-		elif card.has_slot_effect():
-			return slot_card_in_battleground(card)
 		else:
-			assert(false, "unexpected inactivation")
+			return false
 	elif source_type == Entity.EntityType.CARD and target_type == Entity.EntityType.ENGINE_BUTTON:
 		var card: Card = source as Card
+		var button: EngineButtonEntity = target as EngineButtonEntity
+		
 		if not card.cost.satisfy(source, target):
 			return false
 			
 		if card.has_instinct_effect():
 			return activate_instinct(card, target)
 		elif card.has_slot_effect():
-			return slot_card_in_battleground(card)
+			return slot_card_in_button(card, button)
 		else:
 			assert(false, "unexpected inactivation")
 				
@@ -38,10 +38,11 @@ static func get_type(entity: Entity):
 		return entity._get_type()
 
 
-static func slot_card_in_battleground(card: Card) -> bool:	
-	GlobalSignals.signal_core_card_slotted(card.instance_id)
+static func slot_card_in_button(card: Card, button: EngineButtonEntity) -> bool:	
 	
 	GlobalGameManager.library.move_card_to_zone2(card.instance_id, Library.Zone.HAND, Library.Zone.SLOTTED)
+	
+	button.card = card
 	GlobalSignals.signal_core_card_removed_from_hand(card.instance_id)
 	
 	return true

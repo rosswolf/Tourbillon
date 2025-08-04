@@ -33,10 +33,6 @@ signal ui_changed_cursor_image(image_path: String)
 func signal_ui_changed_cursor_image(image_path: String):
 	ui_changed_cursor_image.emit(image_path)
 
-signal ui_slot_activated(trigger_card_id: String)
-func signal_ui_slot_activated(trigger_card_id: String):
-	ui_slot_activated.emit(trigger_card_id)
-
 signal ui_card_hovered(card_instance_id: String)
 func signal_ui_card_hovered(card_instance_id: String):
 	ui_card_hovered.emit(card_instance_id)
@@ -156,13 +152,22 @@ signal core_mob_intent_updated(mob_instance_id: String)
 func signal_core_mob_intent_updated(mob_instance_id: String):
 	core_mob_intent_updated.emit(mob_instance_id)
 
-signal core_card_slotted(instance_id: String)
-func signal_core_card_slotted(instance_id: String):
-	core_card_slotted.emit(instance_id)
+signal core_card_slotted(slot_instance_id: String)
+func signal_core_card_slotted(slot_instance_id: String):
+	core_card_slotted.emit(slot_instance_id)
+	
+signal core_card_unslotted(slot_instance_id: String)
+func signal_core_card_unslotted(slot_instance_id: String):
+	core_card_unslotted.emit(slot_instance_id)
 
 signal core_slot_add_cooldown(instance_id: String, duration: float)
 func signal_core_slot_add_cooldown(instance_id: String, duration: float):
 	core_slot_add_cooldown.emit(instance_id, duration)
+
+signal core_slot_activated(trigger_card_id: String)
+func signal_core_slot_activated(trigger_card_id: String):
+	core_slot_activated.emit(trigger_card_id)
+
 
 signal core_card_selection(selection_id)
 func signal_core_card_selection(selection_id: String):

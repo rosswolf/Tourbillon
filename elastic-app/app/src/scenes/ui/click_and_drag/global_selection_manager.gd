@@ -7,11 +7,11 @@ func _init():
 	GlobalSignals.ui_card_hovered.connect(__on_card_hovered)
 	GlobalSignals.ui_card_unhovered.connect(__on_card_unhovered)
 	
-func __on_card_hovered(card_instance_id: String):
-	set_hovered(card_instance_id)
+func __on_card_hovered(instance_id: String):
+	set_hovered(instance_id)
 	
-func __on_card_unhovered(card_instance_id: String):
-	clear_hovered_known(card_instance_id)
+func __on_card_unhovered(instance_id: String):
+	clear_hovered_known(instance_id)
 
 func set_hovered(instance_id: String):
 	if __hovered != "":

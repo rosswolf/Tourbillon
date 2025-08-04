@@ -22,7 +22,7 @@ func _ready() -> void:
 	
 	var audio_stream = load(GRAVITY_MP3)
 	%AudioStreamPlayer.stream = audio_stream
-	#%AudioStreamPlayer.play()
+	%AudioStreamPlayer.play()
 	%AudioStreamPlayer.finished.connect(__on_audio_finished)
 	
 	meters[Air.AirColor.RED] = %RedAirMeter

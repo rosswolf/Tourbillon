@@ -41,7 +41,10 @@ func activate_slot_effect(source: Entity, target: Entity) -> bool:
 			not __slot_effect._execute_satisfy_costs(source, target):
 		return false
 		
-	return __slot_effect.activate(source)
+	var result = __slot_effect.activate(source)
+	if result:
+		GlobalSignals.signal_core_slot_activated(instance_id)
+	return result
 	
 func activate_instinct_effect(source: Entity, target: Entity) -> bool:
 	

@@ -1,17 +1,17 @@
 extends UiTextureButton
 class_name EngineSlot
 
-@onready var top_container: HBoxContainer = $VBoxContainer/TopBoxContainer
-@onready var bottom_container: HBoxContainer = $VBoxContainer/BottomBoxContainer
+@onready var top_container: HBoxContainer = $MarginContainer/MainPanel/VBoxContainer/TopBoxContainer
+@onready var bottom_container: HBoxContainer = $MarginContainer/MainPanel/VBoxContainer/BottomBoxContainer
 
-var attached_card: Card
 var is_activatable: bool
 var timer_duration: float
 
 
 func _ready() -> void:
 	super._ready()
-	is_activatable = true
+	
+	deactivate_slot()
 	create_button_entity(self, false)
 	
 	self.pressed.connect(__on_refresh_slot_manually)
@@ -22,21 +22,32 @@ func _ready() -> void:
 	bottom_container.visible = false
 	
 	GlobalSignals.core_slot_add_cooldown.connect(__on_cooldown)
-	GlobalSignals.core_card_destroyed.connect(__on_card_destroyed)
+	
+	GlobalSignals.core_card_slotted.connect(__on_card_slotted)
+	GlobalSignals.core_card_unslotted.connect(__on_card_unslotted)
 	%CardPreview.visible = false
 	
+func __on_card_slotted(target_slot_id: String):
+	if target_slot_id == __button_entity.instance_id:
+		%CardPreview.set_card_data(__button_entity.card)
+		%CardPreview.visible = true
+		%Name.text = __button_entity.card.display_name
+		%MainPanel.visible = true
+		reactivate_slot()
+	
+func __on_card_unslotted(target_slot_id: String):
+	if target_slot_id == __button_entity.instance_id:
+		%Name.text = ""
+		%MainPanel.visible = true
+		deactivate_slot()
 
 func _process(delta):
 	if %Timer.time_left != 0:
 		%ProgressBar.value = pct(%Timer.time_left, timer_duration)
 
-func __on_card_destroyed(instance_id: String):
-	if instance_id == attached_card.instance_id:
-		deactivate_slot()
-		queue_free()
-
 func __on_cooldown(instance_id: String, duration: float):
-	if instance_id == attached_card.instance_id:
+	if instance_id == __button_entity.get_card_instance_id():
+	
 		deactivate_slot()
 		timer_duration = duration
 		%Timer.one_shot = true
@@ -50,34 +61,6 @@ func pct(numerator: float, denominator: float):
 	else:
 		return 100.0 * numerator / denominator	
 	
-func has_card() -> bool:
-	return attached_card != null
-	
-func attach_card(card: Card) -> void:
-	attached_card = card
-	
-	var move_pieces: Array[MoveParser.MovePiece] = attached_card.__slot_effect.move_list
-	
-	for move in move_pieces:
-		var slot_icon: SlotIcon = PreloadScenes.ICONS["slot"].instantiate()
-		
-		if UidManager.SLOT_ICON_UIDS.has(move.name):
-			slot_icon.set_slot_image(move.name)
-		else:
-			print("Couldn't load icon because not in SLOT_ICON_UIDS: " + move.name)
-		
-	%CardPreview.set_card_data(card)
-	
-func detach_card() -> void:
-	if attached_card == null:
-		return
-	
-	#TODO: should this not be in the UI code?
-	if GlobalGameManager.relic_manager.has_relic("training_gloves"):	
-		GlobalGameManager.library.move_card_to_zone2(attached_card.instance_id, Library.Zone.SLOTTED, Library.Zone.HAND)
-	else:
-		GlobalGameManager.library.move_card_to_zone2(attached_card.instance_id, Library.Zone.SLOTTED, Library.Zone.GRAVEYARD)
-	attached_card = null
 
 							
 func deactivate_slot() -> void:	
@@ -90,13 +73,13 @@ func reactivate_slot() -> void:
 	# Restore normal colors
 
 func __on_refresh_slot_manually() -> void:
-	if is_activatable:
-		attached_card.__slot_effect.activate(attached_card)
-		GlobalSignals.signal_ui_slot_activated(attached_card.instance_id)
+	if is_activatable and __button_entity.card != null:
+		__button_entity.activate_slot_effect(__button_entity.card, null)
 		
 func _on_mouse_entered() -> void:
 	super._on_mouse_entered()
-	%CardPreview.visible = true
+	if __button_entity.get_card_instance_id() != "":
+		%CardPreview.visible = true
 
 func _on_mouse_exited() -> void:
 	super._on_mouse_exited()
