@@ -22,12 +22,18 @@ func _ready() -> void:
 	bottom_container.visible = false
 	
 	GlobalSignals.core_slot_add_cooldown.connect(__on_cooldown)
+	GlobalSignals.core_card_destroyed.connect(__on_card_destroyed)
 	%CardPreview.visible = false
 	
 
 func _process(delta):
 	if %Timer.time_left != 0:
 		%ProgressBar.value = pct(%Timer.time_left, timer_duration)
+
+func __on_card_destroyed(instance_id: String):
+	if instance_id == attached_card.instance_id:
+		deactivate_slot()
+		queue_free()
 
 func __on_cooldown(instance_id: String, duration: float):
 	if instance_id == attached_card.instance_id:
@@ -86,7 +92,7 @@ func reactivate_slot() -> void:
 func __on_refresh_slot_manually() -> void:
 	if is_activatable:
 		attached_card.__slot_effect.activate(attached_card)
-		GlobalSignals.signal_ui_slot_activated(name, attached_card.instance_id)
+		GlobalSignals.signal_ui_slot_activated(attached_card.instance_id)
 		
 func _on_mouse_entered() -> void:
 	super._on_mouse_entered()
@@ -94,4 +100,5 @@ func _on_mouse_entered() -> void:
 
 func _on_mouse_exited() -> void:
 	super._on_mouse_exited()
-	%CardPreview.visible = false
+	if %CardPreview:
+		%CardPreview.visible = false

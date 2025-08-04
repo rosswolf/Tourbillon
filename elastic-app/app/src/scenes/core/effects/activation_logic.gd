@@ -8,16 +8,26 @@ static func activate(source: Entity, target: Entity) -> bool:
 	if source_type == Entity.EntityType.CARD and target_type == Entity.EntityType.BATTLEGROUND:
 		var card: Card = source as Card
 		
+		if not card.cost.satisfy(source, target):
+			return false
+		
 		if card.has_instinct_effect():
 			return activate_instinct(card)
 		elif card.has_slot_effect():
 			return slot_card_in_battleground(card)
+		else:
+			assert(false, "unexpected inactivation")
 	elif source_type == Entity.EntityType.CARD and target_type == Entity.EntityType.ENGINE_BUTTON:
 		var card: Card = source as Card
+		if not card.cost.satisfy(source, target):
+			return false
+			
 		if card.has_instinct_effect():
 			return activate_instinct(card, target)
 		elif card.has_slot_effect():
 			return slot_card_in_battleground(card)
+		else:
+			assert(false, "unexpected inactivation")
 				
 	return false
 
@@ -29,7 +39,6 @@ static func get_type(entity: Entity):
 
 
 static func slot_card_in_battleground(card: Card) -> bool:	
-	
 	GlobalSignals.signal_core_card_slotted(card.instance_id)
 	
 	GlobalGameManager.library.move_card_to_zone2(card.instance_id, Library.Zone.HAND, Library.Zone.SLOTTED)
@@ -37,10 +46,7 @@ static func slot_card_in_battleground(card: Card) -> bool:
 	
 	return true
 	
-static func activate_instinct(card: Card, target: Entity = null) -> bool:	
-	if card.__instinct_effect == null:
-		#TODO: check if this will actually be null
-		return false
+static func activate_instinct(card: Card, target: Entity = null) -> bool:
 		
 	return card.activate_instinct_effect(card, target)
 	

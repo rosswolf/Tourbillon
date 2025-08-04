@@ -131,12 +131,12 @@ class CardBuilder extends Entity.EntityBuilder:
 		super.build_entity(card)
 			
 		if __slot_effect != "":
-			card.__slot_effect = MoveDescriptorEffect.new(__slot_effect, null)
+			card.__slot_effect = MoveDescriptorEffect.new(__slot_effect)
 		
 		var cost = Cost.new(__required_resources)
 		
 		if __instinct_effect != "":
-			card.__instinct_effect = MoveDescriptorEffect.new(__instinct_effect, cost)
+			card.__instinct_effect = MoveDescriptorEffect.new(__instinct_effect)
 		card.group_template_id = __group_template_id
 		card.rarity = __card_rarity
 		#card.art_image_uid = __art_image_uid
@@ -145,7 +145,7 @@ class CardBuilder extends Entity.EntityBuilder:
 		card.cost = cost
 		card.trigger_resource = __trigger_resource
 		
-		var on_change: Callable = func(value): if value == 0: OneTimeEffect.new("durability_hit_zero", {}).activate(card)
+		var on_change: Callable = func(value): if value == 0: GlobalSignals.signal_core_card_destroyed(card.instance_id)
 		var none: Callable = func(value): pass
 		card.durability = CappedResource.new(__max_durability, __max_durability, on_change, none, true)
 		return card

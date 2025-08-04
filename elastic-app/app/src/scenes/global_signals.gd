@@ -33,9 +33,9 @@ signal ui_changed_cursor_image(image_path: String)
 func signal_ui_changed_cursor_image(image_path: String):
 	ui_changed_cursor_image.emit(image_path)
 
-signal ui_slot_activated(slot_name: String, trigger_card_id: String)
-func signal_ui_slot_activated(slot_name: String, trigger_card_id: String):
-	ui_slot_activated.emit(slot_name, trigger_card_id)
+signal ui_slot_activated(trigger_card_id: String)
+func signal_ui_slot_activated(trigger_card_id: String):
+	ui_slot_activated.emit(trigger_card_id)
 
 signal ui_card_hovered(card_instance_id: String)
 func signal_ui_card_hovered(card_instance_id: String):
@@ -107,10 +107,6 @@ signal core_arena_created(size: int)
 func signal_core_arena_created(size: int):
 	core_arena_created.emit(size)
 
-signal core_arena_destroyed(instance_id: String)
-func signal_core_arena_destroyed(instance_id: String):
-	core_arena_destroyed.emit(instance_id)
-	
 	
 signal core_activation_with_non_activatable_source(source_id: String)
 func signal_core_activation_with_non_activatable_source(source_id: String):
@@ -187,7 +183,11 @@ func signal_core_card_played_but_cant_satisfy_cost(card_instance_id: String):
 signal core_card_discarded(card_instance_id: String)
 func signal_core_card_discarded(card_instance_id: String):
 	core_card_discarded.emit(card_instance_id)
-
+	
+signal core_card_destroyed(card_instance_id: String)
+func signal_core_card_destroyed(card_instance_id: String):
+	core_card_destroyed.emit(card_instance_id)
+	
 signal core_card_removed_from_hand(card_instance_id: String)
 func signal_core_card_removed_from_hand(card_instance_id: String):
 	core_card_removed_from_hand.emit(card_instance_id)

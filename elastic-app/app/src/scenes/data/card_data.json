@@ -48,7 +48,7 @@
 	"display_name": "determination",
 	"rules_text": "draw a card",
 	"cursor_image_uid": "bqvm4vgi4c0dn",
-	"durability_max": 1,
+	"durability_max": 10,
 	"card_cost": {
 	  "GameResource.Type.BLUE_ENERGY": "2"
 	},
@@ -156,10 +156,11 @@
 	"display_name": "tumble",
 	"rules_text": "replenish red time, draw 1 card",
 	"cursor_image_uid": "bqvm4vgi4c0dn",
+	"durability_max": 3,
 	"card_cost": {
 	  "GameResource.Type.ORANGE_ENERGY": "1"
 	},
-	"instinct_effect": "add_red_time=20, draw_card=1",
+	"slot_effect": "add_red_time=20, draw_card=1",
 	"card_rarity": "Card.RarityType.STARTING"
   },
   {
@@ -169,10 +170,11 @@
 	"display_name": "roil",
 	"rules_text": "replenish blue time, draw 1 card",
 	"cursor_image_uid": "bqvm4vgi4c0dn",
+	"durability_max": 3,
 	"card_cost": {
 	  "GameResource.Type.RED_ENERGY": "1"
 	},
-	"instinct_effect": "add_blue_time=20, draw_card=1",
+	"slot_effect": "add_blue_time=20, draw_card=1",
 	"card_rarity": "Card.RarityType.STARTING"
   },
   {
@@ -182,10 +184,11 @@
 	"display_name": "dip",
 	"rules_text": "replenish orange time, draw 1 card",
 	"cursor_image_uid": "bqvm4vgi4c0dn",
+	"durability_max": 3,
 	"card_cost": {
 	  "GameResource.Type.BLUE_ENERGY": "1"
 	},
-	"instinct_effect": "add_orange_time=20, draw_card=1",
+	"slot_effect": "add_orange_time=20, draw_card=1",
 	"card_rarity": "Card.RarityType.STARTING"
   },
   {
@@ -212,7 +215,7 @@
 	"card_cost": {
 	  "GameResource.Type.ORANGE_ENERGY": "0"
 	},
-	"instinct_effect": "add_orange_energy=10",
+	"instinct_effect": "add_orange_energy=2",
 	"card_rarity": "Card.RarityType.COMMON",
 	"tags": "STARTER_ENERGY"
   },
@@ -227,7 +230,7 @@
 	"card_cost": {
 	  "GameResource.Type.RED_ENERGY": "0"
 	},
-	"instinct_effect": "add_red_energy=10",
+	"instinct_effect": "add_red_energy=2",
 	"card_rarity": "Card.RarityType.COMMON",
 	"tags": "STARTER_ENERGY"
   },
@@ -242,7 +245,7 @@
 	"card_cost": {
 	  "GameResource.Type.BLUE_ENERGY": "0"
 	},
-	"instinct_effect": "add_blue_energy=10",
+	"instinct_effect": "add_blue_energy=2",
 	"card_rarity": "Card.RarityType.COMMON",
 	"tags": "STARTER_ENERGY"
   }

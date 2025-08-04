@@ -69,13 +69,7 @@ static var effect_map: Dictionary[String, InternalEffect] = {
 			return true,
 		{"source":[Hero, Card]}
 	),
-	"durability_hit_zero": InternalEffect.new(
-		func(source: Entity, params: Dictionary):
-			var card: Card = params.get("card") as Card
-			GlobalGameManager.library.move_card_to_zone2(card.instance_id, Library.Zone.ANY, Library.Zone.EXILED)
-			return true,
-		{"source":[Hero, Card]}
-	),
+
 	"cooldown":  InternalEffect.new(
 		func(source: Entity, params: Dictionary):
 			var amount: float = float(params.get("param"))
