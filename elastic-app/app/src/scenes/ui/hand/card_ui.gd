@@ -54,6 +54,14 @@ func set_card_data(card: Card) -> void:
 		is_building.visible = false
 		
 
+func refresh():
+	card_title.text = card_data.display_name
+	card_description.text = card_data.rules_text
+	if card_data.durability.amount >= 0:
+		durability_label.text = "Durability: " + str(card_data.durability.amount) + "/" + str(card_data.durability.max_amount)
+	else:
+		durability_label.text = ""
+
 func add_slot_icon(name: String, value: String, container: Container, font_size: GameIcon.TextSize) -> void:
 	var slot_icon: SlotIcon = PreloadScenes.ICONS["slot"].instantiate()
 		

@@ -184,6 +184,10 @@ func signal_core_card_played(card_instance_id: String):
 signal core_card_played_but_cant_satisfy_cost(card_instance_id: String)
 func signal_core_card_played_but_cant_satisfy_cost(card_instance_id: String):
 	core_card_played_but_cant_satisfy_cost.emit(card_instance_id)
+	
+signal core_missing_resource(type: GameResource.Type)
+func signal_core_missing_resource(type: GameResource.Type):
+	core_missing_resource.emit(type)
 
 signal core_card_discarded(card_instance_id: String)
 func signal_core_card_discarded(card_instance_id: String):

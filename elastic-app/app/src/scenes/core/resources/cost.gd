@@ -33,6 +33,16 @@ func _init(resources: Dictionary[GameResource.Type, int]):
 	requirements = resources.duplicate()
 
 func can_satisfy(source: Entity, target: Entity) -> bool:
+	return get_unsatisfied_resources(source, target).size() == 0
+	
+func signal_unsatisfied(source: Entity, target: Entity):
+	var unsatisfied_types: Array[GameResource.Type] = get_unsatisfied_resources(source, target)
+	for type in unsatisfied_types:
+		GlobalSignals.signal_core_missing_resource(type)
+	
+func get_unsatisfied_resources(source: Entity, target: Entity) -> Array[GameResource.Type]:
+	var unsatisfied_types: Array[GameResource.Type] = []
+	
 	var aux_resources: AuxilliaryResources = AuxilliaryResources.new(source, target)
 	for resource in requirements.keys():
 		
@@ -41,13 +51,15 @@ func can_satisfy(source: Entity, target: Entity) -> bool:
 			continue
 		
 		if not __can_satisfy_requirement(resource, requirements[resource]):
-			return false
-	return true
+			unsatisfied_types.append(resource)
+			
+	return unsatisfied_types
+	
 
 # Subtracts the requirements from the resources.  
 func satisfy(source: Entity, target: Entity) -> bool:
 	if not can_satisfy(source, target):
-		printerr("Failed to satisfy costs.  Need to emit a signal here.")
+		signal_unsatisfied(source, target)
 		return false
 		
 	var aux_resources: AuxilliaryResources = AuxilliaryResources.new(source, target)	
