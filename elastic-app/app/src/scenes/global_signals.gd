@@ -5,6 +5,10 @@ extends Node
 # Signals that are from UI->UI or core->core should be carefully thought out and understood why
 # Ui -> UI may happen when the 2nd UI aspect is only visual, not logical.  
 
+signal ui_meter_expired(color: Air.AirColor)
+func signal_ui_meter_expired(color: Air.AirColor):
+	ui_meter_expired.emit(color)
+
 signal ui_started_game()
 func signal_ui_started_game():
 	ui_started_game.emit()
@@ -63,6 +67,9 @@ signal core_max_time_added(color: Air.AirColor, amount: float)
 func signal_core_max_time_added(color: Air.AirColor, amount: float):
 	core_max_time_added.emit(color, amount)			
 
+signal core_max_time_removed(color: Air.AirColor, amount: float)
+func signal_core_max_time_removed(color: Air.AirColor, amount: float):
+	core_max_time_removed.emit(color, amount)			
 	
 signal core_energy_set(color: Air.AirColor, amount: float)
 func signal_core_energy_set(color: Air.AirColor, amount: float):

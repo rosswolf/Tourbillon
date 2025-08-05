@@ -18,6 +18,9 @@ const MENU: String = "res://src/scenes/main_menu.tscn"
 # Single timer that tracks remaining time until full
 @onready var fill_timer: Timer = Timer.new()
 
+var meter_has_expired: bool = false
+
+
 var __timer_max: float = 1.0
 var timer_max: float:
 	get:
@@ -43,9 +46,12 @@ var current_units: float:
 	get:
 		return __current_units
 	set(value):
+		var old_units = __current_units
 		__current_units = clamp(value, 0.0, max_energy)
-		# Update the timer whenever units change
-		__update_timer_from_units()
+		
+		# Only update timer if units actually changed
+		if abs(old_units - __current_units) > 0.001:
+			__update_timer_from_units()
 
 # Derived values from units
 var current_time: float:
@@ -89,6 +95,7 @@ func _ready():
 		
 	GlobalSignals.core_max_time_set.connect(__on_max_time_set)
 	GlobalSignals.core_max_time_added.connect(__on_max_time_added)	
+	GlobalSignals.core_max_time_removed.connect(__on_max_time_removed)	
 		
 	GlobalSignals.core_energy_set.connect(__on_energy_set)
 	GlobalSignals.core_energy_filled.connect(__on_energy_filled)
@@ -115,31 +122,30 @@ func change_corner_radius():
 		fill_style.corner_radius_bottom_right = 22
 		progress_bar.add_theme_stylebox_override("fill", fill_style)
 
-func __on_fill_timer_timeout():
-	# Timer has expired, meter is full
-	__current_units = max_energy  # Set directly to avoid retriggering timer
-	GlobalGameManager.end_game()
 
+func __on_fill_timer_timeout():
+	__current_units = max_energy
+	if not meter_has_expired:
+		meter_has_expired = true
+		GlobalSignals.signal_ui_meter_expired(air_color)
+		
 func __update_timer_from_units():
-	# Calculate time position from current units
 	var time_position = (current_units / max_energy) * timer_max
 	var remaining_time = timer_max - time_position
 	
-	print("UPDATE TIMER: units=", current_units, " time_pos=", time_position, " remaining=", remaining_time)
-	
-	if remaining_time <= 0.001:  # Use small epsilon to avoid float precision issues
-		# Already at max, stop timer and trigger game end
+	if remaining_time <= 0.001:
 		fill_timer.stop()
-		__current_units = max_energy  # Ensure we're exactly at max
-		GlobalGameManager.end_game()
+		__current_units = max_energy
+		if not meter_has_expired:  # Only signal once
+			meter_has_expired = true
+			GlobalSignals.signal_ui_meter_expired(air_color)
 	else:
-		# Start/restart timer with the remaining time
+		# We have breathing room - reset the expired flag
+		meter_has_expired = false
 		fill_timer.stop()
 		fill_timer.wait_time = remaining_time
 		fill_timer.start()
-		# Store the base units when we start the timer
 		__base_units = __current_units
-		print("Timer started with ", remaining_time, " seconds")
 
 # Time-based operations (convert to units)
 func __on_time_filled(target_color: Air.AirColor, amount: float):
@@ -163,6 +169,10 @@ func __on_time_set(target_color: Air.AirColor, amount: float):
 func __on_max_time_added(target_color: Air.AirColor, amount: float):
 	if target_color == air_color:
 		add_max_time(amount)
+
+func __on_max_time_removed(target_color: Air.AirColor, amount: float):
+	if target_color == air_color:
+		remove_max_time(amount)
 
 func __on_max_time_set(target_color: Air.AirColor, amount: float):
 	if target_color == air_color:
@@ -207,11 +217,41 @@ func add_max_time(amount: float):
 	timer_max += amount
 	current_units = saved_units  # Restore units, timer will update
 
-func set_max_time(amount: float):
-	# Conservation of units: keep current units when changing max time
-	var saved_units = current_units
-	timer_max = amount
-	current_units = saved_units  # Restore units, timer will update
+func remove_max_time(amount: float):
+	var seconds_until_death = fill_timer.time_left if not fill_timer.is_stopped() else (timer_max - current_time)
+	
+	timer_max -= amount
+	
+	if seconds_until_death > timer_max:
+		__current_units = 0  # Set directly
+	else:
+		var new_current_time = timer_max - seconds_until_death
+		__current_units = (new_current_time / timer_max) * max_energy
+	
+	# Force clean timer restart with new values
+	__update_timer_from_units()
+	flash_bar()
+
+func flash_bar():
+	# Create a tween for the flash effect
+	var tween = create_tween()
+	
+	# Store original color
+	var original_color = progress_bar.modulate
+	
+	# Flash to white and back
+	tween.tween_property(progress_bar, "modulate", Color.WHITE, 0.1)
+	tween.tween_property(progress_bar, "modulate", original_color, 0.2)
+
+func set_max_time(new_max: float):
+	var actual_time_remaining = fill_timer.time_left if not fill_timer.is_stopped() else (timer_max - current_time)
+	timer_max = new_max
+	
+	if actual_time_remaining > timer_max:
+		current_units = 0  # We're better than empty
+	else:
+		var new_time_position = timer_max - actual_time_remaining
+		current_units = (new_time_position / timer_max) * max_energy
 
 func pct(numerator: float, denominator: float):
 	if denominator <= 0.001:

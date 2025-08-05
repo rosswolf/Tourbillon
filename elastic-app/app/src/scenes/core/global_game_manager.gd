@@ -22,6 +22,7 @@ func _ready():
 	GlobalSignals.core_card_played.connect(__on_card_played)
 	GlobalSignals.core_card_destroyed.connect(__on_card_destroyed)
 	GlobalSignals.core_slot_activated.connect(__on_core_slot_activated)
+	GlobalSignals.ui_meter_expired.connect(__on_ui_meter_expired)
 	
 	
 	
@@ -82,6 +83,26 @@ func __on_start_battle():
 	#battleground.spawn_new_stage(1)
 	allow_activations()
 	GlobalSignals.signal_core_begin_turn()
+	
+func __on_ui_meter_expired(color: Air.AirColor):
+	
+	const air_colors: Array[Air.AirColor] = [Air.AirColor.PURPLE, Air.AirColor.BLUE, Air.AirColor.GREEN]
+	
+	var ongoing: bool = false
+
+	for c in air_colors:
+		if UiController.meters[c].time_until_full > 0.001:
+			ongoing = true
+			break
+	
+	if not ongoing:
+		end_game()
+	else:
+		# Make the timers count faster
+		for c in air_colors:
+			GlobalSignals.signal_core_max_time_removed(c, 5.0)
+	
+	
 		
 func __on_card_played(card_instance_id: String):
 	var card: Card = instance_catalog.get_instance(card_instance_id) as Card

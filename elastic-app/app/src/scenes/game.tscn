@@ -200,7 +200,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(60, 400)
 layout_mode = 2
 air_color = 3
-default_timer_max = 70.0
+default_timer_max = 45.0
 default_max_energy = 3.0
 starting_energy = 1.0
 
@@ -217,7 +217,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(60, 400)
 layout_mode = 2
 air_color = 1
-default_timer_max = 60.0
+default_timer_max = 30.0
 default_max_energy = 3.0
 starting_energy = 1.0
 
@@ -236,7 +236,6 @@ custom_minimum_size = Vector2(60, 400)
 layout_mode = 2
 rightmost_style = true
 air_color = 2
-default_timer_max = 65.0
 default_max_energy = 3.0
 starting_energy = 1.0
 
@@ -259,6 +258,7 @@ mouse_filter = 2
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
+process_mode = 3
 volume_db = -8.117
 
 [node name="GlobalTimer" type="Timer" parent="."]

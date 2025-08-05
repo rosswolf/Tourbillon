@@ -58,6 +58,8 @@ func __on_card_unslotted(target_slot_id: String):
 		%Name.text = ""
 		%MainPanel.visible = false
 		deactivate_slot()
+		%Timer.stop()
+		%ProgressBar.value = 0
 
 func _process(delta):
 	if %Timer.time_left != 0:
@@ -93,7 +95,8 @@ func reactivate_slot() -> void:
 func __on_refresh_slot_manually() -> void:
 	if is_activatable and __button_entity.card != null:
 		__button_entity.activate_slot_effect(__button_entity.card, null)
-		card_preview.refresh()
+		if card_preview:
+			card_preview.refresh()
 		
 func _on_mouse_entered() -> void:
 	super._on_mouse_entered()

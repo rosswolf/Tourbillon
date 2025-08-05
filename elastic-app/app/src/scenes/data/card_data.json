@@ -262,7 +262,7 @@
 	  "GameResource.Type.PURPLE_ENERGY": "2"
 	},
 	"instinct_effect": "shop=card",
-	"card_rarity": "Card.RarityType.STARTING"
+	"card_rarity": "Card.RarityType.COMMON"
   },
   {
 	"card_template_id": "card_shop_slot_2",
@@ -276,7 +276,7 @@
 	  "GameResource.Type.GREEN_ENERGY": "2"
 	},
 	"instinct_effect": "shop=slot",
-	"card_rarity": "Card.RarityType.STARTING"
+	"card_rarity": "Card.RarityType.COMMON"
   },
   {
 	"card_template_id": "card_10s_all_2",
@@ -290,7 +290,7 @@
 	  "GameResource.Type.NONE": "0"
 	},
 	"instinct_effect": "add_purple_time=5, add_blue_time=5, add_green_time=5, draw_card=3",
-	"card_rarity": "Card.RarityType.STARTING"
+	"card_rarity": "Card.RarityType.COMMON"
   },
   {
 	"card_template_id": "slot_click_to_draw_2",
@@ -304,7 +304,7 @@
 	  "GameResource.Type.BLUE_ENERGY": "2"
 	},
 	"slot_effect": "draw_card=1,cooldown=10",
-	"card_rarity": "Card.RarityType.STARTING"
+	"card_rarity": "Card.RarityType.COMMON"
   },
   {
 	"card_template_id": "card_purple_time_2",
@@ -317,7 +317,7 @@
 	  "GameResource.Type.BLUE_ENERGY": "1"
 	},
 	"instinct_effect": "remove_purple_time=5, draw_card=1",
-	"card_rarity": "Card.RarityType.STARTING"
+	"card_rarity": "Card.RarityType.COMMON"
   },
   {
 	"card_template_id": "card_blue_time_2",
@@ -330,7 +330,7 @@
 	  "GameResource.Type.GREEN_ENERGY": "1"
 	},
 	"instinct_effect": "remove_blue_time=5, draw_card=1",
-	"card_rarity": "Card.RarityType.STARTING"
+	"card_rarity": "Card.RarityType.COMMON"
   },
   {
 	"card_template_id": "card_green_time_2",
@@ -343,7 +343,7 @@
 	  "GameResource.Type.PURPLE_ENERGY": "1"
 	},
 	"instinct_effect": "remove_green_time=5, draw_card=1",
-	"card_rarity": "Card.RarityType.STARTING"
+	"card_rarity": "Card.RarityType.COMMON"
   },
   {
 	"card_template_id": "card_energy_choice_2",
@@ -357,7 +357,7 @@
 	  "GameResource.Type.NONE": "0"
 	},
 	"instinct_effect": "shop=STARTER_ENERGY",
-	"card_rarity": "Card.RarityType.STARTING"
+	"card_rarity": "Card.RarityType.COMMON"
   },
   {
 	"card_template_id": "slot_click_to_replenish_2",
@@ -371,7 +371,7 @@
 	  "GameResource.Type.BLUE_ENERGY": "1"
 	},
 	"slot_effect": "remove_purple_time=10, remove_blue_time=10, remove_green_time=10, cooldown=30",
-	"card_rarity": "Card.RarityType.STARTING"
+	"card_rarity": "Card.RarityType.COMMON"
   },
   {
 	"card_template_id": "card_add_gold_2",
@@ -385,7 +385,7 @@
 	  "GameResource.Type.BLUE_ENERGY": "1"
 	},
 	"instinct_effect": "add_gold=20",
-	"card_rarity": "Card.RarityType.STARTING"
+	"card_rarity": "Card.RarityType.COMMON"
   },
   {
 	"card_template_id": "slot_add_gold_2",
@@ -399,7 +399,7 @@
 	  "GameResource.Type.GREEN_ENERGY": "1"
 	},
 	"slot_effect": "add_gold=5, cooldown=20",
-	"card_rarity": "Card.RarityType.STARTING"
+	"card_rarity": "Card.RarityType.COMMON"
   },
   {
 	"card_template_id": "card_purple_time_2_2",
@@ -413,7 +413,7 @@
 	  "GameResource.Type.GREEN_ENERGY": "1"
 	},
 	"slot_effect": "add_purple_time=5, draw_card=1, cooldown=20",
-	"card_rarity": "Card.RarityType.STARTING"
+	"card_rarity": "Card.RarityType.COMMON"
   },
   {
 	"card_template_id": "card_blue_time_2_2",
@@ -427,7 +427,7 @@
 	  "GameResource.Type.PURPLE_ENERGY": "1"
 	},
 	"slot_effect": "add_blue_time=5, draw_card=1, cooldown=20",
-	"card_rarity": "Card.RarityType.STARTING"
+	"card_rarity": "Card.RarityType.COMMON"
   },
   {
 	"card_template_id": "card_green_time_2_2",
@@ -441,6 +441,6 @@
 	  "GameResource.Type.BLUE_ENERGY": "1"
 	},
 	"slot_effect": "add_green_time=5, draw_card=1, cooldown=20",
-	"card_rarity": "Card.RarityType.STARTING"
+	"card_rarity": "Card.RarityType.COMMON"
   }
 ]
