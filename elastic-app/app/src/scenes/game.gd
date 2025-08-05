@@ -9,7 +9,7 @@ var GRAVITY_MP3: String = "res://pixabay assets/gravity-193874.mp3"
 @onready var targeting_icon: TargetingIcon = \
 	$Background/MainVBoxContainer/BotHBoxContainer/UIVBoxContainer/HBoxContainer/VBoxContainer/TargetingPanelContainer/GenericTargetingIcon
 
-var meters: Dictionary[Air.AirColor, AirMeter] = {}
+var meters: Dictionary[Air.AirColor, AirMeter2] = {}
 
 func _ready() -> void:
 	

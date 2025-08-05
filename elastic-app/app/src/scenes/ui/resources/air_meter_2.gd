@@ -20,13 +20,15 @@ var timer_max: float:
 		return max(1.0, __timer_max)
 	set(value):
 		__timer_max = max(1.0, value)
-		
-var time_remaining: float:
-	get: 
-		return timer.time_left
+
+# Time elapsed since start (rises from 0 to timer_max)
+var time_elapsed: float:
+	get:
+		return timer_max - timer.time_left
 	set(value):
-		var new_value = min(timer_max, value)
-		timer.start(new_value)
+		var clamped_value = clamp(value, 0, timer_max)
+		var new_time_left = timer_max - clamped_value
+		timer.start(new_time_left)
 
 var __max_energy: float = 1.0
 var max_energy: float:
@@ -35,18 +37,25 @@ var max_energy: float:
 	set(value):
 		__max_energy = max(1.0, value)
 
-# Core relationship: time is primary, units derive from time
+# Core relationship: time is primary, units derive from time (now based on elapsed time)
 var current_energy: float:
 	get: 
-		return (time_remaining / timer_max) * max_energy
+		return (time_elapsed / timer_max) * max_energy
 
+# Time remaining until game over
+var time_remaining: float:
+	get:
+		return timer.time_left
 
 func _ready():
 	timer_max = default_timer_max
 	max_energy = default_max_energy
+	
+	# Start the timer with full time (it will count down to 0, meaning time_elapsed goes up)
 	timer.timeout.connect(_on_timer_timeout)
 	timer.start(timer_max)
-	progress_bar.value = pct(timer.time_left, timer_max)
+	
+	# Connect to global signals
 	GlobalSignals.core_time_replenished.connect(__on_time_replenished)
 	GlobalSignals.core_time_set.connect(__on_time_set)
 		
@@ -77,9 +86,7 @@ func change_corner_radius():
 		fill_style.corner_radius_bottom_right = 22
 		progress_bar.add_theme_stylebox_override("fill", fill_style)
 
-
-
-	
+# Signal handlers - replenish adds more energy (pushes meter up)
 func __on_energy_replenished(target_color: Air.AirColor, amount: float):
 	if target_color == air_color:
 		add_energy_capped(amount)
@@ -98,12 +105,14 @@ func __on_max_energy_set(target_color: Air.AirColor, amount: float):
 
 func __on_time_replenished(target_color: Air.AirColor, amount: float):
 	if target_color == air_color:
-		time_remaining = time_remaining + amount
+		# Reduce time left in timer (increase elapsed time = more energy)
+		var new_time_left = max(0, timer.time_left - amount)
+		timer.start(new_time_left)
 	
 func __on_time_set(target_color: Air.AirColor, amount: float):
 	if target_color == air_color:
-		time_remaining = amount
-
+		# Set specific elapsed time
+		time_elapsed = amount
 
 func __on_max_time_added(target_color: Air.AirColor, amount: float):
 	if target_color == air_color:
@@ -113,39 +122,56 @@ func __on_max_time_set(target_color: Air.AirColor, amount: float):
 	if target_color == air_color:
 		set_max_time(amount)
 
-# Add units (converts to time and adds it)
+# Add units (converts to time and increases elapsed time - more energy for player to manage)
 func add_energy_capped(amount: float):
 	var time_per_unit: float = timer_max / max_energy
-	var time_to_add: float = amount * time_per_unit
-	time_remaining = time_remaining + time_to_add
+	var time_to_advance: float = amount * time_per_unit
+	var new_time_left = max(0, timer.time_left - time_to_advance)
+	timer.start(new_time_left)
 	
-# Spend units (converts to time and removes it)
+# Set energy level (converts to elapsed time and restarts timer)
 func set_energy_capped(amount: float):
 	var time_per_unit: float = timer_max / max_energy
-	var new_time: float = amount * time_per_unit
-	time_remaining = max(0, new_time)
+	var target_elapsed_time: float = clamp(amount * time_per_unit, 0, timer_max)
+	var target_time_left: float = timer_max - target_elapsed_time
+	timer.start(target_time_left)
+
+# Spend energy (reduces elapsed time - moves meter down)
+func spend_energy(amount: float):
+	var time_per_unit: float = timer_max / max_energy
+	var time_to_reduce: float = amount * time_per_unit
+	var new_time_left = min(timer_max, timer.time_left + time_to_reduce)
+	timer.start(new_time_left)
 
 func add_max_energy(amount: float):
-	var current_time_proportion: float = time_remaining / timer_max
+	var current_energy_amount: float = current_energy
 	max_energy += amount
-	# Keep the same time proportion, energy will adjust automatically
-	time_remaining = current_time_proportion * timer_max
+	# Keep the same energy amount (feels good when capacity increases)
+	set_energy_capped(current_energy_amount)
 
 func set_max_energy(new_max: float):
-	var current_time_proportion: float = time_remaining / timer_max
+	var current_energy_amount: float = current_energy
 	max_energy = new_max
-	# Keep the same time proportion, energy will adjust automatically  
-	time_remaining = current_time_proportion * timer_max
+	# Keep the same energy amount
+	set_energy_capped(current_energy_amount)
 
 func add_max_time(amount: float):
-	var current_time_proportion: float = time_remaining / timer_max
+	var current_energy_amount: float = current_energy
 	timer_max = timer_max + amount
-	time_remaining = current_time_proportion * timer_max
+	# Keep the same energy amount (feels good when capacity increases)
+	set_energy_capped(current_energy_amount)
+
+func remove_max_time(amount: float):
+	var current_energy_amount: float = current_energy
+	timer_max = max(1.0, timer_max - amount)  # Don't let it go below 1
+	# Keep the same energy amount (makes capacity decreases feel bad, as intended)
+	set_energy_capped(current_energy_amount)
 
 func set_max_time(amount: float):
-	var current_time_proportion: float = time_remaining / timer_max
+	var current_energy_amount: float = current_energy
 	timer_max = amount
-	time_remaining = current_time_proportion * timer_max
+	# Keep the same energy amount
+	set_energy_capped(current_energy_amount)
 
 func pct(numerator: float, denominator: float):
 	if denominator <= 0.001:
@@ -154,11 +180,12 @@ func pct(numerator: float, denominator: float):
 		return 100.0 * numerator / denominator	
 
 func start():
-	timer.start()
+	timer.start(timer_max)
 
 func _process(delta):
-	progress_bar.value = pct(timer.time_left, timer_max)
-	label.text = render_label(timer.time_left)
+	# Display based on elapsed time (how full the meter is)
+	progress_bar.value = pct(time_elapsed, timer_max)
+	label.text = render_label(time_elapsed)
 	max_label.text = render_label(timer_max)
 	units_display.text = str(render_units_display_string(get_whole_remaining_units()))
 
@@ -170,14 +197,15 @@ func render_units_display_string(units: int):
 	else:
 		return ">10"
 
-func render_label(time_left: float):
-	var minute: int = time_left / 60	
-	var second: int = fmod(time_left, 60)
-	var centisecond: int = int(fmod(time_left, 1.0) * 100)
+func render_label(time_value: float):
+	var minute: int = time_value / 60	
+	var second: int = fmod(time_value, 60)
+	var centisecond: int = int(fmod(time_value, 1.0) * 100)
 	return str(minute) + ":" + "%02X" % second + "." + "%02X" % centisecond
 
 func get_whole_remaining_units():
 	return int(floor(current_energy))
 
+# Game over when timer reaches 0 (meter is full)
 func _on_timer_timeout():
 	GlobalGameManager.end_game()

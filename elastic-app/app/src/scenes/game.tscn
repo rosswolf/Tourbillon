@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://b8apg4aqwojm7"]
+[gd_scene load_steps=21 format=3 uid="uid://b8apg4aqwojm7"]
 
 [ext_resource type="Script" uid="uid://dtu25hj7ookvm" path="res://src/scenes/game.gd" id="1_7uq6d"]
 [ext_resource type="Texture2D" uid="uid://bva6617mxquta" path="res://cc0_assets/underwater_crop.jpg" id="2_gh3at"]
@@ -12,6 +12,7 @@
 [ext_resource type="Shader" uid="uid://dktsayggtgauf" path="res://src/scenes/water_effect.gdshader" id="9_h2mn8"]
 [ext_resource type="PackedScene" uid="uid://cka5aovpfoi80" path="res://src/scenes/ui/click_and_drag/click_and_drag.tscn" id="10_6e0h8"]
 [ext_resource type="PackedScene" uid="uid://dckcqckqo0abj" path="res://src/scenes/ui/hud/HUD.tscn" id="10_bd8mh"]
+[ext_resource type="PackedScene" uid="uid://dqunn5rh4414l" path="res://src/scenes/ui/resources/air_meter2.tscn" id="10_tnd0m"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gh3at"]
 
@@ -195,12 +196,19 @@ theme_override_constants/margin_bottom = 15
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_flib5")
 
-[node name="BlueAirMeter" parent="Background/HBoxContainer/VBoxContainer/HBoxContainer2/MarginContainer/PanelContainer" instance=ExtResource("8_bd8mh")]
+[node name="BlueAirMeterOld" parent="Background/HBoxContainer/VBoxContainer/HBoxContainer2/MarginContainer/PanelContainer" instance=ExtResource("8_bd8mh")]
 unique_name_in_owner = true
+visible = false
 custom_minimum_size = Vector2(60, 400)
 layout_mode = 2
 air_color = 3
 default_timer_max = 300.0
+
+[node name="AirMeter2" parent="Background/HBoxContainer/VBoxContainer/HBoxContainer2/MarginContainer/PanelContainer" instance=ExtResource("10_tnd0m")]
+custom_minimum_size = Vector2(60, 400)
+layout_mode = 2
+air_color = 3
+default_timer_max = 60.0
 
 [node name="MarginContainer2" type="MarginContainer" parent="Background/HBoxContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
@@ -210,12 +218,20 @@ theme_override_constants/margin_bottom = 15
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_flib5")
 
-[node name="RedAirMeter" parent="Background/HBoxContainer/VBoxContainer/HBoxContainer2/MarginContainer2/PanelContainer" instance=ExtResource("8_bd8mh")]
+[node name="RedAirMeterOld" parent="Background/HBoxContainer/VBoxContainer/HBoxContainer2/MarginContainer2/PanelContainer" instance=ExtResource("8_bd8mh")]
 unique_name_in_owner = true
+visible = false
 custom_minimum_size = Vector2(60, 400)
 layout_mode = 2
 air_color = 1
 default_timer_max = 120.0
+
+[node name="RedAirMeter" parent="Background/HBoxContainer/VBoxContainer/HBoxContainer2/MarginContainer2/PanelContainer" instance=ExtResource("10_tnd0m")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(60, 400)
+layout_mode = 2
+air_color = 1
+default_timer_max = 90.0
 
 [node name="MarginContainer3" type="MarginContainer" parent="Background/HBoxContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
@@ -226,7 +242,16 @@ theme_override_constants/margin_bottom = 15
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_flib5")
 
-[node name="OrangeAirMeter" parent="Background/HBoxContainer/VBoxContainer/HBoxContainer2/MarginContainer3/PanelContainer" instance=ExtResource("8_bd8mh")]
+[node name="OrangeAirMeterOld" parent="Background/HBoxContainer/VBoxContainer/HBoxContainer2/MarginContainer3/PanelContainer" instance=ExtResource("8_bd8mh")]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(60, 400)
+layout_mode = 2
+rightmost_style = true
+air_color = 2
+default_timer_max = 75.0
+
+[node name="OrangeAirMeter" parent="Background/HBoxContainer/VBoxContainer/HBoxContainer2/MarginContainer3/PanelContainer" instance=ExtResource("10_tnd0m")]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(60, 400)
 layout_mode = 2
