@@ -65,7 +65,9 @@ func __add_card_as_button(card: Card, target_zone: Library.Zone) -> void:
 		
 
 func __on_card_button_pressed(card: Card, target_zone: Library.Zone) -> void:
-	GlobalGameManager.library.move_card_to_zone2(card.instance_id, Library.Zone.ANY, target_zone)
+	
+	GlobalGameManager.library.add_card_to_zone(card, target_zone)
+
 	cards.erase(card)
 	
 	for unselected_card in cards:
