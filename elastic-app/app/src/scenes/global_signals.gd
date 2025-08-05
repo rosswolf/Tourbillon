@@ -50,6 +50,10 @@ func signal_core_time_set(color: Air.AirColor, amount: float):
 signal core_time_replenished(color: Air.AirColor, amount: float)
 func signal_core_time_replenished(color: Air.AirColor, amount: float):
 	core_time_replenished.emit(color, amount)
+	
+signal core_time_removed(color: Air.AirColor, amount: float)
+func signal_core_time_removed(color: Air.AirColor, amount: float):
+	core_time_removed.emit(color, amount)
 
 signal core_max_time_set(color: Air.AirColor, amount: float)
 func signal_core_max_time_set(color: Air.AirColor, amount: float):
@@ -67,6 +71,10 @@ func signal_core_energy_set(color: Air.AirColor, amount: float):
 signal core_energy_replenished(color: Air.AirColor, amount: float)
 func signal_core_energy_replenished(color: Air.AirColor, amount: float):
 	core_energy_replenished.emit(color, amount)
+	
+signal core_energy_removed(color: Air.AirColor, amount: float)
+func signal_core_energy_removed(color: Air.AirColor, amount: float):
+	core_energy_removed.emit(color, amount)
 
 signal core_max_energy_set(color: Air.AirColor, amount: float)
 func signal_core_max_energy_set(color: Air.AirColor, amount: float):
