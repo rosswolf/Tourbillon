@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://cupye5bbn2jch"]
+[gd_scene load_steps=10 format=3 uid="uid://cupye5bbn2jch"]
 
 [ext_resource type="Script" uid="uid://degkdcgeu02n5" path="res://src/scenes/ui/resources/air_meter.gd" id="1_lohet"]
+[ext_resource type="FontFile" uid="uid://b73jymev43fu5" path="res://ofl_font_assets/BrassMonoRegular-d9WLg.ttf" id="2_jh6ji"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_svue2"]
 
@@ -71,8 +72,9 @@ theme_override_constants/margin_bottom = 2
 [node name="Label" type="Label" parent="PanelContainer/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 8
-theme_override_colors/font_color = Color(1, 1, 1, 0.172549)
-theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(1, 1, 1, 0.4)
+theme_override_fonts/font = ExtResource("2_jh6ji")
+theme_override_font_sizes/font_size = 14
 text = "1:32.84"
 horizontal_alignment = 1
 
@@ -101,6 +103,7 @@ theme_override_constants/margin_bottom = 5
 
 [node name="UnitsDisplay" type="Label" parent="PanelContainer/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/MarginContainer2"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_jh6ji")
 theme_override_font_sizes/font_size = 15
 text = ">100"
 horizontal_alignment = 1

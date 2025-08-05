@@ -32,6 +32,7 @@ func _ready() -> void:
 	UiController.meters = meters
 	
 	GlobalSignals.signal_ui_started_game()
+	%GlobalTimer.start()
 
 
 func __on_audio_finished():
@@ -40,7 +41,7 @@ func __on_audio_finished():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	%GlobalTimeLabel.text = format_elapsed_time_hex(%GlobalTimer)
 
 func __end_turn() -> void:
 	GlobalGameManager.end_turn()
@@ -79,7 +80,31 @@ func get_time_remaining(color: Air.AirColor) -> float:
 		return meters[color].time_remaining
 	else:
 		return 0.0
+		
+func format_elapsed_time(timer: Timer) -> String:
+	var elapsed = timer.wait_time - timer.time_left
+	return format_time_string(elapsed)
 
+func format_time_string(time_seconds: float) -> String:
+	var hours = int(time_seconds) / 3600
+	var minutes = (int(time_seconds) % 3600) / 60
+	var seconds = int(time_seconds) % 60
+	var milliseconds = int((time_seconds - int(time_seconds)) * 1000)
+
+	return "%02d:%02d:%02d:%03d" % [hours, minutes, seconds, milliseconds]
+
+func format_elapsed_time_hex(timer: Timer) -> String:
+	var elapsed = timer.wait_time - timer.time_left
+	return format_time_string_hex(elapsed)
+
+func format_time_string_hex(time_seconds: float) -> String:
+	var hours = int(time_seconds) / 3600
+	var minutes = (int(time_seconds) % 3600) / 60
+	var seconds = int(time_seconds) % 60
+	var milliseconds = int((time_seconds - int(time_seconds)) * 1000)
+	
+	return "%02X:%02X:%02X:%03X" % [hours, minutes, seconds, milliseconds]
+	
 func __on_relic_removed(relic_instance_id: String) -> void:
 	#TODO: slow implementation, if needed make a scene for containing the relics
 	var children: Array[Node] = %RelicGridContainer.get_children()

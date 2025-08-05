@@ -1,34 +1,49 @@
-[gd_scene load_steps=2 format=3 uid="uid://cdrmk3kaqi6nh"]
+[gd_scene load_steps=4 format=3 uid="uid://cdrmk3kaqi6nh"]
 
 [ext_resource type="Script" uid="uid://d4g3ldqhweeoa" path="res://src/scenes/ui/resources/revealed_resources_panel.gd" id="1_qjm2q"]
+[ext_resource type="FontFile" uid="uid://b73jymev43fu5" path="res://ofl_font_assets/BrassMonoRegular-d9WLg.ttf" id="2_4ocfc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_snos3"]
 
 [node name="RevealedResourcesPanel" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_qjm2q")
 
-[node name="RevealedResourceVbox" type="VBoxContainer" parent="."]
-unique_name_in_owner = true
-layout_mode = 0
+[node name="ResourceMargin" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 50
 
-[node name="ResourceContainerTemplate" type="PanelContainer" parent="RevealedResourceVbox"]
+[node name="RevealedResourceVbox" type="VBoxContainer" parent="ResourceMargin"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ResourceContainerTemplate" type="PanelContainer" parent="ResourceMargin/RevealedResourceVbox"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_snos3")
 
-[node name="MarginContainer" type="MarginContainer" parent="RevealedResourceVbox/ResourceContainerTemplate"]
+[node name="MarginContainer" type="MarginContainer" parent="ResourceMargin/RevealedResourceVbox/ResourceContainerTemplate"]
 layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
 
-[node name="HBoxContainer" type="HBoxContainer" parent="RevealedResourceVbox/ResourceContainerTemplate/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="ResourceMargin/RevealedResourceVbox/ResourceContainerTemplate/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
 
-[node name="ResourceLabel" type="Label" parent="RevealedResourceVbox/ResourceContainerTemplate/MarginContainer/HBoxContainer"]
+[node name="ResourceLabel" type="Label" parent="ResourceMargin/RevealedResourceVbox/ResourceContainerTemplate/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
+theme_override_fonts/font = ExtResource("2_4ocfc")
+theme_override_font_sizes/font_size = 25
 text = "Eggs:"
 
-[node name="ResourceAmount" type="Label" parent="RevealedResourceVbox/ResourceContainerTemplate/MarginContainer/HBoxContainer"]
+[node name="ResourceAmount" type="Label" parent="ResourceMargin/RevealedResourceVbox/ResourceContainerTemplate/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
+theme_override_fonts/font = ExtResource("2_4ocfc")
+theme_override_font_sizes/font_size = 25
 text = " 2"

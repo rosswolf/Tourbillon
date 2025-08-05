@@ -174,7 +174,7 @@ func render_label(time_left: float):
 	var minute: int = time_left / 60	
 	var second: int = fmod(time_left, 60)
 	var centisecond: int = int(fmod(time_left, 1.0) * 100)
-	return str(minute) + ":" + "%02d" % second + "." + "%02d" % centisecond
+	return str(minute) + ":" + "%02X" % second + "." + "%02X" % centisecond
 
 func get_whole_remaining_units():
 	return int(floor(current_energy))
