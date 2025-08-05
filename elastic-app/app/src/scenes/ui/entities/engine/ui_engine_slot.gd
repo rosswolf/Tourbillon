@@ -4,9 +4,13 @@ class_name EngineSlot
 @onready var top_container: HBoxContainer = $MarginContainer/MainPanel/VBoxContainer/TopBoxContainer
 @onready var bottom_container: HBoxContainer = $MarginContainer/MainPanel/VBoxContainer/BottomBoxContainer
 
+
 var is_activatable: bool
 var timer_duration: float
 
+var card_preview: CardUI
+
+var CARD_UI = preload("res://src/scenes/ui/hand/card_ui.tscn")
 
 func _ready() -> void:
 	super._ready()
@@ -25,12 +29,26 @@ func _ready() -> void:
 	
 	GlobalSignals.core_card_slotted.connect(__on_card_slotted)
 	GlobalSignals.core_card_unslotted.connect(__on_card_unslotted)
-	%CardPreview.visible = false
+	
+func create_card_ui():	
+	card_preview = CARD_UI.instantiate()
+	card_preview.set_card_data(__button_entity.card)
+	
+	card_preview.position = Vector2(-170, 0)
+	add_child(card_preview)
+	# Start invisible and scale up
+	var tween = create_tween()
+	tween.tween_property(card_preview, "scale", Vector2(1.25, 1.25), 0.17)
+
+func destroy_card_ui():	
+	var tween = create_tween()
+	tween.tween_property(card_preview, "scale", Vector2(.75,.75), 0.15)
+	tween.tween_callback(card_preview.queue_free)
+	card_preview = null
 	
 func __on_card_slotted(target_slot_id: String):
 	if target_slot_id == __button_entity.instance_id:
-		%CardPreview.set_card_data(__button_entity.card)
-		%CardPreview.visible = true
+		create_card_ui()
 		%Name.text = __button_entity.card.display_name
 		%MainPanel.visible = true
 		reactivate_slot()
@@ -75,15 +93,14 @@ func reactivate_slot() -> void:
 func __on_refresh_slot_manually() -> void:
 	if is_activatable and __button_entity.card != null:
 		__button_entity.activate_slot_effect(__button_entity.card, null)
-		%CardPreview.refresh()
+		card_preview.refresh()
 		
 func _on_mouse_entered() -> void:
 	super._on_mouse_entered()
 	if __button_entity.get_card_instance_id() != "":
-		%CardPreview.refresh()
-		%CardPreview.visible = true
-
+		create_card_ui()
+		
 func _on_mouse_exited() -> void:
 	super._on_mouse_exited()
-	if %CardPreview:
-		%CardPreview.visible = false
+	if card_preview:
+		destroy_card_ui()

@@ -25,9 +25,9 @@ func _ready() -> void:
 	%AudioStreamPlayer.play()
 	%AudioStreamPlayer.finished.connect(__on_audio_finished)
 	
-	meters[Air.AirColor.RED] = %RedAirMeter
+	meters[Air.AirColor.PURPLE] = %PurpleAirMeter
 	meters[Air.AirColor.BLUE] = %BlueAirMeter
-	meters[Air.AirColor.ORANGE] = %OrangeAirMeter
+	meters[Air.AirColor.GREEN] = %GreenAirMeter
 	
 	UiController.meters = meters
 	

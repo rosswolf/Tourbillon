@@ -8,7 +8,7 @@
 	"cursor_image_uid": "bqvm4vgi4c0dn",
 	"durability_max": 5,
 	"card_cost": {
-	  "GameResource.Type.RED_ENERGY": "2"
+	  "GameResource.Type.PURPLE_ENERGY": "2"
 	},
 	"instinct_effect": "shop=card",
 	"card_rarity": "Card.RarityType.STARTING"
@@ -22,7 +22,7 @@
 	"cursor_image_uid": "bqvm4vgi4c0dn",
 	"durability_max": 2,
 	"card_cost": {
-	  "GameResource.Type.ORANGE_ENERGY": "2"
+	  "GameResource.Type.GREEN_ENERGY": "2"
 	},
 	"instinct_effect": "shop=slot",
 	"card_rarity": "Card.RarityType.STARTING"
@@ -38,7 +38,7 @@
 	"card_cost": {
 	  "GameResource.Type.NONE": "0"
 	},
-	"instinct_effect": "add_red_time=5, add_blue_time=5, add_orange_time=5, draw_card=3",
+	"instinct_effect": "add_purple_time=5, add_blue_time=5, add_green_time=5, draw_card=3",
 	"card_rarity": "Card.RarityType.STARTING"
   },
   {
@@ -56,16 +56,16 @@
 	"card_rarity": "Card.RarityType.STARTING"
   },
   {
-	"card_template_id": "card_red_time",
+	"card_template_id": "card_purple_time",
 	"group_template_id": "knight",
 	"card_count": 1,
 	"display_name": "flip",
-	"rules_text": "vent red time, draw 1 card",
+	"rules_text": "vent purple time, draw 1 card",
 	"cursor_image_uid": "bqvm4vgi4c0dn",
 	"card_cost": {
 	  "GameResource.Type.BLUE_ENERGY": "1"
 	},
-	"instinct_effect": "remove_red_time=5, draw_card=1",
+	"instinct_effect": "remove_purple_time=5, draw_card=1",
 	"card_rarity": "Card.RarityType.STARTING"
   },
   {
@@ -76,22 +76,22 @@
 	"rules_text": "vent blue time, draw 1 card",
 	"cursor_image_uid": "bqvm4vgi4c0dn",
 	"card_cost": {
-	  "GameResource.Type.ORANGE_ENERGY": "1"
+	  "GameResource.Type.GREEN_ENERGY": "1"
 	},
 	"instinct_effect": "remove_blue_time=5, draw_card=1",
 	"card_rarity": "Card.RarityType.STARTING"
   },
   {
-	"card_template_id": "card_orange_time",
+	"card_template_id": "card_green_time",
 	"group_template_id": "knight",
 	"card_count": 1,
 	"display_name": "twist",
-	"rules_text": "vent orange time, draw 1 card",
+	"rules_text": "vent green time, draw 1 card",
 	"cursor_image_uid": "bqvm4vgi4c0dn",
 	"card_cost": {
-	  "GameResource.Type.RED_ENERGY": "1"
+	  "GameResource.Type.PURPLE_ENERGY": "1"
 	},
-	"instinct_effect": "remove_orange_time=5, draw_card=1",
+	"instinct_effect": "remove_green_time=5, draw_card=1",
 	"card_rarity": "Card.RarityType.STARTING"
   },
   {
@@ -119,7 +119,7 @@
 	"card_cost": {
 	  "GameResource.Type.BLUE_ENERGY": "1"
 	},
-	"slot_effect": "remove_red_time=10, remove_blue_time=10, remove_orange_time=10, cooldown=30",
+	"slot_effect": "remove_purple_time=10, remove_blue_time=10, remove_green_time=10, cooldown=30",
 	"card_rarity": "Card.RarityType.STARTING"
   },
   {
@@ -145,23 +145,23 @@
 	"cursor_image_uid": "bqvm4vgi4c0dn",
 	"durability_max": 1,
 	"card_cost": {
-	  "GameResource.Type.ORANGE_ENERGY": "1"
+	  "GameResource.Type.GREEN_ENERGY": "1"
 	},
 	"slot_effect": "add_gold=5, cooldown=20",
 	"card_rarity": "Card.RarityType.STARTING"
   },
   {
-	"card_template_id": "card_red_time_2",
+	"card_template_id": "card_purple_time_2",
 	"group_template_id": "knight",
 	"card_count": 1,
 	"display_name": "tumble",
-	"rules_text": "replenish red time, draw 1 card",
+	"rules_text": "replenish purple time, draw 1 card",
 	"cursor_image_uid": "bqvm4vgi4c0dn",
 	"durability_max": 3,
 	"card_cost": {
-	  "GameResource.Type.ORANGE_ENERGY": "1"
+	  "GameResource.Type.GREEN_ENERGY": "1"
 	},
-	"slot_effect": "add_red_time=5, draw_card=1, cooldown=20",
+	"slot_effect": "add_purple_time=5, draw_card=1, cooldown=20",
 	"card_rarity": "Card.RarityType.STARTING"
   },
   {
@@ -173,65 +173,65 @@
 	"cursor_image_uid": "bqvm4vgi4c0dn",
 	"durability_max": 3,
 	"card_cost": {
-	  "GameResource.Type.RED_ENERGY": "1"
+	  "GameResource.Type.PURPLE_ENERGY": "1"
 	},
 	"slot_effect": "add_blue_time=5, draw_card=1, cooldown=20",
 	"card_rarity": "Card.RarityType.STARTING"
   },
   {
-	"card_template_id": "card_orange_time_2",
+	"card_template_id": "card_green_time_2",
 	"group_template_id": "knight",
 	"card_count": 1,
 	"display_name": "dip",
-	"rules_text": "replenish orange time, draw 1 card",
+	"rules_text": "replenish green time, draw 1 card",
 	"cursor_image_uid": "bqvm4vgi4c0dn",
 	"durability_max": 3,
 	"card_cost": {
 	  "GameResource.Type.BLUE_ENERGY": "1"
 	},
-	"slot_effect": "add_orange_time=5, draw_card=1, cooldown=20",
+	"slot_effect": "add_green_time=5, draw_card=1, cooldown=20",
 	"card_rarity": "Card.RarityType.STARTING"
   },
   {
-	"card_template_id": "orange_draw_2",
+	"card_template_id": "green_draw_2",
 	"group_template_id": "knight",
 	"card_count": 3,
 	"display_name": "shine",
 	"rules_text": "draw 2 cards",
 	"cursor_image_uid": "bqvm4vgi4c0dn",
 	"card_cost": {
-	  "GameResource.Type.ORANGE_ENERGY": "1"
+	  "GameResource.Type.GREEN_ENERGY": "1"
 	},
 	"instinct_effect": "draw_card=2",
 	"card_rarity": "Card.RarityType.COMMON"
   },
   {
-	"card_template_id": "card_add_energy_orange",
+	"card_template_id": "card_add_energy_green",
 	"group_template_id": "knight",
 	"card_count": 2,
 	"display_name": "grow",
-	"rules_text": "orange energy capacity +",
+	"rules_text": "green energy capacity +",
 	"cursor_image_uid": "bqvm4vgi4c0dn",
 	"durability_max": 1,
 	"card_cost": {
-	  "GameResource.Type.ORANGE_ENERGY": "0"
+	  "GameResource.Type.GREEN_ENERGY": "0"
 	},
-	"instinct_effect": "add_orange_energy=2",
+	"instinct_effect": "add_green_energy=2",
 	"card_rarity": "Card.RarityType.COMMON",
 	"tags": "STARTER_ENERGY"
   },
   {
-	"card_template_id": "card_add_energy_red",
+	"card_template_id": "card_add_energy_purple",
 	"group_template_id": "knight",
 	"card_count": 2,
 	"display_name": "bloom",
-	"rules_text": "red energy capacity +",
+	"rules_text": "purple energy capacity +",
 	"cursor_image_uid": "bqvm4vgi4c0dn",
 	"durability_max": 1,
 	"card_cost": {
-	  "GameResource.Type.RED_ENERGY": "0"
+	  "GameResource.Type.PURPLE_ENERGY": "0"
 	},
-	"instinct_effect": "add_red_energy=2",
+	"instinct_effect": "add_purple_energy=2",
 	"card_rarity": "Card.RarityType.COMMON",
 	"tags": "STARTER_ENERGY"
   },
@@ -249,5 +249,198 @@
 	"instinct_effect": "add_blue_energy=2",
 	"card_rarity": "Card.RarityType.COMMON",
 	"tags": "STARTER_ENERGY"
+  },
+  {
+	"card_template_id": "card_shop_card_2",
+	"group_template_id": "knight",
+	"card_count": 1,
+	"display_name": "innovate",
+	"rules_text": "buy a card",
+	"cursor_image_uid": "bqvm4vgi4c0dn",
+	"durability_max": 5,
+	"card_cost": {
+	  "GameResource.Type.PURPLE_ENERGY": "2"
+	},
+	"instinct_effect": "shop=card",
+	"card_rarity": "Card.RarityType.STARTING"
+  },
+  {
+	"card_template_id": "card_shop_slot_2",
+	"group_template_id": "knight",
+	"card_count": 1,
+	"display_name": "curious",
+	"rules_text": "buy a tool",
+	"cursor_image_uid": "bqvm4vgi4c0dn",
+	"durability_max": 2,
+	"card_cost": {
+	  "GameResource.Type.GREEN_ENERGY": "2"
+	},
+	"instinct_effect": "shop=slot",
+	"card_rarity": "Card.RarityType.STARTING"
+  },
+  {
+	"card_template_id": "card_10s_all_2",
+	"group_template_id": "knight",
+	"card_count": 1,
+	"display_name": "burst",
+	"rules_text": "replenish all colors, draw 3 cards",
+	"cursor_image_uid": "bqvm4vgi4c0dn",
+	"durability_max": 3,
+	"card_cost": {
+	  "GameResource.Type.NONE": "0"
+	},
+	"instinct_effect": "add_purple_time=5, add_blue_time=5, add_green_time=5, draw_card=3",
+	"card_rarity": "Card.RarityType.STARTING"
+  },
+  {
+	"card_template_id": "slot_click_to_draw_2",
+	"group_template_id": "knight",
+	"card_count": 1,
+	"display_name": "determination",
+	"rules_text": "draw a card",
+	"cursor_image_uid": "bqvm4vgi4c0dn",
+	"durability_max": 10,
+	"card_cost": {
+	  "GameResource.Type.BLUE_ENERGY": "2"
+	},
+	"slot_effect": "draw_card=1,cooldown=10",
+	"card_rarity": "Card.RarityType.STARTING"
+  },
+  {
+	"card_template_id": "card_purple_time_2",
+	"group_template_id": "knight",
+	"card_count": 1,
+	"display_name": "flip",
+	"rules_text": "vent purple time, draw 1 card",
+	"cursor_image_uid": "bqvm4vgi4c0dn",
+	"card_cost": {
+	  "GameResource.Type.BLUE_ENERGY": "1"
+	},
+	"instinct_effect": "remove_purple_time=5, draw_card=1",
+	"card_rarity": "Card.RarityType.STARTING"
+  },
+  {
+	"card_template_id": "card_blue_time_2",
+	"group_template_id": "knight",
+	"card_count": 1,
+	"display_name": "curl",
+	"rules_text": "vent blue time, draw 1 card",
+	"cursor_image_uid": "bqvm4vgi4c0dn",
+	"card_cost": {
+	  "GameResource.Type.GREEN_ENERGY": "1"
+	},
+	"instinct_effect": "remove_blue_time=5, draw_card=1",
+	"card_rarity": "Card.RarityType.STARTING"
+  },
+  {
+	"card_template_id": "card_green_time_2",
+	"group_template_id": "knight",
+	"card_count": 1,
+	"display_name": "twist",
+	"rules_text": "vent green time, draw 1 card",
+	"cursor_image_uid": "bqvm4vgi4c0dn",
+	"card_cost": {
+	  "GameResource.Type.PURPLE_ENERGY": "1"
+	},
+	"instinct_effect": "remove_green_time=5, draw_card=1",
+	"card_rarity": "Card.RarityType.STARTING"
+  },
+  {
+	"card_template_id": "card_energy_choice_2",
+	"group_template_id": "knight",
+	"card_count": 1,
+	"display_name": "decide",
+	"rules_text": "pick an energy card",
+	"cursor_image_uid": "bqvm4vgi4c0dn",
+	"durability_max": 2,
+	"card_cost": {
+	  "GameResource.Type.NONE": "0"
+	},
+	"instinct_effect": "shop=STARTER_ENERGY",
+	"card_rarity": "Card.RarityType.STARTING"
+  },
+  {
+	"card_template_id": "slot_click_to_replenish_2",
+	"group_template_id": "knight",
+	"card_count": 1,
+	"display_name": "cyan",
+	"rules_text": "vent all colors",
+	"cursor_image_uid": "bqvm4vgi4c0dn",
+	"durability_max": 10,
+	"card_cost": {
+	  "GameResource.Type.BLUE_ENERGY": "1"
+	},
+	"slot_effect": "remove_purple_time=10, remove_blue_time=10, remove_green_time=10, cooldown=30",
+	"card_rarity": "Card.RarityType.STARTING"
+  },
+  {
+	"card_template_id": "card_add_gold_2",
+	"group_template_id": "knight",
+	"card_count": 1,
+	"display_name": "glimmer",
+	"rules_text": "add gold",
+	"cursor_image_uid": "bqvm4vgi4c0dn",
+	"durability_max": 10,
+	"card_cost": {
+	  "GameResource.Type.BLUE_ENERGY": "1"
+	},
+	"instinct_effect": "add_gold=20",
+	"card_rarity": "Card.RarityType.STARTING"
+  },
+  {
+	"card_template_id": "slot_add_gold_2",
+	"group_template_id": "knight",
+	"card_count": 1,
+	"display_name": "chance",
+	"rules_text": "add gold",
+	"cursor_image_uid": "bqvm4vgi4c0dn",
+	"durability_max": 1,
+	"card_cost": {
+	  "GameResource.Type.GREEN_ENERGY": "1"
+	},
+	"slot_effect": "add_gold=5, cooldown=20",
+	"card_rarity": "Card.RarityType.STARTING"
+  },
+  {
+	"card_template_id": "card_purple_time_2_2",
+	"group_template_id": "knight",
+	"card_count": 1,
+	"display_name": "tumble",
+	"rules_text": "replenish purple time, draw 1 card",
+	"cursor_image_uid": "bqvm4vgi4c0dn",
+	"durability_max": 3,
+	"card_cost": {
+	  "GameResource.Type.GREEN_ENERGY": "1"
+	},
+	"slot_effect": "add_purple_time=5, draw_card=1, cooldown=20",
+	"card_rarity": "Card.RarityType.STARTING"
+  },
+  {
+	"card_template_id": "card_blue_time_2_2",
+	"group_template_id": "knight",
+	"card_count": 1,
+	"display_name": "roil",
+	"rules_text": "replenish blue time, draw 1 card",
+	"cursor_image_uid": "bqvm4vgi4c0dn",
+	"durability_max": 3,
+	"card_cost": {
+	  "GameResource.Type.PURPLE_ENERGY": "1"
+	},
+	"slot_effect": "add_blue_time=5, draw_card=1, cooldown=20",
+	"card_rarity": "Card.RarityType.STARTING"
+  },
+  {
+	"card_template_id": "card_green_time_2_2",
+	"group_template_id": "knight",
+	"card_count": 1,
+	"display_name": "dip",
+	"rules_text": "replenish green time, draw 1 card",
+	"cursor_image_uid": "bqvm4vgi4c0dn",
+	"durability_max": 3,
+	"card_cost": {
+	  "GameResource.Type.BLUE_ENERGY": "1"
+	},
+	"slot_effect": "add_green_time=5, draw_card=1, cooldown=20",
+	"card_rarity": "Card.RarityType.STARTING"
   }
 ]

@@ -200,7 +200,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(60, 400)
 layout_mode = 2
 air_color = 3
-default_timer_max = 45.0
+default_timer_max = 70.0
 default_max_energy = 3.0
 starting_energy = 1.0
 
@@ -212,12 +212,12 @@ theme_override_constants/margin_bottom = 15
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_flib5")
 
-[node name="RedAirMeter" parent="Background/HBoxContainer/VBoxContainer/HBoxContainer2/MarginContainer2/PanelContainer" instance=ExtResource("10_tnd0m")]
+[node name="PurpleAirMeter" parent="Background/HBoxContainer/VBoxContainer/HBoxContainer2/MarginContainer2/PanelContainer" instance=ExtResource("10_tnd0m")]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(60, 400)
 layout_mode = 2
 air_color = 1
-default_timer_max = 40.0
+default_timer_max = 60.0
 default_max_energy = 3.0
 starting_energy = 1.0
 
@@ -230,13 +230,13 @@ theme_override_constants/margin_bottom = 15
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_flib5")
 
-[node name="OrangeAirMeter" parent="Background/HBoxContainer/VBoxContainer/HBoxContainer2/MarginContainer3/PanelContainer" instance=ExtResource("10_tnd0m")]
+[node name="GreenAirMeter" parent="Background/HBoxContainer/VBoxContainer/HBoxContainer2/MarginContainer3/PanelContainer" instance=ExtResource("10_tnd0m")]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(60, 400)
 layout_mode = 2
 rightmost_style = true
 air_color = 2
-default_timer_max = 35.0
+default_timer_max = 65.0
 default_max_energy = 3.0
 starting_energy = 1.0
 

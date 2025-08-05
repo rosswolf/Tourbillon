@@ -5,11 +5,11 @@ class_name GameResource
 enum Type {
 	UNKNOWN,
 	GOLD,
-	RED_TIME,
-	ORANGE_TIME,
+	PURPLE_TIME,
+	GREEN_TIME,
 	BLUE_TIME,
-	RED_ENERGY,
-	ORANGE_ENERGY,
+	PURPLE_ENERGY,
+	GREEN_ENERGY,
 	BLUE_ENERGY,
 	FORCE,
 	DEPTH,
@@ -44,25 +44,25 @@ class ResourceAccessor:
 			func(value): GlobalGameManager.hero.gold.amount = value
 		),
 		# TODO
-		GameResource.Type.RED_TIME: __SpecificResourceAccessor.new(
-			func(): return UiController.meters[Air.AirColor.RED].time_remaining,
-			func(value): GlobalSignals.signal_core_time_set(Air.AirColor.RED, value)
+		GameResource.Type.PURPLE_TIME: __SpecificResourceAccessor.new(
+			func(): return UiController.meters[Air.AirColor.PURPLE].time_remaining,
+			func(value): GlobalSignals.signal_core_time_set(Air.AirColor.PURPLE, value)
 		),
-		GameResource.Type.ORANGE_TIME: __SpecificResourceAccessor.new(
-			func(): return UiController.meters[Air.AirColor.ORANGE].time_remaining,
-			func(value): GlobalSignals.signal_core_time_set(Air.AirColor.ORANGE, value)
+		GameResource.Type.GREEN_TIME: __SpecificResourceAccessor.new(
+			func(): return UiController.meters[Air.AirColor.GREEN].time_remaining,
+			func(value): GlobalSignals.signal_core_time_set(Air.AirColor.GREEN, value)
 		),	
 		GameResource.Type.BLUE_TIME: __SpecificResourceAccessor.new(
 			func(): return UiController.meters[Air.AirColor.BLUE].time_remaining,
 			func(value): GlobalSignals.signal_core_time_set(Air.AirColor.BLUE, value)
 		),
-		GameResource.Type.RED_ENERGY: __SpecificResourceAccessor.new(
-			func(): return UiController.meters[Air.AirColor.RED].current_energy,
-			func(value): GlobalSignals.signal_core_energy_set(Air.AirColor.RED, value)
+		GameResource.Type.PURPLE_ENERGY: __SpecificResourceAccessor.new(
+			func(): return UiController.meters[Air.AirColor.PURPLE].current_energy,
+			func(value): GlobalSignals.signal_core_energy_set(Air.AirColor.PURPLE, value)
 		),
-		GameResource.Type.ORANGE_ENERGY: __SpecificResourceAccessor.new(
-			func(): return UiController.meters[Air.AirColor.ORANGE].current_energy,
-			func(value): GlobalSignals.signal_core_energy_set(Air.AirColor.ORANGE, value)
+		GameResource.Type.GREEN_ENERGY: __SpecificResourceAccessor.new(
+			func(): return UiController.meters[Air.AirColor.GREEN].current_energy,
+			func(value): GlobalSignals.signal_core_energy_set(Air.AirColor.GREEN, value)
 		),
 		GameResource.Type.BLUE_ENERGY: __SpecificResourceAccessor.new(
 			func(): return UiController.meters[Air.AirColor.BLUE].current_energy,

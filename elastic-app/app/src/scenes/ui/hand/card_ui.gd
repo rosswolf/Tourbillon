@@ -10,10 +10,17 @@ extends Control
 @onready var is_building = $IsBuilding
 
 var energy_icons: Dictionary[GameResource.Type, String] = {
-	GameResource.Type.ORANGE_ENERGY: "orange_energy",
+	GameResource.Type.GREEN_ENERGY: "green_energy",
 	GameResource.Type.BLUE_ENERGY: "blue_energy",
-	GameResource.Type.RED_ENERGY: "red_energy",
+	GameResource.Type.PURPLE_ENERGY: "purple_energy",
 	GameResource.Type.NONE: "none_energy"
+}
+
+var type_conversion: Dictionary[GameResource.Type, Air.AirColor] = {
+	GameResource.Type.GREEN_ENERGY: Air.AirColor.GREEN,
+	GameResource.Type.BLUE_ENERGY: Air.AirColor.BLUE,
+	GameResource.Type.PURPLE_ENERGY: Air.AirColor.PURPLE,
+	GameResource.Type.NONE: Air.AirColor.NONE
 }
 
 #@onready var card_image = $ImagePanel/Image
@@ -62,13 +69,13 @@ func refresh():
 	else:
 		durability_label.text = ""
 
-func add_slot_icon(name: String, value: String, container: Container, font_size: GameIcon.TextSize) -> void:
+func add_slot_icon(icon_image: String, value: String, container: Container, font_size: GameIcon.TextSize) -> void:
 	var slot_icon: SlotIcon = PreloadScenes.ICONS["slot"].instantiate()
 		
 	if not UidManager.SLOT_ICON_UIDS.has(name):
 		print("Couldn't load icon because not in SLOT_ICON_UIDS: " + name)
 	
-	slot_icon.set_slot_image(name)
+	slot_icon.set_slot_image(icon_image)
 	container.add_child(slot_icon)
 	await get_tree().process_frame
 	# Wait for the node to initialize, then set the label text
