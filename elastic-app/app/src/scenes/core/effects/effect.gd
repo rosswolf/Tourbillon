@@ -81,7 +81,7 @@ static var effect_map: Dictionary[String, InternalEffect] = {
 	"shop": InternalEffect.new(
 		func(source: Entity, params: Dictionary):
 			var shop_type: String = params.get("param")
-			GlobalSignals.signal_core_card_selection(shop_type)
+			GlobalSignals.signal_core_card_selection(shop_type, Library.Zone.HAND)
 			return true,
 		{"source":[Hero, Card]}
 	),

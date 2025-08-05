@@ -24,7 +24,7 @@ func resume() -> void:
 	#get_tree().paused = false 
 	animation_player.play_backwards("blur")
 	
-func __on_card_selection(selection_id: String) -> void:
+func __on_card_selection(selection_id: String, target_zone: Library.Zone) -> void:
 	#get_tree().paused = true
 	
 	# Remove any existing child nodes from hbox
@@ -35,12 +35,12 @@ func __on_card_selection(selection_id: String) -> void:
 		
 	cards = GlobalGameManager.library.get_cards_for_selection(selection_id)
 	for card in cards:
-		__add_card_as_button(card)
+		__add_card_as_button(card, target_zone)
 		
 	show()	
 	animation_player.play("blur")		
 	
-func __add_card_as_button(card: Card) -> void:
+func __add_card_as_button(card: Card, target_zone: Library.Zone) -> void:
 	var card_ui: CardUI = PreloadScenes.NODES["card_ui"].instantiate()
 	card_ui.set_card_data(card)
 	card_ui.mouse_filter = Control.MOUSE_FILTER_IGNORE # Disable mouse input on CardUI so button receives clicks
@@ -57,15 +57,15 @@ func __add_card_as_button(card: Card) -> void:
 
 	button.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	button.size_flags_vertical = Control.SIZE_SHRINK_CENTER
-	button.pressed.connect(__on_card_button_pressed.bind(card))
+	button.pressed.connect(__on_card_button_pressed.bind(card, target_zone))
 	
 	# Remove CardUI from temporary parent and add to button
 	card_ui.reparent(button)
 	hbox.add_child(button)
 		
 
-func __on_card_button_pressed(card: Card) -> void:
-	GlobalGameManager.library.add_card_to_deck(card)
+func __on_card_button_pressed(card: Card, target_zone: Library.Zone) -> void:
+	GlobalGameManager.library.move_card_to_zone2(card.instance_id, Library.Zone.ANY, target_zone)
 	cards.erase(card)
 	
 	for unselected_card in cards:

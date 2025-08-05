@@ -169,9 +169,9 @@ func signal_core_slot_activated(trigger_card_id: String):
 	core_slot_activated.emit(trigger_card_id)
 
 
-signal core_card_selection(selection_id)
-func signal_core_card_selection(selection_id: String):
-	core_card_selection.emit(selection_id)
+signal core_card_selection(selection_id, landing_zone: Library.Zone)
+func signal_core_card_selection(selection_id: String, landing_zone: Library.Zone):
+	core_card_selection.emit(selection_id, landing_zone)
 	
 signal core_card_drawn(card_instance_id: String)
 func signal_core_card_drawn(card_instance_id: String):
