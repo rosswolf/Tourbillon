@@ -1,18 +1,23 @@
 [
   {
-    "template_name": "draw_10_cards",
-    "display_name": "Glide",
-    "text": "draw 10 cards",
-    "stat_to_succeed": "cards_drawn>=10",
-    "fail_when": "never",
-    "reward": "shop=minor"
+    "template_name": "survival_1",
+    "round": 1,
+    "text": "Survive 2 minutes",
+    "reward": "shop=card",
+    "": "global_time>120"
   },
   {
-    "template_name": "draw_20_cards",
-    "display_name": "Hustle",
-    "text": "draw 20 cards",
-    "stat_to_succeed": "cards_drawn>=20",
-    "fail_when": "time>180",
-    "reward": "shop=draw"
+    "template_name": "play_cards_1",
+    "round": 1,
+    "text": "Play 10 cards",
+    "reward": "shop=card",
+    "": "played_cards>10"
+  },
+  {
+    "template_name": "activate_buildings_1",
+    "round": 1,
+    "text": "Activate 2 buildings",
+    "reward": "shop=card",
+    "": "activated_buildings>=2"
   }
 ]

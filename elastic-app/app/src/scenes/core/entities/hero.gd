@@ -20,8 +20,8 @@ func _init():
 
 class TimeResource:
 
-	func replenish_time(color: Air.AirColor, amount: float):
-		GlobalSignals.signal_core_time_replenished(color, amount)
+	func fill_time(color: Air.AirColor, amount: float):
+		GlobalSignals.signal_core_time_filled(color, amount)
 	
 	func set_time_capped(color: Air.AirColor, amount: float):
 		GlobalSignals.signal_core_time_set(color, amount)
@@ -33,8 +33,8 @@ class TimeResource:
 		GlobalSignals.signal_core_max_time_set(color, amount)
 	
 class EnergyResource:
-	func replenish_energy(color: Air.AirColor, amount: float):
-		GlobalSignals.signal_core_energy_replenished(color, amount)
+	func fill_energy(color: Air.AirColor, amount: float):
+		GlobalSignals.signal_core_energy_filled(color, amount)
 	
 	func set_energy_capped(color: Air.AirColor, amount: float):
 		GlobalSignals.signal_core_energy_set(color, amount)	

@@ -47,14 +47,14 @@ func _ready():
 	timer.timeout.connect(_on_timer_timeout)
 	timer.start(timer_max)
 	progress_bar.value = pct(timer.time_left, timer_max)
-	GlobalSignals.core_time_replenished.connect(__on_time_replenished)
+	GlobalSignals.core_time_filled.connect(__on_time_filled)
 	GlobalSignals.core_time_set.connect(__on_time_set)
 		
 	GlobalSignals.core_max_time_set.connect(__on_max_time_set)
 	GlobalSignals.core_max_time_added.connect(__on_max_time_added)	
 		
 	GlobalSignals.core_energy_set.connect(__on_energy_set)
-	GlobalSignals.core_energy_replenished.connect(__on_energy_replenished)
+	GlobalSignals.core_energy_filled.connect(__on_energy_filled)
 		
 	GlobalSignals.core_max_energy_added.connect(__on_max_energy_added)
 	GlobalSignals.core_max_energy_set.connect(__on_max_energy_set)
@@ -80,7 +80,7 @@ func change_corner_radius():
 
 
 	
-func __on_energy_replenished(target_color: Air.AirColor, amount: float):
+func __on_energy_filled(target_color: Air.AirColor, amount: float):
 	if target_color == air_color:
 		add_energy_capped(amount)
 
@@ -96,7 +96,7 @@ func __on_max_energy_set(target_color: Air.AirColor, amount: float):
 	if target_color == air_color:
 		set_max_energy(amount)
 
-func __on_time_replenished(target_color: Air.AirColor, amount: float):
+func __on_time_filled(target_color: Air.AirColor, amount: float):
 	if target_color == air_color:
 		time_remaining = time_remaining + amount
 	

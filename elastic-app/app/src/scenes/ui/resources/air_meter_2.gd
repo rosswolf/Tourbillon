@@ -15,27 +15,17 @@ class_name AirMeter2
 @onready var units_display: Label = find_child("UnitsDisplay")
 const MENU: String = "res://src/scenes/main_menu.tscn"
 
-# Increment timer - fires periodically to increase current time
-@onready var increment_timer: Timer = Timer.new()
-const INCREMENT_INTERVAL: float = 0.05  # Update every 50ms for smooth filling
+# Single timer that tracks remaining time until full
+@onready var fill_timer: Timer = Timer.new()
 
 var __timer_max: float = 1.0
 var timer_max: float:
 	get:
 		return max(1.0, __timer_max)
 	set(value):
-		var old_max = __timer_max
 		__timer_max = max(1.0, value)
-		# When max time changes, reset the increment timer
-		_reset_increment_timer()
-		
-var __current_time: float = 0.0
-var current_time: float:
-	get: 
-		return __current_time
-	set(value):
-		__current_time = clamp(value, 0.0, timer_max)
-		_reset_increment_timer()
+		# When max time changes, maintain current units and update timer
+		current_units = __current_units  # Trigger setter to recalculate
 
 var __max_energy: float = 1.0
 var max_energy: float:
@@ -43,33 +33,57 @@ var max_energy: float:
 		return max(1.0, __max_energy)
 	set(value):
 		__max_energy = max(1.0, value)
-		# When max energy changes, we keep current units (via current time)
-		_reset_increment_timer()
+		# When max energy changes, maintain current units and update timer
+		current_units = __current_units  # Trigger setter to recalculate
 
-# Core relationship: units derive from time
+# PRIMARY STATE: Everything is based on units
+var __current_units: float = 0.0
+var __base_units: float = 0.0  # Units at the time we started the timer
+var current_units: float:
+	get:
+		return __current_units
+	set(value):
+		__current_units = clamp(value, 0.0, max_energy)
+		# Update the timer whenever units change
+		__update_timer_from_units()
+
+# Derived values from units
+var current_time: float:
+	get:
+		return (current_units / max_energy) * timer_max
+
 var current_energy: float:
-	get: 
-		return (current_time / timer_max) * max_energy
+	get:
+		return current_units
+
+# Get the actual time remaining until the meter is full
+var time_until_full: float:
+	get:
+		if fill_timer.is_stopped():
+			return timer_max - current_time
+		else:
+			return fill_timer.time_left
 
 
 func _ready():
 	timer_max = default_timer_max
 	max_energy = default_max_energy
 	
-	# Start with specified starting amount (converts units to time)
-	var time_per_unit: float = timer_max / max_energy
-	current_time = starting_energy * time_per_unit
+	# Start with specified starting amount
+	current_units = starting_energy
 	
-	# Setup increment timer
-	add_child(increment_timer)
-	increment_timer.wait_time = INCREMENT_INTERVAL
-	increment_timer.timeout.connect(_on_increment_timer_timeout)
-	increment_timer.start()
+	# Setup fill timer - this is a one-shot timer that counts down to game end
+	add_child(fill_timer)
+	fill_timer.one_shot = true
+	fill_timer.timeout.connect(__on_fill_timer_timeout)
+	
+	# Ensure timer is started
+	__update_timer_from_units()
 	
 	progress_bar.value = pct(current_time, timer_max)
 	
 	# Connect signals with renamed "fill" instead of "replenished"
-	GlobalSignals.core_time_replenished.connect(__on_time_filled)
+	GlobalSignals.core_time_filled.connect(__on_time_filled)
 	GlobalSignals.core_time_set.connect(__on_time_set)
 	GlobalSignals.core_time_removed.connect(__on_time_removed)
 		
@@ -77,7 +91,7 @@ func _ready():
 	GlobalSignals.core_max_time_added.connect(__on_max_time_added)	
 		
 	GlobalSignals.core_energy_set.connect(__on_energy_set)
-	GlobalSignals.core_energy_replenished.connect(__on_energy_filled)
+	GlobalSignals.core_energy_filled.connect(__on_energy_filled)
 	GlobalSignals.core_energy_removed.connect(__on_energy_removed)
 		
 	GlobalSignals.core_max_energy_added.connect(__on_max_energy_added)
@@ -101,37 +115,50 @@ func change_corner_radius():
 		fill_style.corner_radius_bottom_right = 22
 		progress_bar.add_theme_stylebox_override("fill", fill_style)
 
-func _on_increment_timer_timeout():
-	# Increment the current time
-	current_time += INCREMENT_INTERVAL
+func __on_fill_timer_timeout():
+	# Timer has expired, meter is full
+	__current_units = max_energy  # Set directly to avoid retriggering timer
+	GlobalGameManager.end_game()
+
+func __update_timer_from_units():
+	# Calculate time position from current units
+	var time_position = (current_units / max_energy) * timer_max
+	var remaining_time = timer_max - time_position
 	
-	# Check if we've reached max
-	if current_time >= timer_max:
-		current_time = timer_max
-		increment_timer.stop()
+	print("UPDATE TIMER: units=", current_units, " time_pos=", time_position, " remaining=", remaining_time)
+	
+	if remaining_time <= 0.001:  # Use small epsilon to avoid float precision issues
+		# Already at max, stop timer and trigger game end
+		fill_timer.stop()
+		__current_units = max_energy  # Ensure we're exactly at max
 		GlobalGameManager.end_game()
-
-func _reset_increment_timer():
-	# Reset the increment timer whenever any value changes
-	if current_time < timer_max:
-		if not increment_timer.is_stopped():
-			increment_timer.stop()
-		increment_timer.start()
 	else:
-		increment_timer.stop()
+		# Start/restart timer with the remaining time
+		fill_timer.stop()
+		fill_timer.wait_time = remaining_time
+		fill_timer.start()
+		# Store the base units when we start the timer
+		__base_units = __current_units
+		print("Timer started with ", remaining_time, " seconds")
 
-# Time-based operations
+# Time-based operations (convert to units)
 func __on_time_filled(target_color: Air.AirColor, amount: float):
 	if target_color == air_color:
-		current_time += amount  # Add time (meter goes up)
+		# Convert time to units proportionally
+		var units_to_add = (amount / timer_max) * max_energy
+		current_units += units_to_add
 
 func __on_time_removed(target_color: Air.AirColor, amount: float):
 	if target_color == air_color:
-		current_time -= amount  # Remove time (meter goes down)
+		# Convert time to units proportionally
+		var units_to_remove = (amount / timer_max) * max_energy
+		current_units -= units_to_remove
 	
 func __on_time_set(target_color: Air.AirColor, amount: float):
 	if target_color == air_color:
-		current_time = amount
+		# Convert time to units proportionally
+		var units_to_set = (amount / timer_max) * max_energy
+		current_units = units_to_set
 
 func __on_max_time_added(target_color: Air.AirColor, amount: float):
 	if target_color == air_color:
@@ -141,18 +168,18 @@ func __on_max_time_set(target_color: Air.AirColor, amount: float):
 	if target_color == air_color:
 		set_max_time(amount)
 
-# Energy/Unit-based operations
+# Energy/Unit-based operations (direct)
 func __on_energy_filled(target_color: Air.AirColor, amount: float):
 	if target_color == air_color:
-		add_energy(amount)  # Add units (meter goes up)
+		current_units += amount
 
 func __on_energy_removed(target_color: Air.AirColor, amount: float):
 	if target_color == air_color:
-		remove_energy(amount)  # Remove units (meter goes down)
+		current_units -= amount
 
 func __on_energy_set(target_color: Air.AirColor, amount: float):
 	if target_color == air_color:
-		set_energy(amount)
+		current_units = amount
 
 func __on_max_energy_added(target_color: Air.AirColor, amount: float):
 	if target_color == air_color:
@@ -162,51 +189,29 @@ func __on_max_energy_set(target_color: Air.AirColor, amount: float):
 	if target_color == air_color:
 		set_max_energy(amount)
 
-# Add units (converts to time and adds it) - meter goes up
-func add_energy(amount: float):
-	var time_per_unit: float = timer_max / max_energy
-	var time_to_add: float = amount * time_per_unit
-	current_time += time_to_add
-
-# Remove units (converts to time and removes it) - meter goes down
-func remove_energy(amount: float):
-	var time_per_unit: float = timer_max / max_energy
-	var time_to_remove: float = amount * time_per_unit
-	current_time -= time_to_remove
-
-# Set units directly (converts to time and sets it)
-func set_energy(amount: float):
-	var time_per_unit: float = timer_max / max_energy
-	var new_time: float = amount * time_per_unit
-	current_time = new_time
-
 func add_max_energy(amount: float):
-	# Conservation of units: keep current units, not proportion
-	var current_units = current_energy
+	# Conservation of units: keep current units
+	var saved_units = current_units
 	max_energy += amount
-	# Set the time to maintain the same unit count
-	set_energy(current_units)
+	current_units = saved_units  # Restore units, timer will update
 
 func set_max_energy(new_max: float):
-	# Conservation of units: keep current units, not proportion
-	var current_units = current_energy
+	# Conservation of units: keep current units
+	var saved_units = current_units
 	max_energy = new_max
-	# Set the time to maintain the same unit count
-	set_energy(current_units)
+	current_units = saved_units  # Restore units, timer will update
 
 func add_max_time(amount: float):
 	# Conservation of units: keep current units when changing max time
-	var current_units = current_energy
-	timer_max = timer_max + amount
-	# Restore the same unit count with new time scale
-	set_energy(current_units)
+	var saved_units = current_units
+	timer_max += amount
+	current_units = saved_units  # Restore units, timer will update
 
 func set_max_time(amount: float):
 	# Conservation of units: keep current units when changing max time
-	var current_units = current_energy
+	var saved_units = current_units
 	timer_max = amount
-	# Restore the same unit count with new time scale
-	set_energy(current_units)
+	current_units = saved_units  # Restore units, timer will update
 
 func pct(numerator: float, denominator: float):
 	if denominator <= 0.001:
@@ -216,11 +221,17 @@ func pct(numerator: float, denominator: float):
 
 func start():
 	# Reset to starting amount when explicitly started
-	var time_per_unit: float = timer_max / max_energy
-	current_time = starting_energy * time_per_unit
-	increment_timer.start()
+	current_units = starting_energy
 
 func _process(delta):
+	# Update current units based on timer progress
+	if not fill_timer.is_stopped():
+		var elapsed = fill_timer.wait_time - fill_timer.time_left
+		# Calculate how many units we've gained while filling
+		var units_gained = (elapsed / timer_max) * max_energy
+		__current_units = min(__base_units + units_gained, max_energy)
+	
+	# Update visual displays - always update these regardless of timer state
 	progress_bar.value = pct(current_time, timer_max)
 	label.text = render_label(current_time)
 	max_label.text = render_label(timer_max)
