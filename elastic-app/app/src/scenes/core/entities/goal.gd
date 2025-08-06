@@ -56,7 +56,8 @@ func __on_signal(delta: int, achieve: Achieve, prior: int):
 
 func __on_core_goal_failed(goal_instance_id: String):
 	if goal_instance_id == instance_id:
-		punishment.activate(self)
+		if punishment:
+			punishment.activate(self)
 	
 func __apply_reward():
 	reward.activate(self)
