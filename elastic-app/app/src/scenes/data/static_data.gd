@@ -17,7 +17,7 @@ var mob_data_path = "res://src/scenes/data/mob_data.json"
 var mob_data_indices = {}
 
 var goals_data: Dictionary = {}
-var goals_data_path = "res://src/scenes/data/wave_data.json"
+var goals_data_path = "res://src/scenes/data/goals_data.json"
 var goals_data_indices = {}
 
 var relic_data: Dictionary = {}

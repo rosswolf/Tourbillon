@@ -27,6 +27,7 @@ enum EntityType {
 	ENGINE_BUTTON,
 	BATTLEGROUND, 
 	RELIC,
+	GOAL,
 	NONE
 }
 

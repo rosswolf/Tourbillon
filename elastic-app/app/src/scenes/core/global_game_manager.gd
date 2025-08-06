@@ -8,10 +8,13 @@ var instance_catalog: InstanceCatalog
 var library: Library
 var hero: Hero
 var relic_manager: RelicManager
+var goal_manager: GoalManager
 
 var hand_size: int = 5
 var current_act = 1
 var __activations_allowed: bool = false
+
+
 
 # Core functionality
 func _ready():
@@ -69,6 +72,7 @@ func __on_start_game():
 	library = Library.new()
 	relic_manager = RelicManager.new()
 	hero = Hero.load_hero(hero_template_id)
+	goal_manager = GoalManager.new()
 
 	__load_cards()
 	
@@ -158,6 +162,7 @@ func reset_game_state():
 	library = null
 	hero = null
 	relic_manager = null
+	goal_manager = null
 	
 func activate(source_id: String, target_id: String):	
 	if not __activations_allowed:

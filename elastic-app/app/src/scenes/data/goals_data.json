@@ -4,20 +4,21 @@
     "round": 1,
     "text": "Survive 2 minutes",
     "reward": "shop=card",
-    "": "global_time>120"
+    "achieve": "global_time>120",
+    "before_n_ticks": 121
   },
   {
     "template_name": "play_cards_1",
     "round": 1,
     "text": "Play 10 cards",
     "reward": "shop=card",
-    "": "played_cards>10"
+    "achieve": "played_cards>10"
   },
   {
     "template_name": "activate_buildings_1",
     "round": 1,
     "text": "Activate 2 buildings",
     "reward": "shop=card",
-    "": "activated_buildings>=2"
+    "achieve": "activated_buildings>=2"
   }
 ]

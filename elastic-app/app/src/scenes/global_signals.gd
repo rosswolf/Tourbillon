@@ -51,6 +51,18 @@ func signal_ui_time_bump():
 
 # Core Signal Functions
 
+signal core_goal_created(goal_instance_id: String)
+func signal_core_goal_created(goal_instance_id: String):
+	core_goal_created.emit(goal_instance_id)
+
+signal core_goal_succeeded(goal_instance_id: String)
+func signal_core_goal_succeeded(goal_instance_id: String):
+	core_goal_succeeded.emit(goal_instance_id)
+
+signal core_goal_failed(goal_instance_id: String)
+func signal_core_goal_failed(goal_instance_id: String):
+	core_goal_failed.emit(goal_instance_id)
+
 signal core_time_set(color: Air.AirColor, amount: float)
 func signal_core_time_set(color: Air.AirColor, amount: float):
 	core_time_set.emit(color, amount)
