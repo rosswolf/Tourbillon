@@ -4,8 +4,8 @@
     "round": 1,
     "text": "Survive 2 minutes",
     "reward": "shop=card",
-    "achieve": "global_time>120",
-    "before_n_ticks": 121
+    "achieve": "global_time>30",
+    "before_n_ticks": 31
   },
   {
     "template_name": "play_cards_1",
