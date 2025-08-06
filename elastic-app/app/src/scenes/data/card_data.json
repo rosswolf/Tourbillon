@@ -195,7 +195,7 @@
   {
 	"card_template_id": "green_draw_2",
 	"group_template_id": "knight",
-	"card_count": 3,
+	"card_count": 2,
 	"display_name": "shine",
 	"rules_text": "draw 2 cards",
 	"cursor_image_uid": "bqvm4vgi4c0dn",
@@ -316,7 +316,7 @@
 	"card_cost": {
 	  "GameResource.Type.BLUE_ENERGY": "1"
 	},
-	"instinct_effect": "remove_purple_time=5, draw_card=1",
+	"instinct_effect": "remove_purple_time=3, draw_card=1",
 	"card_rarity": "Card.RarityType.COMMON"
   },
   {
@@ -329,7 +329,7 @@
 	"card_cost": {
 	  "GameResource.Type.GREEN_ENERGY": "1"
 	},
-	"instinct_effect": "remove_blue_time=5, draw_card=1",
+	"instinct_effect": "remove_blue_time=3, draw_card=1",
 	"card_rarity": "Card.RarityType.COMMON"
   },
   {
@@ -342,7 +342,7 @@
 	"card_cost": {
 	  "GameResource.Type.PURPLE_ENERGY": "1"
 	},
-	"instinct_effect": "remove_green_time=5, draw_card=1",
+	"instinct_effect": "remove_green_time=3, draw_card=1",
 	"card_rarity": "Card.RarityType.COMMON"
   },
   {
@@ -441,6 +441,45 @@
 	  "GameResource.Type.BLUE_ENERGY": "1"
 	},
 	"slot_effect": "add_green_time=5, draw_card=1, cooldown=20",
+	"card_rarity": "Card.RarityType.COMMON"
+  },
+  {
+	"card_template_id": "card_purple_time_2",
+	"group_template_id": "knight",
+	"card_count": 1,
+	"display_name": "duck",
+	"rules_text": "vent purple time, draw 1 card",
+	"cursor_image_uid": "bqvm4vgi4c0dn",
+	"card_cost": {
+	  "GameResource.Type.BLUE_ENERGY": "1"
+	},
+	"instinct_effect": "add_purple_time=3, draw_card=1",
+	"card_rarity": "Card.RarityType.COMMON"
+  },
+  {
+	"card_template_id": "card_blue_time_2",
+	"group_template_id": "knight",
+	"card_count": 1,
+	"display_name": "dive",
+	"rules_text": "vent blue time, draw 1 card",
+	"cursor_image_uid": "bqvm4vgi4c0dn",
+	"card_cost": {
+	  "GameResource.Type.GREEN_ENERGY": "1"
+	},
+	"instinct_effect": "add_blue_time=3, draw_card=1",
+	"card_rarity": "Card.RarityType.COMMON"
+  },
+  {
+	"card_template_id": "card_green_time_2",
+	"group_template_id": "knight",
+	"card_count": 1,
+	"display_name": "flit",
+	"rules_text": "vent green time, draw 1 card",
+	"cursor_image_uid": "bqvm4vgi4c0dn",
+	"card_cost": {
+	  "GameResource.Type.PURPLE_ENERGY": "1"
+	},
+	"instinct_effect": "add_green_time=3, draw_card=1",
 	"card_rarity": "Card.RarityType.COMMON"
   }
 ]

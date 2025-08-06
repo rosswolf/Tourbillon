@@ -13,17 +13,15 @@ func setup_stats_listeners() -> void:
 		var signal_name = signal_info.name
 		if signal_name.begins_with("stats_"):
 			# Initialize stat to 0
-			var stat_name = signal_name.replace("stats_", "")
-			stats[stat_name] = 0
+			stats[signal_name] = 0
 			
 			# Connect to the signal
 			GlobalSignals.connect(signal_name, _on_stat_signal.bind(signal_name))
-			print("Connected to signal: ", signal_name, " -> stat: ", stat_name)
+			print("Connected to signal: ", signal_name, " -> stat: ", signal_name)
 
 # Handle incoming stat signals
-func _on_stat_signal(signal_name: String, amount: int) -> void:
-	var stat_name = signal_name.replace("stats_", "")
-	stats[stat_name] += amount
+func _on_stat_signal(amount: int, signal_name: String, ) -> void:
+	stats[signal_name] += amount
 	#print("Stat updated: ", stat_name, " += ", amount, " (Total: ", stats[stat_name], ")")
 
 # Print all current stats

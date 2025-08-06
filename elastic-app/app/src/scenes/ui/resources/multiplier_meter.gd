@@ -4,7 +4,7 @@ class_name MultiplierMeter
 
 
 var multiplier: float = 1.0
-var multiplier_growth_rate: float = 0.5  # Per second
+var multiplier_growth_rate: float = 0.1  # Per second
 var max_multiplier: float = 4.0
 var min_multiplier: float = 1.0 
 

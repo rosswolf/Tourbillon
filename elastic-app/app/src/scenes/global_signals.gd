@@ -86,7 +86,7 @@ func signal_core_max_time_added(color: Air.AirColor, amount: float):
 signal core_max_time_removed(color: Air.AirColor, amount: float)
 func signal_core_max_time_removed(color: Air.AirColor, amount: float):
 	core_max_time_removed.emit(color, amount)			
-	
+	#
 signal core_energy_set(color: Air.AirColor, amount: float)
 func signal_core_energy_set(color: Air.AirColor, amount: float):
 	core_energy_set.emit(color, amount)	
@@ -129,6 +129,10 @@ func signal_core_end_battle():
 signal core_game_over()
 func signal_core_game_over():
 	core_game_over.emit()
+	
+signal core_game_win()
+func signal_core_game_win():
+	core_game_win.emit()
 	
 signal core_arena_created(size: int)
 func signal_core_arena_created(size: int):
@@ -256,27 +260,30 @@ signal core_battleground_targeting_preview_changed(space_index: int)
 func signal_core_battleground_targeting_preview_changed(space_index: int):
 	core_battleground_targeting_preview_changed.emit(space_index)
 
-
 signal stats_cards_drawn(amount: int)
 func signal_stats_cards_drawn(amount: int):
-	stats_cards_drawn.emit()		
+	stats_cards_drawn.emit(amount)		
 	
 signal stats_cards_popped(amount: int)
 func signal_stats_cards_popped(amount: int):
-	stats_cards_popped.emit()
+	stats_cards_popped.emit(amount)
 
 signal stats_cards_played(amount: int)
 func signal_stats_cards_played(amount: int):
-	stats_cards_played.emit()	
+	stats_cards_played.emit(amount)	
 	
 signal stats_cards_slotted(amount: int)
 func signal_stats_cards_slotted(amount: int):
-	stats_cards_slotted.emit()
+	stats_cards_slotted.emit(amount)
+
+signal stats_slots_activated(amount: int)
+func signal_stats_slots_activated(amount: int):
+	stats_slots_activated.emit(amount)
 	
 signal stats_energy_spent(amount: int)
 func signal_stats_energy_spent(amount: int):
-	stats_energy_spent.emit()
+	stats_energy_spent.emit(amount)
 
 signal stats_gold_spent(amount: int)
 func signal_stats_gold_spent(amount: int):
-	stats_gold_spent.emit()
+	stats_gold_spent.emit(amount)

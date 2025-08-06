@@ -44,8 +44,8 @@ func __on_core_goal_failed(goal_instance_id: String):
 	if goal.instance_id == goal_instance_id:
 		var tween = create_tween()
 		tween.set_parallel(true)
-		tween.tween_property(self, "modulate", Color.RED, 0.2)
-		tween.chain().tween_property(self, "modulate:a", 0.0, 0.3)
+		tween.tween_property(self, "modulate", Color.RED, 0.5)
+		tween.chain().tween_property(self, "modulate:a", 0.0, 0.7)
 		tween.tween_callback(queue_free)
 	
 func __on_core_goal_succeeded(goal_instance_id: String):
@@ -55,6 +55,6 @@ func __on_core_goal_succeeded(goal_instance_id: String):
 	if goal.instance_id == goal_instance_id:
 		var tween = create_tween()
 		tween.set_parallel(true)
-		tween.tween_property(self, "modulate", Color.WHITE, 0.2)
-		tween.chain().tween_property(self, "modulate:a", 0.0, 0.3)
+		tween.tween_property(self, "modulate", Color.AQUAMARINE, 0.5)
+		tween.chain().tween_property(self, "modulate:a", 0.0, 0.7)
 		tween.tween_callback(queue_free)

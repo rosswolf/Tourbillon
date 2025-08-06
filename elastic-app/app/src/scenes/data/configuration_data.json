@@ -35,5 +35,9 @@
     "configuration_name": "default_card_durability",
     "configuration_value": 2,
     "_NOEX notes": "default number of uses per card"
+  },
+  {
+    "configuration_name": "goals_before_boss",
+    "configuration_value": 3
   }
 ]

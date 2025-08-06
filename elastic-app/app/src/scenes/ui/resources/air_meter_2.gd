@@ -185,9 +185,12 @@ func __on_energy_filled(target_color: Air.AirColor, amount: float):
 func __on_energy_removed(target_color: Air.AirColor, amount: float):
 	if target_color == air_color:
 		current_units -= amount
+		GlobalSignals.signal_stats_energy_spent(floor(amount))
 
 func __on_energy_set(target_color: Air.AirColor, amount: float):
 	if target_color == air_color:
+		if current_units > amount:
+			GlobalSignals.signal_stats_energy_spent(floor(current_units - amount))
 		current_units = amount
 
 func __on_max_energy_added(target_color: Air.AirColor, amount: float):
@@ -266,11 +269,17 @@ func render_units_display_string(units: int):
 	else:
 		return ">10"
 
+func render_label_dec(minute: int, second: int, centisecond):
+	return str(minute) + ":" + "%02d" % second + "." + "%02d" % centisecond
+
+func render_label_hex(minute: int, second: int, centisecond):
+	return str(minute) + ":" + "%02X" % second + "." + "%02X" % centisecond
+
 func render_label(time_left: float):
 	var minute: int = time_left / 60	
 	var second: int = fmod(time_left, 60)
 	var centisecond: int = int(fmod(time_left, 1.0) * 100)
-	return str(minute) + ":" + "%02X" % second + "." + "%02X" % centisecond
+	return render_label_hex(minute, second, centisecond)
 
 func get_whole_remaining_units():
 	return int(floor(current_energy))

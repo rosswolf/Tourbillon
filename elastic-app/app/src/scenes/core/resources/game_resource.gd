@@ -46,7 +46,7 @@ class ResourceAccessor:
 		# TODO
 		GameResource.Type.PURPLE_TIME: __SpecificResourceAccessor.new(
 			func(): return UiController.meters[Air.AirColor.PURPLE].time_remaining,
-			func(value): GlobalSignals.signal_core_time_set(Air.AirColor.PURPLE, value)
+			func(value): GlobalSignals.signal_core_time_set(Air.AirColor.PURPLE, value),
 		),
 		GameResource.Type.GREEN_TIME: __SpecificResourceAccessor.new(
 			func(): return UiController.meters[Air.AirColor.GREEN].time_remaining,

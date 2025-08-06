@@ -9,6 +9,7 @@ var library: Library
 var hero: Hero
 var relic_manager: RelicManager
 var goal_manager: GoalManager
+var stats_manager: StatsManager
 
 var hand_size: int = 5
 var current_act = 1
@@ -27,6 +28,7 @@ func _ready():
 	GlobalSignals.core_slot_activated.connect(__on_core_slot_activated)
 	GlobalSignals.ui_meter_expired.connect(__on_ui_meter_expired)
 	GlobalSignals.ui_time_bump.connect(__on_ui_time_bump)
+	GlobalSignals.core_card_drawn.connect(__on_core_card_drawn)
 	
 	
 	
@@ -73,6 +75,7 @@ func __on_start_game():
 	relic_manager = RelicManager.new()
 	hero = Hero.load_hero(hero_template_id)
 	goal_manager = GoalManager.new()
+	stats_manager = StatsManager.new()
 
 	__load_cards()
 	
@@ -120,6 +123,7 @@ func __on_card_played(card_instance_id: String):
 	if card == null:
 		assert(false, "Card was null when retrieving from instance catalog: " + card_instance_id)
 		return	
+	GlobalSignals.signal_stats_cards_played(1)
 	if card.durability.amount > 0:
 		card.durability.decrement(1)
 		
@@ -134,6 +138,8 @@ func __on_card_destroyed(card_instance_id: String):
 	if card == null:
 		assert(false, "Card was null when retrieving from instance catalog: " + card_instance_id)
 		return
+	
+	GlobalSignals.signal_stats_cards_popped(1)
 	GlobalGameManager.library.move_card_to_zone2(card.instance_id, Library.Zone.ANY, Library.Zone.EXILED)
 			
 func __on_core_slot_activated(card_instance_id: String):
@@ -141,7 +147,11 @@ func __on_core_slot_activated(card_instance_id: String):
 	if card == null:
 		assert(false, "Card was null when retrieving from instance catalog: " + card_instance_id)
 		return
+	GlobalSignals.signal_stats_slots_activated(1)
 	card.durability.decrement(1)
+
+func __on_core_card_drawn(card_instance_id: String):
+	GlobalSignals.signal_stats_cards_drawn(1)
 
 func allow_activations():
 	__activations_allowed = true

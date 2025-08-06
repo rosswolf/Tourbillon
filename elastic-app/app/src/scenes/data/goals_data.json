@@ -1,24 +1,51 @@
 [
   {
-    "template_name": "survival_1",
+    "template_name": "spend_energy_1",
     "round": 1,
-    "text": "Survive 2 minutes",
+    "text": "Spend 7 energy",
     "reward": "shop=card",
-    "achieve": "global_time>30",
+    "achieve": "stats_energy_spent>=7",
     "before_n_ticks": 31
   },
   {
     "template_name": "play_cards_1",
     "round": 1,
-    "text": "Play 10 cards",
+    "text": "Play 7 cards",
     "reward": "shop=card",
-    "achieve": "played_cards>10"
+    "achieve": "stats_cards_played>7",
+    "before_n_ticks": 31
   },
   {
     "template_name": "activate_buildings_1",
     "round": 1,
-    "text": "Activate 2 buildings",
+    "text": "Activate 3 buildings",
     "reward": "shop=card",
-    "achieve": "activated_buildings>=2"
+    "achieve": "stats_slots_activated>=3",
+    "before_n_ticks": 31
+  },
+  {
+    "template_name": "draw_cards_1",
+    "round": 1,
+    "text": "Draw 5 cards",
+    "reward": "shop=card",
+    "achieve": "stats_cards_drawn>=5",
+    "before_n_ticks": 31
+  },
+  {
+    "template_name": "destory_cards_1",
+    "round": 1,
+    "text": "Destroy 2 cards",
+    "reward": "shop=card",
+    "achieve": "stats_cards_popped>=2",
+    "before_n_ticks": 31
+  },
+  {
+    "template_name": "boss_1",
+    "round": 1,
+    "text": "Boss!  Draw 8 cards",
+    "reward": "win=",
+    "achieve": "stats_cards_drawn>=8",
+    "before_n_ticks": 21,
+    "punishment": "end_game="
   }
 ]

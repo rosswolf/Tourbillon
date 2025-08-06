@@ -21,6 +21,7 @@ func _ready() -> void:
 	GlobalSignals.core_relic_removed.connect(__on_relic_removed)
 	GlobalSignals.core_card_removed_from_hand.connect(__on_card_removed_from_hand)
 	GlobalSignals.core_goal_created.connect(__on_core_goal_created)
+	GlobalSignals.core_game_win.connect(__on_core_game_win)
 	
 	
 	var audio_stream = load(GRAVITY_MP3)
@@ -129,4 +130,5 @@ func __on_relic_removed(relic_instance_id: String) -> void:
 			%RelicGridContainer.remove_child(child)
 			child.queue_free()
 
-	
+func __on_core_game_win():
+	FadeToBlack.go_to_scene("res://src/scenes/win.tscn")

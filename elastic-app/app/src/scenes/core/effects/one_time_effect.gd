@@ -41,6 +41,8 @@ func activate(source: Entity):
 	if source is Card:
 		parameters["card"] = source
 		return __base_f.call(GlobalGameManager.hero, parameters)
+	elif source is Goal:
+		return __base_f.call(source, parameters)
 	else:
 		assert(false, "Unexpected source type")
 

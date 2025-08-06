@@ -73,7 +73,7 @@ static var effect_map: Dictionary[String, InternalEffect] = {
 			var amount = int(params.get("param"))
 			GlobalGameManager.library.draw_card(amount)
 			return true,
-		{"source":[Hero, Card]}
+		{"source":[Hero, Card, Goal]}
 	),
 
 	"cooldown":  InternalEffect.new(
@@ -89,7 +89,7 @@ static var effect_map: Dictionary[String, InternalEffect] = {
 			var shop_type: String = params.get("param")
 			GlobalSignals.signal_core_card_selection(shop_type, Library.Zone.HAND)
 			return true,
-		{"source":[Hero, Card]}
+		{"source":[Hero, Card, Goal]}
 	),
 	"add_gold": InternalEffect.new(
 		func(source: Entity, params: Dictionary):
@@ -97,6 +97,18 @@ static var effect_map: Dictionary[String, InternalEffect] = {
 			GlobalGameManager.hero.gold.increment(amount)
 			return true,
 		{"source":[Hero, Card]}
+	),
+	"end_game": InternalEffect.new(
+		func(source: Entity, params: Dictionary):
+			GlobalSignals.signal_core_game_over()
+			return true,
+		{"source":[Hero, Card, Goal]}
+	),
+	"win": InternalEffect.new(
+		func(source: Entity, params: Dictionary):
+			GlobalSignals.signal_core_game_win()
+			return true,
+		{"source":[Hero, Card, Goal]}
 	)
 }
 

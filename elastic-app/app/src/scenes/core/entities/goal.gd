@@ -4,6 +4,7 @@ static func _get_type_string():
 	return "Goal"
 
 var reward: MoveDescriptorEffect
+var punishment: MoveDescriptorEffect
 var text: String
 
 var before_n_ticks: int = -1
@@ -21,14 +22,21 @@ var achieve: Achieve:
 		__connect_achieve()
 
 func __connect_achieve():
-	__achieve_bound = __on_signal.bind(__achieve)
+	var starting_value = GlobalGameManager.stats_manager.stats.get(__achieve.signal_name, 0)
+	__achieve_bound = __on_signal.bind(__achieve, starting_value)
+	print("binding: " + __achieve.signal_name)
 	GlobalSignals.connect(__achieve.signal_name, __achieve_bound)
+	
+	GlobalSignals.core_goal_failed.connect(__on_core_goal_failed)
 		
 func __disconnect_achieve():
-	GlobalSignals.disconnect(__achieve.signalname, __achieve_bound)
-	__achieve_bound = null
+	if __achieve != null and __achieve_bound != null:
+		GlobalSignals.disconnect(__achieve.signal_name, __achieve_bound)
+		__achieve_bound = null
 
-func __on_signal(amount: int, achieve: Achieve):
+func __on_signal(delta: int, achieve: Achieve, prior: int):
+	var current = GlobalGameManager.stats_manager.stats.get(__achieve.signal_name, 0)
+	var amount: int = current - prior
 	if achieve.comparator == Comparator.EQUALS:
 		if amount == achieve.target:
 			__apply_reward()
@@ -45,6 +53,10 @@ func __on_signal(amount: int, achieve: Achieve):
 		if amount <= achieve.target:
 			__apply_reward()
 	return
+
+func __on_core_goal_failed(goal_instance_id: String):
+	if goal_instance_id == instance_id:
+		punishment.activate(self)
 	
 func __apply_reward():
 	reward.activate(self)
@@ -77,6 +89,7 @@ class Achieve:
 class GoalBuilder extends Entity.EntityBuilder:
 	var __text: String		
 	var __reward: MoveDescriptorEffect
+	var __punishment: MoveDescriptorEffect
 	var __before_n_ticks: int = -1
 	var __achieve: Achieve
 			
@@ -125,13 +138,19 @@ class GoalBuilder extends Entity.EntityBuilder:
 		__before_n_ticks = ticks_in
 		return self
 		
+	func with_punishment(defeat_in: String) -> GoalBuilder:
+		if defeat_in != "":
+			__punishment = MoveDescriptorEffect.new(defeat_in)
+		return self
+		
 	func build() -> Goal:
 		var goal = Goal.new()
 		super.build_entity(goal)
-		goal.achieve == __achieve
+		goal.achieve = __achieve
 		goal.before_n_ticks = __before_n_ticks
 		goal.reward = __reward
 		goal.text = __text
+		goal.punishment = __punishment
 		return goal
 
 static func load_goal(goal_template_id: String) -> Goal:
@@ -148,6 +167,7 @@ static func load_goal(goal_template_id: String) -> Goal:
 	builder.with_reward(goal_data.get("reward"))
 	builder.with_achieve(goal_data.get("achieve"))
 	builder.with_before_n_ticks(int(goal_data.get("before_n_ticks", -1)))
+	builder.with_punishment(goal_data.get("punishment",""))
 	
 	# Set starting stats
 
