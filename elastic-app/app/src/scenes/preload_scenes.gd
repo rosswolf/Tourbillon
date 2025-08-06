@@ -12,3 +12,9 @@ static var ICONS: Dictionary[String, PackedScene] = {
 static var NODES: Dictionary[String, PackedScene] = {
 	"card_ui" = preload("res://src/scenes/ui/hand/card_ui.tscn")
 }
+
+static var CARD_BACKGROUND_UIDS: Dictionary[String, CompressedTexture2D] = {
+	"blue_card" : preload("uid://cw88cktjnkuf6"),
+	"green_card" :  preload("uid://cpp30g3tr3mri"),
+	"purple_card" :  preload("uid://c0ef1wfij10wi")
+}

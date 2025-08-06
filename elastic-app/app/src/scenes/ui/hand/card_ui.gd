@@ -45,6 +45,11 @@ func set_card_data(card: Card) -> void:
 		
 	card_data = card
 	
+	
+	if card.has_slot_effect():
+		card_background.texture =  PreloadScenes.CARD_BACKGROUND_UIDS["green_card"]
+
+	
 	# Update UI elements
 	card_title.text = card.display_name
 	card_description.text = card.rules_text
