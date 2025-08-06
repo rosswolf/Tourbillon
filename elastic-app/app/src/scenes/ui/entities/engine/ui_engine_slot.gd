@@ -60,6 +60,8 @@ func __on_card_unslotted(target_slot_id: String):
 		deactivate_slot()
 		%Timer.stop()
 		%ProgressBar.value = 0
+		if card_preview:
+			destroy_card_ui()
 
 func _process(delta):
 	if %Timer.time_left != 0:

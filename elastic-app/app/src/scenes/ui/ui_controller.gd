@@ -1,3 +1,5 @@
 extends Node
 
-@export var meters: Dictionary[Air.AirColor, AirMeter2]
+var meters: Dictionary[Air.AirColor, AirMeter2]
+
+var multiplier_meter: MultiplierMeter

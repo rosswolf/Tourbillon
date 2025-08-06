@@ -216,7 +216,7 @@
 	"card_cost": {
 	  "GameResource.Type.GREEN_ENERGY": "0"
 	},
-	"instinct_effect": "add_green_energy=2",
+	"instinct_effect": "add_max_green_energy=2",
 	"card_rarity": "Card.RarityType.COMMON",
 	"tags": "STARTER_ENERGY"
   },
@@ -231,7 +231,7 @@
 	"card_cost": {
 	  "GameResource.Type.PURPLE_ENERGY": "0"
 	},
-	"instinct_effect": "add_purple_energy=2",
+	"instinct_effect": "add_max_purple_energy=2",
 	"card_rarity": "Card.RarityType.COMMON",
 	"tags": "STARTER_ENERGY"
   },
@@ -246,7 +246,7 @@
 	"card_cost": {
 	  "GameResource.Type.BLUE_ENERGY": "0"
 	},
-	"instinct_effect": "add_blue_energy=2",
+	"instinct_effect": "add_max_blue_energy=2",
 	"card_rarity": "Card.RarityType.COMMON",
 	"tags": "STARTER_ENERGY"
   },

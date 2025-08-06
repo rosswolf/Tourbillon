@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://b8apg4aqwojm7"]
+[gd_scene load_steps=21 format=3 uid="uid://b8apg4aqwojm7"]
 
 [ext_resource type="Script" uid="uid://dtu25hj7ookvm" path="res://src/scenes/game.gd" id="1_7uq6d"]
 [ext_resource type="Texture2D" uid="uid://bva6617mxquta" path="res://cc0_assets/underwater_crop.jpg" id="2_gh3at"]
@@ -9,6 +9,7 @@
 [ext_resource type="FontFile" uid="uid://b73jymev43fu5" path="res://ofl_font_assets/BrassMonoRegular-d9WLg.ttf" id="5_bd8mh"]
 [ext_resource type="PackedScene" uid="uid://vxigo5wn0wq" path="res://src/scenes/ui/goals/ui_goal.tscn" id="6_5dxuo"]
 [ext_resource type="Shader" uid="uid://dktsayggtgauf" path="res://src/scenes/water_effect.gdshader" id="9_h2mn8"]
+[ext_resource type="PackedScene" uid="uid://c36r6il5bgtu7" path="res://src/scenes/ui/resources/multiplier_meter.tscn" id="9_tnd0m"]
 [ext_resource type="PackedScene" uid="uid://cka5aovpfoi80" path="res://src/scenes/ui/click_and_drag/click_and_drag.tscn" id="10_6e0h8"]
 [ext_resource type="PackedScene" uid="uid://dckcqckqo0abj" path="res://src/scenes/ui/hud/HUD.tscn" id="10_bd8mh"]
 [ext_resource type="PackedScene" uid="uid://dqunn5rh4414l" path="res://src/scenes/ui/resources/air_meter2.tscn" id="10_tnd0m"]
@@ -186,6 +187,17 @@ size_flags_vertical = 0
 [node name="HBoxContainer2" type="HBoxContainer" parent="Background/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 
+[node name="MarginContainer4" type="MarginContainer" parent="Background/HBoxContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Background/HBoxContainer/VBoxContainer/HBoxContainer2/MarginContainer4"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_flib5")
+
+[node name="MultiplierMeter" parent="Background/HBoxContainer/VBoxContainer/HBoxContainer2/MarginContainer4/PanelContainer" instance=ExtResource("9_tnd0m")]
+custom_minimum_size = Vector2(60, 400)
+layout_mode = 2
+
 [node name="MarginContainer" type="MarginContainer" parent="Background/HBoxContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 theme_override_constants/margin_right = 0
@@ -200,9 +212,9 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(60, 400)
 layout_mode = 2
 air_color = 3
-default_timer_max = 45.0
+default_timer_max = 60.0
 default_max_energy = 3.0
-starting_energy = 1.0
+starting_energy = 2.0
 
 [node name="MarginContainer2" type="MarginContainer" parent="Background/HBoxContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
@@ -217,14 +229,14 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(60, 400)
 layout_mode = 2
 air_color = 1
-default_timer_max = 30.0
+default_timer_max = 65.0
 default_max_energy = 3.0
-starting_energy = 1.0
+starting_energy = 2.0
 
 [node name="MarginContainer3" type="MarginContainer" parent="Background/HBoxContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
-theme_override_constants/margin_right = 15
-theme_override_constants/margin_bottom = 15
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
 
 [node name="PanelContainer" type="PanelContainer" parent="Background/HBoxContainer/VBoxContainer/HBoxContainer2/MarginContainer3"]
 layout_mode = 2
@@ -236,8 +248,9 @@ custom_minimum_size = Vector2(60, 400)
 layout_mode = 2
 rightmost_style = true
 air_color = 2
+default_timer_max = 70.0
 default_max_energy = 3.0
-starting_energy = 1.0
+starting_energy = 2.0
 
 [node name="ClickAndDrag" parent="." instance=ExtResource("10_6e0h8")]
 
