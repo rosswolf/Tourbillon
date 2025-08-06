@@ -98,6 +98,7 @@ func __on_ui_meter_expired(color: Air.AirColor):
 	if not ongoing:
 		end_game()
 	else:
+		print("crime and punishment")
 		# Make the timers count faster
 		for c in air_colors:
 			GlobalSignals.signal_core_max_time_removed(c, 5.0)

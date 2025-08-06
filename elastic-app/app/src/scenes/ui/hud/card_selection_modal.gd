@@ -67,7 +67,8 @@ func __add_card_as_button(card: Card, target_zone: Library.Zone) -> void:
 func __on_card_button_pressed(card: Card, target_zone: Library.Zone) -> void:
 	
 	GlobalGameManager.library.add_card_to_zone(card, target_zone)
-
+	if target_zone == Library.Zone.HAND:
+		GlobalSignals.signal_core_card_drawn(card.instance_id)
 	cards.erase(card)
 	
 	for unselected_card in cards:
