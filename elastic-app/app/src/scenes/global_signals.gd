@@ -45,6 +45,10 @@ signal ui_card_unhovered(card_instance_id: String)
 func signal_ui_card_unhovered(card_instance_id: String):
 	ui_card_unhovered.emit(card_instance_id)
 
+signal ui_time_bump()
+func signal_ui_time_bump():
+	ui_time_bump.emit()
+
 # Core Signal Functions
 
 signal core_time_set(color: Air.AirColor, amount: float)

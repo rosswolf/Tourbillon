@@ -40,11 +40,7 @@ func activate(source: Entity):
 	
 	if source is Card:
 		parameters["card"] = source
-		var result = true
-		for i in range(floor(UiController.multiplier_meter.multiplier)):
-			if not await __base_f.call(GlobalGameManager.hero, parameters):
-				result = false
-		return result
+		return __base_f.call(GlobalGameManager.hero, parameters)
 	else:
 		assert(false, "Unexpected source type")
 
