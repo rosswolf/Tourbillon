@@ -151,15 +151,18 @@ Respond with a brief acknowledgment of the codebase structure you've understood.
 EOF
     
     # Create the parent session with UUID
-    echo "Initializing parent session with Claude..."
+    echo "Initializing parent session with Claude (this takes 5-10 minutes)..."
+    echo "Session UUID: $parent_uuid"
+    
+    # Run Claude and capture both output and errors
     $CLAUDE_CMD --model opus \
         --session-id "$parent_uuid" \
         --print "$(cat "$context_file")" \
         --add-dir "$REPO_PATH" \
         --dangerously-skip-permissions \
-        > "/tmp/parent_init_${repo_name}.log" 2>&1
+        2>&1 | tee "/tmp/parent_init_${repo_name}.log"
     
-    local exit_code=$?
+    local exit_code=${PIPESTATUS[0]}
     
     # Save session metadata
     save_session_info "$parent_uuid" "{
@@ -176,11 +179,18 @@ EOF
     rm -f "$context_file"
     
     if [ $exit_code -eq 0 ]; then
-        echo "Parent session created successfully"
-        echo "$parent_uuid"
+        # Verify the session actually exists by testing resume
+        echo "Verifying parent session..."
+        if claude --resume "$parent_uuid" --print "echo 'verified'" 2>&1 | grep -q "verified"; then
+            echo "Parent session created and verified successfully"
+            echo "$parent_uuid"
+        else
+            echo "Error: Parent session created but cannot resume from it"
+            return 1
+        fi
     else
         echo "Error: Failed to create parent session (exit code: $exit_code)"
-        cat "/tmp/parent_init_${repo_name}.log"
+        echo "Check /tmp/parent_init_${repo_name}.log for details"
         return 1
     fi
 }
