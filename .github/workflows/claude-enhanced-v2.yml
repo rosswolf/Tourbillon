@@ -1,0 +1,41 @@
+name: Claude Enhanced V2
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+  actions: write
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  claude-respond:
+    runs-on: [self-hosted, claude-pro]
+    
+    if: contains(github.event.comment.body, '@claude')
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+          
+      - name: Setup Environment
+        run: |
+          echo "/home/rosswolf/.npm-global/bin" >> $GITHUB_PATH
+          mkdir -p $HOME/.claude/sessions
+          mkdir -p artifacts
+          
+      - name: Get Issue Number
+        id: get_issue
+        run: |
+          echo "issue_number=${{ github.event.issue.number }}" >> $GITHUB_OUTPUT
+          
+      - name: Simple Claude Test
+        run: |
+          echo "Enhanced V2 workflow triggered!"
+          echo "Issue: ${{ steps.get_issue.outputs.issue_number }}"
+          echo "Comment: ${{ github.event.comment.body }}"
