@@ -183,18 +183,26 @@ jobs:
           
           # Use Claude CLI with Opus model and access to full codebase
           echo "Processing request with Claude Opus..."
-          cd /home/rosswolf/Code/castlebuilder
           
-          # Create the prompt from context
+          # Create the prompt from context (before changing directory)
           PROMPT=$(cat context.txt)
           
-          # Use claude command with proper format
-          echo "$PROMPT" | claude --model claude-3-opus-20240229 --max-turns 1 > response.md
+          # Save current directory for output
+          WORKSPACE_DIR=$(pwd)
+          
+          # Now change to the project directory
+          cd /home/rosswolf/Code/castlebuilder
+          
+          # Use claude command with proper format, output to workspace directory
+          echo "$PROMPT" | claude --model claude-3-opus-20240229 --max-turns 1 > "$WORKSPACE_DIR/response.md"
           
           # Check if response was generated
-          if [ ! -s response.md ]; then
-            echo "No response generated from Claude" > response.md
+          if [ ! -s "$WORKSPACE_DIR/response.md" ]; then
+            echo "No response generated from Claude" > "$WORKSPACE_DIR/response.md"
           fi
+          
+          # Return to workspace directory for next steps
+          cd "$WORKSPACE_DIR"
           
       - name: Post response to GitHub
         uses: actions/github-script@v7
@@ -276,13 +284,21 @@ jobs:
           
           # Use Claude CLI with Opus model for thorough review
           echo "Running PR review with Claude Opus..."
-          cd /home/rosswolf/Code/castlebuilder
           
-          # Create the prompt
+          # Create the prompt (before changing directory)
           PROMPT=$(cat review_request.txt)
           
-          # Use claude command
-          echo "$PROMPT" | claude --model claude-3-opus-20240229 --max-turns 1 > review.md
+          # Save current directory for output
+          WORKSPACE_DIR=$(pwd)
+          
+          # Now change to the project directory
+          cd /home/rosswolf/Code/castlebuilder
+          
+          # Use claude command, output to workspace directory
+          echo "$PROMPT" | claude --model claude-3-opus-20240229 --max-turns 1 > "$WORKSPACE_DIR/review.md"
+          
+          # Return to workspace directory for next steps
+          cd "$WORKSPACE_DIR"
           
       - name: Post review
         uses: actions/github-script@v7
