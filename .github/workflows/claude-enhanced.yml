@@ -24,7 +24,11 @@ jobs:
     runs-on: [self-hosted, claude-pro]
     
     # Run if @claude is mentioned in comments or issues
-    if: contains(github.event.comment.body || github.event.issue.body || '', '@claude')
+    if: |
+      (github.event_name == 'issue_comment' && contains(github.event.comment.body, '@claude')) ||
+      (github.event_name == 'pull_request_review_comment' && contains(github.event.comment.body, '@claude')) ||
+      (github.event_name == 'issues' && contains(github.event.issue.body, '@claude')) ||
+      (github.event_name == 'pull_request' && contains(github.event.pull_request.body, '@claude'))
     
     steps:
       - name: Checkout repository
@@ -103,7 +107,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const issue_number = ${{ steps.should_respond.outputs.issue_number }};
+            const issue_number = '${{ steps.should_respond.outputs.issue_number }}' || context.issue.number;
             
             // Get issue/PR details
             const issue = await github.rest.issues.get({
@@ -248,7 +252,7 @@ jobs:
             const fs = require('fs');
             const response = fs.readFileSync('response.md', 'utf8');
             
-            const issue_number = ${{ steps.should_respond.outputs.issue_number }};
+            const issue_number = '${{ steps.should_respond.outputs.issue_number }}' || context.issue.number;
             
             // Add session info as hidden comment
             const sessionInfo = `<!-- claude-session: ${{ steps.determine_parent.outputs.parent_session }} -->`;
