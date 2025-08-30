@@ -26,7 +26,37 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
           
+      - name: Setup Git and GitHub CLI
+        run: |
+          git config --global user.name "Claude Assistant"
+          git config --global user.email "claude@assistant.local"
+          
+      - name: Check if Claude should respond
+        id: should_respond
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const issue_number = context.issue.number || context.payload.pull_request?.number;
+            if (!issue_number) {
+              console.log('No issue/PR number found');
+              return false;
+            }
+            
+            // Check if current comment mentions @claude
+            const currentComment = context.payload.comment?.body || context.payload.issue?.body || '';
+            if (currentComment.includes('@claude')) {
+              console.log('Claude mentioned in current comment');
+              core.setOutput('issue_number', issue_number);
+              core.setOutput('should_respond', 'true');
+              return true;
+            }
+            
+            console.log('Claude not engaged');
+            core.setOutput('should_respond', 'false');
+            return false;
+          
       - name: Echo test
         run: |
           echo "Enhanced workflow triggered!"
-          echo "Event: ${{ github.event_name }}"
+          echo "Should respond: ${{ steps.should_respond.outputs.should_respond }}"
