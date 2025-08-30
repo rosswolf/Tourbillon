@@ -24,11 +24,11 @@ jobs:
     runs-on: [self-hosted, claude-pro]
     
     # Run if @claude is mentioned in comments or issues
-    if: |
+    if: >
       (github.event_name == 'issue_comment' && contains(github.event.comment.body, '@claude')) ||
       (github.event_name == 'pull_request_review_comment' && contains(github.event.comment.body, '@claude')) ||
       (github.event_name == 'issues' && contains(github.event.issue.body, '@claude')) ||
-      (github.event_name == 'pull_request' && contains(github.event.pull_request.body, '@claude'))
+      (github.event_name == 'pull_request' && github.event.pull_request && contains(github.event.pull_request.body, '@claude'))
     
     steps:
       - name: Checkout repository
