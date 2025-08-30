@@ -157,7 +157,8 @@ jobs:
           
           # Use Claude CLI directly (your Pro subscription)
           echo "Processing request with Claude..."
-          claude --max-turns 5 < context.txt > response.md
+          # Use single turn mode to just respond once per comment
+          claude --max-turns 1 < context.txt > response.md
           
           # Check if response was generated
           if [ ! -s response.md ]; then
@@ -219,7 +220,7 @@ jobs:
           cat pr.diff >> review_request.txt
           
           # Use Claude CLI for review
-          claude --max-turns 3 < review_request.txt > review.md
+          claude --max-turns 1 < review_request.txt > review.md
           
       - name: Post review
         uses: actions/github-script@v7
