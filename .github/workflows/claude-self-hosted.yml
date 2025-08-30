@@ -194,7 +194,21 @@ jobs:
           cd /home/rosswolf/Code/castlebuilder
           
           # Use claude command with proper format, output to workspace directory
-          echo "$PROMPT" | claude --model claude-3-opus-20240229 --max-turns 1 > "$WORKSPACE_DIR/response.md"
+          # Using opus alias instead of full model name
+          # Temporarily disable exit on error for this command
+          set +e
+          echo "$PROMPT" | claude --model opus --max-turns 1 > "$WORKSPACE_DIR/response.md" 2>"$WORKSPACE_DIR/claude_error.log"
+          CLAUDE_EXIT_CODE=$?
+          set -e
+          
+          # Check if claude command succeeded
+          if [ $CLAUDE_EXIT_CODE -ne 0 ]; then
+            echo "Error: Claude command failed with exit code $CLAUDE_EXIT_CODE"
+            echo "Error log:"
+            cat "$WORKSPACE_DIR/claude_error.log"
+            echo "Creating fallback response..."
+            echo "I apologize, but I encountered an error while processing your request. The Claude CLI returned exit code $CLAUDE_EXIT_CODE. Please check the workflow logs for more details." > "$WORKSPACE_DIR/response.md"
+          fi
           
           # Check if response was generated
           if [ ! -s "$WORKSPACE_DIR/response.md" ]; then
@@ -295,7 +309,8 @@ jobs:
           cd /home/rosswolf/Code/castlebuilder
           
           # Use claude command, output to workspace directory
-          echo "$PROMPT" | claude --model claude-3-opus-20240229 --max-turns 1 > "$WORKSPACE_DIR/review.md"
+          # Using opus alias instead of full model name
+          echo "$PROMPT" | claude --model opus --max-turns 1 > "$WORKSPACE_DIR/review.md"
           
           # Return to workspace directory for next steps
           cd "$WORKSPACE_DIR"
