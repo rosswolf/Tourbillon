@@ -1,0 +1,73 @@
+[gd_scene load_steps=10 format=3 uid="uid://c0yboy1fbrc3c"]
+
+[ext_resource type="Script" uid="uid://b8601hec3qtcc" path="res://src/scenes/utilities/sprite_control.gd" id="1_4yrkg"]
+[ext_resource type="Texture2D" uid="uid://crhivuryt11tr" path="res://cc0_assets/Tiny Swords (Update 010)/Factions/Knights/Troops/Warrior/Yellow/Warrior_Yellow2.png" id="2_ql8k6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kscby"]
+atlas = ExtResource("2_ql8k6")
+region = Rect2(0, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t0wsr"]
+atlas = ExtResource("2_ql8k6")
+region = Rect2(192, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c44mq"]
+atlas = ExtResource("2_ql8k6")
+region = Rect2(384, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ootyb"]
+atlas = ExtResource("2_ql8k6")
+region = Rect2(576, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lrm58"]
+atlas = ExtResource("2_ql8k6")
+region = Rect2(768, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rfesa"]
+atlas = ExtResource("2_ql8k6")
+region = Rect2(960, 0, 192, 192)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1q6fn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kscby")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t0wsr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c44mq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ootyb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lrm58")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rfesa")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="SpriteControl" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_4yrkg")
+
+[node name="ReferenceAnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
+sprite_frames = SubResource("SpriteFrames_1q6fn")
+autoplay = "default"
+frame_progress = 0.902893
+offset = Vector2(50, 50)

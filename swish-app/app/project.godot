@@ -1,0 +1,64 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="Swish"
+run/main_scene="uid://djnwkm8tfc4o"
+config/features=PackedStringArray("4.4", "Mobile")
+config/icon="res://icon.svg"
+
+[autoload]
+
+StaticData="*res://src/scenes/data/static_data.gd"
+GlobalSignals="*res://src/scenes/global_signals.gd"
+GlobalSelectionManager="*res://src/scenes/ui/click_and_drag/global_selection_manager.gd"
+GlobalGameManager="*res://src/scenes/core/global_game_manager.gd"
+TimerService="*res://src/scenes/timer_service.gd"
+PreloadScenes="*res://src/scenes/preload_scenes.gd"
+FadeToBlack="*res://src/scenes/ui/transitions/FadeToBlack.tscn"
+GlobalUtilities="*res://src/scenes/utilities/global_utilities.gd"
+UidManager="*res://src/scenes/utilities/uid_manager.gd"
+UiController="*res://src/scenes/ui/ui_controller.gd"
+
+[debug]
+
+gdscript/warnings/unused_parameter=0
+
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/size/resizable=false
+window/stretch/mode="canvas_items"
+
+[global_group]
+
+enemies=""
+movable_units=""
+
+[gui]
+
+theme/default_font_multichannel_signed_distance_field=true
+
+[layer_names]
+
+2d_physics/layer_1="Environment"
+2d_physics/layer_2="Enemies"
+2d_physics/layer_3="Avatar"
+2d_physics/layer_4="Buildings"
+2d_physics/layer_5="Drops"
+2d_physics/layer_6="Bullets"
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
+renderer/rendering_method="mobile"
+environment/defaults/default_clear_color=Color(0.28485, 0.28485, 0.28485, 1)

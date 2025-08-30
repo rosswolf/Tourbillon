@@ -1,0 +1,6 @@
+[gd_resource type="Theme" format=3 uid="uid://231itm41urwm"]
+
+[resource]
+Label/colors/font_outline_color = Color(0.678431, 0.0117647, 0.0666667, 1)
+Label/constants/outline_size = 200
+Label/font_sizes/font_size = 1000

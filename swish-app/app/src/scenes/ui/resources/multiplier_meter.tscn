@@ -1,0 +1,195 @@
+[gd_scene load_steps=10 format=3 uid="uid://psf1hugnpkpm"]
+
+[ext_resource type="FontFile" uid="uid://b73jymev43fu5" path="res://ofl_font_assets/BrassMonoRegular-d9WLg.ttf" id="1_nrhff"]
+
+[sub_resource type="GDScript" id="GDScript_nrhff"]
+script/source = "extends Control
+
+class_name MultiplierMeter
+
+
+var multiplier: float = 1.0
+var multiplier_growth_rate: float = 0.1  # Per second
+var max_multiplier: float = 4.0
+var min_multiplier: float = 1.0 
+
+func _ready():
+	# Start the glow animation
+	pulse_glow()
+
+func _process(delta):
+	if all_meters_below_100():
+		# Multiplier grows while you're safe
+		multiplier = min(multiplier + (multiplier_growth_rate * delta), max_multiplier)
+	else:
+		# Instant reset if any meter hits 100%
+		multiplier = min_multiplier
+		
+	if floor(multiplier) == floor(max_multiplier):		
+		# %UnitsDisplay.text = \" +++ \"  briefly
+		GlobalSignals.signal_ui_time_bump()
+		multiplier = min_multiplier
+		show_bonus_text()
+	
+	# Update visual displays - always update these regardless of timer state
+	%ProgressBar.value = pct(multiplier - min_multiplier, max_multiplier - min_multiplier)
+	
+# Alternative simpler version without effects
+func show_bonus_text():
+	var original_text = %UnitsDisplay.text
+	%UnitsDisplay.text = \" +++ \"
+	
+	# Use a timer to restore after delay
+	await get_tree().create_timer(0.5).timeout
+	
+	%UnitsDisplay.text = original_text
+
+func pct(numerator: float, denominator: float):
+	if denominator <= 0.001:
+		return 0.0
+	else:
+		return 100.0 * numerator / denominator	
+
+func all_meters_below_100():
+	for key in UiController.meters.keys():
+		if UiController.meters[key].time_until_full <= 0.005:
+			return false
+	return true
+
+
+
+func pulse_glow():
+	var tween = create_tween()  # Now this works!
+	tween.set_loops()
+	tween.tween_property(%ProgressBar, \"modulate\", Color(1.5, 1.5, 1.5, 1.0), 0.5)
+	tween.tween_property(%ProgressBar, \"modulate\", Color.WHITE, 0.5)
+"
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kd31t"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fq1tf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5vism"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jf3ic"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fa5as"]
+bg_color = Color(0.788235, 0.792157, 0.921569, 0.866667)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ue2nh"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fp7xn"]
+
+[node name="MultiplierMeter" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = SubResource("GDScript_nrhff")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_kd31t")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_fq1tf")
+
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/HBoxContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_5vism")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/HBoxContainer/VBoxContainer/PanelContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="PanelContainer/HBoxContainer/VBoxContainer/PanelContainer/PanelContainer/MarginContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(60, 400)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_jf3ic")
+theme_override_styles/fill = SubResource("StyleBoxFlat_fa5as")
+value = 50.0
+fill_mode = 3
+show_percentage = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/HBoxContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="Label" type="Label" parent="PanelContainer/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/MarginContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_colors/font_color = Color(1, 1, 1, 0.4)
+theme_override_fonts/font = ExtResource("1_nrhff")
+theme_override_font_sizes/font_size = 14
+text = "1:32.84"
+horizontal_alignment = 1
+
+[node name="Panel" type="Panel" parent="PanelContainer/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/MarginContainer"]
+visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_ue2nh")
+
+[node name="MaxLabel" type="Label" parent="PanelContainer/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/MarginContainer"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.172549)
+text = "Max: 3:00.00"
+horizontal_alignment = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_fp7xn")
+
+[node name="MarginContainer2" type="MarginContainer" parent="PanelContainer/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="UnitsDisplay" type="Label" parent="PanelContainer/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/MarginContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_nrhff")
+theme_override_font_sizes/font_size = 15
+horizontal_alignment = 1

@@ -1,0 +1,65 @@
+[
+  {
+    "turret_template_id": "turret_town_hall",
+    "turret_damage_type": "Damage.DamageType.PHYSICAL",
+    "range_in_pixels": 60,
+    "damage_per_shot": 4,
+    "shots_per_second": 1,
+    "bullet_uid": "bqtrn5v5apwls",
+    "turret_strike": "Turret.TurretStrike.FIRST_STRIKE",
+    "_NOEX base_dps": 4
+  },
+  {
+    "turret_template_id": "turret_basic",
+    "turret_damage_type": "Damage.DamageType.PHYSICAL",
+    "range_in_pixels": 50,
+    "damage_per_shot": 4,
+    "shots_per_second": 1,
+    "bullet_uid": "c5nww14c4vnps",
+    "turret_strike": "Turret.TurretStrike.FIRST_STRIKE",
+    "_NOEX base_dps": 4
+  },
+  {
+    "turret_template_id": "turret_splash",
+    "turret_damage_type": "Damage.DamageType.PHYSICAL",
+    "range_in_pixels": 50,
+    "damage_per_shot": 4,
+    "shots_per_second": 1,
+    "bullet_uid": "bqtrn5v5apwls",
+    "turret_strike": "Turret.TurretStrike.FIRST_STRIKE",
+    "_NOEX base_dps": 4
+  },
+  {
+    "turret_template_id": "turret_none",
+    "turret_damage_type": "Damage.DamageType.UNKNOWN",
+    "range_in_pixels": 0,
+    "damage_per_shot": 0,
+    "shots_per_second": 0,
+    "bullet_uid": "c5nww14c4vnps",
+    "turret_strike": "Turret.TurretStrike.SECOND_STRIKE",
+    "_NOEX base_dps": 0
+  },
+  {
+    "turret_template_id": "turret_scout",
+    "turret_damage_type": "Damage.DamageType.PHYSICAL",
+    "range_in_pixels": 0,
+    "damage_per_shot": 0,
+    "shots_per_second": 0,
+    "bullet_uid": "c5nww14c4vnps",
+    "turret_strike": "Turret.TurretStrike.NO_STRIKE",
+    "_NOEX base_dps": 0
+  },
+  {
+    "turret_template_id": "turret_avatar_basic",
+    "turret_damage_type": "Damage.DamageType.PHYSICAL",
+    "range_in_pixels": 30,
+    "damage_per_shot": 5,
+    "shots_per_second": 2,
+    "bullet_uid": "bqtrn5v5apwls",
+    "turret_strike": "Turret.TurretStrike.SECOND_STRIKE",
+    "_NOEX base_dps": 10
+  },
+  {
+    "shots_per_second": 338.9830508
+  }
+]

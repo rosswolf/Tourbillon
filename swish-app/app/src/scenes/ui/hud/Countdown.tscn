@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://d2y4f7vcbrm5b"]
+
+[ext_resource type="Script" uid="uid://djhtxu1l7i05n" path="res://src/scenes/ui/hud/countdown.gd" id="1_4gwqy"]
+
+[node name="Countdown" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_4gwqy")

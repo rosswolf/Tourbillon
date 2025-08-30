@@ -1,0 +1,43 @@
+[
+  {
+    "wave_template_id": "starting_wave_1",
+    "wave_difficulty": 0,
+    "wave_mobs": {
+      "6": "noob_goblin",
+      "7": "noob_goblin"
+    },
+    "arena_size": 8,
+    "hero_spawn_location": 1
+  },
+  {
+    "wave_template_id": "starting_wave_2",
+    "wave_difficulty": 0,
+    "wave_mobs": {
+      "1": "goblin_scout"
+    },
+    "arena_size": 5,
+    "hero_spawn_location": 4
+  },
+  {
+    "wave_template_id": "act1_wave_1",
+    "wave_difficulty": 1,
+    "wave_mobs": {
+      "5": "goblin_scout",
+      "7": "noob_goblin",
+      "8": "noob_goblin"
+    },
+    "arena_size": 10,
+    "hero_spawn_location": 0
+  },
+  {
+    "wave_template_id": "act1_wave_2",
+    "wave_difficulty": 1,
+    "wave_mobs": {
+      "0": "goblin_scout",
+      "1": "bar_goblin",
+      "2": "noob_goblin"
+    },
+    "arena_size": 10,
+    "hero_spawn_location": 9
+  }
+]

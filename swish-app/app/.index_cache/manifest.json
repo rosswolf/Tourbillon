@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "folders": {
+    "src\\scenes\\ui": "2025-08-23T21:30:47.010444",
+    "src\\scenes": "2025-08-23T21:30:47.010444",
+    "src\\scenes\\utilities": "2025-08-23T21:30:47.010444",
+    "src\\scenes\\ui\\icons\\slot_icons": "2025-08-23T21:30:47.010444",
+    "src\\scenes\\data": "2025-08-23T21:30:47.010444",
+    "src\\scenes\\ui\\resources": "2025-08-23T21:30:47.010444",
+    "src\\scenes\\ui\\entities\\avatar": "2025-08-23T21:30:47.010444",
+    "owned_assets": "2025-08-23T21:30:47.010444",
+    "src\\scenes\\ui\\hud": "2025-08-23T21:30:47.010444",
+    "owned_assets\\icons": "2025-08-23T21:30:47.010444",
+    "src\\scenes\\ui\\click_and_drag": "2025-08-23T21:30:47.010444",
+    "src\\scenes\\ui\\entities\\goals": "2025-08-23T21:30:47.010444",
+    "src\\scenes\\ui\\icons": "2025-08-23T21:30:47.010444",
+    "src\\scenes\\core": "2025-08-23T21:30:47.010444",
+    "src\\scenes\\theme\\styleboxes": "2025-08-23T21:30:47.010444",
+    "src\\scenes\\ui\\hand": "2025-08-23T21:30:47.010444",
+    "src\\scenes\\theme": "2025-08-23T21:30:47.010444",
+    "src\\scenes\\core\\entities": "2025-08-23T21:30:47.010444",
+    "src\\scenes\\theme\\fonts": "2025-08-23T21:30:47.010444",
+    "src\\scenes\\ui\\entities\\engine": "2025-08-23T21:30:47.010444",
+    "src\\scenes\\ui\\battleground": "2025-08-23T21:30:47.010444",
+    "src\\scenes\\ui\\icons\\targeting": "2025-08-23T21:30:47.010444",
+    "src\\scenes\\ui\\transitions": "2025-08-23T21:30:47.010444",
+    ".": "2025-08-23T21:30:47.010444"
+  },
+  "last_build": "2025-08-23T21:30:47.010444",
+  "mode": "full"
+}

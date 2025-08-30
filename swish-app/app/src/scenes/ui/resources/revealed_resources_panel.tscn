@@ -1,0 +1,104 @@
+[gd_scene load_steps=4 format=3 uid="uid://bjjd5raljac7n"]
+
+[ext_resource type="FontFile" uid="uid://b73jymev43fu5" path="res://ofl_font_assets/BrassMonoRegular-d9WLg.ttf" id="2_4ocfc"]
+
+[sub_resource type="GDScript" id="GDScript_snos3"]
+script/source = "extends Control
+
+var resources_containers: Dictionary[GameResource.Type, PanelContainer] = {}
+
+
+
+func _ready():
+	var resource_template: PanelContainer = %ResourceContainerTemplate
+	
+	
+	# Debug: Print all children to see what names actually exist
+	print(\"Template children:\")
+	for child in resource_template.get_children():
+		print(\"  \", child.name, \" (\", child.get_class(), \")\")
+		for grandchild in child.get_children():
+			print(\"    \", grandchild.name, \" (\", grandchild.get_class(), \")\")
+			for greatgrandchild in grandchild.get_children():
+				print(\"      \", greatgrandchild.name, \" (\", greatgrandchild.get_class(), \")\")
+	
+	
+	for resource_name in GameResource.Type.keys():
+		var resource_type: GameResource.Type = GameResource.Type[resource_name]
+		
+		var specific_resource = resource_template.duplicate()
+		
+		var resource_label: Label = specific_resource.get_node(\"MarginContainer/HBoxContainer/ResourceLabel\")
+		var resource_amount: Label = specific_resource.get_node(\"MarginContainer/HBoxContainer/ResourceAmount\")
+		
+		resource_label.text = resource_name + \":\"
+		resource_amount.text = \"\"
+		
+		resources_containers[resource_type] = specific_resource
+		
+		%RevealedResourceVbox.add_child(specific_resource)
+		
+		GlobalSignals.core_hero_resource_changed.connect(__on_resource_changed)
+
+func __update_label(container: PanelContainer, amount_text: String):
+	var resource_amount: Label = container.get_node(\"MarginContainer/HBoxContainer/ResourceAmount\")
+	resource_amount.text = amount_text
+
+func __on_resource_changed(changing_resource: GameResource.Type, new_amount: int):
+	var container: PanelContainer = resources_containers.get(changing_resource)
+	if container == null:
+		assert(false, \"unepected resource unhandled \" + str(changing_resource))
+		return	
+	
+	__update_label(container, str(new_amount))
+	
+	if new_amount != 0:
+		print(\"Marking as visible resource: \" + str(changing_resource))
+		resources_containers[changing_resource].visible = true
+	
+"
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_snos3"]
+
+[node name="RevealedResourcesPanel" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = SubResource("GDScript_snos3")
+
+[node name="ResourceMargin" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 50
+
+[node name="RevealedResourceVbox" type="VBoxContainer" parent="ResourceMargin"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ResourceContainerTemplate" type="PanelContainer" parent="ResourceMargin/RevealedResourceVbox"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_snos3")
+
+[node name="MarginContainer" type="MarginContainer" parent="ResourceMargin/RevealedResourceVbox/ResourceContainerTemplate"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ResourceMargin/RevealedResourceVbox/ResourceContainerTemplate/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="ResourceLabel" type="Label" parent="ResourceMargin/RevealedResourceVbox/ResourceContainerTemplate/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_fonts/font = ExtResource("2_4ocfc")
+theme_override_font_sizes/font_size = 25
+text = "Eggs:"
+
+[node name="ResourceAmount" type="Label" parent="ResourceMargin/RevealedResourceVbox/ResourceContainerTemplate/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_fonts/font = ExtResource("2_4ocfc")
+theme_override_font_sizes/font_size = 25
+text = " 2"

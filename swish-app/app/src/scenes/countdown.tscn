@@ -1,0 +1,37 @@
+[gd_scene load_steps=2 format=3 uid="uid://dsu5rq54v4jo7"]
+
+[ext_resource type="Script" uid="uid://ndgwvubae4pu" path="res://src/scenes/countdown.gd" id="1_sst0k"]
+
+[node name="Countdown" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_sst0k")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0, 0.72549, 0.87451, 1)
+
+[node name="MainCenterContainer" type="CenterContainer" parent="."]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="MarginContainer" type="MarginContainer" parent="MainCenterContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 115
+theme_override_constants/margin_bottom = 50
+
+[node name="Label" type="Label" parent="MainCenterContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Take a deep breath"
+
+[node name="Timer" type="Timer" parent="MainCenterContainer/MarginContainer"]
+unique_name_in_owner = true
+wait_time = 5.0
+one_shot = true

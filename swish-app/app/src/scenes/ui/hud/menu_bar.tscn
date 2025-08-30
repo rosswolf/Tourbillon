@@ -1,0 +1,140 @@
+[gd_scene load_steps=2 format=3 uid="uid://dx62gxy64qd47"]
+
+[ext_resource type="Script" uid="uid://cbjhfoiolq4hf" path="res://src/scenes/ui/hud/menu_bar.gd" id="1_q3evj"]
+
+[node name="MenuBar" type="PanelContainer"]
+custom_minimum_size = Vector2(0, 60)
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 60.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+script = ExtResource("1_q3evj")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 2
+color = Color(0.168423, 0.243772, 0.452794, 1)
+
+[node name="LeftHBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="CharacterNameMarginContainer" type="MarginContainer" parent="LeftHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 20
+
+[node name="NameText" type="Label" parent="LeftHBoxContainer/CharacterNameMarginContainer"]
+layout_mode = 2
+text = "Knight"
+
+[node name="ResourcesMarginContainer" type="MarginContainer" parent="LeftHBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="LeftHBoxContainer/ResourcesMarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="HealthHBoxContainer" type="HBoxContainer" parent="LeftHBoxContainer/ResourcesMarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="HealthText" type="Label" parent="LeftHBoxContainer/ResourcesMarginContainer/HBoxContainer/HealthHBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "Health:"
+
+[node name="CurrentHealthDisplay" type="Label" parent="LeftHBoxContainer/ResourcesMarginContainer/HBoxContainer/HealthHBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "50"
+
+[node name="HealthSlashText" type="Label" parent="LeftHBoxContainer/ResourcesMarginContainer/HBoxContainer/HealthHBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "/"
+
+[node name="MaxHealthDisplay" type="Label" parent="LeftHBoxContainer/ResourcesMarginContainer/HBoxContainer/HealthHBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "50"
+
+[node name="GoldHBoxContainer" type="HBoxContainer" parent="LeftHBoxContainer/ResourcesMarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="GoldText" type="Label" parent="LeftHBoxContainer/ResourcesMarginContainer/HBoxContainer/GoldHBoxContainer"]
+layout_mode = 2
+text = "Gold:"
+
+[node name="GoldDisplay" type="Label" parent="LeftHBoxContainer/ResourcesMarginContainer/HBoxContainer/GoldHBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "10"
+
+[node name="InstinctHBoxContainer" type="HBoxContainer" parent="LeftHBoxContainer/ResourcesMarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="InstinctText" type="Label" parent="LeftHBoxContainer/ResourcesMarginContainer/HBoxContainer/InstinctHBoxContainer"]
+layout_mode = 2
+text = "Energy:"
+
+[node name="InstinctDisplay" type="Label" parent="LeftHBoxContainer/ResourcesMarginContainer/HBoxContainer/InstinctHBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "3"
+
+[node name="XPHBoxContainer" type="HBoxContainer" parent="LeftHBoxContainer/ResourcesMarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="XPText" type="Label" parent="LeftHBoxContainer/ResourcesMarginContainer/HBoxContainer/XPHBoxContainer"]
+layout_mode = 2
+text = "Training:"
+
+[node name="XPDisplay" type="Label" parent="LeftHBoxContainer/ResourcesMarginContainer/HBoxContainer/XPHBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "5"
+
+[node name="EnduranceHBoxContainer" type="HBoxContainer" parent="LeftHBoxContainer/ResourcesMarginContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="EnduranceText" type="Label" parent="LeftHBoxContainer/ResourcesMarginContainer/HBoxContainer/EnduranceHBoxContainer"]
+layout_mode = 2
+text = "Endurance:"
+
+[node name="EnduranceDisplay" type="Label" parent="LeftHBoxContainer/ResourcesMarginContainer/HBoxContainer/EnduranceHBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "1"
+
+[node name="RightHBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+
+[node name="MenuMarginContainer" type="MarginContainer" parent="RightHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_constants/margin_right = 20
+
+[node name="MenuBar" type="MenuBar" parent="RightHBoxContainer/MenuMarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="MapPopupMenu" type="PopupMenu" parent="RightHBoxContainer/MenuMarginContainer/MenuBar"]
+title = "Map"
+
+[node name="DeckPopupMenu" type="PopupMenu" parent="RightHBoxContainer/MenuMarginContainer/MenuBar"]
+auto_translate_mode = 1
+title = "Deck"
+
+[node name="GamePopupMenu" type="PopupMenu" parent="RightHBoxContainer/MenuMarginContainer/MenuBar"]
+auto_translate_mode = 1
+title = "Game"
