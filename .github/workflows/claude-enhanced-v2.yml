@@ -133,12 +133,22 @@ jobs:
           if [ -n "$PARENT_UUID" ] && [[ "$PARENT_UUID" =~ ^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$ ]]; then
             echo "Valid parent UUID, forking child..."
             # Fork child and capture response
-            .github/scripts/session_manager.sh fork-child \
+            echo "Attempting to fork child from parent UUID: $PARENT_UUID"
+            
+            # Run fork and capture output
+            OUTPUT=$(.github/scripts/session_manager.sh fork-child \
               "$PARENT_UUID" \
               "general" \
               "$USER_REQUEST" \
-              "$ISSUE_CONTEXT" \
-              > response.md 2>&1 || true
+              "$ISSUE_CONTEXT" 2>&1)
+            
+            # Check if it contains an error
+            if echo "$OUTPUT" | grep -q "No conversation found"; then
+              echo "Parent session not initialized properly. Creating simple response..."
+              echo "I received your request but the parent session needs to be reinitialized. The enhanced workflow is being set up." > response.md
+            else
+              echo "$OUTPUT" > response.md
+            fi
           else
             echo "Parent session not ready, using fallback response"
             echo "The enhanced workflow is initializing. The parent session is being created for the first time, which takes 5-10 minutes. Once complete, responses will be much faster (under 30 seconds)." > response.md
