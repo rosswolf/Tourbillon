@@ -152,12 +152,31 @@ EOF
     
     # Create the parent session with UUID
     echo "Initializing parent session with Claude..."
-    $CLAUDE_CMD --model opus \
-        --session-id "$parent_uuid" \
+    
+    # WORKAROUND: Claude CLI has issues with --session-id and initial content
+    # Instead, we'll create a regular conversation and save its ID
+    echo "Creating parent session (this takes 5-10 minutes)..."
+    
+    # Create session without --session-id, let Claude auto-generate one
+    local response=$($CLAUDE_CMD --model opus \
         --print "$(cat "$context_file")" \
         --add-dir "$REPO_PATH" \
-        --dangerously-skip-permissions \
-        > "/tmp/parent_init_${repo_name}.log" 2>&1
+        --dangerously-skip-permissions 2>&1)
+    
+    # Extract the session ID from Claude's output or session files
+    # Claude creates sessions automatically - find the most recent one
+    local actual_session_id=$(ls -t ~/.claude/todos/*.json 2>/dev/null | head -1 | xargs basename | cut -d'-' -f1-5)
+    
+    if [ -z "$actual_session_id" ]; then
+        echo "Error: Failed to create parent session"
+        return 1
+    fi
+    
+    # Update our UUID map with the actual session ID
+    parent_uuid="$actual_session_id"
+    echo "$parent_name:$parent_uuid" >> "$UUID_MAP_FILE"
+    
+    echo "$response" > "/tmp/parent_init_${repo_name}.log"
     
     local exit_code=$?
     
