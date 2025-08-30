@@ -190,21 +190,36 @@ jobs:
           # Now change to the project directory
           cd /home/rosswolf/Code/castlebuilder
           
-          # Use claude command with file redirection like the original working version
-          # Using opus alias and --max-turns 1 with --add-dir for context
+          # Use claude command with --print for non-interactive mode
+          # This may take 5+ minutes for complex requests
           # Temporarily disable exit on error for this command
+          echo "Starting Claude processing (this may take several minutes)..."
           set +e
-          claude --model opus --max-turns 1 --add-dir /home/rosswolf/Code/castlebuilder < "$WORKSPACE_DIR/context.txt" > "$WORKSPACE_DIR/response.md" 2>"$WORKSPACE_DIR/claude_error.log"
+          
+          # Use timeout of 10 minutes (600 seconds) since Claude can take 5+ minutes
+          timeout 600 claude --model opus --print "$(cat "$WORKSPACE_DIR/context.txt")" \
+            --add-dir /home/rosswolf/Code/castlebuilder \
+            > "$WORKSPACE_DIR/response.md" 2>"$WORKSPACE_DIR/claude_error.log"
           CLAUDE_EXIT_CODE=$?
           set -e
           
           # Check if claude command succeeded
-          if [ $CLAUDE_EXIT_CODE -ne 0 ]; then
+          if [ $CLAUDE_EXIT_CODE -eq 124 ]; then
+            echo "Error: Claude command timed out after 10 minutes"
+            echo "Creating timeout response..."
+            echo "I apologize, but the request timed out after 10 minutes. This might be due to the complexity of the request. Please try again with a simpler query." > "$WORKSPACE_DIR/response.md"
+          elif [ $CLAUDE_EXIT_CODE -ne 0 ]; then
             echo "Error: Claude command failed with exit code $CLAUDE_EXIT_CODE"
             echo "Error log:"
             cat "$WORKSPACE_DIR/claude_error.log"
-            echo "Creating fallback response..."
-            echo "I apologize, but I encountered an error while processing your request. The Claude CLI returned exit code $CLAUDE_EXIT_CODE. Please check the workflow logs for more details." > "$WORKSPACE_DIR/response.md"
+            
+            # Check if the error is the "max turns" message
+            if grep -q "max turns" "$WORKSPACE_DIR/response.md" 2>/dev/null; then
+              echo "Note: Response contains 'max turns' message - Claude completed but hit turn limit"
+            else
+              echo "Creating fallback response..."
+              echo "I apologize, but I encountered an error while processing your request. The Claude CLI returned exit code $CLAUDE_EXIT_CODE. Please check the workflow logs for more details." > "$WORKSPACE_DIR/response.md"
+            fi
           fi
           
           # Check if response was generated
@@ -302,9 +317,12 @@ jobs:
           # Now change to the project directory
           cd /home/rosswolf/Code/castlebuilder
           
-          # Use claude command with file redirection like the original working version
-          # Using opus alias and --max-turns 1 with --add-dir for context
-          claude --model opus --max-turns 1 --add-dir /home/rosswolf/Code/castlebuilder < "$WORKSPACE_DIR/review_request.txt" > "$WORKSPACE_DIR/review.md"
+          # Use claude command with --print for non-interactive mode
+          # This may take 5+ minutes for complex PRs
+          echo "Starting PR review with Claude (this may take several minutes)..."
+          timeout 600 claude --model opus --print "$(cat "$WORKSPACE_DIR/review_request.txt")" \
+            --add-dir /home/rosswolf/Code/castlebuilder \
+            > "$WORKSPACE_DIR/review.md" 2>/dev/null || true
           
           # Return to workspace directory for next steps
           cd "$WORKSPACE_DIR"
