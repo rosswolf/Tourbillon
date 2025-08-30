@@ -170,14 +170,39 @@ jobs:
           
           cat >> context.txt << 'EOF'
           
+          === YOUR CAPABILITIES ===
+          You are running in a GitHub Actions workflow with these abilities:
+          
+          1. **READ ACCESS**: You can read any file in the repository at /home/rosswolf/Code/castlebuilder
+          2. **WRITE ACCESS**: You can create and modify files in the repository
+          3. **GIT OPERATIONS**: You can create branches, commits, and pull requests using:
+             - git commands for branching and committing
+             - gh CLI for creating pull requests: gh pr create --title "title" --body "description"
+          4. **CURRENT CONTEXT**: You're in the checked-out repository on a self-hosted runner
+          
+          === HOW TO HANDLE REQUESTS ===
+          
+          - **"Update/Change/Modify the PRD/README/docs"**: 
+            1. Create a new branch: git checkout -b update-prd-$(date +%s)
+            2. Make the file changes
+            3. Commit: git add -A && git commit -m "Update PRD as requested"
+            4. Push: git push origin HEAD
+            5. Create PR: gh pr create --title "Update PRD" --body "Updates requested in issue #X"
+            6. Provide the PR link in your response
+          
+          - **"Make a pull request"** (after discussing changes):
+            - If you've already described changes, implement them and create a PR
+            - If unclear what changes to make, ask for clarification
+          
+          - **General questions**: Answer based on the codebase analysis
+          
           === YOUR TASK ===
           Please provide a helpful response to the latest message in this conversation.
-          Consider the full context and previous messages.
-          If code changes are requested, provide clear suggestions or implementations.
-          Be conversational and acknowledge you've seen the previous messages when relevant.
+          Consider the full context and previous messages to understand what's being asked.
+          If the user is asking you to make changes you discussed, implement them.
+          Be clear about what actions you're taking (creating branches, making PRs, etc).
           
           You have full access to the codebase at: /home/rosswolf/Code/castlebuilder
-          You can reference any files you need to provide accurate assistance.
           The project follows the guidelines in CLAUDE.md - ensure your suggestions align with them.
           EOF
           
