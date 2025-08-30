@@ -36,10 +36,14 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0  # Full history for better context
           
-      - name: Setup Git
+      - name: Setup Git and GitHub CLI
         run: |
           git config --global user.name "Claude Assistant"
           git config --global user.email "claude@assistant.local"
+          
+          # Authenticate gh CLI with the workflow token
+          echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
+          gh auth status
           
       - name: Setup Environment
         run: |
@@ -213,6 +217,8 @@ jobs:
           
       - name: Fork child agent for task
         id: execute_child
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           PARENT_SESSION="${{ steps.determine_parent.outputs.parent_session }}"
           TASK_TYPE="${{ steps.get_history.outputs.task_type }}"
@@ -320,6 +326,8 @@ jobs:
           echo "parent_session=$PARENT_SESSION" >> $GITHUB_OUTPUT
           
       - name: Review with child agent
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           PARENT_SESSION="${{ steps.get_parent.outputs.parent_session }}"
           PR_NUMBER=${{ github.event.pull_request.number }}
