@@ -34,8 +34,23 @@ jobs:
         run: |
           echo "issue_number=${{ github.event.issue.number }}" >> $GITHUB_OUTPUT
           
-      - name: Simple Claude Test
+      - name: Check for repository parent session
+        id: check_parent
         run: |
-          echo "Enhanced V2 workflow triggered!"
+          PARENT_SESSION="parent-repo-castlebuilder"
+          echo "Checking for repository-wide parent session: $PARENT_SESSION"
+          
+          if .github/scripts/session_manager.sh exists "$PARENT_SESSION" | grep -q "true"; then
+            echo "Repository parent session exists"
+            echo "parent_exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "Repository parent session does not exist"
+            echo "parent_exists=false" >> $GITHUB_OUTPUT
+          fi
+          echo "parent_session=$PARENT_SESSION" >> $GITHUB_OUTPUT
+          
+      - name: Simple Response Test
+        run: |
+          echo "Enhanced V2 workflow completed!"
+          echo "Parent exists: ${{ steps.check_parent.outputs.parent_exists }}"
           echo "Issue: ${{ steps.get_issue.outputs.issue_number }}"
-          echo "Comment: ${{ github.event.comment.body }}"
