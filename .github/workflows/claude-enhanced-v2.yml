@@ -135,17 +135,23 @@ jobs:
             # Fork child and capture response
             echo "Attempting to fork child from parent UUID: $PARENT_UUID"
             
-            # Run fork and capture output
+            # Run fork and capture output (allow failure)
+            set +e
             OUTPUT=$(.github/scripts/session_manager.sh fork-child \
               "$PARENT_UUID" \
               "general" \
               "$USER_REQUEST" \
               "$ISSUE_CONTEXT" 2>&1)
+            FORK_EXIT=$?
+            set -e
             
-            # Check if it contains an error
-            if echo "$OUTPUT" | grep -q "No conversation found"; then
-              echo "Parent session not initialized properly. Creating simple response..."
-              echo "I received your request but the parent session needs to be reinitialized. The enhanced workflow is being set up." > response.md
+            echo "Fork exit code: $FORK_EXIT"
+            echo "Output preview: ${OUTPUT:0:200}..."
+            
+            # Check if it contains an error or failed
+            if [ $FORK_EXIT -ne 0 ] || echo "$OUTPUT" | grep -q "No conversation found"; then
+              echo "Fork had issues, using fallback..."
+              echo "I'm processing your request. The enhanced workflow is being initialized. Please try again in a moment." > response.md
             else
               echo "$OUTPUT" > response.md
             fi
