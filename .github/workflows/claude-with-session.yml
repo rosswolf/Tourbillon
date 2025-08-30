@@ -22,8 +22,8 @@ jobs:
     runs-on: [self-hosted, claude-pro]
     
     env:
-      # IMPORTANT: Replace this with your actual parent session ID from interactive mode
-      PARENT_SESSION_ID: "YOUR_SESSION_ID_HERE"
+      # Parent session ID created in interactive mode - working and tested
+      PARENT_SESSION_ID: "25fd8500-045a-4a40-bb74-f1f9e60e46ce"
     
     steps:
       - name: Checkout repository

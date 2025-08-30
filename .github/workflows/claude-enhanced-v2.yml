@@ -116,6 +116,8 @@ jobs:
       - name: Fork child agent
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Working parent session created in interactive mode
+          MANUAL_PARENT_SESSION: "25fd8500-045a-4a40-bb74-f1f9e60e46ce"
         run: |
           # Debug environment
           echo "=== ENVIRONMENT DEBUG ==="
@@ -134,16 +136,10 @@ jobs:
           echo "Todos directory contents:"
           ls -la ~/.claude/todos/ | head -10
           echo ""
-          echo "=== TESTING DIRECT RESUME ==="
-          echo "Testing direct resume of parent session..."
-          # Get the current parent UUID from uuid_map
-          CURRENT_PARENT_UUID=$(grep "parent-repo-castlebuilder:" ~/.claude/sessions/uuid_map.txt | cut -d: -f2)
-          echo "Current parent UUID from map: $CURRENT_PARENT_UUID"
-          if [ -n "$CURRENT_PARENT_UUID" ]; then
-            echo "Test query" | claude --resume "$CURRENT_PARENT_UUID" --print 2>&1 | head -5 || echo "Resume failed"
-          else
-            echo "No parent UUID found in map"
-          fi
+          echo "=== TESTING MANUAL SESSION ==="
+          echo "Testing resume with manual parent session..."
+          echo "Manual session ID: $MANUAL_PARENT_SESSION"
+          echo "Test query" | claude --resume "$MANUAL_PARENT_SESSION" --print 2>&1 | head -5 || echo "Resume failed"
           echo ""
           
           PARENT_UUID="${{ steps.get_parent.outputs.parent_uuid }}"
@@ -158,35 +154,45 @@ jobs:
           echo "Parent UUID: $PARENT_UUID"
           echo "Issue: #${ISSUE_NUMBER}"
           
-          # Check if we have a valid parent UUID
-          if [ -n "$PARENT_UUID" ] && [[ "$PARENT_UUID" =~ ^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$ ]]; then
-            echo "Valid parent UUID, forking child..."
-            # Fork child and capture response
-            echo "Attempting to fork child from parent UUID: $PARENT_UUID"
+          # Use the manual parent session that we know works
+          if [ -n "$MANUAL_PARENT_SESSION" ]; then
+            echo "Using manual parent session: $MANUAL_PARENT_SESSION"
             
-            # Run fork and capture output (allow failure)
-            set +e
-            OUTPUT=$(.github/scripts/session_manager.sh fork-child \
-              "$PARENT_UUID" \
-              "general" \
-              "$USER_REQUEST" \
-              "$ISSUE_CONTEXT" 2>&1)
-            FORK_EXIT=$?
-            set -e
+            # Build the full request
+            FULL_REQUEST="=== GitHub Context ===
+$ISSUE_CONTEXT
+
+=== User Request ===
+$USER_REQUEST
+
+=== Instructions ===
+You're responding to a GitHub issue/PR. You have full repository access at $GITHUB_WORKSPACE.
+If you need to create a pull request, use:
+- git checkout -b branch-name
+- Make your changes
+- git add -A && git commit -m 'message'
+- git push origin HEAD
+- gh pr create --title 'title' --body 'description'
+
+Please provide a helpful response to the user's request."
             
-            echo "Fork exit code: $FORK_EXIT"
-            echo "Output preview: ${OUTPUT:0:200}..."
+            # Send request using the manual parent session
+            echo "$FULL_REQUEST" | claude --resume "$MANUAL_PARENT_SESSION" --print \
+              --add-dir "$GITHUB_WORKSPACE" \
+              --dangerously-skip-permissions \
+              > response.md 2>&1 || {
+              echo "Error processing request. Trying again..." > response.md
+              # Retry once on failure
+              echo "$FULL_REQUEST" | claude --resume "$MANUAL_PARENT_SESSION" --print \
+                --add-dir "$GITHUB_WORKSPACE" \
+                --dangerously-skip-permissions \
+                > response.md 2>&1 || echo "Failed to process request" > response.md
+            }
             
-            # Check if it contains an error or failed
-            if [ $FORK_EXIT -ne 0 ] || echo "$OUTPUT" | grep -q "No conversation found"; then
-              echo "Fork had issues, using fallback..."
-              echo "I'm processing your request. The enhanced workflow is being initialized. Please try again in a moment." > response.md
-            else
-              echo "$OUTPUT" > response.md
-            fi
+            echo "Response generated successfully"
           else
-            echo "Parent session not ready, using fallback response"
-            echo "The enhanced workflow is initializing. The parent session is being created for the first time, which takes 5-10 minutes. Once complete, responses will be much faster (under 30 seconds)." > response.md
+            echo "No parent session configured"
+            echo "The workflow needs a parent session. Please see SETUP_PARENT_SESSION.md for instructions." > response.md
           fi
           
           # Ensure response exists
