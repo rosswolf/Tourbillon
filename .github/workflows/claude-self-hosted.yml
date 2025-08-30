@@ -140,25 +140,41 @@ jobs:
       - name: Process with Claude
         id: claude
         run: |
-          # Create context with full conversation history
+          # Create context with full conversation history and project info
           cat > context.txt << 'EOF'
-          You are helping with a GitHub issue/PR. Here's the full conversation history:
+          You are helping with a GitHub issue/PR for the castlebuilder repository.
           
+          IMPORTANT PROJECT CONTEXT:
           EOF
+          
+          # Include CLAUDE.md if it exists
+          if [ -f "/home/rosswolf/Code/CLAUDE.md" ]; then
+            echo "=== CLAUDE.md (Project Guidelines) ===" >> context.txt
+            cat /home/rosswolf/Code/CLAUDE.md >> context.txt
+            echo -e "\n=== End of CLAUDE.md ===\n" >> context.txt
+          fi
+          
+          # Add conversation history
+          echo "=== GITHUB CONVERSATION HISTORY ===" >> context.txt
           cat conversation.txt >> context.txt
           
           cat >> context.txt << 'EOF'
           
+          === YOUR TASK ===
           Please provide a helpful response to the latest message in this conversation.
           Consider the full context and previous messages.
           If code changes are requested, provide clear suggestions or implementations.
           Be conversational and acknowledge you've seen the previous messages when relevant.
+          
+          You have full access to the codebase at: /home/rosswolf/Code/castlebuilder
+          You can reference any files you need to provide accurate assistance.
+          The project follows the guidelines in CLAUDE.md - ensure your suggestions align with them.
           EOF
           
-          # Use Claude CLI directly (your Pro subscription)
-          echo "Processing request with Claude..."
-          # Use single turn mode to just respond once per comment
-          claude --max-turns 1 < context.txt > response.md
+          # Use Claude CLI with Opus model and access to full codebase
+          echo "Processing request with Claude Opus..."
+          cd /home/rosswolf/Code/castlebuilder
+          claude --model opus --max-turns 1 --add-dir /home/rosswolf/Code/castlebuilder < context.txt > response.md
           
           # Check if response was generated
           if [ ! -s response.md ]; then
@@ -203,24 +219,47 @@ jobs:
       - name: Review with Claude
         run: |
           cat > review_request.txt << 'EOF'
-          Please review this pull request diff and provide feedback on:
-          1. Code quality and best practices
-          2. Potential bugs or issues
-          3. Performance considerations
-          4. Security concerns if any
+          You are reviewing a pull request for the castlebuilder repository.
           
-          Be constructive and helpful in your feedback.
+          EOF
           
+          # Include CLAUDE.md for context
+          if [ -f "/home/rosswolf/Code/CLAUDE.md" ]; then
+            echo "=== PROJECT GUIDELINES (CLAUDE.md) ===" >> review_request.txt
+            cat /home/rosswolf/Code/CLAUDE.md >> review_request.txt
+            echo -e "\n=== End of Guidelines ===\n" >> review_request.txt
+          fi
+          
+          cat >> review_request.txt << 'EOF'
+          === PULL REQUEST DETAILS ===
           PR Title: ${{ github.event.pull_request.title }}
           PR Description: ${{ github.event.pull_request.body }}
           
-          Diff to review:
+          === YOUR REVIEW TASK ===
+          Please review this pull request diff and provide feedback on:
+          1. Code quality and adherence to project guidelines (CLAUDE.md)
+          2. Potential bugs or issues
+          3. Performance considerations
+          4. Security concerns if any
+          5. Architecture and design patterns
+          6. Whether the changes follow the project's Interface-First Development approach
+          
+          Be constructive and helpful in your feedback.
+          Reference specific lines when pointing out issues.
+          Suggest concrete improvements where applicable.
+          
+          You have full access to the codebase at: /home/rosswolf/Code/castlebuilder
+          You can check any files to understand context and verify the changes align with existing patterns.
+          
+          === DIFF TO REVIEW ===
           EOF
           
           cat pr.diff >> review_request.txt
           
-          # Use Claude CLI for review
-          claude --max-turns 1 < review_request.txt > review.md
+          # Use Claude CLI with Opus model for thorough review
+          echo "Running PR review with Claude Opus..."
+          cd /home/rosswolf/Code/castlebuilder
+          claude --model opus --max-turns 1 --add-dir /home/rosswolf/Code/castlebuilder < review_request.txt > review.md
           
       - name: Post review
         uses: actions/github-script@v7
