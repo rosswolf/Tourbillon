@@ -1,0 +1,16 @@
+name: Claude Enhanced Minimal
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  claude-respond-minimal:
+    runs-on: [self-hosted, claude-pro]
+    if: contains(github.event.comment.body, '@claude')
+    
+    steps:
+      - name: Echo test
+        run: |
+          echo "Enhanced workflow triggered!"
+          echo "Comment: ${{ github.event.comment.body }}"
