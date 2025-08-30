@@ -23,10 +23,10 @@ jobs:
     # Use self-hosted runner with claude-pro label
     runs-on: [self-hosted, claude-pro]
     
-    # Only run if @claude is mentioned
+    # Run if @claude is mentioned OR if Claude has already engaged in the thread
     if: |
-      (github.event_name == 'issue_comment' && contains(github.event.comment.body, '@claude')) ||
-      (github.event_name == 'pull_request_review_comment' && contains(github.event.comment.body, '@claude')) ||
+      github.event_name == 'issue_comment' || 
+      github.event_name == 'pull_request_review_comment' ||
       (github.event_name == 'issues' && contains(github.event.issue.body, '@claude'))
     
     steps:
@@ -40,45 +40,119 @@ jobs:
           git config --global user.name "Claude Assistant"
           git config --global user.email "claude@assistant.local"
           
-      - name: Extract Claude request
-        id: extract
+      - name: Check if Claude should respond
+        id: should_respond
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const issue_number = context.issue.number || context.payload.pull_request?.number;
+            if (!issue_number) {
+              console.log('No issue/PR number found');
+              return false;
+            }
+            
+            // Check if current comment mentions @claude
+            const currentComment = context.payload.comment?.body || context.payload.issue?.body || '';
+            if (currentComment.includes('@claude')) {
+              console.log('Claude mentioned in current comment');
+              return true;
+            }
+            
+            // Check if this is a follow-up to a Claude-engaged thread
+            // by looking for Claude's previous comments
+            const comments = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue_number
+            });
+            
+            // Check if Claude has responded before (Claude Assistant user)
+            const claudeResponded = comments.data.some(comment => 
+              comment.user.login === 'github-actions[bot]' && 
+              comment.body.includes('Claude')
+            );
+            
+            // Check if @claude was mentioned anywhere in the thread
+            const claudeMentioned = comments.data.some(comment => 
+              comment.body.includes('@claude')
+            ) || (context.payload.issue?.body || '').includes('@claude');
+            
+            if (claudeResponded || claudeMentioned) {
+              console.log('Claude is engaged in this thread');
+              return true;
+            }
+            
+            console.log('Claude not engaged in this thread');
+            return false;
+          result-encoding: string
+          
+      - name: Exit if Claude shouldn't respond
+        if: steps.should_respond.outputs.result != 'true'
         run: |
-          # Extract the comment body
-          if [ "${{ github.event_name }}" = "issues" ]; then
-            COMMENT="${{ github.event.issue.body }}"
-            ISSUE_NUMBER="${{ github.event.issue.number }}"
-          else
-            COMMENT="${{ github.event.comment.body }}"
-            if [ "${{ github.event_name }}" = "issue_comment" ]; then
-              ISSUE_NUMBER="${{ github.event.issue.number }}"
-            else
-              ISSUE_NUMBER="${{ github.event.pull_request.number }}"
-            fi
-          fi
+          echo "Claude not engaged in this thread, skipping"
+          exit 0
           
-          # Remove @claude mention and extract the request
-          REQUEST=$(echo "$COMMENT" | sed 's/@claude//g' | xargs)
-          
-          # Save for next step
-          echo "request<<EOF" >> $GITHUB_OUTPUT
-          echo "$REQUEST" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
-          echo "issue_number=$ISSUE_NUMBER" >> $GITHUB_OUTPUT
+      - name: Get full conversation history
+        id: get_history
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const issue_number = context.issue.number || context.payload.pull_request?.number;
+            
+            // Get the issue/PR details
+            const issue = await github.rest.issues.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue_number
+            });
+            
+            // Get all comments
+            const comments = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue_number
+            });
+            
+            // Build conversation history
+            let conversation = `Issue/PR #${issue_number}: ${issue.data.title}\n\n`;
+            conversation += `Original post by @${issue.data.user.login}:\n${issue.data.body}\n\n`;
+            
+            // Add all comments
+            for (const comment of comments.data) {
+              conversation += `---\n@${comment.user.login} said:\n${comment.body}\n\n`;
+            }
+            
+            // Add the current comment if it's new
+            if (context.payload.comment && context.payload.action === 'created') {
+              conversation += `---\n@${context.payload.comment.user.login} said:\n${context.payload.comment.body}\n\n`;
+            }
+            
+            // Save to file for Claude
+            require('fs').writeFileSync('conversation.txt', conversation);
+            
+            // Get just the latest request
+            const latestRequest = context.payload.comment?.body || context.payload.issue?.body || '';
+            return latestRequest;
+          result-encoding: string
           
       - name: Process with Claude
         id: claude
         run: |
-          # Create a context file with repository info
+          # Create context with full conversation history
           cat > context.txt << 'EOF'
-          Repository: ${{ github.repository }}
-          Issue/PR #: ${{ steps.extract.outputs.issue_number }}
-          Event: ${{ github.event_name }}
+          You are helping with a GitHub issue/PR. Here's the full conversation history:
           
-          User request:
-          ${{ steps.extract.outputs.request }}
+          EOF
+          cat conversation.txt >> context.txt
           
-          Please provide a helpful response to this GitHub issue/PR comment.
+          cat >> context.txt << 'EOF'
+          
+          Please provide a helpful response to the latest message in this conversation.
+          Consider the full context and previous messages.
           If code changes are requested, provide clear suggestions or implementations.
+          Be conversational and acknowledge you've seen the previous messages when relevant.
           EOF
           
           # Use Claude CLI directly (your Pro subscription)
@@ -98,7 +172,7 @@ jobs:
             const fs = require('fs');
             const response = fs.readFileSync('response.md', 'utf8');
             
-            const issue_number = ${{ steps.extract.outputs.issue_number }};
+            const issue_number = context.issue.number || context.payload.pull_request?.number;
             
             // Post the response as a comment
             await github.rest.issues.createComment({
