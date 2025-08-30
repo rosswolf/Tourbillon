@@ -184,9 +184,6 @@ jobs:
           # Use Claude CLI with Opus model and access to full codebase
           echo "Processing request with Claude Opus..."
           
-          # Create the prompt from context (before changing directory)
-          PROMPT=$(cat context.txt)
-          
           # Save current directory for output
           WORKSPACE_DIR=$(pwd)
           
@@ -195,9 +192,10 @@ jobs:
           
           # Use claude command with proper format, output to workspace directory
           # Using opus alias and --print for non-interactive mode
+          # Pass prompt as argument, not via stdin
           # Temporarily disable exit on error for this command
           set +e
-          echo "$PROMPT" | claude --model opus --print > "$WORKSPACE_DIR/response.md" 2>"$WORKSPACE_DIR/claude_error.log"
+          claude --model opus --print "$(cat "$WORKSPACE_DIR/context.txt")" > "$WORKSPACE_DIR/response.md" 2>"$WORKSPACE_DIR/claude_error.log"
           CLAUDE_EXIT_CODE=$?
           set -e
           
@@ -299,9 +297,6 @@ jobs:
           # Use Claude CLI with Opus model for thorough review
           echo "Running PR review with Claude Opus..."
           
-          # Create the prompt (before changing directory)
-          PROMPT=$(cat review_request.txt)
-          
           # Save current directory for output
           WORKSPACE_DIR=$(pwd)
           
@@ -310,7 +305,8 @@ jobs:
           
           # Use claude command, output to workspace directory
           # Using opus alias and --print for non-interactive mode
-          echo "$PROMPT" | claude --model opus --print > "$WORKSPACE_DIR/review.md"
+          # Pass prompt as argument, not via stdin
+          claude --model opus --print "$(cat "$WORKSPACE_DIR/review_request.txt")" > "$WORKSPACE_DIR/review.md"
           
           # Return to workspace directory for next steps
           cd "$WORKSPACE_DIR"
