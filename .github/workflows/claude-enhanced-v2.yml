@@ -117,6 +117,13 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          # Debug environment
+          echo "Current user: $(whoami)"
+          echo "Home directory: $HOME"
+          echo "Claude sessions directory: $(ls -la ~/.claude/sessions 2>&1 || echo 'Not found')"
+          echo "UUID map: $(cat ~/.claude/sessions/uuid_map.txt 2>&1 || echo 'Not found')"
+          echo "Session files: $(ls ~/.claude/todos/eb663f5f* 2>&1 || echo 'Not found')"
+          
           PARENT_UUID="${{ steps.get_parent.outputs.parent_uuid }}"
           ISSUE_NUMBER="${{ steps.get_context.outputs.issue_number }}"
           USER_REQUEST=$(cat latest_request.txt)
