@@ -140,6 +140,31 @@ When forked as specialized agents, remember your role:
 - **code-review:** Check patterns, performance, and guidelines
 - **documentation:** Update docs to match current implementation
 
+## Critical Information for All Agents
+
+### Performance Hotspots
+- Rendering loop in main game scene
+- Projectile collision detection
+- Entity spawning and pooling
+
+### Fragile Areas (Handle with Care)
+- Scene loading paths (hardcoded references)
+- Signal connections (order-dependent)
+- Physics body interactions
+
+### Where to Look First
+- **For game logic:** `core/entities/` and `managers/`
+- **For UI issues:** `ui/` and scene files
+- **For data problems:** `data/*.json` and loading in `managers/`
+- **For physics issues:** Entity physics bodies and collision layers
+
+### Common Pitfalls to Avoid
+1. Don't add comments to .tscn files
+2. Don't assume methods exist - check PROJECT_INDEX.json
+3. Don't create circular dependencies between systems
+4. Don't bypass the Builder pattern for entities
+5. Don't use defensive programming where assertions should fail fast
+
 ## Session Management Notes
 
 This parent session is:
@@ -150,7 +175,106 @@ This parent session is:
 
 Child agents inherit all this knowledge and add issue-specific context.
 
+## Questions for Deep Understanding
+
+As you read the codebase, consider:
+
+1. **Architecture Questions**
+   - Why is there both a MapCore and a MapManager?
+   - How does the signal system prevent circular dependencies?
+   - Why use instance IDs instead of direct references?
+
+2. **Pattern Questions**
+   - When is the Builder pattern NOT used for entities?
+   - Where does type safety get relaxed and why?
+   - Which systems break the established patterns?
+
+3. **Evolution Questions**
+   - What code looks newest vs oldest?
+   - What patterns are being introduced?
+   - What patterns are being phased out?
+
+4. **Intent Questions**
+   - What is the game trying to become?
+   - What technical excellence is being pursued?
+   - What pragmatic compromises have been made?
+
+## Parent Session Initialization Instructions
+
+When you are initialized as the parent session, your primary task is to:
+
+**Read the entire codebase and prepare to have a discussion.**
+
+### Deep Learning Objectives
+
+1. **Familiarize yourself with the patterns used across the repository**
+   - Study how the Builder pattern is consistently applied
+   - Understand the signal-based communication flow
+   - Learn the type safety conventions and when they're relaxed
+   - Recognize the privacy patterns and their exceptions
+   - See where assertions vs defensive checks are used and why
+
+2. **Develop intuition about the code**
+   - What feels polished vs what feels experimental?
+   - Where is the code confident vs tentative?
+   - What patterns are emerging vs being phased out?
+   - Which systems are core vs peripheral?
+
+3. **Understand the developer's mindset**
+   - What problems are they trying to solve?
+   - What constraints are they working under?
+   - What are they optimizing for (speed, clarity, flexibility)?
+   - What technical debt are they aware of?
+
+4. **Build a mental model**
+   - How would you navigate this codebase?
+   - What would you check first when debugging?
+   - Where would you add new features?
+   - What would you refactor if you could?
+
+### What to Pay Special Attention To
+
+**Code Smells and Patterns:**
+- Repeated code that could be abstracted
+- Inconsistencies that might indicate evolution
+- Comments that reveal intention or frustration
+- TODOs that show future direction
+
+**System Boundaries:**
+- How core/ differs from managers/ differs from ui/
+- Where coupling is tight vs loose
+- Which systems know about which others
+- How data flows between layers
+
+**The Unwritten Rules:**
+- Conventions that aren't documented but are followed
+- Patterns that emerge from multiple examples
+- The "feel" of the code style
+- Preferences that show up repeatedly
+
+### Expected Response
+
+After thoroughly reading and understanding the codebase, provide:
+
+1. **Pattern Recognition:** "I notice you consistently use X pattern for Y purpose..."
+2. **Architectural Insights:** "The system is organized around these key principles..."
+3. **Current State Assessment:** "The project appears to be in a phase where..."
+4. **Readiness Confirmation:** "I'm familiar with [specific examples] and ready to discuss..."
+
+Remember: You're not just loading data - you're developing understanding. Future child agents will rely on your deep comprehension to handle specific tasks effectively.
+
+### Additional Context for Child Agents
+
+When child agents fork from you, they should inherit not just facts but understanding:
+- Why certain approaches were chosen
+- What the unstated conventions are
+- Where the tricky parts are
+- What the developer cares about most
+
+This deep, intuitive understanding is what makes the difference between a helpful assistant and a true collaborator.
+
 ---
 
 *Last Updated: [Will be updated when parent session is recreated]*
 *Purpose: Provide comprehensive context for the repository-wide parent session*
+*Note: This file is loaded into the parent session during initialization*
