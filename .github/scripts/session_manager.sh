@@ -267,11 +267,10 @@ You are running in a GitHub Actions workflow with these abilities:
 - Focus on completing the specific task requested
 - Be concise and action-oriented"
     
-    # Fork from parent session using --resume
+    # Fork from parent session using --resume (without --session-id since they conflict)
     echo "Executing child agent with inherited context..."
     $CLAUDE_CMD --model opus \
         --resume "$parent_uuid" \
-        --session-id "$child_uuid" \
         --print "$child_prompt" \
         --add-dir "$REPO_PATH" \
         --dangerously-skip-permissions
