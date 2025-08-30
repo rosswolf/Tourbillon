@@ -94,7 +94,6 @@ jobs:
             console.log('Claude not engaged');
             core.setOutput('should_respond', 'false');
             return false;
-          result-encoding: string
           
       - name: Exit if Claude shouldn't respond
         if: steps.should_respond.outputs.should_respond != 'true'
@@ -155,7 +154,6 @@ jobs:
             core.setOutput('latest_request', latestRequest.substring(0, 100));
             
             return latestRequest;
-          result-encoding: string
           
       - name: Check for repository parent session
         id: check_parent
