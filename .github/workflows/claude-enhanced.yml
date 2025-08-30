@@ -107,7 +107,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const issue_number = '${{ steps.should_respond.outputs.issue_number }}' || context.issue.number;
+            const issue_number = parseInt('${{ steps.should_respond.outputs.issue_number }}') || context.issue.number;
             
             // Get issue/PR details
             const issue = await github.rest.issues.get({
@@ -252,7 +252,7 @@ jobs:
             const fs = require('fs');
             const response = fs.readFileSync('response.md', 'utf8');
             
-            const issue_number = '${{ steps.should_respond.outputs.issue_number }}' || context.issue.number;
+            const issue_number = parseInt('${{ steps.should_respond.outputs.issue_number }}') || context.issue.number;
             
             // Add session info as hidden comment
             const sessionInfo = `<!-- claude-session: ${{ steps.determine_parent.outputs.parent_session }} -->`;
@@ -265,7 +265,7 @@ jobs:
               issue_number: issue_number,
               body: fullResponse
             });
-            
+          
       - name: Store session artifacts
         if: always()
         uses: actions/upload-artifact@v4
