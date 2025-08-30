@@ -118,11 +118,29 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           # Debug environment
+          echo "=== ENVIRONMENT DEBUG ==="
           echo "Current user: $(whoami)"
           echo "Home directory: $HOME"
-          echo "Claude sessions directory: $(ls -la ~/.claude/sessions 2>&1 || echo 'Not found')"
-          echo "UUID map: $(cat ~/.claude/sessions/uuid_map.txt 2>&1 || echo 'Not found')"
-          echo "Session files: $(ls ~/.claude/todos/eb663f5f* 2>&1 || echo 'Not found')"
+          echo "Claude CLI version: $(claude --version 2>&1 || echo 'Claude not found')"
+          echo "Claude CLI location: $(which claude 2>&1 || echo 'Not in PATH')"
+          echo ""
+          echo "=== CLAUDE SESSION FILES ==="
+          echo "Sessions directory:"
+          ls -la ~/.claude/sessions 2>&1 || echo 'Not found'
+          echo ""
+          echo "UUID map contents:"
+          cat ~/.claude/sessions/uuid_map.txt 2>&1 || echo 'Not found'
+          echo ""
+          echo "Todos directory for parent UUID:"
+          ls -la ~/.claude/todos/ | grep eb663f5f 2>&1 || echo 'No matching files'
+          echo ""
+          echo "Parent session file size:"
+          ls -lh ~/.claude/todos/eb663f5f*.json 2>&1 || echo 'Not found'
+          echo ""
+          echo "=== TESTING DIRECT RESUME ==="
+          echo "Testing direct resume of parent session..."
+          echo "Test query" | claude --resume eb663f5f-6455-4161-bf88-a7b8bedc6994 --print 2>&1 | head -5 || echo "Resume failed"
+          echo ""
           
           PARENT_UUID="${{ steps.get_parent.outputs.parent_uuid }}"
           ISSUE_NUMBER="${{ steps.get_context.outputs.issue_number }}"

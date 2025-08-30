@@ -165,6 +165,15 @@ test_parent() {
     
     print_color "$GREEN" "Testing parent session with a simple query..."
     
+    # Get the UUID for the parent session
+    local parent_uuid=$($SESSION_MANAGER get-uuid "$PARENT_SESSION")
+    if [ -z "$parent_uuid" ]; then
+        print_color "$RED" "✗ Could not get UUID for parent session"
+        return 1
+    fi
+    
+    print_color "$YELLOW" "Using parent UUID: $parent_uuid"
+    
     # Create a test prompt
     local test_prompt="You are a child agent forked from the repository parent session.
 Test your inherited knowledge by briefly describing:
@@ -179,7 +188,7 @@ Keep your response under 5 lines."
     # Test the session
     local response=$(echo "$test_prompt" | \
         $CLAUDE_CMD --model opus \
-        --resume "$PARENT_SESSION" \
+        --resume "$parent_uuid" \
         --print \
         --add-dir "$REPO_PATH" \
         --dangerously-skip-permissions 2>&1)
