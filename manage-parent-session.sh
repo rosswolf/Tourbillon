@@ -81,11 +81,24 @@ create_parent() {
     fi
     
     print_color "$GREEN" "Creating new parent session..."
-    print_color "$YELLOW" "This will:"
+    print_color "$YELLOW" "This will load:"
+    echo "  1. PARENT_CONTEXT.md - Repository context and knowledge"
+    echo "  2. CLAUDE.md - Project guidelines and patterns"
+    echo "  3. PROJECT_INDEX.json - Codebase structure from indexer"
+    echo "  4. Full repository access at $REPO_PATH"
+    echo ""
+    print_color "$YELLOW" "Process:"
     echo "  1. Run the code indexer to analyze the codebase"
-    echo "  2. Load all project guidelines and patterns"
+    echo "  2. Load all context documents"
     echo "  3. Create a comprehensive knowledge base"
     echo "  4. Take approximately 5-10 minutes"
+    
+    # Check for context files
+    echo ""
+    print_color "$BLUE" "Context file status:"
+    [ -f "$REPO_PATH/PARENT_CONTEXT.md" ] && print_color "$GREEN" "  ✓ PARENT_CONTEXT.md found" || print_color "$RED" "  ✗ PARENT_CONTEXT.md missing"
+    [ -f "$REPO_PATH/CLAUDE.md" ] && print_color "$GREEN" "  ✓ CLAUDE.md found" || print_color "$YELLOW" "  ⚠ CLAUDE.md missing (optional)"
+    [ -f "$REPO_PATH/PROJECT_INDEX.json" ] && print_color "$GREEN" "  ✓ PROJECT_INDEX.json found" || print_color "$YELLOW" "  ⚠ PROJECT_INDEX.json missing (will create)"
     echo ""
     read -p "Continue? (y/N): " confirm
     
@@ -191,6 +204,43 @@ recreate_parent() {
     create_parent
 }
 
+# Function to edit parent context
+edit_context() {
+    print_color "$BLUE" "\n=== Edit Parent Context ==="
+    
+    local context_file="$REPO_PATH/PARENT_CONTEXT.md"
+    
+    if [ ! -f "$context_file" ]; then
+        print_color "$YELLOW" "PARENT_CONTEXT.md doesn't exist. Creating template..."
+        cp "$context_file.template" "$context_file" 2>/dev/null || \
+        echo "# Parent Session Context
+
+Add repository-specific context here that should be loaded into the parent session.
+This file is read when creating the parent session.
+" > "$context_file"
+    fi
+    
+    # Try to find an editor
+    local editor="${EDITOR:-}"
+    if [ -z "$editor" ]; then
+        if command -v code &> /dev/null; then
+            editor="code"
+        elif command -v nano &> /dev/null; then
+            editor="nano"
+        elif command -v vim &> /dev/null; then
+            editor="vim"
+        else
+            editor="vi"
+        fi
+    fi
+    
+    print_color "$GREEN" "Opening $context_file with $editor"
+    $editor "$context_file"
+    
+    print_color "$YELLOW" "\nAfter editing PARENT_CONTEXT.md, you should recreate the parent session:"
+    print_color "$GREEN" "  $0 recreate"
+}
+
 # Function to show usage
 show_usage() {
     cat << EOF
@@ -208,6 +258,7 @@ Commands:
     delete    Delete the existing parent session
     recreate  Delete and recreate the parent session
     test      Test the parent session with a simple query
+    context   Edit PARENT_CONTEXT.md file
     help      Show this help message
 
 Examples:
@@ -247,6 +298,9 @@ case "${1:-help}" in
         ;;
     test)
         test_parent
+        ;;
+    context|edit)
+        edit_context
         ;;
     help|--help|-h)
         show_usage

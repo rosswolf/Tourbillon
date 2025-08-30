@@ -79,6 +79,15 @@ You are establishing a comprehensive understanding of:
 
 EOF
     
+    # Add PARENT_CONTEXT.md - the main context document
+    if [ -f "$REPO_PATH/PARENT_CONTEXT.md" ]; then
+        echo "=== REPOSITORY CONTEXT (PARENT_CONTEXT.md) ===" >> "$context_file"
+        cat "$REPO_PATH/PARENT_CONTEXT.md" >> "$context_file"
+        echo -e "\n=== End of PARENT_CONTEXT.md ===\n" >> "$context_file"
+    else
+        echo "WARNING: PARENT_CONTEXT.md not found - parent session will have limited context" >&2
+    fi
+    
     # Add CLAUDE.md if it exists
     if [ -f "$REPO_PATH/CLAUDE.md" ]; then
         echo "=== PROJECT GUIDELINES (CLAUDE.md) ===" >> "$context_file"
