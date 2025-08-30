@@ -1,0 +1,16 @@
+name: Test Claude Trigger
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  test-trigger:
+    runs-on: [self-hosted, claude-pro]
+    if: contains(github.event.comment.body, '@claude')
+    
+    steps:
+      - name: Echo test
+        run: |
+          echo "Claude was mentioned!"
+          echo "Comment: ${{ github.event.comment.body }}"
