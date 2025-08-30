@@ -1,10 +1,14 @@
-# Product Requirements Document: Swish
+# Product Requirements Document: Castlebuilder (Early Prototype)
+
+## Project Status: Early Prototype
+
+**Current State:** This project is in early prototype stage with limited functional components. The PRD outlines both the implemented features and the planned vision for the complete game.
 
 ## 1. Product Overview
 
-**Swish** is a turn-based tactical card game that combines strategic deck building with tower defense mechanics. Players control a hero who must survive waves of enemies using cards that deploy buildings, cast spells, and manage resources across multiple energy types.
+**Castlebuilder** (working title, formerly "Swish") is a turn-based tactical card game that combines strategic deck building with tower defense mechanics. Players control a hero who must survive waves of enemies using cards that deploy buildings, cast spells, and manage resources across multiple energy types.
 
-### 1.1 Core Value Proposition
+### 1.1 Core Value Proposition (Planned)
 - **Strategic Depth**: Multi-resource energy system with Purple, Green, Blue, Red, Orange, and None energy types
 - **Building-Centric Gameplay**: Cards primarily deploy persistent buildings rather than one-shot effects
 - **Dynamic Combat**: Real-time projectile combat within turn-based strategic framework
@@ -14,9 +18,157 @@
 - **Primary**: Mobile (Android/iOS) - configured for mobile rendering
 - **Secondary**: Desktop (Windows/Mac/Linux) via Godot 4.4
 
-## 2. Game Systems
+## 2. Current Implementation Status
 
-### 2.1 Hero System
+### 2.1 Functional Components
+
+#### 2.1.1 Core Infrastructure
+- ✅ **Godot 4.4 Project Structure**: Basic scene hierarchy and organization
+- ✅ **Main Menu**: Basic navigation with Play, Settings, and Quit options
+- ✅ **Scene Management**: Scene transition system with fade effects
+- ✅ **Data Loading System**: JSON-based static data framework (StaticData)
+- ✅ **Global Signal System**: Event-driven architecture foundation
+
+#### 2.1.2 Avatar System
+- ✅ **Mouse-Controlled Movement**: Avatar follows mouse position with smooth movement
+- ✅ **Visual Effects**: Tail system with pulsating animation
+- ✅ **Rotation Tracking**: Spin speed calculation for potential weapon integration
+
+#### 2.1.3 Combat System (Partial)
+- ✅ **Weapons Manager**: Framework for projectile firing patterns
+- ✅ **Projectile System**: Basic projectile spawning and movement
+- ✅ **Predictive Aiming**: Calculation for leading targets
+- ⚠️ **Limited Testing**: Combat exists but lacks enemies to fight
+
+#### 2.1.4 UI Components
+- ✅ **Hand Container**: Card display system with fan layout
+- ✅ **Card UI**: Basic card rendering framework
+- ✅ **Selection Manager**: Click and drag system for interactions
+- ✅ **HUD Elements**: Modal dialogs (pause, game over)
+- ✅ **Icon System**: Framework for game icons
+
+### 2.2 Prepared But Not Integrated
+
+These systems have code scaffolding but are not functionally connected:
+
+#### 2.2.1 Game Systems
+- ⚠️ **Card Gameplay**: Card data structures exist but no actual gameplay
+- ⚠️ **Resource Management**: Energy system defined but not implemented
+- ⚠️ **Building Deployment**: Building definitions exist without spawn mechanics
+- ⚠️ **Enemy AI**: Enemy data exists but no spawning or behavior
+- ⚠️ **Goal System**: Goal structures defined but not active
+
+#### 2.2.2 Data Files
+- ⚠️ **Card Database**: 50+ card definitions in JSON
+- ⚠️ **Enemy Database**: Enemy templates with stats
+- ⚠️ **Building Database**: Building configurations
+- ⚠️ **Hero Classes**: Knight and Berzerker templates
+
+### 2.3 Known Issues
+
+- **No Active Gameplay Loop**: Game loads but lacks playable mechanics
+- **Disconnected Systems**: Components exist independently without integration
+- **Missing Enemy Spawning**: Combat system has no targets
+- **Card System Non-Functional**: Cards display but don't execute actions
+- **Resource System Inactive**: Energy/gold defined but not tracked
+
+## 3. Development Roadmap
+
+### 3.1 Phase 0: Foundation Completion (Current Priority)
+
+**Goal:** Connect existing components into minimal playable loop
+
+- [ ] Spawn basic enemies with simple AI
+- [ ] Connect card play to actual effects
+- [ ] Implement basic resource tracking (energy/gold)
+- [ ] Add win/lose conditions
+- [ ] Create one complete gameplay round
+
+**Estimated Completion:** 2-4 weeks
+
+### 3.2 Phase 1: Core Mechanics
+
+**Goal:** Establish fundamental game systems
+
+- [ ] Implement full card effect system
+- [ ] Create building spawn and management
+- [ ] Add enemy wave spawning
+- [ ] Implement resource generation
+- [ ] Basic goal completion flow
+
+**Estimated Completion:** 4-6 weeks
+
+### 3.3 Phase 2: Content Expansion
+
+**Goal:** Add variety and depth
+
+- [ ] Additional hero classes with unique abilities
+- [ ] Expanded card library (target: 100+ cards)
+- [ ] New enemy types with varied behaviors
+- [ ] Advanced building types
+- [ ] Multiple map layouts
+
+**Estimated Completion:** 6-8 weeks
+
+### 3.4 Phase 3: Progression Systems
+
+**Goal:** Add meta-progression and retention
+
+- [ ] Persistent progression between runs
+- [ ] Deck customization system
+- [ ] Hero skill trees
+- [ ] Achievement system
+- [ ] Leaderboards
+
+**Estimated Completion:** 4-6 weeks
+
+### 3.5 Phase 4: Polish & Launch
+
+**Goal:** Production-ready release
+
+- [ ] Tutorial and onboarding
+- [ ] Audio integration
+- [ ] Visual effects polish
+- [ ] Performance optimization
+- [ ] Platform-specific builds
+
+**Estimated Completion:** 8-12 weeks
+
+## 4. Technical Architecture
+
+### 4.1 Current Architecture
+
+#### 4.1.1 Directory Structure
+```
+castlebuilder-app/
+├── app/
+│   ├── src/
+│   │   ├── scenes/
+│   │   │   ├── core/          # Game logic
+│   │   │   ├── ui/            # UI components
+│   │   │   ├── data/          # Data management
+│   │   │   └── utilities/     # Helper systems
+│   │   └── data/              # JSON databases
+│   └── assets/                # Art and audio
+└── docs/                      # Documentation
+```
+
+#### 4.1.2 Core Systems
+- **Signal-Based Communication**: GlobalSignals for decoupled events
+- **Instance Management**: UID-based entity tracking
+- **Data Loading**: JSON parsing with StaticData class
+- **Scene Management**: Transition system with fade effects
+
+### 4.2 Technical Debt
+
+- **Incomplete Entity System**: Entity base class exists but not fully utilized
+- **Missing State Management**: No save/load functionality
+- **Limited Testing**: No automated tests
+- **Performance Unknown**: Not profiled or optimized
+
+## 5. Game Design (Target Vision)
+
+### 5.1 Hero System
 Players choose from hero classes with distinct starting stats and playstyles:
 
 **Knight**
@@ -31,60 +183,14 @@ Players choose from hero classes with distinct starting stats and playstyles:
 - Starting Relic: Training Gloves
 - Playstyle: High-risk, high-reward aggression
 
-### 2.2 Card System
+### 5.2 Card System
 
-#### 2.2.1 Card Types
-- **Building Cards**: Deploy persistent structures (turrets, banks, town halls)
+#### 5.2.1 Card Types
+- **Building Cards**: Deploy persistent structures
 - **Effect Cards**: Instant actions and resource generation
 - **Shop Cards**: Enable purchasing new cards or slots
 
-#### 2.2.2 Card Properties
-- **Energy Cost**: Paid using specific energy types (Purple, Green, etc.)
-- **Durability**: Cards can be used multiple times before breaking
-- **Rarity Tiers**: Starting, Common, Uncommon, Rare
-- **Rules Text**: Clear description of card effects
-- **Cursor Integration**: Cards change mouse cursor when selected
-
-#### 2.2.3 Example Cards
-- **"Innovate"** (Purple Energy: 2): Buy a card, Durability: 5
-- **"Curious"** (Green Energy: 2): Buy a tool, Durability: 2
-
-### 2.3 Building System
-
-#### 2.3.1 Building Types
-- **Town Hall**: Critical structure - losing it ends the game (10,000 HP)
-- **Basic Turret**: Defensive structure (1,000 HP)
-- **Bank**: Generates 200 gold when built (1,000 HP)
-
-#### 2.3.2 Building Mechanics
-- **Color Coding**: Buildings have color affiliations (Red, Blue, etc.)
-- **Health System**: Buildings can be damaged and destroyed
-- **Effect Types**: None, One-Time, Persistent
-- **Targeting Priority**: Buildings can auto-target enemies
-
-### 2.4 Combat System
-
-#### 2.4.1 Enemy AI
-Enemies use sophisticated AI with range-based behavior patterns:
-
-**Goblin Scout** (55 HP, 0 Armor, Movement: 1)
-- Sweet Spot Range: 1
-- In-Range Actions: Block, melee attacks
-- Out-of-Range Actions: Move closer, ranged attacks
-
-**Torch Goblin** (20 HP, 5 Armor, Movement: 2)
-- Sweet Spot Range: 2  
-- Special: Slime attacks, ally healing
-- Support-focused enemy type
-
-#### 2.4.2 Weapon Systems
-- **Basic Auto Attack**: Single shot, 60° spread, 100 damage
-- **Trio Attack**: Three-shot burst at different angles
-- **Projectile Physics**: Real-time projectiles with speed, damage, lifetime
-
-### 2.5 Resource Management
-
-#### 2.5.1 Energy Types
+#### 5.2.2 Energy System
 - **Purple Energy**: Innovation and advanced actions
 - **Green Energy**: Nature and growth effects
 - **Blue Energy**: Control and utility
@@ -92,142 +198,85 @@ Enemies use sophisticated AI with range-based behavior patterns:
 - **Orange Energy**: Hybrid effects
 - **None Energy**: Universal/free actions
 
-#### 2.5.2 Secondary Resources
-- **Gold**: Currency for purchases
-- **Training Points**: Character improvement
-- **Instinct**: Combat awareness and reactions
-- **Endurance**: Sustained action capability
+### 5.3 Combat Vision
 
-### 2.6 Goal System
+- **Town Hall Defense**: Core objective is protecting the town hall
+- **Building Combat**: Turrets and defensive structures
+- **Enemy Waves**: Progressive difficulty with varied enemy types
+- **Real-Time Projectiles**: Physics-based projectile combat
 
-#### 2.6.1 Timed Objectives
-Goals provide direction and rewards within time limits (typically 31 ticks):
+## 6. Risk Assessment
 
-- **"Spend 7 energy"**: Reward - shop a card
-- **"Play 7 cards"**: Reward - shop a card  
-- **"Activate 3 buildings"**: Reward - shop a card
-- **"Draw 5 cards"**: Reward - shop a card
+### 6.1 Current Critical Risks
 
-#### 2.6.2 Statistics Tracking
-System tracks comprehensive gameplay metrics:
-- Cards drawn, played, slotted
-- Energy spent by type
-- Buildings activated
-- Gold expenditure
+- **No Playable Loop**: Game doesn't function as a game yet
+- **Scope Creep**: Extensive planned features vs. limited implementation
+- **Integration Challenge**: Connecting disparate systems
+- **Platform Uncertainty**: Mobile-first design not validated
 
-## 3. User Experience
+### 6.2 Mitigation Strategy
 
-### 3.1 Core Gameplay Loop
+1. **Focus on MVP**: Prioritize minimum playable experience
+2. **Iterative Development**: Small, testable increments
+3. **Regular Playtesting**: Validate each phase before proceeding
+4. **Scope Flexibility**: Be prepared to cut features
 
-1. **Planning Phase**: Review goals, available cards, and energy
-2. **Card Play**: Deploy buildings and activate effects using energy
-3. **Combat Resolution**: Buildings auto-attack enemies with real-time projectiles
-4. **Resource Management**: Collect energy, gold, and other resources
-5. **Goal Completion**: Achieve timed objectives for rewards
-6. **Progression**: Purchase new cards/upgrades, advance to next wave
+## 7. Success Metrics (Future)
 
-### 3.2 User Interface
+Once the game reaches playable state:
 
-#### 3.2.1 Hand Management
-- **Card Arrangement**: Visual hand with hover effects and selection
-- **Drag & Drop**: Intuitive card targeting system
-- **Visual Feedback**: Clear selection states and valid targets
+### 7.1 Player Engagement
+- **Session Length**: Target 15-30 minutes
+- **Retention**: Day 1 >60%, Day 7 >25%
+- **Completion Rate**: >80% complete first battle
 
-#### 3.2.2 HUD Elements
-- **Resource Displays**: Energy types, gold, health/armor
-- **Goal Panel**: Current objectives with progress tracking
-- **Menu System**: Pause, settings, and game over modals
+### 7.2 Technical Performance
+- **Load Time**: <3 seconds to gameplay
+- **Frame Rate**: Stable 60 FPS on target devices
+- **Memory**: <512MB on mobile
 
-#### 3.2.3 Visual Design
-- **Theme System**: Consistent styling with custom fonts (BlackFlag.ttf)
-- **Icon System**: Reusable components for energy types and effects
-- **Color Coding**: Red, green, blue building affiliations
-- **Shader Effects**: Water, blur, and highlight shaders for polish
+## 8. Next Steps
 
-### 3.3 Accessibility Features
-- **Mobile Optimization**: Touch-friendly interface design
-- **Clear Typography**: High-contrast text with custom fonts
-- **Icon-Based Communication**: Visual symbols reduce text dependency
-- **Consistent Interaction Patterns**: Unified selection/targeting system
+### Immediate Actions (This Week)
+1. Connect avatar combat to enemy targets
+2. Implement basic enemy spawning
+3. Make one card have a real effect
+4. Add basic win/lose conditions
 
-## 4. Technical Architecture
+### Short Term (This Month)
+1. Create minimal viable gameplay loop
+2. Implement 5-10 functional cards
+3. Add 2-3 enemy types
+4. Basic resource tracking
 
-### 4.1 Core Systems
-- **Signal-Driven Architecture**: Clean separation between UI and game logic
-- **Entity Component System**: Modular entity design with instance tracking
-- **Data-Driven Design**: JSON-based configuration for easy content updates
-
-### 4.2 Performance Optimization
-- **Indexed Data Lookups**: O(1) performance for data queries
-- **Mobile Rendering**: Optimized for mobile GPU capabilities
-- **Resource Loading**: Efficient asset management with UID system
-
-### 4.3 Content Pipeline
-- **JSON Data Export**: Python tools for data management
-- **Asset Organization**: Structured asset directories (owned_assets, cc0_assets)
-- **Modular Architecture**: Clean directory structure with purpose documentation
-
-## 5. Success Metrics
-
-### 5.1 Player Engagement
-- **Session Length**: Target 15-30 minutes per gameplay session
-- **Goal Completion Rate**: >80% of players complete first-round goals
-- **Retention**: Day 1 retention >60%, Day 7 retention >25%
-
-### 5.2 Gameplay Balance
-- **Energy Economy**: Players use all energy types meaningfully
-- **Building Diversity**: No single building dominates optimal play
-- **Difficulty Curve**: Progressive challenge increase across waves
-
-### 5.3 Technical Performance
-- **Load Times**: <3 seconds from launch to gameplay
-- **Frame Rate**: Consistent 60 FPS on target mobile devices
-- **Memory Usage**: <512MB on mid-range mobile devices
-
-## 6. Development Roadmap
-
-### 6.1 Phase 1: Core Mechanics (Current)
-- ✅ Basic card system with energy costs
-- ✅ Building deployment and management
-- ✅ Enemy AI with range-based behavior
-- ✅ Resource and goal systems
-
-### 6.2 Phase 2: Content Expansion
-- Additional hero classes and starting configurations
-- Expanded card library with unique mechanics
-- New enemy types and behavioral patterns
-- Advanced building types with special abilities
-
-### 6.3 Phase 3: Progression Systems
-- Persistent progression between runs
-- Deck customization and card unlocks
-- Hero skill trees and specialization
-- Achievement system integration
-
-### 6.4 Phase 4: Polish & Launch
-- Tutorial and onboarding flow
-- Audio integration and sound effects
-- Visual effects and animation polish
-- Performance optimization and bug fixes
-
-## 7. Risk Assessment
-
-### 7.1 Design Risks
-- **Complexity Management**: Multiple energy types may overwhelm new players
-- **Balance Challenges**: Building-centric gameplay requires careful tuning
-- **Pacing Issues**: Turn-based strategy may feel slow on mobile
-
-### 7.2 Technical Risks  
-- **Mobile Performance**: Real-time projectiles on lower-end devices
-- **Data Management**: JSON-driven content pipeline complexity
-- **Platform Differences**: Ensuring consistent experience across platforms
-
-### 7.3 Mitigation Strategies
-- **Gradual Introduction**: Tutorial introduces mechanics progressively
-- **Automated Testing**: Data-driven balance testing tools
-- **Performance Profiling**: Regular testing on target mobile devices
-- **Modular Architecture**: Clean separation allows rapid iteration
+### Documentation Needs
+- [ ] Technical integration guide
+- [ ] Card effect implementation guide
+- [ ] Enemy AI behavior documentation
+- [ ] Building system architecture
 
 ---
 
-*This PRD represents the current state of Swish based on implemented systems and serves as a foundation for continued development and iteration.*
+*This PRD reflects the actual current state of the Castlebuilder prototype as of August 2025. The document will be updated as development progresses from prototype to full game.*
+
+## Appendix A: File Inventory
+
+### Functional Files (Actually Used)
+- `main_menu.gd` - Menu navigation
+- `avatar.gd` - Player character movement
+- `weapons_manager.gd` - Projectile system
+- `projectile.gd` - Projectile behavior
+- `global_signals.gd` - Event system
+- `static_data.gd` - Data loading
+
+### Scaffolding Files (Not Integrated)
+- `global_game_manager.gd` - Game state (partial)
+- `hand_container.gd` - Card display (visual only)
+- `card_ui.gd` - Card rendering (no gameplay)
+- Various entity classes (unused)
+
+### Data Files (Prepared Content)
+- `cards.json` - 50+ card definitions
+- `enemies.json` - Enemy templates
+- `buildings.json` - Building configurations
+- `heroes.json` - Hero class definitions
