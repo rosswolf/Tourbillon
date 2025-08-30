@@ -67,17 +67,19 @@ jobs:
       - name: Check for repository parent session
         id: check_parent
         run: |
-          PARENT_SESSION="parent-repo-castlebuilder"
-          echo "Checking for repository-wide parent session: $PARENT_SESSION"
+          PARENT_NAME="parent-repo-castlebuilder"
+          echo "Checking for repository-wide parent session: $PARENT_NAME"
           
-          if .github/scripts/session_manager.sh exists "$PARENT_SESSION" | grep -q "true"; then
+          # Check if parent exists by name
+          if .github/scripts/session_manager.sh exists "$PARENT_NAME" | grep -q "true"; then
             echo "Repository parent session exists"
+            PARENT_UUID=$(.github/scripts/session_manager.sh get-uuid "$PARENT_NAME")
             echo "parent_exists=true" >> $GITHUB_OUTPUT
+            echo "parent_uuid=$PARENT_UUID" >> $GITHUB_OUTPUT
           else
             echo "Repository parent session does not exist"
             echo "parent_exists=false" >> $GITHUB_OUTPUT
           fi
-          echo "parent_session=$PARENT_SESSION" >> $GITHUB_OUTPUT
           
       - name: Create parent session if needed
         id: create_parent
@@ -86,40 +88,36 @@ jobs:
           echo "Creating repository parent session (5-10 minutes)..."
           echo "Note: First-time creation requires building complete codebase knowledge"
           
-          # Capture output and error
-          PARENT_OUTPUT=$(.github/scripts/session_manager.sh create-parent "castlebuilder" 2>&1)
+          # Create parent and capture UUID
+          PARENT_UUID=$(.github/scripts/session_manager.sh create-parent "castlebuilder" 2>&1 | tail -1)
           EXIT_CODE=$?
           
           echo "Exit code: $EXIT_CODE"
-          echo "Output: $PARENT_OUTPUT"
           
-          # Extract session ID from output (last line if successful)
-          PARENT_SESSION=$(echo "$PARENT_OUTPUT" | tail -1)
-          
-          if [ $EXIT_CODE -eq 0 ] && [ -n "$PARENT_SESSION" ]; then
-            echo "Parent session created: $PARENT_SESSION"
-            echo "parent_session=$PARENT_SESSION" >> $GITHUB_OUTPUT
+          if [ $EXIT_CODE -eq 0 ] && [[ "$PARENT_UUID" =~ ^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$ ]]; then
+            echo "Parent session created with UUID: $PARENT_UUID"
+            echo "parent_uuid=$PARENT_UUID" >> $GITHUB_OUTPUT
           else
-            echo "Failed to create parent session - this is normal if another job is creating it"
-            echo "Will use fallback response for now"
-            echo "parent_session=parent-repo-castlebuilder" >> $GITHUB_OUTPUT
+            echo "Failed to create parent session - first run takes time"
+            echo "Will use fallback response"
+            echo "parent_uuid=" >> $GITHUB_OUTPUT
           fi
           
-      - name: Get parent session ID
+      - name: Get parent session UUID
         id: get_parent
         run: |
           if [ "${{ steps.check_parent.outputs.parent_exists }}" = "true" ]; then
-            PARENT_SESSION="${{ steps.check_parent.outputs.parent_session }}"
+            PARENT_UUID="${{ steps.check_parent.outputs.parent_uuid }}"
           else
-            PARENT_SESSION="${{ steps.create_parent.outputs.parent_session }}"
+            PARENT_UUID="${{ steps.create_parent.outputs.parent_uuid }}"
           fi
-          echo "parent_session=$PARENT_SESSION" >> $GITHUB_OUTPUT
+          echo "parent_uuid=$PARENT_UUID" >> $GITHUB_OUTPUT
           
       - name: Fork child agent
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          PARENT_SESSION="${{ steps.get_parent.outputs.parent_session }}"
+          PARENT_UUID="${{ steps.get_parent.outputs.parent_uuid }}"
           ISSUE_NUMBER="${{ steps.get_context.outputs.issue_number }}"
           USER_REQUEST=$(cat latest_request.txt)
           
@@ -128,27 +126,27 @@ jobs:
           Event: ${{ github.event_name }}
           Repository: ${{ github.repository }}"
           
-          echo "Forking child from parent: $PARENT_SESSION"
+          echo "Parent UUID: $PARENT_UUID"
           echo "Issue: #${ISSUE_NUMBER}"
           
-          # Check if parent exists before forking
-          if .github/scripts/session_manager.sh exists "$PARENT_SESSION" | grep -q "true"; then
-            echo "Parent session exists, forking child..."
+          # Check if we have a valid parent UUID
+          if [ -n "$PARENT_UUID" ] && [[ "$PARENT_UUID" =~ ^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$ ]]; then
+            echo "Valid parent UUID, forking child..."
             # Fork child and capture response
             .github/scripts/session_manager.sh fork-child \
-              "$PARENT_SESSION" \
+              "$PARENT_UUID" \
               "general" \
               "$USER_REQUEST" \
               "$ISSUE_CONTEXT" \
               > response.md 2>&1 || true
           else
             echo "Parent session not ready, using fallback response"
-            echo "The enhanced workflow is initializing. The parent session is being created for the first time, which takes 5-10 minutes. Once complete, responses will be much faster." > response.md
+            echo "The enhanced workflow is initializing. The parent session is being created for the first time, which takes 5-10 minutes. Once complete, responses will be much faster (under 30 seconds)." > response.md
           fi
           
           # Ensure response exists
           if [ ! -s response.md ]; then
-            echo "I'm processing your request through the enhanced session-based workflow. If this is the first run, the parent session is being created." > response.md
+            echo "I'm processing your request through the enhanced V2 workflow. The session system is being initialized." > response.md
           fi
           
       - name: Post response

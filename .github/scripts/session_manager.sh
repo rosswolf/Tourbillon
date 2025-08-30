@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Session Manager for GitHub Claude Integration
-# Handles parent/child session creation and management
+# Handles parent/child session creation and management with UUID support
 
 set -e
 
@@ -9,14 +9,31 @@ CLAUDE_CMD="claude"
 SESSION_DIR="$HOME/.claude/sessions"
 REPO_PATH="/home/rosswolf/Code/castlebuilder"
 INDEX_CMD="/index"
+UUID_MAP_FILE="$SESSION_DIR/uuid_map.txt"
 
 # Ensure session directory exists
 mkdir -p "$SESSION_DIR"
 
-# Function to check if a session exists
+# Function to save UUID mapping
+save_uuid_mapping() {
+    local name="$1"
+    local uuid="$2"
+    echo "$name:$uuid" >> "$UUID_MAP_FILE"
+}
+
+# Function to get UUID from name
+get_uuid_from_name() {
+    local name="$1"
+    if [ -f "$UUID_MAP_FILE" ]; then
+        grep "^$name:" "$UUID_MAP_FILE" 2>/dev/null | cut -d: -f2 | tail -1
+    fi
+}
+
+# Function to check if a session exists (by UUID)
 session_exists() {
-    local session_id="$1"
-    $CLAUDE_CMD --list-sessions 2>/dev/null | grep -q "$session_id" || return 1
+    local session_uuid="$1"
+    # Check if UUID file exists in todos
+    ls ~/.claude/todos/${session_uuid}*.json >/dev/null 2>&1
 }
 
 # Function to get session info
@@ -39,16 +56,25 @@ save_session_info() {
 # Function to create parent session
 create_parent_session() {
     local repo_name="${1:-castlebuilder}"
-    local parent_session="parent-repo-${repo_name}"
+    local parent_name="parent-repo-${repo_name}"
     
-    echo "Creating parent session: $parent_session"
+    # Check if we already have a UUID for this parent
+    local existing_uuid=$(get_uuid_from_name "$parent_name")
     
-    # Check if parent already exists
-    if session_exists "$parent_session"; then
-        echo "Parent session already exists: $parent_session"
-        echo "$parent_session"
+    if [ -n "$existing_uuid" ] && session_exists "$existing_uuid"; then
+        echo "Parent session already exists with UUID: $existing_uuid"
+        echo "$existing_uuid"
         return 0
     fi
+    
+    # Generate a new UUID for the session
+    local parent_uuid=$(uuidgen | tr '[:upper:]' '[:lower:]')
+    
+    echo "Creating parent session: $parent_name"
+    echo "UUID: $parent_uuid"
+    
+    # Save the mapping
+    save_uuid_mapping "$parent_name" "$parent_uuid"
     
     # Run indexer first
     echo "Running code indexer..."
@@ -109,8 +135,6 @@ EOF
         echo -e "\n=== End of Index Summary ===\n" >> "$context_file"
     fi
     
-    # Note: No conversation history in parent - it's repo-wide, not issue-specific
-    
     # Final instructions
     cat >> "$context_file" << 'EOF'
 
@@ -126,10 +150,10 @@ Child agents will fork from you to handle specific issues, PRs, and tasks.
 Respond with a brief acknowledgment of the codebase structure you've understood.
 EOF
     
-    # Create the parent session
+    # Create the parent session with UUID
     echo "Initializing parent session with Claude..."
     $CLAUDE_CMD --model opus \
-        --session-id "$parent_session" \
+        --session-id "$parent_uuid" \
         --print "$(cat "$context_file")" \
         --add-dir "$REPO_PATH" \
         --dangerously-skip-permissions \
@@ -138,8 +162,9 @@ EOF
     local exit_code=$?
     
     # Save session metadata
-    save_session_info "$parent_session" "{
+    save_session_info "$parent_uuid" "{
         \"type\": \"parent\",
+        \"name\": \"$parent_name\",
         \"repository\": \"$repo_name\",
         \"created_at\": \"$(date -Iseconds)\",
         \"repo_path\": \"$REPO_PATH\",
@@ -151,8 +176,8 @@ EOF
     rm -f "$context_file"
     
     if [ $exit_code -eq 0 ]; then
-        echo "Parent session created successfully: $parent_session"
-        echo "$parent_session"
+        echo "Parent session created successfully"
+        echo "$parent_uuid"
     else
         echo "Error: Failed to create parent session (exit code: $exit_code)"
         cat "/tmp/parent_init_${repo_name}.log"
@@ -162,13 +187,15 @@ EOF
 
 # Function to fork child agent from parent
 fork_child_agent() {
-    local parent_session="$1"
+    local parent_uuid="$1"
     local task_type="$2"
     local user_request="$3"
     local issue_context="$4"  # Optional: issue/PR specific context
-    local child_session="child-$(date +%s)-$$"
     
-    echo "Forking child agent: $child_session (type: $task_type)"
+    # Generate UUID for child
+    local child_uuid=$(uuidgen | tr '[:upper:]' '[:lower:]')
+    
+    echo "Forking child agent: $child_uuid (type: $task_type)"
     
     # Prepare task-specific prompt based on type
     local agent_prompt=""
@@ -240,11 +267,11 @@ You are running in a GitHub Actions workflow with these abilities:
 - Focus on completing the specific task requested
 - Be concise and action-oriented"
     
-    # Fork from parent session
+    # Fork from parent session using --resume
     echo "Executing child agent with inherited context..."
     $CLAUDE_CMD --model opus \
-        --resume "$parent_session" \
-        --session-id "$child_session" \
+        --resume "$parent_uuid" \
+        --session-id "$child_uuid" \
         --print "$child_prompt" \
         --add-dir "$REPO_PATH" \
         --dangerously-skip-permissions
@@ -252,9 +279,9 @@ You are running in a GitHub Actions workflow with these abilities:
     local exit_code=$?
     
     # Save child session metadata
-    save_session_info "$child_session" "{
+    save_session_info "$child_uuid" "{
         \"type\": \"child\",
-        \"parent\": \"$parent_session\",
+        \"parent\": \"$parent_uuid\",
         \"task_type\": \"$task_type\",
         \"created_at\": \"$(date -Iseconds)\"
     }"
@@ -280,6 +307,18 @@ detect_task_type() {
     fi
 }
 
+# Function to check if session exists by name
+exists_by_name() {
+    local session_name="$1"
+    local uuid=$(get_uuid_from_name "$session_name")
+    
+    if [ -n "$uuid" ] && session_exists "$uuid"; then
+        echo "true"
+    else
+        echo "false"
+    fi
+}
+
 # Function to clean old sessions
 cleanup_old_sessions() {
     local days_old="${1:-7}"
@@ -298,10 +337,18 @@ case "${1:-help}" in
         create_parent_session "$2"  # Just repo name, or defaults to "castlebuilder"
         ;;
     fork-child)
-        fork_child_agent "$2" "$3" "$4" "$5"  # parent, type, request, context
+        fork_child_agent "$2" "$3" "$4" "$5"  # parent UUID, type, request, context
         ;;
     exists)
-        session_exists "$2" && echo "true" || echo "false"
+        # Check if it's a UUID or a name
+        if [[ "$2" =~ ^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$ ]]; then
+            session_exists "$2" && echo "true" || echo "false"
+        else
+            exists_by_name "$2"
+        fi
+        ;;
+    get-uuid)
+        get_uuid_from_name "$2"
         ;;
     info)
         get_session_info "$2"
@@ -313,24 +360,32 @@ case "${1:-help}" in
         cleanup_old_sessions "$2"
         ;;
     list)
-        echo "=== Claude Sessions ==="
-        $CLAUDE_CMD --list-sessions 2>/dev/null || echo "No sessions found"
+        echo "=== UUID Mappings ==="
+        if [ -f "$UUID_MAP_FILE" ]; then
+            cat "$UUID_MAP_FILE"
+        else
+            echo "No mappings found"
+        fi
         echo -e "\n=== Session Metadata ==="
         ls -la "$SESSION_DIR"/*.info 2>/dev/null || echo "No metadata found"
         ;;
     help|*)
         cat << 'HELP'
-Session Manager for GitHub Claude Integration
+Session Manager for GitHub Claude Integration with UUID Support
 
 Usage:
   session_manager.sh create-parent [repo_name]
     Create a repository-wide parent session (defaults to "castlebuilder")
+    Returns the UUID of the created session
     
-  session_manager.sh fork-child <parent_session> <task_type> <user_request> [issue_context]
+  session_manager.sh fork-child <parent_uuid> <task_type> <user_request> [issue_context]
     Fork a child agent from parent session with optional issue context
     
-  session_manager.sh exists <session_id>
-    Check if a session exists
+  session_manager.sh exists <session_id_or_name>
+    Check if a session exists (by UUID or name)
+    
+  session_manager.sh get-uuid <session_name>
+    Get UUID for a named session
     
   session_manager.sh info <session_id>
     Get session metadata
@@ -345,14 +400,17 @@ Usage:
     List all sessions and metadata
 
 Examples:
-  # Create parent for issue #123
-  ./session_manager.sh create-parent 123 conversation.txt
+  # Create parent
+  UUID=$(./session_manager.sh create-parent castlebuilder)
   
   # Fork child for PR creation
-  ./session_manager.sh fork-child parent-issue-123 pull-request "Create PR with the fixes"
+  ./session_manager.sh fork-child $UUID pull-request "Create PR with the fixes"
   
-  # Check if session exists
-  ./session_manager.sh exists parent-issue-123
+  # Check if session exists by name
+  ./session_manager.sh exists parent-repo-castlebuilder
+  
+  # Get UUID from name
+  UUID=$(./session_manager.sh get-uuid parent-repo-castlebuilder)
 HELP
         ;;
 esac
