@@ -224,6 +224,7 @@ jobs:
           # Use timeout of 10 minutes (600 seconds) since Claude can take 5+ minutes
           timeout 600 claude --model opus --print "$(cat "$WORKSPACE_DIR/context.txt")" \
             --add-dir /home/rosswolf/Code/castlebuilder \
+            --dangerously-skip-permissions \
             > "$WORKSPACE_DIR/response.md" 2>"$WORKSPACE_DIR/claude_error.log"
           CLAUDE_EXIT_CODE=$?
           set -e
@@ -347,6 +348,7 @@ jobs:
           echo "Starting PR review with Claude (this may take several minutes)..."
           timeout 600 claude --model opus --print "$(cat "$WORKSPACE_DIR/review_request.txt")" \
             --add-dir /home/rosswolf/Code/castlebuilder \
+            --dangerously-skip-permissions \
             > "$WORKSPACE_DIR/review.md" 2>/dev/null || true
           
           # Return to workspace directory for next steps
