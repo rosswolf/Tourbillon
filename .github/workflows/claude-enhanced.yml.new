@@ -1,11 +1,5 @@
 name: Claude Enhanced Minimal
 
-permissions:
-  contents: write
-  pull-requests: write
-  issues: write
-  actions: write
-
 on:
   issue_comment:
     types: [created]
