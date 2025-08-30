@@ -140,6 +140,16 @@ jobs:
       - name: Process with Claude
         id: claude
         run: |
+          # Add npm global bin to PATH
+          export PATH="/home/rosswolf/.npm-global/bin:$PATH"
+          
+          # Verify claude is available
+          if ! command -v claude &> /dev/null; then
+            echo "Error: claude command not found in PATH"
+            echo "PATH is: $PATH"
+            exit 1
+          fi
+          
           # Create context with full conversation history and project info
           cat > context.txt << 'EOF'
           You are helping with a GitHub issue/PR for the castlebuilder repository.
@@ -174,11 +184,16 @@ jobs:
           # Use Claude CLI with Opus model and access to full codebase
           echo "Processing request with Claude Opus..."
           cd /home/rosswolf/Code/castlebuilder
-          claude --model opus --max-turns 1 --add-dir /home/rosswolf/Code/castlebuilder < context.txt > response.md
+          
+          # Create the prompt from context
+          PROMPT=$(cat context.txt)
+          
+          # Use claude command with proper format
+          echo "$PROMPT" | claude --model claude-3-opus-20240229 --max-turns 1 > response.md
           
           # Check if response was generated
           if [ ! -s response.md ]; then
-            echo "No response generated" > response.md
+            echo "No response generated from Claude" > response.md
           fi
           
       - name: Post response to GitHub
@@ -218,6 +233,9 @@ jobs:
           
       - name: Review with Claude
         run: |
+          # Add npm global bin to PATH
+          export PATH="/home/rosswolf/.npm-global/bin:$PATH"
+          
           cat > review_request.txt << 'EOF'
           You are reviewing a pull request for the castlebuilder repository.
           
@@ -259,7 +277,12 @@ jobs:
           # Use Claude CLI with Opus model for thorough review
           echo "Running PR review with Claude Opus..."
           cd /home/rosswolf/Code/castlebuilder
-          claude --model opus --max-turns 1 --add-dir /home/rosswolf/Code/castlebuilder < review_request.txt > review.md
+          
+          # Create the prompt
+          PROMPT=$(cat review_request.txt)
+          
+          # Use claude command
+          echo "$PROMPT" | claude --model claude-3-opus-20240229 --max-turns 1 > review.md
           
       - name: Post review
         uses: actions/github-script@v7
