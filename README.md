@@ -12,13 +12,15 @@ A branch of ross-jam/elastic-app with GitHub Claude AI integration.
 
 This repository has full Claude AI integration for automated issue responses and code assistance.
 
-To interact with Claude, mention `@claude` in any issue or comment.
+To interact with Claude, mention `@claude` in any issue or comment. Once mentioned, Claude will monitor the entire thread and respond to all subsequent comments automatically.
 
 ### Features
-- Session persistence with <60 second responses
+- **Continuous thread monitoring** - Mention once, Claude stays engaged
+- Session persistence with <60 second responses  
 - Automated issue and comment responses
 - Pull request creation capability
 - Full repository access for code assistance
+- PR review comment support
 
 ### Setup
 See `docs/GITHUB_CLAUDE_INTEGRATION_SETUP.md` for detailed setup instructions.

@@ -51,6 +51,33 @@ Create an issue with `@claude` in the body:
 
 Claude should respond within 30-60 seconds.
 
+## Continuous Thread Monitoring
+
+**New Feature**: Once Claude is mentioned in a thread, it monitors all subsequent activity automatically.
+
+### How It Works
+1. **Initial mention**: Include `@claude` in an issue, PR, or comment
+2. **Continuous engagement**: Claude responds to ALL future comments in that thread
+3. **No repeated mentions**: After the first `@claude`, just comment normally
+
+### Example Conversation
+```markdown
+User: "@claude help me debug this function"
+Claude: "I'll help you debug..."
+User: "What about line 42?" (no @claude needed)
+Claude: "On line 42, I see..."
+User: "Can you fix it?" (no @claude needed)
+Claude: "Here's the fix..."
+```
+
+### Supported Contexts
+- ✅ **Issues**: Once mentioned in issue body or any comment
+- ✅ **Pull Requests**: Once mentioned in PR description or any comment
+- ✅ **PR Reviews**: Once mentioned in any review comment
+- ✅ **Code Review Comments**: Responds to all review feedback after initial mention
+
+This makes conversations more natural and reduces the need for repetitive mentions.
+
 ## How It Works
 
 ### Session Creation (One-Time Setup)
