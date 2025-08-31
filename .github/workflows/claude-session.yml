@@ -62,23 +62,24 @@ jobs:
             echo "issue_number=${{ github.event.issue.number }}" >> $GITHUB_OUTPUT
           fi
           
-      - name: Setup Claude Session
+      - name: Verify Claude Session
         run: |
           SESSION_ID="25fd8500-045a-4a40-bb74-f1f9e60e46ce"
           PROJECT_PATH="-home-rosswolf-Code-castlebuilder"
           
-          # Create Claude directories
-          mkdir -p ~/.claude/projects/"$PROJECT_PATH"
+          # Since this is a self-hosted runner, session files should already be available
+          SESSION_FILE="$HOME/.claude/projects/$PROJECT_PATH/${SESSION_ID}.jsonl"
           
-          # Copy session file from shared location
-          # The session file needs to be accessible to the runner
-          if [ -f "/home/rosswolf/.claude/projects/$PROJECT_PATH/${SESSION_ID}.jsonl" ]; then
-            echo "Copying session file to runner..."
-            cp "/home/rosswolf/.claude/projects/$PROJECT_PATH/${SESSION_ID}.jsonl" \
-               ~/.claude/projects/"$PROJECT_PATH"/
-            echo "Session file copied successfully"
+          if [ -f "$SESSION_FILE" ]; then
+            echo "✓ Session file found at: $SESSION_FILE"
+            echo "  File size: $(stat -c%s "$SESSION_FILE") bytes"
+            echo "  Lines: $(wc -l < "$SESSION_FILE")"
           else
-            echo "Warning: Session file not found at expected location"
+            echo "✗ Session file not found at: $SESSION_FILE"
+            echo "Checking claude directory structure:"
+            ls -la ~/.claude/ || echo "No .claude directory"
+            ls -la ~/.claude/projects/ || echo "No projects directory"
+            exit 1
           fi
           
       - name: Call Claude
