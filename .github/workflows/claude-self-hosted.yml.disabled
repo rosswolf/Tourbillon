@@ -1,0 +1,370 @@
+name: Claude Self-Hosted Assistant
+
+# This workflow uses your self-hosted runner with Claude Pro subscription
+# No API key needed!
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+on:
+  issue_comment:
+    types: [created]
+  pull_request_review_comment:
+    types: [created]
+  issues:
+    types: [opened]
+  pull_request:
+    types: [opened]
+
+jobs:
+  claude-respond:
+    # Use self-hosted runner with claude-pro label
+    runs-on: [self-hosted, claude-pro]
+    
+    # Run if @claude is mentioned OR if Claude has already engaged in the thread
+    if: |
+      github.event_name == 'issue_comment' || 
+      github.event_name == 'pull_request_review_comment' ||
+      (github.event_name == 'issues' && contains(github.event.issue.body, '@claude'))
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Setup Git
+        run: |
+          git config --global user.name "Claude Assistant"
+          git config --global user.email "claude@assistant.local"
+          
+      - name: Check if Claude should respond
+        id: should_respond
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const issue_number = context.issue.number || context.payload.pull_request?.number;
+            if (!issue_number) {
+              console.log('No issue/PR number found');
+              return false;
+            }
+            
+            // Check if current comment mentions @claude
+            const currentComment = context.payload.comment?.body || context.payload.issue?.body || '';
+            if (currentComment.includes('@claude')) {
+              console.log('Claude mentioned in current comment');
+              return true;
+            }
+            
+            // Check if this is a follow-up to a Claude-engaged thread
+            // by looking for Claude's previous comments
+            const comments = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue_number
+            });
+            
+            // Check if Claude has responded before (Claude Assistant user)
+            const claudeResponded = comments.data.some(comment => 
+              comment.user.login === 'github-actions[bot]' && 
+              comment.body.includes('Claude')
+            );
+            
+            // Check if @claude was mentioned anywhere in the thread
+            const claudeMentioned = comments.data.some(comment => 
+              comment.body.includes('@claude')
+            ) || (context.payload.issue?.body || '').includes('@claude');
+            
+            if (claudeResponded || claudeMentioned) {
+              console.log('Claude is engaged in this thread');
+              return true;
+            }
+            
+            console.log('Claude not engaged in this thread');
+            return false;
+          result-encoding: string
+          
+      - name: Exit if Claude shouldn't respond
+        if: steps.should_respond.outputs.result != 'true'
+        run: |
+          echo "Claude not engaged in this thread, skipping"
+          exit 0
+          
+      - name: Get full conversation history
+        id: get_history
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const issue_number = context.issue.number || context.payload.pull_request?.number;
+            
+            // Get the issue/PR details
+            const issue = await github.rest.issues.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue_number
+            });
+            
+            // Get all comments
+            const comments = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue_number
+            });
+            
+            // Build conversation history
+            let conversation = `Issue/PR #${issue_number}: ${issue.data.title}\n\n`;
+            conversation += `Original post by @${issue.data.user.login}:\n${issue.data.body}\n\n`;
+            
+            // Add all comments
+            for (const comment of comments.data) {
+              conversation += `---\n@${comment.user.login} said:\n${comment.body}\n\n`;
+            }
+            
+            // Add the current comment if it's new
+            if (context.payload.comment && context.payload.action === 'created') {
+              conversation += `---\n@${context.payload.comment.user.login} said:\n${context.payload.comment.body}\n\n`;
+            }
+            
+            // Save to file for Claude
+            require('fs').writeFileSync('conversation.txt', conversation);
+            
+            // Get just the latest request
+            const latestRequest = context.payload.comment?.body || context.payload.issue?.body || '';
+            return latestRequest;
+          result-encoding: string
+          
+      - name: Process with Claude
+        id: claude
+        run: |
+          # Add npm global bin to PATH
+          export PATH="/home/rosswolf/.npm-global/bin:$PATH"
+          
+          # Verify claude is available
+          if ! command -v claude &> /dev/null; then
+            echo "Error: claude command not found in PATH"
+            echo "PATH is: $PATH"
+            exit 1
+          fi
+          
+          # Create context with full conversation history and project info
+          cat > context.txt << 'EOF'
+          You are helping with a GitHub issue/PR for the castlebuilder repository.
+          
+          IMPORTANT PROJECT CONTEXT:
+          EOF
+          
+          # Include CLAUDE.md if it exists
+          if [ -f "/home/rosswolf/Code/CLAUDE.md" ]; then
+            echo "=== CLAUDE.md (Project Guidelines) ===" >> context.txt
+            cat /home/rosswolf/Code/CLAUDE.md >> context.txt
+            echo -e "\n=== End of CLAUDE.md ===\n" >> context.txt
+          fi
+          
+          # Add conversation history
+          echo "=== GITHUB CONVERSATION HISTORY ===" >> context.txt
+          cat conversation.txt >> context.txt
+          
+          cat >> context.txt << 'EOF'
+          
+          === YOUR CAPABILITIES ===
+          You are running in a GitHub Actions workflow with these abilities:
+          
+          1. **READ ACCESS**: You can read any file in the repository at /home/rosswolf/Code/castlebuilder
+          2. **WRITE ACCESS**: You can create and modify files in the repository
+          3. **GIT OPERATIONS**: You can create branches, commits, and pull requests using:
+             - git commands for branching and committing
+             - gh CLI for creating pull requests: gh pr create --title "title" --body "description"
+          4. **CURRENT CONTEXT**: You're in the checked-out repository on a self-hosted runner
+          
+          === HOW TO HANDLE REQUESTS ===
+          
+          - **"Update/Change/Modify the PRD/README/docs"**: 
+            1. Create a new branch: git checkout -b update-prd-$(date +%s)
+            2. Make the file changes
+            3. Commit: git add -A && git commit -m "Update PRD as requested"
+            4. Push: git push origin HEAD
+            5. Create PR: gh pr create --title "Update PRD" --body "Updates requested in issue #X"
+            6. Provide the PR link in your response
+          
+          - **"Make a pull request"** (after discussing changes):
+            - If you've already described changes, implement them and create a PR
+            - If unclear what changes to make, ask for clarification
+          
+          - **General questions**: Answer based on the codebase analysis
+          
+          === YOUR TASK ===
+          Please provide a helpful response to the latest message in this conversation.
+          Consider the full context and previous messages to understand what's being asked.
+          If the user is asking you to make changes you discussed, implement them.
+          Be clear about what actions you're taking (creating branches, making PRs, etc).
+          
+          You have full access to the codebase at: /home/rosswolf/Code/castlebuilder
+          The project follows the guidelines in CLAUDE.md - ensure your suggestions align with them.
+          EOF
+          
+          # Use Claude CLI with Opus model and access to full codebase
+          echo "Processing request with Claude Opus..."
+          
+          # Save current directory for output
+          WORKSPACE_DIR=$(pwd)
+          
+          # Now change to the project directory
+          cd /home/rosswolf/Code/castlebuilder
+          
+          # Use claude command with --print for non-interactive mode
+          # This may take 5+ minutes for complex requests
+          # Temporarily disable exit on error for this command
+          echo "Starting Claude processing (this may take several minutes)..."
+          set +e
+          
+          # Use timeout of 10 minutes (600 seconds) since Claude can take 5+ minutes
+          timeout 600 claude --model opus --print "$(cat "$WORKSPACE_DIR/context.txt")" \
+            --add-dir /home/rosswolf/Code/castlebuilder \
+            --dangerously-skip-permissions \
+            > "$WORKSPACE_DIR/response.md" 2>"$WORKSPACE_DIR/claude_error.log"
+          CLAUDE_EXIT_CODE=$?
+          set -e
+          
+          # Check if claude command succeeded
+          if [ $CLAUDE_EXIT_CODE -eq 124 ]; then
+            echo "Error: Claude command timed out after 10 minutes"
+            echo "Creating timeout response..."
+            echo "I apologize, but the request timed out after 10 minutes. This might be due to the complexity of the request. Please try again with a simpler query." > "$WORKSPACE_DIR/response.md"
+          elif [ $CLAUDE_EXIT_CODE -ne 0 ]; then
+            echo "Error: Claude command failed with exit code $CLAUDE_EXIT_CODE"
+            echo "Error log:"
+            cat "$WORKSPACE_DIR/claude_error.log"
+            
+            # Check if the error is the "max turns" message
+            if grep -q "max turns" "$WORKSPACE_DIR/response.md" 2>/dev/null; then
+              echo "Note: Response contains 'max turns' message - Claude completed but hit turn limit"
+            else
+              echo "Creating fallback response..."
+              echo "I apologize, but I encountered an error while processing your request. The Claude CLI returned exit code $CLAUDE_EXIT_CODE. Please check the workflow logs for more details." > "$WORKSPACE_DIR/response.md"
+            fi
+          fi
+          
+          # Check if response was generated
+          if [ ! -s "$WORKSPACE_DIR/response.md" ]; then
+            echo "No response generated from Claude" > "$WORKSPACE_DIR/response.md"
+          fi
+          
+          # Return to workspace directory for next steps
+          cd "$WORKSPACE_DIR"
+          
+      - name: Post response to GitHub
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            const response = fs.readFileSync('response.md', 'utf8');
+            
+            const issue_number = context.issue.number || context.payload.pull_request?.number;
+            
+            // Post the response as a comment
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue_number,
+              body: response
+            });
+            
+  # Automatic PR review using Claude Pro
+  claude-review:
+    runs-on: [self-hosted, claude-pro]
+    
+    if: github.event_name == 'pull_request' && github.event.action == 'opened'
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          
+      - name: Get PR diff
+        run: |
+          git fetch origin pull/${{ github.event.pull_request.number }}/head:pr-branch
+          git diff ${{ github.event.pull_request.base.sha }}..pr-branch > pr.diff
+          
+      - name: Review with Claude
+        run: |
+          # Add npm global bin to PATH
+          export PATH="/home/rosswolf/.npm-global/bin:$PATH"
+          
+          cat > review_request.txt << 'EOF'
+          You are reviewing a pull request for the castlebuilder repository.
+          
+          EOF
+          
+          # Include CLAUDE.md for context
+          if [ -f "/home/rosswolf/Code/CLAUDE.md" ]; then
+            echo "=== PROJECT GUIDELINES (CLAUDE.md) ===" >> review_request.txt
+            cat /home/rosswolf/Code/CLAUDE.md >> review_request.txt
+            echo -e "\n=== End of Guidelines ===\n" >> review_request.txt
+          fi
+          
+          cat >> review_request.txt << 'EOF'
+          === PULL REQUEST DETAILS ===
+          PR Title: ${{ github.event.pull_request.title }}
+          PR Description: ${{ github.event.pull_request.body }}
+          
+          === YOUR REVIEW TASK ===
+          Please review this pull request diff and provide feedback on:
+          1. Code quality and adherence to project guidelines (CLAUDE.md)
+          2. Potential bugs or issues
+          3. Performance considerations
+          4. Security concerns if any
+          5. Architecture and design patterns
+          6. Whether the changes follow the project's Interface-First Development approach
+          
+          Be constructive and helpful in your feedback.
+          Reference specific lines when pointing out issues.
+          Suggest concrete improvements where applicable.
+          
+          You have full access to the codebase at: /home/rosswolf/Code/castlebuilder
+          You can check any files to understand context and verify the changes align with existing patterns.
+          
+          === DIFF TO REVIEW ===
+          EOF
+          
+          cat pr.diff >> review_request.txt
+          
+          # Use Claude CLI with Opus model for thorough review
+          echo "Running PR review with Claude Opus..."
+          
+          # Save current directory for output
+          WORKSPACE_DIR=$(pwd)
+          
+          # Now change to the project directory
+          cd /home/rosswolf/Code/castlebuilder
+          
+          # Use claude command with --print for non-interactive mode
+          # This may take 5+ minutes for complex PRs
+          echo "Starting PR review with Claude (this may take several minutes)..."
+          timeout 600 claude --model opus --print "$(cat "$WORKSPACE_DIR/review_request.txt")" \
+            --add-dir /home/rosswolf/Code/castlebuilder \
+            --dangerously-skip-permissions \
+            > "$WORKSPACE_DIR/review.md" 2>/dev/null || true
+          
+          # Return to workspace directory for next steps
+          cd "$WORKSPACE_DIR"
+          
+      - name: Post review
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            const review = fs.readFileSync('review.md', 'utf8');
+            
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: ${{ github.event.pull_request.number }},
+              body: `## Claude Code Review\n\n${review}`
+            });

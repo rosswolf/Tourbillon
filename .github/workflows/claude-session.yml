@@ -1,0 +1,176 @@
+name: Claude Session Workflow
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+on:
+  issue_comment:
+    types: [created]
+  issues:
+    types: [opened]
+
+jobs:
+  respond:
+    if: contains(github.event.comment.body, '@claude') || contains(github.event.issue.body, '@claude')
+    runs-on: [self-hosted, claude-pro]
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Setup
+        run: |
+          git config --global user.name "Claude Assistant"
+          git config --global user.email "claude@assistant.local"
+          echo "/home/rosswolf/.npm-global/bin" >> $GITHUB_PATH
+          
+      - name: Add eyes emoji
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            try {
+              if (context.eventName === 'issue_comment') {
+                await github.rest.reactions.createForIssueComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  comment_id: context.payload.comment.id,
+                  content: 'eyes'
+                });
+              } else {
+                await github.rest.reactions.createForIssue({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: context.issue.number,
+                  content: 'eyes'
+                });
+              }
+            } catch (e) {
+              console.log('Could not add reaction');
+            }
+            
+      - name: Get request
+        id: get_request
+        run: |
+          if [ "${{ github.event_name }}" = "issue_comment" ]; then
+            echo "${{ github.event.comment.body }}" > request.txt
+            echo "issue_number=${{ github.event.issue.number }}" >> $GITHUB_OUTPUT
+          else
+            echo "${{ github.event.issue.body }}" > request.txt
+            echo "issue_number=${{ github.event.issue.number }}" >> $GITHUB_OUTPUT
+          fi
+          
+      - name: Verify Claude Session
+        run: |
+          # GitHub-created sessions work! Sessions must be created in the same environment
+          # where they will be used (GitHub Actions → GitHub Actions)
+          
+          if [ -f .github/CLAUDE_SESSION_ID ]; then
+            SESSION_ID=$(cat .github/CLAUDE_SESSION_ID)
+            echo "✓ Using GitHub-created session: $SESSION_ID"
+          else
+            echo "⚠️ No session found. Run 'Create Claude Session' workflow first"
+            echo "Creating issues will work but be slower without session"
+          fi
+          
+      - name: Call Claude
+        run: |
+          set +e  # Don't exit on error so we can handle it
+          
+          # Try to use GitHub-created session if it exists
+          if [ -f .github/CLAUDE_SESSION_ID ]; then
+            SESSION_ID=$(cat .github/CLAUDE_SESSION_ID)
+            echo "Using GitHub-created session: $SESSION_ID"
+          else
+            SESSION_ID="25fd8500-045a-4a40-bb74-f1f9e60e46ce"
+            echo "No GitHub session found, using default: $SESSION_ID"
+          fi
+          
+          ISSUE_NUMBER="${{ steps.get_request.outputs.issue_number }}"
+          
+          # Using session resumption with --print flag (FIXED!)
+          echo "=== Testing Claude session resumption ==="
+          
+          # Only proceed if response.md doesn't exist
+          if [ -f response.md ]; then
+            exit 0
+          fi
+          
+          # Build request
+          REQUEST="GitHub Issue #${ISSUE_NUMBER}
+          Repository: ${{ github.repository }}
+          Working Directory: ${{ github.workspace }}
+          
+          User Request:
+          $(cat request.txt)
+          
+          Instructions:
+          - Respond helpfully to the issue/comment
+          - You have full repository access
+          - To create a PR:
+            1. git checkout -b branch-name-$(date +%s)
+            2. Make changes
+            3. git add -A && git commit -m 'message'
+            4. git push origin HEAD
+            5. gh pr create --title 'title' --body 'body'
+          - Include PR link if you create one"
+          
+          # Try GitHub-created session first
+          if [ -f .github/CLAUDE_SESSION_ID ]; then
+            echo "Attempting to resume GitHub-created session: $SESSION_ID"
+            echo "$REQUEST" | claude \
+              --print \
+              --resume "$SESSION_ID" \
+              --dangerously-skip-permissions > response.md 2>error.log
+            
+            if [ $? -eq 0 ]; then
+              echo "✅ GitHub session resumption successful!"
+              EXIT_CODE=0
+            else
+              echo "❌ GitHub session resume failed, trying direct call..."
+              EXIT_CODE=1
+            fi
+          else
+            EXIT_CODE=1
+          fi
+          
+          # Fallback to direct call if session doesn't work
+          if [ $EXIT_CODE -ne 0 ]; then
+            echo "Using direct Claude call (fallback)"
+            echo "$REQUEST" | claude \
+              --dangerously-skip-permissions \
+              --add-dir "${{ github.workspace }}" > response.md 2>error.log
+            EXIT_CODE=$?
+          fi
+          
+          # Check results
+          if [ $EXIT_CODE -eq 0 ]; then
+            echo "✓ Claude call successful!"
+          else
+            echo "✗ Claude call failed with exit code: $EXIT_CODE"
+            echo "Error log content:"
+            cat error.log 2>/dev/null || echo "(no error.log)"
+            echo "Response content:"
+            cat response.md 2>/dev/null || echo "(no response.md)"
+            
+            # If still failing, just report the error
+            echo "Error: Claude CLI failed. This is a known issue with session persistence." > response.md
+          fi
+            
+      - name: Post response
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            const response = fs.readFileSync('response.md', 'utf8');
+            const issue_number = ${{ steps.get_request.outputs.issue_number }};
+            
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue_number,
+              body: response
+            });

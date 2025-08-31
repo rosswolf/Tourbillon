@@ -1,0 +1,246 @@
+name: Claude Enhanced V2
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+  actions: write
+
+on:
+  issue_comment:
+    types: [created]
+  pull_request_review_comment:
+    types: [created]
+  issues:
+    types: [opened]
+  pull_request:
+    types: [opened]
+
+jobs:
+  claude-respond:
+    runs-on: [self-hosted, claude-pro]
+    
+    if: >
+      (github.event_name == 'issue_comment' && contains(github.event.comment.body, '@claude')) ||
+      (github.event_name == 'pull_request_review_comment' && contains(github.event.comment.body, '@claude')) ||
+      (github.event_name == 'issues' && contains(github.event.issue.body, '@claude')) ||
+      (github.event_name == 'pull_request' && github.event.pull_request && contains(github.event.pull_request.body, '@claude'))
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+          
+      - name: Setup Environment
+        run: |
+          git config --global user.name "Claude Assistant"
+          git config --global user.email "claude@assistant.local"
+          echo "/home/rosswolf/.npm-global/bin" >> $GITHUB_PATH
+          mkdir -p $HOME/.claude/sessions
+          mkdir -p artifacts
+          
+      - name: Get Issue Context
+        id: get_context
+        run: |
+          # Get issue/PR number
+          if [ "${{ github.event_name }}" = "issue_comment" ] || [ "${{ github.event_name }}" = "pull_request_review_comment" ]; then
+            ISSUE_NUMBER="${{ github.event.issue.number }}"
+          elif [ "${{ github.event_name }}" = "pull_request" ]; then
+            ISSUE_NUMBER="${{ github.event.pull_request.number }}"
+          else
+            ISSUE_NUMBER="${{ github.event.issue.number }}"
+          fi
+          
+          echo "issue_number=$ISSUE_NUMBER" >> $GITHUB_OUTPUT
+          
+      - name: Add 👀 reaction
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            // Add eyes emoji to show Claude is processing
+            try {
+              if ('${{ github.event_name }}' === 'issue_comment') {
+                await github.rest.reactions.createForIssueComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  comment_id: ${{ github.event.comment.id }},
+                  content: 'eyes'
+                });
+              } else if ('${{ github.event_name }}' === 'issues' || '${{ github.event_name }}' === 'pull_request') {
+                const issue_number = parseInt('${{ steps.get_context.outputs.issue_number }}');
+                await github.rest.reactions.createForIssue({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issue_number,
+                  content: 'eyes'
+                });
+              }
+            } catch (error) {
+              console.log('Could not add reaction:', error.message);
+            }
+          
+      - name: Continue processing
+        run: |
+          # Get latest request
+          if [ "${{ github.event_name }}" = "issue_comment" ] || [ "${{ github.event_name }}" = "pull_request_review_comment" ]; then
+            echo "${{ github.event.comment.body }}" > latest_request.txt
+          elif [ "${{ github.event_name }}" = "issues" ]; then
+            echo "${{ github.event.issue.body }}" > latest_request.txt
+          else
+            echo "${{ github.event.pull_request.body }}" > latest_request.txt
+          fi
+          
+      - name: Check for repository parent session
+        id: check_parent
+        run: |
+          PARENT_NAME="parent-repo-castlebuilder"
+          echo "Checking for repository-wide parent session: $PARENT_NAME"
+          
+          # Check if parent exists by name
+          if .github/scripts/session_manager.sh exists "$PARENT_NAME" | grep -q "true"; then
+            echo "Repository parent session exists"
+            PARENT_UUID=$(.github/scripts/session_manager.sh get-uuid "$PARENT_NAME")
+            echo "parent_exists=true" >> $GITHUB_OUTPUT
+            echo "parent_uuid=$PARENT_UUID" >> $GITHUB_OUTPUT
+          else
+            echo "Repository parent session does not exist"
+            echo "parent_exists=false" >> $GITHUB_OUTPUT
+          fi
+          
+      - name: Create parent session if needed
+        id: create_parent
+        if: steps.check_parent.outputs.parent_exists == 'false'
+        run: |
+          echo "Creating repository parent session (5-10 minutes)..."
+          echo "Note: First-time creation requires building complete codebase knowledge"
+          
+          # Create parent and capture UUID
+          PARENT_UUID=$(.github/scripts/session_manager.sh create-parent "castlebuilder" 2>&1 | tail -1)
+          EXIT_CODE=$?
+          
+          echo "Exit code: $EXIT_CODE"
+          
+          if [ $EXIT_CODE -eq 0 ] && [[ "$PARENT_UUID" =~ ^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$ ]]; then
+            echo "Parent session created with UUID: $PARENT_UUID"
+            echo "parent_uuid=$PARENT_UUID" >> $GITHUB_OUTPUT
+          else
+            echo "Failed to create parent session - first run takes time"
+            echo "Will use fallback response"
+            echo "parent_uuid=" >> $GITHUB_OUTPUT
+          fi
+          
+      - name: Get parent session UUID
+        id: get_parent
+        run: |
+          if [ "${{ steps.check_parent.outputs.parent_exists }}" = "true" ]; then
+            PARENT_UUID="${{ steps.check_parent.outputs.parent_uuid }}"
+          else
+            PARENT_UUID="${{ steps.create_parent.outputs.parent_uuid }}"
+          fi
+          echo "parent_uuid=$PARENT_UUID" >> $GITHUB_OUTPUT
+          
+      - name: Fork child agent
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Working parent session created in interactive mode
+          MANUAL_PARENT_SESSION: "25fd8500-045a-4a40-bb74-f1f9e60e46ce"
+        run: |
+          # Debug environment
+          echo "=== ENVIRONMENT DEBUG ==="
+          echo "Current user: $(whoami)"
+          echo "Home directory: $HOME"
+          echo "Claude CLI version: $(claude --version 2>&1 || echo 'Claude not found')"
+          echo "Claude CLI location: $(which claude 2>&1 || echo 'Not in PATH')"
+          echo ""
+          echo "=== CLAUDE SESSION FILES ==="
+          echo "Sessions directory:"
+          ls -la ~/.claude/sessions 2>&1 || echo 'Not found'
+          echo ""
+          echo "UUID map contents:"
+          cat ~/.claude/sessions/uuid_map.txt 2>&1 || echo 'Not found'
+          echo ""
+          echo "Todos directory contents:"
+          ls -la ~/.claude/todos/ | head -10
+          echo ""
+          echo "=== TESTING MANUAL SESSION ==="
+          echo "Testing resume with manual parent session..."
+          echo "Manual session ID: $MANUAL_PARENT_SESSION"
+          echo "Test query" | claude --resume "$MANUAL_PARENT_SESSION" --print 2>&1 | head -5 || echo "Resume failed"
+          echo ""
+          
+          PARENT_UUID="${{ steps.get_parent.outputs.parent_uuid }}"
+          ISSUE_NUMBER="${{ steps.get_context.outputs.issue_number }}"
+          USER_REQUEST=$(cat latest_request.txt)
+          
+          # Build context
+          ISSUE_CONTEXT="GitHub Issue #${ISSUE_NUMBER}
+          Event: ${{ github.event_name }}
+          Repository: ${{ github.repository }}"
+          
+          echo "Parent UUID: $PARENT_UUID"
+          echo "Issue: #${ISSUE_NUMBER}"
+          
+          # Use the manual parent session that we know works
+          if [ -n "$MANUAL_PARENT_SESSION" ]; then
+            echo "Using manual parent session: $MANUAL_PARENT_SESSION"
+            
+            # Build the full request
+            FULL_REQUEST="=== GitHub Context ===
+$ISSUE_CONTEXT
+
+=== User Request ===
+$USER_REQUEST
+
+=== Instructions ===
+You're responding to a GitHub issue/PR. You have full repository access at $GITHUB_WORKSPACE.
+If you need to create a pull request, use:
+- git checkout -b branch-name
+- Make your changes
+- git add -A && git commit -m 'message'
+- git push origin HEAD
+- gh pr create --title 'title' --body 'description'
+
+Please provide a helpful response to the user's request."
+            
+            # Send request using the manual parent session
+            echo "$FULL_REQUEST" | claude --resume "$MANUAL_PARENT_SESSION" --print \
+              --add-dir "$GITHUB_WORKSPACE" \
+              --dangerously-skip-permissions \
+              > response.md 2>&1 || {
+              echo "Error processing request. Trying again..." > response.md
+              # Retry once on failure
+              echo "$FULL_REQUEST" | claude --resume "$MANUAL_PARENT_SESSION" --print \
+                --add-dir "$GITHUB_WORKSPACE" \
+                --dangerously-skip-permissions \
+                > response.md 2>&1 || echo "Failed to process request" > response.md
+            }
+            
+            echo "Response generated successfully"
+          else
+            echo "No parent session configured"
+            echo "The workflow needs a parent session. Please see SETUP_PARENT_SESSION.md for instructions." > response.md
+          fi
+          
+          # Ensure response exists
+          if [ ! -s response.md ]; then
+            echo "I'm processing your request through the enhanced V2 workflow. The session system is being initialized." > response.md
+          fi
+          
+      - name: Post response
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            const response = fs.readFileSync('response.md', 'utf8');
+            const issue_number = parseInt('${{ steps.get_context.outputs.issue_number }}');
+            
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue_number,
+              body: response
+            });
