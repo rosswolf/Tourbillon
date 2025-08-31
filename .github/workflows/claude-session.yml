@@ -62,6 +62,25 @@ jobs:
             echo "issue_number=${{ github.event.issue.number }}" >> $GITHUB_OUTPUT
           fi
           
+      - name: Setup Claude Session
+        run: |
+          SESSION_ID="25fd8500-045a-4a40-bb74-f1f9e60e46ce"
+          PROJECT_PATH="-home-rosswolf-Code-castlebuilder"
+          
+          # Create Claude directories
+          mkdir -p ~/.claude/projects/"$PROJECT_PATH"
+          
+          # Copy session file from shared location
+          # The session file needs to be accessible to the runner
+          if [ -f "/home/rosswolf/.claude/projects/$PROJECT_PATH/${SESSION_ID}.jsonl" ]; then
+            echo "Copying session file to runner..."
+            cp "/home/rosswolf/.claude/projects/$PROJECT_PATH/${SESSION_ID}.jsonl" \
+               ~/.claude/projects/"$PROJECT_PATH"/
+            echo "Session file copied successfully"
+          else
+            echo "Warning: Session file not found at expected location"
+          fi
+          
       - name: Call Claude
         run: |
           SESSION_ID="25fd8500-045a-4a40-bb74-f1f9e60e46ce"
