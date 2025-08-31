@@ -67,8 +67,8 @@ jobs:
           SESSION_ID="25fd8500-045a-4a40-bb74-f1f9e60e46ce"
           ISSUE_NUMBER="${{ steps.get_request.outputs.issue_number }}"
           
-          # For now, don't use session - just call Claude directly
-          echo "=== Calling Claude directly (session issue being fixed) ==="
+          # Using session resumption with --print flag (FIXED!)
+          echo "=== Resuming Claude session with --print flag ==="
           
           # Only proceed if response.md doesn't exist
           if [ -f response.md ]; then
@@ -94,8 +94,10 @@ jobs:
             5. gh pr create --title 'title' --body 'body'
           - Include PR link if you create one"
           
-          # Call Claude directly without session for now
+          # Resume session with --print flag (the fix!)
           echo "$REQUEST" | claude \
+            --print \
+            --resume "$SESSION_ID" \
             --model opus \
             --add-dir "${{ github.workspace }}" \
             --dangerously-skip-permissions > response.md 2>&1 || echo "Error calling Claude" > response.md
