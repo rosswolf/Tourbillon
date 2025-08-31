@@ -1,0 +1,8 @@
+@claude Please confirm the following to verify full integration:
+
+1. Can you access your GitHub-created session context?
+2. What repository are you assisting with?
+3. Create a simple test file called 'session_test.md' with confirmation that session persistence is working
+4. What was your response time for this request?
+
+This is the final integration test.
