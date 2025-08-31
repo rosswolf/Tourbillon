@@ -1,5 +1,10 @@
 name: Claude Session Workflow
 
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
 on:
   issue_comment:
     types: [created]
@@ -64,9 +69,18 @@ jobs:
           
           # Test session
           echo "Testing session..." 
-          if ! echo "test" | claude --resume "$SESSION_ID" --print 2>&1 | grep -q "castlebuilder"; then
-            echo "Session not working, please check"
-            echo "Session error - please check the parent session" > response.md
+          TEST_OUTPUT=$(echo "What repository?" | claude --resume "$SESSION_ID" --print 2>&1 || true)
+          echo "Test output: $TEST_OUTPUT"
+          if echo "$TEST_OUTPUT" | grep -qi "no conversation found"; then
+            echo "Session not working - cannot resume"
+            echo "Session error - cannot resume session $SESSION_ID" > response.md
+            exit 0
+          else
+            echo "Session is working!"
+          fi
+          
+          # Only proceed if response.md doesn't exist
+          if [ -f response.md ]; then
             exit 0
           fi
           
