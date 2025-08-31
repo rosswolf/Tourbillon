@@ -15,23 +15,105 @@ on:
 
 jobs:
   respond:
-    if: |
-      contains(github.event.comment.body, '@claude') || 
-      contains(github.event.issue.body, '@claude') ||
-      contains(github.event.review.body, '@claude')
     runs-on: [self-hosted, claude-pro]
     
     steps:
+      - name: Check if Claude should respond
+        id: check_claude
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            // Check if current comment mentions @claude
+            const currentComment = context.payload.comment?.body || 
+                                 context.payload.issue?.body || 
+                                 context.payload.review?.body || '';
+            
+            if (currentComment.includes('@claude')) {
+              console.log('Claude mentioned in current comment');
+              return true;
+            }
+            
+            // For issue comments, check if @claude was mentioned in issue or any previous comment
+            if (context.eventName === 'issue_comment') {
+              // Check issue body
+              const issue = await github.rest.issues.get({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number
+              });
+              
+              if (issue.data.body && issue.data.body.includes('@claude')) {
+                console.log('Claude mentioned in issue body');
+                return true;
+              }
+              
+              // Check previous comments
+              const comments = await github.rest.issues.listComments({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number
+              });
+              
+              for (const comment of comments.data) {
+                if (comment.body && comment.body.includes('@claude')) {
+                  console.log('Claude mentioned in previous comment');
+                  return true;
+                }
+              }
+            }
+            
+            // For PR review comments, check PR and previous comments
+            if (context.eventName === 'pull_request_review_comment') {
+              const pr = await github.rest.pulls.get({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: context.payload.pull_request.number
+              });
+              
+              if (pr.data.body && pr.data.body.includes('@claude')) {
+                console.log('Claude mentioned in PR body');
+                return true;
+              }
+              
+              // Check previous review comments
+              const reviews = await github.rest.pulls.listReviewComments({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: context.payload.pull_request.number
+              });
+              
+              for (const review of reviews.data) {
+                if (review.body && review.body.includes('@claude')) {
+                  console.log('Claude mentioned in previous review');
+                  return true;
+                }
+              }
+            }
+            
+            console.log('Claude not mentioned in this thread');
+            return false;
+          result-encoding: string
+          
+      - name: Exit if Claude not needed
+        if: steps.check_claude.outputs.result != 'true'
+        run: |
+          echo "Claude not mentioned in this thread, skipping"
+          exit 0
+          
       - name: Checkout
+        if: steps.check_claude.outputs.result == 'true'
         uses: actions/checkout@v4
         
       - name: Setup
+        if: steps.check_claude.outputs.result == 'true'
         run: |
           git config --global user.name "Claude Assistant"
           git config --global user.email "claude@assistant.local"
           echo "/home/rosswolf/.npm-global/bin" >> $GITHUB_PATH
           
       - name: Add eyes emoji
+        if: steps.check_claude.outputs.result == 'true'
         uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -57,6 +139,7 @@ jobs:
             }
             
       - name: Get request
+        if: steps.check_claude.outputs.result == 'true'
         id: get_request
         run: |
           if [ "${{ github.event_name }}" = "issue_comment" ]; then
@@ -68,6 +151,7 @@ jobs:
           fi
           
       - name: Verify Claude Session
+        if: steps.check_claude.outputs.result == 'true'
         run: |
           # GitHub-created sessions work! Sessions must be created in the same environment
           # where they will be used (GitHub Actions → GitHub Actions)
@@ -81,6 +165,7 @@ jobs:
           fi
           
       - name: Call Claude
+        if: steps.check_claude.outputs.result == 'true'
         run: |
           set +e  # Don't exit on error so we can handle it
           
@@ -165,6 +250,7 @@ jobs:
           fi
             
       - name: Post response
+        if: steps.check_claude.outputs.result == 'true'
         uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
