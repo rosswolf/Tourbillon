@@ -115,12 +115,21 @@ jobs:
           - Include PR link if you create one"
           
           # Resume session with --print flag (the fix!)
-          # Note: Removed --model opus as it may conflict with --resume
+          # Capture the actual error for debugging
           echo "$REQUEST" | claude \
             --print \
             --resume "$SESSION_ID" \
             --add-dir "${{ github.workspace }}" \
-            --dangerously-skip-permissions > response.md 2>&1 || echo "Error calling Claude" > response.md
+            --dangerously-skip-permissions > response.md 2>error.log
+          
+          # Check if command failed
+          if [ $? -ne 0 ]; then
+            echo "Claude command failed with exit code: $?"
+            echo "Error output:"
+            cat error.log
+            echo "--- End of error ---"
+            echo "Error calling Claude. Check logs for details." > response.md
+          fi
             
       - name: Post response
         uses: actions/github-script@v7
