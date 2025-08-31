@@ -132,11 +132,21 @@ jobs:
           REQUEST="GitHub Issue #${ISSUE_NUMBER}
 Event: ${{ github.event_name }}
 Repository: ${{ github.repository }}
+Working Directory: ${{ github.workspace }}
 
 User Request:
 $USER_REQUEST
 
-Please respond to this GitHub issue/PR comment. You have full access to the repository and can create pull requests using 'gh pr create' if needed."
+Instructions:
+- You have full access to the repository at ${{ github.workspace }}
+- If you need to create a pull request:
+  1. Create a new branch: git checkout -b fix-issue-${ISSUE_NUMBER}-\$(date +%s)
+  2. Make your changes using the Edit or Write tools
+  3. Commit: git add -A && git commit -m 'Clear descriptive message'
+  4. Push: git push origin HEAD
+  5. Create PR: gh pr create --title 'Title' --body 'Description referencing #${ISSUE_NUMBER}'
+- Provide the PR URL in your response if you create one
+- Be concise and helpful"
           
           # Send request to Claude using the resumed session
           echo "$REQUEST" | claude --resume "$PARENT_SESSION_ID" --print \

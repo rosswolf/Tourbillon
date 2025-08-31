@@ -231,3 +231,5 @@ System tracks comprehensive gameplay metrics:
 ---
 
 *This PRD represents the current state of Swish based on implemented systems and serves as a foundation for continued development and iteration.*
+
+BLUE
