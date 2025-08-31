@@ -115,20 +115,26 @@ jobs:
           - Include PR link if you create one"
           
           # Resume session with --print flag (the fix!)
-          # Capture the actual error for debugging
+          # Try without --add-dir flag as it might be causing issues
           echo "$REQUEST" | claude \
             --print \
             --resume "$SESSION_ID" \
-            --add-dir "${{ github.workspace }}" \
             --dangerously-skip-permissions > response.md 2>error.log
           
+          EXIT_CODE=$?
+          
           # Check if command failed
-          if [ $? -ne 0 ]; then
-            echo "Claude command failed with exit code: $?"
-            echo "Error output:"
-            cat error.log
-            echo "--- End of error ---"
-            echo "Error calling Claude. Check logs for details." > response.md
+          if [ $EXIT_CODE -ne 0 ]; then
+            echo "Claude command failed with exit code: $EXIT_CODE"
+            echo "Error output from error.log:"
+            cat error.log || echo "No error.log file"
+            echo "Response.md content:"
+            cat response.md || echo "No response.md file"
+            echo "--- End of debug output ---"
+            
+            # Try fallback without session
+            echo "Attempting fallback without session..."
+            echo "$REQUEST" | claude --dangerously-skip-permissions > response.md 2>&1 || echo "Fallback also failed" > response.md
           fi
             
       - name: Post response
