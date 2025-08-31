@@ -49,6 +49,40 @@ jobs:
           fi
           echo "issue_number=$ISSUE_NUMBER" >> $GITHUB_OUTPUT
           
+      - name: Add 👀 reaction
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const issue_number = parseInt('${{ steps.get_context.outputs.issue_number }}');
+            
+            // Add eyes emoji to show we're processing
+            if ('${{ github.event_name }}' === 'issue_comment') {
+              // React to the comment
+              await github.rest.reactions.createForIssueComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: ${{ github.event.comment.id }},
+                content: 'eyes'
+              });
+            } else if ('${{ github.event_name }}' === 'issues') {
+              // React to the issue
+              await github.rest.reactions.createForIssue({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue_number,
+                content: 'eyes'
+              });
+            } else if ('${{ github.event_name }}' === 'pull_request') {
+              // React to the PR (issues API works for PRs too)
+              await github.rest.reactions.createForIssue({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue_number,
+                content: 'eyes'
+              });
+            }
+          
           # Get latest request
           if [ "${{ github.event_name }}" = "issue_comment" ] || [ "${{ github.event_name }}" = "pull_request_review_comment" ]; then
             echo "${{ github.event.comment.body }}" > latest_request.txt

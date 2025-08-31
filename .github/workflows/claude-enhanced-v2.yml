@@ -55,6 +55,35 @@ jobs:
           
           echo "issue_number=$ISSUE_NUMBER" >> $GITHUB_OUTPUT
           
+      - name: Add 👀 reaction
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            // Add eyes emoji to show Claude is processing
+            try {
+              if ('${{ github.event_name }}' === 'issue_comment') {
+                await github.rest.reactions.createForIssueComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  comment_id: ${{ github.event.comment.id }},
+                  content: 'eyes'
+                });
+              } else if ('${{ github.event_name }}' === 'issues' || '${{ github.event_name }}' === 'pull_request') {
+                const issue_number = parseInt('${{ steps.get_context.outputs.issue_number }}');
+                await github.rest.reactions.createForIssue({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issue_number,
+                  content: 'eyes'
+                });
+              }
+            } catch (error) {
+              console.log('Could not add reaction:', error.message);
+            }
+          
+      - name: Continue processing
+        run: |
           # Get latest request
           if [ "${{ github.event_name }}" = "issue_comment" ] || [ "${{ github.event_name }}" = "pull_request_review_comment" ]; then
             echo "${{ github.event.comment.body }}" > latest_request.txt
