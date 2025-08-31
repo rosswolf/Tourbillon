@@ -67,17 +67,8 @@ jobs:
           SESSION_ID="25fd8500-045a-4a40-bb74-f1f9e60e46ce"
           ISSUE_NUMBER="${{ steps.get_request.outputs.issue_number }}"
           
-          # Test session
-          echo "Testing session..." 
-          TEST_OUTPUT=$(echo "What repository?" | claude --resume "$SESSION_ID" --print 2>&1 || true)
-          echo "Test output: $TEST_OUTPUT"
-          if echo "$TEST_OUTPUT" | grep -qi "no conversation found"; then
-            echo "Session not working - cannot resume"
-            echo "Session error - cannot resume session $SESSION_ID" > response.md
-            exit 0
-          else
-            echo "Session is working!"
-          fi
+          # For now, don't use session - just call Claude directly
+          echo "=== Calling Claude directly (session issue being fixed) ==="
           
           # Only proceed if response.md doesn't exist
           if [ -f response.md ]; then
@@ -103,8 +94,9 @@ jobs:
             5. gh pr create --title 'title' --body 'body'
           - Include PR link if you create one"
           
-          # Call Claude
-          echo "$REQUEST" | claude --resume "$SESSION_ID" --print \
+          # Call Claude directly without session for now
+          echo "$REQUEST" | claude \
+            --model opus \
             --add-dir "${{ github.workspace }}" \
             --dangerously-skip-permissions > response.md 2>&1 || echo "Error calling Claude" > response.md
             
