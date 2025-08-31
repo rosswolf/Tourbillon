@@ -1,0 +1,93 @@
+name: Create Claude Session
+
+on:
+  workflow_dispatch:
+    inputs:
+      session_name:
+        description: 'Name for this session'
+        required: false
+        default: 'github-parent-session'
+
+jobs:
+  create-session:
+    runs-on: [self-hosted, claude-pro]
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Create New Session
+        run: |
+          # Generate a proper UUID for the session
+          SESSION_ID=$(uuidgen)
+          echo "Creating new session: $SESSION_ID"
+          
+          # Create session with repository context
+          PROMPT="You are a GitHub Actions assistant for the repository ${{ github.repository }}.
+          
+          Repository structure:
+          $(find . -type f -name "*.md" -o -name "*.yml" -o -name "*.yaml" | head -50)
+          
+          Key files:
+          - README.md content:
+          $(cat README.md 2>/dev/null | head -100 || echo "No README")
+          
+          Your role:
+          - Respond to GitHub issues and comments
+          - Help with code questions
+          - Create pull requests when needed
+          - You have full repository access
+          
+          This is the parent session. Future requests will resume from here.
+          Acknowledge that you understand your role."
+          
+          # Create the session
+          echo "$PROMPT" | claude --session-id "$SESSION_ID" --print > session_response.md 2>&1
+          
+          if [ $? -eq 0 ]; then
+            echo "✅ Session created successfully!"
+            echo "Session ID: $SESSION_ID"
+            
+            # Save session ID to a file
+            echo "$SESSION_ID" > .github/CLAUDE_SESSION_ID
+            
+            # Also save to workflow output
+            echo "session_id=$SESSION_ID" >> $GITHUB_OUTPUT
+            
+            # Show response
+            echo "Claude's response:"
+            cat session_response.md
+            
+            # Verify session file was created
+            SESSION_FILE="$HOME/.claude/projects/-home-rosswolf-actions-runner--work-castlebuilder-castlebuilder/${SESSION_ID}.jsonl"
+            if [ -f "$SESSION_FILE" ]; then
+              echo "✅ Session file created at: $SESSION_FILE"
+              echo "  Size: $(stat -c%s "$SESSION_FILE") bytes"
+            else
+              echo "⚠️ Session file not found at expected location"
+              echo "Checking other locations:"
+              find ~/.claude -name "${SESSION_ID}*" -type f 2>/dev/null | head -10
+            fi
+          else
+            echo "❌ Failed to create session"
+            cat session_response.md
+            exit 1
+          fi
+          
+      - name: Commit Session ID
+        run: |
+          git config --global user.name "Claude Assistant"
+          git config --global user.email "claude@assistant.local"
+          
+          if [ -f .github/CLAUDE_SESSION_ID ]; then
+            git add .github/CLAUDE_SESSION_ID
+            git commit -m "Update Claude session ID (created in GitHub Actions)" || echo "No changes to commit"
+            git push origin ${{ github.ref_name }} || echo "No changes to push"
+          fi
+          
+      - name: Test Resume
+        run: |
+          SESSION_ID=$(cat .github/CLAUDE_SESSION_ID)
+          echo "Testing resume of session: $SESSION_ID"
+          
+          echo "Can you confirm you remember your role?" | claude --print --resume "$SESSION_ID" 2>&1 | head -50
