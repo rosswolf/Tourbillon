@@ -84,11 +84,13 @@ jobs:
           
       - name: Call Claude
         run: |
+          set +e  # Don't exit on error so we can handle it
+          
           SESSION_ID="25fd8500-045a-4a40-bb74-f1f9e60e46ce"
           ISSUE_NUMBER="${{ steps.get_request.outputs.issue_number }}"
           
           # Using session resumption with --print flag (FIXED!)
-          echo "=== Resuming Claude session with --print flag ==="
+          echo "=== Testing Claude session resumption ==="
           
           # Only proceed if response.md doesn't exist
           if [ -f response.md ]; then
@@ -114,8 +116,13 @@ jobs:
             5. gh pr create --title 'title' --body 'body'
           - Include PR link if you create one"
           
-          # Resume session with --print flag (the fix!)
-          # Try without --add-dir flag as it might be causing issues
+          # First, test if Claude CLI is available
+          echo "Testing Claude CLI availability..."
+          which claude || echo "Claude not in PATH"
+          claude --version 2>&1 || echo "Could not get Claude version"
+          
+          # Try to resume session
+          echo "Attempting to resume session: $SESSION_ID"
           echo "$REQUEST" | claude \
             --print \
             --resume "$SESSION_ID" \
@@ -123,18 +130,27 @@ jobs:
           
           EXIT_CODE=$?
           
-          # Check if command failed
-          if [ $EXIT_CODE -ne 0 ]; then
-            echo "Claude command failed with exit code: $EXIT_CODE"
-            echo "Error output from error.log:"
-            cat error.log || echo "No error.log file"
-            echo "Response.md content:"
-            cat response.md || echo "No response.md file"
-            echo "--- End of debug output ---"
+          # Check results
+          if [ $EXIT_CODE -eq 0 ]; then
+            echo "✓ Session resumption successful!"
+          else
+            echo "✗ Session resumption failed with exit code: $EXIT_CODE"
+            echo "Error log content:"
+            cat error.log 2>/dev/null || echo "(no error.log)"
+            echo "Response content:"
+            cat response.md 2>/dev/null || echo "(no response.md)"
             
             # Try fallback without session
             echo "Attempting fallback without session..."
-            echo "$REQUEST" | claude --dangerously-skip-permissions > response.md 2>&1 || echo "Fallback also failed" > response.md
+            echo "$REQUEST" | claude --dangerously-skip-permissions > response.md 2>&1
+            
+            if [ $? -eq 0 ]; then
+              echo "✓ Fallback successful"
+            else
+              echo "✗ Fallback also failed"
+              echo "Creating error message..."
+              echo "Error: Claude CLI is not working properly in GitHub Actions environment" > response.md
+            fi
           fi
             
       - name: Post response
