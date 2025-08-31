@@ -115,10 +115,10 @@ jobs:
           - Include PR link if you create one"
           
           # Resume session with --print flag (the fix!)
+          # Note: Removed --model opus as it may conflict with --resume
           echo "$REQUEST" | claude \
             --print \
             --resume "$SESSION_ID" \
-            --model opus \
             --add-dir "${{ github.workspace }}" \
             --dangerously-skip-permissions > response.md 2>&1 || echo "Error calling Claude" > response.md
             
