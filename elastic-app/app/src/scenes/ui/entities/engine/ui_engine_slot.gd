@@ -165,9 +165,21 @@ func _fire_production() -> void:
 	if not card:
 		return
 	
-	# TODO: Consume and produce forces via GlobalGameManager.hero
+	# Consume required forces
+	if GlobalGameManager.hero and not card.force_consumption.is_empty():
+		if not GlobalGameManager.hero.consume_forces(card.force_consumption):
+			# Can't consume, stay in ready state
+			return
 	
-	# Fire any additional card effects
+	# Produce forces
+	if GlobalGameManager.hero and not card.force_production.is_empty():
+		GlobalGameManager.hero.add_forces(card.force_production)
+	
+	# Process on_fire effect string
+	if not card.on_fire_effect.is_empty():
+		TourbillonEffectProcessor.process_effect(card.on_fire_effect, self, null)
+	
+	# Fire any legacy slot effects
 	__button_entity.activate_slot_effect(card, null)
 	
 	# Reset timer
