@@ -73,6 +73,72 @@ func get_type() -> Entity.EntityType:
 func reset_start_of_battle():
 	pass
 
+## Get a force resource by type
+func get_force_resource(force_type: GameResource.Type) -> CappedResource:
+	match force_type:
+		GameResource.Type.HEAT:
+			return heat
+		GameResource.Type.PRECISION:
+			return precision
+		GameResource.Type.MOMENTUM:
+			return momentum
+		GameResource.Type.BALANCE:
+			return balance
+		GameResource.Type.ENTROPY:
+			return entropy
+		GameResource.Type.INSPIRATION:
+			return inspiration
+		_:
+			return null
+
+## Check if hero has enough of a specific force
+func has_force(force_type: GameResource.Type, amount: int) -> bool:
+	var resource = get_force_resource(force_type)
+	if resource:
+		return resource.current >= amount
+	return false
+
+## Check if hero has enough forces for a dictionary of requirements
+func has_forces(requirements: Dictionary) -> bool:
+	for force_type in requirements:
+		var required_amount = requirements[force_type]
+		if not has_force(force_type, required_amount):
+			return false
+	return true
+
+## Consume a specific amount of a force
+func consume_force(force_type: GameResource.Type, amount: int) -> bool:
+	var resource = get_force_resource(force_type)
+	if resource and resource.current >= amount:
+		resource.subtract(amount)
+		return true
+	return false
+
+## Consume multiple forces based on requirements dictionary
+func consume_forces(requirements: Dictionary) -> bool:
+	# First check if we have all requirements
+	if not has_forces(requirements):
+		return false
+	
+	# Then consume them all
+	for force_type in requirements:
+		var amount = requirements[force_type]
+		consume_force(force_type, amount)
+	
+	return true
+
+## Add to a specific force
+func add_force(force_type: GameResource.Type, amount: int) -> void:
+	var resource = get_force_resource(force_type)
+	if resource:
+		resource.add(amount)
+
+## Add multiple forces from production dictionary
+func add_forces(production: Dictionary) -> void:
+	for force_type in production:
+		var amount = production[force_type]
+		add_force(force_type, amount)
+
 	
 func signal_moved(new_position: int) -> void:
 	GlobalSignals.signal_core_hero_moved(instance_id, new_position)

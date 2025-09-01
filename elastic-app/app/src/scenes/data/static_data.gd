@@ -39,6 +39,14 @@ func __build_enum_mappings():
 	__add_enum_mapping("Card.RarityType", Card.RarityType)
 	__add_enum_mapping("GameResource.Type", GameResource.Type)
 	__add_enum_mapping("Air.AirColor", Air.AirColor)
+	
+	# Add individual GameResource.Type mappings for force types
+	__enum_mappings["GameResource.Type.HEAT"] = GameResource.Type.HEAT
+	__enum_mappings["GameResource.Type.PRECISION"] = GameResource.Type.PRECISION
+	__enum_mappings["GameResource.Type.MOMENTUM"] = GameResource.Type.MOMENTUM
+	__enum_mappings["GameResource.Type.BALANCE"] = GameResource.Type.BALANCE
+	__enum_mappings["GameResource.Type.ENTROPY"] = GameResource.Type.ENTROPY
+	__enum_mappings["GameResource.Type.INSPIRATION"] = GameResource.Type.INSPIRATION
 
 func __add_enum_mapping(prefix: String, enum_dict: Dictionary):
 	for key in enum_dict:
