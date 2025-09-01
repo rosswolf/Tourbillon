@@ -1,12 +1,18 @@
 # Tourbillon
 
-A branch of ross-jam/elastic-app with GitHub Claude AI integration.
+A clockwork engine builder roguelike card game with GitHub Claude AI integration.
 
 ## Project Contents
 
-- **elastic-app/** - Card game application (from ross-jam)
-- **docs/** - Documentation including Claude integration guides
+- **elastic-app/** - Original card game application (from ross-jam)
+- **docs/** - Documentation including PRD and Claude integration guides
 - **.github/** - GitHub Actions workflows for Claude AI
+
+## Game Design
+
+Tourbillon is a single-player roguelike card game that combines engine-building mechanics with time-based resource management. Players construct clockwork engines using gears and springs to generate five distinct forces, defend against gremlins, and ultimately build a perpetual motion machine to escape a collapsing timeline.
+
+See `docs/TOURBILLON_PRD.md` for the complete Product Requirements Document.
 
 ## Claude AI Integration
 
