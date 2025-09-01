@@ -94,6 +94,20 @@ func __can_satisfy_requirement(resource_type: GameResource.Type, amount: int) ->
 	return resource_accesor.get_count(resource_type) >= amount
 	#
 func get_energy_color() ->  GameResource.Type:		
+	# Check new force resources
+	if requirements.has(GameResource.Type.HEAT):
+		return GameResource.Type.HEAT
+	if requirements.has(GameResource.Type.PRECISION):
+		return GameResource.Type.PRECISION
+	if requirements.has(GameResource.Type.MOMENTUM):
+		return GameResource.Type.MOMENTUM
+	if requirements.has(GameResource.Type.BALANCE):
+		return GameResource.Type.BALANCE
+	if requirements.has(GameResource.Type.ENTROPY):
+		return GameResource.Type.ENTROPY
+	if requirements.has(GameResource.Type.INSPIRATION):
+		return GameResource.Type.INSPIRATION
+	# Legacy support
 	if requirements.has(GameResource.Type.PURPLE_ENERGY):
 		return GameResource.Type.PURPLE_ENERGY
 	if requirements.has(GameResource.Type.BLUE_ENERGY):
@@ -102,9 +116,22 @@ func get_energy_color() ->  GameResource.Type:
 		return GameResource.Type.GREEN_ENERGY
 	
 	return GameResource.Type.NONE
-	#return requirements.get(GameResource.Type.RED_ENERGY, 0)			
 	
 func get_energy_cost() -> int:		
+	# Check new force resources
+	if requirements.has(GameResource.Type.HEAT):
+		return requirements[GameResource.Type.HEAT]
+	if requirements.has(GameResource.Type.PRECISION):
+		return requirements[GameResource.Type.PRECISION]
+	if requirements.has(GameResource.Type.MOMENTUM):
+		return requirements[GameResource.Type.MOMENTUM]
+	if requirements.has(GameResource.Type.BALANCE):
+		return requirements[GameResource.Type.BALANCE]
+	if requirements.has(GameResource.Type.ENTROPY):
+		return requirements[GameResource.Type.ENTROPY]
+	if requirements.has(GameResource.Type.INSPIRATION):
+		return requirements[GameResource.Type.INSPIRATION]
+	# Legacy support
 	if requirements.has(GameResource.Type.PURPLE_ENERGY):
 		return requirements[GameResource.Type.PURPLE_ENERGY]
 	if requirements.has(GameResource.Type.BLUE_ENERGY):
@@ -112,5 +139,4 @@ func get_energy_cost() -> int:
 	if requirements.has(GameResource.Type.GREEN_ENERGY):
 		return requirements[GameResource.Type.GREEN_ENERGY]
 	
-	return 0
-	#return requirements.get(GameResource.Type.RED_ENERGY, 0)		
+	return 0		

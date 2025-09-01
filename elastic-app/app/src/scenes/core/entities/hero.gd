@@ -9,14 +9,33 @@ var starting_relic: String
 
 
 var gold: CappedResource
+
+# Core force resources
+var heat: CappedResource        # Red
+var precision: CappedResource   # Blue  
+var momentum: CappedResource    # Green
+var balance: CappedResource     # White
+var entropy: CappedResource     # Purple
+var inspiration: CappedResource # Gold
+
+# Legacy resources (keeping for compatibility)
 var time: TimeResource
 var energy: EnergyResource
-
 var force: CappedResource
 var depth: CappedResource
 
 func _init():
+	# Initialize force resources
+	heat = CappedResource.new()
+	precision = CappedResource.new()
+	momentum = CappedResource.new()
+	balance = CappedResource.new()
+	entropy = CappedResource.new()
+	inspiration = CappedResource.new()
+	
+	# Legacy resources
 	time = TimeResource.new()
+	energy = EnergyResource.new()
 
 class TimeResource:
 
