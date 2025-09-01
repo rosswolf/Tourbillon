@@ -94,6 +94,20 @@ func __can_satisfy_requirement(resource_type: GameResource.Type, amount: int) ->
 	return resource_accesor.get_count(resource_type) >= amount
 	#
 func get_energy_color() ->  GameResource.Type:		
+	# Check new force energies first
+	if requirements.has(GameResource.Type.HEAT_ENERGY):
+		return GameResource.Type.HEAT_ENERGY
+	if requirements.has(GameResource.Type.PRECISION_ENERGY):
+		return GameResource.Type.PRECISION_ENERGY
+	if requirements.has(GameResource.Type.MOMENTUM_ENERGY):
+		return GameResource.Type.MOMENTUM_ENERGY
+	if requirements.has(GameResource.Type.BALANCE_ENERGY):
+		return GameResource.Type.BALANCE_ENERGY
+	if requirements.has(GameResource.Type.ENTROPY_ENERGY):
+		return GameResource.Type.ENTROPY_ENERGY
+	if requirements.has(GameResource.Type.INSPIRATION_ENERGY):
+		return GameResource.Type.INSPIRATION_ENERGY
+	# Legacy support
 	if requirements.has(GameResource.Type.PURPLE_ENERGY):
 		return GameResource.Type.PURPLE_ENERGY
 	if requirements.has(GameResource.Type.BLUE_ENERGY):
@@ -102,9 +116,22 @@ func get_energy_color() ->  GameResource.Type:
 		return GameResource.Type.GREEN_ENERGY
 	
 	return GameResource.Type.NONE
-	#return requirements.get(GameResource.Type.RED_ENERGY, 0)			
 	
 func get_energy_cost() -> int:		
+	# Check new force energies first
+	if requirements.has(GameResource.Type.HEAT_ENERGY):
+		return requirements[GameResource.Type.HEAT_ENERGY]
+	if requirements.has(GameResource.Type.PRECISION_ENERGY):
+		return requirements[GameResource.Type.PRECISION_ENERGY]
+	if requirements.has(GameResource.Type.MOMENTUM_ENERGY):
+		return requirements[GameResource.Type.MOMENTUM_ENERGY]
+	if requirements.has(GameResource.Type.BALANCE_ENERGY):
+		return requirements[GameResource.Type.BALANCE_ENERGY]
+	if requirements.has(GameResource.Type.ENTROPY_ENERGY):
+		return requirements[GameResource.Type.ENTROPY_ENERGY]
+	if requirements.has(GameResource.Type.INSPIRATION_ENERGY):
+		return requirements[GameResource.Type.INSPIRATION_ENERGY]
+	# Legacy support
 	if requirements.has(GameResource.Type.PURPLE_ENERGY):
 		return requirements[GameResource.Type.PURPLE_ENERGY]
 	if requirements.has(GameResource.Type.BLUE_ENERGY):
@@ -112,5 +139,4 @@ func get_energy_cost() -> int:
 	if requirements.has(GameResource.Type.GREEN_ENERGY):
 		return requirements[GameResource.Type.GREEN_ENERGY]
 	
-	return 0
-	#return requirements.get(GameResource.Type.RED_ENERGY, 0)		
+	return 0		
