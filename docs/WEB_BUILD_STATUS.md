@@ -16,3 +16,11 @@ Then open http://localhost:8000 in your browser.
 Once GitHub Pages is enabled, the game will be available at:
 https://rosswolf.github.io/Tourbillon/
 
+
+## 🎮 Live Game
+
+The game is now deployed and available at:
+**https://rosswolf.github.io/Tourbillon/**
+
+Last deployed: Mon Sep  1 19:16:00 UTC 2025
+
