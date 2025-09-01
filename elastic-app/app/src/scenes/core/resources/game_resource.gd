@@ -5,31 +5,24 @@ class_name GameResource
 enum Type {
 	UNKNOWN,
 	GOLD,
-	# Time resources (fill automatically)
-	HEAT_TIME,        # Red (was PURPLE_TIME)
-	PRECISION_TIME,   # Blue (was BLUE_TIME)
-	MOMENTUM_TIME,    # Green (was GREEN_TIME)
-	BALANCE_TIME,     # White (NEW)
-	ENTROPY_TIME,     # Purple (NEW)
-	INSPIRATION_TIME, # Gold (NEW)
-	# Energy resources (consumed on use)
-	HEAT_ENERGY,        # Red (was PURPLE_ENERGY)
-	PRECISION_ENERGY,   # Blue (was BLUE_ENERGY)
-	MOMENTUM_ENERGY,    # Green (was GREEN_ENERGY)
-	BALANCE_ENERGY,     # White (NEW)
-	ENTROPY_ENERGY,     # Purple (NEW)
-	INSPIRATION_ENERGY, # Gold (NEW)
+	# Core force resources
+	HEAT,        # Red (was PURPLE)
+	PRECISION,   # Blue (was BLUE)
+	MOMENTUM,    # Green (was GREEN)
+	BALANCE,     # White (NEW)
+	ENTROPY,     # Purple (NEW)
+	INSPIRATION, # Gold (NEW)
+	# Legacy time resources (keeping for compatibility)
+	PURPLE_TIME,
+	GREEN_TIME,
+	BLUE_TIME,
+	PURPLE_ENERGY,
+	GREEN_ENERGY,
+	BLUE_ENERGY,
 	# Legacy resources
 	FORCE,
 	DEPTH,
-	NONE,
-	# Legacy aliases for backward compatibility
-	PURPLE_TIME = HEAT_TIME,
-	BLUE_TIME = PRECISION_TIME,
-	GREEN_TIME = MOMENTUM_TIME,
-	PURPLE_ENERGY = HEAT_ENERGY,
-	BLUE_ENERGY = PRECISION_ENERGY,
-	GREEN_ENERGY = MOMENTUM_ENERGY
+	NONE
 }
 
 		
@@ -56,66 +49,66 @@ class ResourceAccessor:
 	
 	var __resources: Dictionary = {
 		GameResource.Type.GOLD: __SpecificResourceAccessor.new(
-			func(): return GlobalGameManager.hero.gold.amount,
-			func(value): GlobalGameManager.hero.gold.amount = value
+			func(): return GlobalGameManager.hero.gold.amount if GlobalGameManager.hero and GlobalGameManager.hero.gold else 0,
+			func(value): if GlobalGameManager.hero and GlobalGameManager.hero.gold: GlobalGameManager.hero.gold.amount = value
 		),
-		# Time resources
-		GameResource.Type.HEAT_TIME: __SpecificResourceAccessor.new(
-			func(): return UiController.meters.get(Air.AirColor.HEAT, {}).get("time_remaining", 0) if UiController.meters.has(Air.AirColor.HEAT) else 0,
-			func(value): GlobalSignals.signal_core_time_set(Air.AirColor.HEAT, value),
+		# Core force resources
+		GameResource.Type.HEAT: __SpecificResourceAccessor.new(
+			func(): return GlobalGameManager.hero.heat.amount if GlobalGameManager.hero and GlobalGameManager.hero.heat else 0,
+			func(value): if GlobalGameManager.hero and GlobalGameManager.hero.heat: GlobalGameManager.hero.heat.amount = value
 		),
-		GameResource.Type.PRECISION_TIME: __SpecificResourceAccessor.new(
-			func(): return UiController.meters.get(Air.AirColor.PRECISION, {}).get("time_remaining", 0) if UiController.meters.has(Air.AirColor.PRECISION) else 0,
-			func(value): GlobalSignals.signal_core_time_set(Air.AirColor.PRECISION, value)
+		GameResource.Type.PRECISION: __SpecificResourceAccessor.new(
+			func(): return GlobalGameManager.hero.precision.amount if GlobalGameManager.hero and GlobalGameManager.hero.precision else 0,
+			func(value): if GlobalGameManager.hero and GlobalGameManager.hero.precision: GlobalGameManager.hero.precision.amount = value
 		),
-		GameResource.Type.MOMENTUM_TIME: __SpecificResourceAccessor.new(
-			func(): return UiController.meters.get(Air.AirColor.MOMENTUM, {}).get("time_remaining", 0) if UiController.meters.has(Air.AirColor.MOMENTUM) else 0,
-			func(value): GlobalSignals.signal_core_time_set(Air.AirColor.MOMENTUM, value)
+		GameResource.Type.MOMENTUM: __SpecificResourceAccessor.new(
+			func(): return GlobalGameManager.hero.momentum.amount if GlobalGameManager.hero and GlobalGameManager.hero.momentum else 0,
+			func(value): if GlobalGameManager.hero and GlobalGameManager.hero.momentum: GlobalGameManager.hero.momentum.amount = value
 		),
-		GameResource.Type.BALANCE_TIME: __SpecificResourceAccessor.new(
-			func(): return UiController.meters.get(Air.AirColor.BALANCE, {}).get("time_remaining", 0) if UiController.meters.has(Air.AirColor.BALANCE) else 0,
-			func(value): GlobalSignals.signal_core_time_set(Air.AirColor.BALANCE, value)
+		GameResource.Type.BALANCE: __SpecificResourceAccessor.new(
+			func(): return GlobalGameManager.hero.balance.amount if GlobalGameManager.hero and GlobalGameManager.hero.balance else 0,
+			func(value): if GlobalGameManager.hero and GlobalGameManager.hero.balance: GlobalGameManager.hero.balance.amount = value
 		),
-		GameResource.Type.ENTROPY_TIME: __SpecificResourceAccessor.new(
-			func(): return UiController.meters.get(Air.AirColor.ENTROPY, {}).get("time_remaining", 0) if UiController.meters.has(Air.AirColor.ENTROPY) else 0,
-			func(value): GlobalSignals.signal_core_time_set(Air.AirColor.ENTROPY, value)
+		GameResource.Type.ENTROPY: __SpecificResourceAccessor.new(
+			func(): return GlobalGameManager.hero.entropy.amount if GlobalGameManager.hero and GlobalGameManager.hero.entropy else 0,
+			func(value): if GlobalGameManager.hero and GlobalGameManager.hero.entropy: GlobalGameManager.hero.entropy.amount = value
 		),
-		GameResource.Type.INSPIRATION_TIME: __SpecificResourceAccessor.new(
-			func(): return UiController.meters.get(Air.AirColor.INSPIRATION, {}).get("time_remaining", 0) if UiController.meters.has(Air.AirColor.INSPIRATION) else 0,
-			func(value): GlobalSignals.signal_core_time_set(Air.AirColor.INSPIRATION, value)
+		GameResource.Type.INSPIRATION: __SpecificResourceAccessor.new(
+			func(): return GlobalGameManager.hero.inspiration.amount if GlobalGameManager.hero and GlobalGameManager.hero.inspiration else 0,
+			func(value): if GlobalGameManager.hero and GlobalGameManager.hero.inspiration: GlobalGameManager.hero.inspiration.amount = value
 		),
-		# Energy resources
-		GameResource.Type.HEAT_ENERGY: __SpecificResourceAccessor.new(
-			func(): return UiController.meters.get(Air.AirColor.HEAT, {}).get("current_energy", 0) if UiController.meters.has(Air.AirColor.HEAT) else 0,
-			func(value): GlobalSignals.signal_core_energy_set(Air.AirColor.HEAT, value)
+		# Legacy time resources (keeping for compatibility)
+		GameResource.Type.PURPLE_TIME: __SpecificResourceAccessor.new(
+			func(): return UiController.meters[Air.AirColor.PURPLE].time_remaining if UiController.meters.has(Air.AirColor.PURPLE) else 0,
+			func(value): GlobalSignals.signal_core_time_set(Air.AirColor.PURPLE, value),
 		),
-		GameResource.Type.PRECISION_ENERGY: __SpecificResourceAccessor.new(
-			func(): return UiController.meters.get(Air.AirColor.PRECISION, {}).get("current_energy", 0) if UiController.meters.has(Air.AirColor.PRECISION) else 0,
-			func(value): GlobalSignals.signal_core_energy_set(Air.AirColor.PRECISION, value)
+		GameResource.Type.GREEN_TIME: __SpecificResourceAccessor.new(
+			func(): return UiController.meters[Air.AirColor.GREEN].time_remaining if UiController.meters.has(Air.AirColor.GREEN) else 0,
+			func(value): GlobalSignals.signal_core_time_set(Air.AirColor.GREEN, value)
+		),	
+		GameResource.Type.BLUE_TIME: __SpecificResourceAccessor.new(
+			func(): return UiController.meters[Air.AirColor.BLUE].time_remaining if UiController.meters.has(Air.AirColor.BLUE) else 0,
+			func(value): GlobalSignals.signal_core_time_set(Air.AirColor.BLUE, value)
 		),
-		GameResource.Type.MOMENTUM_ENERGY: __SpecificResourceAccessor.new(
-			func(): return UiController.meters.get(Air.AirColor.MOMENTUM, {}).get("current_energy", 0) if UiController.meters.has(Air.AirColor.MOMENTUM) else 0,
-			func(value): GlobalSignals.signal_core_energy_set(Air.AirColor.MOMENTUM, value)
+		GameResource.Type.PURPLE_ENERGY: __SpecificResourceAccessor.new(
+			func(): return UiController.meters[Air.AirColor.PURPLE].current_energy if UiController.meters.has(Air.AirColor.PURPLE) else 0,
+			func(value): GlobalSignals.signal_core_energy_set(Air.AirColor.PURPLE, value)
 		),
-		GameResource.Type.BALANCE_ENERGY: __SpecificResourceAccessor.new(
-			func(): return UiController.meters.get(Air.AirColor.BALANCE, {}).get("current_energy", 0) if UiController.meters.has(Air.AirColor.BALANCE) else 0,
-			func(value): GlobalSignals.signal_core_energy_set(Air.AirColor.BALANCE, value)
+		GameResource.Type.GREEN_ENERGY: __SpecificResourceAccessor.new(
+			func(): return UiController.meters[Air.AirColor.GREEN].current_energy if UiController.meters.has(Air.AirColor.GREEN) else 0,
+			func(value): GlobalSignals.signal_core_energy_set(Air.AirColor.GREEN, value)
 		),
-		GameResource.Type.ENTROPY_ENERGY: __SpecificResourceAccessor.new(
-			func(): return UiController.meters.get(Air.AirColor.ENTROPY, {}).get("current_energy", 0) if UiController.meters.has(Air.AirColor.ENTROPY) else 0,
-			func(value): GlobalSignals.signal_core_energy_set(Air.AirColor.ENTROPY, value)
-		),
-		GameResource.Type.INSPIRATION_ENERGY: __SpecificResourceAccessor.new(
-			func(): return UiController.meters.get(Air.AirColor.INSPIRATION, {}).get("current_energy", 0) if UiController.meters.has(Air.AirColor.INSPIRATION) else 0,
-			func(value): GlobalSignals.signal_core_energy_set(Air.AirColor.INSPIRATION, value)
+		GameResource.Type.BLUE_ENERGY: __SpecificResourceAccessor.new(
+			func(): return UiController.meters[Air.AirColor.BLUE].current_energy if UiController.meters.has(Air.AirColor.BLUE) else 0,
+			func(value): GlobalSignals.signal_core_energy_set(Air.AirColor.BLUE, value)
 		),
 		GameResource.Type.FORCE: __SpecificResourceAccessor.new(
-			func(): return GlobalGameManager.hero.force.amount,
-			func(value): GlobalGameManager.hero.force.amount = value
+			func(): return GlobalGameManager.hero.force.amount if GlobalGameManager.hero and GlobalGameManager.hero.force else 0,
+			func(value): if GlobalGameManager.hero and GlobalGameManager.hero.force: GlobalGameManager.hero.force.amount = value
 		),
 		GameResource.Type.DEPTH: __SpecificResourceAccessor.new(
-			func(): return GlobalGameManager.hero.depth.amount,
-			func(value): GlobalGameManager.hero.depth.amount = value
+			func(): return GlobalGameManager.hero.depth.amount if GlobalGameManager.hero and GlobalGameManager.hero.depth else 0,
+			func(value): if GlobalGameManager.hero and GlobalGameManager.hero.depth: GlobalGameManager.hero.depth.amount = value
 		),
 	}
 	

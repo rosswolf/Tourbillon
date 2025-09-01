@@ -94,19 +94,19 @@ func __can_satisfy_requirement(resource_type: GameResource.Type, amount: int) ->
 	return resource_accesor.get_count(resource_type) >= amount
 	#
 func get_energy_color() ->  GameResource.Type:		
-	# Check new force energies first
-	if requirements.has(GameResource.Type.HEAT_ENERGY):
-		return GameResource.Type.HEAT_ENERGY
-	if requirements.has(GameResource.Type.PRECISION_ENERGY):
-		return GameResource.Type.PRECISION_ENERGY
-	if requirements.has(GameResource.Type.MOMENTUM_ENERGY):
-		return GameResource.Type.MOMENTUM_ENERGY
-	if requirements.has(GameResource.Type.BALANCE_ENERGY):
-		return GameResource.Type.BALANCE_ENERGY
-	if requirements.has(GameResource.Type.ENTROPY_ENERGY):
-		return GameResource.Type.ENTROPY_ENERGY
-	if requirements.has(GameResource.Type.INSPIRATION_ENERGY):
-		return GameResource.Type.INSPIRATION_ENERGY
+	# Check new force resources
+	if requirements.has(GameResource.Type.HEAT):
+		return GameResource.Type.HEAT
+	if requirements.has(GameResource.Type.PRECISION):
+		return GameResource.Type.PRECISION
+	if requirements.has(GameResource.Type.MOMENTUM):
+		return GameResource.Type.MOMENTUM
+	if requirements.has(GameResource.Type.BALANCE):
+		return GameResource.Type.BALANCE
+	if requirements.has(GameResource.Type.ENTROPY):
+		return GameResource.Type.ENTROPY
+	if requirements.has(GameResource.Type.INSPIRATION):
+		return GameResource.Type.INSPIRATION
 	# Legacy support
 	if requirements.has(GameResource.Type.PURPLE_ENERGY):
 		return GameResource.Type.PURPLE_ENERGY
@@ -118,19 +118,19 @@ func get_energy_color() ->  GameResource.Type:
 	return GameResource.Type.NONE
 	
 func get_energy_cost() -> int:		
-	# Check new force energies first
-	if requirements.has(GameResource.Type.HEAT_ENERGY):
-		return requirements[GameResource.Type.HEAT_ENERGY]
-	if requirements.has(GameResource.Type.PRECISION_ENERGY):
-		return requirements[GameResource.Type.PRECISION_ENERGY]
-	if requirements.has(GameResource.Type.MOMENTUM_ENERGY):
-		return requirements[GameResource.Type.MOMENTUM_ENERGY]
-	if requirements.has(GameResource.Type.BALANCE_ENERGY):
-		return requirements[GameResource.Type.BALANCE_ENERGY]
-	if requirements.has(GameResource.Type.ENTROPY_ENERGY):
-		return requirements[GameResource.Type.ENTROPY_ENERGY]
-	if requirements.has(GameResource.Type.INSPIRATION_ENERGY):
-		return requirements[GameResource.Type.INSPIRATION_ENERGY]
+	# Check new force resources
+	if requirements.has(GameResource.Type.HEAT):
+		return requirements[GameResource.Type.HEAT]
+	if requirements.has(GameResource.Type.PRECISION):
+		return requirements[GameResource.Type.PRECISION]
+	if requirements.has(GameResource.Type.MOMENTUM):
+		return requirements[GameResource.Type.MOMENTUM]
+	if requirements.has(GameResource.Type.BALANCE):
+		return requirements[GameResource.Type.BALANCE]
+	if requirements.has(GameResource.Type.ENTROPY):
+		return requirements[GameResource.Type.ENTROPY]
+	if requirements.has(GameResource.Type.INSPIRATION):
+		return requirements[GameResource.Type.INSPIRATION]
 	# Legacy support
 	if requirements.has(GameResource.Type.PURPLE_ENERGY):
 		return requirements[GameResource.Type.PURPLE_ENERGY]

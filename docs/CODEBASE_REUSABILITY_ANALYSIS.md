@@ -78,11 +78,9 @@ enum ForceType {
 
 **Adaptation Plan:**
 - Keep `card.gd` base class
-- Add `card_type` enum (PLAN, CALIBRATION, CONTINGENCY, THEOREM)
 - Plans → Use slot_effect for gear placement
 - Calibrations → Use instinct_effect for instant effects
-- Contingencies → Add trigger_condition field
-- Theorems → Add permanent_rule field
+- Contingencies → Add trigger_condition field (to be designed later)
 
 **Reusability:** 85% - Card infrastructure perfect, just categorize differently
 
@@ -92,15 +90,15 @@ enum ForceType {
 
 **Adaptation Plan:**
 - Keep `hand_container.gd` unchanged for card display
-- Add new `grid_container.gd` for engine grid
+- Use existing battleground grid system (already has placement interface)
 - Link selection from hand to grid placement
 - Use existing hover/selection logic
 
-**Reusability:** 100% for hand, 0% for grid (new component)
+**Reusability:** 100% for hand, 70% for grid (adapt existing battleground)
 
 ### 3. 🔵 **SIGNIFICANT ADAPTATION** (Major Changes)
 
-#### Turn System → Beat/Tick Timeline
+#### Turn System → Beat/Tick Timeline (To Be Designed)
 **Current:** Discrete turns with phases
 **Needed:** Continuous timeline with beats/ticks
 
@@ -126,46 +124,25 @@ class Timeline:
 **Needed:** Engine that produces/consumes forces
 
 **Adaptation Plan:**
-- Rename Hero to EngineCore
-- Replace health with structural_integrity
-- Add force production arrays
-- Add gear slot management
+- Keep Hero class, add force properties (heat, precision, momentum, balance, entropy, inspiration)
+- Each force is a CappedResource like existing gold/force/depth
+- Simple rename and variable additions
 
-**Reusability:** 60% - Resource management transfers, mechanics change
+**Reusability:** 100% - Just adding new resource properties
 
 ### 4. 🔴 **NEW DEVELOPMENT** (Build from Scratch)
 
-#### Grid System (0% exists)
-**Needed:** 7x7 expandable grid for polyomino placement
+#### Grid System (Existing battleground can be adapted)
+**Current:** Battleground grid for building placement
+**Needed:** Adapt for gear placement (initially 1x1, complexity later)
 
-**Development Plan:**
-```gdscript
-class EngineGrid:
-    var grid_size: Vector2i = Vector2i(7, 7)
-    var cells: Dictionary[Vector2i, GridCell] = {}
-    var gears: Dictionary[String, Gear] = {}
-    
-    func can_place_gear(gear: Gear, position: Vector2i) -> bool
-    func place_gear(gear: Gear, position: Vector2i) -> void
-    func get_connections(gear: Gear) -> Array[Spring]
-```
+#### Polyomino Gears (Start with 1x1)
+**Initial:** All gears are 1x1 to match current building system
+**Future:** Add polyomino complexity if needed
 
-#### Polyomino Gears (0% exists)
-**Needed:** Tetris-like pieces with rotation
-
-**Development Plan:**
-- Create Gear entity extending Entity
-- Add shape definition system
-- Implement rotation matrices
-- Add collision detection
-
-#### Spring Connections (0% exists)
+#### Spring Connections (To Be Designed)
 **Needed:** Force transfer between gears
-
-**Development Plan:**
-- Create Spring entity
-- Add pathfinding for force flow
-- Implement transfer rates and types
+**Note:** Will be designed based on specific gameplay requirements
 
 #### Gremlin System (0% exists)
 **Needed:** Enemies that attack the engine
@@ -191,35 +168,13 @@ class EngineGrid:
 
 ## Implementation Phases
 
-### Phase 1: Foundation (Week 1-2)
-1. ✅ Keep all core architecture
-2. 🔄 Adapt resource system to 5 forces
-3. 🔄 Modify card types for Plans/Calibrations/Contingencies
-4. ✅ Keep data management system
+### Implementation Phases (To Be Refined)
 
-### Phase 2: Grid System (Week 3-4)
-1. 🆕 Build 7x7 grid UI component
-2. 🆕 Implement polyomino gear shapes
-3. 🔄 Adapt selection manager for grid
-4. 🆕 Create placement validation
-
-### Phase 3: Force Mechanics (Week 5-6)
-1. 🆕 Implement force interaction matrix
-2. 🆕 Build spring connection system
-3. 🔄 Adapt effects engine for force transformations
-4. 🆕 Create force flow visualization
-
-### Phase 4: Timeline System (Week 7-8)
-1. 🔄 Replace turn system with beat/tick timeline
-2. 🔄 Adapt UI for continuous time display
-3. 🆕 Add temporal effects and anomalies
-4. 🔄 Modify game flow for real-time
-
-### Phase 5: Enemies & Polish (Week 9-10)
-1. 🆕 Implement Gremlin system
-2. 🆕 Add damage and defense mechanics
-3. 🔄 Polish UI for Tourbillon theme
-4. 🆕 Add particle effects for forces
+Phases will be determined based on specific design decisions for:
+- Timeline system (beats/ticks)
+- Spring connections and force flow
+- Gremlin system implementation
+- Specific card type behaviors
 
 ## Code Metrics
 
