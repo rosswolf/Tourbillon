@@ -4,7 +4,7 @@ class_name Gremlin
 ## Base class for gremlins - enemies that disrupt the clockwork mechanism
 ## Gremlins impose various constraints and must be defeated to win
 
-@export var display_name: String = "Gremlin"
+@export var gremlin_name: String = "Gremlin"
 @export var max_hp: int = 10
 @export var slot_index: int = 0  # Position in gremlin column (0-4)
 

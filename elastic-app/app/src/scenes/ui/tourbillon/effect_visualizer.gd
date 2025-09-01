@@ -134,9 +134,8 @@ func _create_status_particles(position: Vector2, color: Color, status_type: Stri
 	particles.amount = 15
 	particles.lifetime = 1.5
 	particles.one_shot = true
-	particles.emission_shape = CPUParticles2D.EMISSION_SHAPE_RING
-	particles.emission_ring_radius = 20.0
-	particles.emission_ring_inner_radius = 10.0
+	particles.emission_shape = CPUParticles2D.EMISSION_SHAPE_SPHERE
+	particles.emission_sphere_radius = 20.0
 	particles.angular_velocity_min = 90.0
 	particles.angular_velocity_max = 180.0
 	particles.orbit_velocity_min = 0.1
