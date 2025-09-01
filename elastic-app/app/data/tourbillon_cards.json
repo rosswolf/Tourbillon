@@ -46,11 +46,11 @@
     "card_template_id": "force_converter",
     "group_template_id": "tourbillon_base",
     "display_name": "Force Converter",
-    "rules_text": "Fires every 4 Ticks: Consume 2 any force → 3 damage",
+    "rules_text": "Fires every 4 Ticks: Consume 2 max force → 3 damage",
     "card_rarity": "Card.RarityType.STARTING",
     "time_cost": 3,
     "production_interval": 4,
-    "on_fire_effect": "consume_any=2,damage=3",
+    "on_fire_effect": "consume_max=2,damage=3",
     "tags": ["FORGE"],
     "cursor_image_uid": "cursor_default",
     "card_count": 1
