@@ -94,7 +94,7 @@ func __on_start_battle():
 	
 func __on_ui_meter_expired(color: Air.AirColor):
 	
-	const air_colors: Array[Air.AirColor] = [Air.AirColor.PURPLE, Air.AirColor.BLUE, Air.AirColor.GREEN]
+	const air_colors: Array[Air.AirColor] = [Air.AirColor.HEAT, Air.AirColor.PRECISION, Air.AirColor.MOMENTUM]
 	
 	var ongoing: bool = false
 
@@ -112,7 +112,7 @@ func __on_ui_meter_expired(color: Air.AirColor):
 			GlobalSignals.signal_core_max_time_removed(c, 2.0)
 	
 func __on_ui_time_bump():
-	const air_colors: Array[Air.AirColor] = [Air.AirColor.PURPLE, Air.AirColor.BLUE, Air.AirColor.GREEN]
+	const air_colors: Array[Air.AirColor] = [Air.AirColor.HEAT, Air.AirColor.PRECISION, Air.AirColor.MOMENTUM]
 	
 	for c in air_colors:
 		GlobalSignals.signal_core_max_energy_added(c, 1.0)

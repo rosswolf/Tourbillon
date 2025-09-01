@@ -25,13 +25,15 @@ var force: CappedResource
 var depth: CappedResource
 
 func _init():
-	# Initialize force resources
-	heat = CappedResource.new()
-	precision = CappedResource.new()
-	momentum = CappedResource.new()
-	balance = CappedResource.new()
-	entropy = CappedResource.new()
-	inspiration = CappedResource.new()
+	# Initialize force resources with default values
+	# TODO: Properly initialize these with actual game values
+	var noop = func(v): pass
+	heat = CappedResource.new(0, 10, noop, noop)
+	precision = CappedResource.new(0, 10, noop, noop)
+	momentum = CappedResource.new(0, 10, noop, noop)
+	balance = CappedResource.new(0, 10, noop, noop)
+	entropy = CappedResource.new(0, 10, noop, noop)
+	inspiration = CappedResource.new(0, 10, noop, noop)
 	
 	# Legacy resources
 	time = TimeResource.new()
@@ -65,7 +67,7 @@ class EnergyResource:
 		GlobalSignals.signal_core_max_energy_set(color, amount)
 		
 
-func get_type() -> Entity.EntityType:
+func _get_type() -> Entity.EntityType:
 	return Entity.EntityType.HERO
 
 

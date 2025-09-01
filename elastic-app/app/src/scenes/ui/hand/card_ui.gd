@@ -17,9 +17,9 @@ var energy_icons: Dictionary[GameResource.Type, String] = {
 }
 
 var type_conversion: Dictionary[GameResource.Type, Air.AirColor] = {
-	GameResource.Type.GREEN_ENERGY: Air.AirColor.GREEN,
-	GameResource.Type.BLUE_ENERGY: Air.AirColor.BLUE,
-	GameResource.Type.PURPLE_ENERGY: Air.AirColor.PURPLE,
+	GameResource.Type.GREEN_ENERGY: Air.AirColor.MOMENTUM,
+	GameResource.Type.BLUE_ENERGY: Air.AirColor.PRECISION,
+	GameResource.Type.PURPLE_ENERGY: Air.AirColor.HEAT,
 	GameResource.Type.NONE: Air.AirColor.NONE
 }
 

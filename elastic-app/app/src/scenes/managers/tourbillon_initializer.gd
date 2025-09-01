@@ -107,7 +107,7 @@ func _setup_starting_deck() -> void:
 	
 	# Draw starting hand
 	for i in range(starting_hand_size):
-		library.draw_card()
+		library.draw_card(1)
 	
 	print("Starting deck created with ", starting_cards.size(), " cards")
 

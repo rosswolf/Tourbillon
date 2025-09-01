@@ -113,7 +113,7 @@ static func _parse_value(value_str: String):
 static func _effect_draw_cards(amount: int) -> void:
 	if GlobalGameManager.library:
 		for i in amount:
-			GlobalGameManager.library.draw_card()
+			GlobalGameManager.library.draw_card(1)
 
 static func _effect_discard_cards(amount: int) -> void:
 	# TODO: Implement discard selection UI
