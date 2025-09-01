@@ -8,6 +8,11 @@ class_name EngineSlot
 var is_activatable: bool
 var timer_duration: float
 
+# Tourbillon beat-based timing
+var production_interval_beats: int = 30  # Default 3 ticks
+var current_beats: int = 0
+var is_ready: bool = false
+
 var card_preview: CardUI
 
 var CARD_UI = preload("res://src/scenes/ui/hand/card_ui.tscn")
@@ -109,3 +114,92 @@ func _on_mouse_exited() -> void:
 	super._on_mouse_exited()
 	if card_preview:
 		destroy_card_ui()
+
+## Tourbillon beat processing - called by BeatProcessor
+func process_beat(context: BeatContext) -> void:
+	if not __button_entity or not __button_entity.card:
+		return
+	
+	# Update timer progress
+	if not is_ready:
+		current_beats += 1
+		_update_progress_display()
+		
+		if current_beats >= production_interval_beats:
+			_enter_ready_state()
+	
+	# Try to fire if ready
+	if is_ready and _can_produce():
+		_fire_production()
+
+## Setup gear from card data
+func setup_from_card(card: Card) -> void:
+	if not card:
+		return
+		
+	# Get timing from card
+	production_interval_beats = card.production_interval * 10  # Convert ticks to beats
+	
+	# Reset state
+	current_beats = 0
+	is_ready = false
+	_update_progress_display()
+
+## Check if we have required forces to produce
+func _can_produce() -> bool:
+	var card = __button_entity.card
+	if not card or card.force_consumption.is_empty():
+		return true  # No requirements, always can produce
+	
+	# Check each required force
+	for force_type in card.force_consumption:
+		var required_amount = card.force_consumption[force_type]
+		# TODO: Check GlobalGameManager.hero for forces
+		# For now, return true to allow testing
+	
+	return true
+
+## Fire production effect
+func _fire_production() -> void:
+	var card = __button_entity.card
+	if not card:
+		return
+	
+	# TODO: Consume and produce forces via GlobalGameManager.hero
+	
+	# Fire any additional card effects
+	__button_entity.activate_slot_effect(card, null)
+	
+	# Reset timer
+	_exit_ready_state()
+	current_beats = 0
+	_update_progress_display()
+
+## Enter ready state (waiting for resources)
+func _enter_ready_state() -> void:
+	is_ready = true
+	# Visual feedback for ready state
+	modulate = Color(1.2, 1.2, 1.2)  # Slight glow
+
+## Exit ready state
+func _exit_ready_state() -> void:
+	is_ready = false
+	# Reset visual
+	modulate = Color.WHITE
+
+## Update the progress bar display
+func _update_progress_display() -> void:
+	if not %ProgressBar:
+		return
+		
+	if production_interval_beats > 0:
+		%ProgressBar.value = pct(current_beats, production_interval_beats)
+	else:
+		%ProgressBar.value = 0
+
+## Reset state for new gear
+func reset() -> void:
+	current_beats = 0
+	is_ready = false
+	_update_progress_display()
+	modulate = Color.WHITE

@@ -1,4 +1,4 @@
-extends BeatListener
+extends BeatListenerEntity
 class_name Gremlin
 
 ## Base class for gremlins - enemies that disrupt the clockwork mechanism
@@ -12,6 +12,7 @@ var current_hp: int
 var shields: int = 0
 var poison_stacks: int = 0
 var burn_duration: int = 0  # Ticks where healing is disabled
+var poison_interval: int = 10  # Beats between poison damage
 
 # Disruption properties
 var disruption_interval_beats: int = 50  # Every 5 ticks by default
@@ -26,7 +27,10 @@ func _init() -> void:
 	beats_until_disruption = disruption_interval_beats
 
 ## Process beat for gremlin behaviors
-func process_beat(beat_number: int) -> void:
+func process_beat(context: BeatContext) -> void:
+	# Track beat number internally if needed
+	var beat_number = get_meta("total_beats", 0) + 1
+	set_meta("total_beats", beat_number)
 	# Count down to disruption
 	if beats_until_disruption > 0:
 		beats_until_disruption -= 1
@@ -39,6 +43,10 @@ func process_beat(beat_number: int) -> void:
 	if burn_duration > 0:
 		if beat_number % 10 == 0:  # Each tick
 			burn_duration -= 1
+	
+	# Process poison on this gremlin's schedule
+	if poison_stacks > 0 and beat_number % poison_interval == 0:
+		process_poison()
 
 ## Take damage
 func take_damage(amount: int, pierce: bool = false, pop: bool = false) -> void:

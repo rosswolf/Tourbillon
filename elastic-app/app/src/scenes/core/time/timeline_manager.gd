@@ -5,7 +5,7 @@ class_name TimelineManager
 ## Time only advances when cards are played
 ## 1 Tick = 10 Beats for precision
 
-signal beat_processed(beat_number: int)
+signal beat_processed(context: BeatContext)
 signal tick_completed(tick_number: int)
 signal time_advanced(ticks: float, total_beats: int)
 
@@ -39,8 +39,9 @@ func _process_pending_beats() -> void:
 
 ## Process a single beat
 func _process_single_beat() -> void:
-	beat_processor.process_beat(total_beats)
-	beat_processed.emit(total_beats)
+	var context = BeatContext.new()
+	beat_processor.process_beat(context)
+	beat_processed.emit(context)
 
 ## Get current time in ticks (for display)
 func get_current_ticks() -> float:

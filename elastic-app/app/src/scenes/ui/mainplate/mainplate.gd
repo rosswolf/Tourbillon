@@ -1,7 +1,7 @@
 extends UiBattleground
 class_name Mainplate
 
-## Tourbillon mainplate - the grid where complications are placed
+## Tourbillon mainplate - the grid where gears (cards) are placed
 ## Adapts the existing battleground for Tourbillon's needs
 
 @export var initial_grid_size: Vector2i = Vector2i(4, 4)
@@ -9,10 +9,10 @@ class_name Mainplate
 
 var current_grid_size: Vector2i
 var expansions_used: int = 0
-var complication_slots: Dictionary = {}  # Vector2i -> ComplicationSlot
+var gear_slots: Dictionary = {}  # Vector2i -> EngineSlot
 
-signal complication_placed(slot: ComplicationSlot, card: Complication)
-signal complication_replaced(old_card: Complication, new_card: Complication, slot: ComplicationSlot)
+signal gear_placed(slot: EngineSlot, card: Card)
+signal gear_replaced(old_card: Card, new_card: Card, slot: EngineSlot)
 signal mainplate_expanded(new_size: Vector2i)
 
 func _ready() -> void:
@@ -29,7 +29,7 @@ func _setup_mainplate_grid() -> void:
 	# Clear any existing slots
 	for child in %SlotGridContainer.get_children():
 		child.queue_free()
-	complication_slots.clear()
+	gear_slots.clear()
 	
 	# Configure grid container
 	%SlotGridContainer.columns = current_grid_size.x
@@ -37,28 +37,27 @@ func _setup_mainplate_grid() -> void:
 	# Create slots for initial grid
 	for y in range(current_grid_size.y):
 		for x in range(current_grid_size.x):
-			var slot = _create_complication_slot(Vector2i(x, y))
+			var slot = _create_gear_slot(Vector2i(x, y))
 			%SlotGridContainer.add_child(slot)
-			complication_slots[Vector2i(x, y)] = slot
+			gear_slots[Vector2i(x, y)] = slot
 
-## Create a single complication slot
-func _create_complication_slot(position: Vector2i) -> ComplicationSlot:
-	var slot_scene = preload("res://src/scenes/ui/entities/mainplate/complication_slot.tscn")
-	var slot: ComplicationSlot = slot_scene.instantiate()
-	slot.grid_position = position
-	slot.production_fired.connect(_on_slot_production_fired)
+## Create a single gear slot
+func _create_gear_slot(position: Vector2i) -> EngineSlot:
+	var slot_scene = preload("res://src/scenes/ui/entities/engine/ui_engine_slot.tscn")
+	var slot: EngineSlot = slot_scene.instantiate()
+	slot.set_meta("grid_position", position)  # Store position as metadata
 	return slot
 
-## Get all complications in Escapement Order (top-to-bottom, left-to-right)
-func get_complications_in_escapement_order() -> Array[ComplicationSlot]:
-	var positions = complication_slots.keys()
+## Get all gears in Escapement Order (top-to-bottom, left-to-right)
+func get_gears_in_escapement_order() -> Array[EngineSlot]:
+	var positions = gear_slots.keys()
 	
 	# Sort positions by Escapement Order
 	positions.sort_custom(_escapement_compare)
 	
-	var ordered_slots: Array[ComplicationSlot] = []
+	var ordered_slots: Array[EngineSlot] = []
 	for pos in positions:
-		var slot = complication_slots[pos]
+		var slot = gear_slots[pos]
 		if slot and slot.__button_entity and slot.__button_entity.card:
 			ordered_slots.append(slot)
 	
@@ -71,30 +70,26 @@ func _escapement_compare(a: Vector2i, b: Vector2i) -> bool:
 		return a.y < b.y  # Top rows first
 	return a.x < b.x  # Left columns first
 
-## Place a complication on the mainplate
-func place_complication(card: Complication, position: Vector2i) -> bool:
-	if not complication_slots.has(position):
+## Place a gear (card) on the mainplate
+func place_gear(card: Card, position: Vector2i) -> bool:
+	if not gear_slots.has(position):
 		push_error("Invalid mainplate position: " + str(position))
 		return false
 	
-	var slot: ComplicationSlot = complication_slots[position]
+	var slot: EngineSlot = gear_slots[position]
 	
 	# Handle replacement if slot is occupied
 	if slot.__button_entity and slot.__button_entity.card:
-		var old_card = slot.__button_entity.card as Complication
-		complication_replaced.emit(old_card, card, slot)
+		var old_card = slot.__button_entity.card
+		gear_replaced.emit(old_card, card, slot)
 		
-		# Handle Overbuild keyword
-		if card.is_overbuild():
-			# Inherit timer progress from replaced complication
-			var old_progress = slot.current_beats
-			slot.setup_from_card(card)
-			slot.current_beats = old_progress
-		else:
-			slot.setup_from_card(card)
+		# Handle Overbuild keyword if present
+		if card.get_meta("is_overbuild", false):
+			# Inherit timer progress from replaced gear
+			var old_progress = slot.get_meta("current_beats", 0)
+			slot.set_meta("current_beats", old_progress)
 	else:
-		slot.setup_from_card(card)
-		complication_placed.emit(slot, card)
+		gear_placed.emit(slot, card)
 	
 	# Trigger slot's card placement logic
 	GlobalSignals.core_card_slotted.emit(slot.__button_entity.instance_id)
@@ -137,14 +132,14 @@ func _expand_to_size(new_size: Vector2i) -> void:
 	for y in range(new_size.y):
 		for x in range(new_size.x):
 			var pos = Vector2i(x, y)
-			if not complication_slots.has(pos):
-				var slot = _create_complication_slot(pos)
+			if not gear_slots.has(pos):
+				var slot = _create_gear_slot(pos)
 				%SlotGridContainer.add_child(slot)
-				complication_slots[pos] = slot
+				gear_slots[pos] = slot
 
 ## Get slot at specific position
-func get_slot_at(position: Vector2i) -> ComplicationSlot:
-	return complication_slots.get(position, null)
+func get_slot_at(position: Vector2i) -> EngineSlot:
+	return gear_slots.get(position, null)
 
 ## Check if position is valid
 func is_valid_position(position: Vector2i) -> bool:
@@ -152,26 +147,29 @@ func is_valid_position(position: Vector2i) -> bool:
 		   position.y >= 0 and position.y < current_grid_size.y
 
 ## Get all occupied slots
-func get_occupied_slots() -> Array[ComplicationSlot]:
-	var occupied: Array[ComplicationSlot] = []
-	for slot in complication_slots.values():
+func get_occupied_slots() -> Array[EngineSlot]:
+	var occupied: Array[EngineSlot] = []
+	for slot in gear_slots.values():
 		if slot.__button_entity and slot.__button_entity.card:
 			occupied.append(slot)
 	return occupied
 
-## Count complications with specific tag
-func count_complications_with_tag(tag: String) -> int:
+## Count gears with specific tag
+func count_gears_with_tag(tag: String) -> int:
 	var count = 0
 	for slot in get_occupied_slots():
-		var card = slot.__button_entity.card as Complication
-		if card and card.has_tag(tag):
-			count += 1
+		var card = slot.__button_entity.card
+		if card and card.has_meta("tags"):
+			var tags = card.get_meta("tags", [])
+			if tag in tags:
+				count += 1
 	return count
 
 ## Reset mainplate for new combat
 func reset() -> void:
-	for slot in complication_slots.values():
-		slot.reset()
+	for slot in gear_slots.values():
+		if slot.has_method("reset"):
+			slot.reset()
 	
 	# Reset to initial size if expanded
 	if current_grid_size != initial_grid_size:
@@ -179,7 +177,3 @@ func reset() -> void:
 		expansions_used = 0
 		_setup_mainplate_grid()
 
-## Handle production fired from a slot
-func _on_slot_production_fired(slot: ComplicationSlot) -> void:
-	# Could add visual effects or sound here
-	pass

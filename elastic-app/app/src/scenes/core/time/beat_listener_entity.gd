@@ -1,12 +1,12 @@
-extends Resource
-class_name BeatListener
+extends Entity
+class_name BeatListenerEntity
 
-## Base interface for entities that respond to beat processing
-## All beat-aware entities should extend this class
+## Base class for entities that respond to beat processing
+## Extends Entity to work with Godot's single inheritance
 
 ## Called every beat in deterministic order
 ## Override this in subclasses to implement beat behavior
-func process_beat(beat_number: int) -> void:
+func process_beat(context: BeatContext) -> void:
 	pass
 
 ## Priority for processing order within the same phase
