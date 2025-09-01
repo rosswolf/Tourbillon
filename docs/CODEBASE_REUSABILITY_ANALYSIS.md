@@ -72,15 +72,15 @@ enum ForceType {
 
 **Reusability:** 70% - Core meter logic stays, add 2 new colors and interaction rules
 
-#### Card System → Plans/Calibrations/Contingencies
-**Current:** Cards with instinct_effect and slot_effect
-**Needed:** Three card types with different behaviors
+#### Card System → Complications
+**Current:** Cards with instinct_effect and slot_effect  
+**Needed:** All cards are complications placed on mainplate
 
 **Adaptation Plan:**
 - Keep `card.gd` base class
-- Plans → Use slot_effect for gear placement
-- Calibrations → Use instinct_effect for instant effects
-- Contingencies → Add trigger_condition field (to be designed later)
+- All cards become complications when played
+- Add time_cost and production_interval fields
+- Transform effects to time-based (every X ticks)
 
 **Reusability:** 85% - Card infrastructure perfect, just categorize differently
 
@@ -136,13 +136,14 @@ class Timeline:
 **Current:** Battleground grid for building placement
 **Needed:** Adapt for gear placement (initially 1x1, complexity later)
 
-#### Polyomino Gears (Start with 1x1)
-**Initial:** All gears are 1x1 to match current building system
-**Future:** Add polyomino complexity if needed
+#### Complications/Gears
+**From PRD:** All complications are single-position items on the mainplate
+**Existing:** Buildings in battleground are already single-position
+**Reusability:** 100% - Current system matches exactly
 
-#### Spring Connections (To Be Designed)
-**Needed:** Force transfer between gears
-**Note:** Will be designed based on specific gameplay requirements
+#### Force Transfer System
+**From PRD:** Forces flow based on "Escapement Order" (top-to-bottom, left-to-right)
+**Note:** No explicit connection system mentioned - gears check order determines flow
 
 #### Gremlin System (0% exists)
 **Needed:** Enemies that attack the engine
@@ -172,9 +173,9 @@ class Timeline:
 
 Phases will be determined based on specific design decisions for:
 - Timeline system (beats/ticks)
-- Spring connections and force flow
+- Force flow and escapement order
 - Gremlin system implementation
-- Specific card type behaviors
+- Tag synergy systems
 
 ## Code Metrics
 
