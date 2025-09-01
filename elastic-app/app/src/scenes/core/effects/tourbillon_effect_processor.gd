@@ -58,8 +58,8 @@ static func _process_single_effect(effect: String, source: Node, target: Node) -
 			_effect_add_force(GameResource.Type.BALANCE, value)
 		"add_entropy", "produce_entropy":
 			_effect_add_force(GameResource.Type.ENTROPY, value)
-		"consume_any":
-			_effect_consume_any_force(value)
+		"consume_max":
+			_effect_consume_max_force(value)
 		
 		# Combat effects
 		"damage":
@@ -131,12 +131,13 @@ static func _effect_add_force(force_type: GameResource.Type, amount: int) -> voi
 		if force_resource:
 			force_resource.add(amount)
 
-static func _effect_consume_any_force(amount: int) -> void:
+static func _effect_consume_max_force(amount: int) -> void:
 	if not GlobalGameManager.hero:
 		return
 	
-	# Try to consume from the highest available force
-	var forces = [
+	# Build list of forces with their current amounts
+	var force_amounts: Array[Dictionary] = []
+	var force_types = [
 		GameResource.Type.HEAT,
 		GameResource.Type.PRECISION,
 		GameResource.Type.MOMENTUM,
@@ -144,16 +145,30 @@ static func _effect_consume_any_force(amount: int) -> void:
 		GameResource.Type.ENTROPY
 	]
 	
+	for force_type in force_types:
+		var force_resource = GlobalGameManager.hero.get_force_resource(force_type)
+		if force_resource:
+			force_amounts.append({
+				"type": force_type,
+				"amount": force_resource.current
+			})
+	
+	# Sort by amount (highest first)
+	force_amounts.sort_custom(func(a, b): return a.amount > b.amount)
+	
+	# Consume from the highest available forces first
 	var consumed = 0
-	for force_type in forces:
+	for force_data in force_amounts:
 		if consumed >= amount:
 			break
 		
-		var force_resource = GlobalGameManager.hero.get_force_resource(force_type)
-		if force_resource:
-			var available = force_resource.current
-			var to_consume = min(amount - consumed, available)
-			if to_consume > 0:
+		var force_type = force_data.type
+		var available = force_data.amount
+		var to_consume = min(amount - consumed, available)
+		
+		if to_consume > 0:
+			var force_resource = GlobalGameManager.hero.get_force_resource(force_type)
+			if force_resource:
 				force_resource.subtract(to_consume)
 				consumed += to_consume
 
