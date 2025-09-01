@@ -32,8 +32,8 @@ var durability: CappedResource
 # Tourbillon-specific fields (cards become gears when played)
 var time_cost: int = 2  # Cost in ticks to play this card
 var production_interval: int = 3  # Fires every X ticks (30 beats)
-var force_production: Dictionary = {}  # GameResource.Type -> amount produced
-var force_consumption: Dictionary = {}  # GameResource.Type -> amount required
+var force_production: Dictionary[GameResource.Type, int] = {}  # Force type -> amount produced
+var force_consumption: Dictionary[GameResource.Type, int] = {}  # Force type -> amount required
 var tags: Array[String] = []  # Tags for synergies
 var keywords: Array[String] = []  # OVERBUILD, MOMENTARY, IMMOVABLE, EPHEMERAL
 

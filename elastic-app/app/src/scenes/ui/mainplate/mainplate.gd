@@ -9,7 +9,7 @@ class_name Mainplate
 
 var current_grid_size: Vector2i
 var expansions_used: int = 0
-var gear_slots: Dictionary = {}  # Vector2i -> EngineSlot
+var gear_slots: Dictionary[Vector2i, EngineSlot] = {}  # Position -> Slot mapping
 
 signal gear_placed(slot: EngineSlot, card: Card)
 signal gear_replaced(old_card: Card, new_card: Card, slot: EngineSlot)

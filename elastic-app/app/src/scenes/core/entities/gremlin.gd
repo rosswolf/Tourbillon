@@ -10,9 +10,10 @@ class_name Gremlin
 
 var current_hp: int
 var shields: int = 0
-var poison_stacks: int = 0
 var burn_duration: int = 0  # Ticks where healing is disabled
-var poison_interval: int = 10  # Beats between poison damage
+
+# Beat consumers for various effects
+var beat_consumers: Array[BeatConsumer] = []
 
 # Disruption properties
 var disruption_interval_beats: int = 50  # Every 5 ticks by default
@@ -28,9 +29,20 @@ func _init() -> void:
 
 ## Process beat for gremlin behaviors
 func process_beat(context: BeatContext) -> void:
-	# Track beat number internally if needed
+	# Process all beat consumers (poison, etc.)
+	for i in range(beat_consumers.size() - 1, -1, -1):
+		var consumer = beat_consumers[i]
+		if consumer.is_active:
+			consumer.process_beat(context)
+			
+			# Remove exhausted consumers
+			if consumer.should_remove():
+				beat_consumers.remove_at(i)
+	
+	# Track beat number for burn effect
 	var beat_number = get_meta("total_beats", 0) + 1
 	set_meta("total_beats", beat_number)
+	
 	# Count down to disruption
 	if beats_until_disruption > 0:
 		beats_until_disruption -= 1
@@ -43,10 +55,6 @@ func process_beat(context: BeatContext) -> void:
 	if burn_duration > 0:
 		if beat_number % 10 == 0:  # Each tick
 			burn_duration -= 1
-	
-	# Process poison on this gremlin's schedule
-	if poison_stacks > 0 and beat_number % poison_interval == 0:
-		process_poison()
 
 ## Take damage
 func take_damage(amount: int, pierce: bool = false, pop: bool = false) -> void:
@@ -74,16 +82,31 @@ func take_damage(amount: int, pierce: bool = false, pop: bool = false) -> void:
 
 ## Apply poison
 func apply_poison(stacks: int) -> void:
-	poison_stacks += stacks
+	# Find existing poison consumer or create new one
+	var poison_consumer: PoisonConsumer = null
+	
+	for consumer in beat_consumers:
+		if consumer is PoisonConsumer:
+			poison_consumer = consumer as PoisonConsumer
+			break
+	
+	if poison_consumer:
+		poison_consumer.add_poison(stacks)
+	else:
+		poison_consumer = PoisonConsumer.new(stacks)
+		poison_consumer.owner = self
+		beat_consumers.append(poison_consumer)
 
 ## Apply burn (prevents healing)
 func apply_burn(ticks: int) -> void:
 	burn_duration = max(burn_duration, ticks * 10)  # Convert to beats
 
-## Process poison damage (called by BeatProcessor)
-func process_poison() -> void:
-	if poison_stacks > 0:
-		take_damage(poison_stacks, true)  # Poison pierces shields
+## Get current poison stacks
+func get_poison_stacks() -> int:
+	for consumer in beat_consumers:
+		if consumer is PoisonConsumer:
+			return (consumer as PoisonConsumer).get_poison_value()
+	return 0
 
 ## Heal the gremlin
 func heal(amount: int) -> void:
@@ -129,10 +152,19 @@ func _on_defeated() -> void:
 func _remove_disruptions() -> void:
 	pass
 
+## Add a beat consumer to this gremlin
+func add_beat_consumer(consumer: BeatConsumer) -> void:
+	consumer.owner = self
+	beat_consumers.append(consumer)
+
+## Remove a beat consumer
+func remove_beat_consumer(consumer: BeatConsumer) -> void:
+	beat_consumers.erase(consumer)
+
 ## Reset for new combat
 func reset() -> void:
 	current_hp = max_hp
 	shields = 0
-	poison_stacks = 0
 	burn_duration = 0
 	beats_until_disruption = disruption_interval_beats
+	beat_consumers.clear()
