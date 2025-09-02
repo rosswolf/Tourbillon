@@ -9,4 +9,4 @@ tests/web/*.py
 tests/**/*.log
 tests/**/*.json
 tests/**/*.png
-tests/**/*.html
+tests/**/*.htmlnode_modules/
