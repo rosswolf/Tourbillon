@@ -8,7 +8,6 @@
 [ext_resource type="PackedScene" uid="uid://3yoqe2hx1j1g" path="res://src/scenes/ui/battleground/ui_battleground.tscn" id="4_5dxuo"]
 [ext_resource type="FontFile" uid="uid://b73jymev43fu5" path="res://ofl_font_assets/BrassMonoRegular-d9WLg.ttf" id="5_bd8mh"]
 [ext_resource type="Shader" uid="uid://dktsayggtgauf" path="res://src/scenes/water_effect.gdshader" id="9_h2mn8"]
-[ext_resource type="PackedScene" uid="uid://c36r6il5bgtu7" path="res://src/scenes/ui/resources/multiplier_meter.tscn" id="9_tnd0m"]
 [ext_resource type="PackedScene" uid="uid://cka5aovpfoi80" path="res://src/scenes/ui/click_and_drag/click_and_drag.tscn" id="10_6e0h8"]
 [ext_resource type="PackedScene" uid="uid://dckcqckqo0abj" path="res://src/scenes/ui/hud/HUD.tscn" id="10_bd8mh"]
 
