@@ -1,3 +1,14 @@
 # Godot 4+ specific ignores
 .godot/
 /android/
+
+# Test artifacts
+claude_test_screenshots/
+test_screenshots/
+*.pyc
+__pycache__/
+
+# Test scripts (optional, keep for reference)
+test_*.py
+quick_test.py
+final_test.py
