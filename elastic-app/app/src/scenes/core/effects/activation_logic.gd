@@ -21,11 +21,14 @@ static func activate(source: Entity, target: Entity) -> bool:
 		
 		if not card.cost.satisfy(source, target):
 			return false
-			
-		if card.has_instinct_effect():
-			return activate_instinct(card, target)
-		elif card.has_slot_effect():
+		
+		# Check if card has slot effect (gear/complication)
+		if card.has_slot_effect():
+			# Always slot the card, handling overbuild if needed
 			return slot_card_in_button(card, button)
+		elif card.has_instinct_effect():
+			# Only activate instinct if we're not trying to slot
+			return activate_instinct(card, target)
 		else:
 			assert(false, "unexpected inactivation")
 				
