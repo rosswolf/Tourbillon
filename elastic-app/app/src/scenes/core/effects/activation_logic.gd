@@ -22,15 +22,13 @@ static func activate(source: Entity, target: Entity) -> bool:
 		if not card.cost.satisfy(source, target):
 			return false
 		
-		# Check if card has slot effect (gear/complication)
+		# All cards should have slot effects now (no more instinct effects)
 		if card.has_slot_effect():
-			# Always slot the card, handling overbuild if needed
 			return slot_card_in_button(card, button)
-		elif card.has_instinct_effect():
-			# Only activate instinct if we're not trying to slot
-			return activate_instinct(card, target)
 		else:
-			assert(false, "unexpected inactivation")
+			# This shouldn't happen with current cards
+			push_warning("Card without slot effect tried to activate on button: " + card.display_name)
+			return false
 				
 	return false
 
