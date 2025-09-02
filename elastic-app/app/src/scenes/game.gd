@@ -4,7 +4,7 @@ class_name Game
 
 #Game.gd
 
-var GRAVITY_MP3: String = "res://pixabay assets/gravity-193874.mp3"
+var MUSIC_MP3: String = "res://pixabay assets/reportage-industriel-song-1-261972.mp3"
 @onready var UI_GOAL: PackedScene = preload("res://src/scenes/ui/entities/goals/ui_goal.tscn")
 
 
@@ -24,7 +24,7 @@ func _ready() -> void:
 	GlobalSignals.core_game_win.connect(__on_core_game_win)
 	
 	
-	var audio_stream = load(GRAVITY_MP3)
+	var audio_stream = load(MUSIC_MP3)
 	%AudioStreamPlayer.stream = audio_stream
 	%AudioStreamPlayer.play()
 	%AudioStreamPlayer.finished.connect(__on_audio_finished)
