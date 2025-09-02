@@ -4,24 +4,20 @@ class_name GameResource
 # When adding a new type here, be sure to update the get_resource_background_color function below
 enum Type {
 	UNKNOWN,
+	# Core force resources (from PRD)
+	HEAT,        # Red - Attack All
+	PRECISION,   # Blue - Attack Bottom
+	MOMENTUM,    # Green - Attack Top
+	BALANCE,     # White - Defense/Health
+	ENTROPY,     # Purple - Randomness/Chaos
+	# UI/Color resources (for backward compatibility)
 	GOLD,
-	# Core force resources
-	HEAT,        # Red (was PURPLE)
-	PRECISION,   # Blue (was BLUE)
-	MOMENTUM,    # Green (was GREEN)
-	BALANCE,     # White (NEW)
-	ENTROPY,     # Purple (NEW)
-	INSPIRATION, # Gold (NEW)
-	# Legacy time resources (keeping for compatibility)
 	PURPLE_TIME,
 	GREEN_TIME,
 	BLUE_TIME,
 	PURPLE_ENERGY,
 	GREEN_ENERGY,
 	BLUE_ENERGY,
-	# Legacy resources
-	FORCE,
-	DEPTH,
 	NONE
 }
 
@@ -48,11 +44,7 @@ class ResourceAccessor:
 			setter.call(getter.call() - amount)
 	
 	var __resources: Dictionary = {
-		GameResource.Type.GOLD: __SpecificResourceAccessor.new(
-			func(): return GlobalGameManager.hero.gold.amount if GlobalGameManager.hero and GlobalGameManager.hero.gold else 0,
-			func(value): if GlobalGameManager.hero and GlobalGameManager.hero.gold: GlobalGameManager.hero.gold.amount = value
-		),
-		# Core force resources
+		# Core force resources from PRD
 		GameResource.Type.HEAT: __SpecificResourceAccessor.new(
 			func(): return GlobalGameManager.hero.heat.amount if GlobalGameManager.hero and GlobalGameManager.hero.heat else 0,
 			func(value): if GlobalGameManager.hero and GlobalGameManager.hero.heat: GlobalGameManager.hero.heat.amount = value
@@ -72,19 +64,6 @@ class ResourceAccessor:
 		GameResource.Type.ENTROPY: __SpecificResourceAccessor.new(
 			func(): return GlobalGameManager.hero.entropy.amount if GlobalGameManager.hero and GlobalGameManager.hero.entropy else 0,
 			func(value): if GlobalGameManager.hero and GlobalGameManager.hero.entropy: GlobalGameManager.hero.entropy.amount = value
-		),
-		GameResource.Type.INSPIRATION: __SpecificResourceAccessor.new(
-			func(): return GlobalGameManager.hero.inspiration.amount if GlobalGameManager.hero and GlobalGameManager.hero.inspiration else 0,
-			func(value): if GlobalGameManager.hero and GlobalGameManager.hero.inspiration: GlobalGameManager.hero.inspiration.amount = value
-		),
-		# Legacy time/energy resources removed - use force system instead
-		GameResource.Type.FORCE: __SpecificResourceAccessor.new(
-			func(): return GlobalGameManager.hero.force.amount if GlobalGameManager.hero and GlobalGameManager.hero.force else 0,
-			func(value): if GlobalGameManager.hero and GlobalGameManager.hero.force: GlobalGameManager.hero.force.amount = value
-		),
-		GameResource.Type.DEPTH: __SpecificResourceAccessor.new(
-			func(): return GlobalGameManager.hero.depth.amount if GlobalGameManager.hero and GlobalGameManager.hero.depth else 0,
-			func(value): if GlobalGameManager.hero and GlobalGameManager.hero.depth: GlobalGameManager.hero.depth.amount = value
 		),
 	}
 	

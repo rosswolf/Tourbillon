@@ -105,8 +105,6 @@ func get_energy_color() ->  GameResource.Type:
 		return GameResource.Type.BALANCE
 	if requirements.has(GameResource.Type.ENTROPY):
 		return GameResource.Type.ENTROPY
-	if requirements.has(GameResource.Type.INSPIRATION):
-		return GameResource.Type.INSPIRATION
 	# Legacy support
 	if requirements.has(GameResource.Type.PURPLE_ENERGY):
 		return GameResource.Type.PURPLE_ENERGY
@@ -129,8 +127,6 @@ func get_energy_cost() -> int:
 		return requirements[GameResource.Type.BALANCE]
 	if requirements.has(GameResource.Type.ENTROPY):
 		return requirements[GameResource.Type.ENTROPY]
-	if requirements.has(GameResource.Type.INSPIRATION):
-		return requirements[GameResource.Type.INSPIRATION]
 	# Legacy support
 	if requirements.has(GameResource.Type.PURPLE_ENERGY):
 		return requirements[GameResource.Type.PURPLE_ENERGY]

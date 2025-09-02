@@ -8,21 +8,12 @@ var image_name: String
 var starting_relic: String
 
 
-var gold: CappedResource
-
-# Core force resources
-var heat: CappedResource        # Red
-var precision: CappedResource   # Blue  
-var momentum: CappedResource    # Green
-var balance: CappedResource     # White
-var entropy: CappedResource     # Purple
-var inspiration: CappedResource # Gold
-
-# Legacy resources (keeping for compatibility)
-var time: TimeResource
-var energy: EnergyResource
-var force: CappedResource
-var depth: CappedResource
+# Core force resources (from PRD)
+var heat: CappedResource        # Red - Attack All
+var precision: CappedResource   # Blue - Attack Bottom
+var momentum: CappedResource    # Green - Attack Top
+var balance: CappedResource     # White - Defense/Health focus
+var entropy: CappedResource     # Purple - Randomness/Chaos
 
 func _init():
 	# Initialize force resources with default values
@@ -33,7 +24,6 @@ func _init():
 	momentum = CappedResource.new(0, 10, noop, noop)
 	balance = CappedResource.new(0, 10, noop, noop)
 	entropy = CappedResource.new(0, 10, noop, noop)
-	inspiration = CappedResource.new(0, 10, noop, noop)
 	
 	# Legacy resources removed - use force system instead
 
@@ -60,8 +50,6 @@ func get_force_resource(force_type: GameResource.Type) -> CappedResource:
 			return balance
 		GameResource.Type.ENTROPY:
 			return entropy
-		GameResource.Type.INSPIRATION:
-			return inspiration
 		_:
 			return null
 
@@ -181,8 +169,6 @@ class HeroBuilder extends Entity.EntityBuilder:
 		hero.image_name = __image_name
 		hero.starting_relic = __starting_relic
 		#hero.time = hero.construct_capped_resource(5*60, 5*60*1000, false, GameResource.Type.TIME)
-		hero.force = hero.construct_capped_resource(0, default_max, false, GameResource.Type.FORCE)
-		hero.depth = hero.construct_capped_resource(10, default_max, false, GameResource.Type.DEPTH)
 		#hero.energy = hero.construct_capped_resource(0, default_max, false, GameResource.Type.ENERGY)
 		hero.gold = hero.construct_capped_resource(__starting_gold, default_max, false, GameResource.Type.GOLD)
 		

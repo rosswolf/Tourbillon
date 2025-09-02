@@ -1,0 +1,16 @@
+[
+  {
+    "relic_template_id": "test_relic",
+    "display_name": "Test relic",
+    "image_name": "white_glowing_circle",
+    "starting_value": "-1",
+    "description": "Tests data delete when we have more rows"
+  },
+  {
+    "relic_template_id": "training_gloves",
+    "display_name": "Training Gloves",
+    "image_name": "gold_coin",
+    "starting_value": "-1",
+    "description": "Allows player to manually refresh deactivated slots and also returns detached cards to hand instead of discard"
+  }
+]

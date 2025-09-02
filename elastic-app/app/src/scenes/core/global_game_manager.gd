@@ -26,8 +26,7 @@ func _ready():
 	GlobalSignals.core_card_played.connect(__on_card_played)
 	GlobalSignals.core_card_destroyed.connect(__on_card_destroyed)
 	GlobalSignals.core_slot_activated.connect(__on_core_slot_activated)
-	GlobalSignals.ui_meter_expired.connect(__on_ui_meter_expired)
-	GlobalSignals.ui_time_bump.connect(__on_ui_time_bump)
+	# Air meter signals removed - no longer used
 	GlobalSignals.core_card_drawn.connect(__on_core_card_drawn)
 	
 	
@@ -104,30 +103,9 @@ func __on_start_battle():
 	allow_activations()
 	GlobalSignals.signal_core_begin_turn()
 	
-func __on_ui_meter_expired(color: GameResource.Type):
+# Air meter expired handler removed - no longer used
 	
-	const air_colors: Array[GameResource.Type] = [GameResource.Type.HEAT, GameResource.Type.PRECISION, GameResource.Type.MOMENTUM]
-	
-	var ongoing: bool = false
-
-	for c in air_colors:
-		if UiController.meters[c].time_until_full > 0.001:
-			ongoing = true
-			break
-	
-	if not ongoing:
-		end_game()
-	else:
-		#print("crime and punishment")
-		# Make the timers count faster
-		for c in air_colors:
-			GlobalSignals.signal_core_max_time_removed(c, 2.0)
-	
-func __on_ui_time_bump():
-	const air_colors: Array[GameResource.Type] = [GameResource.Type.HEAT, GameResource.Type.PRECISION, GameResource.Type.MOMENTUM]
-	
-	for c in air_colors:
-		GlobalSignals.signal_core_max_energy_added(c, 1.0)
+# Air meter time bump handler removed - no longer used
 		
 		
 func __on_card_played(card_instance_id: String):

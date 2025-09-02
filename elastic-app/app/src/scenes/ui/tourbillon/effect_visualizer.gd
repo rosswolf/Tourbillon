@@ -162,8 +162,6 @@ func _get_force_name(force_type: GameResource.Type) -> String:
 			return "Balance"
 		GameResource.Type.ENTROPY:
 			return "Entropy"
-		GameResource.Type.INSPIRATION:
-			return "Inspiration"
 		_:
 			return "Force"
 
