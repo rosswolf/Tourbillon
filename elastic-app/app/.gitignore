@@ -2,6 +2,10 @@
 .godot/
 /android/
 
+# Build artifacts
+build/
+/build/
+
 # Test artifacts
 claude_test_screenshots/
 test_screenshots/
