@@ -47,7 +47,7 @@ func activate(source: Entity):
 		assert(false, "Unexpected source type")
 
 
-func _is_valid_source(source: Entity) -> bool:
+func __is_valid_source(source: Entity) -> bool:
 	#if _effect_type != EffectType.ACTIVATABLE:
 		#return false
 	var satisfy_target_requirments = Effect.entity_in_types(source, __valid_source_types)
@@ -56,7 +56,7 @@ func _is_valid_source(source: Entity) -> bool:
 	else:	
 		return true
 		
-func _is_valid_target(source: Entity) -> bool:
+func __is_valid_target(source: Entity) -> bool:
 	#if _effect_type != EffectType.ACTIVATABLE:
 		#return false
 	var satisfy_target_requirments = Effect.entity_in_types(source, __valid_target_types)
@@ -65,13 +65,13 @@ func _is_valid_target(source: Entity) -> bool:
 	else:	
 		return true
 	
-func _could_satisfy_costs(source: Entity, target: Entity) -> bool:
+func __could_satisfy_costs(source: Entity, target: Entity) -> bool:
 	if cost == null:
 		return true
 	else:
 		return cost.can_satisfy(source, target)
 		
-func _execute_satisfy_costs(source: Entity, target: Entity) -> bool:
+func __execute_satisfy_costs(source: Entity, target: Entity) -> bool:
 	if cost == null:
 		return true
 	else:

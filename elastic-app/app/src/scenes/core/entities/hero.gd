@@ -40,11 +40,8 @@ func _init():
 	momentum = CappedResource.new(0, 10, noop, noop)
 	balance = CappedResource.new(0, 10, noop, noop)
 	entropy = CappedResource.new(0, 10, noop, noop)
-	
-	# Legacy resources removed - use force system instead
 
 # Legacy TimeResource and EnergyResource removed - use force system instead
-
 func _get_type() -> Entity.EntityType:
 	return Entity.EntityType.HERO
 
@@ -136,7 +133,7 @@ func signal_moved(new_position: int) -> void:
 func signal_created() -> void:
 	GlobalSignals.signal_core_hero_created(instance_id)
 			
-func _generate_instance_id() -> String:
+func __generate_instance_id() -> String:
 	return "hero" + str(Time.get_unix_time_from_system()) + "_" + str(randi())
 
 

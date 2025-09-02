@@ -76,7 +76,7 @@ func remove_card(card_instance_id: String) -> CardUI:
 	
 	return card
 	
-func _calculate_card_layout() -> Dictionary:
+func __calculate_card_layout() -> Dictionary:
 	if __cards.is_empty():
 		return {}
 	
@@ -121,7 +121,7 @@ func arrange_cards() -> void:
 	if __cards.is_empty():
 		return
 	
-	var layout = _calculate_card_layout()
+	var layout = __calculate_card_layout()
 	if layout.is_empty():
 		return
 	
@@ -179,11 +179,11 @@ func arrange_cards() -> void:
 			continue
 		
 		# Animate the card to its new position
-		_animate_card_to_position(card, target_pos, target_rotation)
+		__animate_card_to_position(card, target_pos, target_rotation)
 
 
 # Animate card to a position with rotation
-func _animate_card_to_position(card: CardUI, target_pos: Vector2, target_rotation: float) -> void:
+func __animate_card_to_position(card: CardUI, target_pos: Vector2, target_rotation: float) -> void:
 	# Cancel any existing tween
 	if __tween_dict.has(card) and __tween_dict[card] != null:
 		__tween_dict[card].kill()
@@ -212,7 +212,7 @@ func _on_card_mouse_entered(card: CardUI) -> void:
 		__tween_dict[card].kill()
 	
 	# Calculate what the base position of this card should be
-	var base_position = _calculate_base_position_for_card(card)
+	var base_position = __calculate_base_position_for_card(card)
 	
 	# Calculate raised position based on base position, not current position
 	var raised_position = base_position - Vector2(0, hover_raise_amount)
@@ -270,7 +270,7 @@ func toggle_card_selection_on(card: CardUI) -> void:
 	__selected_card = card
 	
 	# Make sure it's raised and scaled
-	_raise_card(card)	
+	__raise_card(card)	
 	
 # Deselect the currently selected card
 func deselect_current_card() -> void:
@@ -285,13 +285,13 @@ func deselect_current_card() -> void:
 		arrange_cards()
 		
 # Helper function to raise a card (separate from hover effect)
-func _raise_card(card: CardUI) -> void:
+func __raise_card(card: CardUI) -> void:
 	# Cancel any existing tween
 	if __tween_dict.has(card) and __tween_dict[card] != null:
 		__tween_dict[card].kill()
 	
 	# Calculate what the base position of this card should be
-	var base_position = _calculate_base_position_for_card(card)
+	var base_position = __calculate_base_position_for_card(card)
 	
 	# Calculate raised position based on base position, not current position
 	var raised_position = base_position - Vector2(0, hover_raise_amount)
@@ -312,7 +312,7 @@ func _raise_card(card: CardUI) -> void:
 	__tween_dict[card] = tween
 
 # Helper function to calculate the base position for a card (without any raise effect)
-func _calculate_base_position_for_card(card: CardUI) -> Vector2:
+func __calculate_base_position_for_card(card: CardUI) -> Vector2:
 	if __cards.is_empty():
 		return Vector2.ZERO
 		
@@ -328,7 +328,7 @@ func _calculate_base_position_for_card(card: CardUI) -> Vector2:
 	if card_index == -1:
 		return card.position  # Card not found in our cards dictionary
 	
-	var layout = _calculate_card_layout()
+	var layout = __calculate_card_layout()
 	if layout.is_empty():
 		return Vector2.ZERO
 	
