@@ -11,7 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://c36r6il5bgtu7" path="res://src/scenes/ui/resources/multiplier_meter.tscn" id="9_tnd0m"]
 [ext_resource type="PackedScene" uid="uid://cka5aovpfoi80" path="res://src/scenes/ui/click_and_drag/click_and_drag.tscn" id="10_6e0h8"]
 [ext_resource type="PackedScene" uid="uid://dckcqckqo0abj" path="res://src/scenes/ui/hud/HUD.tscn" id="10_bd8mh"]
-[ext_resource type="PackedScene" uid="uid://dqunn5rh4414l" path="res://src/scenes/ui/resources/air_meter2.tscn" id="10_tnd0m"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gh3at"]
 
@@ -189,14 +188,6 @@ theme_override_constants/margin_bottom = 15
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_flib5")
 
-[node name="BlueAirMeter" parent="Background/HBoxContainer/VBoxContainer/HBoxContainer2/MarginContainer/PanelContainer" instance=ExtResource("10_tnd0m")]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(60, 400)
-layout_mode = 2
-air_color = 3
-default_timer_max = 25.0
-default_max_energy = 3.0
-starting_energy = 1.0
 
 [node name="MarginContainer2" type="MarginContainer" parent="Background/HBoxContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
@@ -206,13 +197,6 @@ theme_override_constants/margin_bottom = 15
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_flib5")
 
-[node name="PurpleAirMeter" parent="Background/HBoxContainer/VBoxContainer/HBoxContainer2/MarginContainer2/PanelContainer" instance=ExtResource("10_tnd0m")]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(60, 400)
-layout_mode = 2
-air_color = 1
-default_max_energy = 3.0
-starting_energy = 1.0
 
 [node name="MarginContainer3" type="MarginContainer" parent="Background/HBoxContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
@@ -223,15 +207,6 @@ theme_override_constants/margin_bottom = 5
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_flib5")
 
-[node name="GreenAirMeter" parent="Background/HBoxContainer/VBoxContainer/HBoxContainer2/MarginContainer3/PanelContainer" instance=ExtResource("10_tnd0m")]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(60, 400)
-layout_mode = 2
-rightmost_style = true
-air_color = 2
-default_timer_max = 30.0
-default_max_energy = 3.0
-starting_energy = 1.0
 
 [node name="ClickAndDrag" parent="." instance=ExtResource("10_6e0h8")]
 
