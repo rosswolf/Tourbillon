@@ -54,7 +54,7 @@ static func slot_card_in_button(card: Card, button: EngineButtonEntity) -> bool:
 			existing_card.trigger_replacement_effects()
 		
 		# 2. Move the old card to discard pile
-		GlobalGameManager.library.move_card_to_zone2(existing_card.instance_id, Library.Zone.SLOTTED, Library.Zone.DISCARD)
+		GlobalGameManager.library.move_card_to_zone2(existing_card.instance_id, Library.Zone.SLOTTED, Library.Zone.GRAVEYARD)
 		
 		# 3. Signal that the old card was unslotted and discarded
 		GlobalSignals.signal_core_card_unslotted(button.instance_id)
