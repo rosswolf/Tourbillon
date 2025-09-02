@@ -211,7 +211,7 @@ Forces represent different types of energy in your clockwork mechanism:
   - Shields/damage prevention, consistent production, stability focus
   - Damage Multiplier: **0.8x**
 
-- **Entropy (Black)** - Decay/Unwinding
+- **Entropy (Purple)** - Decay/Unwinding
   - Attack Targeting: **Attack (Lowest HP)** - Targets weakest gremlin
   - Destroy own complications for benefit, high risk/high reward
   - Damage Multiplier: **1.1x**
@@ -281,11 +281,11 @@ Special Resources are created by combining Basic Forces and provide access to po
   - Damage Multiplier: **1.4x** (base, can scale with usage)
   - Provides acceleration, chains, and scaling effects
 
-- **BALANCE** (White + Black combination)
+- **BALANCE** (White + Purple combination)
   - Damage Multiplier: **1.2x** 
   - Enables execution (<10 HP threshold), stability, and control
 
-- **ENTROPY** (Black + Green combination)
+- **ENTROPY** (Purple + Green combination)
   - Damage Multiplier: **1.5x**
   - Powers poison, sacrifice, copying, and rule-breaking effects
 
