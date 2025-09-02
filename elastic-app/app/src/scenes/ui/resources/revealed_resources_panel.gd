@@ -21,8 +21,11 @@ func _ready():
 	for resource_name in GameResource.Type.keys():
 		var resource_type: GameResource.Type = GameResource.Type[resource_name]
 		
-		# Skip DEPTH resource from UI display
-		if resource_type == GameResource.Type.DEPTH:
+		# Skip UNKNOWN and legacy resources from UI display
+		if resource_type == GameResource.Type.UNKNOWN or resource_type == GameResource.Type.NONE:
+			continue
+		# Skip legacy time/energy resources
+		if resource_name.ends_with("_TIME") or resource_name.ends_with("_ENERGY"):
 			continue
 		
 		var specific_resource = resource_template.duplicate()
