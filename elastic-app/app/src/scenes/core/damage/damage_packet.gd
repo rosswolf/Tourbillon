@@ -5,12 +5,13 @@ class_name DamagePacket
 var base_amount: int = 0
 var damage_type: DamageType.Type = DamageType.Type.PHYSICAL
 var source: Entity = null  # The entity that initiated the damage
-var source_position: Vector2i = Vector2i.ZERO
+var source_position: Vector2 = Vector2.ZERO
 
 # Damage modifiers
 var multipliers: float = 1.0
 var flat_bonuses: int = 0
-var critical: bool = false
+var is_critical: bool = false  # Whether this damage has crit
+var can_crit: bool = true      # Whether this damage can crit
 
 # Damage properties/flags
 var properties: Array[DamageProperty.Type] = []
@@ -42,7 +43,7 @@ func _init(amount: int = 0, type: DamageType.Type = DamageType.Type.PHYSICAL):
 # Calculate final damage amount with all modifiers
 func calculate_total() -> int:
 	var total = float(base_amount) * multipliers + float(flat_bonuses)
-	if critical:
+	if is_critical:
 		total *= 2.0
 	return max(0, int(total))
 

@@ -3,15 +3,16 @@ class_name DamageType
 
 enum Type {
 	PHYSICAL,    # Standard damage, reduced by armor
-	ENERGY,      # Bypasses armor, reduced by shields
-	TRUE,        # Ignores all defenses
-	POISON,      # Damage over time, ignores shields
-	FIRE,        # Can spread to adjacent targets
-	ICE,         # Can freeze/slow targets
-	LIGHTNING,   # Can chain between targets
-	HOLY,        # Extra damage to undead/demons
-	DARK,        # Lifesteal potential
-	PSYCHIC      # Bypasses physical defenses
+	# Future damage types - uncomment as needed:
+	# ENERGY,      # Bypasses armor, reduced by shields
+	# TRUE,        # Ignores all defenses
+	# POISON,      # Damage over time, ignores shields
+	# FIRE,        # Can spread to adjacent targets
+	# ICE,         # Can freeze/slow targets
+	# LIGHTNING,   # Can chain between targets
+	# HOLY,        # Extra damage to undead/demons
+	# DARK,        # Lifesteal potential
+	# PSYCHIC      # Bypasses physical defenses
 }
 
 # Get display name for damage type

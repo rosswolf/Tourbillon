@@ -3,20 +3,20 @@ class_name DamageProperty
 
 enum Type {
 	PIERCING,        # Ignores shields
-	OVERWHELMING,    # Excess shield damage carries through
+	POP,             # Destroys all shields but excess doesn't carry through
 	CHAINING,        # Jumps to adjacent targets
-	EXPLOSIVE,       # Hits all enemies in radius
+	# EXPLOSIVE,     # Removed - use multi-target instead
 	EXECUTION,       # Instant kill below threshold
 	VAMPIRIC,        # Heals attacker
 	STUNNING,        # Can stun target
-	BURNING,         # Applies burn DoT
+	# BURNING,       # Removed - too similar to poison
 	FREEZING,        # Applies freeze/slow
 	POISONING,       # Applies poison DoT
 	MARKING,         # Marks target for bonus damage
 	CLEAVING,        # Hits multiple enemies in arc
-	CRITICAL,        # Can critically strike
+	CRITICAL,        # Has critically struck
 	UNSTOPPABLE,     # Cannot be reduced below 1
-	REFLECTABLE      # Can be reflected back
+	NON_REFLECTABLE  # Cannot be reflected (most damage should be this)
 }
 
 # Get display name for property

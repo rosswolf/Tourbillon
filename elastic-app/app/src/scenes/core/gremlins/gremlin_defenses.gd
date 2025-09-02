@@ -1,5 +1,5 @@
-extends GremlinConstraint
-class_name DefensiveConstraint
+extends Resource
+class_name GremlinDefenses
 
 # Defensive properties
 var damage_cap: int = -1              # Max damage per hit (-1 = no cap)
@@ -15,8 +15,7 @@ var dodge_chance: float = 0.0         # Chance to dodge attacks
 var max_shields: int = 0
 var shield_decay_per_beat: int = 0    # Shields lost per beat
 
-func _init():
-	constraint_name = "Defensive Constraint"
+# No _init needed anymore since we're not a constraint
 
 func modify_incoming_damage(damage: int, packet: DamagePacket) -> int:
 	# Check immunity

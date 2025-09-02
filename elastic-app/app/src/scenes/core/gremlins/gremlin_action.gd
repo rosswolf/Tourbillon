@@ -1,4 +1,4 @@
-extends Resource
+extends BeatConsumer
 class_name GremlinAction
 
 # Action timing

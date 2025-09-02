@@ -761,11 +761,28 @@ When offered card choices (typically choose 1 of 3):
 - **Smart Offering**: System tracks your most common tags and colors to determine synergies
 - This ensures coherent deck building while maintaining variety
 
+**Synergy Detection Algorithm:**
+1. Count all tags in current deck (weight by frequency)
+2. Count all colors in current deck (weight by frequency)  
+3. Track Special Resource usage (converters you have vs consumers)
+4. For synergy slots, prioritize cards that:
+   - Share the most common tag(s) in deck
+   - Match the dominant color(s) in deck
+   - Complete converter chains (if you have Red→HEAT converters, offer HEAT consumers)
+   - Support existing payment types (if using Largest costs, offer more flexible payments)
+5. Avoid offering duplicate cards unless specifically a duplication reward
+
 **Example Card Offering:**
 - If your deck has many [Spark] and Red cards:
   - Card 1: Random from any pool
   - Card 2: Guaranteed to have [Spark] tag OR use Red Force
   - Card 3: Random from any pool
+
+**Special Reward Types:**
+- **Color-Focused**: All 3 cards from a single color (rare elite rewards)
+- **Tag-Themed**: All 3 cards share a specific tag (uncommon events)
+- **Converter Package**: Matched converter + consumer pair (workshop specials)
+- **Flexible Payment**: At least 1 card uses Largest/Smallest costs (common)
 
 #### 9.3.2 Other Rewards
 - Movement plate expansions
@@ -915,26 +932,51 @@ When offered card choices (typically choose 1 of 3):
 - Forces are not capped - Unless gremlins add caps, forces can accumulate infinitely
 - Time units - Remember: 10 Beats = 1 Tick. Cards cost Ticks, but the game processes every Beat
 
-## 13. Ideas for Future Consideration
+## 13. User Interface Requirements
 
-### 13.1 Movement Mechanics
+### 13.1 Card Efficiency Display
+To help players understand resource economics, cards should display efficiency metrics at the bottom:
+
+#### For Gear Cards (Repeating Effects):
+- **Production Rate**: "Efficiency: X resources/tick" (e.g., "Efficiency: 0.83 Red/tick")
+- **Consumption Rate**: "Consumption: Y resources/tick" (e.g., "Consumption: 0.5 Blue/tick")
+- **Net Rate**: For converters, show both (e.g., "Consumes: 0.5 Red/tick → Produces: 0.25 HEAT/tick")
+
+#### For Instant Effects:
+- **Cost Efficiency**: "Cost: X per effect" (e.g., "2 Red per damage")
+- **Flexible Costs**: Show all options (e.g., "2 Red OR 4 Largest per damage")
+
+#### Display Format:
+- Small text at bottom of card
+- Use fractional display when appropriate (0.5, 0.83, etc.)
+- Color-code by resource type
+- Update dynamically with modifiers
+
+### 13.2 Resource Display
+- Show current resources with decimal precision (e.g., "Red: 3.5")
+- Group Basic Forces and Special Resources separately
+- Highlight which resource is "Largest" and "Smallest" with icons
+
+## 14. Ideas for Future Consideration
+
+### 14.1 Movement Mechanics
 - Complications that can move around the movement plate
 - "On moved" trigger effects
 - Swap positions between complications
 - Note: Start without movement mechanics, add if needed for depth
 
-### 13.2 Combat Goals
+### 14.2 Combat Goals
 - Optional objectives during combat for bonus rewards
 - Note: Consider adding after core combat is proven fun
 
-### 13.3 Negative Forces
+### 14.3 Negative Forces
 - Forces generated as unwanted byproducts
 - Gremlin triggers that activate based on negative force accumulation
 - Burn mechanics to dispose of negative forces
 
-## 14. Archived Ideas (Not Currently in Scope)
+## 15. Archived Ideas (Not Currently in Scope)
 
-### 14.1 Mechanics
+### 15.1 Mechanics
 - Transform complications (deemed unnecessary)
 - Replace as keyword (all complications can replace by default)
 - Probability-based production (explicitly rejected)
@@ -942,7 +984,7 @@ When offered card choices (typically choose 1 of 3):
 - Energy cost beyond time
 - Card aging mechanics
 
-### 14.2 Combat Features
+### 15.2 Combat Features
 - Mana Shield Gremlins
 - Oracle Gremlin
 - Thief Gremlin (steals cards)

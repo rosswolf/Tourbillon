@@ -6,7 +6,7 @@ signal damage_calculated(packet: DamagePacket, target: Entity, final_damage: int
 signal damage_blocked(packet: DamagePacket, target: Entity, blocked_amount: int)
 
 # Calculate final damage after all modifiers
-static func calculate_damage(packet: DamagePacket, target: Entity) -> int:
+static func calculate_damage(packet: DamagePacket, target: IDamageable) -> int:
 	if not packet or not target:
 		return 0
 	
@@ -27,7 +27,7 @@ static func calculate_damage(packet: DamagePacket, target: Entity) -> int:
 	damage = apply_vulnerabilities(damage, packet, target)
 	
 	# Stage 6: Check for execution
-	if packet.execution_threshold > 0 and target.has_method("get_health"):
+	if packet.execution_threshold > 0:
 		if target.get_health() <= packet.execution_threshold:
 			damage = 999999  # Instant kill
 	
