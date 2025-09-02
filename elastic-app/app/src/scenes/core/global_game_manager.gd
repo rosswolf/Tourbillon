@@ -104,9 +104,9 @@ func __on_start_battle():
 	allow_activations()
 	GlobalSignals.signal_core_begin_turn()
 	
-func __on_ui_meter_expired(color: Air.AirColor):
+func __on_ui_meter_expired(color: GameResource.Type):
 	
-	const air_colors: Array[Air.AirColor] = [Air.AirColor.HEAT, Air.AirColor.PRECISION, Air.AirColor.MOMENTUM]
+	const air_colors: Array[GameResource.Type] = [GameResource.Type.HEAT, GameResource.Type.PRECISION, GameResource.Type.MOMENTUM]
 	
 	var ongoing: bool = false
 
@@ -124,7 +124,7 @@ func __on_ui_meter_expired(color: Air.AirColor):
 			GlobalSignals.signal_core_max_time_removed(c, 2.0)
 	
 func __on_ui_time_bump():
-	const air_colors: Array[Air.AirColor] = [Air.AirColor.HEAT, Air.AirColor.PRECISION, Air.AirColor.MOMENTUM]
+	const air_colors: Array[GameResource.Type] = [GameResource.Type.HEAT, GameResource.Type.PRECISION, GameResource.Type.MOMENTUM]
 	
 	for c in air_colors:
 		GlobalSignals.signal_core_max_energy_added(c, 1.0)

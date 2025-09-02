@@ -38,7 +38,6 @@ func __build_enum_mappings():
 	# Auto-generate mappings from enum definitions
 	__add_enum_mapping("Card.RarityType", Card.RarityType)
 	__add_enum_mapping("GameResource.Type", GameResource.Type)
-	__add_enum_mapping("Air.AirColor", Air.AirColor)
 	
 	# Add individual GameResource.Type mappings for force types
 	__enum_mappings["GameResource.Type.HEAT"] = GameResource.Type.HEAT

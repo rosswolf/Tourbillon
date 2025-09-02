@@ -11,7 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://c36r6il5bgtu7" path="res://src/scenes/ui/resources/multiplier_meter.tscn" id="9_tnd0m"]
 [ext_resource type="PackedScene" uid="uid://cka5aovpfoi80" path="res://src/scenes/ui/click_and_drag/click_and_drag.tscn" id="10_6e0h8"]
 [ext_resource type="PackedScene" uid="uid://dckcqckqo0abj" path="res://src/scenes/ui/hud/HUD.tscn" id="10_bd8mh"]
-[ext_resource type="PackedScene" uid="uid://dqunn5rh4414l" path="res://src/scenes/ui/resources/air_meter2.tscn" id="10_tnd0m"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gh3at"]
 

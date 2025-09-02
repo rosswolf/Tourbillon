@@ -16,13 +16,6 @@ var energy_icons: Dictionary[GameResource.Type, String] = {
 	GameResource.Type.NONE: "none_energy"
 }
 
-var type_conversion: Dictionary[GameResource.Type, Air.AirColor] = {
-	GameResource.Type.GREEN_ENERGY: Air.AirColor.MOMENTUM,
-	GameResource.Type.BLUE_ENERGY: Air.AirColor.PRECISION,
-	GameResource.Type.PURPLE_ENERGY: Air.AirColor.HEAT,
-	GameResource.Type.NONE: Air.AirColor.NONE
-}
-
 #@onready var card_image = $ImagePanel/Image
 #@onready var activation_color_panel = $ActivationContainer/ActivationColorPanel
 
