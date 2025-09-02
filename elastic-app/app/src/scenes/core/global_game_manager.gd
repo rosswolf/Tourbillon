@@ -11,6 +11,11 @@ var relic_manager: RelicManager
 var goal_manager: GoalManager
 var stats_manager: StatsManager
 
+# Tourbillon system integration
+var tourbillon_manager: TourbillonGameManager
+var starting_deck_size: int = 15
+var starting_hand_size: int = 5
+
 var hand_size: int = 5
 var current_act = 1
 var __activations_allowed: bool = false
@@ -32,27 +37,76 @@ func _ready():
 	
 	
 
-# DEPRECATED - Old card loading system replaced by Tourbillon
-# func __load_cards() -> void:
-# 	var rare_card_template_ids: Array[String] = []
-# 	var uncommon_card_template_ids: Array[String] = []
-# 	var common_card_template_ids: Array[String] = []
-# 	var default_card_template_ids: Array[String] = []
-# 	var starting_card_template_ids: Array[String] = []
-# 	
-# 	rare_card_template_ids.assign(StaticData.lookup_in_data(StaticData.card_data,"card_rarity",Card.RarityType.RARE,"card_template_id"))
-# 	uncommon_card_template_ids.assign(StaticData.lookup_in_data(StaticData.card_data,"card_rarity",Card.RarityType.UNCOMMON,"card_template_id"))
-# 	common_card_template_ids.assign(StaticData.lookup_in_data(StaticData.card_data,"card_rarity",Card.RarityType.COMMON,"card_template_id"))
-# 	default_card_template_ids.assign(StaticData.lookup_in_data(StaticData.card_data,"card_rarity",Card.RarityType.DEFAULT,"card_template_id"))
-# 	starting_card_template_ids.assign(StaticData.lookup_in_data(StaticData.card_data,"card_rarity",Card.RarityType.STARTING,"card_template_id"))
-# 	
-# 	library.initialize_cards(
-# 		Card.load_cards(hero_template_id, rare_card_template_ids),
-# 		Card.load_cards(hero_template_id, uncommon_card_template_ids),
-# 		Card.load_cards(hero_template_id, common_card_template_ids),
-# 		Card.load_cards(hero_template_id, default_card_template_ids),
-# 		Card.load_cards(hero_template_id, starting_card_template_ids)
-# 	)
+func __load_tourbillon_cards() -> void:
+	# Load the Tourbillon card data
+	var card_file = "res://src/scenes/data/tourbillon_cards.json"
+	
+	if not FileAccess.file_exists(card_file):
+		push_warning("Tourbillon card data not found at: " + card_file)
+		return
+	
+	var file = FileAccess.open(card_file, FileAccess.READ)
+	var json_text = file.get_as_text()
+	file.close()
+	
+	var json = JSON.new()
+	var parse_result = json.parse(json_text)
+	
+	if parse_result != OK:
+		push_error("Failed to parse Tourbillon card data")
+		return
+	
+	# Add to StaticData for Card.load_card to use
+	var card_data = json.data
+	for card_entry in card_data:
+		var card_id = card_entry.get("card_template_id", "")
+		if card_id:
+			StaticData.card_data[card_id] = card_entry
+	
+	print("Loaded ", card_data.size(), " Tourbillon cards")
+
+func __setup_starting_deck() -> void:
+	if not library:
+		push_warning("Library not initialized")
+		return
+	
+	# Create starting deck
+	var starting_cards = [
+		"basic_chronometer",
+		"basic_chronometer",
+		"simple_mainspring_heat",
+		"simple_mainspring_heat",
+		"simple_mainspring_precision",
+		"simple_mainspring_precision",
+		"force_converter"
+	]
+	
+	# Add some random common cards to reach deck size
+	var common_cards = [
+		"micro_forge",
+		"beast_cage",
+		"precision_lathe",
+		"micro_calibrator",
+		"dust_accumulator"
+	]
+	
+	while starting_cards.size() < starting_deck_size:
+		var random_card = common_cards[randi() % common_cards.size()]
+		starting_cards.append(random_card)
+	
+	# Load cards into library
+	for card_id in starting_cards:
+		var card = Card.load_card("tourbillon_base", card_id)
+		if card:
+			library.add_card_to_deck(card)
+	
+	# Shuffle deck  
+	library.shuffle_libraries()
+	
+	# Draw starting hand
+	library.draw_card(starting_hand_size)
+	
+	print("Starting deck created with ", starting_cards.size(), " cards")
 
 func __load_hand() -> void:
 	library.deck.shuffle()
@@ -76,22 +130,20 @@ func __on_start_game():
 	hero = Hero.load_hero(hero_template_id)
 	goal_manager = GoalManager.new()
 	stats_manager = StatsManager.new()
-
-	# Initialize Tourbillon system for new cards
-	var tourbillon_init = TourbillonInitializer.new()
-	tourbillon_init.enable_tourbillon_mode = true
-	tourbillon_init.library = library  # Pass the library reference
-	add_child(tourbillon_init)
-	set("tourbillon_initializer", tourbillon_init)
-	# Manually call _ready since parent is already ready
-	tourbillon_init._ready()
 	
-	# Old card system removed - using Tourbillon cards only
-	# __load_cards() - deprecated
+	# Initialize Tourbillon system directly
+	print("Initializing Tourbillon systems...")
+	tourbillon_manager = TourbillonGameManager.new()
+	add_child(tourbillon_manager)
 	
-	# TODO: temporary, will be called via signal
-	if not tourbillon_init.enable_tourbillon_mode:
-		__on_start_battle()
+	# Load card data and setup deck
+	__load_tourbillon_cards()
+	__setup_starting_deck()
+	
+	print("Tourbillon systems initialized")
+	
+	# Start battle
+	__on_start_battle()
 	
 func __on_start_battle():
 	library.deck.shuffle()
@@ -197,6 +249,18 @@ func end_turn():
 
 func end_game():
 	GlobalSignals.signal_core_game_over()
+
+## Get the current tick from Tourbillon system
+func get_current_tick() -> int:
+	if tourbillon_manager:
+		return tourbillon_manager.get_current_tick()
+	return 0
+
+## Get the current beat from Tourbillon system
+func get_current_beat() -> int:
+	if tourbillon_manager:
+		return tourbillon_manager.get_current_beat()
+	return 0
 		
 # Convenience Functions for checking resource state
 func have_enough_gold(value: int):
