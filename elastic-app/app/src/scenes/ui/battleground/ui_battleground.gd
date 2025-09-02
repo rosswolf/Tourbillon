@@ -7,7 +7,9 @@ func _ready():
 	GlobalSignals.ui_started_game.connect(__on_start_game)
 	
 func __on_start_game():
-	set_entity_data(BattlegroundEntity.BattlegroundEntityBuilder.new().build())
+	# Don't create a battleground entity since cards should target engine slots directly
+	# set_entity_data(BattlegroundEntity.BattlegroundEntityBuilder.new().build())
+	
 	for i in range(15*7):
 		var engine_slot_scene: PackedScene = preload("res://src/scenes/ui/entities/engine/ui_engine_slot.tscn")
 		var slot_instance: EngineSlot = engine_slot_scene.instantiate()

@@ -5,16 +5,19 @@ static func activate(source: Entity, target: Entity) -> bool:
 	var source_type = get_type(source)
 	var target_type = get_type(target)
 	
+	# Handle card being dropped on battleground (which contains the engine slots)
+	# Since there are no instinct effects anymore, cards need to be dropped on ENGINE_BUTTON entities
 	if source_type == Entity.EntityType.CARD and target_type == Entity.EntityType.BATTLEGROUND:
 		var card: Card = source as Card
 		
 		if not card.cost.satisfy(source, target):
 			return false
 		
-		if card.has_instinct_effect():
-			return activate_instinct(card)
-		else:
-			return false
+		# All cards must be slotted now - no instinct effects exist
+		# This shouldn't happen but provide a clear error message
+		push_warning("Card dropped on battleground instead of engine slot: " + card.display_name)
+		push_warning("Cards must be dropped on specific engine slots to be played")
+		return false
 	elif source_type == Entity.EntityType.CARD and target_type == Entity.EntityType.ENGINE_BUTTON:
 		var card: Card = source as Card
 		var button: EngineButtonEntity = target as EngineButtonEntity
