@@ -11,7 +11,8 @@ var MUSIC_MP3: String = "res://pixabay assets/reportage-industriel-song-1-261972
 @onready var targeting_icon: TargetingIcon = \
 	$Background/MainVBoxContainer/BotHBoxContainer/UIVBoxContainer/HBoxContainer/VBoxContainer/TargetingPanelContainer/GenericTargetingIcon
 
-var meters: Dictionary[Air.AirColor, AirMeter2] = {}
+# Air meters removed - using Tourbillon force system instead
+# var meters: Dictionary[Air.AirColor, AirMeter2] = {}
 
 func _ready() -> void:
 	
@@ -29,11 +30,11 @@ func _ready() -> void:
 	%AudioStreamPlayer.play()
 	%AudioStreamPlayer.finished.connect(__on_audio_finished)
 	
-	meters[Air.AirColor.HEAT] = %PurpleAirMeter
-	meters[Air.AirColor.PRECISION] = %BlueAirMeter
-	meters[Air.AirColor.MOMENTUM] = %GreenAirMeter
-	
-	UiController.meters = meters
+	# Air meters removed - using Tourbillon force system instead
+	# meters[Air.AirColor.HEAT] = %PurpleAirMeter
+	# meters[Air.AirColor.PRECISION] = %BlueAirMeter
+	# meters[Air.AirColor.MOMENTUM] = %GreenAirMeter
+	# UiController.meters = meters
 	
 	GlobalSignals.signal_ui_started_game()
 	%GlobalTimer.start()
@@ -45,7 +46,14 @@ func __on_audio_finished():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	%GlobalTimeLabel.text = format_elapsed_time_hex(%GlobalTimer)
+	# Display ticks instead of hex time
+	if GlobalGameManager.has("tourbillon_initializer"):
+		var initializer = GlobalGameManager.get("tourbillon_initializer")
+		if initializer and initializer.has_method("get_current_tick"):
+			var ticks = initializer.get_current_tick()
+			%GlobalTimeLabel.text = "Tick: " + str(ticks)
+	else:
+		%GlobalTimeLabel.text = format_elapsed_time_hex(%GlobalTimer)
 
 func __end_turn() -> void:
 	GlobalGameManager.end_turn()
@@ -90,11 +98,12 @@ func __on_core_goal_created(goal_instance_id: String) -> void:
 	
 	%GoalContainer.add_child(ui_goal)
 	
-func get_time_remaining(color: Air.AirColor) -> float:
-	if meters.has(color):
-		return meters[color].time_remaining
-	else:
-		return 0.0
+# Removed - using Tourbillon tick system instead
+# func get_time_remaining(color: Air.AirColor) -> float:
+# 	if meters.has(color):
+# 		return meters[color].time_remaining
+# 	else:
+# 		return 0.0
 		
 func format_elapsed_time(timer: Timer) -> String:
 	var elapsed = timer.wait_time - timer.time_left

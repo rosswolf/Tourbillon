@@ -1,0 +1,12 @@
+# Test artifacts
+claude_test_screenshots/
+test_screenshots/
+*.pyc
+__pycache__/
+
+# Test files
+tests/web/*.py
+tests/**/*.log
+tests/**/*.json
+tests/**/*.png
+tests/**/*.html
