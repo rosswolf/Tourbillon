@@ -21,6 +21,10 @@ func _ready():
 	for resource_name in GameResource.Type.keys():
 		var resource_type: GameResource.Type = GameResource.Type[resource_name]
 		
+		# Skip DEPTH resource from UI display
+		if resource_type == GameResource.Type.DEPTH:
+			continue
+		
 		var specific_resource = resource_template.duplicate()
 		
 		var resource_label: Label = specific_resource.get_node("MarginContainer/HBoxContainer/ResourceLabel")
