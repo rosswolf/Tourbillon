@@ -86,6 +86,7 @@ Instead of all forces converting to generic damage, each force has unique mechan
 - **Poison** - Stacking poison damage
 - **Execute** - Instant kills below threshold
 - **Transform** - Change one thing into another
+- **DEBT** - Gain resources now, pay later (or get away with it!)
 
 **Conversion Rate:** Variable/Chaotic
 
@@ -95,7 +96,16 @@ Instead of all forces converting to generic damage, each force has unique mechan
 "consume_entropy=1,poison=2"                  // Apply poison stacks
 "consume_entropy=4,execute_below=5"           // Kill enemies under 5 HP
 "consume_entropy=3,transform_force"           // Change any force to any other
+"debt_entropy=5,gain_now=10"                  // Gain 10 Entropy now, owe 5 later
 ```
+
+**DEBT Mechanics:**
+- Play DEBT cards to gain resources immediately
+- When DEBT comes due (timer expires), either:
+  - Pay the debt if you have the resources
+  - Can't pay? You got away with it! No penalty
+- High-risk/high-reward: Gamble on having resources later
+- Creates tension: Do you spend what you borrowed or save to repay?
 
 ## Why This Works
 

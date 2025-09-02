@@ -135,6 +135,7 @@ Note: Checking every Beat allows for precise timing and off-Tick effects (e.g., 
 #### 2.2.3 How You Lose
 - **Loss Condition 1**: Zero cards in hand after full card resolution (end of turn)
 - **Loss Condition 2**: Attempt to draw a card when deck and discard are both empty
+- **Loss Condition 3**: Mill a card when deck is empty (from overdraw with full hand)
 - When you need to draw and deck is empty, shuffle discard into deck first
 - If both deck AND discard are empty when you need to draw, you lose immediately
 - **Grace Period**: Loss from empty hand is checked only after current card fully resolves and all triggered effects complete
@@ -142,6 +143,14 @@ Note: Checking every Beat allows for precise timing and off-Tick effects (e.g., 
 - If you achieve victory and loss simultaneously, victory takes precedence
 - This makes card draw a critical resource alongside force production
 - Gremlin discard effects become extremely threatening
+
+#### 2.2.4 Overdraw and Mill Mechanics
+- **Hand Limit**: Maximum 10 cards in hand
+- **Overdraw**: If you would draw a card with a full hand (10 cards), mill the top card of your deck instead
+- **Mill**: Discarded directly from deck to discard pile without entering hand
+- **Mill Loss**: If you must mill but your deck is empty, you lose immediately
+- **Strategic Tension**: Mass card draw becomes risky with a full hand
+- This prevents infinite draw strategies from dominating
 
 ### 2.3 Mainplate System (Grid)
 
@@ -268,7 +277,7 @@ Each Special Resource grants access to unique keywords and effects:
 - **SACRIFICE** - Destroy own gears for power
 - **DOPPELGANGER** - Copy other effects
 - **OVERKILL** - Excess damage carries over
-- **DEBT** - Gain resources now, pay back later (or bounce to escape)
+- **DEBT** - Gain resources now, pay back later (or get away with it!)
 
 ### 3.3 Force Mechanics
 
@@ -297,28 +306,80 @@ Each Special Resource grants access to unique keywords and effects:
 - Optional consumption mainly for discard costs ("You may discard a card to...")
 
 #### 3.3.4 Storage and Caps
-- No base force caps - unlimited storage by default
-- Gremlin disruptions can impose force caps
-- Gremlin effects can add decay triggers
-- Some gears might increase or decrease effective caps
+- **Default: Unlimited storage** - Resources can accumulate infinitely
+- **Caps come from Gremlins** - Only gremlin disruptions impose resource caps
+- **No player-controlled caps** - Players cannot voluntarily limit their storage
+- **Cap effects are disruptions** - Part of the challenge gremlins create
+- Example: "Red Cap Gremlin: Your Red Force cannot exceed 5"
 
 #### 3.3.5 Spoilage
 - Forces may spoil based on gremlin effects or special rules
 - Spoiled forces may disappear or convert to waste
 - Waste/pollution mechanics may require management
 
-#### 3.3.6 Conversion Chains
-- Higher-tier effects require force conversion
-- Conversions use whole number ratios (2:1, 3:1, etc.)
-- Multi-input recipes for complex effects
-- "Consume X max" effects:
-  - Check if X total forces exist
-  - If not, effect fails completely (no partial consumption)
-  - If yes, consume from highest force pool first
-  - If tied for highest, consume in order: Red → Blue → Green → White → Black
-- Some effects may specify "Consume X of one force" for focused consumption
+#### 3.3.6 Payment Types
+Cards can require different payment methods for flexibility:
+
+**Specific Color**: "Consume 2 Red" - Takes exactly that Basic Force
+**Named Resource**: "Consume 2 HEAT" - Takes exactly that Special Resource  
+**Largest**: "Consume 3 Largest" - Automatically takes from your highest resource pool
+**Smallest**: "Consume 2 Smallest" - Automatically takes from your lowest pool that can afford the cost
+
+Payment resolution is automatic - no player decisions during payment:
+- Largest: Takes from highest pool (ties broken by: Red → Blue → Green → White → Black → HEAT → PRECISION → MOMENTUM → BALANCE → ENTROPY)
+- Smallest: Takes from lowest pool that has enough (same tiebreaker order)
+- Mixed costs resolve in order listed on the card
+
+#### 3.3.7 Card Power Tiers
+Cards are balanced around their resource requirements:
+
+**Basic Tier** - Powered by Basic Forces (colors)
+- Simple effects, lower power level
+- Accessible early game
+- Example: "Consume 2 Red → Deal 2 damage"
+
+**Advanced Tier** - Powered by Special Resources  
+- Stronger effects with keywords
+- Require conversion infrastructure
+- Example: "Consume 2 HEAT → Deal 4 pierce damage"
+
+**Flexible Tier** - Use Largest/Smallest costs
+- Work with any resource type
+- Less efficient than specific costs
+- Example: "Consume 5 Largest → Deal 4 damage"
+
+**Hybrid Tier** - Multiple payment options
+- Can be paid different ways
+- Efficient with right resources, flexible otherwise
+- Example: "Consume 2 Red OR 4 Largest → Produce 1 HEAT"
+
+#### 3.3.8 Conversion Infrastructure
+- Basic Forces convert to Special Resources through converter gears
+- Conversion ratios vary by combination (typically 2:1 or 3:1)
+- Building conversion infrastructure is key to accessing powerful cards
+- Some converters are more efficient than others
 - Forces can exist in fractional amounts (rounded to 0.1) for more granularity
 - Forces can accumulate infinitely (no upper limit)
+
+#### 3.3.9 Universal Effect Efficiency
+All colors and resources can produce damage and card draw, but at different efficiencies:
+
+**Damage Efficiency:**
+- **Efficient (2:1)**: Red, Green, Black, HEAT, MOMENTUM, ENTROPY
+  - 2 resources = 1 damage
+  - Red may have rare 1:1 cards
+  - HEAT may have rare 1:1 pierce cards
+- **Inefficient (3:1)**: Blue, White, PRECISION, BALANCE
+  - 3 resources = 1 damage
+
+**Card Draw Efficiency:**
+- **Efficient (2:1)**: White, Blue, PRECISION, BALANCE
+  - 2 resources = 1 card
+  - White may have rare 1:1 cards
+- **Inefficient (3:1)**: Red, Green, Black, HEAT, MOMENTUM, ENTROPY
+  - 3 resources = 1 card
+
+This ensures every mono-color strategy is viable while maintaining distinct identities.
 
 ### 3.4 Inspiration (Per-Run Currency)
 - **Inspiration**: Resource earned from defeating gremlins during a run
@@ -547,35 +608,76 @@ Tags create synergies and define gear identities. Gears typically have 1-4 tags.
 
 ### 7.3 Example Gears
 
-**"Red Generator" (Basic Common)**
+#### Basic Force Production (Common)
+**"Red Generator"**
 - Tags: [Stone]
 - Cost: 3 Ticks
 - "Fires every 3 Ticks: Produce 2 Red Force"
 
-**"Heat Forge" (Converter Common)**
+**"Blue Crystal"**
+- Tags: [Crystal]
+- Cost: 3 Ticks
+- "Fires every 3 Ticks: Produce 2 Blue Force"
+
+#### Basic Force Consumption (Common)
+**"Simple Flame"**
+- Tags: [Spark]
+- Cost: 2 Ticks
+- "Consume 2 Red → Deal 2 damage"
+
+**"Emergency Valve"**
+- Tags: [Tool]
+- Cost: 2 Ticks
+- "Consume 4 Largest → Draw 2 cards"
+
+#### Converters (Common)
+**"Heat Forge"**
 - Tags: [Forge, Tool]
 - Cost: 3 Ticks  
 - "Fires every 4 Ticks: Consume 1 Red + 1 Blue → Gain 1 HEAT"
 
-**"Precision Engine" (Converter Common)**
+**"Precision Engine"**
 - Tags: [Crystal, Tool]
 - Cost: 3 Ticks
 - "Fires every 4 Ticks: Consume 1 Blue + 1 White → Gain 1 PRECISION"
 
-**"Heat Burst" (HEAT Uncommon)**
+#### Special Resource Cards (Uncommon)
+**"Heat Burst"**
 - Tags: [Spark]
 - Cost: 2 Ticks
 - "MOMENTARY: Consume 2 HEAT → Deal 5 pierce damage"
 
-**"Precision Bounce" (PRECISION Uncommon)**
+**"Precision Bounce"**
 - Tags: [Micro, Tool]
 - Cost: 4 Ticks
 - "Fires every 3 Ticks: Consume 1 PRECISION → TARGETED bounce, reduce its cost by 1"
 
-**"Entropy Debt" (ENTROPY Rare)**
+#### Flexible Cost Cards (Uncommon)
+**"Adaptive Furnace"**
+- Tags: [Forge]
+- Cost: 4 Ticks
+- "Fires every 3 Ticks: Consume 2 Red OR 4 Largest → Produce 1 HEAT"
+
+**"Balanced Strike"**
+- Tags: [Weapon]
+- Cost: 3 Ticks
+- "Consume 3 Smallest → Deal 4 damage, gain 1 BALANCE"
+
+**"Chaos Siphon"**
+- Tags: [Void]
+- Cost: 5 Ticks
+- "Consume 2 Largest + 2 Smallest → Draw 3 cards, gain 2 ENTROPY"
+
+#### Advanced Cards (Rare)
+**"Entropy Debt"**
 - Tags: [Void, Chaos]
 - Cost: 1 Tick
-- "On Play: Gain 3 ENTROPY. Every 5 Ticks: Lose 5 ENTROPY or sacrifice 2 gears"
+- "DEBT: On Play: Gain 5 ENTROPY. Every 5 Ticks: Pay 3 ENTROPY or get away with it!"
+
+**"Perfect Equilibrium"**
+- Tags: [Balance]
+- Cost: 6 Ticks
+- "If all Basic Forces within 2 of each other: Consume 1 Smallest → Gain 3 BALANCE"
 
 ## 8. Gremlin System (Combat)
 
@@ -594,15 +696,23 @@ Tags create synergies and define gear identities. Gears typically have 1-4 tags.
 #### 8.1.2 Gremlin Disruptions
 Gremlins impose disruptions while infesting your mechanism:
 
-**Passive Disruptions:**
-- Force caps - caps don't stack, take lowest
-- Production taxes
-- Placement restrictions
+**Resource Caps (Primary Disruption):**
+- **Gremlins are the ONLY source of resource caps**
+- Default game state: unlimited resource storage
+- Each gremlin may impose caps on specific resources
+- Caps don't stack - take the lowest cap if multiple gremlins
+- Example: "Red Cap Gremlin: Red Force cannot exceed 5"
+- Example: "Heat Limiter: HEAT cannot exceed 3"
+- Defeating the gremlin removes its cap
+
+**Other Passive Disruptions:**
+- Production taxes (reduce force generation)
+- Placement restrictions (limit where gears can go)
 - Time penalties - stack additively
 - Hand restrictions
 - Force-specific disruptions
 - Production modifiers stack additively
-- Decay triggers
+- Decay triggers (forces spoil over time)
 
 **Active Sabotage:**
 - Drain forces periodically
@@ -643,10 +753,24 @@ Gremlins impose disruptions while infesting your mechanism:
 - **Workshops**: Spend Inspiration to acquire new cards or upgrades
 
 ### 9.3 Rewards
-- Card rewards (choose 1 of 3)
+
+#### 9.3.1 Card Reward Selection
+When offered card choices (typically choose 1 of 3):
+- **Synergy Weighting**: ~1/3 of offered cards will share a Tag or Color with your existing deck
+- **Random Pool**: The other ~2/3 are drawn from the general card pool
+- **Smart Offering**: System tracks your most common tags and colors to determine synergies
+- This ensures coherent deck building while maintaining variety
+
+**Example Card Offering:**
+- If your deck has many [Spark] and Red cards:
+  - Card 1: Random from any pool
+  - Card 2: Guaranteed to have [Spark] tag OR use Red Force
+  - Card 3: Random from any pool
+
+#### 9.3.2 Other Rewards
 - Movement plate expansions
 - Temporary upgrades
-- Deck manipulation options
+- Deck manipulation options (remove cards, duplicate cards, transform cards)
 
 ### 9.4 Meta Progression (Roguelike with Unlocks)
 

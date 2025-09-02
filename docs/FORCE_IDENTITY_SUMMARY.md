@@ -56,8 +56,9 @@ Each force has EXCLUSIVE mechanical effects that only it can produce efficiently
 - Sacrifice your gears for power
 - Apply poison
 - Transform resources
+- DEBT: Borrow resources now, pay later (or get away with it!)
 
-**You need Entropy if:** You want flexibility or sacrifice synergies
+**You need Entropy if:** You want flexibility, sacrifice synergies, or risky resource gambling
 
 ## Why This Creates Depth
 
