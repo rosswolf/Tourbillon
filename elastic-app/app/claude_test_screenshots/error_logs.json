@@ -1,0 +1,158 @@
+[
+  {
+    "type": "warning",
+    "text": "[GroupMarkerNotSet(crbug.com/242999)!:A0702000FC2F0000]Automatic fallback to software WebGL has been deprecated. Please use the --enable-unsafe-swiftshader (about:flags#enable-unsafe-swiftshader) flag to opt in to lower security guarantees for trusted content."
+  },
+  {
+    "type": "log",
+    "text": "Godot Engine v4.4.1.stable.official.49a5bc7b6 - https://godotengine.org"
+  },
+  {
+    "type": "log",
+    "text": "OpenGL API OpenGL ES 3.0 (WebGL 2.0 (OpenGL ES 3.0 Chromium)) - Compatibility - Using Device: WebKit - WebKit WebGL"
+  },
+  {
+    "type": "log",
+    "text": "Mapped: Card.RarityType.UNKNOWN -> 0"
+  },
+  {
+    "type": "log",
+    "text": "Mapped: Card.RarityType.STARTING -> 1"
+  },
+  {
+    "type": "log",
+    "text": "Mapped: Card.RarityType.COMMON -> 2"
+  },
+  {
+    "type": "log",
+    "text": "Mapped: Card.RarityType.UNCOMMON -> 3"
+  },
+  {
+    "type": "log",
+    "text": "Mapped: Card.RarityType.RARE -> 4"
+  },
+  {
+    "type": "log",
+    "text": "Mapped: Card.RarityType.DEFAULT -> 5"
+  },
+  {
+    "type": "log",
+    "text": "Mapped: GameResource.Type.UNKNOWN -> 0"
+  },
+  {
+    "type": "log",
+    "text": "Mapped: GameResource.Type.GOLD -> 1"
+  },
+  {
+    "type": "log",
+    "text": "Mapped: GameResource.Type.HEAT -> 2"
+  },
+  {
+    "type": "log",
+    "text": "Mapped: GameResource.Type.PRECISION -> 3"
+  },
+  {
+    "type": "log",
+    "text": "Mapped: GameResource.Type.MOMENTUM -> 4"
+  },
+  {
+    "type": "log",
+    "text": "Mapped: GameResource.Type.BALANCE -> 5"
+  },
+  {
+    "type": "log",
+    "text": "Mapped: GameResource.Type.ENTROPY -> 6"
+  },
+  {
+    "type": "log",
+    "text": "Mapped: GameResource.Type.INSPIRATION -> 7"
+  },
+  {
+    "type": "log",
+    "text": "Mapped: GameResource.Type.PURPLE_TIME -> 8"
+  },
+  {
+    "type": "log",
+    "text": "Mapped: GameResource.Type.GREEN_TIME -> 9"
+  },
+  {
+    "type": "log",
+    "text": "Mapped: GameResource.Type.BLUE_TIME -> 10"
+  },
+  {
+    "type": "log",
+    "text": "Mapped: GameResource.Type.PURPLE_ENERGY -> 11"
+  },
+  {
+    "type": "log",
+    "text": "Mapped: GameResource.Type.GREEN_ENERGY -> 12"
+  },
+  {
+    "type": "log",
+    "text": "Mapped: GameResource.Type.BLUE_ENERGY -> 13"
+  },
+  {
+    "type": "log",
+    "text": "Mapped: GameResource.Type.FORCE -> 14"
+  },
+  {
+    "type": "log",
+    "text": "Mapped: GameResource.Type.DEPTH -> 15"
+  },
+  {
+    "type": "log",
+    "text": "Mapped: GameResource.Type.NONE -> 16"
+  },
+  {
+    "type": "log",
+    "text": "Mapped: Air.AirColor.UNKNOWN -> 0"
+  },
+  {
+    "type": "log",
+    "text": "Mapped: Air.AirColor.HEAT -> 1"
+  },
+  {
+    "type": "log",
+    "text": "Mapped: Air.AirColor.PRECISION -> 2"
+  },
+  {
+    "type": "log",
+    "text": "Mapped: Air.AirColor.MOMENTUM -> 3"
+  },
+  {
+    "type": "log",
+    "text": "Mapped: Air.AirColor.BALANCE -> 4"
+  },
+  {
+    "type": "log",
+    "text": "Mapped: Air.AirColor.ENTROPY -> 5"
+  },
+  {
+    "type": "log",
+    "text": "Mapped: Air.AirColor.INSPIRATION -> 6"
+  },
+  {
+    "type": "log",
+    "text": "Mapped: Air.AirColor.NONE -> 7"
+  },
+  {
+    "type": "warning",
+    "text": "[GroupMarkerNotSet(crbug.com/242999)!:A0D02000FC2F0000]Automatic fallback to software WebGL has been deprecated. Please use the --enable-unsafe-swiftshader (about:flags#enable-unsafe-swiftshader) flag to opt in to lower security guarantees for trusted content."
+  },
+  {
+    "type": "warning",
+    "text": "[.WebGL-0x324c0601b800]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+  },
+  {
+    "type": "warning",
+    "text": "[.WebGL-0x324c0601b800]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+  },
+  {
+    "type": "warning",
+    "text": "[.WebGL-0x324c0601b800]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+  },
+  {
+    "type": "warning",
+    "text": "[.WebGL-0x324c0601b800]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)"
+  }
+]

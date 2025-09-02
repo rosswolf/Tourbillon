@@ -1,0 +1,180 @@
+[
+  {
+    "card_template_id": "basic_chronometer",
+    "group_template_id": "starter",
+    "display_name": "Basic Chronometer",
+    "rules_text": "Fires every 6 Ticks: Draw 1 card",
+    "card_rarity": "Card.RarityType.STARTING",
+    "time_cost": 2,
+    "production_interval": 6,
+    "on_fire_effect": "draw_card=1",
+    "tags": ["TOOL", "SPARK"],
+    "features": ["starter", "draw", "essential"],
+    "cursor_image_uid": "cursor_default",
+    "card_count": 2,
+    "starter_copies": 2
+  },
+  {
+    "card_template_id": "quick_calibration",
+    "group_template_id": "starter",
+    "display_name": "Quick Calibration",
+    "rules_text": "Momentary: Draw 2 cards",
+    "card_rarity": "Card.RarityType.STARTING",
+    "time_cost": 1,
+    "keywords": ["MOMENTARY"],
+    "on_play_effect": "draw_card=2",
+    "tags": ["SPARK"],
+    "features": ["starter", "draw", "momentary", "burst"],
+    "cursor_image_uid": "cursor_default",
+    "card_count": 1,
+    "starter_copies": 1
+  },
+  {
+    "card_template_id": "steady_draw",
+    "group_template_id": "starter",
+    "display_name": "Steady Draw",
+    "rules_text": "Fires every 8 Ticks: Draw 2 cards",
+    "card_rarity": "Card.RarityType.STARTING",
+    "time_cost": 3,
+    "production_interval": 8,
+    "on_fire_effect": "draw_card=2",
+    "tags": ["TOOL", "ORDER"],
+    "features": ["starter", "draw", "consistent"],
+    "cursor_image_uid": "cursor_default",
+    "card_count": 1,
+    "starter_copies": 1
+  },
+  {
+    "card_template_id": "simple_mainspring_heat",
+    "group_template_id": "starter",
+    "display_name": "Heat Spring",
+    "rules_text": "Fires every 3 Ticks: Produce 2 Heat",
+    "card_rarity": "Card.RarityType.STARTING",
+    "time_cost": 3,
+    "production_interval": 3,
+    "force_production": {
+      "GameResource.Type.HEAT": 2
+    },
+    "tags": ["STONE"],
+    "features": ["starter", "generator", "heat"],
+    "cursor_image_uid": "cursor_default",
+    "card_count": 1,
+    "starter_copies": 1
+  },
+  {
+    "card_template_id": "simple_mainspring_precision",
+    "group_template_id": "starter",
+    "display_name": "Precision Spring",
+    "rules_text": "Fires every 3 Ticks: Produce 2 Precision",
+    "card_rarity": "Card.RarityType.STARTING",
+    "time_cost": 3,
+    "production_interval": 3,
+    "force_production": {
+      "GameResource.Type.PRECISION": 2
+    },
+    "tags": ["STONE"],
+    "features": ["starter", "generator", "precision"],
+    "cursor_image_uid": "cursor_default",
+    "card_count": 1,
+    "starter_copies": 1
+  },
+  {
+    "card_template_id": "momentum_spring",
+    "group_template_id": "starter",
+    "display_name": "Momentum Spring",
+    "rules_text": "Fires every 3 Ticks: Produce 2 Momentum",
+    "card_rarity": "Card.RarityType.STARTING",
+    "time_cost": 3,
+    "production_interval": 3,
+    "force_production": {
+      "GameResource.Type.MOMENTUM": 2
+    },
+    "tags": ["STONE"],
+    "features": ["starter", "generator", "momentum"],
+    "cursor_image_uid": "cursor_default",
+    "card_count": 1,
+    "starter_copies": 1
+  },
+  {
+    "card_template_id": "balance_core",
+    "group_template_id": "starter",
+    "display_name": "Balance Core",
+    "rules_text": "Fires every 4 Ticks: Produce 2 Balance",
+    "card_rarity": "Card.RarityType.STARTING",
+    "time_cost": 3,
+    "production_interval": 4,
+    "force_production": {
+      "GameResource.Type.BALANCE": 2
+    },
+    "tags": ["STONE", "ORDER"],
+    "features": ["starter", "generator", "balance"],
+    "cursor_image_uid": "cursor_default",
+    "card_count": 1,
+    "starter_copies": 1
+  },
+  {
+    "card_template_id": "entropy_leak",
+    "group_template_id": "starter",
+    "display_name": "Entropy Leak",
+    "rules_text": "Fires every 5 Ticks: Produce 2 Entropy",
+    "card_rarity": "Card.RarityType.STARTING",
+    "time_cost": 3,
+    "production_interval": 5,
+    "force_production": {
+      "GameResource.Type.ENTROPY": 2
+    },
+    "tags": ["DUST", "CHAOS"],
+    "features": ["starter", "generator", "entropy"],
+    "cursor_image_uid": "cursor_default",
+    "card_count": 1,
+    "starter_copies": 1
+  },
+  {
+    "card_template_id": "force_converter",
+    "group_template_id": "starter",
+    "display_name": "Force Converter",
+    "rules_text": "Fires every 4 Ticks: Consume 2 max force → 3 damage",
+    "card_rarity": "Card.RarityType.STARTING",
+    "time_cost": 3,
+    "production_interval": 4,
+    "on_fire_effect": "consume_max=2,damage=3",
+    "tags": ["FORGE"],
+    "features": ["starter", "damage", "converter"],
+    "cursor_image_uid": "cursor_default",
+    "card_count": 1,
+    "starter_copies": 1
+  },
+  {
+    "card_template_id": "heat_blast",
+    "group_template_id": "starter",
+    "display_name": "Heat Blast",
+    "rules_text": "Momentary: Consume 3 Heat → 5 damage",
+    "card_rarity": "Card.RarityType.STARTING",
+    "time_cost": 2,
+    "keywords": ["MOMENTARY"],
+    "force_consumption": {
+      "GameResource.Type.HEAT": 3
+    },
+    "on_play_effect": "damage=5",
+    "tags": ["SPARK", "VOID"],
+    "features": ["starter", "damage", "momentary", "burst"],
+    "cursor_image_uid": "cursor_default",
+    "card_count": 1,
+    "starter_copies": 1
+  },
+  {
+    "card_template_id": "quick_strike",
+    "group_template_id": "starter",
+    "display_name": "Quick Strike",
+    "rules_text": "Momentary: Deal 2 damage, draw 1 card",
+    "card_rarity": "Card.RarityType.STARTING",
+    "time_cost": 2,
+    "keywords": ["MOMENTARY"],
+    "on_play_effect": "damage=2,draw_card=1",
+    "tags": ["SPARK"],
+    "features": ["starter", "damage", "draw", "momentary", "flexible"],
+    "cursor_image_uid": "cursor_default",
+    "card_count": 1,
+    "starter_copies": 1
+  }
+]

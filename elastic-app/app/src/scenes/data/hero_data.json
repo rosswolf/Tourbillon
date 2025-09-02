@@ -10,7 +10,7 @@
     "starting_relic": "training_gloves",
     "starting_training": 2,
     "starting_instinct": 3,
-    "starting_gold": 100,
+    "starting_gold": 0,
     "default_targeting": "Battleground.OrderPriority.CLOSEST"
   },
   {
@@ -24,7 +24,7 @@
     "starting_relic": "training_gloves",
     "starting_training": 2,
     "starting_instinct": 3,
-    "starting_gold": 90,
+    "starting_gold": 0,
     "default_targeting": "Battleground.OrderPriority.CLOSEST"
   }
 ]

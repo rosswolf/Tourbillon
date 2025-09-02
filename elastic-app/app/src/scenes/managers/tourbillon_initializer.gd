@@ -9,6 +9,7 @@ class_name TourbillonInitializer
 @export var starting_hand_size: int = 5
 
 var tourbillon_manager: TourbillonGameManager
+var library: Library  # Reference to the game's library
 
 func _ready() -> void:
 	if not enable_tourbillon_mode:
@@ -39,7 +40,7 @@ func _setup_tourbillon_manager() -> void:
 
 func _load_tourbillon_cards() -> void:
 	# Load the Tourbillon card data
-	var card_file = "res://data/tourbillon_cards.json"
+	var card_file = "res://src/scenes/data/tourbillon_cards.json"
 	
 	if not FileAccess.file_exists(card_file):
 		push_warning("Tourbillon card data not found at: " + card_file)
@@ -66,11 +67,10 @@ func _load_tourbillon_cards() -> void:
 	print("Loaded ", card_data.size(), " Tourbillon cards")
 
 func _setup_starting_deck() -> void:
-	if not GlobalGameManager.has("library"):
-		push_warning("Library not found in GlobalGameManager")
+	# Use the library reference passed from GlobalGameManager
+	if not library:
+		push_warning("Library not initialized")
 		return
-	
-	var library = GlobalGameManager.get("library")
 	
 	# Create starting deck
 	var starting_cards = [
@@ -102,12 +102,11 @@ func _setup_starting_deck() -> void:
 		if card:
 			library.add_card_to_deck(card)
 	
-	# Shuffle deck
-	library.shuffle_deck()
+	# Shuffle deck  
+	library.shuffle_libraries()
 	
 	# Draw starting hand
-	for i in range(starting_hand_size):
-		library.draw_card(1)
+	library.draw_card(starting_hand_size)
 	
 	print("Starting deck created with ", starting_cards.size(), " cards")
 

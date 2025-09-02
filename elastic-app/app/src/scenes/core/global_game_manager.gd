@@ -77,7 +77,18 @@ func __on_start_game():
 	goal_manager = GoalManager.new()
 	stats_manager = StatsManager.new()
 
-	__load_cards()
+	# Initialize Tourbillon system for new cards
+	var tourbillon_init = TourbillonInitializer.new()
+	tourbillon_init.enable_tourbillon_mode = true
+	tourbillon_init.library = library  # Pass the library reference
+	add_child(tourbillon_init)
+	set("tourbillon_initializer", tourbillon_init)
+	# Manually call _ready since parent is already ready
+	tourbillon_init._ready()
+	
+	# Don't load old cards if using Tourbillon mode
+	if not tourbillon_init.enable_tourbillon_mode:
+		__load_cards()
 	
 	# TODO: temporary, will be called via signal
 	__on_start_battle()
