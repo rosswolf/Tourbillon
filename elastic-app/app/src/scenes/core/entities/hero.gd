@@ -25,13 +25,15 @@ var force: CappedResource
 var depth: CappedResource
 
 func _init():
-	# Initialize force resources
-	heat = CappedResource.new()
-	precision = CappedResource.new()
-	momentum = CappedResource.new()
-	balance = CappedResource.new()
-	entropy = CappedResource.new()
-	inspiration = CappedResource.new()
+	# Initialize force resources with default values
+	# TODO: Properly initialize these with actual game values
+	var noop = func(v): pass
+	heat = CappedResource.new(0, 10, noop, noop)
+	precision = CappedResource.new(0, 10, noop, noop)
+	momentum = CappedResource.new(0, 10, noop, noop)
+	balance = CappedResource.new(0, 10, noop, noop)
+	entropy = CappedResource.new(0, 10, noop, noop)
+	inspiration = CappedResource.new(0, 10, noop, noop)
 	
 	# Legacy resources
 	time = TimeResource.new()
@@ -65,13 +67,79 @@ class EnergyResource:
 		GlobalSignals.signal_core_max_energy_set(color, amount)
 		
 
-func get_type() -> Entity.EntityType:
+func _get_type() -> Entity.EntityType:
 	return Entity.EntityType.HERO
 
 
 
 func reset_start_of_battle():
 	pass
+
+## Get a force resource by type
+func get_force_resource(force_type: GameResource.Type) -> CappedResource:
+	match force_type:
+		GameResource.Type.HEAT:
+			return heat
+		GameResource.Type.PRECISION:
+			return precision
+		GameResource.Type.MOMENTUM:
+			return momentum
+		GameResource.Type.BALANCE:
+			return balance
+		GameResource.Type.ENTROPY:
+			return entropy
+		GameResource.Type.INSPIRATION:
+			return inspiration
+		_:
+			return null
+
+## Check if hero has enough of a specific force
+func has_force(force_type: GameResource.Type, amount: int) -> bool:
+	var resource = get_force_resource(force_type)
+	if resource:
+		return resource.current >= amount
+	return false
+
+## Check if hero has enough forces for a dictionary of requirements
+func has_forces(requirements: Dictionary) -> bool:
+	for force_type in requirements:
+		var required_amount = requirements[force_type]
+		if not has_force(force_type, required_amount):
+			return false
+	return true
+
+## Consume a specific amount of a force
+func consume_force(force_type: GameResource.Type, amount: int) -> bool:
+	var resource = get_force_resource(force_type)
+	if resource and resource.current >= amount:
+		resource.subtract(amount)
+		return true
+	return false
+
+## Consume multiple forces based on requirements dictionary
+func consume_forces(requirements: Dictionary) -> bool:
+	# First check if we have all requirements
+	if not has_forces(requirements):
+		return false
+	
+	# Then consume them all
+	for force_type in requirements:
+		var amount = requirements[force_type]
+		consume_force(force_type, amount)
+	
+	return true
+
+## Add to a specific force
+func add_force(force_type: GameResource.Type, amount: int) -> void:
+	var resource = get_force_resource(force_type)
+	if resource:
+		resource.add(amount)
+
+## Add multiple forces from production dictionary
+func add_forces(production: Dictionary) -> void:
+	for force_type in production:
+		var amount = production[force_type]
+		add_force(force_type, amount)
 
 	
 func signal_moved(new_position: int) -> void:
@@ -80,7 +148,7 @@ func signal_moved(new_position: int) -> void:
 func signal_created() -> void:
 	GlobalSignals.signal_core_hero_created(instance_id)
 			
-func _generate_instance_id() -> String:
+func __generate_instance_id() -> String:
 	return "hero" + str(Time.get_unix_time_from_system()) + "_" + str(randi())
 
 

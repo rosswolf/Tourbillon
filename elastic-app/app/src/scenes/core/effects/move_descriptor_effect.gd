@@ -16,31 +16,31 @@ func _init(move_descriptor: String, cost: Cost = null):
 	if cost != null:
 		effects.append(OneTimeEffect.new("none", {}, cost))
 	
-func _could_satisfy_costs(source: Entity, target: Entity) -> bool:
+func __could_satisfy_costs(source: Entity, target: Entity) -> bool:
 	for effect in effects:
-		if not effect._could_satisfy_costs(source, target):
+		if not effect.__could_satisfy_costs(source, target):
 			return false
 			
 	return true
 
-func _execute_satisfy_costs(source: Entity, target: Entity) -> bool:
+func __execute_satisfy_costs(source: Entity, target: Entity) -> bool:
 	for effect in effects:
-		if not effect._execute_satisfy_costs(source, target):
+		if not effect.__execute_satisfy_costs(source, target):
 			# This should be guarded by one_time_effect checking satisfy before executing satisfy
 			assert(false, "failed to satisfy costs for effect, this shouldn't happen")
 			return false
 			
 	return true
 	
-func _is_valid_source(source: Entity):
+func __is_valid_source(source: Entity):
 	for effect in effects:
-		if not effect._is_valid_source(source):
+		if not effect.__is_valid_source(source):
 			return false	
 	return true
 	
-func _is_valid_target(source: Entity):
+func __is_valid_target(source: Entity):
 	for effect in effects:
-		if not effect._is_valid_target(source):
+		if not effect.__is_valid_target(source):
 			return false	
 	return true
 	

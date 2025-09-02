@@ -7,7 +7,7 @@ var description: String
 var image_name: String
 var starting_value: String
 
-func _generate_instance_id() -> String:
+func __generate_instance_id() -> String:
 	return "relic_" + str(Time.get_unix_time_from_system()) + "_" + str(randi())
 
 static func load_relic(relic_template_id: String) -> Relic:

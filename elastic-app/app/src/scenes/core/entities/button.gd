@@ -42,10 +42,10 @@ func activate_slot_effect(source: Entity, target: Entity):
 func _get_type() -> Entity.EntityType:
 	return Entity.EntityType.ENGINE_BUTTON
 	
-func _generate_instance_id() -> String:
+func __generate_instance_id() -> String:
 	return "button_" + str(Time.get_unix_time_from_system()) + "_" + str(randi())
 
-func _requires_template_id() -> bool:
+func __requires_template_id() -> bool:
 	return false
 	
 	

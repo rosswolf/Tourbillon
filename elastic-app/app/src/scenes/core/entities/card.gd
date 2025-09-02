@@ -29,6 +29,28 @@ var trigger_resource: GameResource.Type = GameResource.Type.UNKNOWN
 
 var durability: CappedResource
 
+# Tourbillon-specific fields (cards become gears when played)
+var time_cost: int = 2  # Cost in ticks to play this card
+var production_interval: int = 3  # Fires every X ticks (30 beats)
+var starting_progress: int = 0  # Initial timer progress in beats
+var force_production: Dictionary[GameResource.Type, int] = {}  # Force type -> amount produced
+var force_consumption: Dictionary[GameResource.Type, int] = {}  # Force type -> amount required
+var force_cost: Dictionary[GameResource.Type, int] = {}  # Additional cost to play
+var tags: Array[String] = []  # Tags for synergies
+var keywords: Array[String] = []  # OVERBUILD, MOMENTARY, IMMOVABLE, EPHEMERAL
+
+# Effect trigger strings
+var on_play_effect: String = ""  # When played from hand
+var on_place_effect: String = ""  # When placed on mainplate
+var on_fire_effect: String = ""  # When producing
+var on_ready_effect: String = ""  # When entering ready state
+var on_replace_effect: String = ""  # When another gear replaces this
+var on_destroy_effect: String = ""  # When destroyed
+var on_discard_effect: String = ""  # When discarded from hand
+var on_draw_effect: String = ""  # When drawn from deck
+var on_exhaust_effect: String = ""  # When deck exhausted
+var passive_effect: String = ""  # Ongoing effect while on mainplate
+var conditional_effect: String = ""  # Effect with conditions
 
 func has_instinct_effect():
 	return __instinct_effect != null
@@ -74,7 +96,7 @@ func activate_instinct_effect(source: Entity, target: Entity) -> bool:
 func _get_type() -> Entity.EntityType:
 	return Entity.EntityType.CARD
 	
-func _generate_instance_id() -> String:
+func __generate_instance_id() -> String:
 	return "card_" + str(Time.get_unix_time_from_system()) + "_" + str(randi())
 
 class CardBuilder extends Entity.EntityBuilder:
@@ -217,6 +239,30 @@ static func build_new_card_from_template(card_template_id: String, card_template
 	builder.with_durability(int(card_template_data.get("durability_max", 1)))
 	builder.with_card_cost(card_template_data.get("card_cost"))
 	builder.with_rules_text(card_template_data.get("rules_text",""))
+	
+	# Load Tourbillon-specific fields
 	var card = builder.build()
+	card.time_cost = card_template_data.get("time_cost", 2)
+	card.production_interval = card_template_data.get("production_interval", 3)
+	card.starting_progress = card_template_data.get("starting_progress", 0)
+	card.force_production = card_template_data.get("force_production", {})
+	card.force_consumption = card_template_data.get("force_consumption", {})
+	card.force_cost = card_template_data.get("force_cost", {})
+	card.tags = card_template_data.get("tags", [])
+	card.keywords = card_template_data.get("keywords", [])
+	
+	# Load effect strings
+	card.on_play_effect = card_template_data.get("on_play_effect", "")
+	card.on_place_effect = card_template_data.get("on_place_effect", "")
+	card.on_fire_effect = card_template_data.get("on_fire_effect", "")
+	card.on_ready_effect = card_template_data.get("on_ready_effect", "")
+	card.on_replace_effect = card_template_data.get("on_replace_effect", "")
+	card.on_destroy_effect = card_template_data.get("on_destroy_effect", "")
+	card.on_discard_effect = card_template_data.get("on_discard_effect", "")
+	card.on_draw_effect = card_template_data.get("on_draw_effect", "")
+	card.on_exhaust_effect = card_template_data.get("on_exhaust_effect", "")
+	card.passive_effect = card_template_data.get("passive_effect", "")
+	card.conditional_effect = card_template_data.get("conditional_effect", "")
+	
 	return card
 		
