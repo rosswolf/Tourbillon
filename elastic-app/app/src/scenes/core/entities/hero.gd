@@ -148,7 +148,7 @@ func signal_moved(new_position: int) -> void:
 func signal_created() -> void:
 	GlobalSignals.signal_core_hero_created(instance_id)
 			
-func _generate_instance_id() -> String:
+func __generate_instance_id() -> String:
 	return "hero" + str(Time.get_unix_time_from_system()) + "_" + str(randi())
 
 

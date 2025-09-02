@@ -13,12 +13,12 @@ func _ready() -> void:
 	if GlobalGameManager.has("battleground"):
 		battleground = GlobalGameManager.get("battleground")
 	else:
-		_create_battleground()
+		__create_battleground()
 	
 	# Register as mainplate in GlobalGameManager
 	GlobalGameManager.set("mainplate", self)
 
-func _create_battleground() -> void:
+func __create_battleground() -> void:
 	# This would normally be created by the game setup
 	# For now, just log that it's missing
 	push_warning("Battleground not found in GlobalGameManager")
@@ -34,14 +34,14 @@ func get_gears_in_order() -> Array[EngineSlot]:
 	for y in range(grid_height):
 		# Process columns from left to right
 		for x in range(grid_width):
-			var slot = _get_slot_at_position(x, y)
+			var slot = __get_slot_at_position(x, y)
 			if slot and slot.__button_entity and slot.__button_entity.card:
 				gears.append(slot)
 	
 	return gears
 
 ## Get a specific slot at grid position
-func _get_slot_at_position(x: int, y: int) -> EngineSlot:
+func __get_slot_at_position(x: int, y: int) -> EngineSlot:
 	if not battleground:
 		return null
 	
@@ -73,7 +73,7 @@ func get_all_engine_slots() -> Array[EngineSlot]:
 
 ## Place a gear (card) at a specific position
 func place_gear(card: Card, x: int, y: int) -> bool:
-	var slot = _get_slot_at_position(x, y)
+	var slot = __get_slot_at_position(x, y)
 	if not slot:
 		return false
 	
@@ -103,7 +103,7 @@ func place_gear(card: Card, x: int, y: int) -> bool:
 
 ## Remove a gear from a position
 func remove_gear(x: int, y: int) -> Card:
-	var slot = _get_slot_at_position(x, y)
+	var slot = __get_slot_at_position(x, y)
 	if not slot or not slot.__button_entity.card:
 		return null
 	
@@ -124,7 +124,7 @@ func get_adjacent_slots(slot: EngineSlot) -> Array[EngineSlot]:
 	var adjacent: Array[EngineSlot] = []
 	
 	# Find the position of this slot
-	var slot_position = _find_slot_position(slot)
+	var slot_position = __find_slot_position(slot)
 	if slot_position == Vector2i(-1, -1):
 		return adjacent
 	
@@ -141,17 +141,17 @@ func get_adjacent_slots(slot: EngineSlot) -> Array[EngineSlot]:
 	
 	for pos in positions:
 		if pos.x >= 0 and pos.x < grid_width and pos.y >= 0 and pos.y < grid_height:
-			var adj_slot = _get_slot_at_position(pos.x, pos.y)
+			var adj_slot = __get_slot_at_position(pos.x, pos.y)
 			if adj_slot and adj_slot.__button_entity and adj_slot.__button_entity.card:
 				adjacent.append(adj_slot)
 	
 	return adjacent
 
 ## Find the grid position of a slot
-func _find_slot_position(slot: EngineSlot) -> Vector2i:
+func __find_slot_position(slot: EngineSlot) -> Vector2i:
 	for y in range(grid_height):
 		for x in range(grid_width):
-			var test_slot = _get_slot_at_position(x, y)
+			var test_slot = __get_slot_at_position(x, y)
 			if test_slot == slot:
 				return Vector2i(x, y)
 	

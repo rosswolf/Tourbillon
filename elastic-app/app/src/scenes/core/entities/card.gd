@@ -96,7 +96,7 @@ func activate_instinct_effect(source: Entity, target: Entity) -> bool:
 func _get_type() -> Entity.EntityType:
 	return Entity.EntityType.CARD
 	
-func _generate_instance_id() -> String:
+func __generate_instance_id() -> String:
 	return "card_" + str(Time.get_unix_time_from_system()) + "_" + str(randi())
 
 class CardBuilder extends Entity.EntityBuilder:

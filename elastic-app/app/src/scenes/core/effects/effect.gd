@@ -150,15 +150,15 @@ static func entity_in_types(source: Entity, valid_types: Array):
 	
 
 
-func _is_valid_source(source: Entity):
-	assert(false, "sub classes need to override _is_valid_source")
+func __is_valid_source(source: Entity):
+	assert(false, "sub classes need to override __is_valid_source")
 	return false
 	
-func _is_valid_target(target: Entity):
-	assert(false, "sub classes need to override _is_valid_target")
+func __is_valid_target(target: Entity):
+	assert(false, "sub classes need to override __is_valid_target")
 	return false
 	
-func _could_satisfy_costs(source: Entity, target: Entity) -> bool:
-	assert(false, "sub classes need to override _could_satisfy_costs")
+func __could_satisfy_costs(source: Entity, target: Entity) -> bool:
+	assert(false, "sub classes need to override __could_satisfy_costs")
 	return false
 	

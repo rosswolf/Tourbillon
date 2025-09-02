@@ -67,10 +67,10 @@ func __apply_reward():
 func _get_type() -> Entity.EntityType:
 	return Entity.EntityType.GOAL
 	
-func _generate_instance_id() -> String:
+func __generate_instance_id() -> String:
 	return "goal_" + str(Time.get_unix_time_from_system()) + "_" + str(randi())
 
-func _requires_template_id() -> bool:
+func __requires_template_id() -> bool:
 	return false
 
 enum Comparator {

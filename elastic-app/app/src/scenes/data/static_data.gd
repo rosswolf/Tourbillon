@@ -261,7 +261,7 @@ func lookup_in_data(data_dict: Dictionary, field_to_filter: String, filter_value
 
 func resolve_filter_value(filter_value):
 	"""Pre-resolve filter value with caching"""
-	if filter_value is String and _is_enum_reference(filter_value):
+	if filter_value is String and __is_enum_reference(filter_value):
 		return parse_enum(filter_value)
 	return filter_value
 
@@ -308,7 +308,7 @@ func compare_numeric_values(field_value, filter_value, resolved_filter_value) ->
 	
 	return false
 
-func _is_enum_reference(value: String) -> bool:
+func __is_enum_reference(value: String) -> bool:
 	"""Check if a string looks like an enum reference (with caching)"""
 	var cache_key = "enum_ref:" + value
 	if __resolved_enum_cache.has(cache_key):

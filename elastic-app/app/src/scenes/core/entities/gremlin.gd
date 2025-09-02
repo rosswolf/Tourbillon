@@ -48,7 +48,7 @@ func process_beat(context: BeatContext) -> void:
 		beats_until_disruption -= 1
 		
 		if beats_until_disruption == 0:
-			_trigger_disruption()
+			__trigger_disruption()
 			beats_until_disruption = disruption_interval_beats
 	
 	# Process burn effect
@@ -130,12 +130,12 @@ func execute() -> void:
 	_on_defeated()
 
 ## Trigger this gremlin's disruption
-func _trigger_disruption() -> void:
+func __trigger_disruption() -> void:
 	disruption_triggered.emit(self)
-	_apply_disruption()
+	__apply_disruption()
 
 ## Override in subclasses for specific disruptions
-func _apply_disruption() -> void:
+func __apply_disruption() -> void:
 	pass
 
 ## Get disruption description for UI
@@ -146,10 +146,10 @@ func get_disruption_text() -> String:
 func _on_defeated() -> void:
 	defeated.emit()
 	# Remove disruptions
-	_remove_disruptions()
+	__remove_disruptions()
 
 ## Override to remove this gremlin's specific disruptions
-func _remove_disruptions() -> void:
+func __remove_disruptions() -> void:
 	pass
 
 ## Add a beat consumer to this gremlin

@@ -15,7 +15,7 @@ signal all_gremlins_defeated()
 func add_gremlin(gremlin: Gremlin, slot: int = -1) -> bool:
 	# Find slot if not specified
 	if slot == -1:
-		slot = _find_empty_slot()
+		slot = __find_empty_slot()
 		if slot == -1:
 			push_error("No empty gremlin slots available")
 			return false
@@ -153,7 +153,7 @@ func reset() -> void:
 	active_gremlin_count = 0
 
 ## Internal: Find first empty slot
-func _find_empty_slot() -> int:
+func __find_empty_slot() -> int:
 	for i in range(gremlin_slots.size()):
 		if gremlin_slots[i] == null:
 			return i

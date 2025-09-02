@@ -32,11 +32,11 @@ enum EntityType {
 }
 
 # Assume we need template id, unless subclasses override this
-func _requires_template_id() -> bool:
+func __requires_template_id() -> bool:
 	return true
 
-func _generate_instance_id() -> String:
-	assert(false, "children must override _generate_instance_id")
+func __generate_instance_id() -> String:
+	assert(false, "children must override __generate_instance_id")
 	return ""
 
 func _get_type() -> Entity.EntityType:
@@ -62,7 +62,7 @@ class EntityBuilder extends RefCounted:
 		return self
 		
 	func build_entity(entity: Entity) -> Entity:
-		if __template_id == "" and entity._requires_template_id():
+		if __template_id == "" and entity.__requires_template_id():
 			assert(false, "Entity must have a template_id")
 			return null
 		
@@ -73,7 +73,7 @@ class EntityBuilder extends RefCounted:
 		if __custom_instance_id != "":
 			entity.__instance_id = __custom_instance_id
 		else:
-			entity.__instance_id = entity._generate_instance_id()
+			entity.__instance_id = entity.__generate_instance_id()
 		
 		# Register entity in the instance catalog if it exists
 		if GlobalGameManager.instance_catalog != null:

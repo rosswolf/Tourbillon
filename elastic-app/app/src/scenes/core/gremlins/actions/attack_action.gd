@@ -22,7 +22,7 @@ func _init():
 	target_selector = TargetSelector.new()
 	target_selector.selector_type = TargetSelector.Type.RANDOM
 
-func _execute_action(gremlin: Entity) -> void:
+func __execute_action(gremlin: Entity) -> void:
 	# Resolve targets
 	var targets = TargetingSystem.resolve_targets(target_selector)
 	

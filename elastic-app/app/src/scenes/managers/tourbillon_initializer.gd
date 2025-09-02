@@ -18,27 +18,27 @@ func _ready() -> void:
 	print("Initializing Tourbillon systems...")
 	
 	# Initialize the Tourbillon game manager
-	_setup_tourbillon_manager()
+	__setup_tourbillon_manager()
 	
 	# Load card data
-	_load_tourbillon_cards()
+	__load_tourbillon_cards()
 	
 	# Setup starting deck
-	_setup_starting_deck()
+	__setup_starting_deck()
 	
 	# Initialize UI connections
-	_setup_ui_connections()
+	__setup_ui_connections()
 	
 	print("Tourbillon systems initialized")
 
-func _setup_tourbillon_manager() -> void:
+func __setup_tourbillon_manager() -> void:
 	tourbillon_manager = TourbillonGameManager.new()
 	add_child(tourbillon_manager)
 	
 	# Register in GlobalGameManager for access
 	GlobalGameManager.set("tourbillon_manager", tourbillon_manager)
 
-func _load_tourbillon_cards() -> void:
+func __load_tourbillon_cards() -> void:
 	# Load the Tourbillon card data
 	var card_file = "res://src/scenes/data/tourbillon_cards.json"
 	
@@ -66,7 +66,7 @@ func _load_tourbillon_cards() -> void:
 	
 	print("Loaded ", card_data.size(), " Tourbillon cards")
 
-func _setup_starting_deck() -> void:
+func __setup_starting_deck() -> void:
 	# Use the library reference passed from GlobalGameManager
 	if not library:
 		push_warning("Library not initialized")
@@ -110,7 +110,7 @@ func _setup_starting_deck() -> void:
 	
 	print("Starting deck created with ", starting_cards.size(), " cards")
 
-func _setup_ui_connections() -> void:
+func __setup_ui_connections() -> void:
 	# Connect UI elements to display time/tick information
 	
 	# Connect card play buttons to advance time
@@ -134,7 +134,7 @@ func start_new_game() -> void:
 	if tourbillon_manager:
 		tourbillon_manager.reset_game()
 	
-	_setup_starting_deck()
+	__setup_starting_deck()
 	
 	# Start the game unpaused
 	if tourbillon_manager:

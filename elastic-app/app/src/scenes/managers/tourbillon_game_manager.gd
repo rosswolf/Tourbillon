@@ -15,10 +15,10 @@ var beats_per_tick: int = 10
 var is_paused: bool = false
 
 func _ready() -> void:
-	_initialize_systems()
-	_connect_signals()
+	__initialize_systems()
+	__connect_signals()
 
-func _initialize_systems() -> void:
+func __initialize_systems() -> void:
 	# Create and add timeline manager
 	timeline_manager = TimelineManager.new()
 	add_child(timeline_manager)
@@ -35,7 +35,7 @@ func _initialize_systems() -> void:
 	timeline_manager.beat_advanced.connect(_on_beat_advanced)
 	timeline_manager.tick_completed.connect(_on_tick_completed)
 
-func _connect_signals() -> void:
+func __connect_signals() -> void:
 	# Connect to card playing signals
 	GlobalSignals.core_card_played.connect(_on_card_played)
 	GlobalSignals.core_card_slotted.connect(_on_card_slotted)
@@ -53,7 +53,7 @@ func _on_card_played(card_id: String) -> void:
 	if card.time_cost > 0:
 		# Advance time by the card's time cost
 		print("Card played: ", card.display_name, " - Advancing ", card.time_cost, " ticks")
-		_advance_time_by_ticks(card.time_cost)
+		__advance_time_by_ticks(card.time_cost)
 	
 	# Process on_play_effect if it exists
 	if not card.on_play_effect.is_empty():
@@ -61,7 +61,7 @@ func _on_card_played(card_id: String) -> void:
 
 ## Called when a card is slotted on the mainplate
 func _on_card_slotted(slot_id: String) -> void:
-	var slot = _find_slot_by_id(slot_id)
+	var slot = __find_slot_by_id(slot_id)
 	if not slot:
 		return
 	
@@ -97,7 +97,7 @@ func _on_beat_advanced(beat_number: int) -> void:
 	context.is_tick_boundary = (beat_number % beats_per_tick == 0)
 	
 	# Process all gears on mainplate
-	_process_mainplate_gears(context)
+	__process_mainplate_gears(context)
 	
 	# Process any beat consumers (poison, burn, etc.)
 	beat_processor.process_beat(context)
@@ -111,7 +111,7 @@ func _on_tick_completed(tick_number: int) -> void:
 	GlobalSignals.signal_ui_tick_advanced(tick_number)
 
 ## Process all gears on the mainplate
-func _process_mainplate_gears(context: BeatContext) -> void:
+func __process_mainplate_gears(context: BeatContext) -> void:
 	if not mainplate:
 		return
 	
@@ -123,17 +123,17 @@ func _process_mainplate_gears(context: BeatContext) -> void:
 			gear.process_beat(context)
 
 ## Advance time by a number of ticks
-func _advance_time_by_ticks(ticks: int) -> void:
+func __advance_time_by_ticks(ticks: int) -> void:
 	if timeline_manager:
 		timeline_manager.advance_ticks(ticks)
 
 ## Advance time by a number of beats
-func _advance_time_by_beats(beats: int) -> void:
+func __advance_time_by_beats(beats: int) -> void:
 	if timeline_manager:
 		timeline_manager.advance_beats(beats)
 
 ## Find a slot by its ID
-func _find_slot_by_id(slot_id: String) -> EngineSlot:
+func __find_slot_by_id(slot_id: String) -> EngineSlot:
 	if not mainplate:
 		return null
 	

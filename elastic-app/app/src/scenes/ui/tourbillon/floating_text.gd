@@ -14,14 +14,14 @@ func _ready() -> void:
 	if label:
 		label.text = text
 		label.modulate = color
-		_animate()
+		__animate()
 
 func setup(text_value: String, color_value: Color, duration_value: float = 1.0) -> void:
 	text = text_value
 	color = color_value
 	duration = duration_value
 
-func _animate() -> void:
+func __animate() -> void:
 	var tween = create_tween()
 	tween.set_parallel(true)
 	

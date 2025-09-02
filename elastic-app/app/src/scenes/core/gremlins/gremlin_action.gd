@@ -86,10 +86,10 @@ func execute(gremlin: Entity) -> void:
 		gremlin.play_sound(sound_effect)
 	
 	# Actual execution in subclasses
-	_execute_action(gremlin)
+	__execute_action(gremlin)
 
 # Override this in subclasses
-func _execute_action(gremlin: Entity) -> void:
+func __execute_action(gremlin: Entity) -> void:
 	pass
 
 # Check custom condition (override in subclasses)

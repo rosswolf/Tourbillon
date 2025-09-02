@@ -56,7 +56,7 @@ func set_selected_force():
 		__selected = __hovered
 		GlobalSignals.signal_ui_selected_changed(__selected)
 	
-func _clear_selected_force():
+func __clear_selected_force():
 	__selected = ""
 	GlobalSignals.signal_ui_selected_changed(__selected)
 
@@ -72,7 +72,7 @@ func activate_selected_onto_hovered(last_pos):
 	else:
 		print("execute: " + __selected + " " + __hovered)
 		GlobalSignals.signal_ui_execute_selected_onto_hovered(__selected, __hovered)
-		_clear_selected_force()
+		__clear_selected_force()
 		
 	
 class Activation:

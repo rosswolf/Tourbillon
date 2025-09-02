@@ -17,7 +17,7 @@ func _ready() -> void:
 	GlobalSignals.ui_tick_advanced.connect(_on_tick_advanced)
 	
 	# Initialize display
-	_update_display()
+	__update_display()
 
 func _process(_delta: float) -> void:
 	# Update beat progress from TourbillonGameManager
@@ -26,15 +26,15 @@ func _process(_delta: float) -> void:
 		var beat = manager.get_current_beat()
 		if beat != current_beat:
 			current_beat = beat
-			_update_display()
-			_animate_beat_change()
+			__update_display()
+			__animate_beat_change()
 
 func _on_tick_advanced(tick: int) -> void:
 	current_tick = tick
-	_update_display()
-	_animate_tick_change()
+	__update_display()
+	__animate_tick_change()
 
-func _update_display() -> void:
+func __update_display() -> void:
 	if tick_label:
 		tick_label.text = "Tick: %d" % current_tick
 	
@@ -46,7 +46,7 @@ func _update_display() -> void:
 		var progress = float(current_beat % beats_per_tick) / float(beats_per_tick)
 		beat_progress.value = progress * 100.0
 
-func _animate_tick_change() -> void:
+func __animate_tick_change() -> void:
 	# Visual feedback for tick change
 	if tick_label:
 		var tween = create_tween()
@@ -61,7 +61,7 @@ func _animate_tick_change() -> void:
 		tween.parallel().tween_property(tick_label, "modulate", Color.YELLOW, 0.1)
 		tween.tween_property(tick_label, "modulate", Color.WHITE, 0.2)
 
-func _animate_beat_change() -> void:
+func __animate_beat_change() -> void:
 	# Subtle animation for beat changes
 	if beat_progress:
 		var tween = create_tween()

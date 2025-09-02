@@ -123,14 +123,14 @@ func process_beat(context: BeatContext) -> void:
 	# Update timer progress
 	if not is_ready:
 		current_beats += 1
-		_update_progress_display()
+		__update_progress_display()
 		
 		if current_beats >= production_interval_beats:
-			_enter_ready_state()
+			__enter_ready_state()
 	
 	# Try to fire if ready
-	if is_ready and _can_produce():
-		_fire_production()
+	if is_ready and __can_produce():
+		__fire_production()
 
 ## Setup gear from card data
 func setup_from_card(card: Card) -> void:
@@ -143,10 +143,10 @@ func setup_from_card(card: Card) -> void:
 	# Reset state
 	current_beats = 0
 	is_ready = false
-	_update_progress_display()
+	__update_progress_display()
 
 ## Check if we have required forces to produce
-func _can_produce() -> bool:
+func __can_produce() -> bool:
 	var card = __button_entity.card
 	if not card or card.force_consumption.is_empty():
 		return true  # No requirements, always can produce
@@ -160,7 +160,7 @@ func _can_produce() -> bool:
 	return true
 
 ## Fire production effect
-func _fire_production() -> void:
+func __fire_production() -> void:
 	var card = __button_entity.card
 	if not card:
 		return
@@ -183,24 +183,24 @@ func _fire_production() -> void:
 	__button_entity.activate_slot_effect(card, null)
 	
 	# Reset timer
-	_exit_ready_state()
+	__exit_ready_state()
 	current_beats = 0
-	_update_progress_display()
+	__update_progress_display()
 
 ## Enter ready state (waiting for resources)
-func _enter_ready_state() -> void:
+func __enter_ready_state() -> void:
 	is_ready = true
 	# Visual feedback for ready state
 	modulate = Color(1.2, 1.2, 1.2)  # Slight glow
 
 ## Exit ready state
-func _exit_ready_state() -> void:
+func __exit_ready_state() -> void:
 	is_ready = false
 	# Reset visual
 	modulate = Color.WHITE
 
 ## Update the progress bar display
-func _update_progress_display() -> void:
+func __update_progress_display() -> void:
 	if not %ProgressBar:
 		return
 		
@@ -213,5 +213,5 @@ func _update_progress_display() -> void:
 func reset() -> void:
 	current_beats = 0
 	is_ready = false
-	_update_progress_display()
+	__update_progress_display()
 	modulate = Color.WHITE

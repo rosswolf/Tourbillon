@@ -37,12 +37,12 @@ func _setup_mainplate_grid() -> void:
 	# Create slots for initial grid
 	for y in range(current_grid_size.y):
 		for x in range(current_grid_size.x):
-			var slot = _create_gear_slot(Vector2i(x, y))
+			var slot = __create_gear_slot(Vector2i(x, y))
 			%SlotGridContainer.add_child(slot)
 			gear_slots[Vector2i(x, y)] = slot
 
 ## Create a single gear slot
-func _create_gear_slot(position: Vector2i) -> EngineSlot:
+func __create_gear_slot(position: Vector2i) -> EngineSlot:
 	var slot_scene = preload("res://src/scenes/ui/entities/engine/ui_engine_slot.tscn")
 	var slot: EngineSlot = slot_scene.instantiate()
 	slot.set_meta("grid_position", position)  # Store position as metadata
@@ -53,7 +53,7 @@ func get_gears_in_escapement_order() -> Array[EngineSlot]:
 	var positions = gear_slots.keys()
 	
 	# Sort positions by Escapement Order
-	positions.sort_custom(_escapement_compare)
+	positions.sort_custom(__escapement_compare)
 	
 	var ordered_slots: Array[EngineSlot] = []
 	for pos in positions:
@@ -64,7 +64,7 @@ func get_gears_in_escapement_order() -> Array[EngineSlot]:
 	return ordered_slots
 
 ## Compare function for Escapement Order
-func _escapement_compare(a: Vector2i, b: Vector2i) -> bool:
+func __escapement_compare(a: Vector2i, b: Vector2i) -> bool:
 	# First compare rows (y), then columns (x)
 	if a.y != b.y:
 		return a.y < b.y  # Top rows first
@@ -116,7 +116,7 @@ func expand_mainplate(expansion_type: String = "row") -> bool:
 			return false
 	
 	# Add new slots
-	_expand_to_size(new_size)
+	__expand_to_size(new_size)
 	current_grid_size = new_size
 	expansions_used += 1
 	
@@ -124,7 +124,7 @@ func expand_mainplate(expansion_type: String = "row") -> bool:
 	return true
 
 ## Internal expansion logic
-func _expand_to_size(new_size: Vector2i) -> void:
+func __expand_to_size(new_size: Vector2i) -> void:
 	# Reconfigure grid container
 	%SlotGridContainer.columns = new_size.x
 	
@@ -133,7 +133,7 @@ func _expand_to_size(new_size: Vector2i) -> void:
 		for x in range(new_size.x):
 			var pos = Vector2i(x, y)
 			if not gear_slots.has(pos):
-				var slot = _create_gear_slot(pos)
+				var slot = __create_gear_slot(pos)
 				%SlotGridContainer.add_child(slot)
 				gear_slots[pos] = slot
 

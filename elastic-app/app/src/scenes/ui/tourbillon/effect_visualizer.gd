@@ -25,9 +25,9 @@ const EFFECT_COLORS = {
 
 func _ready() -> void:
 	# Connect to effect signals
-	_connect_effect_signals()
+	__connect_effect_signals()
 
-func _connect_effect_signals() -> void:
+func __connect_effect_signals() -> void:
 	# These would be emitted by TourbillonEffectProcessor
 	GlobalSignals.effect_damage_dealt.connect(_on_damage_dealt)
 	GlobalSignals.effect_force_produced.connect(_on_force_produced)
@@ -36,29 +36,29 @@ func _connect_effect_signals() -> void:
 	GlobalSignals.effect_status_applied.connect(_on_status_applied)
 
 func _on_damage_dealt(amount: int, target_position: Vector2) -> void:
-	_create_floating_text("-" + str(amount), target_position, EFFECT_COLORS["damage"])
-	_create_impact_particles(target_position, EFFECT_COLORS["damage"])
+	__create_floating_text("-" + str(amount), target_position, EFFECT_COLORS["damage"])
+	__create_impact_particles(target_position, EFFECT_COLORS["damage"])
 
 func _on_force_produced(force_type: GameResource.Type, amount: int, source_position: Vector2) -> void:
-	var force_name = _get_force_name(force_type)
+	var force_name = __get_force_name(force_type)
 	var color = EFFECT_COLORS.get(force_name.to_lower(), Color.WHITE)
-	_create_floating_text("+" + str(amount) + " " + force_name, source_position, color)
-	_create_production_particles(source_position, color)
+	__create_floating_text("+" + str(amount) + " " + force_name, source_position, color)
+	__create_production_particles(source_position, color)
 
 func _on_force_consumed(force_type: GameResource.Type, amount: int, source_position: Vector2) -> void:
-	var force_name = _get_force_name(force_type)
+	var force_name = __get_force_name(force_type)
 	var color = EFFECT_COLORS.get(force_name.to_lower(), Color.GRAY)
-	_create_floating_text("-" + str(amount) + " " + force_name, source_position, color)
+	__create_floating_text("-" + str(amount) + " " + force_name, source_position, color)
 
 func _on_card_drawn(card_count: int, position: Vector2) -> void:
-	_create_floating_text("Draw " + str(card_count), position, EFFECT_COLORS["draw"])
+	__create_floating_text("Draw " + str(card_count), position, EFFECT_COLORS["draw"])
 
 func _on_status_applied(status_type: String, stacks: int, target_position: Vector2) -> void:
 	var color = EFFECT_COLORS.get(status_type.to_lower(), Color.WHITE)
-	_create_floating_text(status_type + " " + str(stacks), target_position, color)
-	_create_status_particles(target_position, color, status_type)
+	__create_floating_text(status_type + " " + str(stacks), target_position, color)
+	__create_status_particles(target_position, color, status_type)
 
-func _create_floating_text(text: String, position: Vector2, color: Color) -> void:
+func __create_floating_text(text: String, position: Vector2, color: Color) -> void:
 	if not floating_text_scene:
 		# Create a simple label if scene doesn't exist
 		var label = Label.new()
@@ -79,7 +79,7 @@ func _create_floating_text(text: String, position: Vector2, color: Color) -> voi
 		floating_text.position = position
 		add_child(floating_text)
 
-func _create_impact_particles(position: Vector2, color: Color) -> void:
+func __create_impact_particles(position: Vector2, color: Color) -> void:
 	# Create a simple particle effect for impacts
 	var particles = CPUParticles2D.new()
 	particles.position = position
@@ -103,7 +103,7 @@ func _create_impact_particles(position: Vector2, color: Color) -> void:
 	await particles.finished
 	particles.queue_free()
 
-func _create_production_particles(position: Vector2, color: Color) -> void:
+func __create_production_particles(position: Vector2, color: Color) -> void:
 	# Create upward flowing particles for production
 	var particles = CPUParticles2D.new()
 	particles.position = position
@@ -126,7 +126,7 @@ func _create_production_particles(position: Vector2, color: Color) -> void:
 	await particles.finished
 	particles.queue_free()
 
-func _create_status_particles(position: Vector2, color: Color, status_type: String) -> void:
+func __create_status_particles(position: Vector2, color: Color, status_type: String) -> void:
 	# Create swirling particles for status effects
 	var particles = CPUParticles2D.new()
 	particles.position = position
@@ -150,7 +150,7 @@ func _create_status_particles(position: Vector2, color: Color, status_type: Stri
 	await particles.finished
 	particles.queue_free()
 
-func _get_force_name(force_type: GameResource.Type) -> String:
+func __get_force_name(force_type: GameResource.Type) -> String:
 	match force_type:
 		GameResource.Type.HEAT:
 			return "Heat"
@@ -173,10 +173,10 @@ func show_slot_effect(slot: EngineSlot, effect_type: String, value: Variant = nu
 	
 	match effect_type:
 		"fire":
-			_create_production_particles(slot_position, Color.WHITE)
+			__create_production_particles(slot_position, Color.WHITE)
 		"ready":
-			_create_floating_text("READY!", slot_position, Color.YELLOW)
+			__create_floating_text("READY!", slot_position, Color.YELLOW)
 		"cooldown":
-			_create_floating_text("Cooldown", slot_position, Color.GRAY)
+			__create_floating_text("Cooldown", slot_position, Color.GRAY)
 		_:
 			pass

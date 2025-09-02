@@ -24,11 +24,11 @@ func process_beat(context: BeatContext) -> void:
 	beats_until_trigger -= 1
 	
 	if beats_until_trigger <= 0:
-		_trigger_poison()
+		__trigger_poison()
 		beats_until_trigger = trigger_interval
 
 ## Trigger poison damage
-func _trigger_poison() -> void:
+func __trigger_poison() -> void:
 	if owner and owner.has_method("take_damage"):
 		# Poison pierces shields
 		owner.take_damage(poison_value, true)
