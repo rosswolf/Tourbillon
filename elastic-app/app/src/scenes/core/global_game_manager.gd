@@ -33,26 +33,27 @@ func _ready():
 	
 	
 
-func __load_cards() -> void:
-	var rare_card_template_ids: Array[String] = []
-	var uncommon_card_template_ids: Array[String] = []
-	var common_card_template_ids: Array[String] = []
-	var default_card_template_ids: Array[String] = []
-	var starting_card_template_ids: Array[String] = []
-	
-	rare_card_template_ids.assign(StaticData.lookup_in_data(StaticData.card_data,"card_rarity",Card.RarityType.RARE,"card_template_id"))
-	uncommon_card_template_ids.assign(StaticData.lookup_in_data(StaticData.card_data,"card_rarity",Card.RarityType.UNCOMMON,"card_template_id"))
-	common_card_template_ids.assign(StaticData.lookup_in_data(StaticData.card_data,"card_rarity",Card.RarityType.COMMON,"card_template_id"))
-	default_card_template_ids.assign(StaticData.lookup_in_data(StaticData.card_data,"card_rarity",Card.RarityType.DEFAULT,"card_template_id"))
-	starting_card_template_ids.assign(StaticData.lookup_in_data(StaticData.card_data,"card_rarity",Card.RarityType.STARTING,"card_template_id"))
-	
-	library.initialize_cards(
-		Card.load_cards(hero_template_id, rare_card_template_ids),
-		Card.load_cards(hero_template_id, uncommon_card_template_ids),
-		Card.load_cards(hero_template_id, common_card_template_ids),
-		Card.load_cards(hero_template_id, default_card_template_ids),
-		Card.load_cards(hero_template_id, starting_card_template_ids)
-	)
+# DEPRECATED - Old card loading system replaced by Tourbillon
+# func __load_cards() -> void:
+# 	var rare_card_template_ids: Array[String] = []
+# 	var uncommon_card_template_ids: Array[String] = []
+# 	var common_card_template_ids: Array[String] = []
+# 	var default_card_template_ids: Array[String] = []
+# 	var starting_card_template_ids: Array[String] = []
+# 	
+# 	rare_card_template_ids.assign(StaticData.lookup_in_data(StaticData.card_data,"card_rarity",Card.RarityType.RARE,"card_template_id"))
+# 	uncommon_card_template_ids.assign(StaticData.lookup_in_data(StaticData.card_data,"card_rarity",Card.RarityType.UNCOMMON,"card_template_id"))
+# 	common_card_template_ids.assign(StaticData.lookup_in_data(StaticData.card_data,"card_rarity",Card.RarityType.COMMON,"card_template_id"))
+# 	default_card_template_ids.assign(StaticData.lookup_in_data(StaticData.card_data,"card_rarity",Card.RarityType.DEFAULT,"card_template_id"))
+# 	starting_card_template_ids.assign(StaticData.lookup_in_data(StaticData.card_data,"card_rarity",Card.RarityType.STARTING,"card_template_id"))
+# 	
+# 	library.initialize_cards(
+# 		Card.load_cards(hero_template_id, rare_card_template_ids),
+# 		Card.load_cards(hero_template_id, uncommon_card_template_ids),
+# 		Card.load_cards(hero_template_id, common_card_template_ids),
+# 		Card.load_cards(hero_template_id, default_card_template_ids),
+# 		Card.load_cards(hero_template_id, starting_card_template_ids)
+# 	)
 
 func __load_hand() -> void:
 	library.deck.shuffle()
@@ -86,12 +87,12 @@ func __on_start_game():
 	# Manually call _ready since parent is already ready
 	tourbillon_init._ready()
 	
-	# Don't load old cards if using Tourbillon mode
-	if not tourbillon_init.enable_tourbillon_mode:
-		__load_cards()
+	# Old card system removed - using Tourbillon cards only
+	# __load_cards() - deprecated
 	
 	# TODO: temporary, will be called via signal
-	__on_start_battle()
+	if not tourbillon_init.enable_tourbillon_mode:
+		__on_start_battle()
 	
 func __on_start_battle():
 	library.deck.shuffle()
