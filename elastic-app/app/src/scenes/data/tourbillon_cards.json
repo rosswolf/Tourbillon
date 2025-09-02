@@ -1,0 +1,222 @@
+[
+  {
+    "card_template_id": "basic_chronometer",
+    "group_template_id": "tourbillon_base",
+    "display_name": "Basic Chronometer",
+    "rules_text": "Fires every 6 Ticks: Draw 1 card",
+    "card_rarity": "Card.RarityType.STARTING",
+    "time_cost": 2,
+    "production_interval": 6,
+    "on_fire_effect": "draw_card=1",
+    "tags": ["TOOL", "SPARK"],
+    "cursor_image_uid": "cursor_default",
+    "card_count": 2
+  },
+  {
+    "card_template_id": "simple_mainspring_heat",
+    "group_template_id": "tourbillon_base",
+    "display_name": "Simple Mainspring",
+    "rules_text": "Fires every 3 Ticks: Produce 2 Heat",
+    "card_rarity": "Card.RarityType.STARTING",
+    "time_cost": 3,
+    "production_interval": 3,
+    "force_production": {
+      "GameResource.Type.HEAT": 2
+    },
+    "tags": ["STONE"],
+    "cursor_image_uid": "cursor_default",
+    "card_count": 2
+  },
+  {
+    "card_template_id": "simple_mainspring_precision",
+    "group_template_id": "tourbillon_base",
+    "display_name": "Precision Spring",
+    "rules_text": "Fires every 3 Ticks: Produce 2 Precision",
+    "card_rarity": "Card.RarityType.STARTING",
+    "time_cost": 3,
+    "production_interval": 3,
+    "force_production": {
+      "GameResource.Type.PRECISION": 2
+    },
+    "tags": ["STONE"],
+    "cursor_image_uid": "cursor_default",
+    "card_count": 2
+  },
+  {
+    "card_template_id": "force_converter",
+    "group_template_id": "tourbillon_base",
+    "display_name": "Force Converter",
+    "rules_text": "Fires every 4 Ticks: Consume 2 max force → 3 damage",
+    "card_rarity": "Card.RarityType.STARTING",
+    "time_cost": 3,
+    "production_interval": 4,
+    "on_fire_effect": "consume_max=2,damage=3",
+    "tags": ["FORGE"],
+    "cursor_image_uid": "cursor_default",
+    "card_count": 1
+  },
+  {
+    "card_template_id": "micro_forge",
+    "group_template_id": "tourbillon_base",
+    "display_name": "Micro Forge",
+    "rules_text": "Fires every 2 Ticks: Produce 1 Heat. Tool gears cost -0.5 Ticks",
+    "card_rarity": "Card.RarityType.COMMON",
+    "time_cost": 2,
+    "production_interval": 2,
+    "force_production": {
+      "GameResource.Type.HEAT": 1
+    },
+    "on_fire_effect": "tool_cost_reduction=0.5",
+    "tags": ["MICRO", "TOOL", "FORGE"],
+    "cursor_image_uid": "cursor_default",
+    "card_count": 1
+  },
+  {
+    "card_template_id": "beast_cage",
+    "group_template_id": "tourbillon_base",
+    "display_name": "Beast Cage",
+    "rules_text": "Fires every 5 Ticks: Produce 2 Entropy. +1 damage per Beast gear",
+    "card_rarity": "Card.RarityType.COMMON",
+    "time_cost": 4,
+    "production_interval": 5,
+    "force_production": {
+      "GameResource.Type.ENTROPY": 2
+    },
+    "conditional_effect": "per_tag:BEAST,damage=1",
+    "tags": ["BEAST", "CHAOS"],
+    "cursor_image_uid": "cursor_default",
+    "card_count": 1
+  },
+  {
+    "card_template_id": "precision_lathe",
+    "group_template_id": "tourbillon_base",
+    "display_name": "Precision Lathe",
+    "rules_text": "Fires every 4 Ticks: Consume 1 Precision → 2 damage (piercing)",
+    "card_rarity": "Card.RarityType.COMMON",
+    "time_cost": 3,
+    "production_interval": 4,
+    "force_consumption": {
+      "GameResource.Type.PRECISION": 1
+    },
+    "on_fire_effect": "damage=2,pierce=true",
+    "tags": ["TOOL", "ORDER"],
+    "cursor_image_uid": "cursor_default",
+    "card_count": 1
+  },
+  {
+    "card_template_id": "momentum_engine",
+    "group_template_id": "tourbillon_base",
+    "display_name": "Momentum Engine",
+    "rules_text": "Fires every 3 Ticks: Produce 1 Momentum. Adjacent gears fire 20% faster",
+    "card_rarity": "Card.RarityType.UNCOMMON",
+    "time_cost": 4,
+    "production_interval": 3,
+    "force_production": {
+      "GameResource.Type.MOMENTUM": 1
+    },
+    "passive_effect": "adjacent_haste=20",
+    "tags": ["MECH", "ORDER"],
+    "cursor_image_uid": "cursor_default",
+    "card_count": 1
+  },
+  {
+    "card_template_id": "balance_stabilizer",
+    "group_template_id": "tourbillon_base",
+    "display_name": "Balance Stabilizer",
+    "rules_text": "Fires every 8 Ticks: Produce 3 Balance. Shield 2",
+    "card_rarity": "Card.RarityType.UNCOMMON",
+    "time_cost": 5,
+    "production_interval": 8,
+    "force_production": {
+      "GameResource.Type.BALANCE": 3
+    },
+    "on_fire_effect": "shield_self=2",
+    "tags": ["CRYSTAL", "ORDER"],
+    "cursor_image_uid": "cursor_default",
+    "card_count": 1
+  },
+  {
+    "card_template_id": "shadow_mechanism",
+    "group_template_id": "tourbillon_base",
+    "display_name": "Shadow Mechanism",
+    "rules_text": "Fires every 3 Ticks: Consume 2 Entropy → 2 damage. +2 damage if isolated",
+    "card_rarity": "Card.RarityType.UNCOMMON",
+    "time_cost": 4,
+    "production_interval": 3,
+    "force_consumption": {
+      "GameResource.Type.ENTROPY": 2
+    },
+    "on_fire_effect": "damage=2,damage_if_isolated=2",
+    "tags": ["BEAST", "SHADOW", "CHAOS"],
+    "cursor_image_uid": "cursor_default",
+    "card_count": 1
+  },
+  {
+    "card_template_id": "crystal_regulator",
+    "group_template_id": "tourbillon_base",
+    "display_name": "Crystal Regulator",
+    "rules_text": "Fires every 12 Ticks: Produce 5 of any single force. Immovable",
+    "card_rarity": "Card.RarityType.RARE",
+    "time_cost": 8,
+    "production_interval": 12,
+    "on_fire_effect": "produce_any_single=5",
+    "keywords": ["IMMOVABLE"],
+    "tags": ["TITAN", "CRYSTAL"],
+    "cursor_image_uid": "cursor_default",
+    "card_count": 1
+  },
+  {
+    "card_template_id": "void_siphon",
+    "group_template_id": "tourbillon_base",
+    "display_name": "Void Siphon",
+    "rules_text": "Fires every 2 Ticks: Consume all forces → damage equal to amount consumed",
+    "card_rarity": "Card.RarityType.RARE",
+    "time_cost": 6,
+    "production_interval": 2,
+    "on_fire_effect": "consume_all_damage",
+    "tags": ["VOID", "CHAOS"],
+    "cursor_image_uid": "cursor_default",
+    "card_count": 1
+  },
+  {
+    "card_template_id": "micro_calibrator",
+    "group_template_id": "tourbillon_base",
+    "display_name": "Micro Calibrator",
+    "rules_text": "Momentary: Draw 2 cards. If 3+ MICRO gears, draw 3 instead",
+    "card_rarity": "Card.RarityType.COMMON",
+    "time_cost": 1,
+    "keywords": ["MOMENTARY"],
+    "on_play_effect": "draw_card=2",
+    "conditional_effect": "if_tag:MICRO=3,draw_card=1",
+    "tags": ["MICRO", "SPARK"],
+    "cursor_image_uid": "cursor_default",
+    "card_count": 1
+  },
+  {
+    "card_template_id": "overbuild_gear",
+    "group_template_id": "tourbillon_base",
+    "display_name": "Overbuilder",
+    "rules_text": "Overbuild: Fires every 4 Ticks: 4 damage. Inherits timer from replaced gear",
+    "card_rarity": "Card.RarityType.UNCOMMON",
+    "time_cost": 3,
+    "production_interval": 4,
+    "on_fire_effect": "damage=4",
+    "keywords": ["OVERBUILD"],
+    "tags": ["FORGE", "TOOL"],
+    "cursor_image_uid": "cursor_default",
+    "card_count": 1
+  },
+  {
+    "card_template_id": "dust_accumulator",
+    "group_template_id": "tourbillon_base",
+    "display_name": "Dust Accumulator",
+    "rules_text": "Fires every 4 Ticks: Mill 2 cards. +1 Heat per 5 cards in discard",
+    "card_rarity": "Card.RarityType.COMMON",
+    "time_cost": 2,
+    "production_interval": 4,
+    "on_fire_effect": "mill=2,heat_per_discard=0.2",
+    "tags": ["DUST", "VOID"],
+    "cursor_image_uid": "cursor_default",
+    "card_count": 1
+  }
+]

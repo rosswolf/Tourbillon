@@ -135,6 +135,7 @@ Note: Checking every Beat allows for precise timing and off-Tick effects (e.g., 
 #### 2.2.3 How You Lose
 - **Loss Condition 1**: Zero cards in hand after full card resolution (end of turn)
 - **Loss Condition 2**: Attempt to draw a card when deck and discard are both empty
+- **Loss Condition 3**: Mill a card when deck is empty (from overdraw with full hand)
 - When you need to draw and deck is empty, shuffle discard into deck first
 - If both deck AND discard are empty when you need to draw, you lose immediately
 - **Grace Period**: Loss from empty hand is checked only after current card fully resolves and all triggered effects complete
@@ -142,6 +143,14 @@ Note: Checking every Beat allows for precise timing and off-Tick effects (e.g., 
 - If you achieve victory and loss simultaneously, victory takes precedence
 - This makes card draw a critical resource alongside force production
 - Gremlin discard effects become extremely threatening
+
+#### 2.2.4 Overdraw and Mill Mechanics
+- **Hand Limit**: Maximum 10 cards in hand
+- **Overdraw**: If you would draw a card with a full hand (10 cards), mill the top card of your deck instead
+- **Mill**: Discarded directly from deck to discard pile without entering hand
+- **Mill Loss**: If you must mill but your deck is empty, you lose immediately
+- **Strategic Tension**: Mass card draw becomes risky with a full hand
+- This prevents infinite draw strategies from dominating
 
 ### 2.3 Mainplate System (Grid)
 
@@ -188,60 +197,106 @@ Expansion mechanics:
 
 ## 3. Force System
 
-### 3.1 Five Forces
-Forces represent different types of energy in your clockwork mechanism:
+### 3.1 Dual Resource System
+The game features two types of resources: Basic Forces and Special Resources.
 
-- **Heat (Red)** - Friction/Combustion
-  - Direct damage focus
-  - Fast intervals
-  - Force burning for immediate effects
-  - "Now now now" mentality
-  - Volatile, explosive
+#### 3.1.1 Basic Forces
+Five colored forces that gears produce and consume:
 
-- **Precision (Blue)** - Control/Accuracy
-  - Card draw
-  - Time manipulation (slow/haste effects)
-  - Force conversion efficiency
-  - Control and optimization
-  - Measured, exact
+- **Red Force** - Raw energy from friction and combustion
+- **Blue Force** - Controlled energy from precise mechanisms
+- **Green Force** - Kinetic energy from moving parts
+- **White Force** - Stable energy from balanced systems
+- **Black Force** - Chaotic energy from entropy and decay
 
-- **Momentum (Green)** - Perpetual Motion
-  - Force ramping
-  - Production bonuses
-  - Scaling effects
-  - "More is more" philosophy
-  - Self-sustaining cycles
+#### 3.1.2 Special Resources
+Powerful resources created by combining specific Basic Forces. Each Special Resource has unique mechanical effects:
 
-- **Balance (White)** - Regulation/Stability
-  - Shields/damage prevention
-  - Consistent production
-  - Rule-setting ("all complications get...")
-  - Stability focus
-  - Regulatory, equalizing
+- **🔥 HEAT** - Created from Red and Blue forces
+  - Powers pierce damage, momentary effects, and slowing enemies
+  - Most efficient for direct combat
+  
+- **🎯 PRECISION** - Created from Blue and White forces
+  - Enables targeted effects, bouncing, and card selection
+  - Controls timing and positioning
+  
+- **🌀 MOMENTUM** - Created from Green and Red forces
+  - Provides haste, chains, and cost reduction
+  - Accelerates your engine
+  
+- **⚖️ BALANCE** - Created from White and Black forces
+  - Enables execution, suppression, and renewal
+  - Maintains stability and control
+  
+- **💀 ENTROPY** - Created from Black and Green forces
+  - Powers poison, sacrifice, and copying effects
+  - Breaks normal rules
 
-- **Entropy (Black)** - Decay/Unwinding
-  - Destroy own complications for benefit
-  - High cost, high reward
-  - Force consumption for damage
-  - Death triggers
-  - Unwinding, decay
+#### 3.1.3 Resource Production Map
+Each Basic Force contributes to exactly two Special Resources:
+- **Red**: Creates HEAT and MOMENTUM
+- **Blue**: Creates HEAT and PRECISION
+- **Green**: Creates MOMENTUM and ENTROPY
+- **White**: Creates PRECISION and BALANCE
+- **Black**: Creates BALANCE and ENTROPY
 
-### 3.2 Force Mechanics
+This creates natural color pair synergies where pairs that share a Special Resource can produce it more efficiently.
 
-#### 3.2.1 Production
-- Complications produce forces when their time interval is reached
+### 3.2 Special Resource Keywords
+
+Each Special Resource grants access to unique keywords and effects:
+
+#### HEAT Keywords
+- **PIERCE** - Damage ignores armor
+- **MOMENTARY** - One-time burst effects
+- **QUICKSTART** - Starts with timer progress
+- **SLOW** - Delays enemy actions
+
+#### PRECISION Keywords
+- **TARGETED** - Choose specific targets
+- **STEADY** - Can't be sped up or slowed
+- **BOUNCE** - Return gears to hand
+- **SCRY** - Look at and arrange cards
+
+#### MOMENTUM Keywords
+- **CHAIN** - Trigger other gears
+- **HASTE** - Speed up timers
+- **OVERBUILD** - Inherit timer from replaced gear
+- **ACCUMULATING** - Build counters over time
+- **ENABLING** - Reduce costs
+
+#### BALANCE Keywords
+- **EXECUTE** - Instantly kill below threshold
+- **POP** - Double damage vs shields
+- **SUPPRESS** - Disable disruptions
+- **RENEW** - Recover cards from discard
+- **IMMOVABLE** - Can't be destroyed
+
+#### ENTROPY Keywords
+- **POISON** - Stacking damage over time
+- **SACRIFICE** - Destroy own gears for power
+- **DOPPELGANGER** - Copy other effects
+- **OVERKILL** - Excess damage carries over
+- **DEBT** - Gain resources now, pay back later (or get away with it!)
+
+### 3.3 Force Mechanics
+
+#### 3.3.1 Production
+- Complications produce Basic Forces when their time interval is reached
+- Basic Forces combine to create Special Resources through converter gears
 - Printed production amounts are whole numbers (1, 2, 3, etc.)
 - Modified production amounts can be fractional (rounded to 0.1)
-- Forces stored as fractional values (0.1 precision)
+- Forces and Special Resources stored as fractional values (0.1 precision)
 - Some complications may produce multiple force types
+- Special Resources are consumed for powerful keyword effects
 
-#### 3.2.2 Round Tracking
+#### 3.3.2 Round Tracking
 - Track statistics per combat: cards played, cards sacrificed, complications destroyed, etc.
 - Enables complex scaling triggers and achievements
 - Complications can trigger on events other than time (e.g., "When 3rd card played this turn")
 - Adds strategic dimensionality beyond pure time management
 
-#### 3.2.3 Consumption-Based Production
+#### 3.3.3 Consumption-Based Production
 - Many gears only produce when they can consume required inputs
 - If a gear would produce but cannot consume its requirements, it enters "ready" state
 - Timer stops at maximum until forces are available
@@ -250,36 +305,88 @@ Forces represent different types of energy in your clockwork mechanism:
 - Consumption is mandatory unless explicitly stated as optional
 - Optional consumption mainly for discard costs ("You may discard a card to...")
 
-#### 3.2.4 Storage and Caps
-- No base force caps - unlimited storage by default
-- Gremlin disruptions can impose force caps
-- Gremlin effects can add decay triggers
-- Some gears might increase or decrease effective caps
+#### 3.3.4 Storage and Caps
+- **Default: Unlimited storage** - Resources can accumulate infinitely
+- **Caps come from Gremlins** - Only gremlin disruptions impose resource caps
+- **No player-controlled caps** - Players cannot voluntarily limit their storage
+- **Cap effects are disruptions** - Part of the challenge gremlins create
+- Example: "Red Cap Gremlin: Your Red Force cannot exceed 5"
 
-#### 3.2.5 Spoilage
+#### 3.3.5 Spoilage
 - Forces may spoil based on gremlin effects or special rules
 - Spoiled forces may disappear or convert to waste
 - Waste/pollution mechanics may require management
 
-#### 3.2.6 Conversion Chains
-- Higher-tier effects require force conversion
-- Conversions use whole number ratios (2:1, 3:1, etc.)
-- Multi-input recipes for complex effects
-- "Consume X max" effects:
-  - Check if X total forces exist
-  - If not, effect fails completely (no partial consumption)
-  - If yes, consume from highest force pool first
-  - If tied for highest, consume in order: Heat → Precision → Momentum → Balance → Entropy
-- Some effects may specify "Consume X of one force" for focused consumption
+#### 3.3.6 Payment Types
+Cards can require different payment methods for flexibility:
+
+**Specific Color**: "Consume 2 Red" - Takes exactly that Basic Force
+**Named Resource**: "Consume 2 HEAT" - Takes exactly that Special Resource  
+**Largest**: "Consume 3 Largest" - Automatically takes from your highest resource pool
+**Smallest**: "Consume 2 Smallest" - Automatically takes from your lowest pool that can afford the cost
+
+Payment resolution is automatic - no player decisions during payment:
+- Largest: Takes from highest pool (ties broken by: Red → Blue → Green → White → Black → HEAT → PRECISION → MOMENTUM → BALANCE → ENTROPY)
+- Smallest: Takes from lowest pool that has enough (same tiebreaker order)
+- Mixed costs resolve in order listed on the card
+
+#### 3.3.7 Card Power Tiers
+Cards are balanced around their resource requirements:
+
+**Basic Tier** - Powered by Basic Forces (colors)
+- Simple effects, lower power level
+- Accessible early game
+- Example: "Consume 2 Red → Deal 2 damage"
+
+**Advanced Tier** - Powered by Special Resources  
+- Stronger effects with keywords
+- Require conversion infrastructure
+- Example: "Consume 2 HEAT → Deal 4 pierce damage"
+
+**Flexible Tier** - Use Largest/Smallest costs
+- Work with any resource type
+- Less efficient than specific costs
+- Example: "Consume 5 Largest → Deal 4 damage"
+
+**Hybrid Tier** - Multiple payment options
+- Can be paid different ways
+- Efficient with right resources, flexible otherwise
+- Example: "Consume 2 Red OR 4 Largest → Produce 1 HEAT"
+
+#### 3.3.8 Conversion Infrastructure
+- Basic Forces convert to Special Resources through converter gears
+- Conversion ratios vary by combination (typically 2:1 or 3:1)
+- Building conversion infrastructure is key to accessing powerful cards
+- Some converters are more efficient than others
 - Forces can exist in fractional amounts (rounded to 0.1) for more granularity
 - Forces can accumulate infinitely (no upper limit)
 
-### 3.3 Inspiration (Per-Run Currency)
+#### 3.3.9 Universal Effect Efficiency
+All colors and resources can produce damage and card draw, but at different efficiencies:
+
+**Damage Efficiency:**
+- **Efficient (2:1)**: Red, Green, Black, HEAT, MOMENTUM, ENTROPY
+  - 2 resources = 1 damage
+  - Red may have rare 1:1 cards
+  - HEAT may have rare 1:1 pierce cards
+- **Inefficient (3:1)**: Blue, White, PRECISION, BALANCE
+  - 3 resources = 1 damage
+
+**Card Draw Efficiency:**
+- **Efficient (2:1)**: White, Blue, PRECISION, BALANCE
+  - 2 resources = 1 card
+  - White may have rare 1:1 cards
+- **Inefficient (3:1)**: Red, Green, Black, HEAT, MOMENTUM, ENTROPY
+  - 3 resources = 1 card
+
+This ensures every mono-color strategy is viable while maintaining distinct identities.
+
+### 3.4 Inspiration (Per-Run Currency)
 - **Inspiration**: Resource earned from defeating gremlins during a run
 - Represents mechanical insights gained during this attempt
 - Inspiration resets between runs (does not persist)
 - Used at workshops within a run to acquire new cards or temporary upgrades
-- Regular forces (Heat, Precision, Momentum, Balance, Entropy) also reset between combats
+- Regular forces (Red, Blue, Green, White, Black) and Special Resources reset between combats
 - Inspiration farming prevention: Non-summoned gremlins give fixed Inspiration amounts
 - Some gears may provide bonus Inspiration on kills (still capped per encounter)
 
@@ -442,23 +549,23 @@ Tags create synergies and define gear identities. Gears typically have 1-4 tags.
 ### 7.1 Core Categories
 
 #### 7.1.1 Generators
-- Produce forces without requiring input
-- Example: "Mainspring - Produces 2 Heat every 3 seconds"
+- Produce Basic Forces without requiring input
+- Example: "Red Generator - Produces 2 Red Force every 3 ticks"
 
 #### 7.1.2 Converters
-- Transform one force into another
-- Require input to function
-- Example: "Precision Gear - Every 5 seconds, consume 3 Heat → 2 Precision"
+- Transform Basic Forces into Special Resources
+- Require specific force combinations
+- Example: "Heat Forge - Every 4 ticks, consume 1 Red + 1 Blue → 1 HEAT"
 
-#### 7.1.3 Card Manipulators
+#### 7.1.3 Card Manipulators  
 - Provide card draw or deck manipulation
-- Critical for sustaining gameplay
-- Example: "Chronometer - Every 8 seconds, consume 2 Precision → Draw 1 card"
+- Often powered by PRECISION or BALANCE
+- Example: "Precision Draw - Every 4 ticks, consume 1 PRECISION → Draw 2 cards"
 
 #### 7.1.4 Damage Dealers
-- Convert forces into damage
-- May have different targeting patterns
-- Example: "Steam Cannon - Every 6 seconds, consume 5 Momentum → 3 damage"
+- Convert Special Resources into damage
+- May use keywords from their resource type
+- Example: "Heat Cannon - Every 3 ticks, consume 2 HEAT → 4 pierce damage"
 
 #### 7.1.5 Synergy Complications
 - Boost or trigger other complications
@@ -501,20 +608,76 @@ Tags create synergies and define gear identities. Gears typically have 1-4 tags.
 
 ### 7.3 Example Gears
 
-**"Micro Forge" (Heat Common)**
-- Tags: [Micro, Tool]
+#### Basic Force Production (Common)
+**"Red Generator"**
+- Tags: [Stone]
+- Cost: 3 Ticks
+- "Fires every 3 Ticks: Produce 2 Red Force"
+
+**"Blue Crystal"**
+- Tags: [Crystal]
+- Cost: 3 Ticks
+- "Fires every 3 Ticks: Produce 2 Blue Force"
+
+#### Basic Force Consumption (Common)
+**"Simple Flame"**
+- Tags: [Spark]
 - Cost: 2 Ticks
-- "Fires every 2 Ticks: Produce 1 Heat. Tool gears cost -0.5 Ticks"
+- "Consume 2 Red → Deal 2 damage"
 
-**"Crystal Regulator" (Precision Rare)**
-- Tags: [Titan, Crystal]
-- Cost: 8 Ticks
-- "Fires every 12 Ticks: Produce 5 of any single force. Immovable"
+**"Emergency Valve"**
+- Tags: [Tool]
+- Cost: 2 Ticks
+- "Consume 4 Largest → Draw 2 cards"
 
-**"Shadow Mechanism" (Entropy Uncommon)**
-- Tags: [Beast, Shadow, Chaos]
+#### Converters (Common)
+**"Heat Forge"**
+- Tags: [Forge, Tool]
+- Cost: 3 Ticks  
+- "Fires every 4 Ticks: Consume 1 Red + 1 Blue → Gain 1 HEAT"
+
+**"Precision Engine"**
+- Tags: [Crystal, Tool]
+- Cost: 3 Ticks
+- "Fires every 4 Ticks: Consume 1 Blue + 1 White → Gain 1 PRECISION"
+
+#### Special Resource Cards (Uncommon)
+**"Heat Burst"**
+- Tags: [Spark]
+- Cost: 2 Ticks
+- "MOMENTARY: Consume 2 HEAT → Deal 5 pierce damage"
+
+**"Precision Bounce"**
+- Tags: [Micro, Tool]
 - Cost: 4 Ticks
-- "Fires every 3 Ticks: Consume 2 Entropy → 2 damage. +1 damage per Beast, +2 if no adjacent gears"
+- "Fires every 3 Ticks: Consume 1 PRECISION → TARGETED bounce, reduce its cost by 1"
+
+#### Flexible Cost Cards (Uncommon)
+**"Adaptive Furnace"**
+- Tags: [Forge]
+- Cost: 4 Ticks
+- "Fires every 3 Ticks: Consume 2 Red OR 4 Largest → Produce 1 HEAT"
+
+**"Balanced Strike"**
+- Tags: [Weapon]
+- Cost: 3 Ticks
+- "Consume 3 Smallest → Deal 4 damage, gain 1 BALANCE"
+
+**"Chaos Siphon"**
+- Tags: [Void]
+- Cost: 5 Ticks
+- "Consume 2 Largest + 2 Smallest → Draw 3 cards, gain 2 ENTROPY"
+
+#### Advanced Cards (Rare)
+**"Entropy Debt"**
+- Tags: [Void, Chaos]
+- Cost: 1 Tick
+- "DEBT: On Play: Gain 5 ENTROPY. Every 5 Ticks: Pay 3 ENTROPY or get away with it!"
+
+**"Perfect Equilibrium"**
+- Tags: [Balance]
+- Cost: 6 Ticks
+- "If all Basic Forces within 2 of each other: Consume 1 Smallest → Gain 3 BALANCE"
 
 ## 8. Gremlin System (Combat)
 
@@ -533,15 +696,23 @@ Tags create synergies and define gear identities. Gears typically have 1-4 tags.
 #### 8.1.2 Gremlin Disruptions
 Gremlins impose disruptions while infesting your mechanism:
 
-**Passive Disruptions:**
-- Force caps - caps don't stack, take lowest
-- Production taxes
-- Placement restrictions
+**Resource Caps (Primary Disruption):**
+- **Gremlins are the ONLY source of resource caps**
+- Default game state: unlimited resource storage
+- Each gremlin may impose caps on specific resources
+- Caps don't stack - take the lowest cap if multiple gremlins
+- Example: "Red Cap Gremlin: Red Force cannot exceed 5"
+- Example: "Heat Limiter: HEAT cannot exceed 3"
+- Defeating the gremlin removes its cap
+
+**Other Passive Disruptions:**
+- Production taxes (reduce force generation)
+- Placement restrictions (limit where gears can go)
 - Time penalties - stack additively
 - Hand restrictions
 - Force-specific disruptions
 - Production modifiers stack additively
-- Decay triggers
+- Decay triggers (forces spoil over time)
 
 **Active Sabotage:**
 - Drain forces periodically
@@ -582,10 +753,24 @@ Gremlins impose disruptions while infesting your mechanism:
 - **Workshops**: Spend Inspiration to acquire new cards or upgrades
 
 ### 9.3 Rewards
-- Card rewards (choose 1 of 3)
+
+#### 9.3.1 Card Reward Selection
+When offered card choices (typically choose 1 of 3):
+- **Synergy Weighting**: ~1/3 of offered cards will share a Tag or Color with your existing deck
+- **Random Pool**: The other ~2/3 are drawn from the general card pool
+- **Smart Offering**: System tracks your most common tags and colors to determine synergies
+- This ensures coherent deck building while maintaining variety
+
+**Example Card Offering:**
+- If your deck has many [Spark] and Red cards:
+  - Card 1: Random from any pool
+  - Card 2: Guaranteed to have [Spark] tag OR use Red Force
+  - Card 3: Random from any pool
+
+#### 9.3.2 Other Rewards
 - Movement plate expansions
 - Temporary upgrades
-- Deck manipulation options
+- Deck manipulation options (remove cards, duplicate cards, transform cards)
 
 ### 9.4 Meta Progression (Roguelike with Unlocks)
 
