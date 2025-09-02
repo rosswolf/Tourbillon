@@ -45,6 +45,12 @@ static func slot_card_in_button(card: Card, button: EngineButtonEntity) -> bool:
 	button.card = card
 	GlobalSignals.signal_core_card_removed_from_hand(card.instance_id)
 	
+	# Emit the slotted signal so the slot UI and Tourbillon system can respond
+	GlobalSignals.signal_core_card_slotted(button.instance_id)
+	
+	# Also emit card played signal for Tourbillon time advancement
+	GlobalSignals.signal_core_card_played(card.instance_id)
+	
 	return true
 	
 static func activate_instinct(card: Card, target: Entity = null) -> bool:

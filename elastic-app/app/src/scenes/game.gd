@@ -46,17 +46,18 @@ func __on_audio_finished():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	# Display beats and ticks from Tourbillon system
+	# Display ticks.beats in decimal format
 	if GlobalGameManager.has("tourbillon_initializer"):
 		var initializer = GlobalGameManager.get("tourbillon_initializer")
 		if initializer:
 			var ticks = initializer.get_current_tick()
 			var beats = initializer.get_current_beat()
 			var beat_in_tick = beats % 10  # 10 beats per tick
-			%GlobalTimeLabel.text = "Tick: " + str(ticks) + " Beat: " + str(beat_in_tick)
+			# Format as ticks.beat (e.g., 0.00, 1.05, 2.10)
+			%GlobalTimeLabel.text = "%d.%02d" % [ticks, beat_in_tick]
 	else:
-		# Fallback to simple tick counter if Tourbillon not initialized
-		%GlobalTimeLabel.text = "Tick: 0"
+		# Fallback display
+		%GlobalTimeLabel.text = "0.00"
 
 func __end_turn() -> void:
 	GlobalGameManager.end_turn()
