@@ -39,7 +39,27 @@ static func get_type(entity: Entity):
 
 
 static func slot_card_in_button(card: Card, button: EngineButtonEntity) -> bool:	
+	# Check if there's already a card in the slot (overbuild scenario)
+	var existing_card: Card = button.card
+	if existing_card != null:
+		print("[OVERBUILD] Replacing ", existing_card.display_name, " with ", card.display_name)
+		
+		# Handle replacement as described in PRD section 2.0.4
+		# 1. Trigger replacement effects on the old card (if any)
+		if existing_card.has_method("trigger_replacement_effects"):
+			existing_card.trigger_replacement_effects()
+		
+		# 2. Move the old card to discard pile
+		GlobalGameManager.library.move_card_to_zone2(existing_card.instance_id, Library.Zone.SLOTTED, Library.Zone.DISCARD)
+		
+		# 3. Signal that the old card was unslotted and discarded
+		GlobalSignals.signal_core_card_unslotted(button.instance_id)
+		GlobalSignals.signal_core_card_discarded(existing_card.instance_id)
+		
+		# Clear the slot reference (button.card setter will handle signals)
+		button.card = null
 	
+	# Now slot the new card
 	GlobalGameManager.library.move_card_to_zone2(card.instance_id, Library.Zone.HAND, Library.Zone.SLOTTED)
 	
 	button.card = card
