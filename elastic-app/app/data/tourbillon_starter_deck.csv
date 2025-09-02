@@ -1,0 +1,12 @@
+card_template_id,group_template_id,display_name,rules_text,card_rarity:Card.RarityType,time_cost,production_interval,force_production,force_consumption,on_play_effect,on_fire_effect,keywords,tags,features,cursor_image_uid,starter_copies
+basic_chronometer,starter,Basic Chronometer,Fires every 6 Ticks: Draw 1 card,STARTING,2,6,{},{},,draw_card=1,,TOOL|SPARK,starter|draw|essential,cursor_default,2
+quick_calibration,starter,Quick Calibration,Momentary: Draw 2 cards,STARTING,1,,{},{},draw_card=2,,MOMENTARY,SPARK,starter|draw|momentary|burst,cursor_default,1
+steady_draw,starter,Steady Draw,Fires every 8 Ticks: Draw 2 cards,STARTING,3,8,{},{},,draw_card=2,,TOOL|ORDER,starter|draw|consistent,cursor_default,1
+simple_mainspring_heat,starter,Heat Spring,Fires every 3 Ticks: Produce 2 Heat,STARTING,3,3,"{""GameResource.Type.HEAT"": 2}",{},,,STONE,starter|generator|heat,cursor_default,1
+simple_mainspring_precision,starter,Precision Spring,Fires every 3 Ticks: Produce 2 Precision,STARTING,3,3,"{""GameResource.Type.PRECISION"": 2}",{},,,STONE,starter|generator|precision,cursor_default,1
+momentum_spring,starter,Momentum Spring,Fires every 3 Ticks: Produce 2 Momentum,STARTING,3,3,"{""GameResource.Type.MOMENTUM"": 2}",{},,,STONE,starter|generator|momentum,cursor_default,1
+balance_core,starter,Balance Core,Fires every 4 Ticks: Produce 2 Balance,STARTING,3,4,"{""GameResource.Type.BALANCE"": 2}",{},,,STONE|ORDER,starter|generator|balance,cursor_default,1
+entropy_leak,starter,Entropy Leak,Fires every 5 Ticks: Produce 2 Entropy,STARTING,3,5,"{""GameResource.Type.ENTROPY"": 2}",{},,,DUST|CHAOS,starter|generator|entropy,cursor_default,1
+force_converter,starter,Force Converter,Fires every 4 Ticks: Consume 2 max force → 3 damage,STARTING,3,4,{},{},,consume_max=2,damage=3,,FORGE,starter|damage|converter,cursor_default,1
+heat_blast,starter,Heat Blast,Momentary: Consume 3 Heat → 5 damage,STARTING,2,,{},"{""GameResource.Type.HEAT"": 3}",damage=5,,MOMENTARY,SPARK|VOID,starter|damage|momentary|burst,cursor_default,1
+quick_strike,starter,Quick Strike,"Momentary: Deal 2 damage, draw 1 card",STARTING,2,,,{},damage=2,draw_card=1,,MOMENTARY,SPARK,starter|damage|draw|momentary|flexible,cursor_default,1

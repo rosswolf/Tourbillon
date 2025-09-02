@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://bm0fb21htif4l"
+
+[deps]
+
+files=["res://data/tourbillon_starter_deck.group.translation", "res://data/tourbillon_starter_deck.display.translation", "res://data/tourbillon_starter_deck.rules.translation", "res://data/tourbillon_starter_deck.card.translation", "res://data/tourbillon_starter_deck.time.translation", "res://data/tourbillon_starter_deck.production.translation", "res://data/tourbillon_starter_deck.force.translation", "res://data/tourbillon_starter_deck.force.translation", "res://data/tourbillon_starter_deck.on.translation", "res://data/tourbillon_starter_deck.on.translation", "res://data/tourbillon_starter_deck.keywords.translation", "res://data/tourbillon_starter_deck.tags.translation", "res://data/tourbillon_starter_deck.features.translation", "res://data/tourbillon_starter_deck.cursor.translation", "res://data/tourbillon_starter_deck.starter.translation"]
+
+source_file="res://data/tourbillon_starter_deck.csv"
+dest_files=["res://data/tourbillon_starter_deck.group.translation", "res://data/tourbillon_starter_deck.display.translation", "res://data/tourbillon_starter_deck.rules.translation", "res://data/tourbillon_starter_deck.card.translation", "res://data/tourbillon_starter_deck.time.translation", "res://data/tourbillon_starter_deck.production.translation", "res://data/tourbillon_starter_deck.force.translation", "res://data/tourbillon_starter_deck.force.translation", "res://data/tourbillon_starter_deck.on.translation", "res://data/tourbillon_starter_deck.on.translation", "res://data/tourbillon_starter_deck.keywords.translation", "res://data/tourbillon_starter_deck.tags.translation", "res://data/tourbillon_starter_deck.features.translation", "res://data/tourbillon_starter_deck.cursor.translation", "res://data/tourbillon_starter_deck.starter.translation"]
+
+[params]
+
+compress=true
+delimiter=0
