@@ -541,7 +541,7 @@ def main():
     sheets_to_export = {
         "1VayKOODhGrxUEf0MdBXALYNtBA2Wv6c1hCr-FO1Xo6M": "card_data.json",
         # Add more spreadsheet IDs here:
-        "1lVpf2otmFaxlxKUI_LK8dzTiAsSMIQW2K421_urDeDg": "mob_data.json",
+        "1TlOn39AXlw0y2tlkE4kvIpvoZ9SpNQTkDGgOptvqSgM": "mob_data.json",
         "1vqf7i3FQPI4C9p0ME3kDnCa9u6fGjIg7Z1loQryfIz0": "configuration_data.json",
         "1xa8_S08EFnjsSBAaKCZ4okflLWUSzm9vcjAQcHIY2os": "goals_data.json",
         "163_WvC6Vsa9Q5mAgRh296npPyaEmd2iEPF7OAki7b5Q": "relic_data.json",

@@ -11,8 +11,7 @@ var MUSIC_MP3: String = "res://pixabay assets/reportage-industriel-song-1-261972
 @onready var targeting_icon: TargetingIcon = \
 	$Background/MainVBoxContainer/BotHBoxContainer/UIVBoxContainer/HBoxContainer/VBoxContainer/TargetingPanelContainer/GenericTargetingIcon
 
-# Air meters removed - using Tourbillon force system instead
-# var meters: Dictionary[Air.AirColor, AirMeter2] = {}
+# Legacy meters removed - use force system instead
 
 func _ready() -> void:
 	
@@ -30,11 +29,7 @@ func _ready() -> void:
 	%AudioStreamPlayer.play()
 	%AudioStreamPlayer.finished.connect(__on_audio_finished)
 	
-	# Air meters removed - using Tourbillon force system instead
-	# meters[Air.AirColor.HEAT] = %PurpleAirMeter
-	# meters[Air.AirColor.PRECISION] = %BlueAirMeter
-	# meters[Air.AirColor.MOMENTUM] = %GreenAirMeter
-	# UiController.meters = meters
+	# Legacy meter setup removed - use force system instead
 	
 	GlobalSignals.signal_ui_started_game()
 	%GlobalTimer.start()
@@ -102,12 +97,7 @@ func __on_core_goal_created(goal_instance_id: String) -> void:
 	
 	%GoalContainer.add_child(ui_goal)
 	
-# Removed - using Tourbillon tick system instead
-# func get_time_remaining(color: Air.AirColor) -> float:
-# 	if meters.has(color):
-# 		return meters[color].time_remaining
-# 	else:
-# 		return 0.0
+# Legacy get_time_remaining removed - use force system instead
 		
 func format_elapsed_time(timer: Timer) -> String:
 	var elapsed = timer.wait_time - timer.time_left

@@ -77,31 +77,7 @@ class ResourceAccessor:
 			func(): return GlobalGameManager.hero.inspiration.amount if GlobalGameManager.hero and GlobalGameManager.hero.inspiration else 0,
 			func(value): if GlobalGameManager.hero and GlobalGameManager.hero.inspiration: GlobalGameManager.hero.inspiration.amount = value
 		),
-		# Legacy time resources (keeping for compatibility)
-		GameResource.Type.PURPLE_TIME: __SpecificResourceAccessor.new(
-			func(): return UiController.meters[Air.AirColor.HEAT].time_remaining if UiController.meters.has(Air.AirColor.HEAT) else 0,
-			func(value): GlobalSignals.signal_core_time_set(Air.AirColor.HEAT, value),
-		),
-		GameResource.Type.GREEN_TIME: __SpecificResourceAccessor.new(
-			func(): return UiController.meters[Air.AirColor.MOMENTUM].time_remaining if UiController.meters.has(Air.AirColor.MOMENTUM) else 0,
-			func(value): GlobalSignals.signal_core_time_set(Air.AirColor.MOMENTUM, value)
-		),	
-		GameResource.Type.BLUE_TIME: __SpecificResourceAccessor.new(
-			func(): return UiController.meters[Air.AirColor.PRECISION].time_remaining if UiController.meters.has(Air.AirColor.PRECISION) else 0,
-			func(value): GlobalSignals.signal_core_time_set(Air.AirColor.PRECISION, value)
-		),
-		GameResource.Type.PURPLE_ENERGY: __SpecificResourceAccessor.new(
-			func(): return UiController.meters[Air.AirColor.HEAT].current_energy if UiController.meters.has(Air.AirColor.HEAT) else 0,
-			func(value): GlobalSignals.signal_core_energy_set(Air.AirColor.HEAT, value)
-		),
-		GameResource.Type.GREEN_ENERGY: __SpecificResourceAccessor.new(
-			func(): return UiController.meters[Air.AirColor.MOMENTUM].current_energy if UiController.meters.has(Air.AirColor.MOMENTUM) else 0,
-			func(value): GlobalSignals.signal_core_energy_set(Air.AirColor.MOMENTUM, value)
-		),
-		GameResource.Type.BLUE_ENERGY: __SpecificResourceAccessor.new(
-			func(): return UiController.meters[Air.AirColor.PRECISION].current_energy if UiController.meters.has(Air.AirColor.PRECISION) else 0,
-			func(value): GlobalSignals.signal_core_energy_set(Air.AirColor.PRECISION, value)
-		),
+		# Legacy time/energy resources removed - use force system instead
 		GameResource.Type.FORCE: __SpecificResourceAccessor.new(
 			func(): return GlobalGameManager.hero.force.amount if GlobalGameManager.hero and GlobalGameManager.hero.force else 0,
 			func(value): if GlobalGameManager.hero and GlobalGameManager.hero.force: GlobalGameManager.hero.force.amount = value

@@ -1,5 +1,5 @@
 extends Node
 
-var meters: Dictionary[Air.AirColor, AirMeter2]
+# Legacy meters removed - use force system instead
 
 var multiplier_meter: MultiplierMeter

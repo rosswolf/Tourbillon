@@ -35,37 +35,9 @@ func _init():
 	entropy = CappedResource.new(0, 10, noop, noop)
 	inspiration = CappedResource.new(0, 10, noop, noop)
 	
-	# Legacy resources
-	time = TimeResource.new()
-	energy = EnergyResource.new()
+	# Legacy resources removed - use force system instead
 
-class TimeResource:
-
-	func fill_time(color: Air.AirColor, amount: float):
-		GlobalSignals.signal_core_time_filled(color, amount)
-	
-	func set_time_capped(color: Air.AirColor, amount: float):
-		GlobalSignals.signal_core_time_set(color, amount)
-		
-	func add_max_time(color: Air.AirColor, amount: float):
-		GlobalSignals.signal_core_max_time_added(color, amount)
-	
-	func set_max_time(color: Air.AirColor, amount: float):
-		GlobalSignals.signal_core_max_time_set(color, amount)
-	
-class EnergyResource:
-	func fill_energy(color: Air.AirColor, amount: float):
-		GlobalSignals.signal_core_energy_filled(color, amount)
-	
-	func set_energy_capped(color: Air.AirColor, amount: float):
-		GlobalSignals.signal_core_energy_set(color, amount)	
-
-	func add_max_energy(color: Air.AirColor, amount: float):
-		GlobalSignals.signal_core_max_energy_added(color, amount)
-	
-	func set_max_energy(color: Air.AirColor, amount: float):
-		GlobalSignals.signal_core_max_energy_set(color, amount)
-		
+# Legacy TimeResource and EnergyResource removed - use force system instead
 
 func _get_type() -> Entity.EntityType:
 	return Entity.EntityType.HERO

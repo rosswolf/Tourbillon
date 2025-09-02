@@ -22,52 +22,13 @@ enum Intent {
 	MOVE
 }
 
-static func color_signal(signal_name: String, color: Air.AirColor):
-	return InternalEffect.new(
-		func(source: Entity, params: Dictionary):
-			var amount = int(params.get("param"))
-			GlobalSignals.emit_signal(signal_name, color, amount)
-			return true,
-		{"source":[Hero, Card]})
-
 static var effect_map: Dictionary[String, InternalEffect] = {
 	"none":  InternalEffect.new(
 		func(source: Entity, params: Dictionary):
 			return true,
 		{} 
 	),
-	"add_purple_energy": color_signal("core_energy_filled", Air.AirColor.HEAT),
-	"add_blue_energy": color_signal("core_energy_filled", Air.AirColor.PRECISION),
-	"add_green_energy": color_signal("core_energy_filled", Air.AirColor.MOMENTUM),
-	"set_purple_energy":color_signal("core_energy_set", Air.AirColor.HEAT),
-	"set_blue_energy": color_signal("core_energy_set", Air.AirColor.PRECISION),
-	"set_green_energy": color_signal("core_energy_set", Air.AirColor.MOMENTUM),
-	"remove_purple_energy":color_signal("core_energy_removed", Air.AirColor.HEAT),
-	"remove_blue_energy": color_signal("core_energy_removed", Air.AirColor.PRECISION),
-	"remove_green_energy": color_signal("core_energy_removed", Air.AirColor.MOMENTUM),
-	"add_max_purple_energy": color_signal("core_max_energy_added", Air.AirColor.HEAT),
-	"add_max_blue_energy": color_signal("core_max_energy_added", Air.AirColor.PRECISION),	
-	"add_max_green_energy": color_signal("core_max_energy_added", Air.AirColor.MOMENTUM),
-	"set_max_purple_energy": color_signal("core_max_energy_set", Air.AirColor.HEAT),
-	"set_max_blue_energy": color_signal("core_max_energy_set", Air.AirColor.PRECISION),	
-	"set_max_green_energy": color_signal("core_max_energy_set", Air.AirColor.MOMENTUM),
-	
-	"add_purple_time": color_signal("core_time_filled", Air.AirColor.HEAT),
-	"add_blue_time": color_signal("core_time_filled", Air.AirColor.PRECISION),
-	"add_green_time": color_signal("core_time_filled", Air.AirColor.MOMENTUM),
-	"set_purple_time": color_signal("core_time_set", Air.AirColor.HEAT),
-	"set_blue_time": color_signal("core_time_set", Air.AirColor.PRECISION),
-	"set_green_time": color_signal("core_time_set", Air.AirColor.MOMENTUM),
-	"remove_purple_time": color_signal("core_time_removed", Air.AirColor.HEAT),
-	"remove_blue_time": color_signal("core_time_removed", Air.AirColor.PRECISION),
-	"remove_green_time": color_signal("core_time_removed", Air.AirColor.MOMENTUM),
-	"add_max_purple_time": color_signal("core_max_time_added", Air.AirColor.HEAT),
-	"add_max_blue_time": color_signal("core_max_time_added", Air.AirColor.PRECISION),	
-	"add_max_green_time": color_signal("core_max_time_added", Air.AirColor.MOMENTUM),
-	"set_max_purple_time": color_signal("core_max_time_set", Air.AirColor.HEAT),
-	"set_max_blue_time": color_signal("core_max_time_set", Air.AirColor.PRECISION),	
-	"set_max_green_time": color_signal("core_max_time_set", Air.AirColor.MOMENTUM),
-
+	# Legacy time/energy effects removed - use force system instead
 	"draw_card": InternalEffect.new(
 		func(source: Entity, params: Dictionary):
 			var amount = int(params.get("param"))
