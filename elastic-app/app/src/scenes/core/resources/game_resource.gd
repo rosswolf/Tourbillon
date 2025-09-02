@@ -4,14 +4,22 @@ class_name GameResource
 # When adding a new type here, be sure to update the get_resource_background_color function below
 enum Type {
 	UNKNOWN,
-	# Core force resources (from PRD)
-	HEAT,        # Red - Attack All
-	PRECISION,   # Blue - Attack Bottom
-	MOMENTUM,    # Green - Attack Top
-	BALANCE,     # White - Defense/Health
-	ENTROPY,     # Purple - Randomness/Chaos
-	# UI/Color resources (for backward compatibility)
-	GOLD,
+	# Color resources (5)
+	RED,
+	BLUE,
+	GREEN,
+	WHITE,
+	PURPLE,
+	# Force resources (5)
+	HEAT,
+	PRECISION,
+	MOMENTUM,
+	BALANCE,
+	ENTROPY,
+	# Special
+	INSPIRATION,
+	# Legacy (for backward compatibility)
+	GOLD = INSPIRATION,  # Alias for INSPIRATION
 	PURPLE_TIME,
 	GREEN_TIME,
 	BLUE_TIME,
@@ -44,7 +52,28 @@ class ResourceAccessor:
 			setter.call(getter.call() - amount)
 	
 	var __resources: Dictionary = {
-		# Core force resources from PRD
+		# Color resources (5)
+		GameResource.Type.RED: __SpecificResourceAccessor.new(
+			func(): return GlobalGameManager.hero.red.amount if GlobalGameManager.hero and GlobalGameManager.hero.red else 0,
+			func(value): if GlobalGameManager.hero and GlobalGameManager.hero.red: GlobalGameManager.hero.red.amount = value
+		),
+		GameResource.Type.BLUE: __SpecificResourceAccessor.new(
+			func(): return GlobalGameManager.hero.blue.amount if GlobalGameManager.hero and GlobalGameManager.hero.blue else 0,
+			func(value): if GlobalGameManager.hero and GlobalGameManager.hero.blue: GlobalGameManager.hero.blue.amount = value
+		),
+		GameResource.Type.GREEN: __SpecificResourceAccessor.new(
+			func(): return GlobalGameManager.hero.green.amount if GlobalGameManager.hero and GlobalGameManager.hero.green else 0,
+			func(value): if GlobalGameManager.hero and GlobalGameManager.hero.green: GlobalGameManager.hero.green.amount = value
+		),
+		GameResource.Type.WHITE: __SpecificResourceAccessor.new(
+			func(): return GlobalGameManager.hero.white.amount if GlobalGameManager.hero and GlobalGameManager.hero.white else 0,
+			func(value): if GlobalGameManager.hero and GlobalGameManager.hero.white: GlobalGameManager.hero.white.amount = value
+		),
+		GameResource.Type.PURPLE: __SpecificResourceAccessor.new(
+			func(): return GlobalGameManager.hero.purple.amount if GlobalGameManager.hero and GlobalGameManager.hero.purple else 0,
+			func(value): if GlobalGameManager.hero and GlobalGameManager.hero.purple: GlobalGameManager.hero.purple.amount = value
+		),
+		# Force resources (5)
 		GameResource.Type.HEAT: __SpecificResourceAccessor.new(
 			func(): return GlobalGameManager.hero.heat.amount if GlobalGameManager.hero and GlobalGameManager.hero.heat else 0,
 			func(value): if GlobalGameManager.hero and GlobalGameManager.hero.heat: GlobalGameManager.hero.heat.amount = value

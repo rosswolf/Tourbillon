@@ -8,17 +8,33 @@ var image_name: String
 var starting_relic: String
 
 
-# Core force resources (from PRD)
-var heat: CappedResource        # Red - Attack All
-var precision: CappedResource   # Blue - Attack Bottom
-var momentum: CappedResource    # Green - Attack Top
-var balance: CappedResource     # White - Defense/Health focus
-var entropy: CappedResource     # Purple - Randomness/Chaos
+# Color resources (5)
+var red: CappedResource
+var blue: CappedResource
+var green: CappedResource
+var white: CappedResource
+var purple: CappedResource
+
+# Force resources (5)
+var heat: CappedResource
+var precision: CappedResource
+var momentum: CappedResource
+var balance: CappedResource
+var entropy: CappedResource
 
 func _init():
-	# Initialize force resources with default values
+	# Initialize all 10 resources with default values
 	# TODO: Properly initialize these with actual game values
 	var noop = func(v): pass
+	
+	# Color resources
+	red = CappedResource.new(0, 10, noop, noop)
+	blue = CappedResource.new(0, 10, noop, noop)
+	green = CappedResource.new(0, 10, noop, noop)
+	white = CappedResource.new(0, 10, noop, noop)
+	purple = CappedResource.new(0, 10, noop, noop)
+	
+	# Force resources
 	heat = CappedResource.new(0, 10, noop, noop)
 	precision = CappedResource.new(0, 10, noop, noop)
 	momentum = CappedResource.new(0, 10, noop, noop)
@@ -37,9 +53,21 @@ func _get_type() -> Entity.EntityType:
 func reset_start_of_battle():
 	pass
 
-## Get a force resource by type
+## Get a resource by type (colors or forces)
 func get_force_resource(force_type: GameResource.Type) -> CappedResource:
 	match force_type:
+		# Color resources
+		GameResource.Type.RED:
+			return red
+		GameResource.Type.BLUE:
+			return blue
+		GameResource.Type.GREEN:
+			return green
+		GameResource.Type.WHITE:
+			return white
+		GameResource.Type.PURPLE:
+			return purple
+		# Force resources
 		GameResource.Type.HEAT:
 			return heat
 		GameResource.Type.PRECISION:
