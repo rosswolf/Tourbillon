@@ -74,7 +74,11 @@ class EntityBuilder extends RefCounted:
 			entity.__instance_id = __custom_instance_id
 		else:
 			entity.__instance_id = entity._generate_instance_id()
-			
-		GlobalGameManager.instance_catalog.set_instance(entity as Node)
+		
+		# Register entity in the instance catalog if it exists
+		if GlobalGameManager.instance_catalog != null:
+			GlobalGameManager.instance_catalog.set_instance(entity as Node)
+		else:
+			push_warning("Entity created but instance_catalog is null - instance_id: " + entity.__instance_id)
 		
 		return entity

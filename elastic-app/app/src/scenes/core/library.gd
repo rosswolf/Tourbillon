@@ -176,6 +176,11 @@ func add_card_to_zone(card: Card, zone: Zone):
 	zone_obj.add_card(card)
 	card_zone_map[card.instance_id] = zone
 	
+	# Ensure card is registered in the instance catalog
+	if GlobalGameManager.instance_catalog != null:
+		if not GlobalGameManager.instance_catalog.has_instance(card.instance_id):
+			GlobalGameManager.instance_catalog.set_instance(card as Node)
+	
 
 # Move a card from specified zone to its current zone.  
 func move_card_to_zone2(card_instance_id: String, from_zone: Zone, to_zone: Zone, override_limit: bool = false) -> bool:
