@@ -101,7 +101,8 @@ func reactivate_slot() -> void:
 
 func __on_refresh_slot_manually() -> void:
 	if is_activatable and __button_entity.card != null:
-		__button_entity.activate_slot_effect(__button_entity.card, null)
+		# Manual activation fires the production immediately
+		__fire_production()
 		if card_preview:
 			card_preview.refresh()
 		
@@ -186,8 +187,8 @@ func __fire_production() -> void:
 	if not card.on_fire_effect.is_empty():
 		TourbillonEffectProcessor.process_effect(card.on_fire_effect, self, null)
 	
-	# Fire any legacy slot effects
-	__button_entity.activate_slot_effect(card, null)
+	# Signal that the slot was activated (for stats tracking)
+	GlobalSignals.signal_core_slot_activated(card.instance_id)
 	
 	# Reset timer
 	__exit_ready_state()

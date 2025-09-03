@@ -25,13 +25,13 @@ static func activate(source: Entity, target: Entity) -> bool:
 		if not card.cost.satisfy(source, target):
 			return false
 		
-		# All cards should have slot effects now (no more instinct effects)
+		# In Tourbillon, all cards can be slotted (no more instinct effects)
 		if card.has_slot_effect():
 			return slot_card_in_button(card, button)
 		else:
-			# This shouldn't happen with current cards
-			push_warning("Card without slot effect tried to activate on button: " + card.display_name)
-			return false
+			# Card has no production or effects - still allow slotting for passive cards
+			push_warning("Card without production/effects being slotted: " + card.display_name)
+			return slot_card_in_button(card, button)
 				
 	return false
 

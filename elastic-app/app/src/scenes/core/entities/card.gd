@@ -56,7 +56,9 @@ func has_instinct_effect() -> bool:
 	return __instinct_effect != null
 	
 func has_slot_effect() -> bool:
-	return __slot_effect != null
+	# In Tourbillon, all cards can be slotted since there are no instinct effects
+	# A card is slottable if it has any production or effects
+	return production_interval != 0 or not on_fire_effect.is_empty() or not passive_effect.is_empty()
 		
 func activate_slot_effect(source: Entity, target: Entity) -> bool:
 	if not __slot_effect._could_satisfy_costs(source, target) or \
