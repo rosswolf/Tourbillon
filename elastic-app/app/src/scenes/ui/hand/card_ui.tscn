@@ -5,18 +5,6 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_transparent"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tt30y"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gray_circle"]
 bg_color = Color(0.5, 0.5, 0.5, 0.7)
 border_width_left = 2
@@ -28,6 +16,18 @@ corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tt30y"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
 
 [node name="CardUi" type="Control"]
 custom_minimum_size = Vector2(130, 190)
@@ -80,6 +80,7 @@ custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_gray_circle")
 
 [node name="CenterContainer" type="CenterContainer" parent="IconContainer/TopHBoxContainer/TickCostCircle"]
@@ -87,6 +88,7 @@ layout_mode = 2
 
 [node name="TickCostLabel" type="Label" parent="IconContainer/TopHBoxContainer/TickCostCircle/CenterContainer"]
 layout_mode = 2
+mouse_filter = 1
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 18
 text = "2"
@@ -110,7 +112,6 @@ theme_override_font_sizes/normal_font_size = 10
 text = "Card description here."
 fit_content = true
 scroll_active = false
-
 
 [node name="IsBuilding" type="PanelContainer" parent="."]
 visible = false
