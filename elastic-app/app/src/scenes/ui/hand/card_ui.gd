@@ -56,9 +56,13 @@ func set_card_data(card: Card) -> void:
 	if efficiency_label:
 		if card.production_interval > 0:
 			# Efficiency = production per tick (simplified display)
-			var efficiency = 1.0 / card.production_interval
+			var efficiency: float = 1.0 / card.production_interval
 			efficiency_label.text = "Eff: %.2f/tick" % efficiency
+		elif card.production_interval == -1:
+			# -1 means no production
+			efficiency_label.text = ""
 		else:
+			# 0 or other invalid values - shouldn't happen but handle gracefully
 			efficiency_label.text = ""
 		
 	add_slot_icon(energy_icons[card.cost.get_energy_color()], str(card.cost.get_energy_cost()), %TopHBoxContainer, GameIcon.TextSize.SMALL)
@@ -80,9 +84,13 @@ func refresh():
 	# Update efficiency display
 	if efficiency_label:
 		if card_data.production_interval > 0:
-			var efficiency = 1.0 / card_data.production_interval
+			var efficiency: float = 1.0 / card_data.production_interval
 			efficiency_label.text = "Eff: %.2f/tick" % efficiency
+		elif card_data.production_interval == -1:
+			# -1 means no production
+			efficiency_label.text = ""
 		else:
+			# 0 or other invalid values
 			efficiency_label.text = ""
 
 func add_slot_icon(icon_image: String, value: String, container: Container, font_size: GameIcon.TextSize) -> void:
