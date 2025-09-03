@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://cdrmk3kaqi6nh" path="res://src/scenes/ui/resources/revealed_resources_panel.tscn" id="3_6e0h8"]
 [ext_resource type="PackedScene" uid="uid://dx62gxy64qd47" path="res://src/scenes/ui/hud/menu_bar.tscn" id="3_bd8mh"]
 [ext_resource type="PackedScene" uid="uid://dbu6a2pg1iju5" path="res://src/scenes/ui/hand/HandContainer.tscn" id="3_yufto"]
-[ext_resource type="PackedScene" uid="uid://3yoqe2hx1j1g" path="res://src/scenes/ui/battleground/ui_battleground.tscn" id="4_5dxuo"]
+[ext_resource type="PackedScene" uid="uid://cy65vq3lnn3i3" path="res://src/scenes/ui/mainplate/ui_mainplate.tscn" id="4_5dxuo"]
 [ext_resource type="FontFile" uid="uid://b73jymev43fu5" path="res://ofl_font_assets/BrassMonoRegular-d9WLg.ttf" id="5_bd8mh"]
 [ext_resource type="Shader" uid="uid://dktsayggtgauf" path="res://src/scenes/water_effect.gdshader" id="9_h2mn8"]
 [ext_resource type="PackedScene" uid="uid://cka5aovpfoi80" path="res://src/scenes/ui/click_and_drag/click_and_drag.tscn" id="10_6e0h8"]
@@ -94,7 +94,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxEmpty_5dxuo")
 
-[node name="UiBattleground" parent="Background/HBoxContainer/MainVBoxContainer/PanelContainer/TopHBoxContainer/PanelContainer" instance=ExtResource("4_5dxuo")]
+[node name="UIMainplate" parent="Background/HBoxContainer/MainVBoxContainer/PanelContainer/TopHBoxContainer/PanelContainer" instance=ExtResource("4_5dxuo") groups=["mainplate"]]
 layout_mode = 2
 
 [node name="MenuBar" parent="Background/HBoxContainer/MainVBoxContainer" instance=ExtResource("3_bd8mh")]
