@@ -1,8 +1,10 @@
 [gd_scene load_steps=3 format=3 uid="uid://cy65vq3lnn3i3"]
 
 [ext_resource type="PackedScene" uid="uid://3yoqe2hx1j1g" path="res://src/scenes/ui/battleground/ui_battleground.tscn" id="1_battleground"]
-[ext_resource type="Script" path="res://src/scenes/ui/mainplate/ui_mainplate.gd" id="2_mainplate"]
+[ext_resource type="Script" uid="uid://bi23sn3bwnles" path="res://src/scenes/ui/mainplate/ui_mainplate.gd" id="2_mainplate"]
 
-[node name="UIMainplate" instance=ExtResource("1_battleground") groups=["mainplate"]]
+[node name="UIMainplate" groups=["mainplate"] instance=ExtResource("1_battleground")]
 script = ExtResource("2_mainplate")
 max_display_size = Vector2i(8, 8)
+initial_grid_size = Vector2i(4, 4)
+max_expansions = 3

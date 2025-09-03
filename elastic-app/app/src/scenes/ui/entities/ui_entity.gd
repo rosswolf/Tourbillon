@@ -5,6 +5,9 @@ var __is_hovered = false
 
 var __entity: Entity
 	
+func _ready():
+	pass	
+	
 func set_entity_data(entity:Entity): 
 	if not is_node_ready():
 		await self.ready

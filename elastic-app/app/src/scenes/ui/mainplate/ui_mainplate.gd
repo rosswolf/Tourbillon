@@ -390,4 +390,3 @@ func reset() -> void:
 	grid_mapper.reset(initial_grid_size)
 	expansions_used = 0
 	__update_slot_visuals()
-
