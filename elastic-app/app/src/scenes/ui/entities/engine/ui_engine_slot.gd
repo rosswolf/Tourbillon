@@ -34,16 +34,23 @@ func _ready() -> void:
 	%ProgressBar.visible = true
 	
 func create_card_ui():	
+	if card_preview:  # Already exists, don't create again
+		return
+		
 	card_preview = CARD_UI.instantiate()
 	card_preview.set_card_data(__button_entity.card)
 	
 	card_preview.position = Vector2(-170, 0)
+	card_preview.visible = true  # Make sure it's visible
 	add_child(card_preview)
 	# Start invisible and scale up
 	var tween = create_tween()
 	tween.tween_property(card_preview, "scale", Vector2(1.25, 1.25), 0.17)
 
 func destroy_card_ui():	
+	if not card_preview:  # Nothing to destroy
+		return
+		
 	var tween = create_tween()
 	tween.tween_property(card_preview, "scale", Vector2(.75,.75), 0.15)
 	tween.tween_callback(card_preview.queue_free)
@@ -51,7 +58,7 @@ func destroy_card_ui():
 	
 func __on_card_slotted(target_slot_id: String):
 	if target_slot_id == __button_entity.instance_id:
-		create_card_ui()
+		# Don't create card UI here - only on hover
 		%Name.text = __button_entity.card.display_name
 		%MainPanel.visible = true
 		# Setup the card's production timing

@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cxnk0uabwanfn"]
+[gd_scene load_steps=6 format=3 uid="uid://cxnk0uabwanfn"]
 
 [ext_resource type="Script" uid="uid://di4ponjh5gtye" path="res://src/scenes/ui/hand/card_ui.gd" id="1_tt30y"]
 [ext_resource type="Texture2D" uid="uid://cw88cktjnkuf6" path="res://cc0_assets/water_card_template_blank.png" id="2_tt30y"]
@@ -16,6 +16,18 @@ corner_radius_top_left = 2
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gray_circle"]
+bg_color = Color(0.5, 0.5, 0.5, 0.7)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.3, 0.3, 0.3, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
 
 [node name="CardUi" type="Control"]
 custom_minimum_size = Vector2(130, 190)
@@ -80,17 +92,32 @@ text = "Card description here."
 fit_content = true
 scroll_active = false
 
-[node name="TargetingBoxContainer" type="HBoxContainer" parent="."]
+[node name="TickCostCircle" type="PanelContainer" parent="."]
 layout_mode = 0
-offset_top = 173.0
-offset_right = 120.0
-offset_bottom = 197.0
+offset_left = 48.0
+offset_top = 50.0
+offset_right = 88.0
+offset_bottom = 90.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_gray_circle")
 
-[node name="DurabilityLabel" type="Label" parent="TargetingBoxContainer"]
+[node name="TargetingBoxContainer" type="HBoxContainer" parent="TickCostCircle"]
+layout_mode = 2
+alignment = 1
+
+[node name="TickCostLabel" type="Label" parent="TickCostCircle/TargetingBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 20
+text = "2"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="EfficiencyLabel" type="Label" parent="TickCostCircle/TargetingBoxContainer"]
+visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 8
-text = "Durability"
+text = ""
 
 [node name="IsBuilding" type="PanelContainer" parent="."]
 visible = false

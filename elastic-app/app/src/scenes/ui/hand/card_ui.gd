@@ -6,8 +6,8 @@ extends Control
 @onready var card_title = $TitlePanel/Title 
 @onready var card_description = $DescriptionPanel/Description
 @onready var icon_container = $IconContainer
-@onready var tick_cost_label = $TargetingBoxContainer/TickCostLabel  # Gray circle for tick cost
-@onready var efficiency_label = $TargetingBoxContainer/EfficiencyLabel  # Bottom text for efficiency
+@onready var tick_cost_label = $TickCostCircle/TargetingBoxContainer/TickCostLabel  # Gray circle for tick cost
+@onready var efficiency_label = $TickCostCircle/TargetingBoxContainer/EfficiencyLabel  # Bottom text for efficiency
 @onready var is_building = $IsBuilding
 
 var energy_icons: Dictionary[GameResource.Type, String] = {
