@@ -17,13 +17,7 @@ func _ready() -> void:
 	# Apply background if we have one
 	__setup_background()
 	
-	# Initialize with any existing gremlins
-	if GlobalGameManager.has("gremlin_manager"):
-		var gremlin_manager = GlobalGameManager.get("gremlin_manager")
-		if gremlin_manager and gremlin_manager.has_method("get_all_gremlins"):
-			var gremlins = gremlin_manager.get_all_gremlins()
-			for gremlin in gremlins:
-				__add_gremlin_ui(gremlin)
+	# Gremlins are added via core_mob_created signal when spawned
 
 func __setup_background() -> void:
 	# Apply a cropped background texture
