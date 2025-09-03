@@ -401,4 +401,3 @@ func __on_core_slot_activated(card_id: String) -> void:
 			# Show full progress bar briefly before resetting
 			slot.show_activation_feedback()
 			break
-
