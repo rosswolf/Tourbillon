@@ -1,7 +1,7 @@
 extends Node
 
 # Game state properties
-var hero_template_id: String # Set from character selection screen
+var hero_template_id: String = "brute" # Default hero for testing
 var world_seed: int
 
 var instance_catalog: InstanceCatalog

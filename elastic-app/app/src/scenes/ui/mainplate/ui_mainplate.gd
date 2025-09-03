@@ -50,9 +50,6 @@ func __setup_mainplate_grid() -> void:
 	
 	# Configure grid container for maximum display size
 	%SlotGridContainer.columns = max_display_size.x
-	print("[DEBUG] GridContainer columns set to: ", max_display_size.x)
-	print("[DEBUG] GridContainer size_flags_h: ", %SlotGridContainer.size_flags_horizontal)
-	print("[DEBUG] GridContainer size_flags_v: ", %SlotGridContainer.size_flags_vertical)
 	
 	# Create ALL display slots up front
 	for y in range(max_display_size.y):
@@ -64,15 +61,6 @@ func __setup_mainplate_grid() -> void:
 	
 	# Update visual state based on mainplate entity
 	__update_slot_visuals()
-	
-	# Debug: Check final grid state
-	await get_tree().process_frame
-	print("[DEBUG] GridContainer final size: ", %SlotGridContainer.size)
-	print("[DEBUG] GridContainer global position: ", %SlotGridContainer.global_position)
-	var parent = %SlotGridContainer.get_parent()
-	if parent:
-		print("[DEBUG] Parent size: ", parent.size)
-		print("[DEBUG] Parent global position: ", parent.global_position)
 
 ## Create a single gear slot
 func __create_gear_slot(position: Vector2i) -> EngineSlot:
@@ -112,9 +100,6 @@ func __update_slot_visuals() -> void:
 ## Set a slot's active state with visual feedback
 func __set_slot_active(slot: EngineSlot, active: bool) -> void:
 	slot.set_active(active)
-	
-	# TEMPORARY: Make all slots visible for debugging
-	active = true
 	
 	if active:
 		# For active slots, ensure they're visible
