@@ -115,6 +115,9 @@ func __update_slot_visuals() -> void:
 func __set_slot_active(slot: EngineSlot, active: bool) -> void:
 	slot.set_active(active)
 	
+	# TEMPORARY: Make all slots visible for debugging
+	active = true
+	
 	if active:
 		# For active slots, ensure they're visible
 		# Don't override modulate if it's a bonus square - preserve the yellow tint
