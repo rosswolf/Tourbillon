@@ -133,6 +133,7 @@ func __on_start_game():
 	# Goal system removed
 	stats_manager = StatsManager.new()
 	wave_manager = WaveManager.new()
+	add_child(wave_manager)  # Add to scene tree so it can function properly
 	wave_manager.set_act(current_act)
 	
 	# Initialize Tourbillon systems directly

@@ -5,13 +5,16 @@ var current_wave: Dictionary = {}
 var current_act: int = 1
 
 func spawn_wave(wave_id: String = "") -> void:
+	print("[WaveManager] spawn_wave called, current_act = %d" % current_act)
 	var wave_data: Dictionary = {}
 	
 	if wave_id.is_empty():
+		print("[WaveManager] Getting random wave for act %d" % current_act)
 		wave_data = StaticData.get_random_wave_for_act(current_act)
 		if wave_data.is_empty():
-			push_error("No waves found for act %d" % current_act)
+			push_error("[WaveManager] No waves found for act %d" % current_act)
 			return
+		print("[WaveManager] Got wave: %s" % str(wave_data))
 	else:
 		wave_data = StaticData.get_wave_by_id(wave_id)
 		if wave_data.is_empty():
