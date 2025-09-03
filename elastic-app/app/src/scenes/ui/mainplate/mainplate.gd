@@ -67,6 +67,10 @@ func __set_slot_active(slot: EngineSlot, active: bool) -> void:
 	slot.set_meta("is_active", active)
 	
 	if active:
+		# Enable interaction for active slots
+		slot.mouse_filter = Control.MOUSE_FILTER_STOP
+		slot.disabled = false
+		
 		# Reset modulation for active slots
 		slot.modulate = Color.WHITE
 		slot.modulate.a = 1.0
@@ -80,7 +84,12 @@ func __set_slot_active(slot: EngineSlot, active: bool) -> void:
 		slot.add_theme_stylebox_override("normal", stylebox)
 		slot.add_theme_stylebox_override("hover", stylebox)
 		slot.add_theme_stylebox_override("pressed", stylebox)
+		slot.add_theme_stylebox_override("disabled", stylebox)
 	else:
+		# Disable interaction for inactive slots
+		slot.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		slot.disabled = true
+		
 		# Dim inactive slots
 		slot.modulate = Color(0.3, 0.3, 0.3, 0.3)
 		
@@ -93,6 +102,7 @@ func __set_slot_active(slot: EngineSlot, active: bool) -> void:
 		slot.add_theme_stylebox_override("normal", stylebox)
 		slot.add_theme_stylebox_override("hover", stylebox)
 		slot.add_theme_stylebox_override("pressed", stylebox)
+		slot.add_theme_stylebox_override("disabled", stylebox)
 
 ## Get all gears in Escapement Order (top-to-bottom, left-to-right)
 func get_gears_in_escapement_order() -> Array[EngineSlot]:
