@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://b8apg4aqwojm7"]
+[gd_scene load_steps=20 format=3 uid="uid://b8apg4aqwojm7"]
 
 [ext_resource type="Script" uid="uid://dtu25hj7ookvm" path="res://src/scenes/game.gd" id="1_7uq6d"]
 [ext_resource type="Texture2D" uid="uid://dwd5wxn7c654v" path="res://cc0_assets/gears_background.jpg" id="2_gh3at"]
@@ -10,6 +10,7 @@
 [ext_resource type="Shader" uid="uid://dktsayggtgauf" path="res://src/scenes/water_effect.gdshader" id="9_h2mn8"]
 [ext_resource type="PackedScene" uid="uid://cka5aovpfoi80" path="res://src/scenes/ui/click_and_drag/click_and_drag.tscn" id="10_6e0h8"]
 [ext_resource type="PackedScene" uid="uid://dckcqckqo0abj" path="res://src/scenes/ui/hud/HUD.tscn" id="10_bd8mh"]
+[ext_resource type="PackedScene" uid="uid://cy65gremlinpanel" path="res://src/scenes/ui/gremlins/ui_gremlin_panel.tscn" id="11_gremlins"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gh3at"]
 
@@ -163,6 +164,9 @@ theme_override_font_sizes/font_size = 30
 text = "00:00:00:000"
 horizontal_alignment = 1
 
+[node name="UiGremlinPanel" parent="Background/HBoxContainer/VBoxContainer" instance=ExtResource("11_gremlins")]
+layout_mode = 2
+size_flags_vertical = 3
 
 [node name="ClickAndDrag" parent="." instance=ExtResource("10_6e0h8")]
 

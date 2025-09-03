@@ -59,6 +59,10 @@ func _process(_delta: float) -> void:
 		print("[DEBUG] PageUp pressed - Drawing a card")
 		if library:
 			library.draw_card(1)
+	
+	if Input.is_action_just_pressed("ui_end"):  # End key
+		print("[DEBUG] End pressed - Spawning test gremlin")
+		__spawn_test_gremlin()
 
 func __setup_starting_deck() -> void:
 	if not library:
@@ -379,4 +383,49 @@ func get_current_beat() -> int:
 		
 # Convenience Functions for checking resource state
 # Resources should be checked via hero.has_force() or hero.has_forces() methods
+
+## Debug function to spawn a test gremlin
+func __spawn_test_gremlin() -> void:
+	if not instance_catalog:
+		push_error("Instance catalog not initialized!")
+		return
+		
+	# Load a gremlin from mob_data
+	var mob_data = StaticData.mob_data
+	if not mob_data:
+		push_error("No mob data loaded!")
+		return
+	
+	# Pick a random gremlin type
+	var gremlin_types = ["dust_mite", "static_beetle", "barrier_gnat"]
+	var chosen_type = gremlin_types.pick_random()
+	
+	if chosen_type in mob_data:
+		var data = mob_data[chosen_type]
+		var gremlin = Gremlin.new()
+		gremlin.gremlin_name = data.get("display_name", "Unknown Gremlin")
+		gremlin.max_hp = data.get("max_health", 10)
+		gremlin.current_hp = gremlin.max_hp
+		gremlin.shields = data.get("max_shields", 0)
+		
+		# Set disruption based on archetype
+		var archetype = data.get("archetype", "")
+		match archetype:
+			"rusher":
+				gremlin.disruption_interval_beats = 30  # 3 ticks
+			"tank":
+				gremlin.disruption_interval_beats = 50  # 5 ticks
+			"disruptor":
+				gremlin.disruption_interval_beats = 40  # 4 ticks
+			_:
+				gremlin.disruption_interval_beats = 50  # Default 5 ticks
+		
+		gremlin.beats_until_disruption = gremlin.disruption_interval_beats
+		
+		# Register and signal
+		instance_catalog.register_instance(gremlin)
+		add_child(gremlin)  # Add to scene tree
+		GlobalSignals.signal_core_mob_created(gremlin.instance_id)
+		
+		print("[DEBUG] Spawned gremlin: ", gremlin.gremlin_name, " with ", gremlin.current_hp, " HP")
 	

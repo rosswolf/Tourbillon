@@ -1,0 +1,81 @@
+[gd_scene load_steps=3 format=3 uid="uid://bxd5gremlin1"]
+
+[ext_resource type="Script" path="res://src/scenes/ui/entities/gremlins/ui_gremlin.gd" id="1_gremlin"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1"]
+bg_color = Color(0.15, 0.1, 0.1, 0.8)
+border_color = Color(0.8, 0.2, 0.2, 1.0)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+corner_radius_tl = 10
+corner_radius_tr = 10
+corner_radius_bl = 10
+corner_radius_br = 10
+
+[node name="UiGremlin" type="PanelContainer"]
+custom_minimum_size = Vector2(250, 120)
+script = ExtResource("1_gremlin")
+add_theme_stylebox_override("panel", SubResource("StyleBoxFlat_1"))
+
+[node name="BackgroundPanel" type="TextureRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 6
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="TopRow" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="MarginContainer/VBoxContainer/TopRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Gremlin Name"
+theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(1.0, 0.9, 0.9, 1.0)
+
+[node name="ShieldLabel" type="Label" parent="MarginContainer/VBoxContainer/TopRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "🛡 0"
+visible = false
+theme_override_font_sizes/font_size = 16
+theme_override_colors/font_color = Color(0.6, 0.8, 1.0, 1.0)
+
+[node name="HpContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HpBar" type="ProgressBar" parent="MarginContainer/VBoxContainer/HpContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+custom_minimum_size = Vector2(0, 24)
+value = 75.0
+show_percentage = false
+
+[node name="HpLabel" type="Label" parent="MarginContainer/VBoxContainer/HpContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "10/10"
+theme_override_font_sizes/font_size = 16
+theme_override_colors/font_color = Color(1.0, 1.0, 1.0, 1.0)
+
+[node name="DisruptionLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Disruption effect"
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(1.0, 0.7, 0.7, 1.0)
+autowrap_mode = 2
