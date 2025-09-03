@@ -241,3 +241,12 @@ func signal_stats_energy_spent(amount: int):
 signal stats_gold_spent(amount: int)
 func signal_stats_gold_spent(amount: int):
 	stats_gold_spent.emit(amount)
+
+# Tourbillon Time UI Signals
+signal ui_time_updated(tick_display: String)
+func signal_ui_time_updated(tick_display: String):
+	ui_time_updated.emit(tick_display)
+
+signal ui_card_ticks_resolved()
+func signal_ui_card_ticks_resolved():
+	ui_card_ticks_resolved.emit()

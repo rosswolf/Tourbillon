@@ -19,8 +19,8 @@ var starting_deck_size: int = 15
 var starting_hand_size: int = 5
 
 # Beat/tick tracking
-var current_tick: int = 0
-var beats_per_tick: int = 10
+var current_beat: int = 0  # Current beat count
+var current_tick: int = 0  # Current tick = current_beat / 10
 var is_paused: bool = false
 
 var hand_size: int = 5
@@ -266,9 +266,9 @@ func __initialize_tourbillon_systems() -> void:
 	beat_processor = BeatProcessor.new()
 	add_child(beat_processor)
 	
-	# Connect timeline to beat processor
-	timeline_manager.beat_advanced.connect(__on_beat_advanced)
-	timeline_manager.tick_completed.connect(__on_tick_completed)
+	# Connect timeline signals
+	timeline_manager.time_changed.connect(__on_time_changed)
+	timeline_manager.card_ticks_complete.connect(__on_card_ticks_complete)
 	
 	# Connect to card playing signals
 	GlobalSignals.core_card_played.connect(__on_tourbillon_card_played)
@@ -285,7 +285,7 @@ func __on_tourbillon_card_played(card_id: String) -> void:
 	if card.time_cost > 0:
 		# Advance time by the card's time cost
 		print("Card played: ", card.display_name, " - Advancing ", card.time_cost, " ticks")
-		__advance_time_by_ticks(card.time_cost)
+		timeline_manager.advance_time(card.time_cost)
 	
 	# Process on_play_effect if it exists
 	if not card.on_play_effect.is_empty():
@@ -317,30 +317,20 @@ func __on_slot_activated(slot_id: String) -> void:
 	# For now, just log it
 	print("Slot manually activated: ", slot_id)
 
-## Called each beat from TimelineManager
-func __on_beat_advanced(beat_number: int) -> void:
-	if is_paused:
-		return
+## Called when time changes
+func __on_time_changed(total_beats: int) -> void:
+	current_beat = total_beats
+	current_tick = total_beats / 10
 	
-	# Create beat context
-	var context = BeatContext.new()
-	context.beat_number = beat_number
-	context.tick_number = beat_number / beats_per_tick
-	context.is_tick_boundary = (beat_number % beats_per_tick == 0)
-	
-	# Process all gears on mainplate
-	__process_mainplate_gears(context)
-	
-	# Process any beat consumers (poison, burn, etc.)
-	beat_processor.process_beat(context)
+	# Update UI with formatted time display
+	var ticks = total_beats / 10
+	var beats = total_beats % 10
+	GlobalSignals.signal_ui_time_updated("%d.%d" % [ticks, beats])
 
-## Called when a tick is completed
-func __on_tick_completed(tick_number: int) -> void:
-	current_tick = tick_number
-	print("Tick ", tick_number, " completed")
-	
-	# Update UI to show current tick
-	GlobalSignals.signal_ui_tick_advanced(tick_number)
+## Called when card's time cost is fully processed
+func __on_card_ticks_complete() -> void:
+	# Signal UI that card processing is done
+	GlobalSignals.signal_ui_card_ticks_resolved()
 
 ## Process all gears on the mainplate
 func __process_mainplate_gears(context: BeatContext) -> void:

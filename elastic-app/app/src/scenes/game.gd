@@ -23,6 +23,10 @@ func _ready() -> void:
 	GlobalSignals.core_goal_created.connect(__on_core_goal_created)
 	GlobalSignals.core_game_win.connect(__on_core_game_win)
 	
+	# Connect to new time UI signals
+	GlobalSignals.ui_time_updated.connect(__on_time_updated)
+	GlobalSignals.ui_card_ticks_resolved.connect(__on_card_ticks_resolved)
+	
 	
 	var audio_stream = load(MUSIC_MP3)
 	%AudioStreamPlayer.stream = audio_stream
@@ -41,12 +45,8 @@ func __on_audio_finished():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	# Display ticks.beats in decimal format
-	var ticks = GlobalGameManager.get_current_tick()
-	var beats = GlobalGameManager.get_current_beat()
-	var beat_in_tick = beats % 10  # 10 beats per tick
-	# Format as ticks.beat (e.g., 0.00, 1.05, 2.10)
-	%GlobalTimeLabel.text = "%d.%02d" % [ticks, beat_in_tick]
+	# Time display now handled by signal
+	pass
 
 func __end_turn() -> void:
 	GlobalGameManager.end_turn()
@@ -93,6 +93,16 @@ func __on_core_goal_created(goal_instance_id: String) -> void:
 	
 # Legacy get_time_remaining removed - use force system instead
 		
+func __on_time_updated(tick_display: String) -> void:
+	# Update the time label with the formatted tick display
+	if has_node("%GlobalTimeLabel"):
+		%GlobalTimeLabel.text = tick_display
+
+func __on_card_ticks_resolved() -> void:
+	# Re-enable hand interaction after card processing is done
+	if has_node("%CardHandContainer"):
+		%CardHandContainer.mouse_filter = Control.MOUSE_FILTER_PASS
+
 func format_elapsed_time(timer: Timer) -> String:
 	var elapsed = timer.wait_time - timer.time_left
 	return format_time_string(elapsed)

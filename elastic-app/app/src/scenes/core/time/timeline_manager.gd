@@ -5,13 +5,11 @@ class_name TimelineManager
 ## Time only advances when cards are played
 ## 1 Tick = 10 Beats for precision
 
-signal beat_processed(context: BeatContext)
-signal tick_completed(tick_number: int)
-signal time_advanced(ticks: float, total_beats: int)
+# Minimal signals for MVP
+signal time_changed(total_beats: int)      # Any time change
+signal card_ticks_complete()               # Card's time cost fully processed
 
 var total_beats: int = 0
-var pending_beats: int = 0
-
 var beat_processor: BeatProcessor
 
 func _ready() -> void:
@@ -21,27 +19,24 @@ func _ready() -> void:
 ## Advance time by the specified number of ticks
 func advance_time(ticks: float) -> void:
 	var beats_to_add = int(ticks * 10)
-	pending_beats = beats_to_add
 	
-	time_advanced.emit(ticks, total_beats + beats_to_add)
-	_process_pending_beats()
-
-## Process all pending beats sequentially
-func _process_pending_beats() -> void:
-	while pending_beats > 0:
-		_process_single_beat()
+	# Process all beats
+	for i in beats_to_add:
 		total_beats += 1
-		pending_beats -= 1
-		
-		# Emit tick signal every 10 beats
-		if total_beats % 10 == 0:
-			tick_completed.emit(total_beats / 10)
+		_process_single_beat()
+	
+	# Signal completion
+	time_changed.emit(total_beats)
+	card_ticks_complete.emit()
 
 ## Process a single beat
 func _process_single_beat() -> void:
 	var context = BeatContext.new()
+	context.beat_number = total_beats
+	context.tick_number = total_beats / 10
+	context.beat_in_tick = total_beats % 10
+	
 	beat_processor.process_beat(context)
-	beat_processed.emit(context)
 
 ## Get current time in ticks (for display)
 func get_current_ticks() -> float:
