@@ -24,7 +24,7 @@ var current_tick: int = 0  # Current tick = current_beat / 10
 var is_paused: bool = false
 
 var hand_size: int = 5
-var current_act = 1
+var current_act: int = 1
 var __activations_allowed: bool = false
 
 
@@ -51,17 +51,17 @@ func __setup_starting_deck() -> void:
 	
 	# Load all STARTING rarity cards from StaticData
 	print("Loading starter deck...")
-	var starter_count = 0
+	var starter_count: int = 0
 	
 	for card_id in StaticData.card_data:
-		var card_entry = StaticData.card_data[card_id]
+		var card_entry: Dictionary = StaticData.card_data[card_id]
 		# Check if this is a STARTING rarity card
 		if card_entry.has("card_rarity"):
-			var rarity = card_entry["card_rarity"]
+			var rarity: Variant = card_entry["card_rarity"]
 			# Check for STARTING rarity (handles both enum value and string)
 			if rarity == Card.RarityType.STARTING or (rarity is String and "STARTING" in rarity):
-				var group_id = card_entry.get("group_template_id", "tourbillon")
-				var card = Card.load_card(group_id, card_id)
+				var group_id: String = card_entry.get("group_template_id", "tourbillon")
+				var card: Card = Card.load_card(group_id, card_id)
 				if card:
 					library.add_card_to_deck(card)
 					starter_count += 1
@@ -240,7 +240,7 @@ func __initialize_tourbillon_systems() -> void:
 
 ## Called when a card is played (Tourbillon time advancement)
 func __on_tourbillon_card_played(card_id: String) -> void:
-	var card = library.get_card(card_id)
+	var card: Card = library.get_card(card_id)
 	if not card:
 		return
 	
@@ -256,11 +256,11 @@ func __on_tourbillon_card_played(card_id: String) -> void:
 
 ## Called when a card is slotted on the mainplate
 func __on_card_slotted(slot_id: String) -> void:
-	var slot = __find_slot_by_id(slot_id)
+	var slot: EngineSlot = __find_slot_by_id(slot_id)
 	if not slot:
 		return
 	
-	var card = slot.__button_entity.card if slot.__button_entity else null
+	var card: Card = slot.__button_entity.card if slot.__button_entity else null
 	if not card:
 		return
 	
@@ -286,8 +286,8 @@ func __on_time_changed(total_beats: int) -> void:
 	current_tick = total_beats / 10
 	
 	# Update UI with formatted time display
-	var ticks = total_beats / 10
-	var beats = total_beats % 10
+	var ticks: int = total_beats / 10
+	var beats: int = total_beats % 10
 	GlobalSignals.signal_ui_time_updated("%d.%d" % [ticks, beats])
 
 ## Called when card's time cost is fully processed
@@ -301,7 +301,7 @@ func __process_mainplate_gears(context: BeatContext) -> void:
 		return
 	
 	# Get all gears in Escapement Order
-	var gears = mainplate.get_gears_in_order()
+	var gears: Array[EngineSlot] = mainplate.get_gears_in_order()
 	
 	for gear in gears:
 		if gear.has_method("process_beat"):
@@ -322,7 +322,7 @@ func __find_slot_by_id(slot_id: String) -> EngineSlot:
 	if not mainplate:
 		return null
 	
-	var slots = mainplate.get_all_engine_slots()
+	var slots: Array[EngineSlot] = mainplate.get_all_engine_slots()
 	for slot in slots:
 		if slot.__button_entity and slot.__button_entity.instance_id == slot_id:
 			return slot
