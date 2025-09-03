@@ -299,30 +299,43 @@ func can_accept_card() -> bool:
 	return is_active_slot
 
 ## Set this slot as a bonus square
-func set_as_bonus_square(type: String = "draw_card") -> void:
+func set_as_bonus_square(type: String = "draw_one_card") -> void:
 	is_bonus_square = true
 	bonus_type = type
 	
 	# Add visual indicator for bonus square
-	if type == "draw_card":
-		# Create a card icon or colored overlay with stronger yellow tint
-		modulate = Color(1.2, 1.2, 0.8)  # More noticeable yellow tint
+	if type == "draw_one_card":
+		# Regular bonus - yellow tint
+		modulate = Color(1.2, 1.2, 0.8)  # Yellow tint for draw 1
+	elif type == "draw_two_cards":
+		# Special bonus - purple/magenta tint for draw 2
+		modulate = Color(1.3, 0.9, 1.3)  # Purple tint for draw 2
 		
-		# Add a visual marker - could be a label or icon
-		# For now, we'll rely on the border and background color differences
-		# set in UIMainplate's __set_slot_active method
+	# Add a visual marker - could be a label or icon
+	# For now, we'll rely on the border and background color differences
+	# set in UIMainplate's __set_slot_active method
 
 ## Trigger the bonus effect
 func __trigger_bonus_effect() -> void:
 	match bonus_type:
-		"draw_card":
-			print("Bonus: Drawing a card!")
+		"draw_one_card":
+			print("Bonus: Drawing 1 card!")
 			if GlobalGameManager.library:
 				GlobalGameManager.library.draw_card(1)
 				
-				# Visual feedback
+				# Visual feedback - yellow flash
 				var tween = create_tween()
 				tween.tween_property(self, "modulate", Color(1.5, 1.5, 0.8), 0.2)
-				tween.tween_property(self, "modulate", Color(1.0, 1.1, 0.9), 0.3)
+				tween.tween_property(self, "modulate", Color(1.2, 1.2, 0.8), 0.3)
+		
+		"draw_two_cards":
+			print("SPECIAL Bonus: Drawing 2 cards!")
+			if GlobalGameManager.library:
+				GlobalGameManager.library.draw_card(2)
+				
+				# Visual feedback - purple flash
+				var tween = create_tween()
+				tween.tween_property(self, "modulate", Color(1.8, 0.8, 1.8), 0.2)
+				tween.tween_property(self, "modulate", Color(1.3, 0.9, 1.3), 0.3)
 		_:
 			pass

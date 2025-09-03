@@ -129,7 +129,10 @@ func __set_slot_active(slot: EngineSlot, active: bool) -> void:
 			var panel_stylebox = StyleBoxFlat.new()
 			# Use different color for bonus squares
 			if slot.is_bonus_square:
-				panel_stylebox.bg_color = Color(0.25, 0.25, 0.15, 0.7)  # Yellowish background for bonus
+				if slot.bonus_type == "draw_two_cards":
+					panel_stylebox.bg_color = Color(0.25, 0.15, 0.25, 0.7)  # Purplish background for draw 2
+				else:
+					panel_stylebox.bg_color = Color(0.25, 0.25, 0.15, 0.7)  # Yellowish background for draw 1
 			else:
 				panel_stylebox.bg_color = Color(0.2, 0.2, 0.25, 0.7)  # Dark semi-transparent background
 			panel_stylebox.border_color = Color(0.0, 0.0, 0.0, 1.0)  # Black border
@@ -149,9 +152,14 @@ func __set_slot_active(slot: EngineSlot, active: bool) -> void:
 		var button_stylebox = StyleBoxFlat.new()
 		# Different styling for bonus squares
 		if slot.is_bonus_square:
-			button_stylebox.bg_color = Color(0.2, 0.2, 0.15, 0.5)  # Yellowish tint for bonus
-			button_stylebox.border_color = Color(0.6, 0.6, 0.0, 1.0)  # Golden border for bonus
-			button_stylebox.set_border_width_all(3)
+			if slot.bonus_type == "draw_two_cards":
+				button_stylebox.bg_color = Color(0.25, 0.15, 0.25, 0.5)  # Purple tint for draw 2
+				button_stylebox.border_color = Color(0.8, 0.4, 0.8, 1.0)  # Purple border for draw 2
+				button_stylebox.set_border_width_all(4)  # Thicker border for special square
+			else:
+				button_stylebox.bg_color = Color(0.2, 0.2, 0.15, 0.5)  # Yellowish tint for draw 1
+				button_stylebox.border_color = Color(0.6, 0.6, 0.0, 1.0)  # Golden border for draw 1
+				button_stylebox.set_border_width_all(3)
 		else:
 			button_stylebox.bg_color = Color(0.15, 0.15, 0.2, 0.4)  # Subtle background
 			button_stylebox.border_color = Color(0.0, 0.0, 0.0, 0.8)  # Black border
@@ -163,7 +171,10 @@ func __set_slot_active(slot: EngineSlot, active: bool) -> void:
 		# Hover state
 		var hover_stylebox = button_stylebox.duplicate()
 		if slot.is_bonus_square:
-			hover_stylebox.border_color = Color(0.8, 0.8, 0.2, 1.0)  # Brighter golden on hover
+			if slot.bonus_type == "draw_two_cards":
+				hover_stylebox.border_color = Color(1.0, 0.6, 1.0, 1.0)  # Bright purple on hover
+			else:
+				hover_stylebox.border_color = Color(0.8, 0.8, 0.2, 1.0)  # Bright golden on hover
 		else:
 			hover_stylebox.border_color = Color(0.2, 0.2, 0.2, 1.0)  # Lighter border on hover
 		hover_stylebox.set_border_width_all(3)
@@ -361,8 +372,13 @@ func __assign_bonus_squares(active_slots: Array[EngineSlot]) -> void:
 	
 	for i in range(min(bonus_count, shuffled_slots.size())):
 		var slot: EngineSlot = shuffled_slots[i]
-		slot.set_as_bonus_square("draw_card")
-		print("Bonus square at position: ", slot.grid_position)
+		# First bonus square draws 2 cards, rest draw 1
+		if i == 0:
+			slot.set_as_bonus_square("draw_two_cards")
+			print("SPECIAL bonus square (draws 2) at position: ", slot.grid_position)
+		else:
+			slot.set_as_bonus_square("draw_one_card")
+			print("Bonus square (draws 1) at position: ", slot.grid_position)
 
 ## Reset mainplate for new combat
 func reset() -> void:
