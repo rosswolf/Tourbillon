@@ -5,10 +5,13 @@ class_name UIMainplate
 ## Renders the core Mainplate state
 
 @export var max_display_size: Vector2i = Vector2i(8, 8)  # Maximum display grid
+@export var initial_grid_size: Vector2i = Vector2i(4, 4)  # Starting logical grid size
+@export var max_expansions: int = 3  # Maximum number of grid expansions allowed
 
 var mainplate: Mainplate  # Reference to core entity
 var gear_slots: Dictionary[Vector2i, EngineSlot] = {}  # Physical position -> UI Slot mapping
 var grid_mapper: GridMapper  # Maps logical to physical positions
+var expansions_used: int = 0  # Track number of expansions used
 
 signal gear_placed(slot: EngineSlot, card: Card)
 signal gear_replaced(old_card: Card, new_card: Card, slot: EngineSlot)
