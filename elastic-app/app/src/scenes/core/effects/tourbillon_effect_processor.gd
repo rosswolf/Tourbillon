@@ -47,19 +47,17 @@ static func _process_single_effect(effect: String, source: Node, target: Node) -
 		"mill":
 			_effect_mill_cards(value)
 		
-		# Force effects - Basic forces (Red, Blue, Green, White, Black)
+		# Force effects - Basic forces (Red, Blue, Green, White, Purple)
 		"add_red", "produce_red":
-			_effect_add_force(GameResource.Type.GENERATE_RED, value)
+			_effect_add_force(GameResource.Type.RED, value)
 		"add_blue", "produce_blue":
-			_effect_add_force(GameResource.Type.GENERATE_BLUE, value)
+			_effect_add_force(GameResource.Type.BLUE, value)
 		"add_green", "produce_green":
-			_effect_add_force(GameResource.Type.GENERATE_GREEN, value)
+			_effect_add_force(GameResource.Type.GREEN, value)
 		"add_white", "produce_white":
-			_effect_add_force(GameResource.Type.GENERATE_WHITE, value)
-		"add_black", "produce_black":
-			_effect_add_force(GameResource.Type.GENERATE_BLACK, value)
-		"add_purple", "produce_purple":
-			_effect_add_force(GameResource.Type.GENERATE_PURPLE, value)
+			_effect_add_force(GameResource.Type.WHITE, value)
+		"add_purple", "produce_purple", "add_black", "produce_black":
+			_effect_add_force(GameResource.Type.PURPLE, value)
 		
 		# Force effects - Combined forces
 		"add_heat", "produce_heat":
@@ -75,17 +73,17 @@ static func _process_single_effect(effect: String, source: Node, target: Node) -
 		"consume_max":
 			_effect_consume_max_force(value)
 		
-		# Pay/consume force effects
+		# Pay/consume force effects - Basic forces
 		"pay_red":
-			_effect_consume_force(GameResource.Type.HEAT, value)
-		"pay_white":
-			_effect_consume_force(GameResource.Type.PRECISION, value)
-		"pay_green":
-			_effect_consume_force(GameResource.Type.MOMENTUM, value)
+			_effect_consume_force(GameResource.Type.RED, value)
 		"pay_blue":
-			_effect_consume_force(GameResource.Type.BALANCE, value)
-		"pay_black":
-			_effect_consume_force(GameResource.Type.ENTROPY, value)
+			_effect_consume_force(GameResource.Type.BLUE, value)
+		"pay_green":
+			_effect_consume_force(GameResource.Type.GREEN, value)
+		"pay_white":
+			_effect_consume_force(GameResource.Type.WHITE, value)
+		"pay_black", "pay_purple":
+			_effect_consume_force(GameResource.Type.PURPLE, value)
 		"pay_heat":
 			_effect_consume_force(GameResource.Type.HEAT, value)
 		"pay_precision":
@@ -201,6 +199,11 @@ static func _effect_consume_largest_force(amount: float) -> void:
 	var largest_amount = 0
 	
 	var force_types = [
+		GameResource.Type.RED,
+		GameResource.Type.BLUE,
+		GameResource.Type.GREEN,
+		GameResource.Type.WHITE,
+		GameResource.Type.PURPLE,
 		GameResource.Type.HEAT,
 		GameResource.Type.PRECISION,
 		GameResource.Type.MOMENTUM,
@@ -227,6 +230,11 @@ static func _effect_consume_smallest_force(amount: float) -> void:
 	var smallest_amount = 999999
 	
 	var force_types = [
+		GameResource.Type.RED,
+		GameResource.Type.BLUE,
+		GameResource.Type.GREEN,
+		GameResource.Type.WHITE,
+		GameResource.Type.PURPLE,
 		GameResource.Type.HEAT,
 		GameResource.Type.PRECISION,
 		GameResource.Type.MOMENTUM,
@@ -251,6 +259,11 @@ static func _effect_consume_max_force(amount: int) -> void:
 	# Build list of forces with their current amounts
 	var force_amounts: Array[Dictionary] = []
 	var force_types = [
+		GameResource.Type.RED,
+		GameResource.Type.BLUE,
+		GameResource.Type.GREEN,
+		GameResource.Type.WHITE,
+		GameResource.Type.PURPLE,
 		GameResource.Type.HEAT,
 		GameResource.Type.PRECISION,
 		GameResource.Type.MOMENTUM,
