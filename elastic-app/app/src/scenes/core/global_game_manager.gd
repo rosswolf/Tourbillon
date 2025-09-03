@@ -164,7 +164,8 @@ func __on_core_slot_activated(card_instance_id: String):
 		assert(false, "Card was null when retrieving from instance catalog: " + card_instance_id)
 		return
 	GlobalSignals.signal_stats_slots_activated(1)
-	card.durability.decrement(1)
+	# Don't decrement durability for Tourbillon cards - they stay on the mainplate
+	# card.durability.decrement(1)  # DISABLED - cards should persist
 
 func __on_core_card_drawn(card_instance_id: String):
 	GlobalSignals.signal_stats_cards_drawn(1)
@@ -258,15 +259,25 @@ func __initialize_tourbillon_systems() -> void:
 
 ## Called when a card is played (Tourbillon time advancement)
 func __on_tourbillon_card_played(card_id: String) -> void:
+	print("[DEBUG] Card played signal received for ID: ", card_id)
 	var card: Card = library.get_card(card_id)
 	if not card:
-		return
+		print("[DEBUG] Card not found in library for ID: ", card_id)
+		# Try to get from instance catalog
+		card = instance_catalog.get_instance(card_id) as Card
+		if not card:
+			print("[ERROR] Card not found anywhere for ID: ", card_id)
+			return
+	
+	print("[DEBUG] Card found: ", card.display_name, ", time_cost: ", card.time_cost)
 	
 	# Check if card has time cost
 	if card.time_cost > 0:
 		# Advance time by the card's time cost
 		print("Card played: ", card.display_name, " - Advancing ", card.time_cost, " ticks")
 		timeline_manager.advance_time(card.time_cost)
+	else:
+		print("[DEBUG] Card has no time cost, not advancing time")
 	
 	# Process on_play_effect if it exists
 	if not card.on_play_effect.is_empty():

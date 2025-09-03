@@ -234,7 +234,11 @@ func __update_progress_display() -> void:
 		
 	if production_interval_beats > 0:
 		%ProgressBar.visible = true
-		%ProgressBar.value = pct(current_beats, production_interval_beats)
+		var target_value = pct(current_beats, production_interval_beats)
+		
+		# Animate the progress bar smoothly
+		var tween = create_tween()
+		tween.tween_property(%ProgressBar, "value", target_value, 0.2)  # Smooth 0.2s animation
 		
 		# Color code the progress bar
 		if is_ready:
