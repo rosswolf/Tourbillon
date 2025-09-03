@@ -46,6 +46,8 @@ func create_card_ui():
 	card_preview.visible = true  # Make sure it's visible
 	# Make the card preview less transparent for better visibility
 	card_preview.modulate = Color(1.0, 1.0, 1.0, 0.95)  # Almost fully opaque
+	# Ensure preview is always on top
+	card_preview.z_index = 100
 	add_child(card_preview)
 	# Start invisible and scale up
 	var tween = create_tween()

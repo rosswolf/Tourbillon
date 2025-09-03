@@ -24,6 +24,7 @@ func _ready() -> void:
 	GlobalSignals.ui_started_game.connect(__on_start_game_tourbillon)
 	
 	# Connect to core signals for reactive updates
+	GlobalSignals.core_card_slotted.connect(__on_core_card_slotted)
 	GlobalSignals.core_card_replaced.connect(__on_core_card_replaced)
 	GlobalSignals.core_gear_process_beat.connect(__on_core_gear_process_beat)
 	GlobalSignals.core_slot_activated.connect(__on_core_slot_activated)
@@ -328,6 +329,14 @@ func reset() -> void:
 	__update_slot_visuals()
 
 ## Signal handlers for core events
+
+func __on_core_card_slotted(slot_id: String) -> void:
+	# Check if this slot is a bonus square and trigger the bonus
+	for slot in gear_slots.values():
+		if slot.__button_entity and slot.__button_entity.instance_id == slot_id:
+			if slot.is_bonus_square and slot.bonus_type != "":
+				__trigger_bonus_for_slot(slot)
+			break
 
 func __on_core_card_replaced(old_card_id: String, new_card_id: String) -> void:
 	# Find the slot with the old card and update it
