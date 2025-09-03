@@ -14,36 +14,45 @@ var beats_per_tick: int = 10
 
 func _ready() -> void:
 	# Connect to time signals
-	GlobalSignals.ui_tick_advanced.connect(_on_tick_advanced)
+	GlobalSignals.ui_time_updated.connect(_on_time_updated)
 	
 	# Initialize display
 	_update_display()
 
-func _process(_delta: float) -> void:
-	# Update beat progress from TourbillonGameManager
-	if GlobalGameManager.has("tourbillon_manager"):
-		var manager = GlobalGameManager.get("tourbillon_manager")
-		var beat = manager.get_current_beat()
-		if beat != current_beat:
-			current_beat = beat
-			_update_display()
+func _on_time_updated(tick_display: String) -> void:
+	print("TimeDisplay received update: ", tick_display)
+	# Parse the tick.beat format from GlobalGameManager
+	var parts: Array[String] = Array(tick_display.split("."), TYPE_STRING, "", null)
+	if parts.size() == 2:
+		var new_tick: int = int(parts[0])
+		var beat_in_tick: int = int(parts[1])
+		var new_beat: int = new_tick * 10 + beat_in_tick
+		
+		print("  Parsed: Tick=", new_tick, " Beat in tick=", beat_in_tick, " Total beats=", new_beat)
+		
+		# Check if tick changed
+		if new_tick != current_tick:
+			current_tick = new_tick
+			_animate_tick_change()
+		
+		# Check if beat changed  
+		if new_beat != current_beat:
+			current_beat = new_beat
 			_animate_beat_change()
+		
+		_update_display()
 
-func _on_tick_advanced(tick: int) -> void:
-	current_tick = tick
-	_update_display()
-	_animate_tick_change()
 
 func _update_display() -> void:
 	if tick_label:
 		tick_label.text = "Tick: %d" % current_tick
 	
 	if beat_label:
-		var beat_in_tick = current_beat % beats_per_tick
+		var beat_in_tick: int = current_beat % beats_per_tick
 		beat_label.text = "Beat: %d/%d" % [beat_in_tick, beats_per_tick]
 	
 	if beat_progress:
-		var progress = float(current_beat % beats_per_tick) / float(beats_per_tick)
+		var progress: float = float(current_beat % beats_per_tick) / float(beats_per_tick)
 		beat_progress.value = progress * 100.0
 
 func _animate_tick_change() -> void:

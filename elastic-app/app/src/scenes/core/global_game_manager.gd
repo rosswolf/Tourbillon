@@ -293,7 +293,9 @@ func __on_time_changed(total_beats: int) -> void:
 	# Update UI with formatted time display
 	var ticks: int = total_beats / 10
 	var beats: int = total_beats % 10
-	GlobalSignals.signal_ui_time_updated("%d.%d" % [ticks, beats])
+	var time_display: String = "%d.%d" % [ticks, beats]
+	print("Updating time display: ", time_display, " (total beats: ", total_beats, ")")
+	GlobalSignals.signal_ui_time_updated(time_display)
 
 ## Called when card's time cost is fully processed
 func __on_card_ticks_complete() -> void:
