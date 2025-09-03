@@ -125,14 +125,7 @@ func __on_start_game():
 	relic_manager = RelicManager.new()
 	# Use HeroBuilder for proper instance ID registration
 	hero = Hero.HeroBuilder.new() \
-		.with_display_name("Knight") \
-		.with_starting_health(60) \
-		.with_starting_max_health(60) \
-		.with_starting_armor(10) \
-		.with_starting_max_armor(10) \
-		.with_starting_training(2) \
-		.with_starting_instinct(3) \
-		.with_starting_gold(100) \
+		.with_template_id("knight") \
 		.build()
 	# Goal system removed
 	stats_manager = StatsManager.new()
