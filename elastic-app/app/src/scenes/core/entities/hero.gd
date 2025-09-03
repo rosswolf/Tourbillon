@@ -149,7 +149,7 @@ static func load_hero(hero_template_id: String) -> Hero:
 	builder.with_image_name(hero_data.get("image_name"))
 	
 	# Set starting stats
-	builder.with_starting_gold(hero_data.get("starting_gold"))
+	# Gold/Inspiration handled as resource, not in builder
 
 	return builder.build()
 
@@ -173,17 +173,12 @@ class HeroBuilder extends Entity.EntityBuilder:
 	var __starting_relic: String
 	var __starting_training_points: int
 	var __starting_instinct: int
-	var __starting_gold: int
 	
 	
 	func with_image_name(image_name: String) -> HeroBuilder:
 		__image_name = image_name
 		return self
 		
-	
-	func with_starting_gold(gold: int) -> HeroBuilder:
-		__starting_gold = gold
-		return self
 	
 	func build() -> Hero:
 		var default_max: int = 9000
@@ -193,8 +188,6 @@ class HeroBuilder extends Entity.EntityBuilder:
 		
 		hero.image_name = __image_name
 		hero.starting_relic = __starting_relic
-		#hero.time = hero.construct_capped_resource(5*60, 5*60*1000, false, GameResource.Type.TIME)
-		#hero.energy = hero.construct_capped_resource(0, default_max, false, GameResource.Type.ENERGY)
-		hero.gold = hero.construct_capped_resource(__starting_gold, default_max, false, GameResource.Type.GOLD)
+		# Resources are initialized in _init(), not in builder
 		
 		return hero
