@@ -5,11 +5,12 @@ class_name Mainplate
 ## Adapts the existing battleground for Tourbillon's needs
 
 @export var initial_grid_size: Vector2i = Vector2i(4, 4)
+@export var max_grid_size: Vector2i = Vector2i(8, 8)  # Fixed maximum grid
 @export var max_expansions: int = 4
 
-var current_grid_size: Vector2i
 var expansions_used: int = 0
-var gear_slots: Dictionary[Vector2i, EngineSlot] = {}  # Position -> Slot mapping
+var gear_slots: Dictionary[Vector2i, EngineSlot] = {}  # Physical position -> Slot mapping
+var grid_mapper: GridMapper  # Handles logical to physical mapping
 
 signal gear_placed(slot: EngineSlot, card: Card)
 signal gear_replaced(old_card: Card, new_card: Card, slot: EngineSlot)
@@ -18,7 +19,7 @@ signal mainplate_expanded(new_size: Vector2i)
 func _ready() -> void:
 	# Don't call super._ready() to avoid default battleground setup
 	GlobalSignals.ui_started_game.connect(__on_start_game_tourbillon)
-	current_grid_size = initial_grid_size
+	grid_mapper = GridMapper.new(initial_grid_size, max_grid_size)
 
 func __on_start_game_tourbillon() -> void:
 	set_entity_data(BattlegroundEntity.BattlegroundEntityBuilder.new().build())
@@ -31,35 +32,62 @@ func __setup_mainplate_grid() -> void:
 		child.queue_free()
 	gear_slots.clear()
 	
-	# Configure grid container
-	%SlotGridContainer.columns = current_grid_size.x
+	# Configure grid container for maximum size
+	%SlotGridContainer.columns = max_grid_size.x
 	
-	# Create slots for initial grid
-	for y in range(current_grid_size.y):
-		for x in range(current_grid_size.x):
-			var slot: EngineSlot = __create_gear_slot(Vector2i(x, y))
+	# Create ALL slots up front
+	for y in range(max_grid_size.y):
+		for x in range(max_grid_size.x):
+			var pos: Vector2i = Vector2i(x, y)
+			var slot: EngineSlot = __create_gear_slot(pos)
 			%SlotGridContainer.add_child(slot)
-			gear_slots[Vector2i(x, y)] = slot
+			gear_slots[pos] = slot
+	
+	# Update visual state based on grid mapper
+	__update_slot_visuals()
 
 ## Create a single gear slot
 func __create_gear_slot(position: Vector2i) -> EngineSlot:
 	var slot_scene: PackedScene = preload("res://src/scenes/ui/entities/engine/ui_engine_slot.tscn")
 	var slot: EngineSlot = slot_scene.instantiate()
 	slot.set_meta("grid_position", position)  # Store position as metadata
+	slot.set_meta("is_active", false)  # Start inactive
 	return slot
+
+## Update visual state of slots based on grid mapper
+func __update_slot_visuals() -> void:
+	# Update all slots based on whether they're active
+	for physical_pos in gear_slots:
+		var slot: EngineSlot = gear_slots[physical_pos]
+		var is_active: bool = grid_mapper.is_active_physical(physical_pos)
+		__set_slot_active(slot, is_active)
+
+## Set a slot's active state with visual feedback
+func __set_slot_active(slot: EngineSlot, active: bool) -> void:
+	slot.set_meta("is_active", active)
+	if active:
+		slot.modulate = Color.WHITE
+		slot.modulate.a = 1.0
+		# Add a highlight effect for active slots
+		slot.self_modulate = Color(1.0, 1.0, 1.0, 1.0)
+	else:
+		# Dim inactive slots
+		slot.modulate = Color(0.3, 0.3, 0.3, 0.5)
+		slot.self_modulate = Color(0.5, 0.5, 0.5, 0.5)
 
 ## Get all gears in Escapement Order (top-to-bottom, left-to-right)
 func get_gears_in_escapement_order() -> Array[EngineSlot]:
-	var positions: Array = gear_slots.keys()
+	var active_positions: Array[Vector2i] = grid_mapper.get_active_physical_positions()
 	
 	# Sort positions by Escapement Order
-	positions.sort_custom(__escapement_compare)
+	active_positions.sort_custom(__escapement_compare)
 	
 	var ordered_slots: Array[EngineSlot] = []
-	for pos in positions:
-		var slot: EngineSlot = gear_slots[pos]
-		if slot and slot.__button_entity and slot.__button_entity.card:
-			ordered_slots.append(slot)
+	for physical_pos in active_positions:
+		if gear_slots.has(physical_pos):
+			var slot: EngineSlot = gear_slots[physical_pos]
+			if slot and slot.__button_entity and slot.__button_entity.card:
+				ordered_slots.append(slot)
 	
 	return ordered_slots
 
@@ -70,13 +98,16 @@ func __escapement_compare(a: Vector2i, b: Vector2i) -> bool:
 		return a.y < b.y  # Top rows first
 	return a.x < b.x  # Left columns first
 
-## Place a gear (card) on the mainplate
-func place_gear(card: Card, position: Vector2i) -> bool:
-	if not gear_slots.has(position):
-		push_error("Invalid mainplate position: " + str(position))
+## Place a gear (card) on the mainplate using logical position
+func place_gear(card: Card, logical_position: Vector2i) -> bool:
+	# Convert logical to physical position
+	var physical_pos: Vector2i = grid_mapper.to_physical(logical_position)
+	
+	if not gear_slots.has(physical_pos):
+		push_error("Invalid mainplate position: " + str(logical_position))
 		return false
 	
-	var slot: EngineSlot = gear_slots[position]
+	var slot: EngineSlot = gear_slots[physical_pos]
 	
 	# Handle replacement if slot is occupied
 	if slot.__button_entity and slot.__button_entity.card:
@@ -101,57 +132,36 @@ func expand_mainplate(expansion_type: String = "row") -> bool:
 	if expansions_used >= max_expansions:
 		return false
 	
-	var new_size: Vector2i = current_grid_size
+	# Try to expand using the grid mapper
+	if not grid_mapper.expand(expansion_type):
+		push_warning("Cannot expand grid: would exceed physical bounds")
+		return false
 	
-	match expansion_type:
-		"row":
-			new_size.y += 1
-		"column":
-			new_size.x += 1
-		"both":
-			new_size.x += 1
-			new_size.y += 1
-		_:
-			push_error("Invalid expansion type: " + expansion_type)
-			return false
-	
-	# Add new slots
-	__expand_to_size(new_size)
-	current_grid_size = new_size
+	# Update visual state
+	__update_slot_visuals()
 	expansions_used += 1
 	
-	mainplate_expanded.emit(new_size)
+	mainplate_expanded.emit(grid_mapper.get_logical_size())
 	return true
 
-## Internal expansion logic
-func __expand_to_size(new_size: Vector2i) -> void:
-	# Reconfigure grid container
-	%SlotGridContainer.columns = new_size.x
-	
-	# Add new slots only for new positions
-	for y in range(new_size.y):
-		for x in range(new_size.x):
-			var pos: Vector2i = Vector2i(x, y)
-			if not gear_slots.has(pos):
-				var slot: EngineSlot = __create_gear_slot(pos)
-				%SlotGridContainer.add_child(slot)
-				gear_slots[pos] = slot
+## Check if logical position is valid
+func is_valid_position(logical_position: Vector2i) -> bool:
+	return grid_mapper.is_valid_logical(logical_position)
 
 ## Get slot at specific position
 func get_slot_at(position: Vector2i) -> EngineSlot:
 	return gear_slots.get(position, null)
 
-## Check if position is valid
-func is_valid_position(position: Vector2i) -> bool:
-	return position.x >= 0 and position.x < current_grid_size.x and \
-		   position.y >= 0 and position.y < current_grid_size.y
-
-## Get all occupied slots
+## Get all occupied slots (only active ones)
 func get_occupied_slots() -> Array[EngineSlot]:
 	var occupied: Array[EngineSlot] = []
-	for slot in gear_slots.values():
-		if slot.__button_entity and slot.__button_entity.card:
-			occupied.append(slot)
+	var active_positions: Array[Vector2i] = grid_mapper.get_active_physical_positions()
+	
+	for physical_pos in active_positions:
+		if gear_slots.has(physical_pos):
+			var slot: EngineSlot = gear_slots[physical_pos]
+			if slot.__button_entity and slot.__button_entity.card:
+				occupied.append(slot)
 	return occupied
 
 ## Count gears with specific tag
@@ -171,9 +181,8 @@ func reset() -> void:
 		if slot.has_method("reset"):
 			slot.reset()
 	
-	# Reset to initial size if expanded
-	if current_grid_size != initial_grid_size:
-		current_grid_size = initial_grid_size
-		expansions_used = 0
-		__setup_mainplate_grid()
+	# Reset grid mapper to initial size
+	grid_mapper.reset(initial_grid_size)
+	expansions_used = 0
+	__update_slot_visuals()
 
