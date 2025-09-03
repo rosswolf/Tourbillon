@@ -162,6 +162,10 @@ func update_progress_display(percent: float, is_ready: bool = false) -> void:
 	# Skip progress updates for instant activation cards
 	if __button_entity and __button_entity.card and __button_entity.card.production_interval == 0:
 		return
+	
+	# Don't update if we're in the middle of activation animation
+	if %ProgressBar.has_meta("activating") and %ProgressBar.get_meta("activating"):
+		return
 		
 	%ProgressBar.visible = true
 	
@@ -169,8 +173,15 @@ func update_progress_display(percent: float, is_ready: bool = false) -> void:
 	%ProgressBar.self_modulate = Color.WHITE
 	%ProgressBar.z_index = 10
 	
+	# Kill any existing update tweens to prevent conflicts
+	if %ProgressBar.has_meta("update_tween"):
+		var old_tween = %ProgressBar.get_meta("update_tween")
+		if old_tween and old_tween.is_valid():
+			old_tween.kill()
+	
 	# Animate smoothly
 	var tween = create_tween()
+	%ProgressBar.set_meta("update_tween", tween)
 	tween.tween_property(%ProgressBar, "value", percent, 0.2)
 	
 	# Color code based on state
@@ -192,15 +203,30 @@ func show_activation_feedback() -> void:
 	if __button_entity.card.production_interval == 0:
 		return
 	
+	# Mark that we're animating activation
+	%ProgressBar.set_meta("activating", true)
+	
+	# Kill any existing tweens on the progress bar to prevent conflicts
+	if %ProgressBar.has_meta("tween"):
+		var old_tween = %ProgressBar.get_meta("tween")
+		if old_tween and old_tween.is_valid():
+			old_tween.kill()
+	if %ProgressBar.has_meta("update_tween"):
+		var old_tween = %ProgressBar.get_meta("update_tween")
+		if old_tween and old_tween.is_valid():
+			old_tween.kill()
+	
 	%ProgressBar.visible = true
 	%ProgressBar.value = 100
 	%ProgressBar.modulate = Color(1.0, 1.0, 1.0, 1.0)  # White/bright for activation
 	
 	# Create a tween sequence: hold full, then reset to empty
 	var tween = create_tween()
+	%ProgressBar.set_meta("tween", tween)
 	tween.tween_interval(1.0)  # Hold at full for 1 second
 	tween.tween_property(%ProgressBar, "value", 0, 0.3)  # Reset to 0 over 0.3 seconds
 	tween.tween_property(%ProgressBar, "modulate", Color(1.0, 1.0, 0.0, 1.0), 0.1)  # Back to yellow
+	tween.tween_callback(func(): %ProgressBar.set_meta("activating", false))  # Clear activation flag
 
 ## Reset visual state
 func reset() -> void:
