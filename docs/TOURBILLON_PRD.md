@@ -191,27 +191,27 @@ Expansion mechanics:
 ### 3.1 Five Forces
 Forces represent different types of energy in your clockwork mechanism:
 
-- **Heat (Red)** - Friction/Combustion
+- **Heat** - Friction/Combustion
   - Attack Targeting: **Attack (All)** - Hits all gremlins
   - Direct damage focus, fast intervals, volatile explosive effects
   - Damage Multiplier: **1.25x**
 
-- **Precision (Blue)** - Control/Accuracy
+- **Precision** - Control/Accuracy
   - Attack Targeting: **Attack (Bottom)** - Targets last gremlin in stack
   - Card draw, time manipulation, control and optimization
   - Damage Multiplier: **0.75x**
 
-- **Momentum (Green)** - Perpetual Motion
+- **Momentum** - Perpetual Motion
   - Attack Targeting: **Attack (Most HP)** - Targets highest health gremlin
   - Force ramping, scaling effects, self-sustaining cycles
   - Damage Multiplier: **1.0x** (baseline)
 
-- **Balance (White)** - Regulation/Stability
+- **Balance** - Regulation/Stability
   - Attack Targeting: **Attack (Oldest)** - Targets gremlin in combat longest
   - Shields/damage prevention, consistent production, stability focus
   - Damage Multiplier: **0.8x**
 
-- **Entropy (Purple)** - Decay/Unwinding
+- **Entropy** - Decay/Unwinding
   - Attack Targeting: **Attack (Lowest HP)** - Targets weakest gremlin
   - Destroy own gears for benefit, high risk/high reward
   - Damage Multiplier: **1.1x**
