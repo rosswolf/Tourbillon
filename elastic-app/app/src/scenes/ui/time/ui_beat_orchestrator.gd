@@ -205,74 +205,68 @@ func orchestrate_gear_fire(slot: EngineSlot) -> void:
 
 ## Show a visual flash to indicate beat tick
 func __show_beat_flash() -> void:
-	# Create a container for centering
-	var center_container = CenterContainer.new()
-	center_container.set_anchors_preset(Control.PRESET_FULL_RECT)
-	center_container.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	# Update or create the persistent timer display
+	if not persistent_timer_label:
+		__create_persistent_timer()
 	
-	# Create a panel background for better visibility
+	# Update the timer text
+	var current_tick = (current_beat_display + 1) / 10
+	var current_beat = (current_beat_display + 1) % 10
+	var decimal_beat = current_beat * 100  # Convert beat to milliseconds representation
+	persistent_timer_label.text = "%d.%03d" % [current_tick, decimal_beat]
+
+## Create the persistent timer display above the battleground
+func __create_persistent_timer() -> void:
+	# Find the mainplate to position timer above it
+	var mainplate = get_tree().get_first_node_in_group("mainplate")
+	if not mainplate:
+		push_error("Cannot find mainplate for timer positioning")
+		return
+	
+	# Create container positioned above mainplate
+	timer_container = Control.new()
+	timer_container.set_anchors_preset(Control.PRESET_CENTER_TOP)
+	timer_container.position = Vector2(0, -150)  # Position above mainplate
+	timer_container.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	
+	# Create panel background for visibility
 	var panel_container = PanelContainer.new()
 	panel_container.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	panel_container.custom_minimum_size = Vector2(300, 100)
 	
 	# Style the panel
 	var panel_style = StyleBoxFlat.new()
-	panel_style.bg_color = Color(0.0, 0.0, 0.0, 0.7)  # Dark semi-transparent background
-	panel_style.set_corner_radius_all(15)
-	panel_style.set_border_width_all(3)
+	panel_style.bg_color = Color(0.0, 0.0, 0.0, 0.8)  # Dark semi-transparent
+	panel_style.set_corner_radius_all(20)
+	panel_style.set_border_width_all(4)
 	panel_style.border_color = Color(1.0, 0.8, 0.0, 1.0)  # Gold border
-	panel_style.set_expand_margin_all(20)
+	panel_style.set_expand_margin_all(25)
 	panel_container.add_theme_stylebox_override("panel", panel_style)
 	
-	# Create the label with larger text
-	var beat_label = Label.new()
-	var current_tick = (current_beat_display + 1) / 10
-	var current_beat = (current_beat_display + 1) % 10
+	# Create center container for the label
+	var center_container = CenterContainer.new()
+	center_container.set_anchors_preset(Control.PRESET_FULL_RECT)
 	
-	# Format: tick.XXX where beats are shown as decimal (10 beats = 0.1 seconds)
-	# So beat 0 = .000, beat 1 = .100, beat 2 = .200, etc.
-	var decimal_beat = current_beat * 100  # Convert beat to milliseconds representation
-	beat_label.text = "%d.%03d" % [current_tick, decimal_beat]
-	beat_label.add_theme_font_size_override("font_size", 72)  # Even larger for numbers
-	beat_label.add_theme_color_override("font_color", Color(1.0, 1.0, 0.0, 1.0))  # Bright yellow
-	beat_label.add_theme_color_override("font_shadow_color", Color(0.0, 0.0, 0.0, 1.0))
-	beat_label.add_theme_constant_override("shadow_offset_x", 2)
-	beat_label.add_theme_constant_override("shadow_offset_y", 2)
-	# Use a monospace font if available for better number alignment
-	beat_label.add_theme_string_override("font", "monospace")
+	# Create the timer label
+	persistent_timer_label = Label.new()
+	persistent_timer_label.text = "0.000"
+	persistent_timer_label.add_theme_font_size_override("font_size", 96)  # Very large
+	persistent_timer_label.add_theme_color_override("font_color", Color(1.0, 1.0, 0.0, 1.0))  # Bright yellow
+	persistent_timer_label.add_theme_color_override("font_shadow_color", Color(0.0, 0.0, 0.0, 1.0))
+	persistent_timer_label.add_theme_constant_override("shadow_offset_x", 3)
+	persistent_timer_label.add_theme_constant_override("shadow_offset_y", 3)
 	
-	# Assemble the hierarchy
-	panel_container.add_child(beat_label)
-	center_container.add_child(panel_container)
+	# Assemble hierarchy
+	center_container.add_child(persistent_timer_label)
+	panel_container.add_child(center_container)
+	timer_container.add_child(panel_container)
 	
-	# Add to scene on high layer
-	var canvas_layer = CanvasLayer.new()
-	canvas_layer.layer = 100  # High layer to be on top
-	get_tree().root.add_child(canvas_layer)
-	canvas_layer.add_child(center_container)
+	# Add to mainplate's parent to keep it centered
+	mainplate.get_parent().add_child(timer_container)
 	
-	# Animate fake milliseconds counting up from the beat position
-	var starting_millis = decimal_beat
-	var millis_tween = create_tween()
-	millis_tween.set_loops(8)  # More updates for smoother animation
-	millis_tween.tween_callback(func():
-		var fake_millis = starting_millis + (randi() % 99)
-		if fake_millis > 999:
-			fake_millis = 999
-		beat_label.text = "%d.%03d" % [current_tick, fake_millis]
-	).set_delay(0.05)
-	
-	# Animate with scale and fade
-	var main_tween = create_tween()
-	main_tween.set_parallel(true)
-	# Start slightly scaled up and quickly shrink to normal
-	panel_container.scale = Vector2(1.2, 1.2)
-	main_tween.tween_property(panel_container, "scale", Vector2(1.0, 1.0), 0.15).set_ease(Tween.EASE_OUT)
-	# Then fade out
-	main_tween.chain().tween_property(center_container, "modulate:a", 0.0, 0.4)
-	main_tween.tween_callback(func():
-		millis_tween.kill()
-		canvas_layer.queue_free()
-	)
+	# Center the timer horizontally relative to mainplate
+	var mainplate_center = mainplate.global_position + mainplate.size / 2
+	timer_container.global_position.x = mainplate_center.x - panel_container.custom_minimum_size.x / 2
 
 ## Get the singleton instance
 static func get_instance() -> UIBeatOrchestrator:
