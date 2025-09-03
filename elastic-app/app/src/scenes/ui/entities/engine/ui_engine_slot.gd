@@ -5,9 +5,6 @@ class_name EngineSlot
 @onready var bottom_container: HBoxContainer = $MarginContainer/MainPanel/VBoxContainer/BottomBoxContainer
 
 
-var is_activatable: bool
-var timer_duration: float
-
 # Tourbillon beat-based timing
 var production_interval_beats: int = 30  # Default 3 ticks
 var current_beats: int = 0
@@ -20,7 +17,6 @@ var CARD_UI = preload("res://src/scenes/ui/hand/card_ui.tscn")
 func _ready() -> void:
 	super._ready()
 	
-	deactivate_slot()
 	create_button_entity(self, false)
 	
 	self.pressed.connect(__on_refresh_slot_manually)
@@ -30,10 +26,12 @@ func _ready() -> void:
 	top_container.visible = true
 	bottom_container.visible = false
 	
-	GlobalSignals.core_slot_add_cooldown.connect(__on_cooldown)
-	
 	GlobalSignals.core_card_slotted.connect(__on_card_slotted)
 	GlobalSignals.core_card_unslotted.connect(__on_card_unslotted)
+	
+	# Initialize progress bar
+	%ProgressBar.value = 0
+	%ProgressBar.visible = true
 	
 func create_card_ui():	
 	card_preview = CARD_UI.instantiate()
@@ -56,31 +54,25 @@ func __on_card_slotted(target_slot_id: String):
 		create_card_ui()
 		%Name.text = __button_entity.card.display_name
 		%MainPanel.visible = true
-		reactivate_slot()
+		# Setup the card's production timing
+		if __button_entity.card:
+			setup_from_card(__button_entity.card)
 	
 func __on_card_unslotted(target_slot_id: String):
 	if target_slot_id == __button_entity.instance_id:
 		%Name.text = ""
 		%MainPanel.visible = false
-		deactivate_slot()
-		%Timer.stop()
 		%ProgressBar.value = 0
+		current_beats = 0
+		is_ready = false
 		if card_preview:
 			destroy_card_ui()
 
 func _process(delta):
-	if %Timer.time_left != 0:
-		%ProgressBar.value = pct(%Timer.time_left, timer_duration)
+	# Progress bar is updated in __update_progress_display() instead
+	pass
 
-func __on_cooldown(instance_id: String, duration: float):
-	if instance_id == __button_entity.get_card_instance_id():
-	
-		deactivate_slot()
-		timer_duration = duration
-		%Timer.one_shot = true
-		%Timer.timeout.connect(func():reactivate_slot())
-		%Timer.start(timer_duration)
-		%ProgressBar.value = pct(%Timer.time_left, timer_duration)
+# Cooldown system removed - using beat-based production instead
 
 func pct(numerator: float, denominator: float):
 	if denominator <= 0.001:
@@ -90,17 +82,10 @@ func pct(numerator: float, denominator: float):
 	
 
 							
-func deactivate_slot() -> void:	
-	is_activatable = false
-	# Gray out the slot image
-	
-
-func reactivate_slot() -> void:	
-	is_activatable = true
-	# Restore normal colors
+# Activation states removed - production state handled by is_ready
 
 func __on_refresh_slot_manually() -> void:
-	if is_activatable and __button_entity.card != null:
+	if __button_entity.card != null:
 		# Manual activation fires the production immediately
 		__fire_production()
 		if card_preview:
@@ -149,8 +134,9 @@ func setup_from_card(card: Card) -> void:
 		production_interval_beats = -1  # No production
 	
 	# Reset state
-	current_beats = 0
+	current_beats = card.starting_progress  # Use card's starting progress if any
 	is_ready = false
+	modulate = Color.WHITE
 	__update_progress_display()
 
 ## Check if we have required forces to produce
@@ -199,13 +185,15 @@ func __fire_production() -> void:
 func __enter_ready_state() -> void:
 	is_ready = true
 	# Visual feedback for ready state
-	modulate = Color(1.2, 1.2, 1.2)  # Slight glow
+	modulate = Color(1.1, 1.2, 1.1)  # Slight green glow
+	__update_progress_display()  # Update to show green progress bar
 
-## Exit ready state
+## Exit ready state  
 func __exit_ready_state() -> void:
 	is_ready = false
 	# Reset visual
 	modulate = Color.WHITE
+	__update_progress_display()  # Update to show white progress bar
 
 ## Update the progress bar display
 func __update_progress_display() -> void:
@@ -213,7 +201,14 @@ func __update_progress_display() -> void:
 		return
 		
 	if production_interval_beats > 0:
+		%ProgressBar.visible = true
 		%ProgressBar.value = pct(current_beats, production_interval_beats)
+		
+		# Color code the progress bar
+		if is_ready:
+			%ProgressBar.modulate = Color(0.2, 1.0, 0.2)  # Green when ready
+		else:
+			%ProgressBar.modulate = Color(1.0, 1.0, 1.0)  # White when charging
 	else:
 		# -1 or invalid value - hide progress bar for non-producing cards
 		%ProgressBar.value = 0
