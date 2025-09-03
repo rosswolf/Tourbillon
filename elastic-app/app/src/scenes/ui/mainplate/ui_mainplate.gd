@@ -230,6 +230,60 @@ func count_gears_with_tag(tag: String) -> int:
 				count += 1
 	return count
 
+## Remove a gear from a slot at physical position
+func remove_gear_at_physical(physical_pos: Vector2i) -> Card:
+	var logical_pos = grid_mapper.to_logical(physical_pos)
+	if logical_pos == null:
+		return null
+	return remove_gear_at_logical(logical_pos)
+
+## Remove a gear from a slot at logical position
+func remove_gear_at_logical(logical_pos: Vector2i) -> Card:
+	if not mainplate:
+		return null
+	
+	# Remove from core entity
+	var card: Card = mainplate.remove_card(logical_pos)
+	if not card:
+		return null
+	
+	# Update UI slot
+	var physical_pos: Vector2i = grid_mapper.to_physical(logical_pos)
+	if gear_slots.has(physical_pos):
+		var slot: EngineSlot = gear_slots[physical_pos]
+		# Signal the slot is now empty
+		GlobalSignals.core_card_unslotted.emit(slot.__button_entity.instance_id)
+		# Reset the slot's visual state
+		if slot.has_method("reset"):
+			slot.reset()
+	
+	return card
+
+## Check if a slot can accept a card (is active and optionally empty)
+func can_accept_card_at_physical(physical_pos: Vector2i, require_empty: bool = false) -> bool:
+	var logical_pos = grid_mapper.to_logical(physical_pos)
+	if logical_pos == null:
+		return false
+	
+	if not mainplate or not mainplate.is_valid_position(logical_pos):
+		return false
+	
+	if require_empty:
+		return not mainplate.has_card_at(logical_pos)
+	
+	return true
+
+## Get the card at a physical position
+func get_card_at_physical(physical_pos: Vector2i) -> Card:
+	var logical_pos = grid_mapper.to_logical(physical_pos)
+	if logical_pos == null:
+		return null
+	
+	if not mainplate:
+		return null
+	
+	return mainplate.get_card_at(logical_pos)
+
 ## Reset mainplate for new combat
 func reset() -> void:
 	for slot in gear_slots.values():

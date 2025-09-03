@@ -43,6 +43,12 @@ static func get_type(entity: Entity):
 
 
 static func slot_card_in_button(card: Card, button: EngineButtonEntity) -> bool:	
+	# Validate that the slot is active (within the valid grid)
+	if button.engine_slot and button.engine_slot.has_method("can_accept_card"):
+		if not button.engine_slot.can_accept_card():
+			push_warning("Cannot place card on inactive slot")
+			return false
+	
 	# Check if there's already a card in the slot (overbuild scenario)
 	var existing_card: Card = button.card
 	if existing_card != null:
