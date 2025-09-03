@@ -44,34 +44,6 @@ func _ready():
 	
 	
 
-#func __load_tourbillon_cards() -> void:
-	# Load the Tourbillon card data
-	var card_file = "res://src/scenes/data/tourbillon_cards.json"
-	
-	if not FileAccess.file_exists(card_file):
-		push_warning("Tourbillon card data not found at: " + card_file)
-		return
-	
-	var file = FileAccess.open(card_file, FileAccess.READ)
-	var json_text = file.get_as_text()
-	file.close()
-	
-	var json = JSON.new()
-	var parse_result = json.parse(json_text)
-	
-	if parse_result != OK:
-		push_error("Failed to parse Tourbillon card data")
-		return
-	
-	# Add to StaticData for Card.load_card to use
-	var card_data = json.data
-	for card_entry in card_data:
-		var card_id = card_entry.get("card_template_id", "")
-		if card_id:
-			StaticData.card_data[card_id] = card_entry
-	
-	print("Loaded ", card_data.size(), " Tourbillon cards")
-
 func __setup_starting_deck() -> void:
 	if not library:
 		push_warning("Library not initialized")
