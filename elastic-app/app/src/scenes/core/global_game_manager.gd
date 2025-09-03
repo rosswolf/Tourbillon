@@ -143,7 +143,6 @@ func __on_start_game():
 	__initialize_tourbillon_systems()
 	
 	# Load card data and setup deck
-	__load_tourbillon_cards()
 	__setup_starting_deck()
 	
 	print("Tourbillon systems initialized")
