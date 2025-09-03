@@ -80,7 +80,7 @@ func __on_card_slotted(target_slot_id: String):
 			if __button_entity.card.production_interval == 0:
 				%ProgressBar.value = 100
 				%ProgressBar.visible = true
-				%ProgressBar.modulate = Color(0.0, 1.0, 0.0, 1.0)  # Green for instant
+				%ProgressBar.modulate = Color(1.0, 1.0, 1.0, 1.0)  # White for instant activation
 				# Animate it fading out after activation
 				var tween = create_tween()
 				tween.tween_interval(0.3)  # Show full bar briefly
@@ -175,9 +175,9 @@ func update_progress_display(percent: float, is_ready: bool = false) -> void:
 	
 	# Color code based on state
 	if is_ready:
-		%ProgressBar.modulate = Color(0.0, 1.0, 0.0, 1.0)  # Green
+		%ProgressBar.modulate = Color(1.0, 0.8, 0.0, 1.0)  # Orange when ready
 	else:
-		%ProgressBar.modulate = Color(1.0, 1.0, 0.0, 1.0)  # Yellow
+		%ProgressBar.modulate = Color(1.0, 1.0, 0.0, 1.0)  # Yellow when charging
 
 func __update_progress_display() -> void:
 	# Placeholder for compatibility
@@ -194,7 +194,7 @@ func show_activation_feedback() -> void:
 	
 	%ProgressBar.visible = true
 	%ProgressBar.value = 100
-	%ProgressBar.modulate = Color(0.0, 1.0, 0.0, 1.0)  # Green for activation
+	%ProgressBar.modulate = Color(1.0, 1.0, 1.0, 1.0)  # White/bright for activation
 	
 	# Create a tween sequence: hold full, then reset to empty
 	var tween = create_tween()
