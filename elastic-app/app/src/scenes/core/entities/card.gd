@@ -220,7 +220,24 @@ static func build_new_card_from_template(card_template_id: String, card_template
 	if card_template_id != card_template_data.get("card_template_id"):
 		assert(false, "card template id doesn't match as expected: " + card_template_id +  " " + str(card_template_data.get("card_template_id")))
 	
-	var rarity: Card.RarityType = card_template_data.get("card_rarity")
+	# Convert string rarity to enum
+	var rarity_str: String = card_template_data.get("card_rarity", "UNKNOWN")
+	var rarity: Card.RarityType = Card.RarityType.UNKNOWN
+	
+	# Map string to enum value
+	match rarity_str.to_upper():
+		"STARTING":
+			rarity = Card.RarityType.STARTING
+		"COMMON":
+			rarity = Card.RarityType.COMMON
+		"UNCOMMON":
+			rarity = Card.RarityType.UNCOMMON
+		"RARE":
+			rarity = Card.RarityType.RARE
+		"DEFAULT":
+			rarity = Card.RarityType.DEFAULT
+		_:
+			rarity = Card.RarityType.UNKNOWN
 	
 	var builder: CardBuilder = CardBuilder.new()
 	builder.with_template_id(card_template_id)
