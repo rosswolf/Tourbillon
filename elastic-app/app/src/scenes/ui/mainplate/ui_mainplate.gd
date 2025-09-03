@@ -20,7 +20,7 @@ signal mainplate_expanded(new_size: Vector2i)
 func _ready() -> void:
 	# Don't call super._ready() to avoid default battleground setup
 	GlobalSignals.ui_started_game.connect(__on_start_game_tourbillon)
-	GlobalSignals.ui_card_played_to_slot.connect(__on_card_played_to_slot)
+	# Card placement is handled through ui_execute_selected_onto_hovered and the activation system
 
 func __on_start_game_tourbillon() -> void:
 	# Get the mainplate entity from GlobalGameManager
@@ -32,22 +32,6 @@ func __on_start_game_tourbillon() -> void:
 	else:
 		push_error("Mainplate not found in GlobalGameManager!")
 
-func __on_card_played_to_slot(card_id: String, physical_pos: Vector2i) -> void:
-	# Convert physical position to logical position
-	var logical_pos = grid_mapper.to_logical(physical_pos)
-	if logical_pos == null:
-		push_warning("Physical position outside logical grid: ", physical_pos)
-		return
-	
-	# Validate placement against core entity
-	if not mainplate or not mainplate.is_valid_position(logical_pos):
-		push_warning("Invalid logical position: ", logical_pos)
-		return
-	
-	var card: Card = GlobalGameManager.library.get_card(card_id)
-	if card:
-		mainplate.place_card(card, logical_pos)
-		__update_slot_visuals()
 
 ## Setup the initial mainplate grid
 func __setup_mainplate_grid() -> void:
