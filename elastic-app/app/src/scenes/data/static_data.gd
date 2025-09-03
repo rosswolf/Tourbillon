@@ -5,7 +5,7 @@ var __resolved_enum_cache = {}
 var __lookup_cache = {}
 
 var card_data: Dictionary = {}
-var card_data_path = "res://src/scenes/data/tourbillon_cards.json"
+var card_data_path = "res://src/scenes/data/card_data.json"
 var card_data_indices = {}  # Field-based indices for fast lookups
 
 static var icon_data: Dictionary = {}
