@@ -22,14 +22,26 @@ func spawn_wave(wave_id: String = "") -> void:
 	print("[WaveManager] Spawning wave: %s (%s)" % [wave_data.get("display_name", "Unknown"), wave_data.get("wave_id", "")])
 	print("[WaveManager] Difficulty: %s (%d)" % [wave_data.get("difficulty_tier", "Unknown"), wave_data.get("difficulty", 0)])
 	
-	var gremlins_string: String = wave_data.get("gremlins", "")
-	if gremlins_string.is_empty():
-		push_error("Wave has no gremlins defined: %s" % wave_id)
-		return
-	
+	# Handle gremlins as either String (pipe-separated) or Array
+	var gremlins_data = wave_data.get("gremlins", "")
 	var gremlin_ids: Array[String] = []
-	for gremlin_id in gremlins_string.split("|"):
-		gremlin_ids.append(gremlin_id.strip_edges())
+	
+	if gremlins_data is String:
+		var gremlins_string: String = gremlins_data
+		if gremlins_string.is_empty():
+			push_error("Wave has no gremlins defined: %s" % wave_id)
+			return
+		for gremlin_id in gremlins_string.split("|"):
+			gremlin_ids.append(gremlin_id.strip_edges())
+	elif gremlins_data is Array:
+		if gremlins_data.is_empty():
+			push_error("Wave has no gremlins defined: %s" % wave_id)
+			return
+		for gremlin_id in gremlins_data:
+			gremlin_ids.append(str(gremlin_id).strip_edges())
+	else:
+		push_error("Invalid gremlins format in wave: %s" % wave_id)
+		return
 	
 	for gremlin_id in gremlin_ids:
 		_spawn_gremlin(gremlin_id)
