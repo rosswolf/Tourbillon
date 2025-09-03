@@ -362,6 +362,8 @@ func __on_core_gear_process_beat(card_id: String, context: BeatContext) -> void:
 				if card.production_interval > 0:
 					var interval_beats = card.production_interval * 10
 					var percent = (state.current_beats * 100.0) / interval_beats
+					# Clamp percent to 0-100 range
+					percent = clamp(percent, 0.0, 100.0)
 					slot.update_progress_display(percent, state.is_ready)
 			break
 

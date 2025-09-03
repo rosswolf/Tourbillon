@@ -152,12 +152,17 @@ func process_beat(context: BeatContext) -> void:
 			if card_states.has(card.instance_id) and card.production_interval > 0:
 				var state = card_states[card.instance_id]
 				state.current_beats += 1
+				
+				# Check if card is ready (before potential activation)
+				var interval_in_beats = card.production_interval * 10
+				state.is_ready = state.current_beats >= interval_in_beats
+			
+			# Signal UI update BEFORE activation (so it sees the full progress)
+			GlobalSignals.signal_core_gear_process_beat(card.instance_id, context)
 			
 			# Check if card should activate on this beat
 			if __should_card_activate(card, pos, context):
 				__activate_card(card, pos, context)
-			# Always signal for UI updates
-			GlobalSignals.signal_core_gear_process_beat(card.instance_id, context)
 
 ## Count cards with a specific tag
 func count_cards_with_tag(tag: String) -> int:
