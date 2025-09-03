@@ -120,6 +120,10 @@ func process_beat(context: BeatContext) -> void:
 	if not __button_entity or not __button_entity.card:
 		return
 	
+	# Skip processing for non-producing cards (production_interval == -1)
+	if production_interval_beats <= 0:
+		return
+	
 	# Update timer progress
 	if not is_ready:
 		current_beats += 1
@@ -137,8 +141,11 @@ func setup_from_card(card: Card) -> void:
 	if not card:
 		return
 		
-	# Get timing from card
-	production_interval_beats = card.production_interval * 10  # Convert ticks to beats
+	# Get timing from card (-1 means no production)
+	if card.production_interval > 0:
+		production_interval_beats = card.production_interval * 10  # Convert ticks to beats
+	else:
+		production_interval_beats = -1  # No production
 	
 	# Reset state
 	current_beats = 0
@@ -207,7 +214,9 @@ func __update_progress_display() -> void:
 	if production_interval_beats > 0:
 		%ProgressBar.value = pct(current_beats, production_interval_beats)
 	else:
+		# -1 or invalid value - hide progress bar for non-producing cards
 		%ProgressBar.value = 0
+		%ProgressBar.visible = false
 
 ## Reset state for new gear
 func reset() -> void:
