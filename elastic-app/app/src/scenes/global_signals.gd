@@ -139,6 +139,14 @@ signal core_card_unslotted(slot_instance_id: String)
 func signal_core_card_unslotted(slot_instance_id: String):
 	core_card_unslotted.emit(slot_instance_id)
 
+signal core_card_placed(card_id: String, position: Vector2i)
+func signal_core_card_placed(card_id: String, position: Vector2i):
+	core_card_placed.emit(card_id, position)
+
+signal core_card_removed(card_id: String, position: Vector2i)
+func signal_core_card_removed(card_id: String, position: Vector2i):
+	core_card_removed.emit(card_id, position)
+
 signal core_card_replaced(old_card_id: String, new_card_id: String)
 func signal_core_card_replaced(old_card_id: String, new_card_id: String):
 	core_card_replaced.emit(old_card_id, new_card_id)

@@ -22,7 +22,13 @@ var ui_orchestrator: UIBeatOrchestrator
 func _ready() -> void:
 	# Don't call super._ready() to avoid default battleground setup
 	GlobalSignals.ui_started_game.connect(__on_start_game_tourbillon)
-	# Card placement is handled through ui_execute_selected_onto_hovered and the activation system
+	
+	# Connect to core signals for reactive updates
+	GlobalSignals.core_card_placed.connect(__on_core_card_placed)
+	GlobalSignals.core_card_removed.connect(__on_core_card_removed)
+	GlobalSignals.core_card_replaced.connect(__on_core_card_replaced)
+	GlobalSignals.core_gear_process_beat.connect(__on_core_gear_process_beat)
+	GlobalSignals.core_slot_activated.connect(__on_core_slot_activated)
 	
 	# Create the UI beat orchestrator for synchronized updates
 	ui_orchestrator = UIBeatOrchestrator.new()
@@ -180,21 +186,11 @@ func __set_slot_active(slot: EngineSlot, active: bool) -> void:
 		if main_panel:
 			main_panel.visible = false
 
-## Get all gears in Escapement Order (top-to-bottom, left-to-right)
-func get_gears_in_escapement_order() -> Array[EngineSlot]:
-	var active_positions: Array[Vector2i] = grid_mapper.get_active_physical_positions()
-	
-	# Sort positions by Escapement Order
-	active_positions.sort_custom(__escapement_compare)
-	
-	var ordered_slots: Array[EngineSlot] = []
-	for physical_pos in active_positions:
-		if gear_slots.has(physical_pos):
-			var slot: EngineSlot = gear_slots[physical_pos]
-			if slot and slot.__button_entity and slot.__button_entity.card:
-				ordered_slots.append(slot)
-	
-	return ordered_slots
+## Get visual representation of cards in order (delegates to core)
+func get_cards_in_order() -> Array[Card]:
+	if not mainplate:
+		return []
+	return mainplate.get_cards_in_order()
 
 ## Compare function for Escapement Order
 func __escapement_compare(a: Vector2i, b: Vector2i) -> bool:
@@ -203,44 +199,14 @@ func __escapement_compare(a: Vector2i, b: Vector2i) -> bool:
 		return a.y < b.y  # Top rows first
 	return a.x < b.x  # Left columns first
 
-## Place a gear (card) on the mainplate using logical position
-func place_gear(card: Card, logical_position: Vector2i) -> bool:
-	# First check if the logical position is valid
-	if not grid_mapper.is_valid_logical(logical_position):
-		push_error("Position outside active grid: " + str(logical_position))
+## Request card placement through core Mainplate
+func request_card_placement(card: Card, logical_position: Vector2i) -> bool:
+	# Delegate to core Mainplate
+	if not mainplate:
 		return false
 	
-	# Convert logical to physical position
-	var physical_pos: Vector2i = grid_mapper.to_physical(logical_position)
-	
-	if not gear_slots.has(physical_pos):
-		push_error("Invalid mainplate position: " + str(logical_position))
-		return false
-	
-	var slot: EngineSlot = gear_slots[physical_pos]
-	
-	# Double-check the slot is active
-	if not slot.get_meta("is_active", false):
-		push_error("Cannot place card in inactive slot: " + str(logical_position))
-		return false
-	
-	# Handle replacement if slot is occupied
-	if slot.__button_entity and slot.__button_entity.card:
-		var old_card: Card = slot.__button_entity.card
-		gear_replaced.emit(old_card, card, slot)
-		
-		# Handle Overbuild keyword if present
-		if card.get_meta("is_overbuild", false):
-			# Inherit timer progress from replaced gear
-			var old_progress: int = slot.get_meta("current_beats", 0) as int
-			slot.set_meta("current_beats", old_progress)
-	else:
-		gear_placed.emit(slot, card)
-	
-	# Trigger slot's card placement logic
-	GlobalSignals.core_card_slotted.emit(slot.__button_entity.instance_id)
-	
-	return true
+	# Place through core - it will emit signals that we react to
+	return mainplate.place_card(card, logical_position)
 
 ## Expand the mainplate (between combats or via effects)
 func expand_mainplate(expansion_type: String = "row") -> bool:
@@ -295,29 +261,15 @@ func remove_gear_at_physical(physical_pos: Vector2i) -> Card:
 	var logical_pos = grid_mapper.to_logical(physical_pos)
 	if logical_pos == null:
 		return null
-	return remove_gear_at_logical(logical_pos)
+	return request_card_removal(logical_pos)
 
-## Remove a gear from a slot at logical position
-func remove_gear_at_logical(logical_pos: Vector2i) -> Card:
+## Request card removal through core Mainplate
+func request_card_removal(logical_pos: Vector2i) -> Card:
 	if not mainplate:
 		return null
 	
-	# Remove from core entity
-	var card: Card = mainplate.remove_card(logical_pos)
-	if not card:
-		return null
-	
-	# Update UI slot
-	var physical_pos: Vector2i = grid_mapper.to_physical(logical_pos)
-	if gear_slots.has(physical_pos):
-		var slot: EngineSlot = gear_slots[physical_pos]
-		# Signal the slot is now empty
-		GlobalSignals.core_card_unslotted.emit(slot.__button_entity.instance_id)
-		# Reset the slot's visual state
-		assert(slot != null, "Slot must exist for reset")
-		slot.reset()
-	
-	return card
+	# Remove through core - it will emit signals that we react to
+	return mainplate.remove_card(logical_pos)
 
 ## Check if a slot can accept a card (is active and optionally empty)
 func can_accept_card_at_physical(physical_pos: Vector2i, require_empty: bool = false) -> bool:
@@ -376,3 +328,87 @@ func reset() -> void:
 	grid_mapper.reset(initial_grid_size)
 	expansions_used = 0
 	__update_slot_visuals()
+
+## Signal handlers for core events
+
+func __on_core_card_placed(card_id: String, logical_pos: Vector2i) -> void:
+	# Update visual for placed card
+	var physical_pos = grid_mapper.to_physical(logical_pos)
+	if not gear_slots.has(physical_pos):
+		return
+		
+	var slot = gear_slots[physical_pos]
+	var card = mainplate.get_card_at(logical_pos)
+	if card:
+		# Update slot visual
+		slot.__button_entity.card = card
+		GlobalSignals.core_card_slotted.emit(slot.__button_entity.instance_id)
+		
+		# Trigger bonus if applicable
+		if slot.is_bonus_square and slot.bonus_type != "":
+			__trigger_bonus_for_slot(slot)
+
+func __on_core_card_removed(card_id: String, logical_pos: Vector2i) -> void:
+	# Clear visual for removed card
+	var physical_pos = grid_mapper.to_physical(logical_pos)
+	if not gear_slots.has(physical_pos):
+		return
+		
+	var slot = gear_slots[physical_pos]
+	GlobalSignals.core_card_unslotted.emit(slot.__button_entity.instance_id)
+	slot.reset()
+
+func __on_core_card_replaced(old_card_id: String, new_card_id: String) -> void:
+	# Find the slot with the old card and update it
+	for slot in gear_slots.values():
+		if slot.__button_entity and slot.__button_entity.card and slot.__button_entity.card.instance_id == old_card_id:
+			# The core has already updated, just refresh visual
+			var logical_pos = grid_mapper.to_logical(slot.grid_position)
+			if logical_pos != null:
+				var new_card = mainplate.get_card_at(logical_pos)
+				if new_card:
+					slot.__button_entity.card = new_card
+					GlobalSignals.core_card_slotted.emit(slot.__button_entity.instance_id)
+			break
+
+func __on_core_gear_process_beat(card_id: String, context: BeatContext) -> void:
+	# Find slot with this card and update its visual progress
+	for slot in gear_slots.values():
+		if slot.__button_entity and slot.__button_entity.card and slot.__button_entity.card.instance_id == card_id:
+			# Update visual progress based on core state
+			if mainplate and mainplate.card_states.has(card_id):
+				var state = mainplate.card_states[card_id]
+				var card = slot.__button_entity.card
+				if card.production_interval > 0:
+					var interval_beats = card.production_interval * 10
+					var percent = (state.current_beats * 100.0) / interval_beats
+					slot.update_progress_display(percent, state.is_ready)
+			break
+
+func __on_core_slot_activated(card_id: String) -> void:
+	# Visual feedback for activation
+	for slot in gear_slots.values():
+		if slot.__button_entity and slot.__button_entity.card and slot.__button_entity.card.instance_id == card_id:
+			# Could add activation animation here
+			print("[UIMainplate] Card activated: ", slot.__button_entity.card.display_name)
+			break
+
+func __trigger_bonus_for_slot(slot: EngineSlot) -> void:
+	match slot.bonus_type:
+		"draw_one_card":
+			print("Bonus: Drawing 1 card!")
+			if GlobalGameManager.library:
+				GlobalGameManager.library.draw_card(1)
+				# Visual feedback
+				var tween = create_tween()
+				tween.tween_property(slot, "modulate", Color(1.5, 1.5, 0.8), 0.2)
+				tween.tween_property(slot, "modulate", Color(1.2, 1.2, 0.8), 0.3)
+		
+		"draw_two_cards":
+			print("SPECIAL Bonus: Drawing 2 cards!")
+			if GlobalGameManager.library:
+				GlobalGameManager.library.draw_card(2)
+				# Visual feedback
+				var tween = create_tween()
+				tween.tween_property(slot, "modulate", Color(1.8, 0.8, 1.8), 0.2)
+				tween.tween_property(slot, "modulate", Color(1.3, 0.9, 1.3), 0.3)

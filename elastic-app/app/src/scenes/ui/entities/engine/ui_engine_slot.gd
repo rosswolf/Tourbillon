@@ -5,10 +5,7 @@ class_name EngineSlot
 @onready var bottom_container: HBoxContainer = $MarginContainer/MainPanel/VBoxContainer/BottomBoxContainer
 
 
-# Tourbillon beat-based timing
-var production_interval_beats: int = 30  # Default 3 ticks
-var current_beats: int = 0
-var is_ready: bool = false
+# Pure UI state - no game logic
 var grid_position: Vector2i = Vector2i(-1, -1)  # Position in the grid
 var is_active_slot: bool = false  # Whether this slot is within valid grid
 var is_bonus_square: bool = false  # Whether this slot gives a bonus when played on
@@ -65,7 +62,7 @@ func destroy_card_ui():
 	
 func __on_card_slotted(target_slot_id: String):
 	if target_slot_id == __button_entity.instance_id:
-		# Don't create card UI here - only on hover
+		# Only update visual display
 		if __button_entity.card:
 			print("[EngineSlot] Card slotted: ", __button_entity.card.display_name, " at position ", grid_position)
 			%Name.text = __button_entity.card.display_name
@@ -76,12 +73,6 @@ func __on_card_slotted(target_slot_id: String):
 				inner_panel.visible = true
 				# Make the panel more opaque when a card is placed
 				inner_panel.modulate = Color(1.0, 1.0, 1.0, 1.0)  # Fully opaque
-			# Setup the card's production timing
-			setup_from_card(__button_entity.card)
-			
-			# Trigger bonus effect if this is a bonus square
-			if is_bonus_square and bonus_type != "":
-				__trigger_bonus_effect()
 		else:
 			push_warning("Card slotted signal received but no card on button entity!")
 	
@@ -90,8 +81,6 @@ func __on_card_unslotted(target_slot_id: String):
 		%Name.text = ""
 		%MainPanel.visible = false
 		%ProgressBar.value = 0
-		current_beats = 0
-		is_ready = false
 		if card_preview:
 			destroy_card_ui()
 
@@ -112,9 +101,9 @@ func pct(numerator: float, denominator: float):
 # Activation states removed - production state handled by is_ready
 
 func __on_refresh_slot_manually() -> void:
+	# Just emit signal for core to handle
 	if __button_entity.card != null:
-		# Manual activation fires the production immediately
-		__fire_production()
+		GlobalSignals.signal_core_slot_activated(__button_entity.card.instance_id)
 		if card_preview:
 			card_preview.refresh()
 		
@@ -132,152 +121,55 @@ func _on_mouse_exited() -> void:
 	if card_preview:
 		destroy_card_ui()
 
-## Handle beat processing signal from core
+## Handle beat processing signal from core - only visual updates
 func __on_gear_process_beat(card_instance_id: String, context: BeatContext) -> void:
-	# Only process if this beat is for our card
+	# Only update visuals if this is our card
 	if not __button_entity or not __button_entity.card:
 		return
 		
 	if __button_entity.card.instance_id != card_instance_id:
 		return
 		
-	# Check if we should fire (orchestrator will handle visual updates)
-	process_beat_logic(context)
-
-## Process beat logic without visual updates (orchestrator handles visuals)
-func process_beat_logic(context: BeatContext) -> void:
-	if not __button_entity or not __button_entity.card:
-		return
-	
-	# Skip processing for non-producing cards (production_interval == -1)
-	if production_interval_beats <= 0:
-		return
-	
-	# The orchestrator will handle incrementing beats and visual updates
-	# We just check if ready to fire
-	if is_ready and __can_produce():
-		# Let orchestrator handle the visual effect
-		var orchestrator = UIBeatOrchestrator.get_instance()
-		if orchestrator:
-			orchestrator.orchestrate_gear_fire(self)
-		else:
-			__fire_production()
-
-## Tourbillon beat processing - now handled by orchestrator
-func process_beat(context: BeatContext) -> void:
-	# Deprecated - orchestrator handles this now
-	process_beat_logic(context)
-
-## Setup gear from card data
-func setup_from_card(card: Card) -> void:
-	if not card:
-		return
-		
-	# Get timing from card (-1 means no production)
-	if card.production_interval > 0:
-		production_interval_beats = card.production_interval * 10  # Convert ticks to beats
-		print("[EngineSlot] Card ", card.display_name, " interval: ", card.production_interval, " ticks = ", production_interval_beats, " beats")
-	else:
-		production_interval_beats = -1  # No production
-		print("[EngineSlot] Card ", card.display_name, " has no production")
-	
-	# Reset state
-	current_beats = card.starting_progress  # Use card's starting progress if any
-	is_ready = false
-	modulate = Color.WHITE
+	# Just update visual progress - core handles logic
 	__update_progress_display()
 
-## Check if we have required forces to produce
-func __can_produce() -> bool:
-	var card = __button_entity.card
-	if not card or card.force_consumption.is_empty():
-		return true  # No requirements, always can produce
-	
-	# Check each required force
-	for force_type in card.force_consumption:
-		var required_amount = card.force_consumption[force_type]
-		# TODO: Check GlobalGameManager.hero for forces
-		# For now, return true to allow testing
-	
-	return true
 
-## Fire production effect
-func __fire_production() -> void:
-	var card = __button_entity.card
-	if not card:
-		return
-	
-	# Consume required forces
-	if GlobalGameManager.hero and not card.force_consumption.is_empty():
-		if not GlobalGameManager.hero.consume_forces(card.force_consumption):
-			# Can't consume, stay in ready state
-			return
-	
-	# Produce forces
-	if GlobalGameManager.hero and not card.force_production.is_empty():
-		GlobalGameManager.hero.add_forces(card.force_production)
-	
-	# Process on_fire effect string
-	if not card.on_fire_effect.is_empty():
-		TourbillonEffectProcessor.process_effect(card.on_fire_effect, self, null)
-	
-	# Signal that the slot was activated (for stats tracking)
-	GlobalSignals.signal_core_slot_activated(card.instance_id)
-	
-	# Reset timer
-	__exit_ready_state()
-	current_beats = 0
-	__update_progress_display()
 
-## Enter ready state (waiting for resources)
-func __enter_ready_state() -> void:
-	is_ready = true
-	# Visual feedback for ready state
-	modulate = Color(1.1, 1.2, 1.1)  # Slight green glow
-	__update_progress_display()  # Update to show green progress bar
 
-## Exit ready state  
-func __exit_ready_state() -> void:
-	is_ready = false
-	# Reset visual
-	modulate = Color.WHITE
-	__update_progress_display()  # Update to show white progress bar
 
-## Update the progress bar display
-func __update_progress_display() -> void:
+## Update the progress bar display based on external data
+func update_progress_display(percent: float, is_ready: bool = false) -> void:
 	if not %ProgressBar:
 		push_error("[EngineSlot] No ProgressBar node found!")
 		return
 		
-	if production_interval_beats > 0:
-		%ProgressBar.visible = true
-		var target_value = pct(current_beats, production_interval_beats)
-		print("[EngineSlot] Progress update: ", current_beats, "/", production_interval_beats, " = ", target_value, "%")
-		
-		# Make progress bar more visible
-		%ProgressBar.self_modulate = Color.WHITE  # Ensure base color is white
-		%ProgressBar.z_index = 10  # Bring to front
-		
-		# Animate the progress bar smoothly
-		var tween = create_tween()
-		tween.tween_property(%ProgressBar, "value", target_value, 0.2)  # Smooth 0.2s animation
-		
-		# Color code the progress bar with stronger colors
-		if is_ready:
-			%ProgressBar.modulate = Color(0.0, 1.0, 0.0, 1.0)  # Bright green when ready
-		else:
-			%ProgressBar.modulate = Color(1.0, 1.0, 0.0, 1.0)  # Yellow when charging
+	%ProgressBar.visible = true
+	
+	# Make progress bar more visible
+	%ProgressBar.self_modulate = Color.WHITE
+	%ProgressBar.z_index = 10
+	
+	# Animate smoothly
+	var tween = create_tween()
+	tween.tween_property(%ProgressBar, "value", percent, 0.2)
+	
+	# Color code based on state
+	if is_ready:
+		%ProgressBar.modulate = Color(0.0, 1.0, 0.0, 1.0)  # Green
 	else:
-		# -1 or invalid value - hide progress bar for non-producing cards
-		%ProgressBar.value = 0
-		%ProgressBar.visible = false
+		%ProgressBar.modulate = Color(1.0, 1.0, 0.0, 1.0)  # Yellow
 
-## Reset state for new gear
+func __update_progress_display() -> void:
+	# Placeholder for compatibility
+	pass
+
+## Reset visual state
 func reset() -> void:
-	current_beats = 0
-	is_ready = false
-	__update_progress_display()
+	%ProgressBar.value = 0
+	%ProgressBar.visible = false
 	modulate = Color.WHITE
+	%Name.text = ""
+	%MainPanel.visible = false
 
 ## Set the grid position for this slot
 func set_grid_position(pos: Vector2i) -> void:
@@ -315,27 +207,3 @@ func set_as_bonus_square(type: String = "draw_one_card") -> void:
 	# For now, we'll rely on the border and background color differences
 	# set in UIMainplate's __set_slot_active method
 
-## Trigger the bonus effect
-func __trigger_bonus_effect() -> void:
-	match bonus_type:
-		"draw_one_card":
-			print("Bonus: Drawing 1 card!")
-			if GlobalGameManager.library:
-				GlobalGameManager.library.draw_card(1)
-				
-				# Visual feedback - yellow flash
-				var tween = create_tween()
-				tween.tween_property(self, "modulate", Color(1.5, 1.5, 0.8), 0.2)
-				tween.tween_property(self, "modulate", Color(1.2, 1.2, 0.8), 0.3)
-		
-		"draw_two_cards":
-			print("SPECIAL Bonus: Drawing 2 cards!")
-			if GlobalGameManager.library:
-				GlobalGameManager.library.draw_card(2)
-				
-				# Visual feedback - purple flash
-				var tween = create_tween()
-				tween.tween_property(self, "modulate", Color(1.8, 0.8, 1.8), 0.2)
-				tween.tween_property(self, "modulate", Color(1.3, 0.9, 1.3), 0.3)
-		_:
-			pass

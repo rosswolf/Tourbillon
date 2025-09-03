@@ -4,6 +4,16 @@ class_name Mainplate
 ## Core entity representing the Tourbillon mainplate (gear grid)
 ## Manages the logical grid state and slot positions
 
+## Inner class to track card state
+class CardState:
+	var current_beats: int = 0
+	var is_ready: bool = false
+	var card_ref: Card
+	
+	func _init(card: Card):
+		card_ref = card
+		current_beats = card.starting_progress if card.has_meta("starting_progress") else 0
+
 static func _get_type_string():
 	return "Mainplate"
 
@@ -13,6 +23,7 @@ func _get_type() -> Entity.EntityType:
 var grid_size: Vector2i = Vector2i(4, 4)  # Current active grid size
 var max_grid_size: Vector2i = Vector2i(8, 8)  # Maximum possible size
 var slots: Dictionary = {}  # Position -> Card mapping
+var card_states: Dictionary = {}  # Card instance_id -> CardState mapping
 var expansions_used: int = 0
 var max_expansions: int = 4
 
@@ -44,9 +55,22 @@ func place_card(card: Card, pos: Vector2i) -> bool:
 	# Handle replacement if needed
 	if has_card_at(pos):
 		var old_card = slots[pos]
+		# Transfer state from old card if Overbuild
+		if card.tags.has("Overbuild") and card_states.has(old_card.instance_id):
+			var old_state = card_states[old_card.instance_id]
+			card_states[card.instance_id] = old_state
+			card_states.erase(old_card.instance_id)
+		else:
+			# Initialize new card state
+			card_states[card.instance_id] = CardState.new(card)
 		GlobalSignals.signal_core_card_replaced(old_card.instance_id, card.instance_id)
+	else:
+		# Initialize card state for new placement
+		card_states[card.instance_id] = CardState.new(card)
 	
 	slots[pos] = card
+	# Signal placement for UI
+	GlobalSignals.signal_core_card_placed(card.instance_id, pos)
 	return true
 
 ## Remove card from position
@@ -56,6 +80,11 @@ func remove_card(pos: Vector2i) -> Card:
 	
 	var card = slots[pos]
 	slots.erase(pos)
+	# Clean up card state
+	if card_states.has(card.instance_id):
+		card_states.erase(card.instance_id)
+	# Signal removal for UI
+	GlobalSignals.signal_core_card_removed(card.instance_id, pos)
 	return card
 
 ## Expand the grid
@@ -101,20 +130,32 @@ func expand_grid(direction: String) -> bool:
 func get_cards_in_order() -> Array[Card]:
 	var cards: Array[Card] = []
 	
-	for y in range(grid_size.y):
-		for x in range(grid_size.x):
-			var pos = Vector2i(x, y)
-			if has_card_at(pos):
-				cards.append(get_card_at(pos))
+	for pos in __get_positions_in_order():
+		if has_card_at(pos):
+			cards.append(get_card_at(pos))
 	
 	return cards
+
+## Get all positions in Escapement Order
+func __get_positions_in_order() -> Array[Vector2i]:
+	var positions: Array[Vector2i] = []
+	
+	for y in range(grid_size.y):
+		for x in range(grid_size.x):
+			positions.append(Vector2i(x, y))
+	
+	return positions
 
 ## Process all gears for a beat
 func process_beat(context: BeatContext) -> void:
 	# Process each card in Escapement Order
-	for card in get_cards_in_order():
-		if card:
-			# Signal that this card should process its beat
+	for pos in __get_positions_in_order():
+		if has_card_at(pos):
+			var card = get_card_at(pos)
+			# Check if card should activate on this beat
+			if __should_card_activate(card, pos, context):
+				__activate_card(card, pos, context)
+			# Always signal for UI updates
 			GlobalSignals.signal_core_gear_process_beat(card.instance_id, context)
 
 ## Count cards with a specific tag
@@ -149,6 +190,56 @@ func is_isolated(pos: Vector2i) -> bool:
 		if has_card_at(adj_pos):
 			return false
 	return true
+
+## Check if card should activate on this beat
+func __should_card_activate(card: Card, pos: Vector2i, context: BeatContext) -> bool:
+	if not card_states.has(card.instance_id):
+		return false
+		
+	var state = card_states[card.instance_id]
+	
+	# Non-producing cards don't activate
+	if card.production_interval <= 0:
+		return false
+	
+	# Increment beat counter
+	state.current_beats += 1
+	
+	# Check if ready to activate
+	var interval_in_beats = card.production_interval * 10  # Convert ticks to beats
+	if state.current_beats >= interval_in_beats:
+		# Check force requirements
+		if GlobalGameManager.hero and not card.force_consumption.is_empty():
+			return GlobalGameManager.hero.has_forces(card.force_consumption)
+		return true
+	
+	return false
+
+## Activate a card's effect
+func __activate_card(card: Card, pos: Vector2i, context: BeatContext) -> void:
+	if not card_states.has(card.instance_id):
+		return
+		
+	var state = card_states[card.instance_id]
+	
+	# Consume forces
+	if GlobalGameManager.hero and not card.force_consumption.is_empty():
+		if not GlobalGameManager.hero.consume_forces(card.force_consumption):
+			return  # Can't consume, stay ready
+	
+	# Produce forces
+	if GlobalGameManager.hero and not card.force_production.is_empty():
+		GlobalGameManager.hero.add_forces(card.force_production)
+	
+	# Process effect
+	if not card.on_fire_effect.is_empty():
+		TourbillonEffectProcessor.process_effect(card.on_fire_effect, self, null)
+	
+	# Signal activation for stats/UI
+	GlobalSignals.signal_core_slot_activated(card.instance_id)
+	
+	# Reset timer
+	state.current_beats = 0
 
 class MainplateBuilder extends Entity.EntityBuilder:
 	var __grid_size: Vector2i = Vector2i(4, 4)
