@@ -220,24 +220,9 @@ static func build_new_card_from_template(card_template_id: String, card_template
 	if card_template_id != card_template_data.get("card_template_id"):
 		assert(false, "card template id doesn't match as expected: " + card_template_id +  " " + str(card_template_data.get("card_template_id")))
 	
-	# Convert string rarity to enum
-	var rarity_str: String = card_template_data.get("card_rarity", "UNKNOWN")
-	var rarity: Card.RarityType = Card.RarityType.UNKNOWN
-	
-	# Map string to enum value
-	match rarity_str.to_upper():
-		"STARTING":
-			rarity = Card.RarityType.STARTING
-		"COMMON":
-			rarity = Card.RarityType.COMMON
-		"UNCOMMON":
-			rarity = Card.RarityType.UNCOMMON
-		"RARE":
-			rarity = Card.RarityType.RARE
-		"DEFAULT":
-			rarity = Card.RarityType.DEFAULT
-		_:
-			rarity = Card.RarityType.UNKNOWN
+	# Use StaticData's parse_enum to convert the string reference to enum value
+	var rarity_str: String = card_template_data.get("card_rarity", "Card.RarityType.UNKNOWN")
+	var rarity: Card.RarityType = StaticData.parse_enum(rarity_str)
 	
 	var builder: CardBuilder = CardBuilder.new()
 	builder.with_template_id(card_template_id)
@@ -255,18 +240,51 @@ static func build_new_card_from_template(card_template_id: String, card_template
 	
 	builder.with_durability(int(card_template_data.get("durability_max", 1)))
 	builder.with_card_cost(card_template_data.get("card_cost"))
-	builder.with_rules_text(card_template_data.get("rules_text",""))
+	
+	# Handle rules_text - might be a dictionary from JSON parsing
+	var rules_text_data = card_template_data.get("rules_text", "")
+	if rules_text_data is Dictionary:
+		# Convert dictionary back to string format
+		var text_parts = []
+		for key in rules_text_data:
+			text_parts.append(key + ": " + str(rules_text_data[key]))
+		builder.with_rules_text("; ".join(text_parts))
+	elif rules_text_data is String:
+		builder.with_rules_text(rules_text_data)
+	else:
+		builder.with_rules_text("")
 	
 	# Load Tourbillon-specific fields
 	var card = builder.build()
-	card.time_cost = card_template_data.get("time_cost", 2)
-	card.production_interval = card_template_data.get("production_interval", 3)
-	card.starting_progress = card_template_data.get("starting_progress", 0)
+	card.time_cost = int(card_template_data.get("time_cost", 2))
+	card.production_interval = int(card_template_data.get("production_interval", 3))
+	card.starting_progress = int(card_template_data.get("starting_progress", 0))
 	card.force_production = card_template_data.get("force_production", {})
 	card.force_consumption = card_template_data.get("force_consumption", {})
 	card.force_cost = card_template_data.get("force_cost", {})
-	card.tags = card_template_data.get("tags", [])
-	card.keywords = card_template_data.get("keywords", [])
+	
+	# Handle tags - could be array or comma-separated string
+	var tags_data = card_template_data.get("tags", [])
+	if tags_data is String:
+		card.tags = tags_data.split(",")
+		# Trim whitespace from each tag
+		for i in range(card.tags.size()):
+			card.tags[i] = card.tags[i].strip_edges()
+	elif tags_data is Array:
+		card.tags = tags_data
+	else:
+		card.tags = []
+	
+	# Handle keywords similarly
+	var keywords_data = card_template_data.get("keywords", [])
+	if keywords_data is String and not keywords_data.is_empty():
+		card.keywords = keywords_data.split(",")
+		for i in range(card.keywords.size()):
+			card.keywords[i] = card.keywords[i].strip_edges()
+	elif keywords_data is Array:
+		card.keywords = keywords_data
+	else:
+		card.keywords = []
 	
 	# Load effect strings
 	card.on_play_effect = card_template_data.get("on_play_effect", "")

@@ -448,6 +448,128 @@ class PublicSheetsToJsonExporter:
             print(f"Error writing to file: {e}")
             raise
     
+    def convert_tourbillon_cards_OLD(self, data):
+        """
+        Convert Tourbillon card spreadsheet data to proper JSON format.
+        Maps the Tourbillon spreadsheet columns to Card entity fields.
+        
+        Args:
+            data (list): Raw spreadsheet data
+            
+        Returns:
+            dict: Dictionary of cards keyed by card_template_id
+        """
+        if not data or len(data) < 2:
+            return {}
+        
+        result = {}
+        headers = data[0]
+        
+        # Map Tourbillon headers to card fields
+        header_map = {
+            'ID': 'card_template_id',
+            'Cost': 'time_cost',
+            'Name': 'display_name',
+            'Tags': 'tags',
+            'Text': 'rules_text',
+            'Category': 'card_rarity',
+            'Ticks': 'production_interval',
+            'Basic Actions': 'basic_actions'
+        }
+        
+        # Find column indices
+        col_indices = {}
+        for i, header in enumerate(headers):
+            if header in header_map:
+                col_indices[header_map[header]] = i
+        
+        # Process each row
+        for row_idx, row in enumerate(data[1:], start=1):
+            if not row or not any(row):  # Skip empty rows
+                continue
+            
+            # Get the card ID
+            card_id = row[col_indices.get('card_template_id', 0)] if col_indices.get('card_template_id', 0) < len(row) else None
+            if not card_id:
+                continue
+            
+            card_data = {
+                'card_template_id': card_id,
+                'group_template_id': 'tourbillon'  # All Tourbillon cards share this
+            }
+            
+            # Map basic fields
+            for field, idx in col_indices.items():
+                if idx < len(row) and row[idx]:
+                    value = row[idx].strip()
+                    
+                    # Handle specific field conversions
+                    if field == 'time_cost':
+                        try:
+                            card_data[field] = int(value)
+                        except:
+                            card_data[field] = 2  # Default
+                    elif field == 'production_interval':
+                        try:
+                            card_data[field] = int(value)
+                        except:
+                            card_data[field] = 3  # Default
+                    elif field == 'tags':
+                        # Split tags by comma
+                        card_data[field] = [t.strip() for t in value.split(',') if t.strip()]
+                    elif field == 'card_rarity':
+                        # Map category to rarity enum
+                        rarity_map = {
+                            'starter': 'Card.RarityType.STARTING',
+                            'common': 'Card.RarityType.COMMON',
+                            'uncommon': 'Card.RarityType.UNCOMMON',
+                            'rare': 'Card.RarityType.RARE',
+                            'default': 'Card.RarityType.DEFAULT'
+                        }
+                        card_data[field] = rarity_map.get(value.lower(), 'Card.RarityType.COMMON')
+                    elif field == 'basic_actions':
+                        # Parse basic actions into force production/consumption
+                        # Format: "draw=1" or "heat=2" or "consume:precision=3,produce:momentum=2"
+                        force_production = {}
+                        force_consumption = {}
+                        
+                        for action in value.split(','):
+                            action = action.strip()
+                            if '=' in action:
+                                if ':' in action:
+                                    action_type, rest = action.split(':', 1)
+                                    key, val = rest.split('=')
+                                    if action_type == 'produce':
+                                        force_production[f"GameResource.Type.{key.upper()}"] = int(val)
+                                    elif action_type == 'consume':
+                                        force_consumption[f"GameResource.Type.{key.upper()}"] = int(val)
+                                else:
+                                    # Simple format like "heat=2" means production
+                                    key, val = action.split('=')
+                                    if key.lower() == 'draw':
+                                        card_data['on_fire_effect'] = f"draw={val}"
+                                    else:
+                                        force_production[f"GameResource.Type.{key.upper()}"] = int(val)
+                        
+                        if force_production:
+                            card_data['force_production'] = force_production
+                        if force_consumption:
+                            card_data['force_consumption'] = force_consumption
+                    else:
+                        card_data[field] = value
+            
+            # Add default values for missing fields
+            card_data.setdefault('durability_max', 3)
+            card_data.setdefault('starting_progress', 0)
+            card_data.setdefault('keywords', [])
+            card_data.setdefault('force_production', {})
+            card_data.setdefault('force_consumption', {})
+            card_data.setdefault('force_cost', {})
+            
+            result[card_id] = card_data
+        
+        return result
+    
     def export_sheet_to_json(self, spreadsheet_id, output_file, gid=0):
         """
         Complete workflow: get data from public sheet and export to JSON file.
@@ -462,6 +584,8 @@ class PublicSheetsToJsonExporter:
         data = self.get_public_sheet_data(spreadsheet_id, gid)
         
         print("Converting to JSON format...")
+        
+        # Just use standard converter for everything
         json_data = self.convert_to_json(data)
         
         print(f"Exporting to {output_file}...")
@@ -539,7 +663,8 @@ def main():
     # Hardcoded mapping of spreadsheet IDs to output filenames
     # Each entry represents one complete Google Sheets document (always reads GID 0)
     sheets_to_export = {
-        "1VayKOODhGrxUEf0MdBXALYNtBA2Wv6c1hCr-FO1Xo6M": "card_data.json",
+        # Tourbillon card spreadsheet (new format)
+        "1zoNrBnX2od6nrTL3G4wS_QMYig69laRn0XYH-KOUqTk": "card_data.json",
         # Add more spreadsheet IDs here:
         "1TlOn39AXlw0y2tlkE4kvIpvoZ9SpNQTkDGgOptvqSgM": "mob_data.json",
         "1vqf7i3FQPI4C9p0ME3kDnCa9u6fGjIg7Z1loQryfIz0": "configuration_data.json",

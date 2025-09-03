@@ -1,485 +1,5626 @@
 [
   {
-    "card_template_id": "card_shop_card",
-    "group_template_id": "knight",
-    "card_count": 1,
-    "display_name": "innovate",
-    "rules_text": "buy a card",
-    "cursor_image_uid": "bqvm4vgi4c0dn",
-    "durability_max": 5,
-    "card_cost": {
-      "GameResource.Type.PURPLE_ENERGY": "2"
+    "card_template_id": "starter_chronometer",
+    "time_cost": 2,
+    "display_name": "Basic Chronometer",
+    "tags": "TOOL,SPARK",
+    "rules_text": {
+      "Every 4 Ticks": "Draw 1 card"
     },
-    "instinct_effect": "shop=card",
-    "card_rarity": "Card.RarityType.STARTING"
+    "card_rarity": "Card.RarityType.STARTING",
+    "production_interval": 4,
+    "starting_progress": 0,
+    "on_fire_effect": "draw=1",
+    "group_template_id": "tourbillon",
+    "durability_max": 3
   },
   {
-    "card_template_id": "card_shop_slot",
-    "group_template_id": "knight",
-    "card_count": 1,
-    "display_name": "curious",
-    "rules_text": "buy a tool",
-    "cursor_image_uid": "bqvm4vgi4c0dn",
-    "durability_max": 2,
-    "card_cost": {
-      "GameResource.Type.GREEN_ENERGY": "2"
+    "card_template_id": "starter_red_gen",
+    "time_cost": 3,
+    "display_name": "Red Sparkstone",
+    "tags": "STONE,SPARK",
+    "rules_text": {
+      "Every 3 Ticks": "Produce 2.5 Red"
     },
-    "instinct_effect": "shop=slot",
-    "card_rarity": "Card.RarityType.STARTING"
+    "card_rarity": "Card.RarityType.STARTING",
+    "production_interval": 3,
+    "force_production": {
+      "GameResource.Type.GENERATE_RED": "2.5"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
   },
   {
-    "card_template_id": "card_10s_all",
-    "group_template_id": "knight",
-    "card_count": 1,
-    "display_name": "burst",
-    "rules_text": "replenish all colors, draw 3 cards",
-    "cursor_image_uid": "bqvm4vgi4c0dn",
-    "durability_max": 3,
-    "card_cost": {
-      "GameResource.Type.NONE": "0"
+    "card_template_id": "starter_blue_gen",
+    "time_cost": 3,
+    "display_name": "Blue Crystal",
+    "tags": "CRYSTAL",
+    "rules_text": {
+      "Every 3 Ticks": "Produce 2 Blue"
     },
-    "instinct_effect": "add_purple_time=5, add_blue_time=5, add_green_time=5, draw_card=3",
-    "card_rarity": "Card.RarityType.STARTING"
+    "card_rarity": "Card.RarityType.STARTING",
+    "production_interval": 3,
+    "force_production": {
+      "GameResource.Type.GENERATE_BLUE": "2"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
   },
   {
-    "card_template_id": "slot_click_to_draw",
-    "group_template_id": "knight",
-    "card_count": 1,
-    "display_name": "determination",
-    "rules_text": "draw a card",
-    "cursor_image_uid": "bqvm4vgi4c0dn",
-    "durability_max": 10,
-    "card_cost": {
-      "GameResource.Type.BLUE_ENERGY": "2"
+    "card_template_id": "starter_green_gen",
+    "time_cost": 3,
+    "display_name": "Green Motor",
+    "tags": "MECH",
+    "rules_text": {
+      "Every 3 Ticks": "Produce 2 Green"
     },
-    "slot_effect": "draw_card=1,cooldown=10",
-    "card_rarity": "Card.RarityType.STARTING"
+    "card_rarity": "Card.RarityType.STARTING",
+    "production_interval": 3,
+    "force_production": {
+      "GameResource.Type.GENERATE_GREEN": "2"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
   },
   {
-    "card_template_id": "card_purple_time",
-    "group_template_id": "knight",
-    "card_count": 1,
-    "display_name": "flip",
-    "rules_text": "vent purple time, draw 1 card",
-    "cursor_image_uid": "bqvm4vgi4c0dn",
-    "card_cost": {
-      "GameResource.Type.BLUE_ENERGY": "1"
+    "card_template_id": "starter_white_gen",
+    "time_cost": 3,
+    "display_name": "White Foundation",
+    "tags": "STONE",
+    "rules_text": {
+      "Every 3 Ticks": "Produce 2 White"
     },
-    "instinct_effect": "remove_purple_time=5, draw_card=1",
-    "card_rarity": "Card.RarityType.STARTING"
+    "card_rarity": "Card.RarityType.STARTING",
+    "production_interval": 3,
+    "force_production": {
+      "GameResource.Type.GENERATE_WHITE": "2"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
   },
   {
-    "card_template_id": "card_blue_time",
-    "group_template_id": "knight",
-    "card_count": 1,
-    "display_name": "curl",
-    "rules_text": "vent blue time, draw 1 card",
-    "cursor_image_uid": "bqvm4vgi4c0dn",
-    "card_cost": {
-      "GameResource.Type.GREEN_ENERGY": "1"
+    "card_template_id": "starter_black_gen",
+    "time_cost": 3,
+    "display_name": "Black Dust",
+    "tags": "DUST",
+    "rules_text": {
+      "Every 3 Ticks": "Produce 1.5 Black"
     },
-    "instinct_effect": "remove_blue_time=5, draw_card=1",
-    "card_rarity": "Card.RarityType.STARTING"
+    "card_rarity": "Card.RarityType.STARTING",
+    "production_interval": 3,
+    "force_production": {
+      "GameResource.Type.GENERATE_BLACK": "1.5"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
   },
   {
-    "card_template_id": "card_green_time",
-    "group_template_id": "knight",
-    "card_count": 1,
-    "display_name": "twist",
-    "rules_text": "vent green time, draw 1 card",
-    "cursor_image_uid": "bqvm4vgi4c0dn",
-    "card_cost": {
-      "GameResource.Type.PURPLE_ENERGY": "1"
+    "card_template_id": "starter_heat_conv",
+    "time_cost": 4,
+    "display_name": "Basic Heat Forge",
+    "tags": "FORGE",
+    "rules_text": {
+      "Every 4 Ticks": "Consume 1 Red + 1 Blue â Produce 1 HEAT"
     },
-    "instinct_effect": "remove_green_time=5, draw_card=1",
-    "card_rarity": "Card.RarityType.STARTING"
+    "card_rarity": "Card.RarityType.STARTING",
+    "production_interval": 4,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
   },
   {
-    "card_template_id": "card_energy_choice",
-    "group_template_id": "knight",
-    "card_count": 1,
-    "display_name": "decide",
-    "rules_text": "pick an energy card",
-    "cursor_image_uid": "bqvm4vgi4c0dn",
-    "durability_max": 2,
-    "card_cost": {
-      "GameResource.Type.NONE": "0"
+    "card_template_id": "starter_momentum_conv",
+    "time_cost": 4,
+    "display_name": "Basic Momentum Engine",
+    "tags": "MECH",
+    "rules_text": {
+      "Every 4 Ticks": "Consume 1 Red + 1 Green â Produce 1 MOMENTUM"
     },
-    "instinct_effect": "shop=STARTER_ENERGY",
-    "card_rarity": "Card.RarityType.STARTING"
+    "card_rarity": "Card.RarityType.STARTING",
+    "production_interval": 4,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
   },
   {
-    "card_template_id": "slot_click_to_replenish",
-    "group_template_id": "knight",
-    "card_count": 1,
-    "display_name": "cyan",
-    "rules_text": "vent all colors",
-    "cursor_image_uid": "bqvm4vgi4c0dn",
-    "durability_max": 10,
-    "card_cost": {
-      "GameResource.Type.BLUE_ENERGY": "1"
-    },
-    "slot_effect": "remove_purple_time=10, remove_blue_time=10, remove_green_time=10, cooldown=30",
-    "card_rarity": "Card.RarityType.STARTING"
+    "card_template_id": "starter_adaptive",
+    "time_cost": 3,
+    "display_name": "Adaptive Strike",
+    "tags": "CHAOS",
+    "rules_text": "Consume 3 Largest â Deal 2 damage",
+    "card_rarity": "Card.RarityType.STARTING",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
   },
   {
-    "card_template_id": "card_add_gold",
-    "group_template_id": "knight",
-    "card_count": 1,
-    "display_name": "glimmer",
-    "rules_text": "add gold",
-    "cursor_image_uid": "bqvm4vgi4c0dn",
-    "durability_max": 10,
-    "card_cost": {
-      "GameResource.Type.BLUE_ENERGY": "1"
-    },
-    "instinct_effect": "add_gold=20",
-    "card_rarity": "Card.RarityType.STARTING"
+    "card_template_id": "starter_emergency",
+    "time_cost": 2,
+    "display_name": "Emergency Burn",
+    "tags": "SPARK",
+    "rules_text": "Consume 4 Largest â Deal 2 damage",
+    "card_rarity": "Card.RarityType.STARTING",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
   },
   {
-    "card_template_id": "slot_add_gold",
-    "group_template_id": "knight",
-    "card_count": 1,
-    "display_name": "chance",
-    "rules_text": "add gold",
-    "cursor_image_uid": "bqvm4vgi4c0dn",
-    "durability_max": 1,
-    "card_cost": {
-      "GameResource.Type.GREEN_ENERGY": "1"
-    },
-    "slot_effect": "add_gold=5, cooldown=20",
-    "card_rarity": "Card.RarityType.STARTING"
+    "card_template_id": "starter_balanced",
+    "time_cost": 4,
+    "display_name": "Balanced Attack",
+    "tags": "ORDER",
+    "rules_text": "Consume 3 Smallest â Deal 2 damage",
+    "card_rarity": "Card.RarityType.STARTING",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
   },
   {
-    "card_template_id": "card_purple_time_2",
-    "group_template_id": "knight",
-    "card_count": 1,
-    "display_name": "tumble",
-    "rules_text": "replenish purple time, draw 1 card",
-    "cursor_image_uid": "bqvm4vgi4c0dn",
-    "durability_max": 3,
-    "card_cost": {
-      "GameResource.Type.GREEN_ENERGY": "1"
+    "card_template_id": "starter_heat_blast",
+    "time_cost": 2,
+    "display_name": "Heat Blast",
+    "tags": "SPARK",
+    "rules_text": {
+      "MOMENTARY": "Consume 2 HEAT â Deal 4 damage"
     },
-    "slot_effect": "add_purple_time=5, draw_card=1, cooldown=20",
-    "card_rarity": "Card.RarityType.STARTING"
+    "card_rarity": "Card.RarityType.STARTING",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
   },
   {
-    "card_template_id": "card_blue_time_2",
-    "group_template_id": "knight",
-    "card_count": 1,
-    "display_name": "roil",
-    "rules_text": "replenish blue time, draw 1 card",
-    "cursor_image_uid": "bqvm4vgi4c0dn",
-    "durability_max": 3,
-    "card_cost": {
-      "GameResource.Type.PURPLE_ENERGY": "1"
-    },
-    "slot_effect": "add_blue_time=5, draw_card=1, cooldown=20",
-    "card_rarity": "Card.RarityType.STARTING"
+    "card_template_id": "starter_flex_draw",
+    "time_cost": 3,
+    "display_name": "Flexible Draw",
+    "tags": "TOOL",
+    "rules_text": "Consume 3 Largest â Draw 1 card",
+    "card_rarity": "Card.RarityType.STARTING",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "on_fire_effect": "pay_largest=3,draw=1",
+    "group_template_id": "tourbillon",
+    "durability_max": 3
   },
   {
-    "card_template_id": "card_green_time_2",
-    "group_template_id": "knight",
-    "card_count": 1,
-    "display_name": "dip",
-    "rules_text": "replenish green time, draw 1 card",
-    "cursor_image_uid": "bqvm4vgi4c0dn",
-    "durability_max": 3,
-    "card_cost": {
-      "GameResource.Type.BLUE_ENERGY": "1"
+    "card_template_id": "red_gen_basic_1",
+    "time_cost": 3,
+    "display_name": "Red Furnace",
+    "tags": "STONE",
+    "rules_text": {
+      "Every 3 Ticks": "Produce 2.5 Red"
     },
-    "slot_effect": "add_green_time=5, draw_card=1, cooldown=20",
-    "card_rarity": "Card.RarityType.STARTING"
-  },
-  {
-    "card_template_id": "green_draw_2",
-    "group_template_id": "knight",
-    "card_count": 2,
-    "display_name": "shine",
-    "rules_text": "draw 2 cards",
-    "cursor_image_uid": "bqvm4vgi4c0dn",
-    "card_cost": {
-      "GameResource.Type.GREEN_ENERGY": "1"
-    },
-    "instinct_effect": "draw_card=2",
-    "card_rarity": "Card.RarityType.COMMON"
-  },
-  {
-    "card_template_id": "card_add_energy_green",
-    "group_template_id": "knight",
-    "card_count": 2,
-    "display_name": "grow",
-    "rules_text": "green energy capacity +",
-    "cursor_image_uid": "bqvm4vgi4c0dn",
-    "durability_max": 1,
-    "card_cost": {
-      "GameResource.Type.GREEN_ENERGY": "0"
-    },
-    "instinct_effect": "add_max_green_energy=2",
     "card_rarity": "Card.RarityType.COMMON",
-    "tags": "STARTER_ENERGY"
+    "production_interval": 3,
+    "force_production": {
+      "GameResource.Type.GENERATE_RED": "2.5"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
   },
   {
-    "card_template_id": "card_add_energy_purple",
-    "group_template_id": "knight",
-    "card_count": 2,
-    "display_name": "bloom",
-    "rules_text": "purple energy capacity +",
-    "cursor_image_uid": "bqvm4vgi4c0dn",
-    "durability_max": 1,
-    "card_cost": {
-      "GameResource.Type.PURPLE_ENERGY": "0"
+    "card_template_id": "red_gen_basic_2",
+    "time_cost": 2,
+    "display_name": "Quick Spark",
+    "tags": "SPARK",
+    "rules_text": {
+      "Every 2 Ticks": "Produce 1.5 Red"
     },
-    "instinct_effect": "add_max_purple_energy=2",
     "card_rarity": "Card.RarityType.COMMON",
-    "tags": "STARTER_ENERGY"
+    "production_interval": 2,
+    "force_production": {
+      "GameResource.Type.GENERATE_RED": "1.5"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
   },
   {
-    "card_template_id": "card_add_energy_blue",
-    "group_template_id": "knight",
-    "card_count": 2,
-    "display_name": "expand",
-    "rules_text": "blue energy capacity +",
-    "cursor_image_uid": "bqvm4vgi4c0dn",
-    "durability_max": 1,
-    "card_cost": {
-      "GameResource.Type.BLUE_ENERGY": "0"
+    "card_template_id": "red_gen_basic_3",
+    "time_cost": 4,
+    "display_name": "Steady Flame",
+    "tags": "STONE,ORDER",
+    "rules_text": {
+      "Every 4 Ticks": "Produce 3 Red"
     },
-    "instinct_effect": "add_max_blue_energy=2",
     "card_rarity": "Card.RarityType.COMMON",
-    "tags": "STARTER_ENERGY"
+    "production_interval": 4,
+    "force_production": {
+      "GameResource.Type.GENERATE_RED": "3"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
   },
   {
-    "card_template_id": "card_shop_card_2",
-    "group_template_id": "knight",
-    "card_count": 1,
-    "display_name": "innovate",
-    "rules_text": "buy a card",
-    "cursor_image_uid": "bqvm4vgi4c0dn",
-    "durability_max": 5,
-    "card_cost": {
-      "GameResource.Type.PURPLE_ENERGY": "2"
+    "card_template_id": "red_gen_basic_4",
+    "time_cost": 5,
+    "display_name": "Blast Furnace",
+    "tags": "TITAN,STONE",
+    "rules_text": {
+      "Every 5 Ticks": "Produce 4.5 Red"
     },
-    "instinct_effect": "shop=card",
-    "card_rarity": "Card.RarityType.COMMON"
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 5,
+    "force_production": {
+      "GameResource.Type.GENERATE_RED": "4.5"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
   },
   {
-    "card_template_id": "card_shop_slot_2",
-    "group_template_id": "knight",
-    "card_count": 1,
-    "display_name": "curious",
-    "rules_text": "buy a tool",
-    "cursor_image_uid": "bqvm4vgi4c0dn",
-    "durability_max": 2,
-    "card_cost": {
-      "GameResource.Type.GREEN_ENERGY": "2"
+    "card_template_id": "red_gen_basic_5",
+    "time_cost": 1,
+    "display_name": "Micro Spark",
+    "tags": "SPARK,MICRO",
+    "rules_text": {
+      "Every 2 Ticks": "Produce 1 Red"
     },
-    "instinct_effect": "shop=slot",
-    "card_rarity": "Card.RarityType.COMMON"
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 2,
+    "force_production": {
+      "GameResource.Type.GENERATE_RED": "1"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
   },
   {
-    "card_template_id": "card_10s_all_2",
-    "group_template_id": "knight",
-    "card_count": 1,
-    "display_name": "burst",
-    "rules_text": "replenish all colors, draw 3 cards",
-    "cursor_image_uid": "bqvm4vgi4c0dn",
-    "durability_max": 3,
-    "card_cost": {
-      "GameResource.Type.NONE": "0"
+    "card_template_id": "red_gen_basic_6",
+    "time_cost": 6,
+    "display_name": "Magma Core",
+    "tags": "TITAN,CHAOS",
+    "rules_text": {
+      "Every 6 Ticks": "Produce 5 Red"
     },
-    "instinct_effect": "add_purple_time=5, add_blue_time=5, add_green_time=5, draw_card=3",
-    "card_rarity": "Card.RarityType.COMMON"
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 6,
+    "force_production": {
+      "GameResource.Type.GENERATE_RED": "5"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
   },
   {
-    "card_template_id": "slot_click_to_draw_2",
-    "group_template_id": "knight",
-    "card_count": 1,
-    "display_name": "determination",
-    "rules_text": "draw a card",
-    "cursor_image_uid": "bqvm4vgi4c0dn",
-    "durability_max": 10,
-    "card_cost": {
-      "GameResource.Type.BLUE_ENERGY": "2"
+    "card_template_id": "red_gen_basic_7",
+    "time_cost": 3,
+    "display_name": "Ember Engine",
+    "tags": "MECH",
+    "rules_text": {
+      "Every 3 Ticks": "Produce 2 Red"
     },
-    "slot_effect": "draw_card=1,cooldown=10",
-    "card_rarity": "Card.RarityType.COMMON"
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "force_production": {
+      "GameResource.Type.GENERATE_RED": "2"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
   },
   {
-    "card_template_id": "card_purple_time_2",
-    "group_template_id": "knight",
-    "card_count": 1,
-    "display_name": "flip",
-    "rules_text": "vent purple time, draw 1 card",
-    "cursor_image_uid": "bqvm4vgi4c0dn",
-    "card_cost": {
-      "GameResource.Type.BLUE_ENERGY": "1"
+    "card_template_id": "red_gen_basic_8",
+    "time_cost": 4,
+    "display_name": "Flame Crystal",
+    "tags": "CRYSTAL,SPARK",
+    "rules_text": {
+      "Every 4 Ticks": "Produce 3.5 Red"
     },
-    "instinct_effect": "remove_purple_time=3, draw_card=1",
-    "card_rarity": "Card.RarityType.COMMON"
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "force_production": {
+      "GameResource.Type.GENERATE_RED": "3.5"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
   },
   {
-    "card_template_id": "card_blue_time_2",
-    "group_template_id": "knight",
-    "card_count": 1,
-    "display_name": "curl",
-    "rules_text": "vent blue time, draw 1 card",
-    "cursor_image_uid": "bqvm4vgi4c0dn",
-    "card_cost": {
-      "GameResource.Type.GREEN_ENERGY": "1"
+    "card_template_id": "red_gen_basic_12",
+    "time_cost": 7,
+    "display_name": "Ancient Forge",
+    "tags": "STONE,VOID",
+    "rules_text": {
+      "Every 7 Ticks": "Produce 7 Red"
     },
-    "instinct_effect": "remove_blue_time=3, draw_card=1",
-    "card_rarity": "Card.RarityType.COMMON"
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 7,
+    "force_production": {
+      "GameResource.Type.GENERATE_RED": "7"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
   },
   {
-    "card_template_id": "card_green_time_2",
-    "group_template_id": "knight",
-    "card_count": 1,
-    "display_name": "twist",
-    "rules_text": "vent green time, draw 1 card",
-    "cursor_image_uid": "bqvm4vgi4c0dn",
-    "card_cost": {
-      "GameResource.Type.PURPLE_ENERGY": "1"
+    "card_template_id": "red_conv_heat_1",
+    "time_cost": 4,
+    "display_name": "Heat Forge",
+    "tags": "FORGE",
+    "rules_text": {
+      "Every 4 Ticks": "Consume 1.5 Red + 1 Blue â Produce 1 HEAT"
     },
-    "instinct_effect": "remove_green_time=3, draw_card=1",
-    "card_rarity": "Card.RarityType.COMMON"
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
   },
   {
-    "card_template_id": "card_energy_choice_2",
-    "group_template_id": "knight",
-    "card_count": 1,
-    "display_name": "decide",
-    "rules_text": "pick an energy card",
-    "cursor_image_uid": "bqvm4vgi4c0dn",
-    "durability_max": 2,
-    "card_cost": {
-      "GameResource.Type.NONE": "0"
+    "card_template_id": "red_conv_heat_2",
+    "time_cost": 3,
+    "display_name": "Quick Forge",
+    "tags": "FORGE,MICRO",
+    "rules_text": {
+      "Every 3 Ticks": "Consume 1.5 Red + 0.5 Blue â Produce 1 HEAT"
     },
-    "instinct_effect": "shop=STARTER_ENERGY",
-    "card_rarity": "Card.RarityType.COMMON"
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
   },
   {
-    "card_template_id": "slot_click_to_replenish_2",
-    "group_template_id": "knight",
-    "card_count": 1,
-    "display_name": "cyan",
-    "rules_text": "vent all colors",
-    "cursor_image_uid": "bqvm4vgi4c0dn",
-    "durability_max": 10,
-    "card_cost": {
-      "GameResource.Type.BLUE_ENERGY": "1"
+    "card_template_id": "red_conv_heat_3",
+    "time_cost": 5,
+    "display_name": "Efficient Forge",
+    "tags": "FORGE,ORDER",
+    "rules_text": {
+      "Every 5 Ticks": "Consume 2 Red + 1.5 Blue â Produce 2 HEAT"
     },
-    "slot_effect": "remove_purple_time=10, remove_blue_time=10, remove_green_time=10, cooldown=30",
-    "card_rarity": "Card.RarityType.COMMON"
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 5,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
   },
   {
-    "card_template_id": "card_add_gold_2",
-    "group_template_id": "knight",
-    "card_count": 1,
-    "display_name": "glimmer",
-    "rules_text": "add gold",
-    "cursor_image_uid": "bqvm4vgi4c0dn",
-    "durability_max": 10,
-    "card_cost": {
-      "GameResource.Type.BLUE_ENERGY": "1"
+    "card_template_id": "red_conv_momentum_1",
+    "time_cost": 4,
+    "display_name": "Speed Engine",
+    "tags": "MECH",
+    "rules_text": {
+      "Every 4 Ticks": "Consume 1 Red + 1 Green â Produce 1 MOMENTUM"
     },
-    "instinct_effect": "add_gold=20",
-    "card_rarity": "Card.RarityType.COMMON"
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
   },
   {
-    "card_template_id": "slot_add_gold_2",
-    "group_template_id": "knight",
-    "card_count": 1,
-    "display_name": "chance",
-    "rules_text": "add gold",
-    "cursor_image_uid": "bqvm4vgi4c0dn",
-    "durability_max": 1,
-    "card_cost": {
-      "GameResource.Type.GREEN_ENERGY": "1"
+    "card_template_id": "red_conv_momentum_2",
+    "time_cost": 3,
+    "display_name": "Turbo Core",
+    "tags": "MECH,MICRO",
+    "rules_text": {
+      "Every 3 Ticks": "Consume 1.5 Red + 0.5 Green â Produce 1 MOMENTUM"
     },
-    "slot_effect": "add_gold=5, cooldown=20",
-    "card_rarity": "Card.RarityType.COMMON"
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
   },
   {
-    "card_template_id": "card_purple_time_2_2",
-    "group_template_id": "knight",
-    "card_count": 1,
-    "display_name": "tumble",
-    "rules_text": "replenish purple time, draw 1 card",
-    "cursor_image_uid": "bqvm4vgi4c0dn",
-    "durability_max": 3,
-    "card_cost": {
-      "GameResource.Type.GREEN_ENERGY": "1"
+    "card_template_id": "red_conv_momentum_3",
+    "time_cost": 5,
+    "display_name": "Acceleration Chamber",
+    "tags": "MECH,TITAN",
+    "rules_text": {
+      "Every 5 Ticks": "Consume 2 Red + 2 Green â Produce 2.5 MOMENTUM"
     },
-    "slot_effect": "add_purple_time=5, draw_card=1, cooldown=20",
-    "card_rarity": "Card.RarityType.COMMON"
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 5,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
   },
   {
-    "card_template_id": "card_blue_time_2_2",
-    "group_template_id": "knight",
-    "card_count": 1,
-    "display_name": "roil",
-    "rules_text": "replenish blue time, draw 1 card",
-    "cursor_image_uid": "bqvm4vgi4c0dn",
-    "durability_max": 3,
-    "card_cost": {
-      "GameResource.Type.PURPLE_ENERGY": "1"
+    "card_template_id": "red_conv_flex_1",
+    "time_cost": 4,
+    "display_name": "Adaptive Forge",
+    "tags": "FORGE,TOOL",
+    "rules_text": {
+      "Every 4 Ticks": "Consume 3 Largest â Produce 1 HEAT"
     },
-    "slot_effect": "add_blue_time=5, draw_card=1, cooldown=20",
-    "card_rarity": "Card.RarityType.COMMON"
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
   },
   {
-    "card_template_id": "card_green_time_2_2",
-    "group_template_id": "knight",
-    "card_count": 1,
-    "display_name": "dip",
-    "rules_text": "replenish green time, draw 1 card",
-    "cursor_image_uid": "bqvm4vgi4c0dn",
-    "durability_max": 3,
-    "card_cost": {
-      "GameResource.Type.BLUE_ENERGY": "1"
+    "card_template_id": "red_conv_flex_2",
+    "time_cost": 5,
+    "display_name": "Emergency Converter",
+    "tags": "CHAOS",
+    "rules_text": {
+      "Every 5 Ticks": "Consume 4 Smallest â Produce 1 HEAT"
     },
-    "slot_effect": "add_green_time=5, draw_card=1, cooldown=20",
-    "card_rarity": "Card.RarityType.COMMON"
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 5,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
   },
   {
-    "card_template_id": "card_purple_time_2",
-    "group_template_id": "knight",
-    "card_count": 1,
-    "display_name": "duck",
-    "rules_text": "vent purple time, draw 1 card",
-    "cursor_image_uid": "bqvm4vgi4c0dn",
-    "card_cost": {
-      "GameResource.Type.BLUE_ENERGY": "1"
-    },
-    "instinct_effect": "add_purple_time=3, draw_card=1",
-    "card_rarity": "Card.RarityType.COMMON"
+    "card_template_id": "red_dmg_basic_1",
+    "time_cost": 2,
+    "display_name": "Flame Strike",
+    "tags": "SPARK",
+    "rules_text": "Consume 2 Red â Deal 1 damage",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
   },
   {
-    "card_template_id": "card_blue_time_2",
-    "group_template_id": "knight",
-    "card_count": 1,
-    "display_name": "dive",
-    "rules_text": "vent blue time, draw 1 card",
-    "cursor_image_uid": "bqvm4vgi4c0dn",
-    "card_cost": {
-      "GameResource.Type.GREEN_ENERGY": "1"
-    },
-    "instinct_effect": "add_blue_time=3, draw_card=1",
-    "card_rarity": "Card.RarityType.COMMON"
+    "card_template_id": "red_dmg_basic_2",
+    "time_cost": 3,
+    "display_name": "Fire Blast",
+    "tags": "SPARK",
+    "rules_text": "Consume 3.5 Red â Deal 2 damage",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
   },
   {
-    "card_template_id": "card_green_time_2",
-    "group_template_id": "knight",
-    "card_count": 1,
-    "display_name": "flit",
-    "rules_text": "vent green time, draw 1 card",
-    "cursor_image_uid": "bqvm4vgi4c0dn",
-    "card_cost": {
-      "GameResource.Type.PURPLE_ENERGY": "1"
+    "card_template_id": "red_dmg_basic_3",
+    "time_cost": 4,
+    "display_name": "Inferno",
+    "tags": "SPARK,CHAOS",
+    "rules_text": "Consume 5 Red â Deal 3 damage",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "red_dmg_efficient_1",
+    "time_cost": 2,
+    "display_name": "Perfect Combustion",
+    "tags": "SPARK,ORDER",
+    "rules_text": {
+      "Consume 1 Red â Deal 1 damage (rare 1": "1)"
     },
-    "instinct_effect": "add_green_time=3, draw_card=1",
-    "card_rarity": "Card.RarityType.COMMON"
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "red_dmg_heat_2",
+    "time_cost": 3,
+    "display_name": "Thermal Blast",
+    "tags": "SPARK,TITAN",
+    "rules_text": "Consume 2.5 HEAT â Deal 5 damage",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "red_dmg_smallest_1",
+    "time_cost": 4,
+    "display_name": "Balanced Burn",
+    "tags": "ORDER",
+    "rules_text": "Consume 3 Smallest â Deal 2 damage",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "red_dmg_poison_1",
+    "time_cost": 3,
+    "display_name": "Toxic Flame",
+    "tags": "SPARK,DUST",
+    "rules_text": "Consume 2.5 Red â Deal 1 damage, apply 1 POISON",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "red_dmg_slow_1",
+    "time_cost": 3,
+    "display_name": "Tar Trap",
+    "tags": "DUST",
+    "rules_text": "Consume 2 Red â Deal 1 damage, SLOW target 3 ticks",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "red_draw_basic_1",
+    "time_cost": 3,
+    "display_name": "Desperate Search",
+    "tags": "TOOL",
+    "rules_text": "Consume 3 Red â Draw 1 card",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "on_fire_effect": "pay_red=3,draw=1",
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "red_draw_basic_2",
+    "time_cost": 5,
+    "display_name": "Burning Knowledge",
+    "tags": "TOOL,SPARK",
+    "rules_text": "Consume 5.5 Red â Draw 2 cards",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "on_fire_effect": "pay_red=5.5,draw=2",
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "red_draw_engine_1",
+    "time_cost": 4,
+    "display_name": "Knowledge Furnace",
+    "tags": "TOOL,FORGE",
+    "rules_text": {
+      "Every 4 Ticks": "Consume 3 Red â Draw 1 card"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "starting_progress": 0,
+    "on_fire_effect": "pay_red=3,draw=1",
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "red_draw_heat_1",
+    "time_cost": 4,
+    "display_name": "Heated Research",
+    "tags": "TOOL",
+    "rules_text": "Consume 2.5 HEAT â Draw 2 cards",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "on_fire_effect": "pay_heat=2.5,draw=2",
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "red_draw_tag_1",
+    "time_cost": 6,
+    "display_name": "Spark Library",
+    "tags": "SPARK,TOOL",
+    "rules_text": {
+      "Every 6 Ticks": "Draw 1 card per 2 SPARK tags"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 6,
+    "starting_progress": 0,
+    "on_fire_effect": "draw=1",
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "red_flex_largest_1",
+    "time_cost": 3,
+    "display_name": "Overflow Furnace",
+    "tags": "STONE",
+    "rules_text": {
+      "Every 3 Ticks": "Consume 3 Largest â Produce 2.5 Red"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "red_flex_largest_2",
+    "time_cost": 4,
+    "display_name": "Emergency Burn",
+    "tags": "CHAOS",
+    "rules_text": "Consume 5 Largest â Deal 2 damage",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "red_flex_smallest_1",
+    "time_cost": 3,
+    "display_name": "Balanced Flame",
+    "tags": "ORDER",
+    "rules_text": {
+      "Every 3 Ticks": "Consume 2 Smallest â Produce 1.5 Red"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "red_flex_smallest_2",
+    "time_cost": 4,
+    "display_name": "Equilibrium Strike",
+    "tags": "ORDER,SPARK",
+    "rules_text": "Consume 4 Smallest â Deal 2 damage",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "red_flex_mixed_1",
+    "time_cost": 4,
+    "display_name": "Fusion Burn",
+    "tags": "CHAOS,SPARK",
+    "rules_text": "Consume 2 Red + 2 Largest â Deal 3 damage",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "red_flex_mixed_2",
+    "time_cost": 5,
+    "display_name": "Hybrid Forge",
+    "tags": "FORGE",
+    "rules_text": {
+      "Every 5 Ticks": "Consume 1 Red + 3 Smallest â 1.5 HEAT"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 5,
+    "force_production": {
+      "GameResource.Type.PAY_RED": "1"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "red_key_momentary_1",
+    "time_cost": 1,
+    "display_name": "Flash Fire",
+    "tags": "SPARK",
+    "rules_text": {
+      "MOMENTARY": "Deal 2 damage"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "red_key_overbuild_1",
+    "time_cost": 3,
+    "display_name": "Layered Forge",
+    "tags": "FORGE",
+    "rules_text": {
+      "OVERBUILD, Every 3 Ticks": "Produce 2.5 Red"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "red_key_enabling_1",
+    "time_cost": 5,
+    "display_name": "Cost Reducer",
+    "tags": "MECH,ORDER",
+    "rules_text": "Consume 2 MOMENTUM â Next 3 cards cost -1 tick",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "force_production": {
+      "GameResource.Type.PAY_MOMENTUM": "2"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "red_key_burn_1",
+    "time_cost": 3,
+    "display_name": "Ignite",
+    "tags": "SPARK",
+    "rules_text": "Consume 2.5 Red â Apply BURN 3 to target",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "force_production": {
+      "GameResource.Type.PAY_RED": "2.5"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "red_time_slow_1",
+    "time_cost": 8,
+    "display_name": "Ancient Flame",
+    "tags": "VOID,TITAN",
+    "rules_text": {
+      "Every 8 Ticks": "Produce 10 Red"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 8,
+    "force_production": {
+      "GameResource.Type.GENERATE_RED": "10"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "red_time_trigger_1",
+    "time_cost": 3,
+    "display_name": "Third Card Flame",
+    "tags": "SPARK",
+    "rules_text": {
+      "When 3rd card played this combat": "Produce 5 Red"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "force_production": {
+      "GameResource.Type.GENERATE_RED": "5"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "red_combo_position_1",
+    "time_cost": 6,
+    "display_name": "Grid Burner",
+    "tags": "TITAN,SPARK",
+    "rules_text": {
+      "Every 6 Ticks": "Deal 1 damage per row with SPARK"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 6,
+    "force_production": {
+      "GameResource.Type.DAMAGE": "1"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_gen_basic_1",
+    "time_cost": 3,
+    "display_name": "Blue Crystal",
+    "tags": "CRYSTAL",
+    "rules_text": {
+      "Every 3 Ticks": "Produce 2 Blue"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "force_production": {
+      "GameResource.Type.GENERATE_BLUE": "2"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_gen_basic_2",
+    "time_cost": 2,
+    "display_name": "Quick Crystal",
+    "tags": "CRYSTAL,MICRO",
+    "rules_text": {
+      "Every 2 Ticks": "Produce 1.5 Blue"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 2,
+    "force_production": {
+      "GameResource.Type.GENERATE_BLUE": "1.5"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_gen_basic_3",
+    "time_cost": 4,
+    "display_name": "Steady Flow",
+    "tags": "CRYSTAL,ORDER",
+    "rules_text": {
+      "Every 4 Ticks": "Produce 3.5 Blue"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "force_production": {
+      "GameResource.Type.GENERATE_BLUE": "3.5"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_gen_basic_4",
+    "time_cost": 5,
+    "display_name": "Crystal Array",
+    "tags": "CRYSTAL,TITAN",
+    "rules_text": {
+      "Every 5 Ticks": "Produce 4 Blue"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 5,
+    "force_production": {
+      "GameResource.Type.GENERATE_BLUE": "4"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_gen_basic_5",
+    "time_cost": 1,
+    "display_name": "Micro Crystal",
+    "tags": "CRYSTAL,MICRO",
+    "rules_text": {
+      "Every 2 Ticks": "Produce 1 Blue"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 2,
+    "force_production": {
+      "GameResource.Type.GENERATE_BLUE": "1"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_gen_basic_6",
+    "time_cost": 6,
+    "display_name": "Deep Crystal",
+    "tags": "CRYSTAL,VOID",
+    "rules_text": {
+      "Every 6 Ticks": "Produce 5.5 Blue"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 6,
+    "force_production": {
+      "GameResource.Type.GENERATE_BLUE": "5.5"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_gen_basic_7",
+    "time_cost": 3,
+    "display_name": "Mech Crystal",
+    "tags": "MECH,CRYSTAL",
+    "rules_text": {
+      "Every 3 Ticks": "Produce 2 Blue"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "force_production": {
+      "GameResource.Type.GENERATE_BLUE": "2"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_gen_basic_8",
+    "time_cost": 4,
+    "display_name": "Arcane Source",
+    "tags": "ARCANE,CRYSTAL",
+    "rules_text": {
+      "Every 4 Ticks": "Produce 3 Blue"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "force_production": {
+      "GameResource.Type.GENERATE_BLUE": "3"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_gen_basic_12",
+    "time_cost": 7,
+    "display_name": "Ancient Crystal",
+    "tags": "CRYSTAL,VOID",
+    "rules_text": {
+      "Every 7 Ticks": "Produce 7 Blue"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 7,
+    "force_production": {
+      "GameResource.Type.GENERATE_BLUE": "7"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_conv_heat_1",
+    "time_cost": 4,
+    "display_name": "Steam Engine",
+    "tags": "MECH",
+    "rules_text": {
+      "Every 4 Ticks": "Consume 1 Blue + 1 Red â Produce 1 HEAT"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_conv_heat_2",
+    "time_cost": 3,
+    "display_name": "Quick Steam",
+    "tags": "MECH,MICRO",
+    "rules_text": {
+      "Every 3 Ticks": "Consume 1.5 Blue + 0.5 Red â Produce 1 HEAT"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_conv_heat_3",
+    "time_cost": 5,
+    "display_name": "Efficient Steam",
+    "tags": "MECH,ORDER",
+    "rules_text": {
+      "Every 5 Ticks": "Consume 1.5 Blue + 1.5 Red â Produce 2 HEAT"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 5,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_conv_precision_1",
+    "time_cost": 4,
+    "display_name": "Precision Lathe",
+    "tags": "TOOL",
+    "rules_text": {
+      "Every 4 Ticks": "Consume 1 Blue + 1 White â Produce 1 PRECISION"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_conv_precision_2",
+    "time_cost": 3,
+    "display_name": "Quick Calibration",
+    "tags": "TOOL,MICRO",
+    "rules_text": {
+      "Every 3 Ticks": "Consume 1.5 Blue + 0.5 White â Produce 1 PRECISION"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_conv_precision_3",
+    "time_cost": 5,
+    "display_name": "Perfect Calibration",
+    "tags": "TOOL,ORDER",
+    "rules_text": {
+      "Every 5 Ticks": "Consume 2 Blue + 1.5 White â Produce 2.5 PRECISION"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 5,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_conv_flex_1",
+    "time_cost": 4,
+    "display_name": "Adaptive Crystal",
+    "tags": "CRYSTAL,TOOL",
+    "rules_text": {
+      "Every 4 Ticks": "Consume 3 Largest â Produce 1 PRECISION"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_conv_flex_2",
+    "time_cost": 5,
+    "display_name": "Emergency Converter",
+    "tags": "CHAOS",
+    "rules_text": {
+      "Every 5 Ticks": "Consume 4 Smallest â Produce 1 PRECISION"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 5,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_draw_basic_1",
+    "time_cost": 2,
+    "display_name": "Scripture",
+    "tags": "TOOL,ORDER",
+    "rules_text": "Consume 2 White â Draw 1 card",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "on_fire_effect": "pay_white=2,draw=1",
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_draw_engine_1",
+    "time_cost": 3,
+    "display_name": "Wisdom Engine",
+    "tags": "ORDER,TOOL",
+    "rules_text": {
+      "Every 3 Ticks": "Consume 2 White â Draw 1 card"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "starting_progress": 0,
+    "on_fire_effect": "pay_white=2,draw=1",
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_draw_engine_2",
+    "time_cost": 5,
+    "display_name": "Archive",
+    "tags": "TOOL,ORDER",
+    "rules_text": {
+      "Every 5 Ticks": "Consume 3.5 White â Draw 2 cards"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 5,
+    "starting_progress": 0,
+    "on_fire_effect": "pay_white=3.5,draw=2",
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_draw_precision_2",
+    "time_cost": 4,
+    "display_name": "Perfect Knowledge",
+    "tags": "TOOL,ORDER",
+    "rules_text": "Consume 2.5 PRECISION â Draw 3 cards",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "on_fire_effect": "pay_precision=2.5,draw=3",
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_draw_smallest_1",
+    "time_cost": 4,
+    "display_name": "Balanced Scripture",
+    "tags": "ORDER,TOOL",
+    "rules_text": "Consume 3 Smallest â Draw 1 card",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "on_fire_effect": "pay_smallest=3,draw=1",
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_draw_tag_1",
+    "time_cost": 4,
+    "display_name": "Tool Library",
+    "tags": "TOOL",
+    "rules_text": {
+      "Every 4 Ticks": "Draw 1 card per 2 TOOL tags"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "starting_progress": 0,
+    "on_fire_effect": "draw=1",
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_dmg_basic_1",
+    "time_cost": 3,
+    "display_name": "Frost Shard",
+    "tags": "CRYSTAL",
+    "rules_text": "Consume 3 Blue â Deal 1 damage",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_dmg_basic_2",
+    "time_cost": 5,
+    "display_name": "Ice Storm",
+    "tags": "CRYSTAL,CHAOS",
+    "rules_text": "Consume 5.5 Blue â Deal 2 damage",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_dmg_precision_1",
+    "time_cost": 4,
+    "display_name": "Surgical Strike",
+    "tags": "TOOL",
+    "rules_text": {
+      "Consume 1.5 PRECISION â TARGETED": "Deal 2 damage"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_dmg_precision_2",
+    "time_cost": 5,
+    "display_name": "Perfect Shot",
+    "tags": "TOOL,ORDER",
+    "rules_text": {
+      "Consume 2.5 PRECISION â TARGETED": "Deal 3 damage"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_dmg_heat_1",
+    "time_cost": 4,
+    "display_name": "Steam Blast",
+    "tags": "MECH",
+    "rules_text": "Consume 1.5 HEAT â Deal 3 damage",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_dmg_smallest_1",
+    "time_cost": 5,
+    "display_name": "Balanced Strike",
+    "tags": "ORDER",
+    "rules_text": "Consume 4 Smallest â Deal 2 damage",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_gen_basic_1",
+    "time_cost": 3,
+    "display_name": "Green Turbine",
+    "tags": "MECH",
+    "rules_text": {
+      "Every 3 Ticks": "Produce 2.5 Green"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "force_production": {
+      "GameResource.Type.GENERATE_GREEN": "2.5"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_gen_basic_2",
+    "time_cost": 2,
+    "display_name": "Quick Spin",
+    "tags": "MECH,MICRO",
+    "rules_text": {
+      "Every 2 Ticks": "Produce 1.5 Green"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 2,
+    "force_production": {
+      "GameResource.Type.GENERATE_GREEN": "1.5"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_gen_basic_3",
+    "time_cost": 4,
+    "display_name": "Steady Motor",
+    "tags": "MECH,ORDER",
+    "rules_text": {
+      "Every 4 Ticks": "Produce 3 Green"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "force_production": {
+      "GameResource.Type.GENERATE_GREEN": "3"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_gen_basic_4",
+    "time_cost": 5,
+    "display_name": "Power Plant",
+    "tags": "MECH,TITAN",
+    "rules_text": {
+      "Every 5 Ticks": "Produce 4.5 Green"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 5,
+    "force_production": {
+      "GameResource.Type.GENERATE_GREEN": "4.5"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_conv_momentum_1",
+    "time_cost": 4,
+    "display_name": "Momentum Engine",
+    "tags": "MECH",
+    "rules_text": {
+      "Every 4 Ticks": "Consume 1 Green + 1 Red â Produce 1 MOMENTUM"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_conv_momentum_2",
+    "time_cost": 3,
+    "display_name": "Quick Momentum",
+    "tags": "MECH,MICRO",
+    "rules_text": {
+      "Every 3 Ticks": "Consume 1.5 Green + 0.5 Red â Produce 1 MOMENTUM"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_conv_entropy_1",
+    "time_cost": 4,
+    "display_name": "Chaos Engine",
+    "tags": "CHAOS",
+    "rules_text": {
+      "Every 4 Ticks": "Consume 1 Green + 1 Black â Produce 1 ENTROPY"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_conv_entropy_2",
+    "time_cost": 3,
+    "display_name": "Quick Decay",
+    "tags": "CHAOS,MICRO",
+    "rules_text": {
+      "Every 3 Ticks": "Consume 1.5 Green + 0.5 Black â Produce 1 ENTROPY"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_gen_basic_1",
+    "time_cost": 3,
+    "display_name": "White Stabilizer",
+    "tags": "STONE",
+    "rules_text": {
+      "Every 3 Ticks": "Produce 2 White"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "force_production": {
+      "GameResource.Type.GENERATE_WHITE": "2"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_gen_basic_2",
+    "time_cost": 2,
+    "display_name": "Quick Balance",
+    "tags": "STONE,MICRO",
+    "rules_text": {
+      "Every 2 Ticks": "Produce 1.5 White"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 2,
+    "force_production": {
+      "GameResource.Type.GENERATE_WHITE": "1.5"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_gen_basic_3",
+    "time_cost": 4,
+    "display_name": "Steady Foundation",
+    "tags": "STONE,ORDER",
+    "rules_text": {
+      "Every 4 Ticks": "Produce 3.5 White"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "force_production": {
+      "GameResource.Type.GENERATE_WHITE": "3.5"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_gen_basic_4",
+    "time_cost": 5,
+    "display_name": "Harmony Core",
+    "tags": "STONE,TITAN",
+    "rules_text": {
+      "Every 5 Ticks": "Produce 4 White"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 5,
+    "force_production": {
+      "GameResource.Type.GENERATE_WHITE": "4"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_conv_precision_1",
+    "time_cost": 4,
+    "display_name": "Precision Core",
+    "tags": "TOOL",
+    "rules_text": {
+      "Every 4 Ticks": "Consume 1 White + 1 Blue â Produce 1 PRECISION"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_conv_precision_2",
+    "time_cost": 3,
+    "display_name": "Quick Precision",
+    "tags": "TOOL,MICRO",
+    "rules_text": {
+      "Every 3 Ticks": "Consume 1.5 White + 0.5 Blue â Produce 1 PRECISION"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_conv_balance_1",
+    "time_cost": 4,
+    "display_name": "Balance Engine",
+    "tags": "STONE",
+    "rules_text": {
+      "Every 4 Ticks": "Consume 1 White + 1 Black â Produce 1 BALANCE"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_conv_balance_2",
+    "time_cost": 3,
+    "display_name": "Quick Balance",
+    "tags": "STONE,MICRO",
+    "rules_text": {
+      "Every 3 Ticks": "Consume 1.5 White + 0.5 Black â Produce 1 BALANCE"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "black_gen_basic_1",
+    "time_cost": 3,
+    "display_name": "Black Void",
+    "tags": "DUST",
+    "rules_text": {
+      "Every 3 Ticks": "Produce 2 Black"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "force_production": {
+      "GameResource.Type.GENERATE_BLACK": "2"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "black_gen_basic_2",
+    "time_cost": 2,
+    "display_name": "Quick Decay",
+    "tags": "DUST,MICRO",
+    "rules_text": {
+      "Every 2 Ticks": "Produce 1.5 Black"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 2,
+    "force_production": {
+      "GameResource.Type.GENERATE_BLACK": "1.5"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "black_gen_basic_3",
+    "time_cost": 4,
+    "display_name": "Steady Corruption",
+    "tags": "DUST,CHAOS",
+    "rules_text": {
+      "Every 4 Ticks": "Produce 3.5 Black"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "force_production": {
+      "GameResource.Type.GENERATE_BLACK": "3.5"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "black_gen_basic_4",
+    "time_cost": 5,
+    "display_name": "Entropy Well",
+    "tags": "DUST,TITAN",
+    "rules_text": {
+      "Every 5 Ticks": "Produce 4 Black"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 5,
+    "force_production": {
+      "GameResource.Type.GENERATE_BLACK": "4"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "black_conv_balance_1",
+    "time_cost": 4,
+    "display_name": "Stability Engine",
+    "tags": "STONE",
+    "rules_text": {
+      "Every 4 Ticks": "Consume 1 Black + 1 White â Produce 1 BALANCE"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "black_conv_balance_2",
+    "time_cost": 3,
+    "display_name": "Quick Stability",
+    "tags": "STONE,MICRO",
+    "rules_text": {
+      "Every 3 Ticks": "Consume 1.5 Black + 0.5 White â Produce 1 BALANCE"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "black_conv_entropy_1",
+    "time_cost": 4,
+    "display_name": "Chaos Core",
+    "tags": "CHAOS",
+    "rules_text": {
+      "Every 4 Ticks": "Consume 1 Black + 1 Green â Produce 1 ENTROPY"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "black_conv_entropy_2",
+    "time_cost": 3,
+    "display_name": "Quick Chaos",
+    "tags": "CHAOS,MICRO",
+    "rules_text": {
+      "Every 3 Ticks": "Consume 1.5 Black + 0.5 Green â Produce 1 ENTROPY"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "red_draw_desperate",
+    "time_cost": 4,
+    "display_name": "Desperate Draw",
+    "tags": "CHAOS",
+    "rules_text": "Consume 3 Red â Draw 1 card",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "on_fire_effect": "pay_red=3,draw=1",
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "red_draw_blazing",
+    "time_cost": 5,
+    "display_name": "Blazing Insights",
+    "tags": "SPARK",
+    "rules_text": "Consume 6 Red â Draw 2 cards",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "on_fire_effect": "pay_red=6,draw=2",
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "red_draw_heat_surge",
+    "time_cost": 4,
+    "display_name": "Heat Surge",
+    "tags": "SPARK",
+    "rules_text": "Consume 2 HEAT â Draw 1 card",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "on_fire_effect": "pay_heat=2,draw=1",
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "red_draw_momentum_rush",
+    "time_cost": 4,
+    "display_name": "Momentum Rush",
+    "tags": "MECH",
+    "rules_text": "Consume 2 MOMENTUM â Draw 1 card",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "on_fire_effect": "pay_momentum=2,draw=1",
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "red_heat_blast",
+    "time_cost": 3,
+    "display_name": "Heat Blast",
+    "tags": "SPARK",
+    "rules_text": "Consume 3 HEAT â Deal 5 damage",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "red_heat_wave",
+    "time_cost": 4,
+    "display_name": "Heat Wave",
+    "tags": "SPARK",
+    "rules_text": "Consume 2 HEAT â Deal 3 damage to all",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "red_heat_engine",
+    "time_cost": 5,
+    "display_name": "Heat Engine",
+    "tags": "FORGE",
+    "rules_text": {
+      "Every 4 Ticks": "Consume 1 HEAT â Produce 3 Red"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "red_heat_amplifier",
+    "time_cost": 3,
+    "display_name": "Heat Amplifier",
+    "tags": "TOOL",
+    "rules_text": "Consume 1 HEAT â Next damage +3",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "force_production": {
+      "GameResource.Type.PAY_HEAT": "1"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "red_momentum_strike",
+    "time_cost": 2,
+    "display_name": "Momentum Strike",
+    "tags": "WEAPON",
+    "rules_text": "Consume 1 MOMENTUM â Deal 2 damage",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "red_momentum_chain",
+    "time_cost": 4,
+    "display_name": "Momentum Chain",
+    "tags": "CHAIN",
+    "rules_text": "Consume 2 MOMENTUM â Trigger all Red gears",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "force_production": {
+      "GameResource.Type.PAY_MOMENTUM": "2"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "red_ember_mine",
+    "time_cost": 4,
+    "display_name": "Ember Mine",
+    "tags": "STONE",
+    "rules_text": {
+      "Every 2 Ticks": "Produce 1.5 Red"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 2,
+    "force_production": {
+      "GameResource.Type.GENERATE_RED": "1.5"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "red_flame_crystal",
+    "time_cost": 5,
+    "display_name": "Flame Crystal",
+    "tags": "CRYSTAL",
+    "rules_text": {
+      "Every 5 Ticks": "Produce 4 Red"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 5,
+    "force_production": {
+      "GameResource.Type.GENERATE_RED": "4"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "red_molten_core",
+    "time_cost": 6,
+    "display_name": "Molten Core",
+    "tags": "STONE",
+    "rules_text": {
+      "Every 6 Ticks": "Produce 5 Red"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 6,
+    "force_production": {
+      "GameResource.Type.GENERATE_RED": "5"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "red_heat_refinery",
+    "time_cost": 4,
+    "display_name": "Heat Refinery",
+    "tags": "FORGE",
+    "rules_text": {
+      "Every 3 Ticks": "Consume 2 Red + 1 Blue â Produce 2 HEAT"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "red_momentum_factory",
+    "time_cost": 4,
+    "display_name": "Momentum Factory",
+    "tags": "MECH",
+    "rules_text": {
+      "Every 3 Ticks": "Consume 2 Red + 1 Green â Produce 2 MOMENTUM"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "red_dual_converter",
+    "time_cost": 5,
+    "display_name": "Dual Converter",
+    "tags": "TOOL",
+    "rules_text": {
+      "Every 4 Ticks": "Consume 3 Red â Produce 1 HEAT + 1 MOMENTUM"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "red_burn_all",
+    "time_cost": 5,
+    "display_name": "Burn Everything",
+    "tags": "CHAOS",
+    "rules_text": "Consume 5 Red â Deal 2 damage to all",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "red_critical_strike",
+    "time_cost": 4,
+    "display_name": "Critical Strike",
+    "tags": "WEAPON",
+    "rules_text": "Consume 4 Red â Deal 3 damage",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "red_emergency_power",
+    "time_cost": 2,
+    "display_name": "Emergency Power",
+    "tags": "TOOL",
+    "rules_text": "Consume 4 Smallest â Produce 3 Red",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "red_inferno_core",
+    "time_cost": 6,
+    "display_name": "Inferno Core",
+    "tags": "STONE,SPARK",
+    "rules_text": {
+      "Every 4 Ticks": "Produce 3 Red"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "force_production": {
+      "GameResource.Type.GENERATE_RED": "3"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "red_pyroclasm",
+    "time_cost": 5,
+    "display_name": "Pyroclasm",
+    "tags": "CHAOS",
+    "rules_text": "Consume 7 Red â Deal 4 damage to all",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "red_heat_sink",
+    "time_cost": 3,
+    "display_name": "Heat Sink",
+    "tags": "TOOL",
+    "rules_text": {
+      "Every 3 Ticks": "Consume 1 HEAT â Produce 2 Red"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "red_double_tap",
+    "time_cost": 2,
+    "display_name": "Double Tap",
+    "tags": "WEAPON",
+    "rules_text": "Consume 3 Red â Deal 1 damage twice",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "red_resource_burn",
+    "time_cost": 3,
+    "display_name": "Resource Burn",
+    "tags": "SPARK",
+    "rules_text": "Consume 2 Largest â Deal 2 damage",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "red_flame_wall",
+    "time_cost": 4,
+    "display_name": "Flame Wall",
+    "tags": "SPARK",
+    "rules_text": {
+      "Every 3 Ticks": "Deal 1 damage to all"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "force_production": {
+      "GameResource.Type.DAMAGE_ALL": "1"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "red_heat_exchange",
+    "time_cost": 3,
+    "display_name": "Heat Exchange",
+    "tags": "TOOL",
+    "rules_text": "Consume 1 HEAT â Produce 3 Red",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "red_momentum_transfer",
+    "time_cost": 3,
+    "display_name": "Momentum Transfer",
+    "tags": "MECH",
+    "rules_text": "Consume 1 MOMENTUM â Produce 3 Red",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "red_ignition",
+    "time_cost": 2,
+    "display_name": "Ignition",
+    "tags": "SPARK",
+    "rules_text": "Produce 3 Red",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "force_production": {
+      "GameResource.Type.GENERATE_RED": "3"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "red_slow_burn",
+    "time_cost": 4,
+    "display_name": "Slow Burn",
+    "tags": "SPARK,SLOW",
+    "rules_text": "Consume 2 Red â Deal 1 damage, SLOW target",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "red_momentum_punch",
+    "time_cost": 3,
+    "display_name": "Momentum Punch",
+    "tags": "WEAPON",
+    "rules_text": "Consume 1 MOMENTUM â Deal 3 damage",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "red_resource_converter",
+    "time_cost": 4,
+    "display_name": "Resource Converter",
+    "tags": "TOOL",
+    "rules_text": {
+      "Every 3 Ticks": "Consume 3 Largest â Produce 2 Red"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_draw_flow",
+    "time_cost": 2,
+    "display_name": "Divine of Ideas",
+    "tags": "ORDER",
+    "rules_text": "Consume 2 White â Draw 1 card",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "on_fire_effect": "pay_white=2,draw=1",
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_draw_surge",
+    "time_cost": 4,
+    "display_name": "Order of Wisdom",
+    "tags": "ORDER",
+    "rules_text": "Consume 4 White â Draw 2 cards",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "on_fire_effect": "pay_white=4,draw=2",
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_draw_precision",
+    "time_cost": 3,
+    "display_name": "Precise Draw",
+    "tags": "MICRO",
+    "rules_text": "Consume 1 PRECISION â Draw 1 card",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "on_fire_effect": "pay_precision=1,draw=1",
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_draw_heat_exchange",
+    "time_cost": 3,
+    "display_name": "Heat Exchange",
+    "tags": "TOOL",
+    "rules_text": "Consume 1 HEAT â Draw 1 card",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "on_fire_effect": "pay_heat=1,draw=1",
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_draw_engine",
+    "time_cost": 5,
+    "display_name": "Draw Engine",
+    "tags": "TOOL",
+    "rules_text": {
+      "Every 4 Ticks": "Draw 1 card"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "starting_progress": 0,
+    "on_fire_effect": "draw=1",
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_draw_battery",
+    "time_cost": 4,
+    "display_name": "Wisdom Vault",
+    "tags": "TOOL,ORDER",
+    "rules_text": {
+      "Every 3 Ticks": "Consume 2 White â Draw 1 card"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "starting_progress": 0,
+    "on_fire_effect": "pay_white=2,draw=1",
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_precision_strike",
+    "time_cost": 3,
+    "display_name": "Precision Strike",
+    "tags": "WEAPON",
+    "rules_text": "Consume 2 PRECISION â Deal 3 damage",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_precision_shield",
+    "time_cost": 2,
+    "display_name": "Precision Shield",
+    "tags": "TOOL",
+    "rules_text": "Consume 1 PRECISION â Prevent 3 damage",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_precision_boost",
+    "time_cost": 3,
+    "display_name": "Precision Boost",
+    "tags": "MICRO",
+    "rules_text": "Consume 1 PRECISION â All Blue production +1",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "force_production": {
+      "GameResource.Type.PAY_PRECISION": "1"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_heat_control",
+    "time_cost": 3,
+    "display_name": "Divine Control",
+    "tags": "TOOL,ORDER",
+    "rules_text": "Consume 2 HEAT â Draw 2 cards",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "on_fire_effect": "pay_heat=2,draw=2",
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_heat_conversion",
+    "time_cost": 4,
+    "display_name": "Heat Conversion",
+    "tags": "TOOL",
+    "rules_text": {
+      "Every 3 Ticks": "Consume 1 HEAT â Produce 3 Blue"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_crystal_mine",
+    "time_cost": 4,
+    "display_name": "Crystal Mine",
+    "tags": "CRYSTAL",
+    "rules_text": {
+      "Every 2 Ticks": "Produce 1.5 Blue"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 2,
+    "force_production": {
+      "GameResource.Type.GENERATE_BLUE": "1.5"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_tide_generator",
+    "time_cost": 5,
+    "display_name": "Tide Generator",
+    "tags": "STONE",
+    "rules_text": {
+      "Every 5 Ticks": "Produce 4 Blue"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 5,
+    "force_production": {
+      "GameResource.Type.GENERATE_BLUE": "4"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_deep_well",
+    "time_cost": 6,
+    "display_name": "Deep Well",
+    "tags": "STONE",
+    "rules_text": {
+      "Every 6 Ticks": "Produce 5 Blue"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 6,
+    "force_production": {
+      "GameResource.Type.GENERATE_BLUE": "5"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_heat_condenser",
+    "time_cost": 4,
+    "display_name": "Heat Condenser",
+    "tags": "TOOL",
+    "rules_text": {
+      "Every 3 Ticks": "Consume 2 Blue + 1 Red â Produce 2 HEAT"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_precision_lathe",
+    "time_cost": 4,
+    "display_name": "Precision Lathe",
+    "tags": "MICRO",
+    "rules_text": {
+      "Every 3 Ticks": "Consume 2 Blue + 1 White â Produce 2 PRECISION"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_dual_processor",
+    "time_cost": 5,
+    "display_name": "Dual Processor",
+    "tags": "TOOL",
+    "rules_text": {
+      "Every 4 Ticks": "Consume 3 Blue â Produce 1 HEAT + 1 PRECISION"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_knowledge_pool",
+    "time_cost": 5,
+    "display_name": "Wisdom Well",
+    "tags": "ORDER",
+    "rules_text": {
+      "Every 4 Ticks": "Draw 1 card"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "starting_progress": 0,
+    "on_fire_effect": "draw=1",
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_heat_sink_2",
+    "time_cost": 3,
+    "display_name": "Heat Font II",
+    "tags": "TOOL,ORDER",
+    "rules_text": {
+      "Every 3 Ticks": "Consume 1 HEAT â Draw 1 card"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "starting_progress": 0,
+    "on_fire_effect": "pay_heat=1,draw=1",
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_thought_acceleration",
+    "time_cost": 4,
+    "display_name": "Thought Acceleration",
+    "tags": "HASTE",
+    "rules_text": "Consume 3 Blue â All draw effects trigger",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "force_production": {
+      "GameResource.Type.PAY_BLUE": "3"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_knowledge_burst",
+    "time_cost": 1,
+    "display_name": "Wisdom Light",
+    "tags": "ORDER",
+    "rules_text": "Draw 2 cards",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "starting_progress": 0,
+    "on_fire_effect": "draw=2",
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_precision_burst",
+    "time_cost": 2,
+    "display_name": "Precision Burst",
+    "tags": "MICRO",
+    "rules_text": "Produce 2 PRECISION",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "force_production": {
+      "GameResource.Type.GENERATE_PRECISION": "2"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_heat_burst",
+    "time_cost": 2,
+    "display_name": "Heat Burst",
+    "tags": "SPARK",
+    "rules_text": "Produce 2 HEAT",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "force_production": {
+      "GameResource.Type.GENERATE_HEAT": "2"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_tide_surge",
+    "time_cost": 3,
+    "display_name": "Tide Surge",
+    "tags": "CRYSTAL",
+    "rules_text": "Produce 4 Blue",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "force_production": {
+      "GameResource.Type.GENERATE_BLUE": "4"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_draw_growth",
+    "time_cost": 5,
+    "display_name": "Growth Draw",
+    "tags": "BEAST",
+    "rules_text": "Consume 3 Green â Draw 1 card",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "on_fire_effect": "pay_green=3,draw=1",
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_draw_wild",
+    "time_cost": 6,
+    "display_name": "Wild Insights",
+    "tags": "CHAOS",
+    "rules_text": "Consume 6 Green â Draw 2 cards",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "on_fire_effect": "pay_green=6,draw=2",
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_draw_momentum",
+    "time_cost": 4,
+    "display_name": "Momentum Draw",
+    "tags": "MECH",
+    "rules_text": "Consume 2 MOMENTUM â Draw 1 card",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "on_fire_effect": "pay_momentum=2,draw=1",
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_draw_entropy",
+    "time_cost": 4,
+    "display_name": "Entropic Draw",
+    "tags": "VOID",
+    "rules_text": "Consume 2 ENTROPY â Draw 1 card",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "on_fire_effect": "pay_entropy=2,draw=1",
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_momentum_growth",
+    "time_cost": 3,
+    "display_name": "Momentum Growth",
+    "tags": "BEAST",
+    "rules_text": "Consume 1 MOMENTUM â Produce 3 Green",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_momentum_rampage",
+    "time_cost": 4,
+    "display_name": "Rampage",
+    "tags": "BEAST",
+    "rules_text": "Consume 2 MOMENTUM â Deal 4 damage",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_entropy_bloom",
+    "time_cost": 3,
+    "display_name": "Entropy Bloom",
+    "tags": "VOID",
+    "rules_text": "Consume 1 ENTROPY â Produce 3 Green",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_entropy_poison",
+    "time_cost": 4,
+    "display_name": "Toxic Growth",
+    "tags": "POISON",
+    "rules_text": "Consume 1 ENTROPY â Apply 3 POISON",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_growth_engine",
+    "time_cost": 4,
+    "display_name": "Growth Engine",
+    "tags": "BEAST",
+    "rules_text": {
+      "Every 2 Ticks": "Produce 1.5 Green"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 2,
+    "force_production": {
+      "GameResource.Type.GENERATE_GREEN": "1.5"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_wild_generator",
+    "time_cost": 5,
+    "display_name": "Wild Generator",
+    "tags": "CHAOS",
+    "rules_text": {
+      "Every 5 Ticks": "Produce 4 Green"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 5,
+    "force_production": {
+      "GameResource.Type.GENERATE_GREEN": "4"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_jungle_heart",
+    "time_cost": 6,
+    "display_name": "Jungle Heart",
+    "tags": "STONE",
+    "rules_text": {
+      "Every 6 Ticks": "Produce 5 Green"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 6,
+    "force_production": {
+      "GameResource.Type.GENERATE_GREEN": "5"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_momentum_mill",
+    "time_cost": 4,
+    "display_name": "Momentum Mill",
+    "tags": "MECH",
+    "rules_text": {
+      "Every 3 Ticks": "Consume 2 Green + 1 Red â Produce 2 MOMENTUM"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_entropy_pit",
+    "time_cost": 4,
+    "display_name": "Entropy Pit",
+    "tags": "VOID",
+    "rules_text": {
+      "Every 3 Ticks": "Consume 2 Green + 1 Black â Produce 2 ENTROPY"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_dual_growth",
+    "time_cost": 5,
+    "display_name": "Dual Growth",
+    "tags": "BEAST",
+    "rules_text": {
+      "Every 4 Ticks": "Consume 3 Green â Produce 1 MOMENTUM + 1 ENTROPY"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_haste_beast",
+    "time_cost": 4,
+    "display_name": "Quick Beast",
+    "tags": "BEAST,HASTE",
+    "rules_text": {
+      "HASTE 30%": "Every 3 Ticks: Deal 2 damage"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_wild_surge",
+    "time_cost": 5,
+    "display_name": "Wild Surge",
+    "tags": "CHAOS",
+    "rules_text": {
+      "Every 4 Ticks": "Produce 3 Green"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "force_production": {
+      "GameResource.Type.GENERATE_GREEN": "3"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_growth_spurt",
+    "time_cost": 2,
+    "display_name": "Growth Spurt",
+    "tags": "BEAST",
+    "rules_text": "Produce 3 Green",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "force_production": {
+      "GameResource.Type.GENERATE_GREEN": "3"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_poison_spores",
+    "time_cost": 3,
+    "display_name": "Poison Spores",
+    "tags": "POISON",
+    "rules_text": {
+      "Every 3 Ticks": "Apply 1 POISON to all"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "force_production": {
+      "GameResource.Type.POISON": "1"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_beast_rampage",
+    "time_cost": 5,
+    "display_name": "Beast Rampage",
+    "tags": "BEAST",
+    "rules_text": "Consume 5 Green â Deal 3 damage to all",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_poison_cloud",
+    "time_cost": 4,
+    "display_name": "Poison Cloud",
+    "tags": "POISON,VOID",
+    "rules_text": "Consume 1 ENTROPY â Apply 2 POISON to all",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_beast_fury",
+    "time_cost": 2,
+    "display_name": "Beast Fury",
+    "tags": "BEAST",
+    "rules_text": "Deal 2 damage",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "force_production": {
+      "GameResource.Type.DAMAGE": "2"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_momentum_burst",
+    "time_cost": 2,
+    "display_name": "Momentum Burst",
+    "tags": "MECH",
+    "rules_text": "Produce 2 MOMENTUM",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "force_production": {
+      "GameResource.Type.GENERATE_MOMENTUM": "2"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_entropy_burst",
+    "time_cost": 2,
+    "display_name": "Entropy Burst",
+    "tags": "VOID",
+    "rules_text": "Produce 2 ENTROPY",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "force_production": {
+      "GameResource.Type.GENERATE_ENTROPY": "2"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_immovable_wall",
+    "time_cost": 4,
+    "display_name": "Immovable Wall",
+    "tags": "IMMOVABLE,STONE",
+    "rules_text": {
+      "IMMOVABLE": "Every 3 Ticks: Produce 2 White"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_immovable_order",
+    "time_cost": 5,
+    "display_name": "Immovable Order",
+    "tags": "IMMOVABLE,ORDER",
+    "rules_text": {
+      "IMMOVABLE": "Prevent all damage to you"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_draw_order",
+    "time_cost": 2,
+    "display_name": "Ordered Draw",
+    "tags": "ORDER",
+    "rules_text": "Consume 2 White â Draw 1 card",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "on_fire_effect": "pay_white=2,draw=1",
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_draw_light",
+    "time_cost": 4,
+    "display_name": "Light of Knowledge",
+    "tags": "MICRO",
+    "rules_text": "Consume 4 White â Draw 2 cards",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "on_fire_effect": "pay_white=4,draw=2",
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_draw_precision",
+    "time_cost": 3,
+    "display_name": "Precise Planning",
+    "tags": "MICRO",
+    "rules_text": "Consume 1 PRECISION â Draw 1 card",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "on_fire_effect": "pay_precision=1,draw=1",
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_draw_balance",
+    "time_cost": 3,
+    "display_name": "Balanced Draw",
+    "tags": "ORDER",
+    "rules_text": "Consume 1 BALANCE â Draw 1 card",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "on_fire_effect": "pay_balance=1,draw=1",
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_draw_engine",
+    "time_cost": 5,
+    "display_name": "Order Engine",
+    "tags": "ORDER",
+    "rules_text": {
+      "Every 4 Ticks": "Draw 1 card"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "starting_progress": 0,
+    "on_fire_effect": "draw=1",
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_precision_heal",
+    "time_cost": 3,
+    "display_name": "Precision Heal",
+    "tags": "MICRO",
+    "rules_text": "Consume 1 PRECISION â Heal 3 HP",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_precision_shield",
+    "time_cost": 2,
+    "display_name": "Precision Shield",
+    "tags": "TOOL",
+    "rules_text": "Consume 1 PRECISION â Block 3 damage",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_balance_strike",
+    "time_cost": 3,
+    "display_name": "Balanced Strike",
+    "tags": "ORDER",
+    "rules_text": "Consume 1 BALANCE â Deal 2 damage",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_balance_shield",
+    "time_cost": 2,
+    "display_name": "Balanced Defense",
+    "tags": "ORDER",
+    "rules_text": "Consume 1 BALANCE â Block 4 damage",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_light_crystal",
+    "time_cost": 4,
+    "display_name": "Light Crystal",
+    "tags": "CRYSTAL",
+    "rules_text": {
+      "Every 2 Ticks": "Produce 1.5 White"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 2,
+    "force_production": {
+      "GameResource.Type.GENERATE_WHITE": "1.5"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_order_foundation",
+    "time_cost": 5,
+    "display_name": "Order Foundation",
+    "tags": "STONE,ORDER",
+    "rules_text": {
+      "Every 5 Ticks": "Produce 4 White"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 5,
+    "force_production": {
+      "GameResource.Type.GENERATE_WHITE": "4"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_cathedral",
+    "time_cost": 6,
+    "display_name": "Cathedral Core",
+    "tags": "STONE",
+    "rules_text": {
+      "Every 6 Ticks": "Produce 5 White"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 6,
+    "force_production": {
+      "GameResource.Type.GENERATE_WHITE": "5"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_precision_mill",
+    "time_cost": 4,
+    "display_name": "Precision Mill",
+    "tags": "MICRO",
+    "rules_text": {
+      "Every 3 Ticks": "Consume 2 White + 1 Blue â Produce 2 PRECISION"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_balance_forge",
+    "time_cost": 4,
+    "display_name": "Balance Forge",
+    "tags": "ORDER",
+    "rules_text": {
+      "Every 3 Ticks": "Consume 2 White + 1 Black â Produce 2 BALANCE"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_dual_order",
+    "time_cost": 5,
+    "display_name": "Dual Order",
+    "tags": "ORDER",
+    "rules_text": {
+      "Every 4 Ticks": "Consume 3 White â Produce 1 PRECISION + 1 BALANCE"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_order_surge",
+    "time_cost": 5,
+    "display_name": "Order Surge",
+    "tags": "ORDER",
+    "rules_text": {
+      "Every 4 Ticks": "Produce 3 White"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "force_production": {
+      "GameResource.Type.GENERATE_WHITE": "3"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_healing_light",
+    "time_cost": 3,
+    "display_name": "Healing Light",
+    "tags": "ORDER",
+    "rules_text": "Consume 3 White â Heal 2 HP",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_shield_wall",
+    "time_cost": 4,
+    "display_name": "Shield Wall",
+    "tags": "STONE",
+    "rules_text": "Consume 4 White â Block 5 damage",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_light_burst",
+    "time_cost": 2,
+    "display_name": "Light Burst",
+    "tags": "ORDER",
+    "rules_text": "Produce 3 White",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "force_production": {
+      "GameResource.Type.GENERATE_WHITE": "3"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_precision_burst_2",
+    "time_cost": 2,
+    "display_name": "Precision Burst",
+    "tags": "MICRO",
+    "rules_text": "Produce 2 PRECISION",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "force_production": {
+      "GameResource.Type.GENERATE_PRECISION": "2"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_balance_burst",
+    "time_cost": 2,
+    "display_name": "Balance Burst",
+    "tags": "ORDER",
+    "rules_text": "Produce 2 BALANCE",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "force_production": {
+      "GameResource.Type.GENERATE_BALANCE": "2"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "black_poison_dust",
+    "time_cost": 3,
+    "display_name": "Poison Dust",
+    "tags": "POISON,DUST",
+    "rules_text": "Consume 2 Black â Apply 2 POISON",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "black_poison_entropy",
+    "time_cost": 4,
+    "display_name": "Entropic Poison",
+    "tags": "POISON,VOID",
+    "rules_text": "Consume 1 ENTROPY â Apply 4 POISON",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "black_poison_cloud_2",
+    "time_cost": 5,
+    "display_name": "Toxic Cloud",
+    "tags": "POISON",
+    "rules_text": {
+      "Every 3 Ticks": "Apply 1 POISON to all"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "force_production": {
+      "GameResource.Type.POISON": "1"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "black_draw_void",
+    "time_cost": 5,
+    "display_name": "Void Draw",
+    "tags": "VOID",
+    "rules_text": "Consume 3 Black â Draw 1 card",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "on_fire_effect": "pay_black=3,draw=1",
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "black_draw_dust",
+    "time_cost": 6,
+    "display_name": "Dust Insights",
+    "tags": "DUST",
+    "rules_text": "Consume 6 Black â Draw 2 cards",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "on_fire_effect": "pay_black=6,draw=2",
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "black_draw_balance",
+    "time_cost": 4,
+    "display_name": "Balanced Draw",
+    "tags": "ORDER",
+    "rules_text": "Consume 2 BALANCE â Draw 1 card",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "on_fire_effect": "pay_balance=2,draw=1",
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "black_draw_entropy_2",
+    "time_cost": 4,
+    "display_name": "Entropic Draw",
+    "tags": "VOID",
+    "rules_text": "Consume 2 ENTROPY â Draw 1 card",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "on_fire_effect": "pay_entropy=2,draw=1",
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "black_balance_void",
+    "time_cost": 3,
+    "display_name": "Balanced Void",
+    "tags": "VOID,ORDER",
+    "rules_text": "Consume 1 BALANCE â Produce 3 Black",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "black_balance_shield",
+    "time_cost": 3,
+    "display_name": "Dark Balance",
+    "tags": "ORDER",
+    "rules_text": "Consume 1 BALANCE â Block 3 damage",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "black_entropy_void",
+    "time_cost": 3,
+    "display_name": "Entropic Void",
+    "tags": "VOID",
+    "rules_text": "Consume 1 ENTROPY â Produce 3 Black",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "black_entropy_damage",
+    "time_cost": 4,
+    "display_name": "Chaos Strike",
+    "tags": "CHAOS",
+    "rules_text": "Consume 2 ENTROPY â Deal 5 damage",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "black_dust_mine",
+    "time_cost": 4,
+    "display_name": "Dust Mine",
+    "tags": "DUST",
+    "rules_text": {
+      "Every 2 Ticks": "Produce 1.5 Black"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 2,
+    "force_production": {
+      "GameResource.Type.GENERATE_BLACK": "1.5"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "black_void_generator",
+    "time_cost": 5,
+    "display_name": "Void Generator",
+    "tags": "VOID",
+    "rules_text": {
+      "Every 5 Ticks": "Produce 4 Black"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 5,
+    "force_production": {
+      "GameResource.Type.GENERATE_BLACK": "4"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "black_shadow_core",
+    "time_cost": 6,
+    "display_name": "Shadow Core",
+    "tags": "VOID",
+    "rules_text": {
+      "Every 6 Ticks": "Produce 5 Black"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 6,
+    "force_production": {
+      "GameResource.Type.GENERATE_BLACK": "5"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "black_balance_mill",
+    "time_cost": 4,
+    "display_name": "Balance Mill",
+    "tags": "ORDER",
+    "rules_text": {
+      "Every 3 Ticks": "Consume 2 Black + 1 White â Produce 2 BALANCE"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "black_entropy_pit_2",
+    "time_cost": 4,
+    "display_name": "Entropy Pit",
+    "tags": "VOID",
+    "rules_text": {
+      "Every 3 Ticks": "Consume 2 Black + 1 Green â Produce 2 ENTROPY"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "black_dual_void",
+    "time_cost": 5,
+    "display_name": "Dual Void",
+    "tags": "VOID",
+    "rules_text": {
+      "Every 4 Ticks": "Consume 3 Black â Produce 1 BALANCE + 1 ENTROPY"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "black_void_surge",
+    "time_cost": 5,
+    "display_name": "Void Surge",
+    "tags": "VOID",
+    "rules_text": {
+      "Every 4 Ticks": "Produce 3 Black"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "force_production": {
+      "GameResource.Type.GENERATE_BLACK": "3"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "black_shadow_strike",
+    "time_cost": 3,
+    "display_name": "Shadow Strike",
+    "tags": "VOID",
+    "rules_text": "Consume 3 Black â Deal 2 damage",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "black_dust_storm",
+    "time_cost": 4,
+    "display_name": "Dust Storm",
+    "tags": "DUST",
+    "rules_text": "Consume 5 Black â Deal 2 damage to all",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "black_shadow_burst",
+    "time_cost": 2,
+    "display_name": "Shadow Burst",
+    "tags": "VOID",
+    "rules_text": "Produce 3 Black",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "force_production": {
+      "GameResource.Type.GENERATE_BLACK": "3"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "black_balance_burst_2",
+    "time_cost": 2,
+    "display_name": "Balance Burst",
+    "tags": "ORDER",
+    "rules_text": "Produce 2 BALANCE",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "force_production": {
+      "GameResource.Type.GENERATE_BALANCE": "2"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "black_entropy_burst_2",
+    "time_cost": 2,
+    "display_name": "Entropy Burst",
+    "tags": "VOID",
+    "rules_text": "Produce 2 ENTROPY",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "force_production": {
+      "GameResource.Type.GENERATE_ENTROPY": "2"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "black_death_cloud",
+    "time_cost": 5,
+    "display_name": "Death Cloud",
+    "tags": "POISON,VOID",
+    "rules_text": "Apply 1 POISON to all each tick",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "force_production": {
+      "GameResource.Type.POISON": "1"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_faster_basic_1",
+    "time_cost": 3,
+    "display_name": "Overdrive Primer",
+    "tags": "MECH",
+    "rules_text": {
+      "Every 3 Ticks": "Produce 1.5 Green, FASTER 2"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_faster_basic_2",
+    "time_cost": 2,
+    "display_name": "Quick Accelerator",
+    "tags": "MECH,MICRO",
+    "rules_text": {
+      "Every 2 Ticks": "FASTER 1"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 2,
+    "force_production": {
+      "GameResource.Type.FASTER": "1"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_faster_basic_3",
+    "time_cost": 4,
+    "display_name": "Temporal Motor",
+    "tags": "MECH,TOOL",
+    "rules_text": {
+      "Every 4 Ticks": "Produce 2 Green, FASTER 1"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_faster_momentum_1",
+    "time_cost": 3,
+    "display_name": "Momentum Surge",
+    "tags": "MECH",
+    "rules_text": "Consume 1 MOMENTUM â FASTER 3, Draw 1",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "on_fire_effect": "pay_momentum=1,faster=3,draw=1",
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_faster_instant_1",
+    "time_cost": 2,
+    "display_name": "Turbo Boost",
+    "tags": "MECH,SPARK",
+    "rules_text": {
+      "MOMENTARY": "Consume 2 Green â FASTER 2"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_faster_titan_1",
+    "time_cost": 6,
+    "display_name": "Chrono Engine",
+    "tags": "MECH,TITAN",
+    "rules_text": {
+      "Every 6 Ticks": "Produce 3 Green, FASTER 3"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 6,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_conv_momentum_5",
+    "time_cost": 4,
+    "display_name": "Void Motor",
+    "tags": "MECH,VOID",
+    "rules_text": {
+      "Every 4 Ticks": "Consume 2 Green + 1 Black â Produce 2 MOMENTUM"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_conv_flex_3",
+    "time_cost": 3,
+    "display_name": "Wild Converter",
+    "tags": "BEAST,CHAOS",
+    "rules_text": {
+      "Every 3 Ticks": "Consume 3 Smallest â Produce 1 MOMENTUM"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_beast_buff_1",
+    "time_cost": 2,
+    "display_name": "Pack Hunt",
+    "tags": "BEAST",
+    "rules_text": {
+      "Every 2 Ticks": "All BEAST cards HASTE 15%"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 2,
+    "force_production": {
+      "GameResource.Type.HASTE_BEAST": "15"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_faster_combo_1",
+    "time_cost": 3,
+    "display_name": "Speed Burst",
+    "tags": "MECH,SPARK",
+    "rules_text": "Consume 2 Green â FASTER 2, Draw 1",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "on_fire_effect": "pay_green=2,faster=2,draw=1",
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_engine_buff_1",
+    "time_cost": 4,
+    "display_name": "Synchronized Gears",
+    "tags": "MECH,ORDER",
+    "rules_text": {
+      "Every 4 Ticks": "All MECH cards produce +1"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "force_production": {
+      "GameResource.Type.MECH_PRODUCTION_BONUS": "1"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_gen_basic_16",
+    "time_cost": 2,
+    "display_name": "Quick Vine",
+    "tags": "BEAST,MICRO",
+    "rules_text": {
+      "Every 2 Ticks": "Produce 1.5 Green"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 2,
+    "force_production": {
+      "GameResource.Type.GENERATE_GREEN": "1.5"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_gen_basic_17",
+    "time_cost": 3,
+    "display_name": "Forest Heart",
+    "tags": "BEAST,STONE",
+    "rules_text": {
+      "Every 3 Ticks": "Produce 2.5 Green"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "force_production": {
+      "GameResource.Type.GENERATE_GREEN": "2.5"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_gen_basic_18",
+    "time_cost": 4,
+    "display_name": "Ancient Grove",
+    "tags": "BEAST,VOID",
+    "rules_text": {
+      "Every 4 Ticks": "Produce 3.5 Green"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "force_production": {
+      "GameResource.Type.GENERATE_GREEN": "3.5"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_gen_basic_19",
+    "time_cost": 5,
+    "display_name": "Titan Tree",
+    "tags": "BEAST,TITAN",
+    "rules_text": {
+      "Every 5 Ticks": "Produce 4.5 Green"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 5,
+    "force_production": {
+      "GameResource.Type.GENERATE_GREEN": "4.5"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_gen_basic_20",
+    "time_cost": 6,
+    "display_name": "World Root",
+    "tags": "BEAST,TITAN,VOID",
+    "rules_text": {
+      "Every 6 Ticks": "Produce 6 Green"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 6,
+    "force_production": {
+      "GameResource.Type.GENERATE_GREEN": "6"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_gen_basic_21",
+    "time_cost": 1,
+    "display_name": "Moss Patch",
+    "tags": "BEAST,MICRO",
+    "rules_text": {
+      "Every 2 Ticks": "Produce 0.5 Green"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 2,
+    "force_production": {
+      "GameResource.Type.GENERATE_GREEN": "0.5"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_gen_basic_23",
+    "time_cost": 4,
+    "display_name": "Ordered Garden",
+    "tags": "BEAST,ORDER",
+    "rules_text": {
+      "Every 4 Ticks": "Produce 3 Green exactly"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "force_production": {
+      "GameResource.Type.GENERATE_GREEN": "3"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_gen_basic_24",
+    "time_cost": 3,
+    "display_name": "Machine Grove",
+    "tags": "MECH,BEAST",
+    "rules_text": {
+      "Every 3 Ticks": "Produce 2 Green"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "force_production": {
+      "GameResource.Type.GENERATE_GREEN": "2"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_gen_basic_25",
+    "time_cost": 2,
+    "display_name": "Fast Growth",
+    "tags": "BEAST,HASTE",
+    "rules_text": {
+      "Every 2 Ticks": "Produce 1 Green, HASTE 5%"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 2,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_gen_basic_27",
+    "time_cost": 3,
+    "display_name": "Poison Bloom",
+    "tags": "BEAST,POISON",
+    "rules_text": {
+      "Every 3 Ticks": "Produce 2 Green, poison 1"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_gen_basic_28",
+    "time_cost": 4,
+    "display_name": "Mechanical Vine",
+    "tags": "MECH",
+    "rules_text": {
+      "Every 4 Ticks": "Produce 3 Green"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "force_production": {
+      "GameResource.Type.GENERATE_GREEN": "3"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_gen_basic_30",
+    "time_cost": 7,
+    "display_name": "Eternal Forest",
+    "tags": "BEAST,VOID,TITAN",
+    "rules_text": {
+      "Every 7 Ticks": "Produce 8 Green"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 7,
+    "force_production": {
+      "GameResource.Type.GENERATE_GREEN": "8"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_conv_momentum_7",
+    "time_cost": 2,
+    "display_name": "Quick Convert",
+    "tags": "MECH,MICRO",
+    "rules_text": {
+      "Every 2 Ticks": "Consume 1 Green â 0.5 MOMENTUM"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 2,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_conv_momentum_8",
+    "time_cost": 4,
+    "display_name": "Beast Power",
+    "tags": "BEAST,MECH",
+    "rules_text": {
+      "Every 4 Ticks": "Consume 2 Green + 1 Red â 2 MOMENTUM"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_conv_momentum_9",
+    "time_cost": 5,
+    "display_name": "Titan Engine",
+    "tags": "MECH,TITAN",
+    "rules_text": {
+      "Every 5 Ticks": "Consume 3 Green â 2.5 MOMENTUM"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 5,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_conv_momentum_10",
+    "time_cost": 3,
+    "display_name": "Wild Engine",
+    "tags": "BEAST,MECH,CHAOS",
+    "rules_text": {
+      "Every 3 Ticks": "Consume 2 Largest â 1 MOMENTUM"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_conv_heat_1",
+    "time_cost": 4,
+    "display_name": "Forest Fire",
+    "tags": "BEAST,SPARK",
+    "rules_text": {
+      "Every 4 Ticks": "Consume 2 Green + 1 Red â 1 HEAT"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_conv_heat_2",
+    "time_cost": 5,
+    "display_name": "Burning Grove",
+    "tags": "BEAST,CHAOS",
+    "rules_text": {
+      "Every 5 Ticks": "Consume 3 Green â 1.5 HEAT"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 5,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_conv_precision_1",
+    "time_cost": 4,
+    "display_name": "Natural Order",
+    "tags": "BEAST,ORDER",
+    "rules_text": {
+      "Every 4 Ticks": "Consume 2 Green + 1 Blue â 1 PRECISION"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_conv_all_1",
+    "time_cost": 6,
+    "display_name": "World Tree",
+    "tags": "BEAST,TITAN,VOID",
+    "rules_text": {
+      "Every 6 Ticks": "Consume 4 Green â 1 HEAT + 1 MOMENTUM"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 6,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_conv_poison_1",
+    "time_cost": 3,
+    "display_name": "Toxic Converter",
+    "tags": "BEAST,POISON",
+    "rules_text": {
+      "Every 3 Ticks": "Consume 2 Green â 1 MOMENTUM + poison 1"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_dmg_basic_3",
+    "time_cost": 2,
+    "display_name": "Vine Whip",
+    "tags": "BEAST",
+    "rules_text": "Consume 2 Green â Deal 2 damage",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_dmg_basic_4",
+    "time_cost": 3,
+    "display_name": "Nature Strike",
+    "tags": "BEAST",
+    "rules_text": "Consume 3 Green â Deal 3 damage",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_dmg_momentum_2",
+    "time_cost": 2,
+    "display_name": "Speed Strike",
+    "tags": "MECH",
+    "rules_text": "Consume 1 MOMENTUM â Deal 2 damage",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_dmg_momentum_3",
+    "time_cost": 3,
+    "display_name": "Velocity Blast",
+    "tags": "MECH,SPARK",
+    "rules_text": "Consume 1.5 MOMENTUM â Deal 3 damage, HASTE 10%",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_dmg_momentum_4",
+    "time_cost": 4,
+    "display_name": "Titan Charge",
+    "tags": "MECH,TITAN",
+    "rules_text": "Consume 2 MOMENTUM â Deal 5 damage",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_dmg_flexible_1",
+    "time_cost": 3,
+    "display_name": "Adaptive Strike",
+    "tags": "BEAST,TOOL",
+    "rules_text": "Consume 3 Largest â Deal 2 damage",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_dmg_flexible_2",
+    "time_cost": 2,
+    "display_name": "Quick Strike",
+    "tags": "BEAST,MICRO",
+    "rules_text": "Consume 2 Smallest â Deal 1 damage, draw 1",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "on_fire_effect": "pay_smallest=2,damage=1,draw=1",
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_dmg_poison_2",
+    "time_cost": 3,
+    "display_name": "Venom Strike",
+    "tags": "BEAST,POISON",
+    "rules_text": "Consume 2 Green â Deal 1 damage + poison 2",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_dmg_momentary_1",
+    "time_cost": 1,
+    "display_name": "Quick Bite",
+    "tags": "BEAST,MICRO",
+    "rules_text": {
+      "MOMENTARY": "Consume 1 Green â Deal 1 damage"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_draw_basic_1",
+    "time_cost": 3,
+    "display_name": "Natural Wisdom",
+    "tags": "BEAST,TOOL",
+    "rules_text": "Consume 3 Green â Draw 2",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "on_fire_effect": "pay_green=3,draw=2",
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_draw_basic_2",
+    "time_cost": 2,
+    "display_name": "Quick Study",
+    "tags": "MECH,TOOL",
+    "rules_text": "Consume 2 Green â Draw 1",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "on_fire_effect": "pay_green=2,draw=1",
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_draw_momentum_1",
+    "time_cost": 3,
+    "display_name": "Speed Read",
+    "tags": "MECH,TOOL",
+    "rules_text": "Consume 1 MOMENTUM â Draw 2",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "on_fire_effect": "pay_momentum=1,draw=2",
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_buff_mech_1",
+    "time_cost": 3,
+    "display_name": "Gear Up",
+    "tags": "MECH",
+    "rules_text": {
+      "Every 3 Ticks": "All MECH cards +1 production"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "force_production": {
+      "GameResource.Type.MECH_BONUS": "1"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_buff_beast_2",
+    "time_cost": 4,
+    "display_name": "Alpha Presence",
+    "tags": "BEAST,TITAN",
+    "rules_text": {
+      "Every 4 Ticks": "All BEAST cards HASTE 20%"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "force_production": {
+      "GameResource.Type.BEAST_HASTE": "20"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_synergy_mech_1",
+    "time_cost": 3,
+    "display_name": "Synchronized Engines",
+    "tags": "MECH,ORDER",
+    "rules_text": "All MECH cards tick 1 faster",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "force_production": {
+      "GameResource.Type.MECH_TICK_BONUS": "1"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_synergy_beast_1",
+    "time_cost": 4,
+    "display_name": "Pack Leader Alpha",
+    "tags": "BEAST,TITAN",
+    "rules_text": "BEAST cards cost 1 less",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "force_production": {
+      "GameResource.Type.BEAST_COST_REDUCTION": "1"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "green_timing_1",
+    "time_cost": 3,
+    "display_name": "Perfect Timing",
+    "tags": "MECH,TOOL",
+    "rules_text": "Next card played fires immediately",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_gen_basic_1",
+    "time_cost": 2,
+    "display_name": "Foundation Stone",
+    "tags": "STONE",
+    "rules_text": {
+      "Every 2 Ticks": "Produce 1.5 White"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 2,
+    "force_production": {
+      "GameResource.Type.GENERATE_WHITE": "1.5"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_gen_basic_2",
+    "time_cost": 3,
+    "display_name": "Pillar of Order",
+    "tags": "STONE,ORDER",
+    "rules_text": {
+      "Every 3 Ticks": "Produce 2.5 White"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "force_production": {
+      "GameResource.Type.GENERATE_WHITE": "2.5"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_gen_basic_3",
+    "time_cost": 4,
+    "display_name": "Cathedral Core",
+    "tags": "STONE,ORDER",
+    "rules_text": {
+      "Every 4 Ticks": "Produce 3.5 White"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "force_production": {
+      "GameResource.Type.GENERATE_WHITE": "3.5"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_gen_basic_4",
+    "time_cost": 5,
+    "display_name": "Fortress Foundation",
+    "tags": "STONE,IMMOVABLE",
+    "rules_text": {
+      "Every 5 Ticks": "Produce 4.5 White"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 5,
+    "force_production": {
+      "GameResource.Type.GENERATE_WHITE": "4.5"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_gen_basic_5",
+    "time_cost": 6,
+    "display_name": "Titan Monument",
+    "tags": "STONE,TITAN",
+    "rules_text": {
+      "Every 6 Ticks": "Produce 6 White"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 6,
+    "force_production": {
+      "GameResource.Type.GENERATE_WHITE": "6"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_gen_basic_6",
+    "time_cost": 1,
+    "display_name": "Pebble",
+    "tags": "STONE,MICRO",
+    "rules_text": {
+      "Every 2 Ticks": "Produce 0.5 White"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 2,
+    "force_production": {
+      "GameResource.Type.GENERATE_WHITE": "0.5"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_gen_basic_7",
+    "time_cost": 3,
+    "display_name": "Ordered Array",
+    "tags": "ORDER,TOOL",
+    "rules_text": {
+      "Every 3 Ticks": "Produce exactly 2 White"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "force_production": {
+      "GameResource.Type.GENERATE_WHITE": "2"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_gen_basic_8",
+    "time_cost": 4,
+    "display_name": "Structured Growth",
+    "tags": "ORDER,STONE",
+    "rules_text": {
+      "Every 4 Ticks": "Produce 3 White"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "force_production": {
+      "GameResource.Type.GENERATE_WHITE": "3"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_gen_basic_9",
+    "time_cost": 2,
+    "display_name": "Quick Foundation",
+    "tags": "STONE,MICRO",
+    "rules_text": {
+      "Every 2 Ticks": "Produce 1 White"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 2,
+    "force_production": {
+      "GameResource.Type.GENERATE_WHITE": "1"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_gen_basic_10",
+    "time_cost": 5,
+    "display_name": "Ancient Temple",
+    "tags": "STONE,ORDER,TITAN",
+    "rules_text": {
+      "Every 5 Ticks": "Produce 5 White"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 5,
+    "force_production": {
+      "GameResource.Type.GENERATE_WHITE": "5"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_gen_micro_1",
+    "time_cost": 1,
+    "display_name": "Micro Structure",
+    "tags": "MICRO,ORDER",
+    "rules_text": {
+      "Every 1 Tick": "Produce 0.5 White"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 1,
+    "force_production": {
+      "GameResource.Type.GENERATE_WHITE": "0.5"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_conv_heat_1",
+    "time_cost": 4,
+    "display_name": "Holy Fire",
+    "tags": "ORDER,SPARK",
+    "rules_text": {
+      "Every 4 Ticks": "Consume 2 White + 1 Red â 1 HEAT"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_conv_precision_1",
+    "time_cost": 4,
+    "display_name": "Perfect Order",
+    "tags": "ORDER,CRYSTAL",
+    "rules_text": {
+      "Every 4 Ticks": "Consume 2 White + 1 Blue â 1 PRECISION"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_conv_momentum_1",
+    "time_cost": 4,
+    "display_name": "Ordered March",
+    "tags": "ORDER,MECH",
+    "rules_text": {
+      "Every 4 Ticks": "Consume 2 White + 1 Green â 1 MOMENTUM"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_dmg_basic_1",
+    "time_cost": 2,
+    "display_name": "Stone Strike",
+    "tags": "STONE",
+    "rules_text": "Consume 2 White â Deal 2 damage",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_dmg_basic_2",
+    "time_cost": 3,
+    "display_name": "Pillar Slam",
+    "tags": "STONE",
+    "rules_text": "Consume 3 White â Deal 3 damage",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_dmg_basic_3",
+    "time_cost": 4,
+    "display_name": "Foundation Crush",
+    "tags": "STONE,ORDER",
+    "rules_text": "Consume 4 White â Deal 4 damage",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_dmg_flexible_1",
+    "time_cost": 3,
+    "display_name": "Structured Attack",
+    "tags": "ORDER,TOOL",
+    "rules_text": "Consume 3 Smallest â Deal 2 damage",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_dmg_flexible_2",
+    "time_cost": 4,
+    "display_name": "Emergency Strike",
+    "tags": "STONE,CHAOS",
+    "rules_text": "Consume 4 Largest â Deal 3 damage",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_dmg_momentary_1",
+    "time_cost": 1,
+    "display_name": "Quick Strike",
+    "tags": "MICRO,STONE",
+    "rules_text": {
+      "MOMENTARY": "Consume 1 White â Deal 1 damage"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_draw_basic_1",
+    "time_cost": 2,
+    "display_name": "Study",
+    "tags": "TOOL",
+    "rules_text": "Consume 2 White â Draw 1",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "on_fire_effect": "pay_white=2,draw=1",
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_draw_basic_2",
+    "time_cost": 3,
+    "display_name": "Research",
+    "tags": "TOOL,ORDER",
+    "rules_text": "Consume 3 White â Draw 2",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "on_fire_effect": "pay_white=3,draw=2",
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_buff_stone_1",
+    "time_cost": 4,
+    "display_name": "Stone Strength",
+    "tags": "STONE",
+    "rules_text": {
+      "Every 4 Ticks": "STONE cards +1 damage"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "force_production": {
+      "GameResource.Type.STONE_DAMAGE_BONUS": "1"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_buff_tool_1",
+    "time_cost": 3,
+    "display_name": "Tool Efficiency",
+    "tags": "TOOL",
+    "rules_text": {
+      "Every 3 Ticks": "TOOL cards cost 1 less"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "force_production": {
+      "GameResource.Type.TOOL_COST_REDUCTION": "1"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_defense_basic_1",
+    "time_cost": 2,
+    "display_name": "Stone Wall",
+    "tags": "STONE,DEFENSE",
+    "rules_text": {
+      "MOMENTARY": "Block 3 damage"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_synergy_stone_1",
+    "time_cost": 3,
+    "display_name": "Stone Synergy",
+    "tags": "STONE",
+    "rules_text": "STONE cards generate +0.5 White",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "force_production": {
+      "GameResource.Type.STONE_WHITE_BONUS": "0.5"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_timing_1",
+    "time_cost": 3,
+    "display_name": "Perfect Timing",
+    "tags": "ORDER,TOOL",
+    "rules_text": "Next card costs 2 less",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "force_production": {
+      "GameResource.Type.NEXT_COST_REDUCTION": "2"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_crystal_1",
+    "time_cost": 4,
+    "display_name": "White Crystal",
+    "tags": "CRYSTAL,ORDER",
+    "rules_text": {
+      "Every 4 Ticks": "Produce 2 White + 1 Blue"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_spark_1",
+    "time_cost": 3,
+    "display_name": "Holy Spark",
+    "tags": "SPARK,ORDER",
+    "rules_text": {
+      "Every 3 Ticks": "Produce 1 White + 1 Red"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_mech_1",
+    "time_cost": 4,
+    "display_name": "Ordered Machine",
+    "tags": "MECH,ORDER",
+    "rules_text": {
+      "Every 4 Ticks": "Produce 2 White + 1 Green"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_dmg_basic_4",
+    "time_cost": 2,
+    "display_name": "Stone Bolt",
+    "tags": "STONE",
+    "rules_text": {
+      "MOMENTARY": "Consume 2 White â Deal 2 damage"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_dmg_basic_5",
+    "time_cost": 3,
+    "display_name": "Marble Strike",
+    "tags": "STONE,ORDER",
+    "rules_text": "Consume 3 White â Deal 3 damage, draw 1",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "on_fire_effect": "pay_white=3,damage=3,draw=1",
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_dmg_basic_6",
+    "time_cost": 4,
+    "display_name": "Granite Crush",
+    "tags": "STONE,TITAN",
+    "rules_text": "Consume 4 White â Deal 5 damage",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_dmg_heat_1",
+    "time_cost": 3,
+    "display_name": "Holy Fire",
+    "tags": "ORDER,SPARK",
+    "rules_text": "Consume 1 HEAT â Deal 3 damage",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_dmg_momentum_1",
+    "time_cost": 3,
+    "display_name": "Charging Strike",
+    "tags": "STONE,MECH",
+    "rules_text": "Consume 1 MOMENTUM â Deal 3 damage",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_dmg_precision_1",
+    "time_cost": 4,
+    "display_name": "Perfect Shot",
+    "tags": "ORDER,CRYSTAL",
+    "rules_text": "Consume 1 PRECISION â Deal 4 damage",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_dmg_flexible_3",
+    "time_cost": 2,
+    "display_name": "Adaptive Blow",
+    "tags": "STONE,CHAOS",
+    "rules_text": "Consume 2 Largest â Deal 2 damage",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_dmg_flexible_4",
+    "time_cost": 3,
+    "display_name": "Calculated Strike",
+    "tags": "ORDER,TOOL",
+    "rules_text": "Consume 3 Smallest â Deal 3 damage",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_conv_heat_2",
+    "time_cost": 3,
+    "display_name": "Light Forge",
+    "tags": "ORDER,FORGE",
+    "rules_text": {
+      "Every 3 Ticks": "Consume 2 White + 1 Red â 1.5 HEAT"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_conv_heat_3",
+    "time_cost": 5,
+    "display_name": "Divine Furnace",
+    "tags": "ORDER,TITAN",
+    "rules_text": {
+      "Every 5 Ticks": "Consume 4 White â 2 HEAT"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 5,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_conv_momentum_2",
+    "time_cost": 3,
+    "display_name": "Ordered Engine",
+    "tags": "ORDER,MECH",
+    "rules_text": {
+      "Every 3 Ticks": "Consume 2 White + 1 Green â 1.5 MOMENTUM"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_conv_momentum_3",
+    "time_cost": 4,
+    "display_name": "Stone Engine",
+    "tags": "STONE,MECH",
+    "rules_text": {
+      "Every 4 Ticks": "Consume 3 White â 1.5 MOMENTUM"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_conv_precision_2",
+    "time_cost": 3,
+    "display_name": "Crystal Order",
+    "tags": "ORDER,CRYSTAL",
+    "rules_text": {
+      "Every 3 Ticks": "Consume 2 White + 1 Blue â 1.5 PRECISION"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_conv_precision_3",
+    "time_cost": 4,
+    "display_name": "Perfect Calculation",
+    "tags": "ORDER,TOOL",
+    "rules_text": {
+      "Every 4 Ticks": "Consume 3 White â 1 PRECISION"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_conv_all_2",
+    "time_cost": 5,
+    "display_name": "Divine Balance",
+    "tags": "ORDER,TITAN",
+    "rules_text": {
+      "Every 5 Ticks": "Consume 5 White â 1 HEAT + 1 MOMENTUM + 1 PRECISION"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 5,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_synergy_stone_2",
+    "time_cost": 4,
+    "display_name": "Stone Network",
+    "tags": "STONE,ORDER",
+    "rules_text": "STONE cards produce +1 of their resource",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "force_production": {
+      "GameResource.Type.STONE_PRODUCTION_BONUS": "1"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "black_gen_basic_1",
+    "time_cost": 2,
+    "display_name": "Shadow Pool",
+    "tags": "SHADOW",
+    "rules_text": {
+      "Every 2 Ticks": "Produce 1.5 Black"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 2,
+    "force_production": {
+      "GameResource.Type.GENERATE_BLACK": "1.5"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "black_gen_basic_2",
+    "time_cost": 3,
+    "display_name": "Void Well",
+    "tags": "VOID",
+    "rules_text": {
+      "Every 3 Ticks": "Produce 2.5 Black"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "force_production": {
+      "GameResource.Type.GENERATE_BLACK": "2.5"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "black_gen_basic_3",
+    "time_cost": 4,
+    "display_name": "Dust Storm",
+    "tags": "DUST",
+    "rules_text": {
+      "Every 4 Ticks": "Produce 3.5 Black"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "force_production": {
+      "GameResource.Type.GENERATE_BLACK": "3.5"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "black_gen_basic_4",
+    "time_cost": 5,
+    "display_name": "Abyssal Depths",
+    "tags": "VOID,TITAN",
+    "rules_text": {
+      "Every 5 Ticks": "Produce 4.5 Black"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 5,
+    "force_production": {
+      "GameResource.Type.GENERATE_BLACK": "4.5"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "black_gen_basic_5",
+    "time_cost": 6,
+    "display_name": "Eternal Void",
+    "tags": "VOID,TITAN",
+    "rules_text": {
+      "Every 6 Ticks": "Produce 6 Black"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 6,
+    "force_production": {
+      "GameResource.Type.GENERATE_BLACK": "6"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "black_gen_basic_6",
+    "time_cost": 1,
+    "display_name": "Dust Mote",
+    "tags": "DUST,MICRO",
+    "rules_text": {
+      "Every 2 Ticks": "Produce 0.5 Black"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 2,
+    "force_production": {
+      "GameResource.Type.GENERATE_BLACK": "0.5"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "black_gen_basic_7",
+    "time_cost": 3,
+    "display_name": "Shadow Generator",
+    "tags": "SHADOW,ORDER",
+    "rules_text": {
+      "Every 3 Ticks": "Produce 2 Black"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "force_production": {
+      "GameResource.Type.GENERATE_BLACK": "2"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "black_gen_poison_1",
+    "time_cost": 3,
+    "display_name": "Toxic Waste",
+    "tags": "POISON,DUST",
+    "rules_text": {
+      "Every 3 Ticks": "Produce 2 Black, poison 1"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "black_conv_void_1",
+    "time_cost": 3,
+    "display_name": "Void Converter",
+    "tags": "VOID",
+    "rules_text": {
+      "Every 3 Ticks": "Consume 2 Black â 1 VOID"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "black_conv_void_2",
+    "time_cost": 4,
+    "display_name": "Abyssal Gate",
+    "tags": "VOID,TITAN",
+    "rules_text": {
+      "Every 4 Ticks": "Consume 3 Black â 2 VOID"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "black_conv_heat_1",
+    "time_cost": 4,
+    "display_name": "Dark Forge",
+    "tags": "VOID,FORGE",
+    "rules_text": {
+      "Every 4 Ticks": "Consume 2 Black + 1 Red â 1.5 HEAT"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "black_conv_momentum_1",
+    "time_cost": 4,
+    "display_name": "Shadow Engine",
+    "tags": "SHADOW,MECH",
+    "rules_text": {
+      "Every 4 Ticks": "Consume 2 Black + 1 Green â 1.5 MOMENTUM"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "black_conv_precision_1",
+    "time_cost": 4,
+    "display_name": "Void Crystal",
+    "tags": "VOID,CRYSTAL",
+    "rules_text": {
+      "Every 4 Ticks": "Consume 2 Black + 1 Blue â 1.5 PRECISION"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "black_conv_flex_1",
+    "time_cost": 3,
+    "display_name": "Adaptive Void",
+    "tags": "VOID,TOOL",
+    "rules_text": {
+      "Every 3 Ticks": "Consume 3 Largest â 1 VOID"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "black_conv_flex_2",
+    "time_cost": 4,
+    "display_name": "Shadow Choice",
+    "tags": "SHADOW,CHAOS",
+    "rules_text": {
+      "Every 4 Ticks": "Consume 4 Smallest â 1.5 VOID"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "black_conv_poison_1",
+    "time_cost": 3,
+    "display_name": "Toxic Converter",
+    "tags": "POISON,DUST",
+    "rules_text": {
+      "Every 3 Ticks": "Consume 2 Black â 1 MOMENTUM + poison 2"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "black_conv_all_1",
+    "time_cost": 6,
+    "display_name": "Master of Void",
+    "tags": "VOID,TITAN",
+    "rules_text": {
+      "Every 6 Ticks": "Consume 5 Black â 2 VOID + 1 HEAT + 1 MOMENTUM"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 6,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "black_dmg_basic_1",
+    "time_cost": 2,
+    "display_name": "Shadow Strike",
+    "tags": "SHADOW",
+    "rules_text": "Consume 2 Black â Deal 2 damage",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "black_dmg_basic_2",
+    "time_cost": 3,
+    "display_name": "Void Blast",
+    "tags": "VOID",
+    "rules_text": "Consume 3 Black â Deal 3 damage",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "black_dmg_basic_3",
+    "time_cost": 4,
+    "display_name": "Dark Assault",
+    "tags": "VOID,CHAOS",
+    "rules_text": "Consume 4 Black â Deal 5 damage",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "black_dmg_void_1",
+    "time_cost": 3,
+    "display_name": "Void Strike",
+    "tags": "VOID",
+    "rules_text": "Consume 1 VOID â Deal 4 damage",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "black_dmg_void_2",
+    "time_cost": 4,
+    "display_name": "Abyssal Crush",
+    "tags": "VOID,TITAN",
+    "rules_text": "Consume 2 VOID â Deal 7 damage",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "black_dmg_poison_1",
+    "time_cost": 3,
+    "display_name": "Toxic Strike",
+    "tags": "POISON,DUST",
+    "rules_text": "Consume 2 Black â Deal 1 damage + poison 3",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "black_dmg_flexible_1",
+    "time_cost": 3,
+    "display_name": "Adaptive Dark",
+    "tags": "VOID,CHAOS",
+    "rules_text": "Consume 3 Largest â Deal 3 damage",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "black_dmg_flexible_2",
+    "time_cost": 2,
+    "display_name": "Quick Void",
+    "tags": "VOID,MICRO",
+    "rules_text": "Consume 2 Smallest â Deal 2 damage",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "black_dmg_momentary_1",
+    "time_cost": 1,
+    "display_name": "Quick Shadow",
+    "tags": "SHADOW,MICRO",
+    "rules_text": {
+      "MOMENTARY": "Consume 1 Black â Deal 1 damage"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "black_dmg_heat_1",
+    "time_cost": 3,
+    "display_name": "Dark Fire",
+    "tags": "VOID,SPARK",
+    "rules_text": "Consume 1 HEAT â Deal 3 damage + poison 1",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "black_draw_basic_1",
+    "time_cost": 2,
+    "display_name": "Dark Knowledge",
+    "tags": "VOID,TOOL",
+    "rules_text": "Consume 2 Black â Draw 1",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "on_fire_effect": "pay_black=2,draw=1",
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "black_draw_basic_2",
+    "time_cost": 3,
+    "display_name": "Void Study",
+    "tags": "VOID,TOOL",
+    "rules_text": "Consume 3 Black â Draw 2",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 0,
+    "starting_progress": 0,
+    "on_fire_effect": "pay_black=3,draw=2",
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "black_buff_void_1",
+    "time_cost": 3,
+    "display_name": "Void Strength",
+    "tags": "VOID",
+    "rules_text": {
+      "Every 3 Ticks": "VOID cards +1 damage"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "force_production": {
+      "GameResource.Type.VOID_DAMAGE_BONUS": "1"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "black_buff_dust_1",
+    "time_cost": 4,
+    "display_name": "Dust Power",
+    "tags": "DUST",
+    "rules_text": {
+      "Every 4 Ticks": "DUST cards produce +1"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "force_production": {
+      "GameResource.Type.DUST_PRODUCTION_BONUS": "1"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_draw_basic_5",
+    "time_cost": 3,
+    "display_name": "Divine Knowledge",
+    "tags": "ORDER,TOOL",
+    "rules_text": "Consume 3 White â Draw 2",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": "-1",
+    "starting_progress": 0,
+    "on_fire_effect": "pay_white=3,draw=2",
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_draw_basic_6",
+    "time_cost": 2,
+    "display_name": "Quick Scripture",
+    "tags": "ORDER,MICRO",
+    "rules_text": "Consume 2 White â Draw 1",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": "-1",
+    "starting_progress": 0,
+    "on_fire_effect": "pay_white=2,draw=1",
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_draw_order_3",
+    "time_cost": 4,
+    "display_name": "Ordered Archives",
+    "tags": "ORDER,STONE",
+    "rules_text": {
+      "Every 4 Ticks": "Draw 1, +1 if 3+ ORDER"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "starting_progress": 0,
+    "on_fire_effect": "draw=1",
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "white_draw_stone_2",
+    "time_cost": 5,
+    "display_name": "Ancient Tablets",
+    "tags": "STONE,TITAN",
+    "rules_text": "Consume 4 White â Draw 3",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": "-1",
+    "starting_progress": 0,
+    "on_fire_effect": "pay_white=4,draw=3",
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_gen_crystal_1",
+    "time_cost": 3,
+    "display_name": "Crystal Garden",
+    "tags": "CRYSTAL",
+    "rules_text": {
+      "Every 3 Ticks": "Produce 2 Blue +0.5 per CRYSTAL"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "force_production": {
+      "GameResource.Type.GENERATE_BLUE": "2"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_gen_crystal_2",
+    "time_cost": 2,
+    "display_name": "Micro Crystal",
+    "tags": "CRYSTAL,MICRO",
+    "rules_text": {
+      "Every 2 Ticks": "Produce 1 Blue, +1 if 3+ CRYSTAL"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 2,
+    "force_production": {
+      "GameResource.Type.GENERATE_BLUE": "1"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_gen_tool_1",
+    "time_cost": 4,
+    "display_name": "Tool Workshop",
+    "tags": "TOOL",
+    "rules_text": {
+      "Every 4 Ticks": "Produce 1 Blue per TOOL (max 4)"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "force_production": {
+      "GameResource.Type.GENERATE_BLUE": "1"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_gen_arcane_1",
+    "time_cost": 5,
+    "display_name": "Arcane Well",
+    "tags": "ARCANE,CRYSTAL",
+    "rules_text": {
+      "Every 5 Ticks": "Produce 4 Blue, ARCANE cards cost 1 less"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 5,
+    "force_production": {
+      "GameResource.Type.GENERATE_BLUE": "4"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_gen_order_1",
+    "time_cost": 3,
+    "display_name": "Ordered Production",
+    "tags": "ORDER,CRYSTAL",
+    "rules_text": {
+      "Every 3 Ticks": "Produce exactly 2.5 Blue"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "force_production": {
+      "GameResource.Type.GENERATE_BLUE": "2.5"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_gen_micro_1",
+    "time_cost": 1,
+    "display_name": "Tiny Generator",
+    "tags": "MICRO",
+    "rules_text": {
+      "Every 1 Tick": "Produce 0.5 Blue"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 1,
+    "force_production": {
+      "GameResource.Type.GENERATE_BLUE": "0.5"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_gen_mech_1",
+    "time_cost": 4,
+    "display_name": "Crystal Engine",
+    "tags": "MECH,CRYSTAL",
+    "rules_text": {
+      "Every 4 Ticks": "Produce 3 Blue, MECH cards tick 1 faster"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "force_production": {
+      "GameResource.Type.GENERATE_BLUE": "3"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_gen_titan_1",
+    "time_cost": 6,
+    "display_name": "Titan Crystal",
+    "tags": "TITAN,CRYSTAL",
+    "rules_text": {
+      "Every 6 Ticks": "Produce 5 Blue +1 per CRYSTAL"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 6,
+    "force_production": {
+      "GameResource.Type.GENERATE_BLUE": "5"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_dmg_crystal_1",
+    "time_cost": 3,
+    "display_name": "Crystal Shards",
+    "tags": "CRYSTAL",
+    "rules_text": "Consume 2 Blue â Deal 1 damage per CRYSTAL",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": "-1",
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_dmg_tool_1",
+    "time_cost": 4,
+    "display_name": "Tool Strike",
+    "tags": "TOOL,WEAPON",
+    "rules_text": "Consume 3 Blue â Deal 2 damage +1 per TOOL",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": "-1",
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_dmg_precision_1",
+    "time_cost": 3,
+    "display_name": "Calculated Shot",
+    "tags": "ORDER",
+    "rules_text": "Consume 1 PRECISION â Deal 3 damage, if 3+ ORDER deal 4",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": "-1",
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_dmg_micro_1",
+    "time_cost": 2,
+    "display_name": "Micro Missiles",
+    "tags": "MICRO",
+    "rules_text": "Consume 1.5 Blue â Deal 1 damage, MICRO cards cost 1 less this turn",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": "-1",
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_dmg_arcane_1",
+    "time_cost": 5,
+    "display_name": "Arcane Blast",
+    "tags": "ARCANE",
+    "rules_text": "Consume 4 Blue â Deal 5 damage to all with < 3 HP",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": "-1",
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_dmg_mech_1",
+    "time_cost": 4,
+    "display_name": "Precision Engine",
+    "tags": "MECH,CRYSTAL",
+    "rules_text": "Consume 2 PRECISION â Deal 4 damage, all MECH HASTE 20%",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": "-1",
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_draw_tool_1",
+    "time_cost": 3,
+    "display_name": "Tool Research",
+    "tags": "TOOL",
+    "rules_text": "Consume 2 Blue â Draw 1 +1 per 2 TOOL",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": "-1",
+    "starting_progress": 0,
+    "on_fire_effect": "pay_blue=2,draw=1",
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_draw_crystal_1",
+    "time_cost": 4,
+    "display_name": "Crystal Clarity",
+    "tags": "CRYSTAL",
+    "rules_text": "Consume 3 Blue â Draw 2, +1 if 4+ CRYSTAL",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": "-1",
+    "starting_progress": 0,
+    "on_fire_effect": "pay_blue=3,draw=2",
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_draw_order_1",
+    "time_cost": 2,
+    "display_name": "Ordered Thoughts",
+    "tags": "ORDER,MICRO",
+    "rules_text": "Consume 1.5 Blue â Draw 1, ORDER cards cost 1 less",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": "-1",
+    "starting_progress": 0,
+    "on_fire_effect": "pay_blue=1.5,draw=1",
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_draw_arcane_1",
+    "time_cost": 5,
+    "display_name": "Arcane Knowledge",
+    "tags": "ARCANE,TOOL",
+    "rules_text": {
+      "Every 5 Ticks": "Draw 2, ARCANE cards draw 1 extra"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 5,
+    "starting_progress": 0,
+    "on_fire_effect": "draw=2",
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_draw_precision_1",
+    "time_cost": 3,
+    "display_name": "Precise Studies",
+    "tags": "CRYSTAL,TOOL",
+    "rules_text": "Consume 1 PRECISION â Draw 2",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": "-1",
+    "starting_progress": 0,
+    "on_fire_effect": "pay_precision=1,draw=2",
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_conv_crystal_1",
+    "time_cost": 3,
+    "display_name": "Crystal Refinery",
+    "tags": "CRYSTAL,FORGE",
+    "rules_text": {
+      "Every 3 Ticks": "Consume 1 Blue per CRYSTAL â That much PRECISION"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 3,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_conv_tool_1",
+    "time_cost": 4,
+    "display_name": "Tool Converter",
+    "tags": "TOOL,MECH",
+    "rules_text": {
+      "Every 4 Ticks": "Consume 2 Blue â 1 PRECISION, TOOL cards produce +0.5"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_conv_order_1",
+    "time_cost": 4,
+    "display_name": "Perfect Conversion",
+    "tags": "ORDER",
+    "rules_text": {
+      "Every 4 Ticks": "If 3+ ORDER, consume 2 Blue â 2 PRECISION"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 4,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_conv_micro_1",
+    "time_cost": 2,
+    "display_name": "Micro Refinery",
+    "tags": "MICRO,CRYSTAL",
+    "rules_text": {
+      "Every 2 Ticks": "Consume 1 Blue â 0.5 PRECISION"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 2,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_conv_arcane_1",
+    "time_cost": 5,
+    "display_name": "Arcane Transmutation",
+    "tags": "ARCANE",
+    "rules_text": {
+      "Every 5 Ticks": "Consume 3 Blue â 2 PRECISION + 1 HEAT"
+    },
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": 5,
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_utility_crystal_1",
+    "time_cost": 3,
+    "display_name": "Crystal Network",
+    "tags": "CRYSTAL",
+    "rules_text": "CRYSTAL cards generate +0.5 Blue",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": "-1",
+    "force_production": {
+      "GameResource.Type.CRYSTAL_BONUS": "0.5"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_utility_tool_1",
+    "time_cost": 4,
+    "display_name": "Tool Mastery",
+    "tags": "TOOL",
+    "rules_text": "TOOL cards can activate twice when they fire",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": "-1",
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_utility_micro_1",
+    "time_cost": 2,
+    "display_name": "Micro Efficiency",
+    "tags": "MICRO,ORDER",
+    "rules_text": "MICRO cards tick 1 faster",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": "-1",
+    "force_production": {
+      "GameResource.Type.MICRO_HASTE": "1"
+    },
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
+  },
+  {
+    "card_template_id": "blue_utility_arcane_1",
+    "time_cost": 6,
+    "display_name": "Arcane Mysteries",
+    "tags": "ARCANE,TITAN",
+    "rules_text": "ARCANE cards gain all keyword bonuses",
+    "card_rarity": "Card.RarityType.COMMON",
+    "production_interval": "-1",
+    "starting_progress": 0,
+    "group_template_id": "tourbillon",
+    "durability_max": 3
   }
 ]
