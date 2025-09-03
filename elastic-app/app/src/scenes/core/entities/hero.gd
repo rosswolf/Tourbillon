@@ -23,23 +23,42 @@ var balance: CappedResource
 var entropy: CappedResource
 
 func _init():
-	# Initialize all 10 resources with default values
-	# TODO: Properly initialize these with actual game values
+	# Initialize all 10 resources with proper signal callbacks
 	var noop = func(v): pass
 	
-	# Color resources
-	red = CappedResource.new(0, 10, noop, noop)
-	blue = CappedResource.new(0, 10, noop, noop)
-	green = CappedResource.new(0, 10, noop, noop)
-	white = CappedResource.new(0, 10, noop, noop)
-	purple = CappedResource.new(0, 10, noop, noop)
+	# Color resources with signal emission
+	red = CappedResource.new(0, 10, 
+		func(v): GlobalSignals.signal_core_hero_resource_changed(GameResource.Type.RED, v),
+		noop)
+	blue = CappedResource.new(0, 10,
+		func(v): GlobalSignals.signal_core_hero_resource_changed(GameResource.Type.BLUE, v),
+		noop)
+	green = CappedResource.new(0, 10,
+		func(v): GlobalSignals.signal_core_hero_resource_changed(GameResource.Type.GREEN, v),
+		noop)
+	white = CappedResource.new(0, 10,
+		func(v): GlobalSignals.signal_core_hero_resource_changed(GameResource.Type.WHITE, v),
+		noop)
+	purple = CappedResource.new(0, 10,
+		func(v): GlobalSignals.signal_core_hero_resource_changed(GameResource.Type.PURPLE, v),
+		noop)
 	
-	# Force resources
-	heat = CappedResource.new(0, 10, noop, noop)
-	precision = CappedResource.new(0, 10, noop, noop)
-	momentum = CappedResource.new(0, 10, noop, noop)
-	balance = CappedResource.new(0, 10, noop, noop)
-	entropy = CappedResource.new(0, 10, noop, noop)
+	# Force resources with signal emission
+	heat = CappedResource.new(0, 10,
+		func(v): GlobalSignals.signal_core_hero_resource_changed(GameResource.Type.HEAT, v),
+		noop)
+	precision = CappedResource.new(0, 10,
+		func(v): GlobalSignals.signal_core_hero_resource_changed(GameResource.Type.PRECISION, v),
+		noop)
+	momentum = CappedResource.new(0, 10,
+		func(v): GlobalSignals.signal_core_hero_resource_changed(GameResource.Type.MOMENTUM, v),
+		noop)
+	balance = CappedResource.new(0, 10,
+		func(v): GlobalSignals.signal_core_hero_resource_changed(GameResource.Type.BALANCE, v),
+		noop)
+	entropy = CappedResource.new(0, 10,
+		func(v): GlobalSignals.signal_core_hero_resource_changed(GameResource.Type.ENTROPY, v),
+		noop)
 
 # Legacy TimeResource and EnergyResource removed - use force system instead
 func _get_type() -> Entity.EntityType:

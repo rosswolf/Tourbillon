@@ -18,16 +18,36 @@ func _ready() -> void:
 
 ## Advance time by the specified number of ticks
 func advance_time(ticks: float) -> void:
-	var beats_to_add = int(ticks * 10)
+	var beats_to_add: int = int(ticks * 10)
+	__advance_beats_animated(beats_to_add)
+
+## Animate the beat advancement
+func __advance_beats_animated(beats_to_add: int) -> void:
+	if beats_to_add <= 0:
+		card_ticks_complete.emit()
+		return
 	
-	# Process all beats
-	for i in beats_to_add:
-		total_beats += 1
-		__process_single_beat()
+	# Create a timer for animating beats
+	var timer: Timer = Timer.new()
+	timer.wait_time = 0.1  # 100ms per beat for visible counting
+	timer.one_shot = false
+	add_child(timer)
 	
-	# Signal completion
-	time_changed.emit(total_beats)
-	card_ticks_complete.emit()
+	var beats_processed: int = 0
+	
+	timer.timeout.connect(func():
+		if beats_processed < beats_to_add:
+			total_beats += 1
+			__process_single_beat()
+			time_changed.emit(total_beats)
+			beats_processed += 1
+		else:
+			timer.stop()
+			timer.queue_free()
+			card_ticks_complete.emit()
+	)
+	
+	timer.start()
 
 ## Process a single beat
 func __process_single_beat() -> void:
