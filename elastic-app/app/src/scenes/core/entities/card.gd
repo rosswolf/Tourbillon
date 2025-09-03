@@ -239,7 +239,7 @@ static func build_new_card_from_template(card_template_id: String, card_template
 		builder.with_instance_id(card_template_id)
 	
 	builder.with_durability(int(card_template_data.get("durability_max", 1)))
-	builder.with_card_cost(card_template_data.get("card_cost"))
+	#builder.with_card_cost(card_template_data.get("card_cost"))
 	
 	# Handle rules_text - might be a dictionary from JSON parsing
 	var rules_text_data = card_template_data.get("rules_text", "")
@@ -254,14 +254,13 @@ static func build_new_card_from_template(card_template_id: String, card_template
 	else:
 		builder.with_rules_text("")
 	
-	# Load Tourbillon-specific fields
-	var card = builder.build()
+	var card: Card = builder.build()
 	card.time_cost = int(card_template_data.get("time_cost", 2))
 	card.production_interval = int(card_template_data.get("production_interval", 3))
 	card.starting_progress = int(card_template_data.get("starting_progress", 0))
-	card.force_production = card_template_data.get("force_production", {})
-	card.force_consumption = card_template_data.get("force_consumption", {})
-	card.force_cost = card_template_data.get("force_cost", {})
+	#card.force_production = card_template_data.get("force_production", {})
+	#card.force_consumption = card_template_data.get("force_consumption", {})
+	#card.force_cost = card_template_data.get("force_cost", {})
 	
 	# Handle tags - could be array or comma-separated string
 	var tags_data = card_template_data.get("tags", [])
@@ -270,7 +269,7 @@ static func build_new_card_from_template(card_template_id: String, card_template
 		# Trim whitespace from each tag
 		for i in range(card.tags.size()):
 			card.tags[i] = card.tags[i].strip_edges()
-	elif tags_data is Array:
+	elif tags_data is Array[String]:
 		card.tags = tags_data
 	else:
 		card.tags = []
@@ -281,7 +280,7 @@ static func build_new_card_from_template(card_template_id: String, card_template
 		card.keywords = keywords_data.split(",")
 		for i in range(card.keywords.size()):
 			card.keywords[i] = card.keywords[i].strip_edges()
-	elif keywords_data is Array:
+	elif keywords_data is Array[String]:
 		card.keywords = keywords_data
 	else:
 		card.keywords = []

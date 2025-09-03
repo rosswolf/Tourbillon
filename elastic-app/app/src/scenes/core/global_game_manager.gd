@@ -44,7 +44,7 @@ func _ready():
 	
 	
 
-func __load_tourbillon_cards() -> void:
+#func __load_tourbillon_cards() -> void:
 	# Load the Tourbillon card data
 	var card_file = "res://src/scenes/data/tourbillon_cards.json"
 	
