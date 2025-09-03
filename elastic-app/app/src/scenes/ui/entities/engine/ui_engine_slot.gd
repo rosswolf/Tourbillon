@@ -208,4 +208,3 @@ func set_as_bonus_square(type: String = "draw_one_card") -> void:
 	# Add a visual marker - could be a label or icon
 	# For now, we'll rely on the border and background color differences
 	# set in UIMainplate's __set_slot_active method
-
