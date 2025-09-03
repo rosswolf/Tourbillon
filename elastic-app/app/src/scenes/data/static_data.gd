@@ -69,12 +69,14 @@ func parse_enum(reference: String):
 func _ready():
 	card_data = load_json_file(card_data_path)
 	mob_data = load_json_file(mob_data_path)
+	print("[StaticData] Loaded %d mobs from %s" % [mob_data.size(), mob_data_path])
 	configuration_data = load_json_file(configuration_data_path)
 	icon_data = load_json_file(icon_data_path)
 	goals_data = load_json_file(goals_data_path)
 	relic_data = load_json_file(relic_data_path)
 	hero_data = load_json_file(hero_data_path)
 	wave_data = load_json_file(wave_data_path)
+	print("[StaticData] Loaded %d waves from %s" % [wave_data.size(), wave_data_path])
 	
 	# Build indices for fast lookups
 	card_data_indices = build_field_indices(card_data)
@@ -453,14 +455,22 @@ func get_wave_by_id(wave_id: String) -> Dictionary:
 
 func get_random_wave_for_act(act: int) -> Dictionary:
 	"""Get a random non-boss wave for the specified act"""
+	print("[StaticData] Looking for waves for act %d in %d total waves" % [act, wave_data.size()])
 	var act_waves: Array = []
 	for wave_id in wave_data:
 		var wave = wave_data[wave_id]
-		if wave.get("act", 0) == act and not wave.get("is_boss", false):
+		var wave_act = wave.get("act", 0)
+		var is_boss = wave.get("is_boss", false)
+		print("[StaticData] Wave %s: act=%d, is_boss=%s" % [wave_id, wave_act, is_boss])
+		if wave_act == act and not is_boss:
 			act_waves.append(wave)
 	
+	print("[StaticData] Found %d waves for act %d" % [act_waves.size(), act])
 	if act_waves.size() > 0:
-		return act_waves.pick_random()
+		var selected = act_waves.pick_random()
+		print("[StaticData] Selected wave: %s" % selected.get("wave_id", "unknown"))
+		return selected
+	print("[StaticData] No waves found for act %d!" % act)
 	return {}
 
 func get_all_waves_for_act(act: int) -> Array:

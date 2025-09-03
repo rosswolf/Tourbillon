@@ -188,9 +188,7 @@ func move_card_to_zone2(card_instance_id: String, from_zone: Zone, to_zone: Zone
 	
 	print(" Moving card " + card_instance_id + " " + c.display_name + " from: " + GlobalUtilities.get_enum_name(Library.Zone, from_zone) + " to: " + GlobalUtilities.get_enum_name(Library.Zone, to_zone) )
 	
-	if not card_zone_map.has(card_instance_id):
-		printerr(card_instance_id + " not in card_zone_map")
-		return false
+	assert(card_zone_map.has(card_instance_id), "Card " + card_instance_id + " must be in card_zone_map")
 		
 	# Get current zone
 	var current_zone: Zone = card_zone_map[card_instance_id]

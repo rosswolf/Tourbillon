@@ -300,38 +300,25 @@ static func _effect_consume_max_force(amount: int) -> void:
 
 # Combat effects
 static func _effect_damage(amount: int, target_type: String) -> void:
-	if not GlobalGameManager.has("gremlin_manager"):
-		return
-	
-	var gremlin_manager = GlobalGameManager.get("gremlin_manager")
-	if gremlin_manager:
-		gremlin_manager.deal_damage_to_target(amount, target_type)
+	# Note: gremlin_manager is not a property of GlobalGameManager yet
+	# This will need to be added when gremlin system is fully integrated
+	push_warning("Gremlin damage not yet implemented - gremlin_manager not initialized")
+	return
 
 static func _effect_damage_all(amount: int) -> void:
-	if not GlobalGameManager.has("gremlin_manager"):
-		return
-	
-	var gremlin_manager = GlobalGameManager.get("gremlin_manager")
-	if gremlin_manager:
-		gremlin_manager.deal_damage_to_target(amount, "all")
+	# Note: gremlin_manager is not a property of GlobalGameManager yet
+	push_warning("Gremlin damage all not yet implemented - gremlin_manager not initialized")
+	return
 
 static func _effect_apply_poison(stacks: int) -> void:
-	if not GlobalGameManager.has("gremlin_manager"):
-		return
-	
-	var gremlin_manager = GlobalGameManager.get("gremlin_manager")
-	if gremlin_manager:
-		gremlin_manager.apply_poison_to_target(stacks, "topmost")
+	# Note: gremlin_manager is not a property of GlobalGameManager yet
+	push_warning("Poison not yet implemented - gremlin_manager not initialized")
+	return
 
 static func _effect_apply_burn(duration: int) -> void:
-	if not GlobalGameManager.has("gremlin_manager"):
-		return
-	
-	var gremlin_manager = GlobalGameManager.get("gremlin_manager")
-	if gremlin_manager:
-		var target = gremlin_manager.get_topmost_gremlin()
-		if target:
-			target.apply_burn(duration)
+	# Note: gremlin_manager is not a property of GlobalGameManager yet
+	push_warning("Burn not yet implemented - gremlin_manager not initialized")
+	return
 
 static func _effect_add_shields(amount: int) -> void:
 	# TODO: Implement hero shields
@@ -430,10 +417,10 @@ static func _evaluate_condition(condition: String, source: Node) -> bool:
 		var tag = parts[0]
 		var required_count = int(parts[1])
 		
-		if GlobalGameManager.has("mainplate"):
-			var mainplate = GlobalGameManager.get("mainplate")
-			var count = mainplate.count_gears_with_tag(tag)
-			return count >= required_count
+		assert(GlobalGameManager.has("mainplate"), "Mainplate must exist for tag conditions")
+		var mainplate = GlobalGameManager.get("mainplate")
+		var count = mainplate.count_gears_with_tag(tag)
+		return count >= required_count
 	
 	elif condition.begins_with("if_force:"):
 		var force_condition = condition.substr(9)  # Remove "if_force:"
@@ -448,8 +435,8 @@ static func _get_condition_count(condition: String, source: Node) -> int:
 	if condition.begins_with("tag:"):
 		var tag = condition.substr(4)  # Remove "tag:"
 		
-		if GlobalGameManager.has("mainplate"):
-			var mainplate = GlobalGameManager.get("mainplate")
-			return mainplate.count_gears_with_tag(tag)
+		assert(GlobalGameManager.has("mainplate"), "Mainplate must exist for getting tag count")
+		var mainplate = GlobalGameManager.get("mainplate")
+		return mainplate.count_gears_with_tag(tag)
 	
 	return 0

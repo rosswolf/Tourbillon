@@ -47,6 +47,8 @@ func spawn_wave(wave_id: String = "") -> void:
 		_spawn_gremlin(gremlin_id)
 
 func _spawn_gremlin(gremlin_type: String) -> void:
+	print("[WaveManager] Attempting to spawn gremlin type: %s" % gremlin_type)
+	
 	var global_game_manager = get_node_or_null("/root/GlobalGameManager")
 	if not global_game_manager:
 		push_error("GlobalGameManager not found!")
@@ -62,8 +64,11 @@ func _spawn_gremlin(gremlin_type: String) -> void:
 		push_error("No mob data loaded!")
 		return
 	
+	print("[WaveManager] Mob data has %d entries" % mob_data.size())
+	
 	if gremlin_type not in mob_data:
 		push_error("Unknown gremlin type: %s" % gremlin_type)
+		print("[WaveManager] Available mob types: %s" % str(mob_data.keys()))
 		return
 	
 	var data = mob_data[gremlin_type]
