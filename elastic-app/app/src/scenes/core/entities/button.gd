@@ -18,8 +18,8 @@ var card: Card:
 				GlobalSignals.signal_core_card_unslotted(instance_id)
 				
 			__card = new_value
-			if __card != null:
-				GlobalSignals.signal_core_card_slotted(instance_id)
+			# Signal is emitted by activation_logic.gd after placement
+			# Removed duplicate signal here to prevent double-triggering bonuses
 	
 func _init():
 	GlobalSignals.core_card_destroyed.connect(__on_core_card_destroyed)

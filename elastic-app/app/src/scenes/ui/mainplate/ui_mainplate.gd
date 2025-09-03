@@ -348,7 +348,7 @@ func __on_core_card_replaced(old_card_id: String, new_card_id: String) -> void:
 				var new_card = mainplate.get_card_at(logical_pos)
 				if new_card:
 					slot.__button_entity.card = new_card
-					GlobalSignals.core_card_slotted.emit(slot.__button_entity.instance_id)
+					# Don't emit signal here - replacement shouldn't retrigger bonuses
 			break
 
 func __on_core_gear_process_beat(card_id: String, context: BeatContext) -> void:
@@ -379,16 +379,22 @@ func __trigger_bonus_for_slot(slot: EngineSlot) -> void:
 			print("Bonus: Drawing 1 card!")
 			if GlobalGameManager.library:
 				GlobalGameManager.library.draw_card(1)
-				# Visual feedback
+				# Visual feedback and clear bonus
 				var tween = create_tween()
 				tween.tween_property(slot, "modulate", Color(1.5, 1.5, 0.8), 0.2)
-				tween.tween_property(slot, "modulate", Color(1.2, 1.2, 0.8), 0.3)
+				tween.tween_property(slot, "modulate", Color.WHITE, 0.3)
+				# Clear the bonus after use
+				slot.is_bonus_square = false
+				slot.bonus_type = ""
 		
 		"draw_two_cards":
 			print("SPECIAL Bonus: Drawing 2 cards!")
 			if GlobalGameManager.library:
 				GlobalGameManager.library.draw_card(2)
-				# Visual feedback
+				# Visual feedback and clear bonus
 				var tween = create_tween()
 				tween.tween_property(slot, "modulate", Color(1.8, 0.8, 1.8), 0.2)
-				tween.tween_property(slot, "modulate", Color(1.3, 0.9, 1.3), 0.3)
+				tween.tween_property(slot, "modulate", Color.WHITE, 0.3)
+				# Clear the bonus after use
+				slot.is_bonus_square = false
+				slot.bonus_type = ""
