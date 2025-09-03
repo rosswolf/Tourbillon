@@ -40,7 +40,8 @@ func set_card_data(card: Card) -> void:
 	card_data = card
 	
 	
-	if card.has_slot_effect():
+	# Cards with production are considered "slot" cards (green background)
+	if card.production_interval > 0:
 		card_background.texture =  PreloadScenes.CARD_BACKGROUND_UIDS["green_card"]
 
 	
@@ -67,7 +68,8 @@ func set_card_data(card: Card) -> void:
 		
 	add_slot_icon(energy_icons[card.cost.get_energy_color()], str(card.cost.get_energy_cost()), %TopHBoxContainer, GameIcon.TextSize.SMALL)
 	
-	if not card.has_instinct_effect() and card.has_slot_effect():
+	# Cards with production interval are "buildings"
+	if card.production_interval > 0:
 		is_building.visible = true
 	else:
 		is_building.visible = false
