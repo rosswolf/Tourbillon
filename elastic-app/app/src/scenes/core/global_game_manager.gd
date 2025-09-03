@@ -1,7 +1,7 @@
 extends Node
 
 # Game state properties
-var hero_template_id: String = "brute" # Default hero for testing
+var hero_template_id: String = "knight" # Default hero for testing
 var world_seed: int
 
 var instance_catalog: InstanceCatalog
@@ -123,11 +123,17 @@ func __on_start_game():
 	instance_catalog = InstanceCatalog.new()
 	library = Library.new()
 	relic_manager = RelicManager.new()
-	# Simplified hero creation without builder to avoid crashes
-	hero = Hero.new()
-	if hero:
-		instance_catalog.register_instance(hero)
-		hero.reset_start_of_battle()
+	# Use HeroBuilder for proper instance ID registration
+	hero = Hero.HeroBuilder.new() \
+		.with_display_name("Knight") \
+		.with_starting_health(60) \
+		.with_starting_max_health(60) \
+		.with_starting_armor(10) \
+		.with_starting_max_armor(10) \
+		.with_starting_training(2) \
+		.with_starting_instinct(3) \
+		.with_starting_gold(100) \
+		.build()
 	# Goal system removed
 	stats_manager = StatsManager.new()
 	
