@@ -52,10 +52,10 @@ var on_exhaust_effect: String = ""  # When deck exhausted
 var passive_effect: String = ""  # Ongoing effect while on mainplate
 var conditional_effect: String = ""  # Effect with conditions
 
-func has_instinct_effect():
+func has_instinct_effect() -> bool:
 	return __instinct_effect != null
 	
-func has_slot_effect():
+func has_slot_effect() -> bool:
 	return __slot_effect != null
 		
 func activate_slot_effect(source: Entity, target: Entity) -> bool:
