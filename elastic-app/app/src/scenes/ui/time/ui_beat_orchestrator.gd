@@ -18,6 +18,8 @@ var is_processing_beats: bool = false
 var pending_beats: int = 0
 var current_beat_display: int = 0
 var registered_slots: Array[EngineSlot] = []
+var persistent_timer_label: Label = null
+var timer_container: Control = null
 
 func _ready() -> void:
 	# Connect to time advancement signals
