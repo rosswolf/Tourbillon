@@ -272,10 +272,10 @@ static func build_new_card_from_template(card_template_id: String, card_template
 	# Handle tags - could be array or comma-separated string
 	var tags_data = card_template_data.get("tags", [])
 	if tags_data is String:
-		card.tags = tags_data.split(",")
-		# Trim whitespace from each tag
-		for i in range(card.tags.size()):
-			card.tags[i] = card.tags[i].strip_edges()
+		var split_tags: PackedStringArray = tags_data.split(",")
+		card.tags = []
+		for tag in split_tags:
+			card.tags.append(tag.strip_edges())
 	elif tags_data is Array[String]:
 		card.tags = tags_data
 	else:
@@ -284,9 +284,10 @@ static func build_new_card_from_template(card_template_id: String, card_template
 	# Handle keywords similarly
 	var keywords_data = card_template_data.get("keywords", [])
 	if keywords_data is String and not keywords_data.is_empty():
-		card.keywords = keywords_data.split(",")
-		for i in range(card.keywords.size()):
-			card.keywords[i] = card.keywords[i].strip_edges()
+		var split_keywords: PackedStringArray = keywords_data.split(",")
+		card.keywords = []
+		for keyword in split_keywords:
+			card.keywords.append(keyword.strip_edges())
 	elif keywords_data is Array[String]:
 		card.keywords = keywords_data
 	else:
