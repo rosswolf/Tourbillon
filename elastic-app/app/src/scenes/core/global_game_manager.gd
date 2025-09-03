@@ -123,7 +123,11 @@ func __on_start_game():
 	instance_catalog = InstanceCatalog.new()
 	library = Library.new()
 	relic_manager = RelicManager.new()
-	hero = Hero.load_hero(hero_template_id)
+	# Simplified hero creation without builder to avoid crashes
+	hero = Hero.new()
+	if hero:
+		instance_catalog.register_instance(hero)
+		hero.reset_start_of_battle()
 	# Goal system removed
 	stats_manager = StatsManager.new()
 	
@@ -142,7 +146,8 @@ func __on_start_game():
 func __on_start_battle():
 	library.deck.shuffle()
 	
-	hero.reset_start_of_battle()
+	if hero:
+		hero.reset_start_of_battle()
 	__load_hand()
 	
 	#battleground.spawn_new_stage(1)
@@ -237,7 +242,8 @@ func end_turn():
 	GlobalSignals.signal_core_end_turn()
 	disallow_activations()
 	library.draw_new_hand(hand_size)
-	hero.reset_turn_resources()
+	if hero:
+		hero.reset_turn_resources()
 	allow_activations()
 	GlobalSignals.signal_core_begin_turn()
 
