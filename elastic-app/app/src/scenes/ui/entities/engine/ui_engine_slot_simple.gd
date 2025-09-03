@@ -56,7 +56,7 @@ func set_occupied_visual(card_name: String, texture: Texture2D = null) -> void:
 	name_label.text = card_name
 	main_panel.visible = true
 	if texture:
-		icon = texture
+		texture_normal = texture
 
 ## Update visual when card is removed
 func set_empty_visual() -> void:
@@ -107,7 +107,7 @@ func __update_empty_visual() -> void:
 	name_label.text = ""
 	main_panel.visible = is_active_slot
 	progress_bar.visible = false
-	icon = null
+	texture_normal = null
 
 func __update_bonus_visual() -> void:
 	match bonus_type:
