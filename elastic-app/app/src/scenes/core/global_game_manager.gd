@@ -315,33 +315,24 @@ func __process_mainplate_gears(context: BeatContext) -> void:
 	if not mainplate:
 		return
 	
-	# Get all gears in Escapement Order
-	var gears: Array[EngineSlot] = mainplate.get_gears_in_order()
-	
-	for gear in gears:
-		if gear.has_method("process_beat"):
-			gear.process_beat(context)
+	# Let the core mainplate process the beat
+	# It will emit signals for each card that needs processing
+	mainplate.process_beat(context)
 
 ## Advance time by a number of ticks
 func __advance_time_by_ticks(ticks: int) -> void:
 	if timeline_manager:
-		timeline_manager.advance_ticks(ticks)
+		timeline_manager.advance_time(ticks)  # advance_time takes ticks as float
 
 ## Advance time by a number of beats
 func __advance_time_by_beats(beats: int) -> void:
 	if timeline_manager:
-		timeline_manager.advance_beats(beats)
+		timeline_manager.advance_time(beats / 10.0)  # Convert beats to ticks
 
 ## Find a slot by its ID
 func __find_slot_by_id(slot_id: String) -> EngineSlot:
-	if not mainplate:
-		return null
-	
-	var slots: Array[EngineSlot] = mainplate.get_all_engine_slots()
-	for slot in slots:
-		if slot.__button_entity and slot.__button_entity.instance_id == slot_id:
-			return slot
-	
+	# TODO: This needs to access the UI mainplate, not the core entity
+	# For now, return null - slots should be found through the UI layer
 	return null
 
 ## Get the current tick from Tourbillon system
@@ -351,7 +342,7 @@ func get_current_tick() -> int:
 ## Get the current beat from Tourbillon system
 func get_current_beat() -> int:
 	if timeline_manager:
-		return timeline_manager.current_beat
+		return timeline_manager.get_current_beats()
 	return 0
 		
 # Convenience Functions for checking resource state

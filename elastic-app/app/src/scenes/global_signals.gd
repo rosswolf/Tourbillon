@@ -149,6 +149,10 @@ signal core_card_unslotted(slot_instance_id: String)
 func signal_core_card_unslotted(slot_instance_id: String):
 	core_card_unslotted.emit(slot_instance_id)
 
+signal core_gear_process_beat(card_instance_id: String, context: BeatContext)
+func signal_core_gear_process_beat(card_instance_id: String, context: BeatContext):
+	core_gear_process_beat.emit(card_instance_id, context)
+
 signal core_slot_add_cooldown(instance_id: String, duration: float)
 func signal_core_slot_add_cooldown(instance_id: String, duration: float):
 	core_slot_add_cooldown.emit(instance_id, duration)

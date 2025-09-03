@@ -109,6 +109,14 @@ func get_cards_in_order() -> Array[Card]:
 	
 	return cards
 
+## Process all gears for a beat
+func process_beat(context: BeatContext) -> void:
+	# Process each card in Escapement Order
+	for card in get_cards_in_order():
+		if card:
+			# Signal that this card should process its beat
+			GlobalSignals.signal_core_gear_process_beat(card.instance_id, context)
+
 ## Count cards with a specific tag
 func count_cards_with_tag(tag: String) -> int:
 	var count = 0
