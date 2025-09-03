@@ -19,32 +19,53 @@ func _ready() -> void:
 ## Advance time by the specified number of ticks
 func advance_time(ticks: float) -> void:
 	var beats_to_add: int = int(ticks * 10)
-	__advance_beats_animated(beats_to_add)
+	__advance_beats_instant(beats_to_add)
 
-## Animate the beat advancement
-func __advance_beats_animated(beats_to_add: int) -> void:
+## Instantly advance beats and process them
+func __advance_beats_instant(beats_to_add: int) -> void:
 	if beats_to_add <= 0:
 		card_ticks_complete.emit()
 		return
 	
-	# Create a timer for animating beats
+	print("Advancing time by ", beats_to_add, " beats")
+	
+	# Process all beats instantly for game logic
+	var start_beat: int = total_beats
+	for i in range(beats_to_add):
+		total_beats += 1
+		__process_single_beat()
+	
+	# Animate the UI display quickly (but not instantly)
+	__animate_ui_beats(start_beat, total_beats)
+	
+	# Signal completion immediately (game logic is done)
+	card_ticks_complete.emit()
+
+## Animate UI beat display for visual feedback
+func __animate_ui_beats(from_beat: int, to_beat: int) -> void:
+	# Emit starting position immediately
+	time_changed.emit(from_beat)
+	
+	var beats_to_show: int = to_beat - from_beat
+	if beats_to_show <= 0:
+		return
+		
+	# Fast animation: 20ms per beat for quick visual counting
+	# For 20 beats (2 ticks), this takes 0.4 seconds total
 	var timer: Timer = Timer.new()
-	timer.wait_time = 0.1  # 100ms per beat for visible counting
+	timer.wait_time = 0.02  # 20ms per beat
 	timer.one_shot = false
 	add_child(timer)
 	
-	var beats_processed: int = 0
+	var current_display_beat: int = from_beat
 	
 	timer.timeout.connect(func():
-		if beats_processed < beats_to_add:
-			total_beats += 1
-			__process_single_beat()
-			time_changed.emit(total_beats)
-			beats_processed += 1
+		if current_display_beat < to_beat:
+			current_display_beat += 1
+			time_changed.emit(current_display_beat)
 		else:
 			timer.stop()
 			timer.queue_free()
-			card_ticks_complete.emit()
 	)
 	
 	timer.start()
