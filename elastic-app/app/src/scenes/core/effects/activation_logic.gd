@@ -44,7 +44,8 @@ static func get_type(entity: Entity):
 
 static func slot_card_in_button(card: Card, button: EngineButtonEntity) -> bool:	
 	# Validate that the slot is active (within the valid grid)
-	if button.engine_slot and button.engine_slot.has_method("can_accept_card"):
+	if button.engine_slot:
+		# EngineSlot always has can_accept_card method
 		if not button.engine_slot.can_accept_card():
 			push_warning("Cannot place card on inactive slot")
 			return false
@@ -56,8 +57,9 @@ static func slot_card_in_button(card: Card, button: EngineButtonEntity) -> bool:
 		
 		# Handle replacement as described in PRD section 2.0.4
 		# 1. Trigger replacement effects on the old card (if any)
-		if existing_card.has_method("trigger_replacement_effects"):
-			existing_card.trigger_replacement_effects()
+		# Cards don't have trigger_replacement_effects method - handle via on_replace_effect
+		if not existing_card.on_replace_effect.is_empty():
+			TourbillonEffectProcessor.process_effect(existing_card.on_replace_effect, existing_card, null)
 		
 		# 2. Move the old card to discard pile
 		GlobalGameManager.library.move_card_to_zone2(existing_card.instance_id, Library.Zone.SLOTTED, Library.Zone.GRAVEYARD)

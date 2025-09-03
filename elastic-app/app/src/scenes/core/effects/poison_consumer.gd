@@ -29,9 +29,15 @@ func process_beat(context: BeatContext) -> void:
 
 ## Trigger poison damage
 func _trigger_poison() -> void:
-	if owner and owner.has_method("take_damage"):
+	if owner:
+		# Owner should be a Gremlin or Hero entity with take_damage method
 		# Poison pierces shields
-		owner.take_damage(poison_value, true)
+		if owner is Gremlin:
+			owner.take_damage(poison_value, true)
+		elif owner is Hero:
+			owner.take_damage(poison_value, true)
+		else:
+			push_warning("PoisonConsumer owner is not a valid damage target: ", owner.get_class())
 		
 		# Reduce poison by 1 after dealing damage
 		poison_value = max(0, poison_value - 1)

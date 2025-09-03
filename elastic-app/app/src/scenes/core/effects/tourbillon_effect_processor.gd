@@ -357,14 +357,20 @@ static func _effect_set_next_card_cost(cost: int) -> void:
 # Timing effects
 static func _effect_apply_faster(beats: int, source: Node) -> void:
 	# Reduce the current gear's timer by X beats
-	if source and source.has_method("get_meta"):
+	if source:
+		# Source should be a Card or Mainplate with timer metadata
 		var current_beats = source.get_meta("current_beats", 0)
 		var new_beats = min(current_beats + beats, source.get_meta("production_interval_beats", 30))
 		source.set_meta("current_beats", new_beats)
 		
-		# Update progress display if available
-		if source.has_method("__update_progress_display"):
-			source.call("__update_progress_display")
+		# Update progress display for UI slots
+		if source is EngineSlot:
+			source.__update_progress_display()
+		# For other sources, signal the update
+		elif GlobalSignals.has_signal("core_gear_process_beat"):
+			var card_id = source.get_meta("instance_id", "")
+			if card_id != "":
+				GlobalSignals.signal_core_gear_process_beat(card_id, null)
 
 static func _effect_apply_haste(percent: float) -> void:
 	# TODO: Apply haste to current gear
