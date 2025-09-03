@@ -144,13 +144,15 @@ func __check_and_pulse_ready_gears() -> void:
 			continue
 			
 		# Check if slot has a card and is ready
-		if slot.has_method("get_card_instance_id") and slot.get_card_instance_id() != "":
+		assert(slot != null, "Registered slot must exist")
+		# All slots should implement get_card_instance_id
+		if slot.get_card_instance_id() != "":
 			# Check if this slot just became ready
 			if slot.current_beats >= slot.production_interval_beats and not slot.is_ready:
 				ready_positions.append(slot.grid_position)
 				ready_slots.append(slot)
-				if slot.has_method("__enter_ready_state"):
-					slot.call("__enter_ready_state")
+				# Slots should have __enter_ready_state for state management
+				slot.__enter_ready_state()
 	
 	if ready_positions.size() > 0:
 		ui_gear_ready.emit(ready_positions)

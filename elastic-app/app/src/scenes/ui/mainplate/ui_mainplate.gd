@@ -328,8 +328,8 @@ func remove_gear_at_logical(logical_pos: Vector2i) -> Card:
 		# Signal the slot is now empty
 		GlobalSignals.core_card_unslotted.emit(slot.__button_entity.instance_id)
 		# Reset the slot's visual state
-		if slot.has_method("reset"):
-			slot.reset()
+		assert(slot != null, "Slot must exist for reset")
+		slot.reset()
 	
 	return card
 
@@ -383,8 +383,8 @@ func __assign_bonus_squares(active_slots: Array[EngineSlot]) -> void:
 ## Reset mainplate for new combat
 func reset() -> void:
 	for slot in gear_slots.values():
-		if slot.has_method("reset"):
-			slot.reset()
+		assert(slot != null, "All slots must exist for reset")
+		slot.reset()
 	
 	# Reset grid mapper to initial size
 	grid_mapper.reset(initial_grid_size)

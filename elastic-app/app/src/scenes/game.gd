@@ -81,13 +81,13 @@ func __on_relic_added(relic: Relic) -> void:
 		
 func __on_time_updated(tick_display: String) -> void:
 	# Update the time label with the formatted tick display
-	if has_node("%GlobalTimeLabel"):
-		%GlobalTimeLabel.text = tick_display
+	assert(%GlobalTimeLabel != null, "GlobalTimeLabel must exist for time updates")
+	%GlobalTimeLabel.text = tick_display
 
 func __on_card_ticks_resolved() -> void:
 	# Re-enable hand interaction after card processing is done
-	if has_node("%CardHandContainer"):
-		%CardHandContainer.mouse_filter = Control.MOUSE_FILTER_PASS
+	assert(%CardHandContainer != null, "CardHandContainer must exist for card interaction")
+	%CardHandContainer.mouse_filter = Control.MOUSE_FILTER_PASS
 
 func format_elapsed_time(timer: Timer) -> String:
 	var elapsed = timer.wait_time - timer.time_left

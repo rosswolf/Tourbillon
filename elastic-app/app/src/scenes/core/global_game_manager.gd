@@ -314,8 +314,9 @@ func __on_card_slotted(slot_id: String) -> void:
 		return
 	
 	# Setup the gear from card data
-	if slot.has_method("setup_from_card"):
-		slot.setup_from_card(card)
+	assert(slot != null, "Slot must exist for card setup")
+	# Slots should implement setup_from_card if they accept cards
+	slot.setup_from_card(card)
 	
 	# Process on_place_effect if it exists
 	if not card.on_place_effect.is_empty():
