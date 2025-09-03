@@ -221,8 +221,19 @@ static func build_new_card_from_template(card_template_id: String, card_template
 		assert(false, "card template id doesn't match as expected: " + card_template_id +  " " + str(card_template_data.get("card_template_id")))
 	
 	# Use StaticData's parse_enum to convert the string reference to enum value
-	var rarity_str: String = card_template_data.get("card_rarity", "Card.RarityType.UNKNOWN")
-	var rarity: Card.RarityType = StaticData.parse_enum(rarity_str)
+	var rarity_value: Variant = card_template_data.get("card_rarity", Card.RarityType.UNKNOWN)
+	var rarity: Card.RarityType = Card.RarityType.UNKNOWN
+	
+	# Handle both direct enum values and string references
+	if rarity_value is int:
+		rarity = rarity_value as Card.RarityType
+	elif rarity_value is String:
+		var parsed: Variant = StaticData.parse_enum(rarity_value)
+		if parsed is int:
+			rarity = parsed as Card.RarityType
+		else:
+			push_warning("Failed to parse rarity: " + str(rarity_value))
+			rarity = Card.RarityType.UNKNOWN
 	
 	var builder: CardBuilder = CardBuilder.new()
 	builder.with_template_id(card_template_id)
