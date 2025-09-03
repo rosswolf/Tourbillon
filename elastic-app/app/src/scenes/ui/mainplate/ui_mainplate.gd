@@ -347,7 +347,7 @@ func __on_core_card_slotted(card_id: String) -> void:
 			if card and card.instance_id == card_id:
 				# Update the slot's button entity with the card
 				if not slot.__button_entity:
-					slot.__button_entity = Button.ButtonBuilder.new().build()
+					slot.__button_entity = EngineButtonEntity.EngineButtonEntityBuilder.new().build()
 				slot.__button_entity.card = card
 				
 				# Trigger visual update on the slot
