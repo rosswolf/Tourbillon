@@ -61,11 +61,17 @@ func destroy_card_ui():
 func __on_card_slotted(target_slot_id: String):
 	if target_slot_id == __button_entity.instance_id:
 		# Don't create card UI here - only on hover
-		%Name.text = __button_entity.card.display_name
-		%MainPanel.visible = true
-		# Setup the card's production timing
 		if __button_entity.card:
+			%Name.text = __button_entity.card.display_name
+			%MainPanel.visible = true
+			# Make sure inner panel is visible too
+			var inner_panel = %MainPanel.get_node_or_null("PanelContainer")
+			if inner_panel:
+				inner_panel.visible = true
+			# Setup the card's production timing
 			setup_from_card(__button_entity.card)
+		else:
+			push_warning("Card slotted signal received but no card on button entity!")
 	
 func __on_card_unslotted(target_slot_id: String):
 	if target_slot_id == __button_entity.instance_id:
