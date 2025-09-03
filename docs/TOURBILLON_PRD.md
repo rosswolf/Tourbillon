@@ -29,14 +29,14 @@ Players should feel the satisfaction of building a complex clockwork engine whil
 - Even when you "win," The Wheel continues turning (though perhaps slower)
 - Your mechanical knowledge accumulates across loops
 - Some loops are harder as The Wheel adapts to your previous attempts
-- The ultimate goal: build the "Eternal Complication" that breaks The Wheel permanently
+- The ultimate goal: build the "Eternal Gear" that breaks The Wheel permanently
 
 **Visual Direction:**
 - Brass, steel, and crystal aesthetics
 - Visible gears, springs, and escapements
 - Progress bars as tension gauges
 - Satisfying mechanical clicks and whirs
-- Complications appear as intricate watch mechanisms
+- Gears appear as intricate watch mechanisms
 - The Wheel looms in the background, slowly turning
 
 ## 2. Core Mechanics
@@ -48,37 +48,37 @@ Players should feel the satisfaction of building a complex clockwork engine whil
 - **Tick**: The standard time unit = 10 Beats (what players count and cards cost)
 - All time in the game advances in Beats, but players primarily think in Ticks
 - Cards show costs in whole Ticks (1, 2, 3, etc.)
-- Complications produce on Tick intervals (e.g., "Every 3 Ticks: Produce 2 Heat")
+- Gears produce on Tick intervals (e.g., "Every 3 Ticks: Produce 2 Heat")
 
 #### 2.0.2 Beat Resolution
 When time advances, the game processes every Beat:
-1. **Complication Phase**: All complications check/trigger (top-to-bottom, left-to-right)
+1. **Gear Phase**: All gears check/trigger (top-to-bottom, left-to-right)
 2. **Poison Resolution**: Poison damage applies based on poison timer (default 10 Beats, modifiable)
 3. **Gremlin Phase**: All gremlins check/trigger (top-to-bottom)
 4. **End of Beat**: Check for victory/loss conditions (only after full card resolution)
 
-Note: Checking every Beat allows for precise timing and off-Tick effects (e.g., complications that produce every 3.5 Ticks = 35 Beats)
+Note: Checking every Beat allows for precise timing and off-Tick effects (e.g., gears that produce every 3.5 Ticks = 35 Beats)
 
-#### 2.0.3 Complication Trigger Rules
-- Each complication can only trigger once per Beat maximum (prevents infinite loops)
-- Since there are 10 Beats per Tick, a complication can trigger at most 10 times per Tick
-- Complications track their own timers independently in Beats
-- Complications produce/consume in strict priority order (Escapement Order)
-- If Complication A produces forces, Complication B (lower in priority) can consume them same Beat
-- Tag counts are checked when each complication triggers (can change mid-Beat)
-- Complications have no memory - destroyed/bounced complications lose all timer progress (unless Overbuild)
+#### 2.0.3 Gear Trigger Rules
+- Each gear can only trigger once per Beat maximum (prevents infinite loops)
+- Since there are 10 Beats per Tick, a gear can trigger at most 10 times per Tick
+- Gears track their own timers independently in Beats
+- Gears produce/consume in strict priority order (Escapement Order)
+- If Gear A produces forces, Gear B (lower in priority) can consume them same Beat
+- Tag counts are checked when each gear triggers (can change mid-Beat)
+- Gears have no memory - destroyed/bounced gears lose all timer progress (unless Overbuild)
 
 #### 2.0.4 Card Play Sequence
-1. Replace complication on movement plate if necessary (triggers replacement effects)
-2. Slot remembers state of old complication
-3. Old complication's "when replaced" effects trigger
-4. Old complication moved to discard
-5. Old complication's "when destroyed" effects trigger
-6. New complication played on movement plate
-7. New complication's "when played" effects trigger
-8. Slot "memory" of old complication is cleared
+1. Replace gear on movement plate if necessary (triggers replacement effects)
+2. Slot remembers state of old gear
+3. Old gear's "when replaced" effects trigger
+4. Old gear moved to discard
+5. Old gear's "when destroyed" effects trigger
+6. New gear played on movement plate
+7. New gear's "when played" effects trigger
+8. Slot "memory" of old gear is cleared
 9. Time advances by card's cost (in Beats: 10 Beats per Tick shown on card)
-10. All complications check for production in priority order
+10. All gears check for production in priority order
 11. All gremlins check for triggers in order
 12. All effects must fully resolve before playing another card (turn ends)
 
@@ -94,19 +94,19 @@ Note: Checking every Beat allows for precise timing and off-Tick effects (e.g., 
 - Time only advances when cards are played
 - Each card has a "time cost" in Ticks (whole numbers: 1, 2, 3, 4, 5+ Ticks)
 - Minimum time cost of a card play (after modifications) is 1 Beat (0.1 Ticks)
-- Minimum complication trigger interval is 5 Beats (0.5 Ticks)
+- Minimum gear trigger interval is 5 Beats (0.5 Ticks)
 - When a card is played, global time advances by that amount
 - All systems in the game react to this time advancement
-- Fractional Ticks only occur through modification effects (e.g., "Micro complications cost -0.5 Ticks")
+- Fractional Ticks only occur through modification effects (e.g., "Micro gears cost -0.5 Ticks")
 - Time cannot go backwards (no rewind effects)
 
 #### 2.1.2 Production Intervals
-- Each complication has a production interval in Ticks (whole numbers for base: 3, 4, 5 Ticks etc.)
+- Each gear has a production interval in Ticks (whole numbers for base: 3, 4, 5 Ticks etc.)
 - Time advances in Beats internally for precise tracking
 - All fractional results are rounded to nearest Beat
-- When time advances, all complications check if their interval threshold is reached
-- Complications that hit their interval produce their forces
-- Production happens AFTER the new complication is placed, allowing it to potentially produce immediately
+- When time advances, all gears check if their interval threshold is reached
+- Gears that hit their interval produce their forces
+- Production happens AFTER the new gear is placed, allowing it to potentially produce immediately
 - Fractional intervals only occur through modifications (tracked in Beats)
 
 #### 2.1.3 No Turn Structure
@@ -117,16 +117,16 @@ Note: Checking every Beat allows for precise timing and off-Tick effects (e.g., 
 ### 2.2 Card System
 
 #### 2.2.1 Deck Composition
-- Every card represents a complication that can be placed on the movement plate
+- Every card represents a gear that can be placed on the movement plate
 - Starting deck contains approximately 7-8 cards
 - No maximum deck size, but larger decks reduce consistency
 - Maximum hand size: 10 cards (can be expanded by certain effects)
 
 #### 2.2.2 Card Flow
 - No automatic draw: Players do NOT draw back up to a maximum hand size
-- Cards are only drawn through complication effects or other abilities
+- Cards are only drawn through gear effects or other abilities
 - When the deck is empty, the discard pile is shuffled to form a new deck
-- Destroyed/replaced complications go to the discard pile
+- Destroyed/replaced gears go to the discard pile
 - Deck visibility: Can see cards remaining in deck (not order), can see discard pile (with order)
 - Tutor effects: Search for specific card, then shuffle deck
 - Card Draw Balance: Card draw should not be free but with minimal effort should be sustainable
@@ -138,7 +138,7 @@ Note: Checking every Beat allows for precise timing and off-Tick effects (e.g., 
 - When you need to draw and deck is empty, shuffle discard into deck first
 - If both deck AND discard are empty when you need to draw, you lose immediately
 - **Grace Period**: Loss from empty hand is checked only after current card fully resolves and all triggered effects complete
-- If pending complication triggers would draw cards, you survive
+- If pending gear triggers would draw cards, you survive
 - If you achieve victory and loss simultaneously, victory takes precedence
 - This makes card draw a critical resource alongside force production
 - Gremlin discard effects become extremely threatening
@@ -213,7 +213,7 @@ Forces represent different types of energy in your clockwork mechanism:
 
 - **Entropy (Purple)** - Decay/Unwinding
   - Attack Targeting: **Attack (Lowest HP)** - Targets weakest gremlin
-  - Destroy own complications for benefit, high risk/high reward
+  - Destroy own gears for benefit, high risk/high reward
   - Damage Multiplier: **1.1x**
 
 **Universal**: All forces can use **Attack (Basic)** - Targets top gremlin in stack
@@ -221,16 +221,16 @@ Forces represent different types of energy in your clockwork mechanism:
 ### 3.2 Force Mechanics
 
 #### 3.2.1 Production
-- Complications produce forces when their time interval is reached
+- Gears produce forces when their time interval is reached
 - Printed production amounts are whole numbers (1, 2, 3, etc.)
 - Modified production amounts can be fractional (rounded to 0.1)
 - Forces stored as fractional values (0.1 precision)
-- Some complications may produce multiple force types
+- Some gears may produce multiple force types
 
 #### 3.2.2 Round Tracking
-- Track statistics per combat: cards played, cards sacrificed, complications destroyed, etc.
+- Track statistics per combat: cards played, cards sacrificed, gears destroyed, etc.
 - Enables complex scaling triggers and achievements
-- Complications can trigger on events other than time (e.g., "When 3rd card played this turn")
+- Gears can trigger on events other than time (e.g., "When 3rd card played this turn")
 - Adds strategic dimensionality beyond pure time management
 
 #### 3.2.3 Consumption-Based Production
@@ -486,7 +486,7 @@ Tags create synergies and define gear identities. Gears typically have 1-4 tags.
 - **Ephemeral**: When this card would go to discard, exile it
 - **Mill**: Move cards from deck directly to discard
 
-## 7. Complication Types
+## 7. Gear Types
 
 ### 7.1 Core Categories
 
@@ -509,42 +509,42 @@ Tags create synergies and define gear identities. Gears typically have 1-4 tags.
 - May have different targeting patterns
 - Example: "Steam Cannon - Every 6 seconds, consume 5 Momentum → 3 damage"
 
-#### 7.1.5 Synergy Complications
-- Boost or trigger other complications
+#### 7.1.5 Synergy Gears
+- Boost or trigger other gears
 - Create combo potential
-- Example: "Master Gear - Adjacent complications produce 50% more often"
+- Example: "Master Gear - Adjacent gears produce 50% more often"
 
-### 7.2 Special Complication Mechanics
+### 7.2 Special Gear Mechanics
 
 #### 7.2.1 Trigger Effects
-- Complications can have various trigger conditions (see Section 6.3)
+- Gears can have various trigger conditions (see Section 6.3)
 
 #### 7.2.2 Death/Destruction Triggers
-- Complications can have "on destroyed" effects that trigger when destroyed
+- Gears can have "on destroyed" effects that trigger when destroyed
 - Multiple destructions in same tick = multiple separate triggers
 - Death triggers resolve in standard priority order
 - "On destroyed" effects trigger regardless of ready state
 
 #### 7.2.3 Simultaneous Placement
-- Some effects may place multiple complications at once
+- Some effects may place multiple gears at once
 - Card must specify placement rules
 - Placement order: Main card placed → effect resolves → additional placements
-- Forced placement replaces existing complications (top-to-bottom, left-to-right)
+- Forced placement replaces existing gears (top-to-bottom, left-to-right)
 - ALWAYS resolve simultaneous ordering questions top to bottom, left to right
 
 #### 7.2.4 Bounce/Return Effects
-- Some complications can return to hand instead of discard when destroyed
-- Bounced complications lose timer progress always
+- Some gears can return to hand instead of discard when destroyed
+- Bounced gears lose timer progress always
 - Creates card advantage but costs tempo
 
 #### 7.2.5 Copy Effects
-- "Copy target complication" must specify what is copied
+- "Copy target gear" must specify what is copied
 - Copy cards should have directional requirement
 - Fails if no valid target in specified direction
 
 #### 7.2.6 Overbuild Mechanics
-- Some complications have "Overbuild" keyword
-- When placed on top of another complication, inherit timer progress
+- Some gears have "Overbuild" keyword
+- When placed on top of another gear, inherit timer progress
 - Creates burst potential by building up timer
 - Strategic use of ready states and timer management
 
@@ -594,7 +594,7 @@ Gremlins impose disruptions while infesting your mechanism:
 
 **Active Sabotage:**
 - Drain forces periodically
-- Corrupt complications
+- Corrupt gears
 - Scramble hand
 - Force discards
 - Jam mechanisms
@@ -663,15 +663,15 @@ Gremlins impose disruptions while infesting your mechanism:
 
 ### 10.1 Initial Combat Setup
 - Starting Hand: Draw 5 cards
-- Starting Movement Plate: Empty except for starting complication
+- Starting Movement Plate: Empty except for starting gear
 - Starting Forces: 0 of each force
-- Starting Complication: One "Basic Chronometer" automatically in play or guaranteed in starting hand
+- Starting Gear: One "Basic Chronometer" automatically in play or guaranteed in starting hand
 
 ### 10.2 Starter Deck Composition (7-8 cards)
 - 2-3 Basic Generators
-- 1-2 Card Draw Complications
+- 1-2 Card Draw Gears
 - 1 Converter
-- 1-2 Utility complications
+- 1-2 Utility gears
 
 ### 10.3 Starter Gear Examples
 
@@ -695,23 +695,23 @@ Gremlins impose disruptions while infesting your mechanism:
 ### 11.1 Consumption Timer Behavior
 
 **Ready State Mechanics:**
-- When a complication that requires consumption reaches its interval, it enters "ready" state
+- When a gear that requires consumption reaches its interval, it enters "ready" state
 - Timer stops at maximum (e.g., stays at 3.0/3.0 seconds)
-- Complication waits until forces are available
+- Gear waits until forces are available
 - Checks every 0.1 second tick for required forces
 - Once forces available, consumes and produces immediately
 - Timer then resets to 0 and begins counting again
 
 **Ready State Interactions:**
 - Ready state is purely time-based (not a trigger condition)
-- Chain/trigger effects activate the complication's effect regardless of timer state
+- Chain/trigger effects activate the gear's effect regardless of timer state
 - If triggered while ready with forces available, produces immediately
-- Explicit "all complications produce" effects trigger production (requires forces if needed)
+- Explicit "all gears produce" effects trigger production (requires forces if needed)
 
 **Overbuild Strategy:**
-- Complications with "Overbuild" keyword inherit timer from replaced complication
-- Can strategically build up timer on weak complication, then overbuild with strong effect
-- Creates burst potential and makes deadlocked complications useful
+- Gears with "Overbuild" keyword inherit timer from replaced gear
+- Can strategically build up timer on weak gear, then overbuild with strong effect
+- Creates burst potential and makes deadlocked gears useful
 
 **Strategic Considerations:**
 - Deadlocks can occur (e.g., A needs B's output, B needs A's output)
@@ -723,7 +723,7 @@ Gremlins impose disruptions while infesting your mechanism:
 - Partial effects: Resolve as much as possible
 - Exception: "Draw X" effects cause loss if you can't draw; "Reveal X" effects don't
 - Multi-part effects must complete all parts if possible
-- Consumption failure: If a complication can't consume required forces, effect fails completely
+- Consumption failure: If a gear can't consume required forces, effect fails completely
 - Destroy vs Sacrifice: Both trigger on-death effects; Sacrifice requires you control the target
 
 ### 11.3 Edge Case Rulings
@@ -738,41 +738,41 @@ Gremlins impose disruptions while infesting your mechanism:
 
 ### 11.4 Priority Conflicts
 - Force competition: Resolve top-to-bottom, left-to-right
-- Tag changes mid-tick: Complications check tags when they trigger
+- Tag changes mid-tick: Gears check tags when they trigger
 - Destruction timing: Replacement effects → Death triggers → Placement effects
-- Simultaneous triggers: Complications at same interval trigger in placement priority order
+- Simultaneous triggers: Gears at same interval trigger in placement priority order
 
 ## 12. Tutorial Concepts - Essential Rules for Players
 
 ### 12.1 Core Concepts (The Basics)
-- Complications are your clockwork mechanisms - Cards become complications when placed on the movement plate
+- Gears are your clockwork mechanisms - Cards become gears when placed on the movement plate
 - Time only moves when you play cards - Nothing happens between card plays
 - Playing cards costs time - Each card shows its time cost in Ticks
-- You can replace complications - Play on top of existing ones; old card goes to discard
+- You can replace gears - Play on top of existing ones; old card goes to discard
 - Losing conditions - You lose if you can't play a card (empty hand) OR can't draw when required
 
 ### 12.2 Production Mechanics (How Things Work)
-- Complications produce on intervals - Example: "Every 3 Ticks: Produce 2 Heat"
-- The Escapement Order - Top-left complications act first, then left-to-right, top-to-bottom
-- Some complications need fuel - Example: "Consume 3 Heat → Produce 2 Precision"
-- Hungry complications wait - They reach "ready" state and pause until resources available
-- Time advances in Beats - 10 Beats = 1 Tick; all complications check their timers every Beat
+- Gears produce on intervals - Example: "Every 3 Ticks: Produce 2 Heat"
+- The Escapement Order - Top-left gears act first, then left-to-right, top-to-bottom
+- Some gears need fuel - Example: "Consume 3 Heat → Produce 2 Precision"
+- Hungry gears wait - They reach "ready" state and pause until resources available
+- Time advances in Beats - 10 Beats = 1 Tick; all gears check their timers every Beat
 
 ### 12.3 Combat Basics (Fighting Gremlins)
 - Gremlins disrupt your mechanism - Each adds constraints while alive
-- Convert forces to damage - Some complications turn resources into attacks
+- Convert forces to damage - Some gears turn resources into attacks
 - Victory condition - Defeat all gremlins before running out of cards
 - Gremlin timers - Gremlins activate disruptions every X Ticks
 
 ### 12.4 Advanced Concepts (Strategy Layer)
-- Tags create synergies - Complications with matching tags boost each other
+- Tags create synergies - Gears with matching tags boost each other
 - Position bonuses - Some movement plate positions grant special effects
-- Overbuild inherits timers - Ready complications pass their wound-up timer when replaced
+- Overbuild inherits timers - Ready gears pass their wound-up timer when replaced
 - Inspiration currency - Earn from defeating gremlins, spend at workshops for new cards
 - The Wheel - Each run is an attempt to break the cosmic cycle
 
 ### 12.5 Critical Warnings (Must Understand)
-- Card draw is not automatic - You need complications that specifically draw cards
+- Card draw is not automatic - You need gears that specifically draw cards
 - Deadlocks are possible - If A needs B's output and B needs A's output, both stuck
 - Deck cycling - When deck empties, shuffle discard pile to form new deck
 - Simultaneous win/loss - If victory and loss trigger together, victory takes precedence
@@ -782,9 +782,9 @@ Gremlins impose disruptions while infesting your mechanism:
 ## 13. Ideas for Future Consideration
 
 ### 13.1 Movement Mechanics
-- Complications that can move around the movement plate
+- Gears that can move around the movement plate
 - "On moved" trigger effects
-- Swap positions between complications
+- Swap positions between gears
 - Note: Start without movement mechanics, add if needed for depth
 
 ### 13.2 Combat Goals
@@ -799,8 +799,8 @@ Gremlins impose disruptions while infesting your mechanism:
 ## 14. Archived Ideas (Not Currently in Scope)
 
 ### 14.1 Mechanics
-- Transform complications (deemed unnecessary)
-- Replace as keyword (all complications can replace by default)
+- Transform gears (deemed unnecessary)
+- Replace as keyword (all gears can replace by default)
 - Probability-based production (explicitly rejected)
 - Building health degradation
 - Energy cost beyond time
