@@ -549,7 +549,8 @@ def main():
         "1xa8_S08EFnjsSBAaKCZ4okflLWUSzm9vcjAQcHIY2os": "goals_data.json",
         "163_WvC6Vsa9Q5mAgRh296npPyaEmd2iEPF7OAki7b5Q": "relic_data.json",
         "1rJPpGNARZ-ZtTRWjehFTeM_ru6Urf6qB-UuxzzeSsMY": "icon_data.json",
-        "1fIkbi6B80U6fXNYX1Gq3w4UqOP-z_vpqEsyAEKcb2ss": "hero_data.json"
+        "1fIkbi6B80U6fXNYX1Gq3w4UqOP-z_vpqEsyAEKcb2ss": "hero_data.json",
+        "1Bv6R-AZtzmG_ycwudZ5Om6dKrJgl6Ut9INw7GTJFUlw": "wave_data.json"
     }
 
     print("📊 Hardcoded Google Sheets to JSON Exporter")

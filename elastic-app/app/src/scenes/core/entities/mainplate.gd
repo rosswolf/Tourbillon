@@ -152,6 +152,11 @@ func process_beat(context: BeatContext) -> void:
 	for pos in __get_positions_in_order():
 		if has_card_at(pos):
 			var card = get_card_at(pos)
+			# Increment beat counter for cards with production
+			if card_states.has(card.instance_id) and card.production_interval > 0:
+				var state = card_states[card.instance_id]
+				state.current_beats += 1
+			
 			# Check if card should activate on this beat
 			if __should_card_activate(card, pos, context):
 				__activate_card(card, pos, context)
@@ -191,7 +196,7 @@ func is_isolated(pos: Vector2i) -> bool:
 			return false
 	return true
 
-## Check if card should activate on this beat
+## Check if card should activate on this beat (pure check, no side effects)
 func __should_card_activate(card: Card, pos: Vector2i, context: BeatContext) -> bool:
 	if not card_states.has(card.instance_id):
 		return false
@@ -201,9 +206,6 @@ func __should_card_activate(card: Card, pos: Vector2i, context: BeatContext) -> 
 	# Non-producing cards don't activate
 	if card.production_interval <= 0:
 		return false
-	
-	# Increment beat counter
-	state.current_beats += 1
 	
 	# Check if ready to activate
 	var interval_in_beats = card.production_interval * 10  # Convert ticks to beats

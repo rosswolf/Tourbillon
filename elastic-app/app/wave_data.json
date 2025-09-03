@@ -1,0 +1,164 @@
+[
+  {
+    "wave_id": "wave_1a",
+    "display_name": "First Contact",
+    "act": 1,
+    "difficulty": 13,
+    "difficulty_tier": "Trivial",
+    "archetype": "Rush Threat - Single Constraint",
+    "strategy_hint": "Teaches soft caps and resource spending pressure",
+    "gremlins": "dust_mite"
+  },
+  {
+    "wave_id": "wave_1b",
+    "display_name": "Mechanical Disruption",
+    "act": 1,
+    "difficulty": 17,
+    "difficulty_tier": "Easy",
+    "archetype": "Disruption Threat - Timing Penalty",
+    "strategy_hint": "Teaches timing efficiency and card sequencing",
+    "gremlins": "gear_tick"
+  },
+  {
+    "wave_id": "wave_1c",
+    "display_name": "Armored Introduction",
+    "act": 1,
+    "difficulty": 17,
+    "difficulty_tier": "Easy",
+    "archetype": "Turtle Threat - Armor Tutorial",
+    "strategy_hint": "Teaches armor mechanics and sustained damage",
+    "gremlins": "rust_speck"
+  },
+  {
+    "wave_id": "wave_1d",
+    "display_name": "Swarm Basics",
+    "act": 1,
+    "difficulty": 3,
+    "difficulty_tier": "Trivial",
+    "archetype": "Pure Swarm - AOE Tutorial",
+    "strategy_hint": "Teaches AOE vs single-target efficiency",
+    "gremlins": "basic_gnat|basic_gnat|basic_gnat"
+  },
+  {
+    "wave_id": "wave_1e",
+    "display_name": "Protected Pest",
+    "act": 1,
+    "difficulty": 14,
+    "difficulty_tier": "Trivial",
+    "archetype": "Protected Constraint - Multi-Hit Tutorial",
+    "strategy_hint": "Teaches multi-hit strategies vs barriers",
+    "gremlins": "constricting_barrier_gnat"
+  },
+  {
+    "wave_id": "wave_1f",
+    "display_name": "Escalating Pressure",
+    "act": 1,
+    "difficulty": 42,
+    "difficulty_tier": "Medium",
+    "archetype": "Scaling Threat - Time Pressure",
+    "strategy_hint": "Teaches elimination priority and timing",
+    "gremlins": "spring_snapper"
+  },
+  {
+    "wave_id": "wave_2a",
+    "display_name": "Turtle and Rush",
+    "act": 2,
+    "difficulty": 69,
+    "difficulty_tier": "Hard",
+    "archetype": "Turtle + Rush Combination",
+    "strategy_hint": "Tests priority targeting - rush vs turtle elimination",
+    "gremlins": "oil_thief|dust_mite|dust_mite"
+  },
+  {
+    "wave_id": "wave_2b",
+    "display_name": "Synergistic Chaos",
+    "act": 2,
+    "difficulty": 86,
+    "difficulty_tier": "Hard",
+    "archetype": "Synergy + Scaling Threat",
+    "strategy_hint": "Tests understanding of force multiplication",
+    "gremlins": "chaos_imp|spring_snapper"
+  },
+  {
+    "wave_id": "wave_2c",
+    "display_name": "The Gnat Problem",
+    "act": 2,
+    "difficulty": 57,
+    "difficulty_tier": "Medium",
+    "archetype": "Summoning + Protection",
+    "strategy_hint": "Tests Green (Attack Most HP) vs multi-hit strategies",
+    "gremlins": "gnat_spawner|barrier_gnat|barrier_gnat|barrier_gnat"
+  },
+  {
+    "wave_id": "wave_2d",
+    "display_name": "Resource Stranglehold",
+    "act": 2,
+    "difficulty": 42,
+    "difficulty_tier": "Medium",
+    "archetype": "Multi-Constraint Swarm",
+    "strategy_hint": "Tests multi-hit efficiency vs protected constraints",
+    "gremlins": "constricting_barrier_gnat|draining_barrier_gnat|toxic_barrier_gnat"
+  },
+  {
+    "wave_id": "wave_2e",
+    "display_name": "Armored Assault",
+    "act": 2,
+    "difficulty": 121,
+    "difficulty_tier": "Nightmare",
+    "archetype": "Heavy Turtle + Support",
+    "strategy_hint": "Tests pierce strategies and sustained damage",
+    "gremlins": "gear_grinder|rust_speck|rust_speck"
+  },
+  {
+    "wave_id": "wave_2f",
+    "display_name": "The Spawning Nightmare",
+    "act": 2,
+    "difficulty": 171,
+    "difficulty_tier": "Nightmare",
+    "archetype": "Elite Summoner + Protected Support",
+    "strategy_hint": "Ultimate summoning challenge with protection",
+    "gremlins": "temporal_glutton|breeding_barrier_gnat"
+  },
+  {
+    "wave_id": "wave_3a",
+    "display_name": "The Constraint Engine",
+    "act": 3,
+    "difficulty": 170,
+    "difficulty_tier": "Nightmare",
+    "archetype": "Multi-System Controller + Protection",
+    "strategy_hint": "Tests mastery of all constraint types",
+    "gremlins": "the_constraint_engine|constricting_barrier_gnat|constricting_barrier_gnat"
+  },
+  {
+    "wave_id": "wave_3b",
+    "display_name": "Echoing Madness",
+    "act": 3,
+    "difficulty": 172,
+    "difficulty_tier": "Nightmare",
+    "archetype": "Protected Summoner + Synergy + Turtle",
+    "strategy_hint": "Complex priority puzzle with protection mechanics",
+    "gremlins": "echo_chamber|chaos_imp|oil_thief"
+  },
+  {
+    "wave_id": "boss_1",
+    "display_name": "The Rust King's Domain",
+    "act": 3,
+    "difficulty": 399,
+    "difficulty_tier": "Nightmare+",
+    "archetype": "Phase Transition + Scaling Support",
+    "strategy_hint": "Ultimate resource management + adaptation test",
+    "gremlins": "rust_king_phase_1|spring_snapper|spring_snapper",
+    "is_boss": true
+  },
+  {
+    "wave_id": "boss_2",
+    "display_name": "Temporal Collapse",
+    "act": 3,
+    "difficulty": 414,
+    "difficulty_tier": "Nightmare+",
+    "archetype": "Ultimate Time Control + Support",
+    "strategy_hint": "Tests all timing and constraint management skills",
+    "gremlins": "chronophage|time_nibbler",
+    "is_boss": true
+  }
+]
