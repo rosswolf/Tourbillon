@@ -7,7 +7,8 @@ class_name UIMainplate
 @export var max_display_size: Vector2i = Vector2i(8, 8)  # Maximum display grid
 
 var mainplate: Mainplate  # Reference to core entity
-var gear_slots: Dictionary[Vector2i, EngineSlot] = {}  # Position -> UI Slot mapping
+var gear_slots: Dictionary[Vector2i, EngineSlot] = {}  # Physical position -> UI Slot mapping
+var grid_mapper: GridMapper  # Maps logical to physical positions
 
 signal gear_placed(slot: EngineSlot, card: Card)
 signal gear_replaced(old_card: Card, new_card: Card, slot: EngineSlot)
@@ -22,19 +23,27 @@ func __on_start_game_tourbillon() -> void:
 	# Get the mainplate entity from GlobalGameManager
 	if GlobalGameManager.mainplate:
 		mainplate = GlobalGameManager.mainplate
+		# Initialize GridMapper with mainplate's logical size and our display size
+		grid_mapper = GridMapper.new(mainplate.grid_size, max_display_size)
 		__setup_mainplate_grid()
 	else:
 		push_error("Mainplate not found in GlobalGameManager!")
 
-func __on_card_played_to_slot(card_id: String, slot_pos: Vector2i) -> void:
+func __on_card_played_to_slot(card_id: String, physical_pos: Vector2i) -> void:
+	# Convert physical position to logical position
+	var logical_pos = grid_mapper.to_logical(physical_pos)
+	if logical_pos == null:
+		push_warning("Physical position outside logical grid: ", physical_pos)
+		return
+	
 	# Validate placement against core entity
-	if not mainplate or not mainplate.is_valid_position(slot_pos):
-		push_warning("Invalid slot position: ", slot_pos)
+	if not mainplate or not mainplate.is_valid_position(logical_pos):
+		push_warning("Invalid logical position: ", logical_pos)
 		return
 	
 	var card: Card = GlobalGameManager.library.get_card(card_id)
 	if card:
-		mainplate.place_card(card, slot_pos)
+		mainplate.place_card(card, logical_pos)
 		__update_slot_visuals()
 
 ## Setup the initial mainplate grid
@@ -68,13 +77,13 @@ func __create_gear_slot(position: Vector2i) -> EngineSlot:
 
 ## Update visual state of slots based on mainplate
 func __update_slot_visuals() -> void:
-	if not mainplate:
+	if not mainplate or not grid_mapper:
 		return
 	
-	# Update all slots based on whether they're within the valid grid
-	for pos in gear_slots:
-		var slot: EngineSlot = gear_slots[pos]
-		var is_active: bool = mainplate.is_valid_position(pos)
+	# Update all slots based on whether they map to valid logical positions
+	for physical_pos in gear_slots:
+		var slot: EngineSlot = gear_slots[physical_pos]
+		var is_active: bool = grid_mapper.is_active_physical(physical_pos)
 		__set_slot_active(slot, is_active)
 
 ## Set a slot's active state with visual feedback
