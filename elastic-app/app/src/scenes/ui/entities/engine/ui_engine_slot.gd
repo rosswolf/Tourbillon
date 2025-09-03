@@ -30,6 +30,7 @@ func _ready() -> void:
 	
 	GlobalSignals.core_card_slotted.connect(__on_card_slotted)
 	GlobalSignals.core_card_unslotted.connect(__on_card_unslotted)
+	GlobalSignals.core_gear_process_beat.connect(__on_gear_process_beat)
 	
 	# Initialize progress bar
 	%ProgressBar.value = 0
@@ -120,7 +121,19 @@ func _on_mouse_exited() -> void:
 	if card_preview:
 		destroy_card_ui()
 
-## Tourbillon beat processing - called by BeatProcessor
+## Handle beat processing signal from core
+func __on_gear_process_beat(card_instance_id: String, context: BeatContext) -> void:
+	# Only process if this beat is for our card
+	if not __button_entity or not __button_entity.card:
+		return
+		
+	if __button_entity.card.instance_id != card_instance_id:
+		return
+		
+	# Process the beat for our card
+	process_beat(context)
+
+## Tourbillon beat processing - called by beat signal
 func process_beat(context: BeatContext) -> void:
 	if not __button_entity or not __button_entity.card:
 		return

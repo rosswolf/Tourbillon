@@ -226,13 +226,12 @@ func end_game():
 
 ## Initialize Tourbillon time systems
 func __initialize_tourbillon_systems() -> void:
-	# Create and add timeline manager
+	# Create and add timeline manager (which creates its own beat processor)
 	timeline_manager = TimelineManager.new()
 	add_child(timeline_manager)
 	
-	# Create and add beat processor
-	beat_processor = BeatProcessor.new()
-	add_child(beat_processor)
+	# Get the beat processor from timeline manager
+	beat_processor = timeline_manager.beat_processor
 	
 	# Create mainplate entity (4x4 grid)
 	# The builder will automatically register it in the instance catalog
@@ -241,6 +240,12 @@ func __initialize_tourbillon_systems() -> void:
 		.with_max_grid_size(Vector2i(8, 8)) \
 		.build()
 	add_child(mainplate)
+	
+	# CRITICAL: Connect the mainplate to the beat processor!
+	if beat_processor:
+		beat_processor.set_mainplate(mainplate)
+	else:
+		push_error("BeatProcessor not found in TimelineManager!")
 	
 	# Connect timeline signals
 	timeline_manager.time_changed.connect(__on_time_changed)

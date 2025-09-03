@@ -40,10 +40,9 @@ func __process_gears_phase(context: BeatContext) -> void:
 		
 	phase_started.emit("gears")
 	
-	var gears = mainplate.get_gears_in_escapement_order()
-	for gear in gears:
-		if gear and is_instance_valid(gear):
-			gear.process_beat(context)
+	# Let the mainplate handle processing its cards
+	# It will emit signals for each card in Escapement Order
+	mainplate.process_beat(context)
 	
 	phase_completed.emit("gears")
 

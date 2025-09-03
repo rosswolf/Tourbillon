@@ -75,6 +75,17 @@ static func slot_card_in_button(card: Card, button: EngineButtonEntity) -> bool:
 	button.card = card
 	GlobalSignals.signal_core_card_removed_from_hand(card.instance_id)
 	
+	# CRITICAL: Also place the card on the core Mainplate entity for beat processing
+	if GlobalGameManager.mainplate and button.engine_slot:
+		var grid_pos = button.engine_slot.grid_position
+		# Convert UI grid position (0-7) to logical position (0-3)
+		# The 4x4 grid is centered at positions 2-5 in the 8x8 display
+		var logical_pos = grid_pos - Vector2i(2, 2)
+		if GlobalGameManager.mainplate.is_valid_position(logical_pos):
+			GlobalGameManager.mainplate.place_card(card, logical_pos)
+		else:
+			push_warning("Invalid mainplate position for card placement: ", logical_pos)
+	
 	# Emit the slotted signal so the slot UI and Tourbillon system can respond
 	GlobalSignals.signal_core_card_slotted(button.instance_id)
 	
