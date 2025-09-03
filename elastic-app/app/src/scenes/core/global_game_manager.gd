@@ -74,14 +74,14 @@ func __setup_starting_deck() -> void:
 	# Shuffle deck  
 	library.shuffle_libraries()
 	
-	# Draw 5 random cards for starting hand
-	library.draw_card(5)
+	# Draw random cards for starting hand
+	library.draw_card(starting_hand_size)
 	
-	print("Drew 5 cards for starting hand")
+	print("Drew ", starting_hand_size, " cards for starting hand")
 
 func __load_hand() -> void:
 	library.deck.shuffle()
-	library.draw_new_hand(5)
+	library.draw_new_hand(hand_size)
 		
 func __handle_activation(source_instance_id: String, target_instance_id: String):
 	GlobalGameManager.activate(source_instance_id, target_instance_id)
