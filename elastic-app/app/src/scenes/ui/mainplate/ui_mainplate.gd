@@ -51,20 +51,6 @@ func __setup_mainplate_grid() -> void:
 	# Configure grid container for maximum display size
 	%SlotGridContainer.columns = max_display_size.x
 	
-	# Center the grid container
-	var grid_container = %SlotGridContainer
-	if grid_container:
-		# Set the grid to center alignment
-		grid_container.set_anchors_preset(Control.PRESET_CENTER)
-		grid_container.set_h_size_flags(Control.SIZE_SHRINK_CENTER)
-		grid_container.set_v_size_flags(Control.SIZE_SHRINK_CENTER)
-		
-		# Also center its parent containers if needed
-		var parent = grid_container.get_parent()
-		if parent and parent is Container:
-			parent.set_h_size_flags(Control.SIZE_SHRINK_CENTER)
-			parent.set_v_size_flags(Control.SIZE_SHRINK_CENTER)
-	
 	# Create ALL display slots up front
 	for y in range(max_display_size.y):
 		for x in range(max_display_size.x):

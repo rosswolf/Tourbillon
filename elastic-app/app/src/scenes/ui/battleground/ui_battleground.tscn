@@ -62,7 +62,11 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="SlotGridContainer" type="GridContainer" parent="MarginContainer2/PanelContainer/Control/MarginContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer2/PanelContainer/Control/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="SlotGridContainer" type="GridContainer" parent="MarginContainer2/PanelContainer/Control/MarginContainer/CenterContainer"]
 unique_name_in_owner = true
 z_index = 2
 layout_mode = 2
