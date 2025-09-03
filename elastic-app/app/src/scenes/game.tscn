@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://b8apg4aqwojm7"]
+[gd_scene load_steps=16 format=3 uid="uid://b8apg4aqwojm7"]
 
 [ext_resource type="Script" uid="uid://dtu25hj7ookvm" path="res://src/scenes/game.gd" id="1_7uq6d"]
 [ext_resource type="Texture2D" uid="uid://dwd5wxn7c654v" path="res://cc0_assets/gears_background.jpg" id="2_gh3at"]
@@ -6,21 +6,17 @@
 [ext_resource type="PackedScene" uid="uid://dx62gxy64qd47" path="res://src/scenes/ui/hud/menu_bar.tscn" id="3_bd8mh"]
 [ext_resource type="PackedScene" uid="uid://dbu6a2pg1iju5" path="res://src/scenes/ui/hand/HandContainer.tscn" id="3_yufto"]
 [ext_resource type="PackedScene" uid="uid://cy65vq3lnn3i3" path="res://src/scenes/ui/mainplate/ui_mainplate.tscn" id="4_5dxuo"]
-[ext_resource type="FontFile" uid="uid://b73jymev43fu5" path="res://ofl_font_assets/BrassMonoRegular-d9WLg.ttf" id="5_bd8mh"]
+[ext_resource type="FontFile" uid="uid://byquatjkwr4rs" path="res://ofl_font_assets/andiamo/font/andiamo.otf" id="4_bd8mh"]
 [ext_resource type="Shader" uid="uid://dktsayggtgauf" path="res://src/scenes/water_effect.gdshader" id="9_h2mn8"]
 [ext_resource type="PackedScene" uid="uid://cka5aovpfoi80" path="res://src/scenes/ui/click_and_drag/click_and_drag.tscn" id="10_6e0h8"]
 [ext_resource type="PackedScene" uid="uid://dckcqckqo0abj" path="res://src/scenes/ui/hud/HUD.tscn" id="10_bd8mh"]
-[ext_resource type="PackedScene" uid="uid://cy65gremlinpanel" path="res://src/scenes/ui/gremlins/ui_gremlin_panel.tscn" id="11_gremlins"]
+[ext_resource type="PackedScene" uid="uid://cpywbj8grdv72" path="res://src/scenes/ui/gremlins/ui_gremlin_panel.tscn" id="11_gremlins"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gh3at"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6e0h8"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5dxuo"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bd8mh"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_flib5"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6e0h8"]
 shader = ExtResource("9_h2mn8")
@@ -83,7 +79,7 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_gh3at")
 layout_mode = 2
 
 [node name="ResourcesContainer" type="PanelContainer" parent="Background/HBoxContainer/MainVBoxContainer/PanelContainer/TopHBoxContainer"]
-custom_minimum_size = Vector2(210, 0)
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_6e0h8")
 
@@ -100,24 +96,28 @@ layout_mode = 2
 
 [node name="TimerContainer" type="MarginContainer" parent="Background/HBoxContainer/MainVBoxContainer/PanelContainer/TopHBoxContainer/PanelContainer/MainplateVBox"]
 layout_mode = 2
-theme_override_constants/margin_bottom = 10
 
 [node name="CenterContainer" type="CenterContainer" parent="Background/HBoxContainer/MainVBoxContainer/PanelContainer/TopHBoxContainer/PanelContainer/MainplateVBox/TimerContainer"]
 layout_mode = 2
 
-[node name="GlobalTimeLabel" type="Label" parent="Background/HBoxContainer/MainVBoxContainer/PanelContainer/TopHBoxContainer/PanelContainer/MainplateVBox/TimerContainer/CenterContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Background/HBoxContainer/MainVBoxContainer/PanelContainer/TopHBoxContainer/PanelContainer/MainplateVBox/TimerContainer/CenterContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 10
+
+[node name="GlobalTimeLabel" type="Label" parent="Background/HBoxContainer/MainVBoxContainer/PanelContainer/TopHBoxContainer/PanelContainer/MainplateVBox/TimerContainer/CenterContainer/MarginContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_shadow_color = Color(1, 1, 1, 0.3)
 theme_override_constants/shadow_offset_x = 2
 theme_override_constants/shadow_offset_y = 2
-theme_override_fonts/font = ExtResource("5_bd8mh")
+theme_override_fonts/font = ExtResource("4_bd8mh")
 theme_override_font_sizes/font_size = 96
 text = "0.000"
 horizontal_alignment = 1
+vertical_alignment = 2
 
-[node name="UIMainplate" parent="Background/HBoxContainer/MainVBoxContainer/PanelContainer/TopHBoxContainer/PanelContainer/MainplateVBox" instance=ExtResource("4_5dxuo") groups=["mainplate"]]
+[node name="UIMainplate" parent="Background/HBoxContainer/MainVBoxContainer/PanelContainer/TopHBoxContainer/PanelContainer/MainplateVBox" instance=ExtResource("4_5dxuo")]
 layout_mode = 2
 
 [node name="MenuBar" parent="Background/HBoxContainer/MainVBoxContainer" instance=ExtResource("3_bd8mh")]
@@ -166,15 +166,8 @@ size_flags_vertical = 8
 [node name="VBoxContainer" type="VBoxContainer" parent="Background/HBoxContainer"]
 layout_mode = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="Background/HBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(210, 0)
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxEmpty_bd8mh")
-
-
-
 [node name="UiGremlinPanel" parent="Background/HBoxContainer/VBoxContainer" instance=ExtResource("11_gremlins")]
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_vertical = 3
 
@@ -196,7 +189,7 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="VersionLabel" type="Label" parent="."]
-anchors_preset = 2
+layout_mode = 0
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_top = -30.0
