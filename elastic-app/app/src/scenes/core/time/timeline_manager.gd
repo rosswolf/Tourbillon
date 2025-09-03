@@ -30,12 +30,13 @@ func __advance_beats_instant(beats_to_add: int) -> void:
 	print("Advancing time by ", beats_to_add, " beats")
 	
 	# Process all beats instantly for game logic
+	# Emit time_changed for each beat to create counting effect
 	for i in range(beats_to_add):
 		total_beats += 1
 		__process_single_beat()
-	
-	# Emit the new time to update UI
-	time_changed.emit(total_beats)
+		
+		# Update UI each beat - creates natural counting animation
+		time_changed.emit(total_beats)
 	
 	# Signal completion
 	card_ticks_complete.emit()
