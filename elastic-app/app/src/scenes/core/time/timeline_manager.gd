@@ -23,14 +23,14 @@ func advance_time(ticks: float) -> void:
 	# Process all beats
 	for i in beats_to_add:
 		total_beats += 1
-		_process_single_beat()
+		__process_single_beat()
 	
 	# Signal completion
 	time_changed.emit(total_beats)
 	card_ticks_complete.emit()
 
 ## Process a single beat
-func _process_single_beat() -> void:
+func __process_single_beat() -> void:
 	var context = BeatContext.new()
 	context.beat_number = total_beats
 	context.tick_number = total_beats / 10

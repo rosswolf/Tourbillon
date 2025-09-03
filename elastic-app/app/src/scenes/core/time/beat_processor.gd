@@ -22,19 +22,19 @@ func _ready() -> void:
 ## Main beat processing - called by TimelineManager
 func process_beat(context: BeatContext) -> void:
 	# Phase 1: Process gears in Escapement Order
-	_process_gears_phase(context)
+	__process_gears_phase(context)
 	
 	# Phase 2: Process gremlins (they handle their own poison)
-	_process_gremlins_phase(context)
+	__process_gremlins_phase(context)
 	
 	# Phase 3: Process additional listeners
-	_process_listeners_phase(context)
+	__process_listeners_phase(context)
 	
 	# Phase 4: Check victory/loss conditions
-	_check_end_conditions(context)
+	__check_end_conditions(context)
 
 ## Phase 1: Process all gears (cards on mainplate)
-func _process_gears_phase(context: BeatContext) -> void:
+func __process_gears_phase(context: BeatContext) -> void:
 	if not mainplate:
 		return
 		
@@ -48,7 +48,7 @@ func _process_gears_phase(context: BeatContext) -> void:
 	phase_completed.emit("gears")
 
 ## Phase 2: Process all gremlins
-func _process_gremlins_phase(context: BeatContext) -> void:
+func __process_gremlins_phase(context: BeatContext) -> void:
 	if not gremlin_manager:
 		return
 		
@@ -62,11 +62,11 @@ func _process_gremlins_phase(context: BeatContext) -> void:
 	phase_completed.emit("gremlins")
 
 ## Phase 3: Process additional listeners
-func _process_listeners_phase(context: BeatContext) -> void:
+func __process_listeners_phase(context: BeatContext) -> void:
 	phase_started.emit("listeners")
 	
 	# Sort by priority for consistent ordering
-	registered_listeners.sort_custom(_compare_priority)
+	registered_listeners.sort_custom(__compare_priority)
 	
 	for listener in registered_listeners:
 		if listener and listener.is_active():
@@ -75,11 +75,11 @@ func _process_listeners_phase(context: BeatContext) -> void:
 	phase_completed.emit("listeners")
 
 ## Phase 4: Check end conditions
-func _check_end_conditions(context: BeatContext) -> void:
+func __check_end_conditions(context: BeatContext) -> void:
 	# Victory takes precedence over loss per PRD
-	if _check_victory():
+	if __check_victory():
 		GlobalSignals.signal_core_victory()
-	elif _check_loss():
+	elif __check_loss():
 		GlobalSignals.signal_core_defeat()
 
 ## Register an additional beat listener
@@ -105,17 +105,17 @@ func reset() -> void:
 		listener.reset()
 
 ## Helper to sort listeners by priority
-func _compare_priority(a: BeatListenerEntity, b: BeatListenerEntity) -> bool:
+func __compare_priority(a: BeatListenerEntity, b: BeatListenerEntity) -> bool:
 	return a.get_priority() < b.get_priority()
 
 ## Check victory conditions
-func _check_victory() -> bool:
+func __check_victory() -> bool:
 	# TODO: Implement victory check
 	# Victory when all gremlins defeated
 	return false
 
 ## Check loss conditions  
-func _check_loss() -> bool:
+func __check_loss() -> bool:
 	# TODO: Implement loss check
 	# Loss when hand empty after card resolution
 	# Loss when can't draw from empty deck+discard

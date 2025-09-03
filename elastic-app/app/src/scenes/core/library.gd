@@ -172,7 +172,7 @@ func print_hand_size():
 	
 # Add a new card to a specific zone
 func add_card_to_zone(card: Card, zone: Zone):
-	var zone_obj: ZoneCollection = _get_zone_object(zone)
+	var zone_obj: ZoneCollection = __get_zone_object(zone)
 	zone_obj.add_card(card)
 	card_zone_map[card.instance_id] = zone
 	
@@ -194,7 +194,7 @@ func move_card_to_zone2(card_instance_id: String, from_zone: Zone, to_zone: Zone
 		
 	# Get current zone
 	var current_zone: Zone = card_zone_map[card_instance_id]
-	var current_zone_obj: ZoneCollection = _get_zone_object(current_zone)
+	var current_zone_obj: ZoneCollection = __get_zone_object(current_zone)
 	
 	if from_zone != Library.Zone.ANY and current_zone != from_zone:
 		print("not moving card as it wasn't in the expected zone.  This may be ok.")
@@ -207,7 +207,7 @@ func move_card_to_zone2(card_instance_id: String, from_zone: Zone, to_zone: Zone
 		return false
 	
 	# Add to new zone
-	var new_zone_obj: ZoneCollection = _get_zone_object(to_zone)
+	var new_zone_obj: ZoneCollection = __get_zone_object(to_zone)
 	if new_zone_obj.__zone_type == Zone.HAND and hand.get_count() >= max_hand_size and not override_limit:
 		print("hit max hand size")
 		return false
@@ -332,7 +332,7 @@ func get_card(card_instance_id: String) -> Card:
 	if zone == null:
 		return null
 		
-	var zone_obj: ZoneCollection = _get_zone_object(zone)
+	var zone_obj: ZoneCollection = __get_zone_object(zone)
 	return zone_obj.get_card(card_instance_id)
 
 # Get current zone of a card
@@ -341,11 +341,11 @@ func get_card_zone(card_instance_id: String) -> Zone:
 	
 # Get all cards in a zone
 func get_card_ids_in_zone(zone: Zone) -> Array[String]:
-	var zone_obj: ZoneCollection = _get_zone_object(zone)
+	var zone_obj: ZoneCollection = __get_zone_object(zone)
 	return zone_obj.get_all_card_ids()
 
 # Helper to get object reference for a zone
-func _get_zone_object(zone: Zone):
+func __get_zone_object(zone: Zone):
 	match zone:
 		Zone.RARE_LIBRARY:
 			return rare_library
