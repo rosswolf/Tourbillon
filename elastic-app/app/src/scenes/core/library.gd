@@ -38,7 +38,7 @@ class ZoneCollection:
 	func remove_card(card_instance_id: String) -> Card:
 		for i in range(__cards.size()):
 			if __cards[i].instance_id == card_instance_id:
-				var card = __cards[i]
+				var card: Card = __cards[i]
 				__cards.remove_at(i)
 				return card
 		return null
@@ -84,7 +84,7 @@ class ZoneCollection:
 	# Remove and return the top card
 	func draw_top() -> Card:
 		if __cards.size() > 0:
-			var card = __cards[0]
+			var card: Card = __cards[0]
 			__cards.remove_at(0)
 			return card
 		return null
@@ -172,7 +172,7 @@ func print_hand_size():
 	
 # Add a new card to a specific zone
 func add_card_to_zone(card: Card, zone: Zone):
-	var zone_obj = _get_zone_object(zone)
+	var zone_obj: ZoneCollection = _get_zone_object(zone)
 	zone_obj.add_card(card)
 	card_zone_map[card.instance_id] = zone
 	
@@ -194,20 +194,20 @@ func move_card_to_zone2(card_instance_id: String, from_zone: Zone, to_zone: Zone
 		
 	# Get current zone
 	var current_zone: Zone = card_zone_map[card_instance_id]
-	var current_zone_obj = _get_zone_object(current_zone)
+	var current_zone_obj: ZoneCollection = _get_zone_object(current_zone)
 	
 	if from_zone != Library.Zone.ANY and current_zone != from_zone:
 		print("not moving card as it wasn't in the expected zone.  This may be ok.")
 		return false
 	
 	# Remove from current zone
-	var card = current_zone_obj.remove_card(card_instance_id)
+	var card: Card = current_zone_obj.remove_card(card_instance_id)
 	if not card:
 		printerr("failed to remove card " + card_instance_id)
 		return false
 	
 	# Add to new zone
-	var new_zone_obj = _get_zone_object(to_zone)
+	var new_zone_obj: ZoneCollection = _get_zone_object(to_zone)
 	if new_zone_obj.__zone_type == Zone.HAND and hand.get_count() >= max_hand_size and not override_limit:
 		print("hit max hand size")
 		return false
@@ -268,7 +268,7 @@ func get_cards_for_selection(selection_id: String) -> Array[Card]:
 	var selectable_cards: Array[Card] = []
 	
 	while selectable_cards.size() < card_selection_count:
-		var roll = randf() # Random float between 0.0 and 1.0
+		var roll: float = randf() # Random float between 0.0 and 1.0
 		print("rare chance is: " + str(rare_chance))
 		print("uncommon chance is: " + str(uncommon_chance))
 		
@@ -328,11 +328,11 @@ func shuffle_libraries():
 	
 # Get a card by its instance ID
 func get_card(card_instance_id: String) -> Card:
-	var zone = card_zone_map.get(card_instance_id)
+	var zone: Zone = card_zone_map.get(card_instance_id) as Zone
 	if zone == null:
 		return null
 		
-	var zone_obj = _get_zone_object(zone)
+	var zone_obj: ZoneCollection = _get_zone_object(zone)
 	return zone_obj.get_card(card_instance_id)
 
 # Get current zone of a card

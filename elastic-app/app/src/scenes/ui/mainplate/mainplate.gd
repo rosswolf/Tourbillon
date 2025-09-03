@@ -37,27 +37,27 @@ func _setup_mainplate_grid() -> void:
 	# Create slots for initial grid
 	for y in range(current_grid_size.y):
 		for x in range(current_grid_size.x):
-			var slot = _create_gear_slot(Vector2i(x, y))
+			var slot: EngineSlot = _create_gear_slot(Vector2i(x, y))
 			%SlotGridContainer.add_child(slot)
 			gear_slots[Vector2i(x, y)] = slot
 
 ## Create a single gear slot
 func _create_gear_slot(position: Vector2i) -> EngineSlot:
-	var slot_scene = preload("res://src/scenes/ui/entities/engine/ui_engine_slot.tscn")
+	var slot_scene: PackedScene = preload("res://src/scenes/ui/entities/engine/ui_engine_slot.tscn")
 	var slot: EngineSlot = slot_scene.instantiate()
 	slot.set_meta("grid_position", position)  # Store position as metadata
 	return slot
 
 ## Get all gears in Escapement Order (top-to-bottom, left-to-right)
 func get_gears_in_escapement_order() -> Array[EngineSlot]:
-	var positions = gear_slots.keys()
+	var positions: Array = gear_slots.keys()
 	
 	# Sort positions by Escapement Order
 	positions.sort_custom(_escapement_compare)
 	
 	var ordered_slots: Array[EngineSlot] = []
 	for pos in positions:
-		var slot = gear_slots[pos]
+		var slot: EngineSlot = gear_slots[pos]
 		if slot and slot.__button_entity and slot.__button_entity.card:
 			ordered_slots.append(slot)
 	
@@ -80,13 +80,13 @@ func place_gear(card: Card, position: Vector2i) -> bool:
 	
 	# Handle replacement if slot is occupied
 	if slot.__button_entity and slot.__button_entity.card:
-		var old_card = slot.__button_entity.card
+		var old_card: Card = slot.__button_entity.card
 		gear_replaced.emit(old_card, card, slot)
 		
 		# Handle Overbuild keyword if present
 		if card.get_meta("is_overbuild", false):
 			# Inherit timer progress from replaced gear
-			var old_progress = slot.get_meta("current_beats", 0)
+			var old_progress: int = slot.get_meta("current_beats", 0) as int
 			slot.set_meta("current_beats", old_progress)
 	else:
 		gear_placed.emit(slot, card)
@@ -101,7 +101,7 @@ func expand_mainplate(expansion_type: String = "row") -> bool:
 	if expansions_used >= max_expansions:
 		return false
 	
-	var new_size = current_grid_size
+	var new_size: Vector2i = current_grid_size
 	
 	match expansion_type:
 		"row":
@@ -131,9 +131,9 @@ func _expand_to_size(new_size: Vector2i) -> void:
 	# Add new slots only for new positions
 	for y in range(new_size.y):
 		for x in range(new_size.x):
-			var pos = Vector2i(x, y)
+			var pos: Vector2i = Vector2i(x, y)
 			if not gear_slots.has(pos):
-				var slot = _create_gear_slot(pos)
+				var slot: EngineSlot = _create_gear_slot(pos)
 				%SlotGridContainer.add_child(slot)
 				gear_slots[pos] = slot
 
@@ -156,11 +156,11 @@ func get_occupied_slots() -> Array[EngineSlot]:
 
 ## Count gears with specific tag
 func count_gears_with_tag(tag: String) -> int:
-	var count = 0
+	var count: int = 0
 	for slot in get_occupied_slots():
-		var card = slot.__button_entity.card
+		var card: Card = slot.__button_entity.card
 		if card and card.has_meta("tags"):
-			var tags = card.get_meta("tags", [])
+			var tags: Array = card.get_meta("tags", []) as Array
 			if tag in tags:
 				count += 1
 	return count
