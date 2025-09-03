@@ -63,18 +63,37 @@ func destroy_card_ui():
 	card_preview = null
 	
 func __on_card_slotted(target_slot_id: String):
+	print("[EngineSlot] __on_card_slotted called with: ", target_slot_id, " my button entity: ", __button_entity.instance_id)
 	if target_slot_id == __button_entity.instance_id:
 		# Only update visual display
 		if __button_entity.card:
 			print("[EngineSlot] Card slotted: ", __button_entity.card.display_name, " at position ", grid_position)
-			%Name.text = __button_entity.card.display_name
-			%MainPanel.visible = true
-			# Make sure inner panel is visible too
-			var inner_panel = %MainPanel.get_node_or_null("PanelContainer")
-			if inner_panel:
-				inner_panel.visible = true
-				# Make the panel more opaque when a card is placed
-				inner_panel.modulate = Color(1.0, 1.0, 1.0, 1.0)  # Fully opaque
+			
+			# Try to find the Name node
+			var name_node = get_node_or_null("%Name")
+			if name_node:
+				name_node.text = __button_entity.card.display_name
+				print("[EngineSlot] Set name text to: ", __button_entity.card.display_name)
+			else:
+				push_warning("[EngineSlot] Could not find %Name node")
+			
+			# Try to find MainPanel node
+			var main_panel = get_node_or_null("%MainPanel")
+			if main_panel:
+				main_panel.visible = true
+				print("[EngineSlot] Made MainPanel visible")
+				
+				# Make sure inner panel is visible too
+				var inner_panel = main_panel.get_node_or_null("PanelContainer")
+				if inner_panel:
+					inner_panel.visible = true
+					# Make the panel more opaque when a card is placed
+					inner_panel.modulate = Color(1.0, 1.0, 1.0, 1.0)  # Fully opaque
+					print("[EngineSlot] Made inner panel visible")
+				else:
+					push_warning("[EngineSlot] Could not find inner PanelContainer")
+			else:
+				push_warning("[EngineSlot] Could not find %MainPanel node")
 			
 			# For instant activation cards (production_interval = 0), show full progress briefly
 			if __button_entity.card.production_interval == 0:
@@ -94,9 +113,18 @@ func __on_card_slotted(target_slot_id: String):
 	
 func __on_card_unslotted(target_slot_id: String):
 	if target_slot_id == __button_entity.instance_id:
-		%Name.text = ""
-		%MainPanel.visible = false
-		%ProgressBar.value = 0
+		var name_node = get_node_or_null("%Name")
+		if name_node:
+			name_node.text = ""
+		
+		var main_panel = get_node_or_null("%MainPanel")
+		if main_panel:
+			main_panel.visible = false
+		
+		var progress_bar = get_node_or_null("%ProgressBar")
+		if progress_bar:
+			progress_bar.value = 0
+		
 		if card_preview:
 			destroy_card_ui()
 
@@ -230,11 +258,20 @@ func show_activation_feedback() -> void:
 
 ## Reset visual state
 func reset() -> void:
-	%ProgressBar.value = 0
-	%ProgressBar.visible = false
+	var progress_bar = get_node_or_null("%ProgressBar")
+	if progress_bar:
+		progress_bar.value = 0
+		progress_bar.visible = false
+	
 	modulate = Color.WHITE
-	%Name.text = ""
-	%MainPanel.visible = false
+	
+	var name_node = get_node_or_null("%Name")
+	if name_node:
+		name_node.text = ""
+	
+	var main_panel = get_node_or_null("%MainPanel")
+	if main_panel:
+		main_panel.visible = false
 
 ## Set the grid position for this slot
 func set_grid_position(pos: Vector2i) -> void:

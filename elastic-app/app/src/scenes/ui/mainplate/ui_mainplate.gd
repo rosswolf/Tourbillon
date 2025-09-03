@@ -339,22 +339,29 @@ func reset() -> void:
 ## Signal handlers for core events
 
 func __on_core_card_slotted(card_id: String) -> void:
+	print("[UIMainplate] Card slotted signal received for card: ", card_id)
+	
 	# Find the slot where this card was placed by checking the mainplate
 	for slot in gear_slots.values():
 		var logical_pos = grid_mapper.to_logical(slot.grid_position)
 		if logical_pos != null:
 			var card = mainplate.get_card_at(logical_pos)
 			if card and card.instance_id == card_id:
-				# Update the slot's button entity with the card
-				if not slot.__button_entity:
-					slot.__button_entity = EngineButtonEntity.EngineButtonEntityBuilder.new().build()
-				slot.__button_entity.card = card
+				print("[UIMainplate] Found card at position ", logical_pos, " in slot ", slot.grid_position)
 				
-				# Trigger visual update on the slot
-				slot.__on_card_slotted(slot.__button_entity.instance_id)
+				# Use the existing button entity on the slot
+				if slot.__button_entity:
+					# Update the card on the existing button entity
+					slot.__button_entity.card = card
+					print("[UIMainplate] Set card on button entity: ", card.display_name)
+					
+					# Trigger visual update on the slot using the button entity's instance_id
+					slot.__on_card_slotted(slot.__button_entity.instance_id)
+				else:
+					push_warning("[UIMainplate] Slot has no button entity at position ", slot.grid_position)
 				
-				# Update bonus visual (bonus was triggered in core)
-				__update_bonus_square_visuals()
+				# Don't update bonus visuals here as it might clear the card visual
+				# The bonus was already consumed in core when the card was placed
 				break
 
 func __on_core_card_replaced(old_card_id: String, new_card_id: String) -> void:
