@@ -103,6 +103,29 @@ visible = false
 layout_mode = 2
 size_flags_horizontal = 1
 
+[node name="TimerContainer" type="MarginContainer" parent="Background/HBoxContainer/MainVBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 20
+
+[node name="CenterContainer" type="CenterContainer" parent="Background/HBoxContainer/MainVBoxContainer/TimerContainer"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Background/HBoxContainer/MainVBoxContainer/TimerContainer/CenterContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_flib5")
+
+[node name="GlobalTimeLabel" type="Label" parent="Background/HBoxContainer/MainVBoxContainer/TimerContainer/CenterContainer/PanelContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 4
+theme_override_constants/shadow_offset_y = 4
+theme_override_fonts/font = ExtResource("5_bd8mh")
+theme_override_font_sizes/font_size = 96
+text = "0.000"
+horizontal_alignment = 1
+
 [node name="BotHBoxContainer" type="HBoxContainer" parent="Background/HBoxContainer/MainVBoxContainer"]
 layout_mode = 2
 
@@ -151,15 +174,6 @@ size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxEmpty_bd8mh")
 
 
-[node name="GlobalTimeLabel" type="Label" parent="Background/HBoxContainer/VBoxContainer/PanelContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("5_bd8mh")
-theme_override_font_sizes/font_size = 30
-text = "00:00:00:000"
-horizontal_alignment = 1
 
 [node name="UiGremlinPanel" parent="Background/HBoxContainer/VBoxContainer" instance=ExtResource("11_gremlins")]
 layout_mode = 2

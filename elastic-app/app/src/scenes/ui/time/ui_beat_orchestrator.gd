@@ -18,8 +18,6 @@ var is_processing_beats: bool = false
 var pending_beats: int = 0
 var current_beat_display: int = 0
 var registered_slots: Array[EngineSlot] = []
-var persistent_timer_label: Label = null
-var timer_container: Control = null
 
 func _ready() -> void:
 	# Connect to time advancement signals
@@ -207,68 +205,9 @@ func orchestrate_gear_fire(slot: EngineSlot) -> void:
 
 ## Show a visual flash to indicate beat tick
 func __show_beat_flash() -> void:
-	# Update or create the persistent timer display
-	if not persistent_timer_label:
-		__create_persistent_timer()
-	
-	# Update the timer text
-	var current_tick = (current_beat_display + 1) / 10
-	var current_beat = (current_beat_display + 1) % 10
-	var decimal_beat = current_beat * 100  # Convert beat to milliseconds representation
-	persistent_timer_label.text = "%d.%03d" % [current_tick, decimal_beat]
-
-## Create the persistent timer display above the battleground
-func __create_persistent_timer() -> void:
-	# Find the mainplate to position timer above it
-	var mainplate = get_tree().get_first_node_in_group("mainplate")
-	if not mainplate:
-		push_error("Cannot find mainplate for timer positioning")
-		return
-	
-	# Create container positioned above mainplate
-	timer_container = Control.new()
-	timer_container.set_anchors_preset(Control.PRESET_CENTER_TOP)
-	timer_container.position = Vector2(0, -150)  # Position above mainplate
-	timer_container.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	
-	# Create panel background for visibility
-	var panel_container = PanelContainer.new()
-	panel_container.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	panel_container.custom_minimum_size = Vector2(300, 100)
-	
-	# Style the panel
-	var panel_style = StyleBoxFlat.new()
-	panel_style.bg_color = Color(0.0, 0.0, 0.0, 0.8)  # Dark semi-transparent
-	panel_style.set_corner_radius_all(20)
-	panel_style.set_border_width_all(4)
-	panel_style.border_color = Color(1.0, 0.8, 0.0, 1.0)  # Gold border
-	panel_style.set_expand_margin_all(25)
-	panel_container.add_theme_stylebox_override("panel", panel_style)
-	
-	# Create center container for the label
-	var center_container = CenterContainer.new()
-	center_container.set_anchors_preset(Control.PRESET_FULL_RECT)
-	
-	# Create the timer label
-	persistent_timer_label = Label.new()
-	persistent_timer_label.text = "0.000"
-	persistent_timer_label.add_theme_font_size_override("font_size", 96)  # Very large
-	persistent_timer_label.add_theme_color_override("font_color", Color(1.0, 1.0, 0.0, 1.0))  # Bright yellow
-	persistent_timer_label.add_theme_color_override("font_shadow_color", Color(0.0, 0.0, 0.0, 1.0))
-	persistent_timer_label.add_theme_constant_override("shadow_offset_x", 3)
-	persistent_timer_label.add_theme_constant_override("shadow_offset_y", 3)
-	
-	# Assemble hierarchy
-	center_container.add_child(persistent_timer_label)
-	panel_container.add_child(center_container)
-	timer_container.add_child(panel_container)
-	
-	# Add to mainplate's parent to keep it centered
-	mainplate.get_parent().add_child(timer_container)
-	
-	# Center the timer horizontally relative to mainplate
-	var mainplate_center = mainplate.global_position + mainplate.size / 2
-	timer_container.global_position.x = mainplate_center.x - panel_container.custom_minimum_size.x / 2
+	# Timer is now handled by GlobalTimeLabel in the scene
+	# Just create a subtle visual pulse effect
+	pass
 
 ## Get the singleton instance
 static func get_instance() -> UIBeatOrchestrator:
