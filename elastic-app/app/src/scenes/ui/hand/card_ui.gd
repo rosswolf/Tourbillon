@@ -6,7 +6,8 @@ extends Control
 @onready var card_title = $TitlePanel/Title 
 @onready var card_description = $DescriptionPanel/Description
 @onready var icon_container = $IconContainer
-@onready var durability_label = $TargetingBoxContainer/DurabilityLabel
+@onready var tick_cost_label = $TargetingBoxContainer/TickCostLabel  # Gray circle for tick cost
+@onready var efficiency_label = $TargetingBoxContainer/EfficiencyLabel  # Bottom text for efficiency
 @onready var is_building = $IsBuilding
 
 var energy_icons: Dictionary[GameResource.Type, String] = {
@@ -46,10 +47,19 @@ func set_card_data(card: Card) -> void:
 	# Update UI elements
 	card_title.text = card.display_name
 	card_description.text = card.rules_text
-	if card.durability.amount >= 0:
-		durability_label.text = "Durability: " + str(card.durability.amount) + "/" + str(card.durability.max_amount)
-	else:
-		durability_label.text = ""
+	
+	# Show tick cost in gray circle (time_cost field)
+	if tick_cost_label:
+		tick_cost_label.text = str(card.time_cost) if card.time_cost > 0 else "0"
+	
+	# Calculate and show efficiency (for cards with production_interval)
+	if efficiency_label:
+		if card.production_interval > 0:
+			# Efficiency = production per tick (simplified display)
+			var efficiency = 1.0 / card.production_interval
+			efficiency_label.text = "Eff: %.2f/tick" % efficiency
+		else:
+			efficiency_label.text = ""
 		
 	add_slot_icon(energy_icons[card.cost.get_energy_color()], str(card.cost.get_energy_cost()), %TopHBoxContainer, GameIcon.TextSize.SMALL)
 	
@@ -62,10 +72,18 @@ func set_card_data(card: Card) -> void:
 func refresh():
 	card_title.text = card_data.display_name
 	card_description.text = card_data.rules_text
-	if card_data.durability.amount >= 0:
-		durability_label.text = "Durability: " + str(card_data.durability.amount) + "/" + str(card_data.durability.max_amount)
-	else:
-		durability_label.text = ""
+	
+	# Update tick cost display
+	if tick_cost_label:
+		tick_cost_label.text = str(card_data.time_cost) if card_data.time_cost > 0 else "0"
+	
+	# Update efficiency display
+	if efficiency_label:
+		if card_data.production_interval > 0:
+			var efficiency = 1.0 / card_data.production_interval
+			efficiency_label.text = "Eff: %.2f/tick" % efficiency
+		else:
+			efficiency_label.text = ""
 
 func add_slot_icon(icon_image: String, value: String, container: Container, font_size: GameIcon.TextSize) -> void:
 	var slot_icon: SlotIcon = PreloadScenes.ICONS["slot"].instantiate()

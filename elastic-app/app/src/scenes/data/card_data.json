@@ -7,13 +7,15 @@
     "rules_text": {
       "Every 4 Ticks": "Draw 1 card"
     },
-    "card_rarity": "Card.RarityType.STARTING",
+    "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "keywords": "starter",
     "starting_progress": 0,
     "on_fire_effect": "draw=1",
     "group_template_id": "tourbillon",
-    "durability_max": 3
+    "durability_max": 3,
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "starter_red_gen",
@@ -23,7 +25,7 @@
     "rules_text": {
       "Every 3 Ticks": "Produce 2.5 Red"
     },
-    "card_rarity": "Card.RarityType.STARTING",
+    "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
     "force_production": {
       "GameResource.Type.GENERATE_RED": "2.5"
@@ -31,7 +33,9 @@
     "keywords": "starter",
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "durability_max": 3
+    "durability_max": 3,
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "starter_blue_gen",
@@ -41,7 +45,7 @@
     "rules_text": {
       "Every 3 Ticks": "Produce 2 Blue"
     },
-    "card_rarity": "Card.RarityType.STARTING",
+    "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
     "force_production": {
       "GameResource.Type.GENERATE_BLUE": "2"
@@ -49,7 +53,9 @@
     "keywords": "starter",
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "durability_max": 3
+    "durability_max": 3,
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "starter_green_gen",
@@ -59,7 +65,7 @@
     "rules_text": {
       "Every 3 Ticks": "Produce 2 Green"
     },
-    "card_rarity": "Card.RarityType.STARTING",
+    "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
     "force_production": {
       "GameResource.Type.GENERATE_GREEN": "2"
@@ -67,7 +73,9 @@
     "keywords": "starter",
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "durability_max": 3
+    "durability_max": 3,
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "starter_white_gen",
@@ -77,7 +85,7 @@
     "rules_text": {
       "Every 3 Ticks": "Produce 2 White"
     },
-    "card_rarity": "Card.RarityType.STARTING",
+    "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
     "force_production": {
       "GameResource.Type.GENERATE_WHITE": "2"
@@ -85,7 +93,9 @@
     "keywords": "starter",
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "durability_max": 3
+    "durability_max": 3,
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "starter_black_gen",
@@ -95,7 +105,7 @@
     "rules_text": {
       "Every 3 Ticks": "Produce 1.5 Black"
     },
-    "card_rarity": "Card.RarityType.STARTING",
+    "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
     "force_production": {
       "GameResource.Type.GENERATE_BLACK": "1.5"
@@ -103,7 +113,9 @@
     "keywords": "starter",
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "durability_max": 3
+    "durability_max": 3,
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "starter_heat_conv",
@@ -113,12 +125,14 @@
     "rules_text": {
       "Every 4 Ticks": "Consume 1 Red + 1 Blue â Produce 1 HEAT"
     },
-    "card_rarity": "Card.RarityType.STARTING",
+    "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "keywords": "starter",
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "durability_max": 3
+    "durability_max": 3,
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "starter_momentum_conv",
@@ -128,12 +142,14 @@
     "rules_text": {
       "Every 4 Ticks": "Consume 1 Red + 1 Green â Produce 1 MOMENTUM"
     },
-    "card_rarity": "Card.RarityType.STARTING",
+    "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "keywords": "starter",
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "durability_max": 3
+    "durability_max": 3,
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "starter_adaptive",
@@ -141,12 +157,14 @@
     "display_name": "Adaptive Strike",
     "tags": "CHAOS",
     "rules_text": "Consume 3 Largest â Deal 2 damage",
-    "card_rarity": "Card.RarityType.STARTING",
+    "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 0,
     "keywords": "starter",
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "durability_max": 3
+    "durability_max": 3,
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "starter_emergency",
@@ -154,12 +172,14 @@
     "display_name": "Emergency Burn",
     "tags": "SPARK",
     "rules_text": "Consume 4 Largest â Deal 2 damage",
-    "card_rarity": "Card.RarityType.STARTING",
+    "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 0,
     "keywords": "starter",
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "durability_max": 3
+    "durability_max": 3,
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "starter_balanced",
@@ -167,12 +187,14 @@
     "display_name": "Balanced Attack",
     "tags": "ORDER",
     "rules_text": "Consume 3 Smallest â Deal 2 damage",
-    "card_rarity": "Card.RarityType.STARTING",
+    "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 0,
     "keywords": "starter",
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "durability_max": 3
+    "durability_max": 3,
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "starter_heat_blast",
@@ -182,12 +204,14 @@
     "rules_text": {
       "MOMENTARY": "Consume 2 HEAT â Deal 4 damage"
     },
-    "card_rarity": "Card.RarityType.STARTING",
+    "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 0,
     "keywords": "starter",
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "durability_max": 3
+    "durability_max": 3,
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "starter_flex_draw",
@@ -195,13 +219,15 @@
     "display_name": "Flexible Draw",
     "tags": "TOOL",
     "rules_text": "Consume 3 Largest â Draw 1 card",
-    "card_rarity": "Card.RarityType.STARTING",
+    "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 0,
     "keywords": "starter",
     "starting_progress": 0,
     "on_fire_effect": "pay_largest=3,draw=1",
     "group_template_id": "tourbillon",
-    "durability_max": 3
+    "durability_max": 3,
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_gen_basic_1",
