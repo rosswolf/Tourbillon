@@ -75,6 +75,20 @@ func __on_card_slotted(target_slot_id: String):
 				inner_panel.visible = true
 				# Make the panel more opaque when a card is placed
 				inner_panel.modulate = Color(1.0, 1.0, 1.0, 1.0)  # Fully opaque
+			
+			# For instant activation cards (production_interval = 0), show full progress briefly
+			if __button_entity.card.production_interval == 0:
+				%ProgressBar.value = 100
+				%ProgressBar.visible = true
+				%ProgressBar.modulate = Color(0.0, 1.0, 0.0, 1.0)  # Green for instant
+				# Animate it fading out after activation
+				var tween = create_tween()
+				tween.tween_interval(0.3)  # Show full bar briefly
+				tween.tween_property(%ProgressBar, "modulate:a", 0.0, 0.3)  # Fade out
+				tween.tween_callback(func(): %ProgressBar.visible = false; %ProgressBar.modulate.a = 1.0)
+			else:
+				# Normal progress starting from 0
+				%ProgressBar.value = 0
 		else:
 			push_warning("Card slotted signal received but no card on button entity!")
 	
@@ -143,6 +157,10 @@ func __on_gear_process_beat(card_instance_id: String, context: BeatContext) -> v
 func update_progress_display(percent: float, is_ready: bool = false) -> void:
 	if not %ProgressBar:
 		push_error("[EngineSlot] No ProgressBar node found!")
+		return
+	
+	# Skip progress updates for instant activation cards
+	if __button_entity and __button_entity.card and __button_entity.card.production_interval == 0:
 		return
 		
 	%ProgressBar.visible = true
