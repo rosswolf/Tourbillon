@@ -1,11 +1,11 @@
 extends Entity
-class_name MainplateEntity
+class_name Mainplate
 
 ## Core entity representing the Tourbillon mainplate (gear grid)
 ## Manages the logical grid state and slot positions
 
 static func _get_type_string():
-	return "MainplateEntity"
+	return "Mainplate"
 
 func _get_type() -> Entity.EntityType:
 	return Entity.EntityType.MAINPLATE
@@ -142,20 +142,20 @@ func is_isolated(pos: Vector2i) -> bool:
 			return false
 	return true
 
-class MainplateEntityBuilder extends Entity.EntityBuilder:
+class MainplateBuilder extends Entity.EntityBuilder:
 	var __grid_size: Vector2i = Vector2i(4, 4)
 	var __max_grid_size: Vector2i = Vector2i(8, 8)
 	
-	func with_grid_size(size: Vector2i) -> MainplateEntityBuilder:
+	func with_grid_size(size: Vector2i) -> MainplateBuilder:
 		__grid_size = size
 		return self
 	
-	func with_max_grid_size(size: Vector2i) -> MainplateEntityBuilder:
+	func with_max_grid_size(size: Vector2i) -> MainplateBuilder:
 		__max_grid_size = size
 		return self
 	
-	func build() -> MainplateEntity:
-		var mainplate = MainplateEntity.new()
+	func build() -> Mainplate:
+		var mainplate = Mainplate.new()
 		super.build_entity(mainplate)
 		mainplate.grid_size = __grid_size
 		mainplate.max_grid_size = __max_grid_size

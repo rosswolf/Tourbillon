@@ -1,12 +1,12 @@
 extends UiBattleground
-class_name Mainplate
+class_name UIMainplate
 
 ## UI representation of the Tourbillon mainplate
-## Renders the core MainplateEntity state
+## Renders the core Mainplate state
 
 @export var max_display_size: Vector2i = Vector2i(8, 8)  # Maximum display grid
 
-var mainplate_entity: MainplateEntity  # Reference to core entity
+var mainplate: Mainplate  # Reference to core entity
 var gear_slots: Dictionary[Vector2i, EngineSlot] = {}  # Position -> UI Slot mapping
 
 signal gear_placed(slot: EngineSlot, card: Card)
@@ -20,21 +20,21 @@ func _ready() -> void:
 
 func __on_start_game_tourbillon() -> void:
 	# Get the mainplate entity from GlobalGameManager
-	if GlobalGameManager.mainplate_entity:
-		mainplate_entity = GlobalGameManager.mainplate_entity
+	if GlobalGameManager.mainplate:
+		mainplate = GlobalGameManager.mainplate
 		__setup_mainplate_grid()
 	else:
-		push_error("MainplateEntity not found in GlobalGameManager!")
+		push_error("Mainplate not found in GlobalGameManager!")
 
 func __on_card_played_to_slot(card_id: String, slot_pos: Vector2i) -> void:
 	# Validate placement against core entity
-	if not mainplate_entity or not mainplate_entity.is_valid_position(slot_pos):
+	if not mainplate or not mainplate.is_valid_position(slot_pos):
 		push_warning("Invalid slot position: ", slot_pos)
 		return
 	
 	var card: Card = GlobalGameManager.library.get_card(card_id)
 	if card:
-		mainplate_entity.place_card(card, slot_pos)
+		mainplate.place_card(card, slot_pos)
 		__update_slot_visuals()
 
 ## Setup the initial mainplate grid
@@ -66,15 +66,15 @@ func __create_gear_slot(position: Vector2i) -> EngineSlot:
 	slot.set_active(false)  # Start inactive
 	return slot
 
-## Update visual state of slots based on mainplate entity
+## Update visual state of slots based on mainplate
 func __update_slot_visuals() -> void:
-	if not mainplate_entity:
+	if not mainplate:
 		return
 	
 	# Update all slots based on whether they're within the valid grid
 	for pos in gear_slots:
 		var slot: EngineSlot = gear_slots[pos]
-		var is_active: bool = mainplate_entity.is_valid_position(pos)
+		var is_active: bool = mainplate.is_valid_position(pos)
 		__set_slot_active(slot, is_active)
 
 ## Set a slot's active state with visual feedback
