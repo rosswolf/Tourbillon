@@ -125,38 +125,37 @@ visible = false
 layout_mode = 2
 size_flags_horizontal = 1
 
-[node name="BotHBoxContainer" type="HBoxContainer" parent="Background/HBoxContainer/MainVBoxContainer"]
+[node name="BotVBoxContainer" type="VBoxContainer" parent="Background/HBoxContainer/MainVBoxContainer"]
 layout_mode = 2
 
-[node name="UIVBoxContainer" type="VBoxContainer" parent="Background/HBoxContainer/MainVBoxContainer/BotHBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Background/HBoxContainer/MainVBoxContainer/BotHBoxContainer/UIVBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Background/HBoxContainer/MainVBoxContainer/BotVBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Background/HBoxContainer/MainVBoxContainer/BotHBoxContainer/UIVBoxContainer/HBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="Background/HBoxContainer/MainVBoxContainer/BotVBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
 
-[node name="RelicGridContainer" type="GridContainer" parent="Background/HBoxContainer/MainVBoxContainer/BotHBoxContainer/UIVBoxContainer/HBoxContainer/ScrollContainer"]
+[node name="RelicGridContainer" type="GridContainer" parent="Background/HBoxContainer/MainVBoxContainer/BotVBoxContainer/HBoxContainer/ScrollContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 columns = 17
 
-[node name="CardMarginContainer" type="MarginContainer" parent="Background/HBoxContainer/MainVBoxContainer/BotHBoxContainer/UIVBoxContainer"]
+[node name="HandCenterContainer" type="CenterContainer" parent="Background/HBoxContainer/MainVBoxContainer/BotVBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 10
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="CardMarginContainer" type="MarginContainer" parent="Background/HBoxContainer/MainVBoxContainer/BotVBoxContainer/HandCenterContainer"]
+layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 15
 
-[node name="CardHandContainer" parent="Background/HBoxContainer/MainVBoxContainer/BotHBoxContainer/UIVBoxContainer/CardMarginContainer" instance=ExtResource("3_yufto")]
+[node name="CardHandContainer" parent="Background/HBoxContainer/MainVBoxContainer/BotVBoxContainer/HandCenterContainer/CardMarginContainer" instance=ExtResource("3_yufto")]
 unique_name_in_owner = true
 z_index = 9
 custom_minimum_size = Vector2(0, 200)

@@ -7,7 +7,7 @@ class_name Game
 var MUSIC_MP3: String = "res://pixabay assets/reportage-industriel-song-1-261972.mp3"
 
 @onready var targeting_icon: TargetingIcon = \
-	$Background/MainVBoxContainer/BotHBoxContainer/UIVBoxContainer/HBoxContainer/VBoxContainer/TargetingPanelContainer/GenericTargetingIcon
+	$Background/MainVBoxContainer/BotVBoxContainer/HBoxContainer/VBoxContainer/TargetingPanelContainer/GenericTargetingIcon
 
 # Legacy meters removed - use force system instead
 
