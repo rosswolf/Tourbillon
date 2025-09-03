@@ -82,26 +82,40 @@ func __set_slot_active(slot: EngineSlot, active: bool) -> void:
 		slot.modulate = Color.WHITE
 		slot.modulate.a = 1.0
 		
-		# Add strong white outline to the button itself
+		# Add strong black outline for visibility on light backgrounds
 		var stylebox = StyleBoxFlat.new()
-		stylebox.bg_color = Color(0.1, 0.1, 0.15, 0.8)  # Dark background for contrast
-		stylebox.border_color = Color(1.0, 1.0, 1.0, 1.0)  # Strong white border
-		stylebox.set_border_width_all(3)  # Thick border for visibility
-		stylebox.set_corner_radius_all(5)
+		stylebox.bg_color = Color(0.15, 0.15, 0.2, 0.6)  # Semi-transparent dark blue-gray background
+		stylebox.border_color = Color(0.0, 0.0, 0.0, 1.0)  # Strong black border
+		stylebox.set_border_width_all(2)  # Visible border width
+		stylebox.set_corner_radius_all(8)
 		slot.add_theme_stylebox_override("normal", stylebox)
-		slot.add_theme_stylebox_override("hover", stylebox)
-		slot.add_theme_stylebox_override("pressed", stylebox)
+		
+		# Hover state - slightly lighter
+		var hover_stylebox = StyleBoxFlat.new()
+		hover_stylebox.bg_color = Color(0.2, 0.2, 0.25, 0.7)  # Lighter on hover
+		hover_stylebox.border_color = Color(0.0, 0.0, 0.0, 1.0)  # Black border
+		hover_stylebox.set_border_width_all(3)  # Thicker on hover
+		hover_stylebox.set_corner_radius_all(8)
+		slot.add_theme_stylebox_override("hover", hover_stylebox)
+		
+		# Pressed state
+		var pressed_stylebox = StyleBoxFlat.new()
+		pressed_stylebox.bg_color = Color(0.25, 0.25, 0.3, 0.8)
+		pressed_stylebox.border_color = Color(0.0, 0.0, 0.0, 1.0)
+		pressed_stylebox.set_border_width_all(3)
+		pressed_stylebox.set_corner_radius_all(8)
+		slot.add_theme_stylebox_override("pressed", pressed_stylebox)
 		slot.add_theme_stylebox_override("disabled", stylebox)
 	else:
-		# Dim inactive slots
-		slot.modulate = Color(0.3, 0.3, 0.3, 0.3)
+		# Dim inactive slots - make them nearly invisible
+		slot.modulate = Color(0.5, 0.5, 0.5, 0.2)
 		
-		# Remove border from inactive slots
+		# Very subtle style for inactive slots
 		var stylebox = StyleBoxFlat.new()
-		stylebox.bg_color = Color(0.05, 0.05, 0.05, 0.2)  # Very dark and transparent
-		stylebox.border_color = Color(0.2, 0.2, 0.2, 0.2)  # Very dim border
+		stylebox.bg_color = Color(0.1, 0.1, 0.1, 0.1)  # Nearly transparent
+		stylebox.border_color = Color(0.3, 0.3, 0.3, 0.2)  # Very faint border
 		stylebox.set_border_width_all(1)
-		stylebox.set_corner_radius_all(5)
+		stylebox.set_corner_radius_all(8)
 		slot.add_theme_stylebox_override("normal", stylebox)
 		slot.add_theme_stylebox_override("hover", stylebox)
 		slot.add_theme_stylebox_override("pressed", stylebox)
