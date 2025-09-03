@@ -41,6 +41,12 @@ layout_mode = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_4pjec")
 
+[node name="ProgressBar" type="ProgressBar" parent="MarginContainer/MainPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+fill_mode = 3
+show_percentage = false
+
 [node name="PanelContainer" type="PanelContainer" parent="MarginContainer/MainPanel"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_01yey")
@@ -51,13 +57,6 @@ layout_mode = 2
 size_flags_vertical = 0
 clip_text = true
 text_overrun_behavior = 3
-
-[node name="ProgressBar" type="ProgressBar" parent="MarginContainer/MainPanel/PanelContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 1
-fill_mode = 3
-show_percentage = false
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MainPanel"]
 z_index = 9
