@@ -97,8 +97,7 @@ class ResourceAccessor:
 	}
 	
 	func get_count(resource_type: GameResource.Type) -> int:
-		if not __resources.has(resource_type):
-			return 0
+		assert(__resources.has(resource_type), "Resource type must exist: " + str(resource_type))
 		return __resources[resource_type].get_value()
 		
 	func increment(resource_type: GameResource.Type, amount: int = 1) -> void:

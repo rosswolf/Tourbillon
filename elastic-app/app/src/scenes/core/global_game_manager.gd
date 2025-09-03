@@ -70,9 +70,7 @@ func _process(_delta: float) -> void:
 			wave_manager.spawn_wave()
 
 func __setup_starting_deck() -> void:
-	if not library:
-		push_warning("Library not initialized")
-		return
+	assert(library != null, "Library must be initialized before setting up starting deck")
 	
 	# Load all STARTING rarity cards from StaticData
 	print("Loading starter deck...")
@@ -367,8 +365,7 @@ func __on_card_ticks_complete() -> void:
 
 ## Process all gears on the mainplate
 func __process_mainplate_gears(context: BeatContext) -> void:
-	if not mainplate:
-		return
+	assert(mainplate != null, "Mainplate must exist to process beats")
 	
 	# Let the core mainplate process the beat
 	# It will emit signals for each card that needs processing
