@@ -101,12 +101,16 @@ func __on_refresh_slot_manually() -> void:
 			card_preview.refresh()
 		
 func _on_mouse_entered() -> void:
-	super._on_mouse_entered()
-	if __button_entity.get_card_instance_id() != "":
-		create_card_ui()
+	# Only register as hovered if this slot is active
+	if is_active_slot:
+		super._on_mouse_entered()
+		if __button_entity.get_card_instance_id() != "":
+			create_card_ui()
 		
 func _on_mouse_exited() -> void:
-	super._on_mouse_exited()
+	# Only clear hover if we were actually hovered
+	if is_active_slot:
+		super._on_mouse_exited()
 	if card_preview:
 		destroy_card_ui()
 
