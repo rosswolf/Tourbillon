@@ -93,8 +93,9 @@ func __update_slot_visuals() -> void:
 		if is_active:
 			active_slots.append(slot)
 			
-	# Randomly assign bonus squares to 1/3 of active slots BEFORE setting visual state
-	__assign_bonus_squares(active_slots)
+	# Assign bonus squares in the core mainplate
+	if mainplate:
+		mainplate.assign_random_bonus_squares()
 	
 	# Now set the visual state with bonus square styling applied
 	for physical_pos in gear_slots:
@@ -106,10 +107,24 @@ func __update_slot_visuals() -> void:
 func __set_slot_active(slot: EngineSlot, active: bool) -> void:
 	slot.set_active(active)
 	
+	# Check if this slot is a bonus square in the core
+	var is_bonus = false
+	var bonus_type = ""
+	if mainplate:
+		var logical_pos = grid_mapper.to_logical(slot.grid_position)
+		if logical_pos != null:
+			is_bonus = mainplate.is_bonus_square(logical_pos)
+			if is_bonus:
+				bonus_type = mainplate.get_bonus_type(logical_pos)
+				slot.set_as_bonus_square(bonus_type)  # Visual indicator only
+			else:
+				slot.is_bonus_square = false
+				slot.bonus_type = ""
+	
 	if active:
 		# For active slots, ensure they're visible
 		# Don't override modulate if it's a bonus square - preserve the yellow tint
-		if not slot.is_bonus_square:
+		if not is_bonus:
 			slot.modulate = Color.WHITE
 		slot.visible = true
 		
@@ -295,27 +310,20 @@ func get_card_at_physical(physical_pos: Vector2i) -> Card:
 	
 	return mainplate.get_card_at(logical_pos)
 
-## Assign bonus squares randomly to active slots
-func __assign_bonus_squares(active_slots: Array[EngineSlot]) -> void:
-	if active_slots.is_empty():
+## Update visual indicators for bonus squares based on core state
+func __update_bonus_square_visuals() -> void:
+	if not mainplate:
 		return
-		
-	# Calculate how many bonus squares (1/3 of active slots)
-	var bonus_count: int = max(1, active_slots.size() / 3)
 	
-	# Shuffle the slots and pick the first N for bonuses
-	var shuffled_slots = active_slots.duplicate()
-	shuffled_slots.shuffle()
-	
-	for i in range(min(bonus_count, shuffled_slots.size())):
-		var slot: EngineSlot = shuffled_slots[i]
-		# First bonus square draws 2 cards, rest draw 1
-		if i == 0:
-			slot.set_as_bonus_square("draw_two_cards")
-			print("SPECIAL bonus square (draws 2) at position: ", slot.grid_position)
+	for slot in gear_slots.values():
+		var logical_pos = grid_mapper.to_logical(slot.grid_position)
+		if logical_pos != null and mainplate.is_bonus_square(logical_pos):
+			var bonus_type = mainplate.get_bonus_type(logical_pos)
+			slot.set_as_bonus_square(bonus_type)  # Visual indicator only
 		else:
-			slot.set_as_bonus_square("draw_one_card")
-			print("Bonus square (draws 1) at position: ", slot.grid_position)
+			slot.is_bonus_square = false
+			slot.bonus_type = ""
+			slot.modulate = Color.WHITE
 
 ## Reset mainplate for new combat
 func reset() -> void:
@@ -330,13 +338,24 @@ func reset() -> void:
 
 ## Signal handlers for core events
 
-func __on_core_card_slotted(slot_id: String) -> void:
-	# Check if this slot is a bonus square and trigger the bonus
+func __on_core_card_slotted(card_id: String) -> void:
+	# Find the slot where this card was placed by checking the mainplate
 	for slot in gear_slots.values():
-		if slot.__button_entity and slot.__button_entity.instance_id == slot_id:
-			if slot.is_bonus_square and slot.bonus_type != "":
-				__trigger_bonus_for_slot(slot)
-			break
+		var logical_pos = grid_mapper.to_logical(slot.grid_position)
+		if logical_pos != null:
+			var card = mainplate.get_card_at(logical_pos)
+			if card and card.instance_id == card_id:
+				# Update the slot's button entity with the card
+				if not slot.__button_entity:
+					slot.__button_entity = Button.ButtonBuilder.new().build()
+				slot.__button_entity.card = card
+				
+				# Trigger visual update on the slot
+				slot.__on_card_slotted(slot.__button_entity.instance_id)
+				
+				# Update bonus visual (bonus was triggered in core)
+				__update_bonus_square_visuals()
+				break
 
 func __on_core_card_replaced(old_card_id: String, new_card_id: String) -> void:
 	# Find the slot with the old card and update it
@@ -376,28 +395,3 @@ func __on_core_slot_activated(card_id: String) -> void:
 			slot.show_activation_feedback()
 			break
 
-func __trigger_bonus_for_slot(slot: EngineSlot) -> void:
-	match slot.bonus_type:
-		"draw_one_card":
-			print("Bonus: Drawing 1 card!")
-			if GlobalGameManager.library:
-				GlobalGameManager.library.draw_card(1)
-				# Visual feedback and clear bonus
-				var tween = create_tween()
-				tween.tween_property(slot, "modulate", Color(1.5, 1.5, 0.8), 0.2)
-				tween.tween_property(slot, "modulate", Color.WHITE, 0.3)
-				# Clear the bonus after use
-				slot.is_bonus_square = false
-				slot.bonus_type = ""
-		
-		"draw_two_cards":
-			print("SPECIAL Bonus: Drawing 2 cards!")
-			if GlobalGameManager.library:
-				GlobalGameManager.library.draw_card(2)
-				# Visual feedback and clear bonus
-				var tween = create_tween()
-				tween.tween_property(slot, "modulate", Color(1.8, 0.8, 1.8), 0.2)
-				tween.tween_property(slot, "modulate", Color.WHITE, 0.3)
-				# Clear the bonus after use
-				slot.is_bonus_square = false
-				slot.bonus_type = ""

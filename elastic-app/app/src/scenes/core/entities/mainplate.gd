@@ -24,6 +24,7 @@ var grid_size: Vector2i = Vector2i(4, 4)  # Current active grid size
 var max_grid_size: Vector2i = Vector2i(8, 8)  # Maximum possible size
 var slots: Dictionary = {}  # Position -> Card mapping
 var card_states: Dictionary = {}  # Card instance_id -> CardState mapping
+var bonus_squares: Dictionary = {}  # Position -> bonus type mapping
 var expansions_used: int = 0
 var max_expansions: int = 4
 
@@ -67,6 +68,16 @@ func place_card(card: Card, pos: Vector2i) -> bool:
 	else:
 		# Initialize card state for new placement
 		card_states[card.instance_id] = CardState.new(card)
+		
+		# Check if this position has a bonus square and trigger it
+		if bonus_squares.has(pos):
+			var bonus_type = bonus_squares[pos]
+			__trigger_bonus(bonus_type)
+			# Clear the bonus after use
+			bonus_squares.erase(pos)
+		
+		# Signal that a card was slotted (pass card instance ID)
+		GlobalSignals.signal_core_card_slotted(card.instance_id)
 	
 	slots[pos] = card
 	return true
@@ -240,6 +251,67 @@ func __activate_card(card: Card, pos: Vector2i, context: BeatContext) -> void:
 	
 	# Reset timer
 	state.current_beats = 0
+
+## Set a position as a bonus square
+func set_bonus_square(pos: Vector2i, bonus_type: String) -> void:
+	if is_valid_position(pos) and not has_card_at(pos):
+		bonus_squares[pos] = bonus_type
+
+## Check if a position is a bonus square
+func is_bonus_square(pos: Vector2i) -> bool:
+	return bonus_squares.has(pos)
+
+## Get bonus type at position
+func get_bonus_type(pos: Vector2i) -> String:
+	if bonus_squares.has(pos):
+		return bonus_squares[pos]
+	return ""
+
+## Clear all bonus squares
+func clear_bonus_squares() -> void:
+	bonus_squares.clear()
+
+## Assign random bonus squares to empty slots
+func assign_random_bonus_squares() -> void:
+	# Get all empty positions
+	var empty_positions: Array[Vector2i] = []
+	for y in range(grid_size.y):
+		for x in range(grid_size.x):
+			var pos = Vector2i(x, y)
+			if not has_card_at(pos):
+				empty_positions.append(pos)
+	
+	if empty_positions.is_empty():
+		return
+	
+	# Calculate how many bonus squares (1/3 of empty slots, minimum 1)
+	var bonus_count = max(1, empty_positions.size() / 3)
+	
+	# Shuffle positions
+	empty_positions.shuffle()
+	
+	# Assign bonuses
+	for i in range(min(bonus_count, empty_positions.size())):
+		var pos = empty_positions[i]
+		# First bonus is special (draws 2), rest draw 1
+		if i == 0:
+			set_bonus_square(pos, "draw_two_cards")
+			print("[Mainplate] Special bonus square at ", pos)
+		else:
+			set_bonus_square(pos, "draw_one_card")
+			print("[Mainplate] Bonus square at ", pos)
+
+## Trigger bonus effect
+func __trigger_bonus(bonus_type: String) -> void:
+	match bonus_type:
+		"draw_one_card":
+			if GlobalGameManager.library:
+				GlobalGameManager.library.draw_card(1)
+				print("[Mainplate] Bonus triggered: Draw 1 card")
+		"draw_two_cards":
+			if GlobalGameManager.library:
+				GlobalGameManager.library.draw_card(2)
+				print("[Mainplate] SPECIAL bonus triggered: Draw 2 cards")
 
 class MainplateBuilder extends Entity.EntityBuilder:
 	var __grid_size: Vector2i = Vector2i(4, 4)
