@@ -14,7 +14,7 @@ var stats_manager: StatsManager
 # Tourbillon system integration
 var timeline_manager: TimelineManager
 var beat_processor: BeatProcessor
-var mainplate: Mainplate
+var mainplate_entity: MainplateEntity  # Core mainplate entity
 var starting_deck_size: int = 15
 var starting_hand_size: int = 5
 
@@ -233,6 +233,14 @@ func __initialize_tourbillon_systems() -> void:
 	# Create and add beat processor
 	beat_processor = BeatProcessor.new()
 	add_child(beat_processor)
+	
+	# Create mainplate entity (4x4 grid)
+	mainplate_entity = MainplateEntity.MainplateEntityBuilder.new() \
+		.with_grid_size(Vector2i(4, 4)) \
+		.with_max_grid_size(Vector2i(8, 8)) \
+		.build()
+	add_child(mainplate_entity)
+	instance_catalog.add_instance(mainplate_entity)
 	
 	# Connect timeline signals
 	timeline_manager.time_changed.connect(__on_time_changed)

@@ -9,6 +9,8 @@ class_name EngineSlot
 var production_interval_beats: int = 30  # Default 3 ticks
 var current_beats: int = 0
 var is_ready: bool = false
+var grid_position: Vector2i = Vector2i(-1, -1)  # Position in the grid
+var is_active_slot: bool = false  # Whether this slot is within valid grid
 
 var card_preview: CardUI
 
@@ -227,3 +229,22 @@ func reset() -> void:
 	is_ready = false
 	__update_progress_display()
 	modulate = Color.WHITE
+
+## Set the grid position for this slot
+func set_grid_position(pos: Vector2i) -> void:
+	grid_position = pos
+
+## Set whether this slot is active (can accept cards)
+func set_active(active: bool) -> void:
+	is_active_slot = active
+	# Update visual appearance based on active state
+	if active:
+		mouse_filter = Control.MOUSE_FILTER_STOP
+		disabled = false
+	else:
+		mouse_filter = Control.MOUSE_FILTER_IGNORE
+		disabled = true
+
+## Check if this slot can accept a card
+func can_accept_card() -> bool:
+	return is_active_slot

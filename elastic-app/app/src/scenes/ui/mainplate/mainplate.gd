@@ -1,16 +1,13 @@
 extends UiBattleground
 class_name Mainplate
 
-## Tourbillon mainplate - the grid where gears (cards) are placed
-## Adapts the existing battleground for Tourbillon's needs
+## UI representation of the Tourbillon mainplate
+## Renders the core MainplateEntity state
 
-@export var initial_grid_size: Vector2i = Vector2i(4, 4)
-@export var max_grid_size: Vector2i = Vector2i(8, 8)  # Fixed maximum grid
-@export var max_expansions: int = 4
+@export var max_display_size: Vector2i = Vector2i(8, 8)  # Maximum display grid
 
-var expansions_used: int = 0
-var gear_slots: Dictionary[Vector2i, EngineSlot] = {}  # Physical position -> Slot mapping
-var grid_mapper: GridMapper  # Handles logical to physical mapping
+var mainplate_entity: MainplateEntity  # Reference to core entity
+var gear_slots: Dictionary[Vector2i, EngineSlot] = {}  # Position -> UI Slot mapping
 
 signal gear_placed(slot: EngineSlot, card: Card)
 signal gear_replaced(old_card: Card, new_card: Card, slot: EngineSlot)
@@ -19,11 +16,26 @@ signal mainplate_expanded(new_size: Vector2i)
 func _ready() -> void:
 	# Don't call super._ready() to avoid default battleground setup
 	GlobalSignals.ui_started_game.connect(__on_start_game_tourbillon)
-	grid_mapper = GridMapper.new(initial_grid_size, max_grid_size)
+	GlobalSignals.ui_card_played_to_slot.connect(__on_card_played_to_slot)
 
 func __on_start_game_tourbillon() -> void:
-	set_entity_data(BattlegroundEntity.BattlegroundEntityBuilder.new().build())
-	__setup_mainplate_grid()
+	# Get the mainplate entity from GlobalGameManager
+	if GlobalGameManager.mainplate_entity:
+		mainplate_entity = GlobalGameManager.mainplate_entity
+		__setup_mainplate_grid()
+	else:
+		push_error("MainplateEntity not found in GlobalGameManager!")
+
+func __on_card_played_to_slot(card_id: String, slot_pos: Vector2i) -> void:
+	# Validate placement against core entity
+	if not mainplate_entity or not mainplate_entity.is_valid_position(slot_pos):
+		push_warning("Invalid slot position: ", slot_pos)
+		return
+	
+	var card: Card = GlobalGameManager.library.get_card(card_id)
+	if card:
+		mainplate_entity.place_card(card, slot_pos)
+		__update_slot_visuals()
 
 ## Setup the initial mainplate grid
 func __setup_mainplate_grid() -> void:
@@ -32,45 +44,44 @@ func __setup_mainplate_grid() -> void:
 		child.queue_free()
 	gear_slots.clear()
 	
-	# Configure grid container for maximum size
-	%SlotGridContainer.columns = max_grid_size.x
+	# Configure grid container for maximum display size
+	%SlotGridContainer.columns = max_display_size.x
 	
-	# Create ALL slots up front
-	for y in range(max_grid_size.y):
-		for x in range(max_grid_size.x):
+	# Create ALL display slots up front
+	for y in range(max_display_size.y):
+		for x in range(max_display_size.x):
 			var pos: Vector2i = Vector2i(x, y)
 			var slot: EngineSlot = __create_gear_slot(pos)
 			%SlotGridContainer.add_child(slot)
 			gear_slots[pos] = slot
 	
-	# Update visual state based on grid mapper
+	# Update visual state based on mainplate entity
 	__update_slot_visuals()
 
 ## Create a single gear slot
 func __create_gear_slot(position: Vector2i) -> EngineSlot:
 	var slot_scene: PackedScene = preload("res://src/scenes/ui/entities/engine/ui_engine_slot.tscn")
 	var slot: EngineSlot = slot_scene.instantiate()
-	slot.set_meta("grid_position", position)  # Store position as metadata
-	slot.set_meta("is_active", false)  # Start inactive
+	slot.set_grid_position(position)
+	slot.set_active(false)  # Start inactive
 	return slot
 
-## Update visual state of slots based on grid mapper
+## Update visual state of slots based on mainplate entity
 func __update_slot_visuals() -> void:
-	# Update all slots based on whether they're active
-	for physical_pos in gear_slots:
-		var slot: EngineSlot = gear_slots[physical_pos]
-		var is_active: bool = grid_mapper.is_active_physical(physical_pos)
+	if not mainplate_entity:
+		return
+	
+	# Update all slots based on whether they're within the valid grid
+	for pos in gear_slots:
+		var slot: EngineSlot = gear_slots[pos]
+		var is_active: bool = mainplate_entity.is_valid_position(pos)
 		__set_slot_active(slot, is_active)
 
 ## Set a slot's active state with visual feedback
 func __set_slot_active(slot: EngineSlot, active: bool) -> void:
-	slot.set_meta("is_active", active)
+	slot.set_active(active)
 	
 	if active:
-		# Enable interaction for active slots
-		slot.mouse_filter = Control.MOUSE_FILTER_STOP
-		slot.disabled = false
-		
 		# Reset modulation for active slots
 		slot.modulate = Color.WHITE
 		slot.modulate.a = 1.0
@@ -86,10 +97,6 @@ func __set_slot_active(slot: EngineSlot, active: bool) -> void:
 		slot.add_theme_stylebox_override("pressed", stylebox)
 		slot.add_theme_stylebox_override("disabled", stylebox)
 	else:
-		# Disable interaction for inactive slots
-		slot.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		slot.disabled = true
-		
 		# Dim inactive slots
 		slot.modulate = Color(0.3, 0.3, 0.3, 0.3)
 		
