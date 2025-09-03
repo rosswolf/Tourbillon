@@ -481,5 +481,318 @@
     },
     "instinct_effect": "add_green_time=3, draw_card=1",
     "card_rarity": "Card.RarityType.COMMON"
+  },
+  {
+    "card_template_id": "purple_draw_fast",
+    "group_template_id": "knight",
+    "card_count": 2,
+    "display_name": "surge",
+    "rules_text": "draw 2 cards",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "card_cost": {
+      "GameResource.Type.PURPLE_ENERGY": "3"
+    },
+    "instinct_effect": "draw_card=2",
+    "card_rarity": "Card.RarityType.COMMON"
+  },
+  {
+    "card_template_id": "purple_draw_slot",
+    "group_template_id": "knight",
+    "card_count": 1,
+    "display_name": "pulse",
+    "rules_text": "draw 1 card every 15 beats",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "durability_max": 5,
+    "card_cost": {
+      "GameResource.Type.PURPLE_ENERGY": "2"
+    },
+    "slot_effect": "draw_card=1,cooldown=15",
+    "card_rarity": "Card.RarityType.COMMON"
+  },
+  {
+    "card_template_id": "green_draw_efficient",
+    "group_template_id": "knight",
+    "card_count": 2,
+    "display_name": "flow",
+    "rules_text": "draw 1 card",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "card_cost": {
+      "GameResource.Type.GREEN_ENERGY": "0"
+    },
+    "instinct_effect": "draw_card=1",
+    "card_rarity": "Card.RarityType.COMMON"
+  },
+  {
+    "card_template_id": "green_draw_slot_slow",
+    "group_template_id": "knight",
+    "card_count": 1,
+    "display_name": "cultivate",
+    "rules_text": "draw 2 cards every 25 beats",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "durability_max": 3,
+    "card_cost": {
+      "GameResource.Type.GREEN_ENERGY": "1"
+    },
+    "slot_effect": "draw_card=2,cooldown=25",
+    "card_rarity": "Card.RarityType.COMMON"
+  },
+  {
+    "card_template_id": "blue_draw_slot_fast",
+    "group_template_id": "knight",
+    "card_count": 1,
+    "display_name": "ripple",
+    "rules_text": "draw 1 card every 8 beats",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "durability_max": 8,
+    "card_cost": {
+      "GameResource.Type.BLUE_ENERGY": "1"
+    },
+    "slot_effect": "draw_card=1,cooldown=8",
+    "card_rarity": "Card.RarityType.COMMON"
+  },
+  {
+    "card_template_id": "mixed_draw_purple_green",
+    "group_template_id": "knight",
+    "card_count": 1,
+    "display_name": "weave",
+    "rules_text": "draw 3 cards",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "card_cost": {
+      "GameResource.Type.PURPLE_ENERGY": "2",
+      "GameResource.Type.GREEN_ENERGY": "1"
+    },
+    "instinct_effect": "draw_card=3",
+    "card_rarity": "Card.RarityType.UNCOMMON"
+  },
+  {
+    "card_template_id": "mixed_draw_blue_purple",
+    "group_template_id": "knight",
+    "card_count": 1,
+    "display_name": "cascade",
+    "rules_text": "draw 2 cards, discard 1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "card_cost": {
+      "GameResource.Type.BLUE_ENERGY": "1",
+      "GameResource.Type.PURPLE_ENERGY": "1"
+    },
+    "instinct_effect": "draw_card=2,discard_card=1",
+    "card_rarity": "Card.RarityType.UNCOMMON"
+  },
+  {
+    "card_template_id": "mixed_draw_green_blue",
+    "group_template_id": "knight",
+    "card_count": 1,
+    "display_name": "refresh",
+    "rules_text": "draw 1 card, add 2 to all times",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "card_cost": {
+      "GameResource.Type.GREEN_ENERGY": "1",
+      "GameResource.Type.BLUE_ENERGY": "1"
+    },
+    "instinct_effect": "draw_card=1,add_purple_time=2,add_blue_time=2,add_green_time=2",
+    "card_rarity": "Card.RarityType.UNCOMMON"
+  },
+  {
+    "card_template_id": "purple_draw_rare",
+    "group_template_id": "knight",
+    "card_count": 1,
+    "display_name": "vortex",
+    "rules_text": "draw 4 cards",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "card_cost": {
+      "GameResource.Type.PURPLE_ENERGY": "5"
+    },
+    "instinct_effect": "draw_card=4",
+    "card_rarity": "Card.RarityType.RARE"
+  },
+  {
+    "card_template_id": "green_draw_rare",
+    "group_template_id": "knight",
+    "card_count": 1,
+    "display_name": "flourish",
+    "rules_text": "draw 3 cards every 30 beats",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "durability_max": 4,
+    "card_cost": {
+      "GameResource.Type.GREEN_ENERGY": "2"
+    },
+    "slot_effect": "draw_card=3,cooldown=30",
+    "card_rarity": "Card.RarityType.RARE"
+  },
+  {
+    "card_template_id": "red_draw_burst",
+    "group_template_id": "knight",
+    "card_count": 2,
+    "display_name": "ignite",
+    "rules_text": "draw 2 cards",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "card_cost": {
+      "GameResource.Type.RED_ENERGY": "4"
+    },
+    "instinct_effect": "draw_card=2",
+    "card_rarity": "Card.RarityType.COMMON"
+  },
+  {
+    "card_template_id": "red_draw_slot",
+    "group_template_id": "knight",
+    "card_count": 1,
+    "display_name": "ember",
+    "rules_text": "draw 1 card every 12 beats",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "durability_max": 6,
+    "card_cost": {
+      "GameResource.Type.RED_ENERGY": "3"
+    },
+    "slot_effect": "draw_card=1,cooldown=12",
+    "card_rarity": "Card.RarityType.COMMON"
+  },
+  {
+    "card_template_id": "white_draw_reliable",
+    "group_template_id": "knight",
+    "card_count": 2,
+    "display_name": "steady",
+    "rules_text": "draw 1 card",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "card_cost": {
+      "GameResource.Type.WHITE_ENERGY": "2"
+    },
+    "instinct_effect": "draw_card=1",
+    "card_rarity": "Card.RarityType.COMMON"
+  },
+  {
+    "card_template_id": "white_draw_slot_slow",
+    "group_template_id": "knight",
+    "card_count": 1,
+    "display_name": "patience",
+    "rules_text": "draw 2 cards every 20 beats",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "durability_max": 10,
+    "card_cost": {
+      "GameResource.Type.WHITE_ENERGY": "2"
+    },
+    "slot_effect": "draw_card=2,cooldown=20",
+    "card_rarity": "Card.RarityType.COMMON"
+  },
+  {
+    "card_template_id": "heat_draw_special",
+    "group_template_id": "knight",
+    "card_count": 1,
+    "display_name": "combust",
+    "rules_text": "draw 3 cards",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "card_cost": {
+      "GameResource.Type.HEAT": "3"
+    },
+    "instinct_effect": "draw_card=3",
+    "card_rarity": "Card.RarityType.UNCOMMON"
+  },
+  {
+    "card_template_id": "precision_draw_optimal",
+    "group_template_id": "knight",
+    "card_count": 2,
+    "display_name": "calculate",
+    "rules_text": "draw 2 cards",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "card_cost": {
+      "GameResource.Type.PRECISION": "1"
+    },
+    "instinct_effect": "draw_card=2",
+    "card_rarity": "Card.RarityType.UNCOMMON"
+  },
+  {
+    "card_template_id": "precision_draw_slot",
+    "group_template_id": "knight",
+    "card_count": 1,
+    "display_name": "analyze",
+    "rules_text": "draw 1 card every 6 beats",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "durability_max": 12,
+    "card_cost": {
+      "GameResource.Type.PRECISION": "1"
+    },
+    "slot_effect": "draw_card=1,cooldown=6",
+    "card_rarity": "Card.RarityType.UNCOMMON"
+  },
+  {
+    "card_template_id": "momentum_draw_scaling",
+    "group_template_id": "knight",
+    "card_count": 1,
+    "display_name": "accelerate",
+    "rules_text": "draw 1 card, then 2 more every 15 beats",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "durability_max": 5,
+    "card_cost": {
+      "GameResource.Type.MOMENTUM": "2"
+    },
+    "instinct_effect": "draw_card=1",
+    "slot_effect": "draw_card=2,cooldown=15",
+    "card_rarity": "Card.RarityType.UNCOMMON"
+  },
+  {
+    "card_template_id": "balance_draw_filter",
+    "group_template_id": "knight",
+    "card_count": 1,
+    "display_name": "equilibrium",
+    "rules_text": "draw 3 cards, discard 1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "card_cost": {
+      "GameResource.Type.BALANCE": "2"
+    },
+    "instinct_effect": "draw_card=3,discard_card=1",
+    "card_rarity": "Card.RarityType.UNCOMMON"
+  },
+  {
+    "card_template_id": "entropy_draw_sacrifice",
+    "group_template_id": "knight",
+    "card_count": 1,
+    "display_name": "unravel",
+    "rules_text": "destroy a slot, draw 3 cards",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "card_cost": {
+      "GameResource.Type.ENTROPY": "3"
+    },
+    "instinct_effect": "destroy_slot=1,draw_card=3",
+    "card_rarity": "Card.RarityType.UNCOMMON"
+  },
+  {
+    "card_template_id": "mixed_red_white",
+    "group_template_id": "knight",
+    "card_count": 1,
+    "display_name": "forge",
+    "rules_text": "draw 2 cards",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "card_cost": {
+      "GameResource.Type.RED_ENERGY": "2",
+      "GameResource.Type.WHITE_ENERGY": "1"
+    },
+    "instinct_effect": "draw_card=2",
+    "card_rarity": "Card.RarityType.UNCOMMON"
+  },
+  {
+    "card_template_id": "heat_draw_rare",
+    "group_template_id": "knight",
+    "card_count": 1,
+    "display_name": "inferno",
+    "rules_text": "draw 5 cards",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "card_cost": {
+      "GameResource.Type.HEAT": "5"
+    },
+    "instinct_effect": "draw_card=5",
+    "card_rarity": "Card.RarityType.RARE"
+  },
+  {
+    "card_template_id": "momentum_draw_rare",
+    "group_template_id": "knight",
+    "card_count": 1,
+    "display_name": "perpetual",
+    "rules_text": "draw 1 card every 5 beats forever",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "durability_max": 99,
+    "card_cost": {
+      "GameResource.Type.MOMENTUM": "4"
+    },
+    "slot_effect": "draw_card=1,cooldown=5",
+    "card_rarity": "Card.RarityType.RARE"
   }
 ]

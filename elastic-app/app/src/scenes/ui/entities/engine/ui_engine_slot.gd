@@ -47,6 +47,8 @@ func create_card_ui():
 	
 	card_preview.position = Vector2(-170, 0)
 	card_preview.visible = true  # Make sure it's visible
+	# Make the card preview less transparent for better visibility
+	card_preview.modulate = Color(1.0, 1.0, 1.0, 0.95)  # Almost fully opaque
 	add_child(card_preview)
 	# Start invisible and scale up
 	var tween = create_tween()
@@ -65,12 +67,15 @@ func __on_card_slotted(target_slot_id: String):
 	if target_slot_id == __button_entity.instance_id:
 		# Don't create card UI here - only on hover
 		if __button_entity.card:
+			print("[EngineSlot] Card slotted: ", __button_entity.card.display_name, " at position ", grid_position)
 			%Name.text = __button_entity.card.display_name
 			%MainPanel.visible = true
 			# Make sure inner panel is visible too
 			var inner_panel = %MainPanel.get_node_or_null("PanelContainer")
 			if inner_panel:
 				inner_panel.visible = true
+				# Make the panel more opaque when a card is placed
+				inner_panel.modulate = Color(1.0, 1.0, 1.0, 1.0)  # Fully opaque
 			# Setup the card's production timing
 			setup_from_card(__button_entity.card)
 			
@@ -171,8 +176,10 @@ func setup_from_card(card: Card) -> void:
 	# Get timing from card (-1 means no production)
 	if card.production_interval > 0:
 		production_interval_beats = card.production_interval * 10  # Convert ticks to beats
+		print("[EngineSlot] Card ", card.display_name, " interval: ", card.production_interval, " ticks = ", production_interval_beats, " beats")
 	else:
 		production_interval_beats = -1  # No production
+		print("[EngineSlot] Card ", card.display_name, " has no production")
 	
 	# Reset state
 	current_beats = card.starting_progress  # Use card's starting progress if any
@@ -239,21 +246,27 @@ func __exit_ready_state() -> void:
 ## Update the progress bar display
 func __update_progress_display() -> void:
 	if not %ProgressBar:
+		push_error("[EngineSlot] No ProgressBar node found!")
 		return
 		
 	if production_interval_beats > 0:
 		%ProgressBar.visible = true
 		var target_value = pct(current_beats, production_interval_beats)
+		print("[EngineSlot] Progress update: ", current_beats, "/", production_interval_beats, " = ", target_value, "%")
+		
+		# Make progress bar more visible
+		%ProgressBar.self_modulate = Color.WHITE  # Ensure base color is white
+		%ProgressBar.z_index = 10  # Bring to front
 		
 		# Animate the progress bar smoothly
 		var tween = create_tween()
 		tween.tween_property(%ProgressBar, "value", target_value, 0.2)  # Smooth 0.2s animation
 		
-		# Color code the progress bar
+		# Color code the progress bar with stronger colors
 		if is_ready:
-			%ProgressBar.modulate = Color(0.2, 1.0, 0.2)  # Green when ready
+			%ProgressBar.modulate = Color(0.0, 1.0, 0.0, 1.0)  # Bright green when ready
 		else:
-			%ProgressBar.modulate = Color(1.0, 1.0, 1.0)  # White when charging
+			%ProgressBar.modulate = Color(1.0, 1.0, 0.0, 1.0)  # Yellow when charging
 	else:
 		# -1 or invalid value - hide progress bar for non-producing cards
 		%ProgressBar.value = 0

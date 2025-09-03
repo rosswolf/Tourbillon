@@ -23,6 +23,9 @@ func _ready() -> void:
 	# Connect to time advancement signals
 	if GlobalGameManager.timeline_manager:
 		GlobalGameManager.timeline_manager.time_changed.connect(__on_time_changed)
+		print("[UIBeatOrchestrator] Connected to timeline_manager")
+	else:
+		push_error("[UIBeatOrchestrator] No timeline_manager found!")
 	
 	# This will be the single source of truth for UI beat updates
 	set_process(false)
@@ -39,10 +42,12 @@ func unregister_slot(slot: EngineSlot) -> void:
 
 ## Handle time changes from the timeline manager
 func __on_time_changed(total_beats: int) -> void:
+	print("[UIBeatOrchestrator] Time changed signal received. Total beats: ", total_beats, " Current display: ", current_beat_display)
 	# Calculate how many beats to animate
 	var beats_to_animate = total_beats - current_beat_display
 	if beats_to_animate > 0:
 		pending_beats += beats_to_animate
+		print("[UIBeatOrchestrator] Beats to animate: ", beats_to_animate, " Pending: ", pending_beats)
 		if not is_processing_beats:
 			__process_pending_beats()
 
@@ -71,6 +76,9 @@ func __orchestrate_single_beat() -> void:
 	# 1. Emit the beat tick for all listeners
 	ui_beat_tick.emit(current_beat_display + 1)
 	
+	# Create a visual beat indicator (temporary flash on screen)
+	__show_beat_flash()
+	
 	# 2. Update all progress bars simultaneously
 	await __update_all_progress_bars()
 	
@@ -83,16 +91,25 @@ func __orchestrate_single_beat() -> void:
 ## Update all registered slots' progress bars in sync
 func __update_all_progress_bars() -> void:
 	var tweens: Array[Tween] = []
+	print("[UIBeatOrchestrator] Updating progress bars for ", registered_slots.size(), " slots")
 	
 	for slot in registered_slots:
 		if not is_instance_valid(slot):
 			continue
 			
 		# Check if slot has a card
-		if slot.has_method("get_card_instance_id") and slot.get_card_instance_id() != "":
+		if slot.__button_entity and slot.__button_entity.card:
+			# Skip non-producing cards
+			if slot.production_interval_beats <= 0:
+				continue
+				
 			# Calculate progress for this slot
 			slot.current_beats = min(slot.current_beats + 1, slot.production_interval_beats)
 			var progress = slot.pct(slot.current_beats, slot.production_interval_beats)
+			print("[UIBeatOrchestrator] Slot at ", slot.grid_position, " progress: ", slot.current_beats, "/", slot.production_interval_beats)
+			
+			# Update the display manually first
+			slot.__update_progress_display()
 			
 			# Create synchronized tween
 			var tween = create_tween()
@@ -101,6 +118,7 @@ func __update_all_progress_bars() -> void:
 			# Animate progress bar
 			if slot.get_node_or_null("%ProgressBar"):
 				var progress_bar = slot.get_node("%ProgressBar")
+				progress_bar.visible = true  # Ensure it's visible
 				tween.tween_property(progress_bar, "value", progress, BEAT_DURATION * 0.8)
 			
 			# Add subtle scale pulse for visual feedback
@@ -182,6 +200,29 @@ func orchestrate_gear_fire(slot: EngineSlot) -> void:
 		var progress_bar = slot.get_node("%ProgressBar")
 		var reset_tween = create_tween()
 		reset_tween.tween_property(progress_bar, "value", 0, 0.3)
+
+## Show a visual flash to indicate beat tick
+func __show_beat_flash() -> void:
+	# Create a temporary label to show the beat
+	var beat_label = Label.new()
+	beat_label.text = "Beat " + str(current_beat_display + 1) + " (Tick " + str((current_beat_display + 1) / 10) + ")"
+	beat_label.add_theme_font_size_override("font_size", 24)
+	beat_label.modulate = Color(1.0, 1.0, 0.0, 1.0)  # Yellow
+	
+	# Position at top center of screen
+	beat_label.set_anchors_preset(Control.PRESET_TOP_LEFT)
+	beat_label.position = Vector2(50, 100)
+	
+	# Add to scene
+	var canvas_layer = CanvasLayer.new()
+	canvas_layer.layer = 100  # High layer to be on top
+	get_tree().root.add_child(canvas_layer)
+	canvas_layer.add_child(beat_label)
+	
+	# Animate fade out
+	var tween = create_tween()
+	tween.tween_property(beat_label, "modulate:a", 0.0, 0.5)
+	tween.tween_callback(canvas_layer.queue_free)
 
 ## Get the singleton instance
 static func get_instance() -> UIBeatOrchestrator:

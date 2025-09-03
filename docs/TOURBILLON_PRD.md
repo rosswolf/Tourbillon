@@ -322,6 +322,47 @@ The game uses a systematic approach to balance damage output across all force ty
 - **Red Highest**: Front-loaded aggression, peak early power
 - **Blue/White Lowest**: Utility focus, sacrifice damage for other benefits
 
+### 3.5 Card Draw Balance System
+
+The game uses a parallel system to balance card draw across all force types, ensuring every color has sustainable access to cards.
+
+#### 3.5.1 Card Draw Calculation Formula
+**Card Draw Amount = Base Draw × Resource Multiplier × Resource Count**
+- Result rounded to nearest 0.5 (0.5 rounds up to 1 card)
+- Final draw value burned into card text
+- Fractional draws can be designed as "Draw 1, 50% chance to draw 2"
+
+#### 3.5.2 Card Draw Multipliers
+
+**Basic Forces:**
+- **Heat**: 0.9x draw multiplier (trades draw efficiency for damage power)
+- **Precision**: 1.25x draw multiplier (card draw specialist, inverse of damage)
+- **Momentum**: 1.0x draw multiplier (baseline balanced)
+- **Balance**: 1.1x draw multiplier (reliable and consistent)
+- **Entropy**: 0.8x draw multiplier (sacrifices draw for destruction effects)
+
+**Special Resources (Combinations):**
+- **HEAT** (Red + Blue): 1.15x draw multiplier
+- **PRECISION** (Blue + White): 1.35x draw multiplier (best draw engine)
+- **MOMENTUM** (Green + Red): 0.95x draw multiplier  
+- **BALANCE** (White + Purple): 1.0x draw multiplier
+- **ENTROPY** (Purple + Green): 0.9x draw multiplier
+
+#### 3.5.3 Implementation Strategy
+All forces draw the same amount (1 card) but vary in cost and speed:
+- **Heat**: Every 4 Ticks, Consume 3 Heat → Draw 1 card (expensive, moderate speed)
+- **Precision**: Every 3 Ticks, Consume 2 Precision → Draw 1 card (cheap, fast)
+- **Momentum**: Every 4 Ticks, Consume 2.5 Momentum → Draw 1 card (baseline balanced)
+- **Balance**: Every 5 Ticks, Consume 2 Balance → Draw 1 card (cheap, slow, reliable)
+- **Entropy**: Every 3 Ticks, Consume 4 Entropy → Draw 1 card (expensive, fast)
+
+#### 3.5.4 Design Rationale
+- **Every color is self-sufficient**: No mandatory splashing for card draw
+- **Preserves color identity**: Precision remains the draw specialist
+- **Strategic tradeoffs**: High damage colors sacrifice draw efficiency
+- **Consistent with damage system**: Players understand the parallel structure
+- **Tunable balance**: Single multiplier table controls all draw effects
+
 ### 3.5 Inspiration (Per-Run Currency)
 - **Inspiration**: Resource earned from defeating gremlins during a run
 - Represents mechanical insights gained during this attempt

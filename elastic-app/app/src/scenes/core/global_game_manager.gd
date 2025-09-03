@@ -41,8 +41,24 @@ func _ready():
 	# Air meter signals removed - no longer used
 	GlobalSignals.core_card_drawn.connect(__on_core_card_drawn)
 	
+	# Enable process for debug input
+	set_process(true)
+
+func _process(_delta: float) -> void:
+	# Debug input for testing
+	if Input.is_action_just_pressed("ui_page_down"):  # PageDown key
+		print("[DEBUG] PageDown pressed - Advancing time by 1 tick (10 beats)")
+		if timeline_manager:
+			print("[DEBUG] Current tick before: ", timeline_manager.get_current_tick())
+			timeline_manager.advance_time(1)
+			print("[DEBUG] Current tick after: ", timeline_manager.get_current_tick())
+		else:
+			push_error("[DEBUG] No timeline_manager available!")
 	
-	
+	if Input.is_action_just_pressed("ui_page_up"):  # PageUp key  
+		print("[DEBUG] PageUp pressed - Drawing a card")
+		if library:
+			library.draw_card(1)
 
 func __setup_starting_deck() -> void:
 	if not library:
