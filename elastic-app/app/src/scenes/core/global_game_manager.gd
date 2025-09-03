@@ -55,19 +55,24 @@ func __setup_starting_deck() -> void:
 	
 	for card_id in StaticData.card_data:
 		var card_entry: Dictionary = StaticData.card_data[card_id]
-		# Check if this is a STARTING rarity card
-		if card_entry.has("card_rarity"):
-			var rarity: Variant = card_entry["card_rarity"]
-			# Check for STARTING rarity (handles both enum value and string)
-			if rarity == Card.RarityType.STARTING or (rarity is String and "STARTING" in rarity):
-				var group_id: String = card_entry.get("group_template_id", "tourbillon")
-				var card: Card = Card.load_card(group_id, card_id)
-				if card:
-					library.add_card_to_deck(card)
-					starter_count += 1
-					print("  Added starter card: ", card.display_name)
-				else:
-					push_warning("Failed to load starter card: " + card_id)
+		
+		# Check if this is a starter card by looking at keywords
+		var keywords: String = card_entry.get("keywords", "") as String
+		var is_starter: bool = keywords.contains("starter")
+		
+		# Alternative: check rarity (in case we want to use rarity-based selection later)
+		# var rarity: Variant = card_entry.get("card_rarity", Card.RarityType.UNKNOWN)
+		# is_starter = (rarity == Card.RarityType.COMMON) if rarity is int else ("COMMON" in str(rarity))
+		
+		if is_starter:
+			var group_id: String = card_entry.get("group_template_id", "tourbillon") as String
+			var card: Card = Card.load_card(group_id, card_id as String)
+			if card:
+				library.add_card_to_deck(card)
+				starter_count += 1
+				print("  Added starter card: ", card.display_name)
+			else:
+				push_warning("Failed to load starter card: " + card_id)
 	
 	print("Loaded ", starter_count, " starter cards into deck")
 	
