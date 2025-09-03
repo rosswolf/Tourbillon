@@ -224,13 +224,19 @@ func __show_beat_flash() -> void:
 	# Create the label with larger text
 	var beat_label = Label.new()
 	var current_tick = (current_beat_display + 1) / 10
-	var tick_remainder = (current_beat_display + 1) % 10
-	beat_label.text = "⚙ TICK " + str(current_tick) + " • BEAT " + str(tick_remainder) + "/10 ⚙"
-	beat_label.add_theme_font_size_override("font_size", 48)  # Much larger
+	var current_beat = (current_beat_display + 1) % 10
+	
+	# Format: tick.XXX where beats are shown as decimal (10 beats = 0.1 seconds)
+	# So beat 0 = .000, beat 1 = .100, beat 2 = .200, etc.
+	var decimal_beat = current_beat * 100  # Convert beat to milliseconds representation
+	beat_label.text = "%d.%03d" % [current_tick, decimal_beat]
+	beat_label.add_theme_font_size_override("font_size", 72)  # Even larger for numbers
 	beat_label.add_theme_color_override("font_color", Color(1.0, 1.0, 0.0, 1.0))  # Bright yellow
 	beat_label.add_theme_color_override("font_shadow_color", Color(0.0, 0.0, 0.0, 1.0))
 	beat_label.add_theme_constant_override("shadow_offset_x", 2)
 	beat_label.add_theme_constant_override("shadow_offset_y", 2)
+	# Use a monospace font if available for better number alignment
+	beat_label.add_theme_string_override("font", "monospace")
 	
 	# Assemble the hierarchy
 	panel_container.add_child(beat_label)
@@ -242,15 +248,29 @@ func __show_beat_flash() -> void:
 	get_tree().root.add_child(canvas_layer)
 	canvas_layer.add_child(center_container)
 	
+	# Animate fake milliseconds counting up from the beat position
+	var starting_millis = decimal_beat
+	var millis_tween = create_tween()
+	millis_tween.set_loops(8)  # More updates for smoother animation
+	millis_tween.tween_callback(func():
+		var fake_millis = starting_millis + (randi() % 99)
+		if fake_millis > 999:
+			fake_millis = 999
+		beat_label.text = "%d.%03d" % [current_tick, fake_millis]
+	).set_delay(0.05)
+	
 	# Animate with scale and fade
-	var tween = create_tween()
-	tween.set_parallel(true)
+	var main_tween = create_tween()
+	main_tween.set_parallel(true)
 	# Start slightly scaled up and quickly shrink to normal
 	panel_container.scale = Vector2(1.2, 1.2)
-	tween.tween_property(panel_container, "scale", Vector2(1.0, 1.0), 0.15).set_ease(Tween.EASE_OUT)
+	main_tween.tween_property(panel_container, "scale", Vector2(1.0, 1.0), 0.15).set_ease(Tween.EASE_OUT)
 	# Then fade out
-	tween.chain().tween_property(center_container, "modulate:a", 0.0, 0.4)
-	tween.tween_callback(canvas_layer.queue_free)
+	main_tween.chain().tween_property(center_container, "modulate:a", 0.0, 0.4)
+	main_tween.tween_callback(func():
+		millis_tween.kill()
+		canvas_layer.queue_free()
+	)
 
 ## Get the singleton instance
 static func get_instance() -> UIBeatOrchestrator:
