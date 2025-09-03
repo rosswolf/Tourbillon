@@ -25,7 +25,7 @@ var card_data: Card
 
 func _ready():
 	# Connect mouse input signals
-	#gui_input.connect(_on_gui_input)
+	gui_input.connect(_on_gui_input)
 	mouse_entered.connect(__on_mouse_entered)
 	mouse_exited.connect(__on_mouse_exited)
 	
@@ -116,3 +116,11 @@ func __on_mouse_entered() -> void:
 func __on_mouse_exited() -> void:
 	GlobalSignals.signal_ui_card_unhovered(card_data.instance_id)
 	
+func _on_gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT:
+			if event.pressed:
+				# Signal that a card was clicked for drag start
+				GlobalSignals.signal_ui_card_clicked(card_data.instance_id)
+				# Stop the event from propagating to prevent conflicts
+				get_viewport().set_input_as_handled()

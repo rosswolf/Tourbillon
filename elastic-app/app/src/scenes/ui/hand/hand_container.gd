@@ -21,11 +21,22 @@ func _ready():
 	size_flags_horizontal = SIZE_EXPAND_FILL
 	size_flags_vertical = SIZE_EXPAND_FILL
 	GlobalSignals.ui_selected_changed.connect(_on_selected_changed)
+	GlobalSignals.ui_card_clicked.connect(_on_card_clicked)
 	# Remove the manual positioning entirely and use:
 	set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
 	anchor_top = 0.8  # Bottom 20% of screen
 	anchor_left = 0.15  # 15% margin on each side
 	anchor_right = 0.85
+
+func _input(event: InputEvent) -> void:
+	# Handle mouse release globally to clear drag state
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and not event.pressed:
+			# Mouse button released - clear selected card if we were dragging
+			if __selected_card != null:
+				__selected_card.z_index = 0
+				__selected_card = null
+				arrange_cards()
 	
 	
 # Add a card to the hand
@@ -206,6 +217,10 @@ func _on_card_mouse_entered(card: CardUI) -> void:
 	# If this is already the selected card, don't do anything
 	if __selected_card != null:
 		return
+	
+	# Don't start hover animation if mouse button is pressed (dragging)
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+		return
 		
 	# Cancel any existing tween
 	if __tween_dict.has(card) and __tween_dict[card] != null:
@@ -237,6 +252,10 @@ func _on_card_mouse_entered(card: CardUI) -> void:
 func _on_card_mouse_exited(card: CardUI) -> void:
 	# If this is the selected card, keep it raised
 	if card == __selected_card:
+		return
+	
+	# Don't reset if we're dragging
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		return
 		
 	# Reset z-index
@@ -343,6 +362,27 @@ func __calculate_base_position_for_card(card: CardUI) -> Vector2:
 	var y_offset = -arc_factor * vertical_offset
 	
 	return Vector2(card_x, y_offset)
+
+# Handle card click - immediately cancel tweens to prevent race condition
+func _on_card_clicked(card_instance_id: String) -> void:
+	if card_instance_id not in __cards:
+		return
+		
+	var card = __cards[card_instance_id]
+	
+	# Immediately kill any running tween for this card
+	if __tween_dict.has(card) and __tween_dict[card] != null:
+		__tween_dict[card].kill()
+		__tween_dict.erase(card)
+	
+	# Set as selected to handle drag
+	__selected_card = card
+	
+	# Ensure card stays at proper z-index for dragging
+	card.z_index = 2
+	
+	# Stop any position interpolation by setting position immediately
+	card.position = card.position  # Forces position update
 
 # Call this when container is resized
 func _notification(what: int) -> void:

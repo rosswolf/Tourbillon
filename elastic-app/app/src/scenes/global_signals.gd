@@ -41,6 +41,10 @@ signal ui_card_unhovered(card_instance_id: String)
 func signal_ui_card_unhovered(card_instance_id: String):
 	ui_card_unhovered.emit(card_instance_id)
 
+signal ui_card_clicked(card_instance_id: String)
+func signal_ui_card_clicked(card_instance_id: String):
+	ui_card_clicked.emit(card_instance_id)
+
 signal ui_time_bump()
 func signal_ui_time_bump():
 	ui_time_bump.emit()
