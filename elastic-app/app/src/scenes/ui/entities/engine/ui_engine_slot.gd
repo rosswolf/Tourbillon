@@ -183,6 +183,25 @@ func __update_progress_display() -> void:
 	# Placeholder for compatibility
 	pass
 
+## Show activation feedback - full bar that holds then resets
+func show_activation_feedback() -> void:
+	if not %ProgressBar or not __button_entity or not __button_entity.card:
+		return
+	
+	# Skip for instant activation cards (they have their own animation)
+	if __button_entity.card.production_interval == 0:
+		return
+	
+	%ProgressBar.visible = true
+	%ProgressBar.value = 100
+	%ProgressBar.modulate = Color(0.0, 1.0, 0.0, 1.0)  # Green for activation
+	
+	# Create a tween sequence: hold full, then reset to empty
+	var tween = create_tween()
+	tween.tween_interval(1.0)  # Hold at full for 1 second
+	tween.tween_property(%ProgressBar, "value", 0, 0.3)  # Reset to 0 over 0.3 seconds
+	tween.tween_property(%ProgressBar, "modulate", Color(1.0, 1.0, 0.0, 1.0), 0.1)  # Back to yellow
+
 ## Reset visual state
 func reset() -> void:
 	%ProgressBar.value = 0

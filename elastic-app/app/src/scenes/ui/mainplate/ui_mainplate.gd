@@ -371,8 +371,9 @@ func __on_core_slot_activated(card_id: String) -> void:
 	# Visual feedback for activation
 	for slot in gear_slots.values():
 		if slot.__button_entity and slot.__button_entity.card and slot.__button_entity.card.instance_id == card_id:
-			# Could add activation animation here
 			print("[UIMainplate] Card activated: ", slot.__button_entity.card.display_name)
+			# Show full progress bar briefly before resetting
+			slot.show_activation_feedback()
 			break
 
 func __trigger_bonus_for_slot(slot: EngineSlot) -> void:
