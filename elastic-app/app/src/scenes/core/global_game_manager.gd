@@ -396,8 +396,14 @@ func __spawn_test_gremlin() -> void:
 		push_error("No mob data loaded!")
 		return
 	
-	# Pick a random gremlin type
-	var gremlin_types = ["dust_mite", "static_beetle", "barrier_gnat"]
+	# Pick a random gremlin type with interesting downsides
+	var gremlin_types = [
+		"dust_mite",  # Heat soft cap
+		"drain_gnat",  # Drains random resources
+		"constricting_barrier_gnat",  # Max resource soft cap
+		"gear_tick",  # Precision soft cap
+		"oil_thief"  # Drains all types
+	]
 	var chosen_type = gremlin_types.pick_random()
 	
 	if chosen_type in mob_data:
@@ -407,20 +413,10 @@ func __spawn_test_gremlin() -> void:
 		gremlin.max_hp = data.get("max_health", 10)
 		gremlin.current_hp = gremlin.max_hp
 		gremlin.shields = data.get("max_shields", 0)
+		gremlin.moves_string = data.get("moves", "")  # Set moves/downsides
 		
-		# Set disruption based on archetype
-		var archetype = data.get("archetype", "")
-		match archetype:
-			"rusher":
-				gremlin.disruption_interval_beats = 30  # 3 ticks
-			"tank":
-				gremlin.disruption_interval_beats = 50  # 5 ticks
-			"disruptor":
-				gremlin.disruption_interval_beats = 40  # 4 ticks
-			_:
-				gremlin.disruption_interval_beats = 50  # Default 5 ticks
-		
-		gremlin.beats_until_disruption = gremlin.disruption_interval_beats
+		# The disruption timing will be set by the moves processor
+		# Don't set it manually here anymore
 		
 		# Register and signal
 		instance_catalog.register_instance(gremlin)

@@ -76,14 +76,19 @@ func __update_display() -> void:
 		disruption_label.text = __get_disruption_text()
 
 func __get_disruption_text() -> String:
-	# This will be customized based on the gremlin type
-	# For now, show countdown to disruption
-	if gremlin.beats_until_disruption > 0:
-		var ticks_remaining = gremlin.beats_until_disruption / 10
-		var beats_remaining = gremlin.beats_until_disruption % 10
-		return "Disruption in %d.%d" % [ticks_remaining, beats_remaining]
-	else:
-		return "Disrupting!"
+	# Get the downside description from the gremlin
+	var downside_text = gremlin.get_disruption_text()
+	
+	# Add timing info if there's a periodic disruption
+	if gremlin.disruption_interval_beats > 0:
+		if gremlin.beats_until_disruption > 0:
+			var ticks_remaining = gremlin.beats_until_disruption / 10
+			var beats_remaining = gremlin.beats_until_disruption % 10
+			downside_text += " (in %d.%d)" % [ticks_remaining, beats_remaining]
+		else:
+			downside_text += " (NOW!)"
+	
+	return downside_text
 
 func __on_hp_changed(new_hp: int, max_hp: int) -> void:
 	__update_display()

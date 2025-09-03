@@ -7,6 +7,7 @@ class_name Gremlin
 @export var gremlin_name: String = "Gremlin"
 @export var max_hp: int = 10
 @export var slot_index: int = 0  # Position in gremlin column (0-4)
+@export var moves_string: String = ""  # Downsides/moves from data
 
 var current_hp: int
 var shields: int = 0
@@ -26,6 +27,11 @@ signal disruption_triggered(gremlin: Gremlin)
 func _init() -> void:
 	current_hp = max_hp
 	beats_until_disruption = disruption_interval_beats
+	
+func _ready() -> void:
+	# Process moves/downsides when gremlin spawns
+	if not moves_string.is_empty():
+		GremlinDownsideProcessor.process_gremlin_moves(moves_string, self)
 
 ## Process beat for gremlin behaviors
 func process_beat(context: BeatContext) -> void:
@@ -136,11 +142,14 @@ func _trigger_disruption() -> void:
 
 ## Override in subclasses for specific disruptions
 func _apply_disruption() -> void:
-	pass
+	# Process disruption effects through the processor
+	GremlinDownsideProcessor.trigger_disruption(self)
 
 ## Get disruption description for UI
 func get_disruption_text() -> String:
-	return "Unknown disruption"
+	if moves_string.is_empty():
+		return "No special effects"
+	return GremlinDownsideProcessor.get_downside_description(moves_string)
 
 ## Called when defeated
 func _on_defeated() -> void:
@@ -150,7 +159,8 @@ func _on_defeated() -> void:
 
 ## Override to remove this gremlin's specific disruptions
 func _remove_disruptions() -> void:
-	pass
+	# Remove this gremlin's downsides
+	GremlinDownsideProcessor.remove_gremlin_downsides(self)
 
 ## Add a beat consumer to this gremlin
 func add_beat_consumer(consumer: BeatConsumer) -> void:
