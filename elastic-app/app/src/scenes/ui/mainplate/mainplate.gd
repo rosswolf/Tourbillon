@@ -66,39 +66,33 @@ func __update_slot_visuals() -> void:
 func __set_slot_active(slot: EngineSlot, active: bool) -> void:
 	slot.set_meta("is_active", active)
 	
-	# Get the MarginContainer/MainPanel/PanelContainer for border styling
-	var panel_container = slot.get_node_or_null("MarginContainer/MainPanel/PanelContainer")
-	
 	if active:
+		# Reset modulation for active slots
 		slot.modulate = Color.WHITE
 		slot.modulate.a = 1.0
-		slot.self_modulate = Color(1.0, 1.0, 1.0, 1.0)
 		
-		# Add strong white outline to active slots
-		if panel_container:
-			var stylebox = StyleBoxFlat.new()
-			stylebox.bg_color = Color(0.6, 0.192157, 0.6, 0.262745)  # Keep existing background
-			stylebox.border_color = Color(1.0, 1.0, 1.0, 1.0)  # Strong white border
-			stylebox.set_border_width_all(3)  # Thick border for visibility
-			stylebox.set_corner_radius_all(7)  # Match existing corner radius
-			panel_container.add_theme_stylebox_override("panel", stylebox)
-			# Make sure the panel is visible to show the border
-			slot.get_node("MarginContainer/MainPanel").visible = true
+		# Add strong white outline to the button itself
+		var stylebox = StyleBoxFlat.new()
+		stylebox.bg_color = Color(0.1, 0.1, 0.15, 0.8)  # Dark background for contrast
+		stylebox.border_color = Color(1.0, 1.0, 1.0, 1.0)  # Strong white border
+		stylebox.set_border_width_all(3)  # Thick border for visibility
+		stylebox.set_corner_radius_all(5)
+		slot.add_theme_stylebox_override("normal", stylebox)
+		slot.add_theme_stylebox_override("hover", stylebox)
+		slot.add_theme_stylebox_override("pressed", stylebox)
 	else:
 		# Dim inactive slots
-		slot.modulate = Color(0.3, 0.3, 0.3, 0.5)
-		slot.self_modulate = Color(0.5, 0.5, 0.5, 0.5)
+		slot.modulate = Color(0.3, 0.3, 0.3, 0.3)
 		
 		# Remove border from inactive slots
-		if panel_container:
-			var stylebox = StyleBoxFlat.new()
-			stylebox.bg_color = Color(0.6, 0.192157, 0.6, 0.0)  # Transparent background
-			stylebox.border_color = Color(0.3, 0.3, 0.3, 0.3)  # Dim border
-			stylebox.set_border_width_all(1)
-			stylebox.set_corner_radius_all(7)
-			panel_container.add_theme_stylebox_override("panel", stylebox)
-			# Keep panel visible but dimmed
-			slot.get_node("MarginContainer/MainPanel").visible = true
+		var stylebox = StyleBoxFlat.new()
+		stylebox.bg_color = Color(0.05, 0.05, 0.05, 0.2)  # Very dark and transparent
+		stylebox.border_color = Color(0.2, 0.2, 0.2, 0.2)  # Very dim border
+		stylebox.set_border_width_all(1)
+		stylebox.set_corner_radius_all(5)
+		slot.add_theme_stylebox_override("normal", stylebox)
+		slot.add_theme_stylebox_override("hover", stylebox)
+		slot.add_theme_stylebox_override("pressed", stylebox)
 
 ## Get all gears in Escapement Order (top-to-bottom, left-to-right)
 func get_gears_in_escapement_order() -> Array[EngineSlot]:
@@ -125,6 +119,11 @@ func __escapement_compare(a: Vector2i, b: Vector2i) -> bool:
 
 ## Place a gear (card) on the mainplate using logical position
 func place_gear(card: Card, logical_position: Vector2i) -> bool:
+	# First check if the logical position is valid
+	if not grid_mapper.is_valid_logical(logical_position):
+		push_error("Position outside active grid: " + str(logical_position))
+		return false
+	
 	# Convert logical to physical position
 	var physical_pos: Vector2i = grid_mapper.to_physical(logical_position)
 	
@@ -133,6 +132,11 @@ func place_gear(card: Card, logical_position: Vector2i) -> bool:
 		return false
 	
 	var slot: EngineSlot = gear_slots[physical_pos]
+	
+	# Double-check the slot is active
+	if not slot.get_meta("is_active", false):
+		push_error("Cannot place card in inactive slot: " + str(logical_position))
+		return false
 	
 	# Handle replacement if slot is occupied
 	if slot.__button_entity and slot.__button_entity.card:
