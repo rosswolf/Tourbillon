@@ -76,6 +76,8 @@ static func slot_card_in_button(card: Card, button: EngineButtonEntity) -> bool:
 	
 	button.card = card
 	GlobalSignals.signal_core_card_removed_from_hand(card.instance_id)
+	# Emit the card slotted signal since button.gd no longer does this
+	GlobalSignals.signal_core_card_slotted(button.instance_id)
 	
 	# CRITICAL: Also place the card on the core Mainplate entity for beat processing
 	if GlobalGameManager.mainplate and button.engine_slot:
