@@ -235,12 +235,12 @@ func __initialize_tourbillon_systems() -> void:
 	add_child(beat_processor)
 	
 	# Create mainplate entity (4x4 grid)
+	# The builder will automatically register it in the instance catalog
 	mainplate = Mainplate.MainplateBuilder.new() \
 		.with_grid_size(Vector2i(4, 4)) \
 		.with_max_grid_size(Vector2i(8, 8)) \
 		.build()
 	add_child(mainplate)
-	instance_catalog.add_instance(mainplate)
 	
 	# Connect timeline signals
 	timeline_manager.time_changed.connect(__on_time_changed)
