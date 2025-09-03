@@ -78,48 +78,57 @@ func __set_slot_active(slot: EngineSlot, active: bool) -> void:
 	slot.set_active(active)
 	
 	if active:
-		# Reset modulation for active slots
+		# For active slots, ensure they're visible
 		slot.modulate = Color.WHITE
-		slot.modulate.a = 1.0
+		slot.visible = true
 		
-		# Add strong black outline for visibility on light backgrounds
-		var stylebox = StyleBoxFlat.new()
-		stylebox.bg_color = Color(0.15, 0.15, 0.2, 0.6)  # Semi-transparent dark blue-gray background
-		stylebox.border_color = Color(0.0, 0.0, 0.0, 1.0)  # Strong black border
-		stylebox.set_border_width_all(2)  # Visible border width
-		stylebox.set_corner_radius_all(8)
-		slot.add_theme_stylebox_override("normal", stylebox)
+		# Find the MainPanel and make it visible with a background
+		var main_panel = slot.get_node_or_null("%MainPanel")
+		if main_panel:
+			# Create a visible background for empty slots
+			var panel_stylebox = StyleBoxFlat.new()
+			panel_stylebox.bg_color = Color(0.2, 0.2, 0.25, 0.7)  # Dark semi-transparent background
+			panel_stylebox.border_color = Color(0.0, 0.0, 0.0, 1.0)  # Black border
+			panel_stylebox.set_border_width_all(2)
+			panel_stylebox.set_corner_radius_all(8)
+			main_panel.add_theme_stylebox_override("panel", panel_stylebox)
+			
+			# Keep MainPanel visible for empty slots too
+			main_panel.visible = true
+			
+			# Hide the inner PanelContainer initially (it will show when a card is placed)
+			var inner_panel = main_panel.get_node_or_null("PanelContainer")
+			if inner_panel:
+				inner_panel.visible = false
 		
-		# Hover state - slightly lighter
-		var hover_stylebox = StyleBoxFlat.new()
-		hover_stylebox.bg_color = Color(0.2, 0.2, 0.25, 0.7)  # Lighter on hover
-		hover_stylebox.border_color = Color(0.0, 0.0, 0.0, 1.0)  # Black border
-		hover_stylebox.set_border_width_all(3)  # Thicker on hover
-		hover_stylebox.set_corner_radius_all(8)
+		# Also style the button itself for better visibility
+		var button_stylebox = StyleBoxFlat.new()
+		button_stylebox.bg_color = Color(0.15, 0.15, 0.2, 0.4)  # Subtle background
+		button_stylebox.border_color = Color(0.0, 0.0, 0.0, 0.8)  # Black border
+		button_stylebox.set_border_width_all(2)
+		button_stylebox.set_corner_radius_all(10)
+		
+		slot.add_theme_stylebox_override("normal", button_stylebox)
+		
+		# Hover state
+		var hover_stylebox = button_stylebox.duplicate()
+		hover_stylebox.border_color = Color(0.2, 0.2, 0.2, 1.0)  # Lighter border on hover
+		hover_stylebox.set_border_width_all(3)
 		slot.add_theme_stylebox_override("hover", hover_stylebox)
-		
-		# Pressed state
-		var pressed_stylebox = StyleBoxFlat.new()
-		pressed_stylebox.bg_color = Color(0.25, 0.25, 0.3, 0.8)
-		pressed_stylebox.border_color = Color(0.0, 0.0, 0.0, 1.0)
-		pressed_stylebox.set_border_width_all(3)
-		pressed_stylebox.set_corner_radius_all(8)
-		slot.add_theme_stylebox_override("pressed", pressed_stylebox)
-		slot.add_theme_stylebox_override("disabled", stylebox)
+		slot.add_theme_stylebox_override("pressed", hover_stylebox)
 	else:
-		# Dim inactive slots - make them nearly invisible
-		slot.modulate = Color(0.5, 0.5, 0.5, 0.2)
+		# Inactive slots - make them nearly invisible
+		slot.modulate = Color(0.3, 0.3, 0.3, 0.1)
 		
-		# Very subtle style for inactive slots
-		var stylebox = StyleBoxFlat.new()
-		stylebox.bg_color = Color(0.1, 0.1, 0.1, 0.1)  # Nearly transparent
-		stylebox.border_color = Color(0.3, 0.3, 0.3, 0.2)  # Very faint border
-		stylebox.set_border_width_all(1)
-		stylebox.set_corner_radius_all(8)
-		slot.add_theme_stylebox_override("normal", stylebox)
-		slot.add_theme_stylebox_override("hover", stylebox)
-		slot.add_theme_stylebox_override("pressed", stylebox)
-		slot.add_theme_stylebox_override("disabled", stylebox)
+		# Remove all style overrides for inactive slots
+		slot.remove_theme_stylebox_override("normal")
+		slot.remove_theme_stylebox_override("hover") 
+		slot.remove_theme_stylebox_override("pressed")
+		
+		# Hide MainPanel for inactive slots
+		var main_panel = slot.get_node_or_null("%MainPanel")
+		if main_panel:
+			main_panel.visible = false
 
 ## Get all gears in Escapement Order (top-to-bottom, left-to-right)
 func get_gears_in_escapement_order() -> Array[EngineSlot]:
