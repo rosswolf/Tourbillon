@@ -65,15 +65,40 @@ func __update_slot_visuals() -> void:
 ## Set a slot's active state with visual feedback
 func __set_slot_active(slot: EngineSlot, active: bool) -> void:
 	slot.set_meta("is_active", active)
+	
+	# Get the MarginContainer/MainPanel/PanelContainer for border styling
+	var panel_container = slot.get_node_or_null("MarginContainer/MainPanel/PanelContainer")
+	
 	if active:
 		slot.modulate = Color.WHITE
 		slot.modulate.a = 1.0
-		# Add a highlight effect for active slots
 		slot.self_modulate = Color(1.0, 1.0, 1.0, 1.0)
+		
+		# Add strong white outline to active slots
+		if panel_container:
+			var stylebox = StyleBoxFlat.new()
+			stylebox.bg_color = Color(0.6, 0.192157, 0.6, 0.262745)  # Keep existing background
+			stylebox.border_color = Color(1.0, 1.0, 1.0, 1.0)  # Strong white border
+			stylebox.set_border_width_all(3)  # Thick border for visibility
+			stylebox.set_corner_radius_all(7)  # Match existing corner radius
+			panel_container.add_theme_stylebox_override("panel", stylebox)
+			# Make sure the panel is visible to show the border
+			slot.get_node("MarginContainer/MainPanel").visible = true
 	else:
 		# Dim inactive slots
 		slot.modulate = Color(0.3, 0.3, 0.3, 0.5)
 		slot.self_modulate = Color(0.5, 0.5, 0.5, 0.5)
+		
+		# Remove border from inactive slots
+		if panel_container:
+			var stylebox = StyleBoxFlat.new()
+			stylebox.bg_color = Color(0.6, 0.192157, 0.6, 0.0)  # Transparent background
+			stylebox.border_color = Color(0.3, 0.3, 0.3, 0.3)  # Dim border
+			stylebox.set_border_width_all(1)
+			stylebox.set_corner_radius_all(7)
+			panel_container.add_theme_stylebox_override("panel", stylebox)
+			# Keep panel visible but dimmed
+			slot.get_node("MarginContainer/MainPanel").visible = true
 
 ## Get all gears in Escapement Order (top-to-bottom, left-to-right)
 func get_gears_in_escapement_order() -> Array[EngineSlot]:
