@@ -47,7 +47,21 @@ static func _process_single_effect(effect: String, source: Node, target: Node) -
 		"mill":
 			_effect_mill_cards(value)
 		
-		# Force effects
+		# Force effects - Basic forces (Red, Blue, Green, White, Black)
+		"add_red", "produce_red":
+			_effect_add_force(GameResource.Type.GENERATE_RED, value)
+		"add_blue", "produce_blue":
+			_effect_add_force(GameResource.Type.GENERATE_BLUE, value)
+		"add_green", "produce_green":
+			_effect_add_force(GameResource.Type.GENERATE_GREEN, value)
+		"add_white", "produce_white":
+			_effect_add_force(GameResource.Type.GENERATE_WHITE, value)
+		"add_black", "produce_black":
+			_effect_add_force(GameResource.Type.GENERATE_BLACK, value)
+		"add_purple", "produce_purple":
+			_effect_add_force(GameResource.Type.GENERATE_PURPLE, value)
+		
+		# Force effects - Combined forces
 		"add_heat", "produce_heat":
 			_effect_add_force(GameResource.Type.HEAT, value)
 		"add_precision", "produce_precision":

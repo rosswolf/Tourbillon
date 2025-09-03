@@ -225,18 +225,15 @@ func __activate_card(card: Card, pos: Vector2i, context: BeatContext) -> void:
 		
 	var state = card_states[card.instance_id]
 	
-	# Consume forces
-	if GlobalGameManager.hero and not card.force_consumption.is_empty():
-		if not GlobalGameManager.hero.consume_forces(card.force_consumption):
-			return  # Can't consume, stay ready
-	
-	# Produce forces
-	if GlobalGameManager.hero and not card.force_production.is_empty():
-		GlobalGameManager.hero.add_forces(card.force_production)
-	
-	# Process effect
+	# Process on_fire_effect - this handles all production, consumption, and other effects
 	if not card.on_fire_effect.is_empty():
 		TourbillonEffectProcessor.process_effect(card.on_fire_effect, self, null)
+	
+	# Legacy support: Check old force_consumption if effect doesn't exist
+	# TODO: Remove once all cards are migrated to effects
+	elif GlobalGameManager.hero and not card.force_consumption.is_empty():
+		if not GlobalGameManager.hero.consume_forces(card.force_consumption):
+			return  # Can't consume, stay ready
 	
 	# Signal activation for stats/UI
 	GlobalSignals.signal_core_slot_activated(card.instance_id)
