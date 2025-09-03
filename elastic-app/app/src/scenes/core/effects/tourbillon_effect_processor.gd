@@ -40,7 +40,7 @@ static func _process_single_effect(effect: String, source: Node, target: Node) -
 	# Execute the effect
 	match effect_type:
 		# Card effects
-		"draw_card":
+		"draw", "draw_card":
 			_effect_draw_cards(value)
 		"discard":
 			_effect_discard_cards(value)
@@ -60,6 +60,36 @@ static func _process_single_effect(effect: String, source: Node, target: Node) -
 			_effect_add_force(GameResource.Type.ENTROPY, value)
 		"consume_max":
 			_effect_consume_max_force(value)
+		
+		# Pay/consume force effects
+		"pay_red":
+			_effect_consume_force(GameResource.Type.HEAT, value)
+		"pay_white":
+			_effect_consume_force(GameResource.Type.PRECISION, value)
+		"pay_green":
+			_effect_consume_force(GameResource.Type.MOMENTUM, value)
+		"pay_blue":
+			_effect_consume_force(GameResource.Type.BALANCE, value)
+		"pay_black":
+			_effect_consume_force(GameResource.Type.ENTROPY, value)
+		"pay_heat":
+			_effect_consume_force(GameResource.Type.HEAT, value)
+		"pay_precision":
+			_effect_consume_force(GameResource.Type.PRECISION, value)
+		"pay_momentum":
+			_effect_consume_force(GameResource.Type.MOMENTUM, value)
+		"pay_balance":
+			_effect_consume_force(GameResource.Type.BALANCE, value)
+		"pay_entropy":
+			_effect_consume_force(GameResource.Type.ENTROPY, value)
+		"pay_largest":
+			_effect_consume_largest_force(value)
+		"pay_smallest":
+			_effect_consume_smallest_force(value)
+		
+		# Speed modifier
+		"faster":
+			_effect_apply_faster(value, source)
 		
 		# Combat effects
 		"damage":
@@ -130,6 +160,75 @@ static func _effect_add_force(force_type: GameResource.Type, amount: int) -> voi
 		var force_resource = GlobalGameManager.hero.get_force_resource(force_type)
 		if force_resource:
 			force_resource.add(amount)
+
+static func _effect_consume_force(force_type: GameResource.Type, amount: float) -> void:
+	if GlobalGameManager.hero:
+		var force_resource = GlobalGameManager.hero.get_force_resource(force_type)
+		if force_resource:
+			# Handle fractional amounts (like 1.5, 2.5, etc.)
+			var int_part = int(amount)
+			var frac_part = amount - int_part
+			
+			# Consume the integer part
+			if force_resource.current >= int_part:
+				force_resource.subtract(int_part)
+			
+			# Handle fractional part with randomness
+			if frac_part > 0 and randf() < frac_part:
+				if force_resource.current >= 1:
+					force_resource.subtract(1)
+
+static func _effect_consume_largest_force(amount: float) -> void:
+	if not GlobalGameManager.hero:
+		return
+	
+	# Find the force with the most current amount
+	var largest_type = null
+	var largest_amount = 0
+	
+	var force_types = [
+		GameResource.Type.HEAT,
+		GameResource.Type.PRECISION,
+		GameResource.Type.MOMENTUM,
+		GameResource.Type.BALANCE,
+		GameResource.Type.ENTROPY
+	]
+	
+	for force_type in force_types:
+		var force_resource = GlobalGameManager.hero.get_force_resource(force_type)
+		if force_resource and force_resource.current > largest_amount:
+			largest_amount = force_resource.current
+			largest_type = force_type
+	
+	# Consume from the largest force
+	if largest_type:
+		_effect_consume_force(largest_type, amount)
+
+static func _effect_consume_smallest_force(amount: float) -> void:
+	if not GlobalGameManager.hero:
+		return
+	
+	# Find the force with the least current amount (but > 0)
+	var smallest_type = null
+	var smallest_amount = 999999
+	
+	var force_types = [
+		GameResource.Type.HEAT,
+		GameResource.Type.PRECISION,
+		GameResource.Type.MOMENTUM,
+		GameResource.Type.BALANCE,
+		GameResource.Type.ENTROPY
+	]
+	
+	for force_type in force_types:
+		var force_resource = GlobalGameManager.hero.get_force_resource(force_type)
+		if force_resource and force_resource.current > 0 and force_resource.current < smallest_amount:
+			smallest_amount = force_resource.current
+			smallest_type = force_type
+	
+	# Consume from the smallest force
+	if smallest_type:
+		_effect_consume_force(smallest_type, amount)
 
 static func _effect_consume_max_force(amount: int) -> void:
 	if not GlobalGameManager.hero:
@@ -229,6 +328,17 @@ static func _effect_set_next_card_cost(cost: int) -> void:
 	push_warning("Next card cost not yet implemented")
 
 # Timing effects
+static func _effect_apply_faster(beats: int, source: Node) -> void:
+	# Reduce the current gear's timer by X beats
+	if source and source.has_method("get_meta"):
+		var current_beats = source.get_meta("current_beats", 0)
+		var new_beats = min(current_beats + beats, source.get_meta("production_interval_beats", 30))
+		source.set_meta("current_beats", new_beats)
+		
+		# Update progress display if available
+		if source.has_method("__update_progress_display"):
+			source.call("__update_progress_display")
+
 static func _effect_apply_haste(percent: float) -> void:
 	# TODO: Apply haste to current gear
 	push_warning("Haste effect not yet implemented")
