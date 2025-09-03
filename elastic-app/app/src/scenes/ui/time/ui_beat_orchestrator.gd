@@ -203,25 +203,53 @@ func orchestrate_gear_fire(slot: EngineSlot) -> void:
 
 ## Show a visual flash to indicate beat tick
 func __show_beat_flash() -> void:
-	# Create a temporary label to show the beat
+	# Create a container for centering
+	var center_container = CenterContainer.new()
+	center_container.set_anchors_preset(Control.PRESET_FULL_RECT)
+	center_container.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	
+	# Create a panel background for better visibility
+	var panel_container = PanelContainer.new()
+	panel_container.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	
+	# Style the panel
+	var panel_style = StyleBoxFlat.new()
+	panel_style.bg_color = Color(0.0, 0.0, 0.0, 0.7)  # Dark semi-transparent background
+	panel_style.set_corner_radius_all(15)
+	panel_style.set_border_width_all(3)
+	panel_style.border_color = Color(1.0, 0.8, 0.0, 1.0)  # Gold border
+	panel_style.set_expand_margin_all(20)
+	panel_container.add_theme_stylebox_override("panel", panel_style)
+	
+	# Create the label with larger text
 	var beat_label = Label.new()
-	beat_label.text = "Beat " + str(current_beat_display + 1) + " (Tick " + str((current_beat_display + 1) / 10) + ")"
-	beat_label.add_theme_font_size_override("font_size", 24)
-	beat_label.modulate = Color(1.0, 1.0, 0.0, 1.0)  # Yellow
+	var current_tick = (current_beat_display + 1) / 10
+	var tick_remainder = (current_beat_display + 1) % 10
+	beat_label.text = "⚙ TICK " + str(current_tick) + " • BEAT " + str(tick_remainder) + "/10 ⚙"
+	beat_label.add_theme_font_size_override("font_size", 48)  # Much larger
+	beat_label.add_theme_color_override("font_color", Color(1.0, 1.0, 0.0, 1.0))  # Bright yellow
+	beat_label.add_theme_color_override("font_shadow_color", Color(0.0, 0.0, 0.0, 1.0))
+	beat_label.add_theme_constant_override("shadow_offset_x", 2)
+	beat_label.add_theme_constant_override("shadow_offset_y", 2)
 	
-	# Position at top center of screen
-	beat_label.set_anchors_preset(Control.PRESET_TOP_LEFT)
-	beat_label.position = Vector2(50, 100)
+	# Assemble the hierarchy
+	panel_container.add_child(beat_label)
+	center_container.add_child(panel_container)
 	
-	# Add to scene
+	# Add to scene on high layer
 	var canvas_layer = CanvasLayer.new()
 	canvas_layer.layer = 100  # High layer to be on top
 	get_tree().root.add_child(canvas_layer)
-	canvas_layer.add_child(beat_label)
+	canvas_layer.add_child(center_container)
 	
-	# Animate fade out
+	# Animate with scale and fade
 	var tween = create_tween()
-	tween.tween_property(beat_label, "modulate:a", 0.0, 0.5)
+	tween.set_parallel(true)
+	# Start slightly scaled up and quickly shrink to normal
+	panel_container.scale = Vector2(1.2, 1.2)
+	tween.tween_property(panel_container, "scale", Vector2(1.0, 1.0), 0.15).set_ease(Tween.EASE_OUT)
+	# Then fade out
+	tween.chain().tween_property(center_container, "modulate:a", 0.0, 0.4)
 	tween.tween_callback(canvas_layer.queue_free)
 
 ## Get the singleton instance
