@@ -5,7 +5,6 @@ class_name UiGremlinPanel
 ## Shows their HP, shields, and disruption effects
 
 @onready var gremlin_container: VBoxContainer = %GremlinContainer
-@onready var title_label: Label = %TitleLabel
 
 var ui_gremlin_scene = preload("res://src/scenes/ui/entities/gremlins/ui_gremlin.tscn")
 var active_gremlin_uis: Dictionary = {}  # gremlin_id -> UiGremlin
@@ -20,14 +19,8 @@ func _ready() -> void:
 	# Gremlins are added via core_mob_created signal when spawned
 
 func __setup_background() -> void:
-	# Apply a cropped background texture
-	# You can load a specific background image here
-	var style = StyleBoxFlat.new()
-	style.bg_color = Color(0.1, 0.05, 0.05, 0.9)  # Dark red-tinted background
-	style.border_color = Color(0.6, 0.1, 0.1, 1.0)
-	style.set_border_width_all(3)
-	style.set_corner_radius_all(12)
-	add_theme_stylebox_override("panel", style)
+	# No background styling - keep it transparent/default
+	pass
 
 func __on_gremlin_spawned(mob_id: String) -> void:
 	# Get the gremlin entity
