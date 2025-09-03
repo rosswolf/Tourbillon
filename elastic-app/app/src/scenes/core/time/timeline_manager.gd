@@ -29,17 +29,31 @@ func __advance_beats_instant(beats_to_add: int) -> void:
 	
 	print("Advancing time by ", beats_to_add, " beats")
 	
-	# Process all beats instantly for game logic
-	# Emit time_changed for each beat to create counting effect
+	# Process all beats instantly for game logic first
+	var start_beat: int = total_beats
 	for i in range(beats_to_add):
 		total_beats += 1
 		__process_single_beat()
-		
-		# Update UI each beat - creates natural counting animation
-		time_changed.emit(total_beats)
 	
-	# Signal completion
+	# Now animate the UI display
+	__animate_counter(start_beat, total_beats)
+	
+	# Signal completion immediately (game logic is already done)
 	card_ticks_complete.emit()
+
+## Animate the counter display
+func __animate_counter(from_beat: int, to_beat: int) -> void:
+	var beats_to_show: int = to_beat - from_beat
+	
+	# Show counter animation with slight delays
+	for i in range(beats_to_show):
+		var display_beat: int = from_beat + i + 1
+		time_changed.emit(display_beat)
+		
+		# Add small delay between updates so counting is visible
+		# Faster for more beats, slower for fewer
+		var delay: float = 0.02 if beats_to_show > 10 else 0.05
+		await get_tree().create_timer(delay).timeout
 
 ## Process a single beat
 func __process_single_beat() -> void:
