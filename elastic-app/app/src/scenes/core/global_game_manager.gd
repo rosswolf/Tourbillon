@@ -8,7 +8,7 @@ var instance_catalog: InstanceCatalog
 var library: Library
 var hero: Hero
 var relic_manager: RelicManager
-var goal_manager: GoalManager
+# Goal system removed - use gremlins instead
 var stats_manager: StatsManager
 
 # Tourbillon system integration
@@ -124,7 +124,7 @@ func __on_start_game():
 	library = Library.new()
 	relic_manager = RelicManager.new()
 	hero = Hero.load_hero(hero_template_id)
-	goal_manager = GoalManager.new()
+	# Goal system removed
 	stats_manager = StatsManager.new()
 	
 	# Initialize Tourbillon systems directly
@@ -209,7 +209,7 @@ func reset_game_state():
 	library = null
 	hero = null
 	relic_manager = null
-	goal_manager = null
+	# goal_manager = null # Removed
 	
 func activate(source_id: String, target_id: String):	
 	if not __activations_allowed:

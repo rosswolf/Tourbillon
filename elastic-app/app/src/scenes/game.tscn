@@ -150,11 +150,8 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxEmpty_bd8mh")
 
-[node name="GoalContainer" type="VBoxContainer" parent="Background/HBoxContainer/VBoxContainer/PanelContainer"]
-unique_name_in_owner = true
-layout_mode = 2
 
-[node name="GlobalTimeLabel" type="Label" parent="Background/HBoxContainer/VBoxContainer/PanelContainer/GoalContainer"]
+[node name="GlobalTimeLabel" type="Label" parent="Background/HBoxContainer/VBoxContainer/PanelContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 0

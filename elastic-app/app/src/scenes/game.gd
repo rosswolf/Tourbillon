@@ -5,8 +5,6 @@ class_name Game
 #Game.gd
 
 var MUSIC_MP3: String = "res://pixabay assets/reportage-industriel-song-1-261972.mp3"
-@onready var UI_GOAL: PackedScene = preload("res://src/scenes/ui/entities/goals/ui_goal.tscn")
-
 
 @onready var targeting_icon: TargetingIcon = \
 	$Background/MainVBoxContainer/BotHBoxContainer/UIVBoxContainer/HBoxContainer/VBoxContainer/TargetingPanelContainer/GenericTargetingIcon
@@ -20,7 +18,6 @@ func _ready() -> void:
 	GlobalSignals.core_relic_added.connect(__on_relic_added)
 	GlobalSignals.core_relic_removed.connect(__on_relic_removed)
 	GlobalSignals.core_card_removed_from_hand.connect(__on_card_removed_from_hand)
-	GlobalSignals.core_goal_created.connect(__on_core_goal_created)
 	GlobalSignals.core_game_win.connect(__on_core_game_win)
 	
 	# Connect to new time UI signals
@@ -79,17 +76,6 @@ func __on_relic_added(relic: Relic) -> void:
 	relic_icon.set_relic(relic)
 	
 	%RelicGridContainer.add_child(relic_icon)
-	
-func __on_core_goal_created(goal_instance_id: String) -> void:
-	var goal: Goal = GlobalGameManager.instance_catalog.get_instance(goal_instance_id) as Goal
-	if goal == null:
-		assert(false, "cant find goal in instance catalog " + goal_instance_id)
-		return
-	
-	var ui_goal: UiGoal = UI_GOAL.instantiate()
-	ui_goal.set_entity_data(goal)
-	
-	%GoalContainer.add_child(ui_goal)
 	
 # Legacy get_time_remaining removed - use force system instead
 		

@@ -47,17 +47,7 @@ func signal_ui_time_bump():
 
 # Core Signal Functions
 
-signal core_goal_created(goal_instance_id: String)
-func signal_core_goal_created(goal_instance_id: String):
-	core_goal_created.emit(goal_instance_id)
-
-signal core_goal_succeeded(goal_instance_id: String)
-func signal_core_goal_succeeded(goal_instance_id: String):
-	core_goal_succeeded.emit(goal_instance_id)
-
-signal core_goal_failed(goal_instance_id: String)
-func signal_core_goal_failed(goal_instance_id: String):
-	core_goal_failed.emit(goal_instance_id)
+# Goal signals removed - use gremlin system instead
 
 # Legacy time/energy signals removed - use force system instead
 
