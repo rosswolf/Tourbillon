@@ -45,28 +45,13 @@ func __add_gremlin_ui(gremlin: Gremlin) -> void:
 	
 	# Connect to defeat signal for cleanup
 	gremlin.defeated.connect(__on_gremlin_defeated.bind(gremlin.instance_id))
-	
-	# Update title
-	__update_title()
 
 func __on_gremlin_defeated(gremlin_id: String) -> void:
 	if gremlin_id in active_gremlin_uis:
 		# The UI will handle its own removal animation
 		active_gremlin_uis.erase(gremlin_id)
 		
-		# Update title after a delay for the animation
-		await get_tree().create_timer(0.6).timeout
-		__update_title()
 
-func __update_title() -> void:
-	if title_label:
-		var count = active_gremlin_uis.size()
-		if count == 0:
-			title_label.text = "No Active Gremlins"
-		elif count == 1:
-			title_label.text = "1 Active Gremlin"
-		else:
-			title_label.text = "%d Active Gremlins" % count
 
 ## Load gremlin data from mob_data.json and spawn initial gremlins
 func spawn_test_gremlins() -> void:
