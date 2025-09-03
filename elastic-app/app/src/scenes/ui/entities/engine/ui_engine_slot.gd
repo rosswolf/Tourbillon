@@ -11,6 +11,8 @@ var current_beats: int = 0
 var is_ready: bool = false
 var grid_position: Vector2i = Vector2i(-1, -1)  # Position in the grid
 var is_active_slot: bool = false  # Whether this slot is within valid grid
+var is_bonus_square: bool = false  # Whether this slot gives a bonus when played on
+var bonus_type: String = ""  # Type of bonus (e.g., "draw_card")
 
 var card_preview: CardUI
 
@@ -71,6 +73,10 @@ func __on_card_slotted(target_slot_id: String):
 				inner_panel.visible = true
 			# Setup the card's production timing
 			setup_from_card(__button_entity.card)
+			
+			# Trigger bonus effect if this is a bonus square
+			if is_bonus_square and bonus_type != "":
+				__trigger_bonus_effect()
 		else:
 			push_warning("Card slotted signal received but no card on button entity!")
 	
@@ -130,11 +136,11 @@ func __on_gear_process_beat(card_instance_id: String, context: BeatContext) -> v
 	if __button_entity.card.instance_id != card_instance_id:
 		return
 		
-	# Process the beat for our card
-	process_beat(context)
+	# Check if we should fire (orchestrator will handle visual updates)
+	process_beat_logic(context)
 
-## Tourbillon beat processing - called by beat signal
-func process_beat(context: BeatContext) -> void:
+## Process beat logic without visual updates (orchestrator handles visuals)
+func process_beat_logic(context: BeatContext) -> void:
 	if not __button_entity or not __button_entity.card:
 		return
 	
@@ -142,17 +148,20 @@ func process_beat(context: BeatContext) -> void:
 	if production_interval_beats <= 0:
 		return
 	
-	# Update timer progress
-	if not is_ready:
-		current_beats += 1
-		__update_progress_display()
-		
-		if current_beats >= production_interval_beats:
-			__enter_ready_state()
-	
-	# Try to fire if ready
+	# The orchestrator will handle incrementing beats and visual updates
+	# We just check if ready to fire
 	if is_ready and __can_produce():
-		__fire_production()
+		# Let orchestrator handle the visual effect
+		var orchestrator = UIBeatOrchestrator.get_instance()
+		if orchestrator:
+			orchestrator.orchestrate_gear_fire(self)
+		else:
+			__fire_production()
+
+## Tourbillon beat processing - now handled by orchestrator
+func process_beat(context: BeatContext) -> void:
+	# Deprecated - orchestrator handles this now
+	process_beat_logic(context)
 
 ## Setup gear from card data
 func setup_from_card(card: Card) -> void:
@@ -275,3 +284,32 @@ func set_active(active: bool) -> void:
 ## Check if this slot can accept a card
 func can_accept_card() -> bool:
 	return is_active_slot
+
+## Set this slot as a bonus square
+func set_as_bonus_square(type: String = "draw_card") -> void:
+	is_bonus_square = true
+	bonus_type = type
+	
+	# Add visual indicator for bonus square
+	if type == "draw_card":
+		# Create a card icon or colored overlay with stronger yellow tint
+		modulate = Color(1.2, 1.2, 0.8)  # More noticeable yellow tint
+		
+		# Add a visual marker - could be a label or icon
+		# For now, we'll rely on the border and background color differences
+		# set in UIMainplate's __set_slot_active method
+
+## Trigger the bonus effect
+func __trigger_bonus_effect() -> void:
+	match bonus_type:
+		"draw_card":
+			print("Bonus: Drawing a card!")
+			if GlobalGameManager.library:
+				GlobalGameManager.library.draw_card(1)
+				
+				# Visual feedback
+				var tween = create_tween()
+				tween.tween_property(self, "modulate", Color(1.5, 1.5, 0.8), 0.2)
+				tween.tween_property(self, "modulate", Color(1.0, 1.1, 0.9), 0.3)
+		_:
+			pass

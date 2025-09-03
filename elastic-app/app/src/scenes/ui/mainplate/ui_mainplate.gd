@@ -17,10 +17,18 @@ signal gear_placed(slot: EngineSlot, card: Card)
 signal gear_replaced(old_card: Card, new_card: Card, slot: EngineSlot)
 signal mainplate_expanded(new_size: Vector2i)
 
+var ui_orchestrator: UIBeatOrchestrator
+
 func _ready() -> void:
 	# Don't call super._ready() to avoid default battleground setup
 	GlobalSignals.ui_started_game.connect(__on_start_game_tourbillon)
 	# Card placement is handled through ui_execute_selected_onto_hovered and the activation system
+	
+	# Create the UI beat orchestrator for synchronized updates
+	ui_orchestrator = UIBeatOrchestrator.new()
+	ui_orchestrator.name = "UIBeatOrchestrator"
+	add_child(ui_orchestrator)
+	ui_orchestrator.add_to_group("ui_beat_orchestrator")
 
 func __on_start_game_tourbillon() -> void:
 	# Get the mainplate entity from GlobalGameManager
@@ -74,6 +82,11 @@ func __create_gear_slot(position: Vector2i) -> EngineSlot:
 	var slot: EngineSlot = slot_scene.instantiate()
 	slot.set_grid_position(position)
 	slot.set_active(false)  # Start inactive
+	
+	# Register with orchestrator for synchronized updates
+	if ui_orchestrator:
+		ui_orchestrator.register_slot(slot)
+	
 	return slot
 
 ## Update visual state of slots based on mainplate
@@ -82,6 +95,17 @@ func __update_slot_visuals() -> void:
 		return
 	
 	# Update all slots based on whether they map to valid logical positions
+	var active_slots: Array[EngineSlot] = []
+	for physical_pos in gear_slots:
+		var slot: EngineSlot = gear_slots[physical_pos]
+		var is_active: bool = grid_mapper.is_active_physical(physical_pos)
+		if is_active:
+			active_slots.append(slot)
+			
+	# Randomly assign bonus squares to 1/3 of active slots BEFORE setting visual state
+	__assign_bonus_squares(active_slots)
+	
+	# Now set the visual state with bonus square styling applied
 	for physical_pos in gear_slots:
 		var slot: EngineSlot = gear_slots[physical_pos]
 		var is_active: bool = grid_mapper.is_active_physical(physical_pos)
@@ -93,7 +117,9 @@ func __set_slot_active(slot: EngineSlot, active: bool) -> void:
 	
 	if active:
 		# For active slots, ensure they're visible
-		slot.modulate = Color.WHITE
+		# Don't override modulate if it's a bonus square - preserve the yellow tint
+		if not slot.is_bonus_square:
+			slot.modulate = Color.WHITE
 		slot.visible = true
 		
 		# Find the MainPanel and make it visible with a background
@@ -101,7 +127,11 @@ func __set_slot_active(slot: EngineSlot, active: bool) -> void:
 		if main_panel:
 			# Create a visible background for empty slots
 			var panel_stylebox = StyleBoxFlat.new()
-			panel_stylebox.bg_color = Color(0.2, 0.2, 0.25, 0.7)  # Dark semi-transparent background
+			# Use different color for bonus squares
+			if slot.is_bonus_square:
+				panel_stylebox.bg_color = Color(0.25, 0.25, 0.15, 0.7)  # Yellowish background for bonus
+			else:
+				panel_stylebox.bg_color = Color(0.2, 0.2, 0.25, 0.7)  # Dark semi-transparent background
 			panel_stylebox.border_color = Color(0.0, 0.0, 0.0, 1.0)  # Black border
 			panel_stylebox.set_border_width_all(2)
 			panel_stylebox.set_corner_radius_all(8)
@@ -117,16 +147,25 @@ func __set_slot_active(slot: EngineSlot, active: bool) -> void:
 		
 		# Also style the button itself for better visibility
 		var button_stylebox = StyleBoxFlat.new()
-		button_stylebox.bg_color = Color(0.15, 0.15, 0.2, 0.4)  # Subtle background
-		button_stylebox.border_color = Color(0.0, 0.0, 0.0, 0.8)  # Black border
-		button_stylebox.set_border_width_all(2)
+		# Different styling for bonus squares
+		if slot.is_bonus_square:
+			button_stylebox.bg_color = Color(0.2, 0.2, 0.15, 0.5)  # Yellowish tint for bonus
+			button_stylebox.border_color = Color(0.6, 0.6, 0.0, 1.0)  # Golden border for bonus
+			button_stylebox.set_border_width_all(3)
+		else:
+			button_stylebox.bg_color = Color(0.15, 0.15, 0.2, 0.4)  # Subtle background
+			button_stylebox.border_color = Color(0.0, 0.0, 0.0, 0.8)  # Black border
+			button_stylebox.set_border_width_all(2)
 		button_stylebox.set_corner_radius_all(10)
 		
 		slot.add_theme_stylebox_override("normal", button_stylebox)
 		
 		# Hover state
 		var hover_stylebox = button_stylebox.duplicate()
-		hover_stylebox.border_color = Color(0.2, 0.2, 0.2, 1.0)  # Lighter border on hover
+		if slot.is_bonus_square:
+			hover_stylebox.border_color = Color(0.8, 0.8, 0.2, 1.0)  # Brighter golden on hover
+		else:
+			hover_stylebox.border_color = Color(0.2, 0.2, 0.2, 1.0)  # Lighter border on hover
 		hover_stylebox.set_border_width_all(3)
 		slot.add_theme_stylebox_override("hover", hover_stylebox)
 		slot.add_theme_stylebox_override("pressed", hover_stylebox)
@@ -307,6 +346,23 @@ func get_card_at_physical(physical_pos: Vector2i) -> Card:
 		return null
 	
 	return mainplate.get_card_at(logical_pos)
+
+## Assign bonus squares randomly to active slots
+func __assign_bonus_squares(active_slots: Array[EngineSlot]) -> void:
+	if active_slots.is_empty():
+		return
+		
+	# Calculate how many bonus squares (1/3 of active slots)
+	var bonus_count: int = max(1, active_slots.size() / 3)
+	
+	# Shuffle the slots and pick the first N for bonuses
+	var shuffled_slots = active_slots.duplicate()
+	shuffled_slots.shuffle()
+	
+	for i in range(min(bonus_count, shuffled_slots.size())):
+		var slot: EngineSlot = shuffled_slots[i]
+		slot.set_as_bonus_square("draw_card")
+		print("Bonus square at position: ", slot.grid_position)
 
 ## Reset mainplate for new combat
 func reset() -> void:
