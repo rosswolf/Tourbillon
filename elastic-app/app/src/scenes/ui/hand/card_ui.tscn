@@ -67,12 +67,31 @@ layout_mode = 0
 offset_left = 8.0
 offset_top = 22.0
 offset_right = 128.0
-offset_bottom = 46.0
+offset_bottom = 80.0
 
 [node name="TopHBoxContainer" type="HBoxContainer" parent="IconContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
+alignment = 1
+
+[node name="TickCostCircle" type="PanelContainer" parent="IconContainer/TopHBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_gray_circle")
+
+[node name="CenterContainer" type="CenterContainer" parent="IconContainer/TopHBoxContainer/TickCostCircle"]
+layout_mode = 2
+
+[node name="TickCostLabel" type="Label" parent="IconContainer/TopHBoxContainer/TickCostCircle/CenterContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 18
+text = "2"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="DescriptionPanel" type="PanelContainer" parent="."]
 layout_mode = 0
@@ -92,32 +111,6 @@ text = "Card description here."
 fit_content = true
 scroll_active = false
 
-[node name="TickCostCircle" type="PanelContainer" parent="."]
-layout_mode = 0
-offset_left = 48.0
-offset_top = 50.0
-offset_right = 88.0
-offset_bottom = 90.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_gray_circle")
-
-[node name="TargetingBoxContainer" type="HBoxContainer" parent="TickCostCircle"]
-layout_mode = 2
-alignment = 1
-
-[node name="TickCostLabel" type="Label" parent="TickCostCircle/TargetingBoxContainer"]
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 20
-text = "2"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="EfficiencyLabel" type="Label" parent="TickCostCircle/TargetingBoxContainer"]
-visible = false
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 8
-text = ""
 
 [node name="IsBuilding" type="PanelContainer" parent="."]
 visible = false

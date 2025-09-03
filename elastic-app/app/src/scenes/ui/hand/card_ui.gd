@@ -6,8 +6,8 @@ extends Control
 @onready var card_title = $TitlePanel/Title 
 @onready var card_description = $DescriptionPanel/Description
 @onready var icon_container = $IconContainer
-@onready var tick_cost_label = $TickCostCircle/TargetingBoxContainer/TickCostLabel  # Gray circle for tick cost
-@onready var efficiency_label = $TickCostCircle/TargetingBoxContainer/EfficiencyLabel  # Bottom text for efficiency
+@onready var tick_cost_label = $IconContainer/TopHBoxContainer/TickCostCircle/CenterContainer/TickCostLabel  # Gray circle for tick cost
+@onready var efficiency_label = null  # Efficiency label removed for now
 @onready var is_building = $IsBuilding
 
 var energy_icons: Dictionary[GameResource.Type, String] = {
@@ -66,7 +66,8 @@ func set_card_data(card: Card) -> void:
 			# 0 or other invalid values - shouldn't happen but handle gracefully
 			efficiency_label.text = ""
 		
-	add_slot_icon(energy_icons[card.cost.get_energy_color()], str(card.cost.get_energy_cost()), %TopHBoxContainer, GameIcon.TextSize.SMALL)
+	# Energy cost icons can be added later if needed
+	# add_slot_icon(energy_icons[card.cost.get_energy_color()], str(card.cost.get_energy_cost()), %TopHBoxContainer, GameIcon.TextSize.SMALL)
 	
 	# Cards with production interval are "buildings"
 	if card.production_interval > 0:
