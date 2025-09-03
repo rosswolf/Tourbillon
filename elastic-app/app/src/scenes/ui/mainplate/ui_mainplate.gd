@@ -24,8 +24,6 @@ func _ready() -> void:
 	GlobalSignals.ui_started_game.connect(__on_start_game_tourbillon)
 	
 	# Connect to core signals for reactive updates
-	GlobalSignals.core_card_placed.connect(__on_core_card_placed)
-	GlobalSignals.core_card_removed.connect(__on_core_card_removed)
 	GlobalSignals.core_card_replaced.connect(__on_core_card_replaced)
 	GlobalSignals.core_gear_process_beat.connect(__on_core_gear_process_beat)
 	GlobalSignals.core_slot_activated.connect(__on_core_slot_activated)
@@ -330,33 +328,6 @@ func reset() -> void:
 	__update_slot_visuals()
 
 ## Signal handlers for core events
-
-func __on_core_card_placed(card_id: String, logical_pos: Vector2i) -> void:
-	# Update visual for placed card
-	var physical_pos = grid_mapper.to_physical(logical_pos)
-	if not gear_slots.has(physical_pos):
-		return
-		
-	var slot = gear_slots[physical_pos]
-	var card = mainplate.get_card_at(logical_pos)
-	if card:
-		# Update slot visual
-		slot.__button_entity.card = card
-		GlobalSignals.core_card_slotted.emit(slot.__button_entity.instance_id)
-		
-		# Trigger bonus if applicable
-		if slot.is_bonus_square and slot.bonus_type != "":
-			__trigger_bonus_for_slot(slot)
-
-func __on_core_card_removed(card_id: String, logical_pos: Vector2i) -> void:
-	# Clear visual for removed card
-	var physical_pos = grid_mapper.to_physical(logical_pos)
-	if not gear_slots.has(physical_pos):
-		return
-		
-	var slot = gear_slots[physical_pos]
-	GlobalSignals.core_card_unslotted.emit(slot.__button_entity.instance_id)
-	slot.reset()
 
 func __on_core_card_replaced(old_card_id: String, new_card_id: String) -> void:
 	# Find the slot with the old card and update it

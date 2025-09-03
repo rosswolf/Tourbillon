@@ -1,5 +1,8 @@
 extends Node
 
+# Preload WaveManager
+const WaveManager = preload("res://src/scenes/core/wave_manager.gd")
+
 # Game state properties
 var hero_template_id: String = "knight" # Default hero for testing
 var world_seed: int
@@ -10,6 +13,7 @@ var hero: Hero
 var relic_manager: RelicManager
 # Goal system removed - use gremlins instead
 var stats_manager: StatsManager
+var wave_manager
 
 # Tourbillon system integration
 var timeline_manager: TimelineManager
@@ -61,8 +65,9 @@ func _process(_delta: float) -> void:
 			library.draw_card(1)
 	
 	if Input.is_action_just_pressed("ui_end"):  # End key
-		print("[DEBUG] End pressed - Spawning test gremlin")
-		__spawn_test_gremlin()
+		print("[DEBUG] End pressed - Spawning random wave")
+		if wave_manager:
+			wave_manager.spawn_wave()
 
 func __setup_starting_deck() -> void:
 	if not library:
@@ -129,6 +134,8 @@ func __on_start_game():
 		.build()
 	# Goal system removed
 	stats_manager = StatsManager.new()
+	wave_manager = WaveManager.new()
+	wave_manager.set_act(current_act)
 	
 	# Initialize Tourbillon systems directly
 	print("Initializing Tourbillon systems...")
@@ -148,6 +155,10 @@ func __on_start_battle():
 	if hero:
 		hero.reset_start_of_battle()
 	__load_hand()
+	
+	# Spawn a random wave for the current act
+	if wave_manager:
+		wave_manager.spawn_wave()
 	
 	#battleground.spawn_new_stage(1)
 	allow_activations()

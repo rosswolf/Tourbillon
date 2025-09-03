@@ -69,8 +69,6 @@ func place_card(card: Card, pos: Vector2i) -> bool:
 		card_states[card.instance_id] = CardState.new(card)
 	
 	slots[pos] = card
-	# Signal placement for UI
-	GlobalSignals.signal_core_card_placed(card.instance_id, pos)
 	return true
 
 ## Remove card from position
@@ -83,8 +81,6 @@ func remove_card(pos: Vector2i) -> Card:
 	# Clean up card state
 	if card_states.has(card.instance_id):
 		card_states.erase(card.instance_id)
-	# Signal removal for UI
-	GlobalSignals.signal_core_card_removed(card.instance_id, pos)
 	return card
 
 ## Expand the grid

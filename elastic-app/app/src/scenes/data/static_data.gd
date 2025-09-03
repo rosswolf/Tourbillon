@@ -28,6 +28,10 @@ var hero_data: Dictionary = {}
 var hero_data_path = "res://src/scenes/data/hero_data.json"
 var hero_data_indices = {}
 
+var wave_data: Dictionary = {}
+var wave_data_path = "res://wave_data.json"
+var wave_data_indices = {}
+
 static var configuration_data: Dictionary = {}
 var configuration_data_path = "res://src/scenes/data/configuration_data.json"
 
@@ -70,7 +74,7 @@ func _ready():
 	goals_data = load_json_file(goals_data_path)
 	relic_data = load_json_file(relic_data_path)
 	hero_data = load_json_file(hero_data_path)
-	goals_data = load_json_file(goals_data_path)
+	wave_data = load_json_file(wave_data_path)
 	
 	# Build indices for fast lookups
 	card_data_indices = build_field_indices(card_data)
@@ -78,7 +82,7 @@ func _ready():
 	goals_data_indices = build_field_indices(goals_data)
 	relic_data_indices = build_field_indices(relic_data)
 	hero_data_indices = build_field_indices(hero_data)
-	relic_data_indices = build_field_indices(goals_data)
+	wave_data_indices = build_field_indices(wave_data)
 
 func build_field_indices(data_dict: Dictionary) -> Dictionary:
 	"""Build reverse indices for all fields to enable O(1) lookups"""
@@ -442,6 +446,31 @@ func get_relic_by_id(relic_id: String) -> Dictionary:
 func get_hero_by_id(hero_id: String) -> Dictionary:
 	"""Direct O(1) lookup for hero by ID"""
 	return hero_data.get(hero_id, {})
+
+func get_wave_by_id(wave_id: String) -> Dictionary:
+	"""Direct O(1) lookup for wave by ID"""
+	return wave_data.get(wave_id, {})
+
+func get_random_wave_for_act(act: int) -> Dictionary:
+	"""Get a random non-boss wave for the specified act"""
+	var act_waves: Array = []
+	for wave_id in wave_data:
+		var wave = wave_data[wave_id]
+		if wave.get("act", 0) == act and not wave.get("is_boss", false):
+			act_waves.append(wave)
+	
+	if act_waves.size() > 0:
+		return act_waves.pick_random()
+	return {}
+
+func get_all_waves_for_act(act: int) -> Array:
+	"""Get all waves for the specified act"""
+	var act_waves: Array = []
+	for wave_id in wave_data:
+		var wave = wave_data[wave_id]
+		if wave.get("act", 0) == act:
+			act_waves.append(wave)
+	return act_waves
 
 # Cache management methods
 func clear_lookup_cache():
