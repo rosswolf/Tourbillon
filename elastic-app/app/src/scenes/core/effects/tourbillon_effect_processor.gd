@@ -171,7 +171,7 @@ static func _effect_add_force(force_type: GameResource.Type, amount: int) -> voi
 	if GlobalGameManager.hero:
 		var force_resource = GlobalGameManager.hero.get_force_resource(force_type)
 		if force_resource:
-			force_resource.add(amount)
+			force_resource.increment(amount)
 
 static func _effect_consume_force(force_type: GameResource.Type, amount: float) -> void:
 	if GlobalGameManager.hero:
@@ -182,13 +182,13 @@ static func _effect_consume_force(force_type: GameResource.Type, amount: float) 
 			var frac_part = amount - int_part
 			
 			# Consume the integer part
-			if force_resource.current >= int_part:
-				force_resource.subtract(int_part)
+			if force_resource.amount >= int_part:
+				force_resource.decrement(int_part)
 			
 			# Handle fractional part with randomness
 			if frac_part > 0 and randf() < frac_part:
-				if force_resource.current >= 1:
-					force_resource.subtract(1)
+				if force_resource.amount >= 1:
+					force_resource.decrement(1)
 
 static func _effect_consume_largest_force(amount: float) -> void:
 	if not GlobalGameManager.hero:
@@ -213,8 +213,8 @@ static func _effect_consume_largest_force(amount: float) -> void:
 	
 	for force_type in force_types:
 		var force_resource = GlobalGameManager.hero.get_force_resource(force_type)
-		if force_resource and force_resource.current > largest_amount:
-			largest_amount = force_resource.current
+		if force_resource and force_resource.amount > largest_amount:
+			largest_amount = force_resource.amount
 			largest_type = force_type
 	
 	# Consume from the largest force
