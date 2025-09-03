@@ -49,5 +49,4 @@ func get_current_beats() -> int:
 ## Reset timeline for new combat
 func reset() -> void:
 	total_beats = 0
-	pending_beats = 0
 	beat_processor.reset()
