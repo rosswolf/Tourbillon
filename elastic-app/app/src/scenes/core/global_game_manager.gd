@@ -49,43 +49,35 @@ func __setup_starting_deck() -> void:
 		push_warning("Library not initialized")
 		return
 	
-	# Create starting deck
-	var starting_cards = [
-		"basic_chronometer",
-		"basic_chronometer",
-		"simple_mainspring_heat",
-		"simple_mainspring_heat",
-		"simple_mainspring_precision",
-		"simple_mainspring_precision",
-		"force_converter"
-	]
+	# Load all STARTING rarity cards from StaticData
+	print("Loading starter deck...")
+	var starter_count = 0
 	
-	# Add some random common cards to reach deck size
-	var common_cards = [
-		"micro_forge",
-		"beast_cage",
-		"precision_lathe",
-		"micro_calibrator",
-		"dust_accumulator"
-	]
+	for card_id in StaticData.card_data:
+		var card_entry = StaticData.card_data[card_id]
+		# Check if this is a STARTING rarity card
+		if card_entry.has("card_rarity"):
+			var rarity = card_entry["card_rarity"]
+			# Check for STARTING rarity (handles both enum value and string)
+			if rarity == Card.RarityType.STARTING or (rarity is String and "STARTING" in rarity):
+				var group_id = card_entry.get("group_template_id", "tourbillon")
+				var card = Card.load_card(group_id, card_id)
+				if card:
+					library.add_card_to_deck(card)
+					starter_count += 1
+					print("  Added starter card: ", card.display_name)
+				else:
+					push_warning("Failed to load starter card: " + card_id)
 	
-	while starting_cards.size() < starting_deck_size:
-		var random_card = common_cards[randi() % common_cards.size()]
-		starting_cards.append(random_card)
-	
-	# Load cards into library
-	for card_id in starting_cards:
-		var card = Card.load_card("tourbillon_base", card_id)
-		if card:
-			library.add_card_to_deck(card)
+	print("Loaded ", starter_count, " starter cards into deck")
 	
 	# Shuffle deck  
 	library.shuffle_libraries()
 	
-	# Draw starting hand
-	library.draw_card(starting_hand_size)
+	# Draw 5 random cards for starting hand
+	library.draw_card(5)
 	
-	print("Starting deck created with ", starting_cards.size(), " cards")
+	print("Drew 5 cards for starting hand")
 
 func __load_hand() -> void:
 	library.deck.shuffle()

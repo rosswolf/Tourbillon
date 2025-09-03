@@ -9,6 +9,7 @@
     },
     "card_rarity": "Card.RarityType.STARTING",
     "production_interval": 4,
+    "keywords": "starter",
     "starting_progress": 0,
     "on_fire_effect": "draw=1",
     "group_template_id": "tourbillon",
@@ -27,6 +28,7 @@
     "force_production": {
       "GameResource.Type.GENERATE_RED": "2.5"
     },
+    "keywords": "starter",
     "starting_progress": 0,
     "group_template_id": "tourbillon",
     "durability_max": 3
@@ -44,6 +46,7 @@
     "force_production": {
       "GameResource.Type.GENERATE_BLUE": "2"
     },
+    "keywords": "starter",
     "starting_progress": 0,
     "group_template_id": "tourbillon",
     "durability_max": 3
@@ -61,6 +64,7 @@
     "force_production": {
       "GameResource.Type.GENERATE_GREEN": "2"
     },
+    "keywords": "starter",
     "starting_progress": 0,
     "group_template_id": "tourbillon",
     "durability_max": 3
@@ -78,6 +82,7 @@
     "force_production": {
       "GameResource.Type.GENERATE_WHITE": "2"
     },
+    "keywords": "starter",
     "starting_progress": 0,
     "group_template_id": "tourbillon",
     "durability_max": 3
@@ -95,6 +100,7 @@
     "force_production": {
       "GameResource.Type.GENERATE_BLACK": "1.5"
     },
+    "keywords": "starter",
     "starting_progress": 0,
     "group_template_id": "tourbillon",
     "durability_max": 3
@@ -109,6 +115,7 @@
     },
     "card_rarity": "Card.RarityType.STARTING",
     "production_interval": 4,
+    "keywords": "starter",
     "starting_progress": 0,
     "group_template_id": "tourbillon",
     "durability_max": 3
@@ -123,6 +130,7 @@
     },
     "card_rarity": "Card.RarityType.STARTING",
     "production_interval": 4,
+    "keywords": "starter",
     "starting_progress": 0,
     "group_template_id": "tourbillon",
     "durability_max": 3
@@ -135,6 +143,7 @@
     "rules_text": "Consume 3 Largest â Deal 2 damage",
     "card_rarity": "Card.RarityType.STARTING",
     "production_interval": 0,
+    "keywords": "starter",
     "starting_progress": 0,
     "group_template_id": "tourbillon",
     "durability_max": 3
@@ -147,6 +156,7 @@
     "rules_text": "Consume 4 Largest â Deal 2 damage",
     "card_rarity": "Card.RarityType.STARTING",
     "production_interval": 0,
+    "keywords": "starter",
     "starting_progress": 0,
     "group_template_id": "tourbillon",
     "durability_max": 3
@@ -159,6 +169,7 @@
     "rules_text": "Consume 3 Smallest â Deal 2 damage",
     "card_rarity": "Card.RarityType.STARTING",
     "production_interval": 0,
+    "keywords": "starter",
     "starting_progress": 0,
     "group_template_id": "tourbillon",
     "durability_max": 3
@@ -173,6 +184,7 @@
     },
     "card_rarity": "Card.RarityType.STARTING",
     "production_interval": 0,
+    "keywords": "starter",
     "starting_progress": 0,
     "group_template_id": "tourbillon",
     "durability_max": 3
@@ -185,6 +197,7 @@
     "rules_text": "Consume 3 Largest â Draw 1 card",
     "card_rarity": "Card.RarityType.STARTING",
     "production_interval": 0,
+    "keywords": "starter",
     "starting_progress": 0,
     "on_fire_effect": "pay_largest=3,draw=1",
     "group_template_id": "tourbillon",
