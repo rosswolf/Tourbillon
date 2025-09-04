@@ -395,14 +395,13 @@ func __on_core_card_slotted(card_id: String, logical_pos: Vector2i) -> void:
 	
 	print("[UIMainplate] Updating slot at physical position ", physical_pos, " with card: ", card.display_name)
 	
-	# Use the existing button entity on the slot
+	# Update the slot's card reference
 	if slot.__button_entity:
-		# Update the card on the existing button entity
 		slot.__button_entity.card = card
 		print("[UIMainplate] Set card on button entity: ", card.display_name)
 		
-		# Trigger visual update on the slot using the button entity's instance_id
-		slot.__on_card_slotted(slot.__button_entity.instance_id)
+		# Signal the slot to update its visuals
+		slot.update_card_display(card)
 	else:
 		push_warning("[UIMainplate] Slot has no button entity at position ", physical_pos)
 
@@ -431,8 +430,8 @@ func __on_core_card_replaced(old_card_id: String, new_card_id: String, logical_p
 	if slot.__button_entity:
 		slot.__button_entity.card = new_card
 		print("[UIMainplate] Updated slot with replaced card: ", new_card.display_name)
-		# Trigger visual update (but don't retrigger bonuses)
-		slot.__on_card_slotted(slot.__button_entity.instance_id)
+		# Signal the slot to update its visuals
+		slot.update_card_display(new_card)
 	else:
 		push_warning("[UIMainplate] Slot has no button entity at position ", physical_pos)
 

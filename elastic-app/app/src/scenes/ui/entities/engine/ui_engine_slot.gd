@@ -27,7 +27,7 @@ func _ready() -> void:
 	top_container.visible = true
 	bottom_container.visible = false
 	
-	GlobalSignals.core_card_slotted.connect(__on_card_slotted)
+	# Card slotting is now handled via update_card_display() called by UIMainplate
 	GlobalSignals.core_card_unslotted.connect(__on_card_unslotted)
 	GlobalSignals.core_gear_process_beat.connect(__on_gear_process_beat)
 	
@@ -62,55 +62,7 @@ func destroy_card_ui() -> void:
 	tween.tween_callback(card_preview.queue_free)
 	card_preview = null
 	
-func __on_card_slotted(target_slot_id: String) -> void:
-	print("[EngineSlot] __on_card_slotted called with: ", target_slot_id, " my button entity: ", __button_entity.instance_id)
-	if target_slot_id == __button_entity.instance_id:
-		# Only update visual display
-		if __button_entity.card:
-			print("[EngineSlot] Card slotted: ", __button_entity.card.display_name, " at position ", grid_position)
-			
-			# Try to find the Name node
-			var name_node = get_node_or_null("%Name")
-			if name_node:
-				name_node.text = __button_entity.card.display_name
-				print("[EngineSlot] Set name text to: ", __button_entity.card.display_name)
-			else:
-				push_warning("[EngineSlot] Could not find %Name node")
-			
-			# Try to find MainPanel node
-			var main_panel = get_node_or_null("%MainPanel")
-			if main_panel:
-				main_panel.visible = true
-				print("[EngineSlot] Made MainPanel visible")
-				
-				# Make sure inner panel is visible too
-				var inner_panel = main_panel.get_node_or_null("PanelContainer")
-				if inner_panel:
-					inner_panel.visible = true
-					# Make the panel more opaque when a card is placed
-					inner_panel.modulate = Color(1.0, 1.0, 1.0, 1.0)  # Fully opaque
-					print("[EngineSlot] Made inner panel visible")
-				else:
-					push_warning("[EngineSlot] Could not find inner PanelContainer")
-			else:
-				push_warning("[EngineSlot] Could not find %MainPanel node")
-			
-			# For instant activation cards (production_interval = 0), show full progress briefly
-			if __button_entity.card.production_interval == 0:
-				%ProgressBar.value = 100
-				%ProgressBar.visible = true
-				%ProgressBar.modulate = Color(1.0, 1.0, 1.0, 1.0)  # White for instant activation
-				# Animate it fading out after activation
-				var tween = create_tween()
-				tween.tween_interval(0.3)  # Show full bar briefly
-				tween.tween_property(%ProgressBar, "modulate:a", 0.0, 0.3)  # Fade out
-				tween.tween_callback(func(): %ProgressBar.visible = false; %ProgressBar.modulate.a = 1.0)
-			else:
-				# Normal progress starting from 0
-				%ProgressBar.value = 0
-		else:
-			push_warning("Card slotted signal received but no card on button entity!")
-	
+# Card slotting now handled via update_card_display() method called by UIMainplate
 func __on_card_unslotted(target_slot_id: String) -> void:
 	if target_slot_id == __button_entity.instance_id:
 		var name_node = get_node_or_null("%Name")
@@ -276,6 +228,54 @@ func reset() -> void:
 ## Set the grid position for this slot
 func set_grid_position(pos: Vector2i) -> void:
 	grid_position = pos
+
+## Update the card display when a card is placed or replaced
+func update_card_display(card: Card) -> void:
+	if not card:
+		# Clear the display
+		var name_node = get_node_or_null("%Name")
+		if name_node:
+			name_node.text = ""
+		
+		var main_panel = get_node_or_null("%MainPanel")
+		if main_panel:
+			main_panel.visible = false
+		
+		%ProgressBar.value = 0
+		%ProgressBar.visible = false
+		return
+	
+	# Update the display with card info
+	var name_node = get_node_or_null("%Name")
+	if name_node:
+		name_node.text = card.display_name
+	
+	var main_panel = get_node_or_null("%MainPanel")
+	if main_panel:
+		main_panel.visible = true
+		
+		var inner_panel = main_panel.get_node_or_null("PanelContainer")
+		if inner_panel:
+			inner_panel.visible = true
+			inner_panel.modulate = Color(1.0, 1.0, 1.0, 1.0)  # Fully opaque
+	
+	# Handle progress bar for instant vs timed cards
+	if card.production_interval == 0:
+		# Instant activation - show full progress briefly
+		%ProgressBar.value = 100
+		%ProgressBar.visible = true
+		%ProgressBar.modulate = Color(1.0, 1.0, 1.0, 1.0)  # White for instant
+		
+		# Animate fade out
+		var tween = create_tween()
+		tween.tween_interval(0.3)
+		tween.tween_property(%ProgressBar, "modulate:a", 0.0, 0.3)
+		tween.tween_callback(func(): %ProgressBar.visible = false; %ProgressBar.modulate.a = 1.0)
+	else:
+		# Normal progress starting from 0
+		%ProgressBar.value = 0
+		%ProgressBar.visible = true
+		%ProgressBar.modulate = Color(1.0, 1.0, 0.0, 1.0)  # Yellow for charging
 
 ## Set whether this slot is active (can accept cards)
 func set_active(active: bool) -> void:
