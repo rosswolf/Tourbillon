@@ -280,6 +280,73 @@ static func _process_complex_effect(effect_id: String, source: Node) -> void:
 			_complex_tool_discount(source)
 		"complex_micro_haste":
 			_complex_micro_haste(source)
+		"complex_next_free":
+			_complex_next_free(source)
+			
+		# Tag synergy effects
+		"complex_order_line":
+			_complex_order_line(source)
+		"complex_chaos_isolation":
+			_complex_chaos_isolation(source)
+		"complex_forge_support":
+			_complex_forge_support(source)
+		"complex_void_hunger":
+			_complex_void_hunger(source)
+		"complex_crystal_focus":
+			_complex_crystal_focus(source)
+		"complex_shadow_stealth":
+			_complex_shadow_stealth(source)
+		"complex_arcane_ritual":
+			_complex_arcane_ritual(source)
+		"complex_mech_automation":
+			_complex_mech_automation(source)
+		
+		# Threshold effects
+		"complex_overheat":
+			_complex_overheat(source)
+		"complex_precision_strike":
+			_complex_precision_strike(source)
+		"complex_momentum_avalanche":
+			_complex_momentum_avalanche(source)
+		"complex_perfect_balance":
+			_complex_perfect_balance(source)
+		"complex_entropy_cascade":
+			_complex_entropy_cascade(source)
+		
+		# Position-based effects
+		"complex_adjacent_trigger":
+			_complex_adjacent_trigger(source)
+		"complex_row_production":
+			_complex_row_production(source)
+		"complex_column_shield":
+			_complex_column_shield(source)
+		"complex_diagonal_damage":
+			_complex_diagonal_damage(source)
+		
+		# Sacrifice effects
+		"complex_sacrifice_power":
+			_complex_sacrifice_power(source)
+		"complex_discard_damage":
+			_complex_discard_damage(source)
+		"complex_destroy_draw":
+			_complex_destroy_draw(source)
+		
+		# Scaling effects
+		"complex_force_scaling":
+			_complex_force_scaling(source)
+		"complex_card_scaling":
+			_complex_card_scaling(source)
+		"complex_gear_scaling":
+			_complex_gear_scaling(source)
+		
+		# Combo effects
+		"complex_red_blue_combo":
+			_complex_red_blue_combo(source)
+		"complex_white_purple_combo":
+			_complex_white_purple_combo(source)
+		"complex_rainbow_burst":
+			_complex_rainbow_burst(source)
+			
 		_:
 			push_warning("Unknown complex effect: " + effect_id)
 
@@ -387,6 +454,397 @@ static func _complex_micro_haste(_source: Node) -> void:
 		if gear.has_method("has_tag") and gear.has_tag("MICRO"):
 			if gear.has_method("modify_interval"):
 				gear.modify_interval(-1)  # Reduce interval by 1 tick
+
+static func _complex_next_free(_source: Node) -> void:
+	# "Next card costs 0 Ticks"
+	# This needs to set a flag that the next card played costs 0
+	if GlobalGameManager.has_method("set_next_card_free"):
+		GlobalGameManager.set_next_card_free(true)
+	else:
+		push_warning("Next card free effect needs game manager support")
+
+# Tag synergy complex effects
+static func _complex_order_line(source: Node) -> void:
+	# "If 3+ ORDER gears form a line, draw 2 cards"
+	if not GlobalGameManager.mainplate or not source:
+		return
+	
+	# Check for horizontal or vertical lines of ORDER gears
+	# This is a simplified check - full implementation would check actual lines
+	var order_count: int = 0
+	var all_gears: Array = GlobalGameManager.mainplate.get_all_gears()
+	for gear in all_gears:
+		if gear.has_method("has_tag") and gear.has_tag("ORDER"):
+			order_count += 1
+	
+	if order_count >= 3:
+		_handle_draw(2)
+
+static func _complex_chaos_isolation(source: Node) -> void:
+	# "CHAOS gears deal +3 damage if no adjacent gears"
+	if not GlobalGameManager.mainplate or not source:
+		return
+	
+	if source.has_method("get_grid_position"):
+		var pos: Vector2i = source.get_grid_position()
+		var adjacent_positions: Array[Vector2i] = [
+			pos + Vector2i.UP, pos + Vector2i.DOWN,
+			pos + Vector2i.LEFT, pos + Vector2i.RIGHT
+		]
+		
+		var has_adjacent: bool = false
+		for adj_pos in adjacent_positions:
+			if GlobalGameManager.mainplate.get_gear_at(adj_pos) != null:
+				has_adjacent = true
+				break
+		
+		if not has_adjacent and source.has_method("has_tag") and source.has_tag("CHAOS"):
+			_handle_damage(3)
+
+static func _complex_forge_support(source: Node) -> void:
+	# "Other gears in same row produce +1"
+	if not GlobalGameManager.mainplate or not source:
+		return
+	
+	if source.has_method("get_grid_position"):
+		var pos: Vector2i = source.get_grid_position()
+		var all_gears: Array = GlobalGameManager.mainplate.get_all_gears()
+		
+		for gear in all_gears:
+			if gear != source and gear.has_method("get_grid_position"):
+				var gear_pos: Vector2i = gear.get_grid_position()
+				if gear_pos.y == pos.y:  # Same row
+					if gear.has_method("bonus_production"):
+						gear.bonus_production(1)
+
+static func _complex_void_hunger(_source: Node) -> void:
+	# "Consume 5 any forces → 7 damage"
+	var total_consumed: float = 0.0
+	
+	if not GlobalGameManager.resource_manager:
+		return
+	
+	# Try to consume 5 forces from any pools
+	for force_type in [GameResource.Type.RED, GameResource.Type.BLUE, 
+						GameResource.Type.GREEN, GameResource.Type.WHITE, 
+						GameResource.Type.PURPLE]:
+		var available: float = GlobalGameManager.resource_manager.get_resource(force_type)
+		var to_consume: float = min(available, 5.0 - total_consumed)
+		
+		if to_consume > 0:
+			GlobalGameManager.resource_manager.decrement_resource(force_type, to_consume)
+			total_consumed += to_consume
+		
+		if total_consumed >= 5.0:
+			break
+	
+	if total_consumed >= 5.0:
+		_handle_damage(7)
+
+static func _complex_crystal_focus(_source: Node) -> void:
+	# "CRYSTAL gears: Double Precision production"
+	if not GlobalGameManager.mainplate:
+		return
+	
+	var all_gears: Array = GlobalGameManager.mainplate.get_all_gears()
+	for gear in all_gears:
+		if gear.has_method("has_tag") and gear.has_tag("CRYSTAL"):
+			# Generate bonus precision equal to current production
+			_handle_generate_force(GameResource.Type.PRECISION, 2)
+
+static func _complex_shadow_stealth(_source: Node) -> void:
+	# "SHADOW gears: Gremlins can't target you next turn"
+	# This needs a buff/debuff system
+	push_warning("Shadow stealth effect needs buff system implementation")
+
+static func _complex_arcane_ritual(_source: Node) -> void:
+	# "ARCANE gears: If 3+, trigger all gears once"
+	if not GlobalGameManager.mainplate:
+		return
+	
+	var arcane_count: int = 0
+	var all_gears: Array = GlobalGameManager.mainplate.get_all_gears()
+	
+	for gear in all_gears:
+		if gear.has_method("has_tag") and gear.has_tag("ARCANE"):
+			arcane_count += 1
+	
+	if arcane_count >= 3:
+		for gear in all_gears:
+			if gear.has_method("trigger_production"):
+				gear.trigger_production()
+
+static func _complex_mech_automation(_source: Node) -> void:
+	# "MECH gears: Produce without consuming this turn"
+	if not GlobalGameManager.mainplate:
+		return
+	
+	var all_gears: Array = GlobalGameManager.mainplate.get_all_gears()
+	for gear in all_gears:
+		if gear.has_method("has_tag") and gear.has_tag("MECH"):
+			if gear.has_method("set_free_production"):
+				gear.set_free_production(true)
+
+# Threshold complex effects
+static func _complex_overheat(_source: Node) -> void:
+	# "If Heat >= 10: Deal 15 damage, lose all Heat"
+	if not GlobalGameManager.resource_manager:
+		return
+	
+	var heat: float = GlobalGameManager.resource_manager.get_resource(GameResource.Type.RED)
+	if heat >= 10:
+		_handle_damage(15)
+		GlobalGameManager.resource_manager.set_resource(GameResource.Type.RED, 0)
+
+static func _complex_precision_strike(_source: Node) -> void:
+	# "If Precision >= 7: Deal damage equal to Precision to weakest"
+	if not GlobalGameManager.resource_manager:
+		return
+	
+	var precision: float = GlobalGameManager.resource_manager.get_resource(GameResource.Type.BLUE)
+	if precision >= 7:
+		_handle_damage_weakest(precision)
+
+static func _complex_momentum_avalanche(_source: Node) -> void:
+	# "If Momentum >= 8: Double all Momentum, deal that much damage"
+	if not GlobalGameManager.resource_manager:
+		return
+	
+	var momentum: float = GlobalGameManager.resource_manager.get_resource(GameResource.Type.GREEN)
+	if momentum >= 8:
+		GlobalGameManager.resource_manager.set_resource(GameResource.Type.GREEN, momentum * 2)
+		_handle_damage(momentum * 2)
+
+static func _complex_perfect_balance(_source: Node) -> void:
+	# "If all forces equal and > 0: Draw 3, shield 5"
+	if not GlobalGameManager.resource_manager:
+		return
+	
+	var red: float = GlobalGameManager.resource_manager.get_resource(GameResource.Type.RED)
+	var blue: float = GlobalGameManager.resource_manager.get_resource(GameResource.Type.BLUE)
+	var green: float = GlobalGameManager.resource_manager.get_resource(GameResource.Type.GREEN)
+	var white: float = GlobalGameManager.resource_manager.get_resource(GameResource.Type.WHITE)
+	var purple: float = GlobalGameManager.resource_manager.get_resource(GameResource.Type.PURPLE)
+	
+	if red > 0 and red == blue and blue == green and green == white and white == purple:
+		_handle_draw(3)
+		_handle_shield(5)
+
+static func _complex_entropy_cascade(_source: Node) -> void:
+	# "If Entropy >= 6: All gears take 1 damage, deal 10 to all enemies"
+	if not GlobalGameManager.resource_manager:
+		return
+	
+	var entropy: float = GlobalGameManager.resource_manager.get_resource(GameResource.Type.PURPLE)
+	if entropy >= 6:
+		# Damage all gears (reduce durability)
+		if GlobalGameManager.mainplate:
+			var all_gears: Array = GlobalGameManager.mainplate.get_all_gears()
+			for gear in all_gears:
+				if gear.has_method("take_durability_damage"):
+					gear.take_durability_damage(1)
+		# Damage all enemies
+		_handle_damage_all(10)
+
+# Position-based complex effects
+static func _complex_adjacent_trigger(source: Node) -> void:
+	# "Trigger all adjacent gears"
+	if not GlobalGameManager.mainplate or not source:
+		return
+	
+	if source.has_method("get_grid_position"):
+		var pos: Vector2i = source.get_grid_position()
+		var adjacent_positions: Array[Vector2i] = [
+			pos + Vector2i.UP, pos + Vector2i.DOWN,
+			pos + Vector2i.LEFT, pos + Vector2i.RIGHT
+		]
+		
+		for adj_pos in adjacent_positions:
+			var gear = GlobalGameManager.mainplate.get_gear_at(adj_pos)
+			if gear and gear.has_method("trigger_production"):
+				gear.trigger_production()
+
+static func _complex_row_production(source: Node) -> void:
+	# "All gears in this row produce immediately"
+	if not GlobalGameManager.mainplate or not source:
+		return
+	
+	if source.has_method("get_grid_position"):
+		var pos: Vector2i = source.get_grid_position()
+		var all_gears: Array = GlobalGameManager.mainplate.get_all_gears()
+		
+		for gear in all_gears:
+			if gear.has_method("get_grid_position"):
+				var gear_pos: Vector2i = gear.get_grid_position()
+				if gear_pos.y == pos.y:  # Same row
+					if gear.has_method("trigger_production"):
+						gear.trigger_production()
+
+static func _complex_column_shield(source: Node) -> void:
+	# "All gears in this column gain shield"
+	if not GlobalGameManager.mainplate or not source:
+		return
+	
+	if source.has_method("get_grid_position"):
+		var pos: Vector2i = source.get_grid_position()
+		var all_gears: Array = GlobalGameManager.mainplate.get_all_gears()
+		
+		var column_count: int = 0
+		for gear in all_gears:
+			if gear.has_method("get_grid_position"):
+				var gear_pos: Vector2i = gear.get_grid_position()
+				if gear_pos.x == pos.x:  # Same column
+					column_count += 1
+		
+		# Shield player based on column gear count
+		_handle_shield(column_count * 2)
+
+static func _complex_diagonal_damage(source: Node) -> void:
+	# "Deal 3 damage per gear on diagonals from this"
+	if not GlobalGameManager.mainplate or not source:
+		return
+	
+	if source.has_method("get_grid_position"):
+		var pos: Vector2i = source.get_grid_position()
+		var diagonal_positions: Array[Vector2i] = [
+			pos + Vector2i(1, 1), pos + Vector2i(1, -1),
+			pos + Vector2i(-1, 1), pos + Vector2i(-1, -1)
+		]
+		
+		var diagonal_count: int = 0
+		for diag_pos in diagonal_positions:
+			if GlobalGameManager.mainplate.get_gear_at(diag_pos) != null:
+				diagonal_count += 1
+		
+		if diagonal_count > 0:
+			_handle_damage(diagonal_count * 3)
+
+# Sacrifice complex effects
+static func _complex_sacrifice_power(source: Node) -> void:
+	# "Destroy this gear: Deal 10 damage"
+	if source and GlobalGameManager.mainplate:
+		GlobalGameManager.mainplate.remove_gear(source)
+		_handle_damage(10)
+
+static func _complex_discard_damage(_source: Node) -> void:
+	# "Discard 2 cards: Deal 8 damage"
+	# This needs UI for player choice
+	push_warning("Discard damage effect needs UI implementation")
+	# For now, just deal damage if hand has 2+ cards
+	if GlobalGameManager.library:
+		var hand_size: int = GlobalGameManager.library.get_hand_size()
+		if hand_size >= 2:
+			# Would need player to choose 2 cards
+			_handle_damage(8)
+
+static func _complex_destroy_draw(source: Node) -> void:
+	# "Destroy a gear: Draw cards equal to its interval"
+	if not GlobalGameManager.mainplate:
+		return
+	
+	var all_gears: Array = GlobalGameManager.mainplate.get_all_gears()
+	if all_gears.size() > 1:  # Don't destroy last gear
+		# For now, destroy random gear (should be player choice)
+		var target = all_gears.pick_random()
+		if target != source and target.has_method("get_interval"):
+			var interval: int = target.get_interval()
+			GlobalGameManager.mainplate.remove_gear(target)
+			_handle_draw(interval)
+
+# Scaling complex effects
+static func _complex_force_scaling(_source: Node) -> void:
+	# "Deal damage equal to total forces"
+	if not GlobalGameManager.resource_manager:
+		return
+	
+	var total: float = 0.0
+	for force_type in [GameResource.Type.RED, GameResource.Type.BLUE, 
+						GameResource.Type.GREEN, GameResource.Type.WHITE, 
+						GameResource.Type.PURPLE]:
+		total += GlobalGameManager.resource_manager.get_resource(force_type)
+	
+	if total > 0:
+		_handle_damage(total)
+
+static func _complex_card_scaling(_source: Node) -> void:
+	# "Deal damage equal to cards in hand"
+	if GlobalGameManager.library:
+		var hand_size: int = GlobalGameManager.library.get_hand_size()
+		if hand_size > 0:
+			_handle_damage(hand_size * 2)
+
+static func _complex_gear_scaling(_source: Node) -> void:
+	# "Produce 1 of each force per gear on mainplate"
+	if not GlobalGameManager.mainplate:
+		return
+	
+	var gear_count: int = GlobalGameManager.mainplate.get_all_gears().size()
+	if gear_count > 0:
+		for force_type in [GameResource.Type.RED, GameResource.Type.BLUE, 
+							GameResource.Type.GREEN, GameResource.Type.WHITE, 
+							GameResource.Type.PURPLE]:
+			_handle_generate_force(force_type, gear_count)
+
+# Combo complex effects
+static func _complex_red_blue_combo(_source: Node) -> void:
+	# "If Red + Blue >= 10: Create HEAT, deal 12 pierce damage"
+	if not GlobalGameManager.resource_manager:
+		return
+	
+	var red: float = GlobalGameManager.resource_manager.get_resource(GameResource.Type.RED)
+	var blue: float = GlobalGameManager.resource_manager.get_resource(GameResource.Type.BLUE)
+	
+	if red + blue >= 10:
+		# Consume to create HEAT
+		var to_consume: float = min(red, blue, 5)
+		GlobalGameManager.resource_manager.decrement_resource(GameResource.Type.RED, to_consume)
+		GlobalGameManager.resource_manager.decrement_resource(GameResource.Type.BLUE, to_consume)
+		_handle_generate_force(GameResource.Type.HEAT, to_consume)
+		# Pierce damage (would need pierce flag)
+		_handle_damage(12)
+
+static func _complex_white_purple_combo(_source: Node) -> void:
+	# "If White + Purple >= 10: Create BALANCE, heal 5, shield 5"
+	if not GlobalGameManager.resource_manager:
+		return
+	
+	var white: float = GlobalGameManager.resource_manager.get_resource(GameResource.Type.WHITE)
+	var purple: float = GlobalGameManager.resource_manager.get_resource(GameResource.Type.PURPLE)
+	
+	if white + purple >= 10:
+		var to_consume: float = min(white, purple, 5)
+		GlobalGameManager.resource_manager.decrement_resource(GameResource.Type.WHITE, to_consume)
+		GlobalGameManager.resource_manager.decrement_resource(GameResource.Type.PURPLE, to_consume)
+		_handle_generate_force(GameResource.Type.BALANCE, to_consume)
+		_handle_heal(5)
+		_handle_shield(5)
+
+static func _complex_rainbow_burst(_source: Node) -> void:
+	# "If have all 5 force types: Consume all, deal that much to all, draw 5"
+	if not GlobalGameManager.resource_manager:
+		return
+	
+	var has_all: bool = true
+	var total: float = 0.0
+	
+	for force_type in [GameResource.Type.RED, GameResource.Type.BLUE, 
+						GameResource.Type.GREEN, GameResource.Type.WHITE, 
+						GameResource.Type.PURPLE]:
+		var amount: float = GlobalGameManager.resource_manager.get_resource(force_type)
+		if amount <= 0:
+			has_all = false
+			break
+		total += amount
+	
+	if has_all:
+		# Consume all forces
+		for force_type in [GameResource.Type.RED, GameResource.Type.BLUE, 
+							GameResource.Type.GREEN, GameResource.Type.WHITE, 
+							GameResource.Type.PURPLE]:
+			GlobalGameManager.resource_manager.set_resource(force_type, 0)
+		
+		_handle_damage_all(total)
+		_handle_draw(5)
 
 # Check if an effect can be satisfied (for consumption effects)
 static func can_satisfy_effect(effect_string: String) -> bool:
