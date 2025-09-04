@@ -387,10 +387,10 @@ func __on_core_card_slotted(card_id: String, logical_pos: Vector2i) -> void:
 		push_error("[UIMainplate] No slot found at physical position ", physical_pos)
 		return
 	
-	# Get the card from the core mainplate
-	var card = mainplate.get_card_at(logical_pos)
-	if not card or card.instance_id != card_id:
-		push_error("[UIMainplate] Card mismatch at position ", logical_pos)
+	# Get the card from the instance catalog
+	var card = GlobalGameManager.instance_catalog.get_instance(card_id) as Card
+	if not card:
+		push_error("[UIMainplate] Card not found in catalog: ", card_id)
 		return
 	
 	print("[UIMainplate] Updating slot at physical position ", physical_pos, " with card: ", card.display_name)
@@ -421,10 +421,10 @@ func __on_core_card_replaced(old_card_id: String, new_card_id: String, logical_p
 		push_error("[UIMainplate] No slot found at physical position ", physical_pos)
 		return
 	
-	# Get the new card from core
-	var new_card = mainplate.get_card_at(logical_pos)
-	if not new_card or new_card.instance_id != new_card_id:
-		push_error("[UIMainplate] Card mismatch at position ", logical_pos)
+	# Get the new card from the instance catalog
+	var new_card = GlobalGameManager.instance_catalog.get_instance(new_card_id) as Card
+	if not new_card:
+		push_error("[UIMainplate] New card not found in catalog: ", new_card_id)
 		return
 	
 	# Update the slot's button entity
