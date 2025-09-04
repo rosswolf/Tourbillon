@@ -103,7 +103,7 @@ func take_damage(amount: int, pierce: bool = false, pop: bool = false) -> void:
 	if pierce: keywords.append("pierce")
 	if pop: keywords.append("pop")
 	
-	var packet = DamageFactory.create(amount, keywords, null)
+	var packet = DamageFactory.create(amount, keywords, "")
 	receive_damage(packet)
 
 ## Apply poison

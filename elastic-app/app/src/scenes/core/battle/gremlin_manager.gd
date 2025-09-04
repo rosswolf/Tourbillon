@@ -116,7 +116,7 @@ func deal_damage_to_target_legacy(amount: int, target_type: String = "topmost",
 	if pop: keywords.append("pop")
 	if overkill: keywords.append("overkill")
 	
-	var packet = DamageFactory.create(amount, keywords, null)
+	var packet = DamageFactory.create(amount, keywords, "")
 	deal_damage_to_target(packet, target_type)
 
 ## Handle overkill damage carrying to next target

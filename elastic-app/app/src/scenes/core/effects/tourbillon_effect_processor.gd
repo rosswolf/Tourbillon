@@ -322,7 +322,8 @@ static func _effect_damage(amount: int, target_type: String) -> void:
 		GlobalGameManager.remove_meta("next_damage_overkill")
 	
 	var source = GlobalGameManager.get("active_gear") if GlobalGameManager.has("active_gear") else null
-	var packet = DamageFactory.create(amount, keywords, source)
+	var source_id = str(source.get_instance_id()) if source else ""
+	var packet = DamageFactory.create(amount, keywords, source_id)
 	
 	# Deal damage using unified system
 	match target_type:
@@ -357,7 +358,8 @@ static func _effect_damage_all(amount: int) -> void:
 	
 	var manager = GlobalGameManager.get("gremlin_manager") as GremlinManager
 	var source = GlobalGameManager.get("active_gear") if GlobalGameManager.has("active_gear") else null
-	var packet = DamageFactory.create_basic(amount, source)
+	var source_id = str(source.get_instance_id()) if source else ""
+	var packet = DamageFactory.create_basic(amount, source_id)
 	
 	for gremlin in manager.get_gremlins_in_order():
 		gremlin.receive_damage(packet)

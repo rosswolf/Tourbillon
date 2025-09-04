@@ -7,7 +7,7 @@ class_name DamagePacket
 # Core properties
 var amount: int = 0  # Already includes force multipliers
 var damage_type: DamageType = DamageType.NORMAL
-var source: Node = null  # Who/what caused this damage
+var source_instance_id: String = ""  # Instance ID of who/what caused this damage
 
 # Damage keywords (from PRD)
 var pierce: bool = false  # Ignores armor

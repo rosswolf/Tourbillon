@@ -5,10 +5,10 @@ class_name DamageFactory
 ## Damage values already include force multipliers from card data
 
 ## Create damage packet with keywords
-static func create(amount: int, keywords: Array[String] = [], source: Node = null) -> DamagePacket:
+static func create(amount: int, keywords: Array[String] = [], source_instance_id: String = "") -> DamagePacket:
 	var packet = DamagePacket.new()
 	packet.amount = amount  # This value already has force multipliers baked in
-	packet.source = source
+	packet.source_instance_id = source_instance_id
 	packet.timestamp_beats = GlobalGameManager.current_beat if GlobalGameManager else 0
 	
 	# Apply keywords
@@ -29,13 +29,13 @@ static func create(amount: int, keywords: Array[String] = [], source: Node = nul
 	return packet
 
 ## Create basic damage packet
-static func create_basic(amount: int, source: Node = null) -> DamagePacket:
-	return create(amount, [], source)
+static func create_basic(amount: int, source_instance_id: String = "") -> DamagePacket:
+	return create(amount, [], source_instance_id)
 
 ## Create damage packet from effect string
-static func from_effect(effect_string: String, source: Node = null) -> DamagePacket:
+static func from_effect(effect_string: String, source_instance_id: String = "") -> DamagePacket:
 	var packet = DamagePacket.new()
-	packet.source = source
+	packet.source_instance_id = source_instance_id
 	packet.timestamp_beats = GlobalGameManager.current_beat if GlobalGameManager else 0
 	
 	# Parse effect string for damage amount and keywords
@@ -76,33 +76,33 @@ static func from_effect(effect_string: String, source: Node = null) -> DamagePac
 	return packet
 
 ## Create an execute packet
-static func create_execute(threshold: int, source: Node = null) -> DamagePacket:
+static func create_execute(threshold: int, source_instance_id: String = "") -> DamagePacket:
 	var packet = DamagePacket.new()
 	packet.damage_type = DamagePacket.DamageType.EXECUTE
 	packet.amount = threshold  # Store threshold in amount
-	packet.source = source
+	packet.source_instance_id = source_instance_id
 	packet.true_damage = true
 	packet.timestamp_beats = GlobalGameManager.current_beat if GlobalGameManager else 0
 	return packet
 
 ## Create a poison damage packet
-static func create_poison(amount: int, source: Node = null) -> DamagePacket:
+static func create_poison(amount: int, source_instance_id: String = "") -> DamagePacket:
 	var packet = DamagePacket.new()
 	packet.amount = amount
 	packet.damage_type = DamagePacket.DamageType.POISON
 	packet.poison = true
 	packet.pierce = true  # Poison typically bypasses defenses
-	packet.source = source
+	packet.source_instance_id = source_instance_id
 	packet.timestamp_beats = GlobalGameManager.current_beat if GlobalGameManager else 0
 	return packet
 
 ## Create a reflect damage packet
-static func create_reflect(amount: int, source: Node = null) -> DamagePacket:
+static func create_reflect(amount: int, source_instance_id: String = "") -> DamagePacket:
 	var packet = DamagePacket.new()
 	packet.amount = amount
 	packet.damage_type = DamagePacket.DamageType.REFLECT
 	packet.true_damage = true  # Reflected damage can't be reduced
-	packet.source = source
+	packet.source_instance_id = source_instance_id
 	packet.timestamp_beats = GlobalGameManager.current_beat if GlobalGameManager else 0
 	return packet
 

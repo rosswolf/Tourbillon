@@ -32,7 +32,7 @@ func _trigger_poison() -> void:
 	if owner:
 		# Use unified damage system for poison damage
 		if owner.has_method("receive_damage"):
-			var packet = DamageFactory.create_poison(poison_value, self)
+			var packet = DamageFactory.create_poison(poison_value, str(get_instance_id()))
 			owner.receive_damage(packet)
 		else:
 			push_warning("PoisonConsumer: owner doesn't support receive_damage: ", owner.get_class())
