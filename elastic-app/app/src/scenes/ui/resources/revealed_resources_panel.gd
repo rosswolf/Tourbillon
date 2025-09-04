@@ -4,7 +4,7 @@ var resources_containers: Dictionary[GameResource.Type, PanelContainer] = {}
 
 
 
-func _ready():
+func _ready() -> void:
 	var resource_template: PanelContainer = %ResourceContainerTemplate
 	
 	
@@ -42,11 +42,11 @@ func _ready():
 		
 		GlobalSignals.core_hero_resource_changed.connect(__on_resource_changed)
 
-func __update_label(container: PanelContainer, amount_text: String):
+func __update_label(container: PanelContainer, amount_text: String) -> void:
 	var resource_amount: Label = container.get_node("MarginContainer/HBoxContainer/ResourceAmount")
 	resource_amount.text = amount_text
 
-func __on_resource_changed(changing_resource: GameResource.Type, new_amount: int):
+func __on_resource_changed(changing_resource: GameResource.Type, new_amount: int) -> void:
 	var container: PanelContainer = resources_containers.get(changing_resource)
 	if container == null:
 		assert(false, "unepected resource unhandled " + str(changing_resource))

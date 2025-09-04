@@ -32,7 +32,7 @@ func decrement_status_effect(effect: StatusEffect.Type):
 		if __status_effects[effect] <= 0:
 			__status_effects.erase(effect)
 	
-func decrement_all_status_effects():
+func decrement_all_status_effects() -> void:
 	for effect_key in __status_effects.keys():
 		decrement_status_effect(effect_key)
 

@@ -4,7 +4,7 @@ class_name EffectVisualizer
 ## Displays visual feedback for effects like damage, force production, etc.
 ## Creates floating text and particle effects
 
-var floating_text_scene = preload("res://src/scenes/ui/tourbillon/floating_text.tscn")
+var floating_text_scene: PackedScene = preload("res://src/scenes/ui/tourbillon/floating_text.tscn")
 
 # Effect colors by type
 const EFFECT_COLORS = {
@@ -61,7 +61,7 @@ func _on_status_applied(status_type: String, stacks: int, target_position: Vecto
 func _create_floating_text(text: String, position: Vector2, color: Color) -> void:
 	if not floating_text_scene:
 		# Create a simple label if scene doesn't exist
-		var label = Label.new()
+		var label: Label = Label.new()
 		label.text = text
 		label.modulate = color
 		label.position = position
@@ -81,7 +81,7 @@ func _create_floating_text(text: String, position: Vector2, color: Color) -> voi
 
 func _create_impact_particles(position: Vector2, color: Color) -> void:
 	# Create a simple particle effect for impacts
-	var particles = CPUParticles2D.new()
+	var particles: CPUParticles2D = CPUParticles2D.new()
 	particles.position = position
 	particles.emitting = true
 	particles.amount = 10
@@ -105,7 +105,7 @@ func _create_impact_particles(position: Vector2, color: Color) -> void:
 
 func _create_production_particles(position: Vector2, color: Color) -> void:
 	# Create upward flowing particles for production
-	var particles = CPUParticles2D.new()
+	var particles: CPUParticles2D = CPUParticles2D.new()
 	particles.position = position
 	particles.emitting = true
 	particles.amount = 20
@@ -128,7 +128,7 @@ func _create_production_particles(position: Vector2, color: Color) -> void:
 
 func _create_status_particles(position: Vector2, color: Color, status_type: String) -> void:
 	# Create swirling particles for status effects
-	var particles = CPUParticles2D.new()
+	var particles: CPUParticles2D = CPUParticles2D.new()
 	particles.position = position
 	particles.emitting = true
 	particles.amount = 15

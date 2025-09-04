@@ -3,14 +3,14 @@ extends Node
 var __hovered: String = ""
 var __selected: String = ""
 
-func _init():
+func _init() -> void:
 	GlobalSignals.ui_card_hovered.connect(__on_card_hovered)
 	GlobalSignals.ui_card_unhovered.connect(__on_card_unhovered)
 	
-func __on_card_hovered(instance_id: String):
+func __on_card_hovered(instance_id: String) -> void:
 	set_hovered(instance_id)
 	
-func __on_card_unhovered(instance_id: String):
+func __on_card_unhovered(instance_id: String) -> void:
 	clear_hovered_known(instance_id)
 
 func set_hovered(instance_id: String):
@@ -24,7 +24,7 @@ func clear_hovered_known(instance_id: String):
 		print("__hovered doesn't match " + __hovered + " " + instance_id)
 	clear_hovered_force()
 
-func clear_hovered_force():
+func clear_hovered_force() -> void:
 	__hovered = ""
 
 func get_hovered() -> String:
@@ -56,7 +56,7 @@ func set_selected_force():
 		__selected = __hovered
 		GlobalSignals.signal_ui_selected_changed(__selected)
 	
-func __clear_selected_force():
+func __clear_selected_force() -> void:
 	__selected = ""
 	GlobalSignals.signal_ui_selected_changed(__selected)
 
@@ -66,7 +66,7 @@ func get_selected() -> String:
 func has_selected() -> bool:
 	return __selected != ""
 	
-func activate_selected_onto_hovered(last_pos):
+func activate_selected_onto_hovered(last_pos: Vector2) -> void:
 	if __selected == "":
 		return
 	else:

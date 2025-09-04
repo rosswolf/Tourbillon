@@ -3,10 +3,10 @@ class_name UiBattleground
 
 var next_slot: int = 0
 
-func _ready():
+func _ready() -> void:
 	GlobalSignals.ui_started_game.connect(__on_start_game)
 	
-func __on_start_game():
+func __on_start_game() -> void:
 	# Don't create a battleground entity since cards should target engine slots directly
 	# set_entity_data(BattlegroundEntity.BattlegroundEntityBuilder.new().build())
 	

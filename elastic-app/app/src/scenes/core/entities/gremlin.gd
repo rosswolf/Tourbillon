@@ -178,3 +178,52 @@ func reset() -> void:
 	burn_duration = 0
 	beats_until_disruption = disruption_interval_beats
 	beat_consumers.clear()
+
+## Override Entity methods
+func _get_type() -> Entity.EntityType:
+	return Entity.EntityType.GREMLIN
+
+func __generate_instance_id() -> String:
+	return "gremlin_" + str(Time.get_unix_time_from_system()) + "_" + str(randi())
+
+func __requires_template_id() -> bool:
+	return false  # Gremlins don't use template IDs
+
+## Builder pattern for proper Entity initialization
+class GremlinBuilder extends Entity.EntityBuilder:
+	var __gremlin_name: String = "Gremlin"
+	var __max_hp: int = 10
+	var __shields: int = 0
+	var __moves_string: String = ""
+	var __slot_index: int = 0
+	
+	func with_name(name: String) -> GremlinBuilder:
+		__gremlin_name = name
+		return self
+	
+	func with_hp(hp: int) -> GremlinBuilder:
+		__max_hp = hp
+		return self
+	
+	func with_shields(amount: int) -> GremlinBuilder:
+		__shields = amount
+		return self
+	
+	func with_moves(moves: String) -> GremlinBuilder:
+		__moves_string = moves
+		return self
+	
+	func with_slot(slot: int) -> GremlinBuilder:
+		__slot_index = slot
+		return self
+	
+	func build() -> Gremlin:
+		var gremlin: Gremlin = Gremlin.new()
+		gremlin.gremlin_name = __gremlin_name
+		gremlin.max_hp = __max_hp
+		gremlin.current_hp = __max_hp
+		gremlin.shields = __shields
+		gremlin.moves_string = __moves_string
+		gremlin.slot_index = __slot_index
+		# Proper Entity initialization
+		return build_entity(gremlin) as Gremlin

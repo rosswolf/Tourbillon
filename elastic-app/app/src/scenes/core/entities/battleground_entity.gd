@@ -15,6 +15,6 @@ func __requires_template_id() -> bool:
 class BattlegroundEntityBuilder extends Entity.EntityBuilder:
 			
 	func build() -> BattlegroundEntity:
-		var battleground = BattlegroundEntity.new()
+		var battleground: BattlegroundEntity = BattlegroundEntity.new()
 		super.build_entity(battleground)
 		return battleground

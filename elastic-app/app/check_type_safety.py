@@ -15,6 +15,8 @@ class TypeSafetyChecker:
         self.verbose = verbose
         self.errors: List[Tuple[str, int, str]] = []
         self.warnings: List[Tuple[str, int, str]] = []
+        self.all_errors: List[Tuple[str, int, str]] = []
+        self.all_warnings: List[Tuple[str, int, str]] = []
         
         # Patterns for various type safety violations
         self.patterns = {
@@ -61,6 +63,7 @@ class TypeSafetyChecker:
         if not filepath.suffix == '.gd':
             return True
             
+        # Reset per-file error lists
         self.errors = []
         self.warnings = []
         
@@ -118,6 +121,10 @@ class TypeSafetyChecker:
             self._check_collection_typing(line, line_num, filepath)
             self._check_nested_dictionary(line, line_num, filepath)
             self._check_onready_typing(line, line_num, filepath)
+        
+        # Add this file's errors to the cumulative lists
+        self.all_errors.extend(self.errors)
+        self.all_warnings.extend(self.warnings)
         
         return len(self.errors) == 0
     
@@ -306,17 +313,17 @@ class TypeSafetyChecker:
     
     def print_report(self) -> None:
         """Print the errors and warnings found."""
-        if self.errors:
+        if self.all_errors:
             print("\n❌ Type Safety Violations Found:")
-            for filepath, line_num, message in self.errors:
+            for filepath, line_num, message in self.all_errors:
                 print(f"  {filepath}:{line_num}: {message}")
         
-        if self.warnings:
+        if self.all_warnings:
             print("\n⚠️  Warnings:")
-            for filepath, line_num, message in self.warnings:
+            for filepath, line_num, message in self.all_warnings:
                 print(f"  {filepath}:{line_num}: {message}")
         
-        if not self.errors and not self.warnings:
+        if not self.all_errors and not self.all_warnings:
             print("✅ All files pass type safety checks!")
 
 
@@ -336,7 +343,7 @@ def main():
     # Determine which files to check
     files_to_check = []
     
-    if args.all or (not args.files and not sys.stdin.isatty()):
+    if args.all:
         # Check all .gd files in src/
         src_path = Path('src')
         if src_path.exists():
@@ -347,16 +354,25 @@ def main():
     elif args.files:
         # Check specified files
         files_to_check = [Path(f) for f in args.files if f.endswith('.gd')]
-    else:
+    elif not sys.stdin.isatty():
         # Read from stdin (for git hooks)
         for line in sys.stdin:
             filepath = line.strip()
             if filepath.endswith('.gd'):
                 files_to_check.append(Path(filepath))
+    else:
+        # No input provided
+        print("Usage: check_type_safety.py [files...] or --all")
+        print("       Or pipe filenames to stdin")
+        sys.exit(1)
     
     if not files_to_check:
         print("No GDScript files to check")
         sys.exit(0)
+    
+    # DEBUG
+    if args.verbose:
+        print(f"Checking {len(files_to_check)} files...")
     
     all_pass = True
     for filepath in files_to_check:

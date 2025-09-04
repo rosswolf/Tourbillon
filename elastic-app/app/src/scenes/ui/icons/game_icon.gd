@@ -30,7 +30,7 @@ func get_large_font_size() -> int:
 # TODO: add the outline size functions
 
 func set_text(value: int, size: TextSize, font_color: Color = Color.WHITE) -> void:
-	var text = ""
+	var text: String = ""
 	if value != -1:
 		text = str(value)
 	set_string_text(text, size, font_color)

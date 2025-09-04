@@ -1,44 +1,44 @@
 extends Node
 
-var __enum_mappings = {}
-var __resolved_enum_cache = {}
-var __lookup_cache = {}
+var __enum_mappings: Dictionary[String, Variant] = {}
+var __resolved_enum_cache: Dictionary[String, Variant] = {}
+var __lookup_cache: Dictionary[String, Variant] = {}
 
-var card_data: Dictionary = {}
-var card_data_path = "res://src/scenes/data/card_data.json"
-var card_data_indices = {}  # Field-based indices for fast lookups
+var card_data: Dictionary[String, Variant] = {}
+var card_data_path: String = "res://src/scenes/data/card_data.json"
+var card_data_indices: Dictionary[String, int] = {}
 
-static var icon_data: Dictionary = {}
-var icon_data_path = "res://src/scenes/data/icon_data.json"
-var icon_data_indices = {}
+static var icon_data: Dictionary[String, Variant] = {}
+var icon_data_path: String = "res://src/scenes/data/icon_data.json"
+var icon_data_indices: Dictionary[String, int] = {}
 
-var mob_data: Dictionary = {}
-var mob_data_path = "res://src/scenes/data/mob_data.json"
-var mob_data_indices = {}
+var mob_data: Dictionary[String, Variant] = {}
+var mob_data_path: String = "res://src/scenes/data/mob_data.json"
+var mob_data_indices: Dictionary[String, int] = {}
 
-var goals_data: Dictionary = {}
-var goals_data_path = "res://src/scenes/data/goals_data.json"
-var goals_data_indices = {}
+var goals_data: Dictionary[String, Variant] = {}
+var goals_data_path: String = "res://src/scenes/data/goals_data.json"
+var goals_data_indices: Dictionary[String, int] = {}
 
-var relic_data: Dictionary = {}
-var relic_data_path = "res://src/scenes/data/relic_data.json"
-var relic_data_indices = {}
+var relic_data: Dictionary[String, Variant] = {}
+var relic_data_path: String = "res://src/scenes/data/relic_data.json"
+var relic_data_indices: Dictionary[String, int] = {}
 
-var hero_data: Dictionary = {}
-var hero_data_path = "res://src/scenes/data/hero_data.json"
-var hero_data_indices = {}
+var hero_data: Dictionary[String, Variant] = {}
+var hero_data_path: String = "res://src/scenes/data/hero_data.json"
+var hero_data_indices: Dictionary[String, int] = {}
 
-var wave_data: Dictionary = {}
-var wave_data_path = "res://wave_data.json"
-var wave_data_indices = {}
+var wave_data: Dictionary[String, Variant] = {}
+var wave_data_path: String = "res://wave_data.json"
+var wave_data_indices: Dictionary[String, int] = {}
 
-static var configuration_data: Dictionary = {}
-var configuration_data_path = "res://src/scenes/data/configuration_data.json"
+static var configuration_data: Dictionary[String, Variant] = {}
+var configuration_data_path: String = "res://src/scenes/data/configuration_data.json"
 
-func _init():
+func _init() -> void:
 	__build_enum_mappings()
 
-func __build_enum_mappings():
+func __build_enum_mappings() -> void:
 	# Auto-generate mappings from enum definitions
 	__add_enum_mapping("Card.RarityType", Card.RarityType)
 	__add_enum_mapping("GameResource.Type", GameResource.Type)
@@ -51,13 +51,13 @@ func __build_enum_mappings():
 	__enum_mappings["GameResource.Type.ENTROPY"] = GameResource.Type.ENTROPY
 	__enum_mappings["GameResource.Type.INSPIRATION"] = GameResource.Type.INSPIRATION
 
-func __add_enum_mapping(prefix: String, enum_dict: Dictionary):
+func __add_enum_mapping(prefix: String, enum_dict: Dictionary) -> void:
 	for key in enum_dict:
 		var full_reference = prefix + "." + key
 		__enum_mappings[full_reference] = enum_dict[key]
 		print("Mapped: ", full_reference, " -> ", enum_dict[key])
 
-func parse_enum(reference: String):
+func parse_enum(reference: String) -> Variant:
 	# Use cached result if available
 	if __resolved_enum_cache.has(reference):
 		return __resolved_enum_cache[reference]
@@ -66,7 +66,7 @@ func parse_enum(reference: String):
 	__resolved_enum_cache[reference] = result
 	return result
 
-func _ready():
+func _ready() -> void:
 	card_data = load_json_file(card_data_path)
 	mob_data = load_json_file(mob_data_path)
 	print("[StaticData] Loaded %d mobs from %s" % [mob_data.size(), mob_data_path])
@@ -88,7 +88,7 @@ func _ready():
 
 func build_field_indices(data_dict: Dictionary) -> Dictionary:
 	"""Build reverse indices for all fields to enable O(1) lookups"""
-	var indices = {}
+	var indices: Dictionary = {}
 	
 	for primary_key in data_dict:
 		var record = data_dict[primary_key]
@@ -101,7 +101,7 @@ func build_field_indices(data_dict: Dictionary) -> Dictionary:
 				indices[field_name] = {}
 			
 			# Handle different value types for indexing
-			var index_keys = []
+			var index_keys: Array = []
 			if field_value is Array:
 				# For arrays, index each element
 				for item in field_value:
@@ -131,7 +131,7 @@ func add_index_key_variants(index_keys: Array, value):
 		if value == floor(value):
 			index_keys.append(int(value))
 
-func load_json_file(path):
+func load_json_file(path: String) -> Dictionary:
 	if FileAccess.file_exists(path):
 		var datafile = FileAccess.open(path, FileAccess.READ)
 		var parsed_result = JSON.parse_string(datafile.get_as_text())
@@ -193,7 +193,7 @@ func get_data_and_indices_for_type(data_type: String) -> Array:
 			printerr("Unknown data type: ", data_type)
 			return [{}, {}]
 
-func lookup_in_data(data_dict: Dictionary, field_to_filter: String, filter_value, field_to_return: String) -> Array:
+func lookup_in_data(data_dict: Dictionary, field_to_filter: String, filter_value: Variant, field_to_return: String) -> Array:
 	"""Optimized lookup using indices when available"""
 	
 	# Generate cache key for this exact query using dictionary hash
@@ -202,7 +202,7 @@ func lookup_in_data(data_dict: Dictionary, field_to_filter: String, filter_value
 	if __lookup_cache.has(cache_key):
 		return __lookup_cache[cache_key]
 	
-	var results = []
+	var results: Array = []
 	var indices = null
 	
 	# Try to find appropriate indices for this data_dict
@@ -223,8 +223,8 @@ func lookup_in_data(data_dict: Dictionary, field_to_filter: String, filter_value
 		var resolved_filter_value = resolve_filter_value(filter_value)
 		
 		# Try lookup with different value variants
-		var matching_keys = []
-		var tried_values = {}  # Prevent duplicate lookups
+		var matching_keys: Array = []
+		var tried_values: Dictionary = {}
 		
 		# Try original filter value
 		if field_index.has(filter_value) and not tried_values.has(filter_value):
@@ -249,7 +249,7 @@ func lookup_in_data(data_dict: Dictionary, field_to_filter: String, filter_value
 				tried_values[int_variant] = true
 		
 		# Get results from matching records (deduplicate keys first)
-		var unique_keys = {}
+		var unique_keys: Dictionary = {}
 		for key in matching_keys:
 			unique_keys[key] = true
 		
@@ -270,9 +270,9 @@ func resolve_filter_value(filter_value):
 		return parse_enum(filter_value)
 	return filter_value
 
-func lookup_in_data_linear(data_dict: Dictionary, field_to_filter: String, filter_value, field_to_return: String) -> Array:
+func lookup_in_data_linear(data_dict: Dictionary, field_to_filter: String, filter_value: Variant, field_to_return: String) -> Array:
 	"""Original linear search method as fallback"""
-	var results = []
+	var results: Array = []
 	
 	# Try to resolve enum if it's a string that looks like an enum reference
 	var resolved_filter_value = resolve_filter_value(filter_value)
@@ -283,7 +283,7 @@ func lookup_in_data_linear(data_dict: Dictionary, field_to_filter: String, filte
 		if record.has(field_to_filter):
 			var field_value = record[field_to_filter]
 			
-			var matches = false
+			var matches: bool = false
 			if field_value is String:
 				matches = (field_value == filter_value) or (field_value == resolved_filter_value)
 			elif field_value is int or field_value is float:
@@ -315,7 +315,7 @@ func compare_numeric_values(field_value, filter_value, resolved_filter_value) ->
 
 func __is_enum_reference(value: String) -> bool:
 	"""Check if a string looks like an enum reference (with caching)"""
-	var cache_key = "enum_ref:" + value
+	var cache_key: String = "enum_ref:" + value
 	if __resolved_enum_cache.has(cache_key):
 		return __resolved_enum_cache[cache_key]
 	
@@ -325,14 +325,14 @@ func __is_enum_reference(value: String) -> bool:
 
 func resolve_json_data(data: Array) -> Dictionary:
 	"""Process an array of records, resolving enum references in each, then convert to nested dict"""
-	var resolved_data = []
+	var resolved_data: Array[Dictionary] = []
 	for record in data:
 		resolved_data.append(resolve_json_record(record))
 	return convert_array_to_nested_dict(resolved_data)
 
 func resolve_json_record(record: Dictionary) -> Dictionary:
 	"""Process a single record, resolving enum references in all values"""
-	var resolved_record = {}
+	var resolved_record: Dictionary = {}
 	for key in record:
 		resolved_record[key] = resolve_value(record[key])
 	return resolved_record
@@ -349,12 +349,12 @@ func resolve_value(value):
 		# Convert floats that are actually integers back to int
 		return normalize_numeric_value(value)
 	elif value is Array:
-		var resolved_array = []
+		var resolved_array: Array[Variant] = []
 		for item in value:
 			resolved_array.append(resolve_value(item))
 		return resolved_array
 	elif value is Dictionary:
-		var resolved_dict = {}
+		var resolved_dict: Dictionary[Variant, Variant] = {}
 		for key in value:
 			# Resolve both keys and values for enum references
 			var resolved_key = resolve_value(key)
@@ -364,7 +364,7 @@ func resolve_value(value):
 	else:
 		return value
 
-func normalize_numeric_value(value):
+func normalize_numeric_value(value: Variant) -> Variant:
 	"""Convert floats that are actually integers back to int"""
 	if value is float:
 		# Check if this float is actually a whole number
@@ -404,7 +404,7 @@ func resolve_configuration_reference(config_ref: String):
 
 func convert_array_to_nested_dict(data_array: Array) -> Dictionary:
 	"""Convert array of records to nested dictionary using first field as key"""
-	var result_dict = {}
+	var result_dict: Dictionary[Variant, Dictionary] = {}
 	
 	for record in data_array:
 		if record.size() > 0:
@@ -456,7 +456,7 @@ func get_wave_by_id(wave_id: String) -> Dictionary:
 func get_random_wave_for_act(act: int) -> Dictionary:
 	"""Get a random non-boss wave for the specified act"""
 	print("[StaticData] Looking for waves for act %d in %d total waves" % [act, wave_data.size()])
-	var act_waves: Array = []
+	var act_waves: Array[Dictionary] = []
 	for wave_id in wave_data:
 		var wave = wave_data[wave_id]
 		var wave_act = wave.get("act", 0)
@@ -475,7 +475,7 @@ func get_random_wave_for_act(act: int) -> Dictionary:
 
 func get_all_waves_for_act(act: int) -> Array:
 	"""Get all waves for the specified act"""
-	var act_waves: Array = []
+	var act_waves: Array[Dictionary] = []
 	for wave_id in wave_data:
 		var wave = wave_data[wave_id]
 		if wave.get("act", 0) == act:
@@ -483,7 +483,7 @@ func get_all_waves_for_act(act: int) -> Array:
 	return act_waves
 
 # Cache management methods
-func clear_lookup_cache():
+func clear_lookup_cache() -> void:
 	"""Clear the lookup cache if needed (e.g., after data updates)"""
 	__lookup_cache.clear()
 

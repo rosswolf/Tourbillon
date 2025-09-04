@@ -75,14 +75,14 @@ func _spawn_gremlin(gremlin_type: String) -> void:
 		return
 	
 	var data = mob_data[gremlin_type]
-	var gremlin = Gremlin.new()
-	gremlin.gremlin_name = data.get("display_name", "Unknown Gremlin")
-	gremlin.max_hp = data.get("max_health", 10)
-	gremlin.current_hp = gremlin.max_hp
-	gremlin.shields = data.get("max_shields", 0)
-	gremlin.moves_string = data.get("moves", "")
+	var gremlin: Gremlin = Gremlin.GremlinBuilder.new() \
+		.with_name(data.get("display_name", "Unknown Gremlin")) \
+		.with_hp(data.get("max_health", 10)) \
+		.with_shields(data.get("max_shields", 0)) \
+		.with_moves(data.get("moves", "")) \
+		.build()
 	
-	instance_catalog.register_instance(gremlin)
+	instance_catalog.set_instance(gremlin)
 	global_game_manager.add_child(gremlin)
 	GlobalSignals.signal_core_mob_created(gremlin.instance_id)
 	

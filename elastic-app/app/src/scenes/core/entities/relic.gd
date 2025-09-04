@@ -43,7 +43,7 @@ class RelicBuilder extends Entity.EntityBuilder:
 			
 					
 	func build() -> Relic:
-		var relic = Relic.new()
+		var relic: Relic = Relic.new()
 		super.build_entity(relic)
 		relic.description = __description
 		relic.image_name = __image_name

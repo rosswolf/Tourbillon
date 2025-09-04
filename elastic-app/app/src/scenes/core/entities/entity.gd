@@ -29,6 +29,7 @@ enum EntityType {
 	MAINPLATE,
 	RELIC,
 	GOAL,
+	GREMLIN,
 	NONE
 }
 

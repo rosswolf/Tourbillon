@@ -108,8 +108,8 @@ func __set_slot_active(slot: EngineSlot, active: bool) -> void:
 	slot.set_active(active)
 	
 	# Check if this slot is a bonus square in the core
-	var is_bonus = false
-	var bonus_type = ""
+	var is_bonus: bool = false
+	var bonus_type: String = ""
 	if mainplate:
 		var logical_pos = grid_mapper.to_logical(slot.grid_position)
 		if logical_pos != null:
@@ -132,7 +132,7 @@ func __set_slot_active(slot: EngineSlot, active: bool) -> void:
 		var main_panel = slot.get_node_or_null("%MainPanel")
 		if main_panel:
 			# Create a visible background for empty slots
-			var panel_stylebox = StyleBoxFlat.new()
+			var panel_stylebox: StyleBoxFlat = StyleBoxFlat.new()
 			# Use different color for bonus squares
 			if slot.is_bonus_square:
 				if slot.bonus_type == "draw_two_cards":
@@ -155,7 +155,7 @@ func __set_slot_active(slot: EngineSlot, active: bool) -> void:
 				inner_panel.visible = true
 		
 		# Also style the button itself for better visibility
-		var button_stylebox = StyleBoxFlat.new()
+		var button_stylebox: StyleBoxFlat = StyleBoxFlat.new()
 		# Different styling for bonus squares
 		if slot.is_bonus_square:
 			if slot.bonus_type == "draw_two_cards":

@@ -57,7 +57,7 @@ func __animate_counter(from_beat: int, to_beat: int) -> void:
 
 ## Process a single beat
 func __process_single_beat() -> void:
-	var context = BeatContext.new()
+	var context: BeatContext = BeatContext.new()
 	context.beat_number = total_beats
 	context.tick_number = total_beats / 10
 	context.beat_in_tick = total_beats % 10

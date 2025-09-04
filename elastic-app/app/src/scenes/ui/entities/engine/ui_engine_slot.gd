@@ -13,7 +13,7 @@ var bonus_type: String = ""  # Type of bonus (e.g., "draw_card")
 
 var card_preview: CardUI
 
-var CARD_UI = preload("res://src/scenes/ui/hand/card_ui.tscn")
+var CARD_UI: PackedScene = preload("res://src/scenes/ui/hand/card_ui.tscn")
 
 func _ready() -> void:
 	super._ready()
@@ -53,7 +53,7 @@ func create_card_ui():
 	var tween = create_tween()
 	tween.tween_property(card_preview, "scale", Vector2(1.25, 1.25), 0.17)
 
-func destroy_card_ui():	
+func destroy_card_ui() -> void:	
 	if not card_preview:  # Nothing to destroy
 		return
 		
@@ -62,7 +62,7 @@ func destroy_card_ui():
 	tween.tween_callback(card_preview.queue_free)
 	card_preview = null
 	
-func __on_card_slotted(target_slot_id: String):
+func __on_card_slotted(target_slot_id: String) -> void:
 	print("[EngineSlot] __on_card_slotted called with: ", target_slot_id, " my button entity: ", __button_entity.instance_id)
 	if target_slot_id == __button_entity.instance_id:
 		# Only update visual display
@@ -111,7 +111,7 @@ func __on_card_slotted(target_slot_id: String):
 		else:
 			push_warning("Card slotted signal received but no card on button entity!")
 	
-func __on_card_unslotted(target_slot_id: String):
+func __on_card_unslotted(target_slot_id: String) -> void:
 	if target_slot_id == __button_entity.instance_id:
 		var name_node = get_node_or_null("%Name")
 		if name_node:
@@ -128,7 +128,7 @@ func __on_card_unslotted(target_slot_id: String):
 		if card_preview:
 			destroy_card_ui()
 
-func _process(delta):
+func _process(delta: float) -> void:
 	# Progress bar is updated in __update_progress_display() instead
 	pass
 

@@ -1,11 +1,11 @@
 extends Control
 class_name UiEntity
 
-var __is_hovered = false
+var __is_hovered: bool = false
 
 var __entity: Entity
 	
-func _ready():
+func _ready() -> void:
 	pass	
 	
 func set_entity_data(entity:Entity): 
@@ -25,6 +25,6 @@ func __on_mouse_exited() -> void:
 	__is_hovered = false
 	GlobalSelectionManager.clear_hovered_known(__entity.instance_id)
 	
-func _exit_tree():
+func _exit_tree() -> void:
 	if __is_hovered:
 		__on_mouse_exited()

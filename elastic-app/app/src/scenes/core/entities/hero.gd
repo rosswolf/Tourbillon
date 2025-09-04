@@ -22,7 +22,7 @@ var momentum: CappedResource
 var balance: CappedResource
 var entropy: CappedResource
 
-func _init():
+func _init() -> void:
 	# Initialize all 10 resources with proper signal callbacks
 	var noop = func(v): pass
 	
@@ -66,7 +66,7 @@ func _get_type() -> Entity.EntityType:
 
 
 
-func reset_start_of_battle():
+func reset_start_of_battle() -> void:
 	pass
 
 ## Get a resource by type (colors or forces)
@@ -202,7 +202,7 @@ class HeroBuilder extends Entity.EntityBuilder:
 	func build() -> Hero:
 		var default_max: int = 9000
 		
-		var hero = Hero.new()
+		var hero: Hero = Hero.new()
 		super.build_entity(hero)
 		
 		hero.image_name = __image_name

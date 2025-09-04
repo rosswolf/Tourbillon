@@ -21,7 +21,7 @@ var achieve: Achieve:
 		__achieve = value
 		__connect_achieve()
 
-func __connect_achieve():
+func __connect_achieve() -> void:
 	var starting_value = GlobalGameManager.stats_manager.stats.get(__achieve.signal_name, 0)
 	__achieve_bound = __on_signal.bind(__achieve, starting_value)
 	print("binding: " + __achieve.signal_name)
@@ -29,12 +29,12 @@ func __connect_achieve():
 	
 	GlobalSignals.core_goal_failed.connect(__on_core_goal_failed)
 		
-func __disconnect_achieve():
+func __disconnect_achieve() -> void:
 	if __achieve != null and __achieve_bound != null:
 		GlobalSignals.disconnect(__achieve.signal_name, __achieve_bound)
 		__achieve_bound = null
 
-func __on_signal(delta: int, achieve: Achieve, prior: int):
+func __on_signal(delta: int, achieve: Achieve, prior: int) -> void:
 	var current = GlobalGameManager.stats_manager.stats.get(__achieve.signal_name, 0)
 	var amount: int = current - prior
 	if achieve.comparator == Comparator.EQUALS:
@@ -54,12 +54,12 @@ func __on_signal(delta: int, achieve: Achieve, prior: int):
 			__apply_reward()
 	return
 
-func __on_core_goal_failed(goal_instance_id: String):
+func __on_core_goal_failed(goal_instance_id: String) -> void:
 	if goal_instance_id == instance_id:
 		if punishment:
 			punishment.activate(self)
 	
-func __apply_reward():
+func __apply_reward() -> void:
 	reward.activate(self)
 	__disconnect_achieve()
 	GlobalSignals.signal_core_goal_succeeded(self.instance_id)
@@ -106,7 +106,7 @@ class GoalBuilder extends Entity.EntityBuilder:
 		
 		const splitters: Array[String] = ["==", ">=", "<=", ">", "<"]
 		
-		var achieve = Achieve.new()
+		var achieve: Achieve = Achieve.new()
 		for splitter in splitters:
 			if achieve_in.contains(splitter):
 				var parts = achieve_in.split(splitter)
@@ -145,7 +145,7 @@ class GoalBuilder extends Entity.EntityBuilder:
 		return self
 		
 	func build() -> Goal:
-		var goal = Goal.new()
+		var goal: Goal = Goal.new()
 		super.build_entity(goal)
 		goal.achieve = __achieve
 		goal.before_n_ticks = __before_n_ticks

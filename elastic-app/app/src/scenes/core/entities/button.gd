@@ -21,14 +21,14 @@ var card: Card:
 			# Signal is emitted by activation_logic.gd after placement
 			# Removed duplicate signal here to prevent double-triggering bonuses
 	
-func _init():
+func _init() -> void:
 	GlobalSignals.core_card_destroyed.connect(__on_core_card_destroyed)
 	
-func __on_core_card_destroyed(card_instance_id: String):
+func __on_core_card_destroyed(card_instance_id: String) -> void:
 	if card and card.instance_id == card_instance_id:
 		card = null
 	
-func get_card_instance_id():
+func get_card_instance_id() -> String:
 	if card:
 		return card.instance_id
 	else:
@@ -62,7 +62,7 @@ class EngineButtonEntityBuilder extends Entity.EntityBuilder:
 		return self
 			
 	func build() -> EngineButtonEntity:
-		var button = EngineButtonEntity.new()
+		var button: EngineButtonEntity = EngineButtonEntity.new()
 		super.build_entity(button)
 		button.engine_slot = __engine_slot
 		button.is_activation_button = __is_activation_button

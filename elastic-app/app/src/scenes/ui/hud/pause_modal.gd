@@ -13,12 +13,12 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 	
-func resume():
+func resume() -> void:
 	hide()
 	get_tree().paused = false 
 	animation_player.play_backwards("blur")
 	
-func pause():
+func pause() -> void:
 	show()	
 	animation_player.play("blur")
 	get_tree().paused = true

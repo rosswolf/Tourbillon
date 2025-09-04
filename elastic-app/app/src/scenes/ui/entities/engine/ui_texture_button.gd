@@ -1,7 +1,7 @@
 extends TextureButton
 class_name UiTextureButton
 
-var __is_hovered = false
+var __is_hovered: bool = false
 var __button_entity: EngineButtonEntity
 
 func _ready() -> void:
@@ -26,6 +26,6 @@ func _on_mouse_exited() -> void:
 	__is_hovered = false
 	GlobalSelectionManager.clear_hovered_known(__button_entity.instance_id)
 	
-func _exit_tree():
+func _exit_tree() -> void:
 	if __is_hovered:
 		_on_mouse_exited()

@@ -26,11 +26,11 @@ class ZoneCollection:
 		__zone_type = type
 	
 	# Add a card to this zone
-	func add_card(card: Card):
+	func add_card(card: Card) -> void:
 		__cards.append(card)
 	
 	# Add an array of cards to this zone
-	func add_cards(cards: Array[Card]):
+	func add_cards(cards: Array[Card]) -> void:
 		for card in cards:
 			__cards.append(card)
 		
@@ -72,7 +72,7 @@ class ZoneCollection:
 		return __cards.size()
 	
 	# Shuffle cards in this zone
-	func shuffle():
+	func shuffle() -> void:
 		__cards.shuffle()
 	
 	# Get the top card without removing it
@@ -97,37 +97,37 @@ class ZoneCollection:
 				result.append(card)
 		return result
 		
-	func clear():
+	func clear() -> void:
 		__cards = []
 
 
 # Card zones
-var rare_library: ZoneCollection
-var uncommon_library: ZoneCollection
-var common_library: ZoneCollection
-var default_library: ZoneCollection
-var deck: ZoneCollection
-var hand: ZoneCollection
-var being_played: ZoneCollection
-var graveyard: ZoneCollection
-var exiled: ZoneCollection
-var slotted: ZoneCollection
+var rare_library: ZoneCollection = null
+var uncommon_library: ZoneCollection = null
+var common_library: ZoneCollection = null
+var default_library: ZoneCollection = null
+var deck: ZoneCollection = null
+var hand: ZoneCollection = null
+var being_played: ZoneCollection = null
+var graveyard: ZoneCollection = null
+var exiled: ZoneCollection = null
+var slotted: ZoneCollection = null
 
 # Card lookup for quick access
-var card_zone_map: Dictionary = {}  # Maps card_instance_id to its current Zone
+var card_zone_map: Dictionary[String, Zone] = {}  # Maps card_instance_id to its current Zone
 
 # State
-var max_hand_size: int
-var card_selection_count: int
-var rare_chance: float
-var uncommon_chance: float
+var max_hand_size: int = 7
+var card_selection_count: int = 3
+var rare_chance: float = 0.0
+var uncommon_chance: float = 0.0
 
-var initial_rare_chance: float
-var initial_uncommon_chance: float
+var initial_rare_chance: float = 0.04
+var initial_uncommon_chance: float = 0.15
 
 # Signals
 
-func _init():
+func _init() -> void:
 	# Initialize all zones
 	rare_library = ZoneCollection.new(Zone.RARE_LIBRARY)
 	uncommon_library = ZoneCollection.new(Zone.UNCOMMON_LIBRARY)
@@ -165,7 +165,7 @@ func initialize_cards(rare_cards: Array[Card], uncommon_cards: Array[Card],
 		
 	shuffle_libraries()
 	
-func print_hand_size():
+func print_hand_size() -> void:
 	print(hand.get_count())
 	
 	
@@ -234,7 +234,7 @@ func add_cards_to_deck(cards: Array[Card]) -> void:
 	for card in cards:
 		add_card_to_deck(card)
 
-func discard_hand():
+func discard_hand() -> void:
 	for card in hand.get_all_cards():
 		move_card_to_zone2(card.instance_id, Zone.HAND, Zone.GRAVEYARD)
 		GlobalSignals.signal_core_card_removed_from_hand(card.instance_id)
@@ -319,7 +319,7 @@ func card_template_already_selected(candidate_template_id: String, selectable_ca
 			return true
 	return false
 				
-func shuffle_libraries():
+func shuffle_libraries() -> void:
 	rare_library.shuffle()
 	uncommon_library.shuffle()
 	common_library.shuffle()
@@ -343,7 +343,7 @@ func get_card_ids_in_zone(zone: Zone) -> Array[String]:
 	return zone_obj.get_all_card_ids()
 
 # Helper to get object reference for a zone
-func __get_zone_object(zone: Zone):
+func __get_zone_object(zone: Zone) -> void:
 	match zone:
 		Zone.RARE_LIBRARY:
 			return rare_library
@@ -371,7 +371,7 @@ func __get_zone_object(zone: Zone):
 
 
 # Clear all zones (for game reset)
-func clear_all_zones():
+func clear_all_zones() -> void:
 	hand.clear()
 	graveyard.clear()
 	rare_library.clear()

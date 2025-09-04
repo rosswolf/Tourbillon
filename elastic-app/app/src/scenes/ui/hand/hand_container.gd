@@ -16,7 +16,7 @@ var __cards: Dictionary[String, CardUI]
 var __tween_dict: Dictionary = {}  # Store tweens by card node
 var __selected_card: CardUI = null  # Track currently selected/raised card
 
-func _ready():
+func _ready() -> void:
 	# Make sure the container resizes properly
 	size_flags_horizontal = SIZE_EXPAND_FILL
 	size_flags_vertical = SIZE_EXPAND_FILL
@@ -94,7 +94,7 @@ func __calculate_card_layout() -> Dictionary:
 	var effective_spacing = spacing
 	
 	# Get card width (assuming all cards are the same size)
-	var card_width = 0
+	var card_width: int = 0
 	if not __cards.is_empty():
 		var first_card = __cards.values()[0]
 		card_width = first_card.size.x
@@ -140,7 +140,7 @@ func arrange_cards() -> void:
 	var total_angle = min(fan_arc_degrees, fan_arc_degrees * (__cards.size() / max_cards_without_overlap))
 	
 	# Angle between each card
-	var angle_step = 0.0
+	var angle_step: float = 0.0
 	if __cards.size() > 1:
 		angle_step = total_angle / (__cards.size() - 1)
 	
@@ -148,7 +148,7 @@ func arrange_cards() -> void:
 	var start_angle = -total_angle / 2.0
 	
 	# Arrange each card
-	var i = 0
+	var i: int = 0
 	for key in __cards.keys():
 		var card = __cards[key]
 		
@@ -170,7 +170,7 @@ func arrange_cards() -> void:
 		var y_offset = -arc_factor * vertical_offset
 		
 		# Calculate final position
-		var target_pos = Vector2(card_x, y_offset)
+		var target_pos: Vector2 = Vector2(card_x, y_offset)
 		
 		#print("Card ", i, " position: ", target_pos, " Container size: ", size)
 		
@@ -264,7 +264,7 @@ func _on_card_mouse_exited(card: CardUI) -> void:
 	# Trigger a rearrangement of all cards
 	arrange_cards()
 	
-func _on_selected_changed(card_instance_id: String):
+func _on_selected_changed(card_instance_id: String) -> void:
 	if card_instance_id == "":
 		deselect_current_card()
 	elif card_instance_id in __cards.keys():
@@ -336,8 +336,8 @@ func __calculate_base_position_for_card(card: CardUI) -> Vector2:
 		return Vector2.ZERO
 		
 	# Find index of this card
-	var i = 0
-	var card_index = -1
+	var i: int = 0
+	var card_index: int = -1
 	for key in __cards.keys():
 		if __cards[key] == card:
 			card_index = i

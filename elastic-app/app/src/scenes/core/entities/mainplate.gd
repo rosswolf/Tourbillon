@@ -113,7 +113,7 @@ func expand_grid(direction: String) -> bool:
 		"left":
 			if grid_size.x < max_grid_size.x:
 				# Shift all existing cards right
-				var new_slots = {}
+				var new_slots: Dictionary = {}
 				for pos in slots:
 					new_slots[pos + Vector2i(1, 0)] = slots[pos]
 				slots = new_slots
@@ -123,7 +123,7 @@ func expand_grid(direction: String) -> bool:
 		"up":
 			if grid_size.y < max_grid_size.y:
 				# Shift all existing cards down
-				var new_slots = {}
+				var new_slots: Dictionary = {}
 				for pos in slots:
 					new_slots[pos + Vector2i(0, 1)] = slots[pos]
 				slots = new_slots
@@ -177,7 +177,7 @@ func process_beat(context: BeatContext) -> void:
 
 ## Count cards with a specific tag
 func count_cards_with_tag(tag: String) -> int:
-	var count = 0
+	var count: int = 0
 	for card in get_cards_in_order():
 		if card.tags.has(tag):
 			count += 1
@@ -187,7 +187,7 @@ func count_cards_with_tag(tag: String) -> int:
 func get_adjacent_positions(pos: Vector2i) -> Array[Vector2i]:
 	var adjacent: Array[Vector2i] = []
 	
-	var offsets = [
+	var offsets: Array[Vector2i] = [
 		Vector2i(-1, 0),  # Left
 		Vector2i(1, 0),   # Right
 		Vector2i(0, -1),  # Up
@@ -277,7 +277,7 @@ func assign_random_bonus_squares() -> void:
 	var empty_positions: Array[Vector2i] = []
 	for y in range(grid_size.y):
 		for x in range(grid_size.x):
-			var pos = Vector2i(x, y)
+			var pos: Vector2i = Vector2i(x, y)
 			if not has_card_at(pos):
 				empty_positions.append(pos)
 	
@@ -326,7 +326,7 @@ class MainplateBuilder extends Entity.EntityBuilder:
 		return self
 	
 	func build() -> Mainplate:
-		var mainplate = Mainplate.new()
+		var mainplate: Mainplate = Mainplate.new()
 		super.build_entity(mainplate)
 		mainplate.grid_size = __grid_size
 		mainplate.max_grid_size = __max_grid_size

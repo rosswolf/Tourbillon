@@ -57,7 +57,7 @@ static func parse_move_descriptor(move_descriptor: String) -> Array[MovePiece]:
 	
 		var move_param = parts[1].strip_edges()
 				
-		var regex = RegEx.new()
+		var regex: RegEx = RegEx.new()
 		regex.compile("^[0-9]+x[0-9]+$")
 				
 		if move_param.length() == 0:	

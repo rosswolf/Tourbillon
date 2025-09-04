@@ -25,7 +25,7 @@ func _ready() -> void:
 	GlobalSignals.ui_card_ticks_resolved.connect(__on_card_ticks_resolved)
 	
 	
-	var audio_stream = load(MUSIC_MP3)
+	var audio_stream: Resource = load(MUSIC_MP3)
 	%AudioStreamPlayer.stream = audio_stream
 	%AudioStreamPlayer.play()
 	%AudioStreamPlayer.finished.connect(__on_audio_finished)
@@ -36,7 +36,7 @@ func _ready() -> void:
 	%GlobalTimer.start()
 
 
-func __on_audio_finished():
+func __on_audio_finished() -> void:
 	%AudioStreamPlayer.play()  # Restart when finished
 
 
@@ -123,5 +123,5 @@ func __on_relic_removed(relic_instance_id: String) -> void:
 			%RelicGridContainer.remove_child(child)
 			child.queue_free()
 
-func __on_core_game_win():
+func __on_core_game_win() -> void:
 	FadeToBlack.go_to_scene("res://src/scenes/win.tscn")

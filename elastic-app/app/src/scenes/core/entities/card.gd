@@ -154,7 +154,7 @@ class CardBuilder extends Entity.EntityBuilder:
 
 
 	func build() -> Card:
-		var card = Card.new()
+		var card: Card = Card.new()
 		super.build_entity(card)
 			
 		if __slot_effect != "":
@@ -254,7 +254,7 @@ static func build_new_card_from_template(card_template_id: String, card_template
 	var rules_text_data = card_template_data.get("rules_text", "")
 	if rules_text_data is Dictionary:
 		# Convert dictionary back to string format
-		var text_parts = []
+		var text_parts: Array = []
 		for key in rules_text_data:
 			text_parts.append(key + ": " + str(rules_text_data[key]))
 		builder.with_rules_text("; ".join(text_parts))

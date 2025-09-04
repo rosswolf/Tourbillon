@@ -1,7 +1,7 @@
 extends Cursor
 class_name ImageCursor
 
-func _ready():
+func _ready() -> void:
 	z_index = 4096
 
 func set_cursor_position(pos: Vector2):

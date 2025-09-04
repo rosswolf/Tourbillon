@@ -48,7 +48,7 @@ func __add_card_as_button(card: Card, target_zone: Library.Zone) -> void:
 	add_child(card_ui)
 	await get_tree().process_frame  # Wait for layout
 		
-	var button = Button.new()
+	var button: Button = Button.new()
 	button.name = "CardButton" + card.name
 	button.flat = true  # Remove button styling
 	button.custom_minimum_size = Vector2(140, 200) 

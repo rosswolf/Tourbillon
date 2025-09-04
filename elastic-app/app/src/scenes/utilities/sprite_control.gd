@@ -15,7 +15,7 @@ func set_sprite(sprite: AnimatedSprite2D, size: Vector2):
 	# Set min_size to the largest frame across all animations
 	__update_min_size(size)
 
-func __update_min_size(size: Vector2):
+func __update_min_size(size: Vector2) -> void:
 	if __sprite == null or __sprite.sprite_frames == null:
 		return
 	# Set fixed minimum size regardless of sprite content

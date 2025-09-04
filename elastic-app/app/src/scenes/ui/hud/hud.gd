@@ -4,7 +4,7 @@ extends CanvasLayer
 @onready var card_selection_modal := $CardSelectionModal
 @onready var game_over_modal := $GameOverModal
 
-func _ready():
+func _ready() -> void:
 	pass
 
 

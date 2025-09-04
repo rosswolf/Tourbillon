@@ -2,13 +2,13 @@ class_name CardUI
 extends Control
 
 # UI Components
-@onready var card_background = $CardBackground
-@onready var card_title = $TitlePanel/Title 
-@onready var card_description = $DescriptionPanel/Description
-@onready var icon_container = $IconContainer
-@onready var tick_cost_label = $IconContainer/TopHBoxContainer/TickCostCircle/CenterContainer/TickCostLabel  # Gray circle for tick cost
-@onready var efficiency_label = null  # Efficiency label removed for now
-@onready var is_building = $IsBuilding
+@onready var card_background: Control = $CardBackground
+@onready var card_title: Control = $TitlePanel/Title
+@onready var card_description: Control = $DescriptionPanel/Description
+@onready var icon_container: Container = $IconContainer
+@onready var tick_cost_label: Label = $IconContainer/TopHBoxContainer/TickCostCircle/CenterContainer/TickCostLabel  # Gray circle for tick cost
+@onready var efficiency_label: Label = null  # Efficiency label removed for now
+@onready var is_building: Control = $IsBuilding
 
 var energy_icons: Dictionary[GameResource.Type, String] = {
 	GameResource.Type.GREEN_ENERGY: "green_energy",
@@ -23,7 +23,7 @@ var energy_icons: Dictionary[GameResource.Type, String] = {
 # Card data
 var card_data: Card
 
-func _ready():
+func _ready() -> void:
 	# Connect mouse input signals
 	gui_input.connect(_on_gui_input)
 	mouse_entered.connect(__on_mouse_entered)
@@ -76,7 +76,7 @@ func set_card_data(card: Card) -> void:
 		is_building.visible = false
 		
 
-func refresh():
+func refresh() -> void:
 	card_title.text = card_data.display_name
 	card_description.text = card_data.rules_text
 	

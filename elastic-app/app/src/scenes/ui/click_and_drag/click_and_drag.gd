@@ -27,7 +27,7 @@ func add_dragging_visual():
 	%HUD.add_child(targeting_visual)
 	targeting_visual.global_position = get_global_mouse_position()
 	
-func remove_dragging_visual():
+func remove_dragging_visual() -> void:
 	if targeting_visual != null:
 		var last_pos = targeting_visual.position
 		targeting_visual.queue_free()
@@ -36,7 +36,7 @@ func remove_dragging_visual():
 	else:
 		return null
 	
-func get_relevant_visual():
+func get_relevant_visual() -> Node:
 	var selected_instance_id = GlobalSelectionManager.get_selected()	
 	var card = GlobalGameManager.instance_catalog.get_instance(selected_instance_id) as Card
 	

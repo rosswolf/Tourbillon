@@ -3,7 +3,7 @@ extends Resource
 # Costs cannot be satisfied unless you can fulfill all of the requirements
 class_name Cost
 
-var requirements : Dictionary[GameResource.Type, int]
+var requirements: Dictionary[GameResource.Type, int] = {}
 
 class AuxilliaryResources:
 	func _init(source_in: Entity, target_in: Entity):
@@ -16,7 +16,7 @@ class AuxilliaryResources:
 		if card:
 			resources[card.trigger_resource] = resources.get(card.trigger_resource, 0) + 1
 	
-	func __can_satisfy_requirement(requirement: GameResource.Type, amount):
+	func __can_satisfy_requirement(requirement: GameResource.Type, amount: int) -> void:
 		return resources.get(requirement, 0) >= amount
 		
 	func __satisfy_requirement(requirement: GameResource.Type, amount) -> bool:
@@ -35,7 +35,7 @@ func _init(resources: Dictionary[GameResource.Type, int]):
 func can_satisfy(source: Entity, target: Entity) -> bool:
 	return get_unsatisfied_resources(source, target).size() == 0
 	
-func signal_unsatisfied(source: Entity, target: Entity):
+func signal_unsatisfied(source: Entity, target: Entity) -> void:
 	var unsatisfied_types: Array[GameResource.Type] = get_unsatisfied_resources(source, target)
 	for type in unsatisfied_types:
 		GlobalSignals.signal_core_missing_resource(type)

@@ -2,11 +2,11 @@ extends UiEntity
 
 class_name UiGoal
 
-func _ready():
+func _ready() -> void:
 	GlobalSignals.core_goal_failed.connect(__on_core_goal_failed)
 	GlobalSignals.core_goal_succeeded.connect(__on_core_goal_succeeded)
 	
-func set_entity_data(entity: Entity):
+func set_entity_data(entity: Entity) -> void:
 	await super.set_entity_data(entity)
 	var goal: Goal = __entity as Goal
 	if goal == null:
@@ -25,19 +25,19 @@ func pct(numerator: float, denominator: float):
 	else:
 		return 100.0 * numerator / denominator	
 
-func __on_timeout():
+func __on_timeout() -> void:
 	var goal: Goal = __entity as Goal
 	if goal == null:
 		assert(false, "cant parse entity as a goal")
 	GlobalSignals.signal_core_goal_failed(goal.instance_id)		
 		
-func _process(delta: float):
+func _process(delta: float) -> void:
 	var goal: Goal = __entity as Goal
 	if goal == null:
 		assert(false, "cant parse entity as a goal")
 	%ProgressBar.value = pct(%Timer.time_left, goal.before_n_ticks)
 
-func __on_core_goal_failed(goal_instance_id: String):
+func __on_core_goal_failed(goal_instance_id: String) -> void:
 	var goal: Goal = __entity as Goal
 	if goal == null:
 		assert(false, "cant parse entity as a goal")
@@ -48,7 +48,7 @@ func __on_core_goal_failed(goal_instance_id: String):
 		tween.chain().tween_property(self, "modulate:a", 0.0, 0.7)
 		tween.tween_callback(queue_free)
 	
-func __on_core_goal_succeeded(goal_instance_id: String):
+func __on_core_goal_succeeded(goal_instance_id: String) -> void:
 	var goal: Goal = __entity as Goal
 	if goal == null:
 		assert(false, "cant parse entity as a goal")

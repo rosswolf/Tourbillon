@@ -32,13 +32,13 @@ func __execute_satisfy_costs(source: Entity, target: Entity) -> bool:
 			
 	return true
 	
-func __is_valid_source(source: Entity):
+func __is_valid_source(source: Entity) -> void:
 	for effect in effects:
 		if not effect.__is_valid_source(source):
 			return false	
 	return true
 	
-func __is_valid_target(source: Entity):
+func __is_valid_target(source: Entity) -> void:
 	for effect in effects:
 		if not effect.__is_valid_target(source):
 			return false	

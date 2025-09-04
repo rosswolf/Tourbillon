@@ -6,7 +6,7 @@ class_name UiGremlinPanel
 
 @onready var gremlin_container: VBoxContainer = %GremlinContainer
 
-var ui_gremlin_scene = preload("res://src/scenes/ui/entities/gremlins/ui_gremlin.tscn")
+var ui_gremlin_scene: PackedScene = preload("res://src/scenes/ui/entities/gremlins/ui_gremlin.tscn")
 var active_gremlin_uis: Dictionary = {}  # gremlin_id -> UiGremlin
 
 func _ready() -> void:
@@ -62,7 +62,7 @@ func spawn_test_gremlins() -> void:
 		return
 	
 	# Spawn a few different gremlin types for testing
-	var test_types = ["basic_gnat", "dust_mite", "static_beetle"]
+	var test_types: Array[String] = ["basic_gnat", "dust_mite", "static_beetle"]
 	
 	for i in range(min(3, test_types.size())):
 		var mob_type = test_types[i]
@@ -75,11 +75,11 @@ func spawn_test_gremlins() -> void:
 				GlobalSignals.signal_core_mob_created(gremlin.instance_id)
 
 func __create_gremlin_from_data(data: Dictionary) -> Gremlin:
-	var gremlin = Gremlin.new()
-	gremlin.gremlin_name = data.get("display_name", "Unknown Gremlin")
-	gremlin.max_hp = data.get("max_health", 10)
-	gremlin.current_hp = gremlin.max_hp
-	gremlin.shields = data.get("max_shields", 0)
+	var gremlin: Gremlin = Gremlin.GremlinBuilder.new() \
+		.with_name(data.get("display_name", "Unknown Gremlin")) \
+		.with_hp(data.get("max_health", 10)) \
+		.with_shields(data.get("max_shields", 0)) \
+		.build()
 	
 	# Set disruption based on archetype
 	var archetype = data.get("archetype", "")

@@ -5,20 +5,20 @@ const WaveManager = preload("res://src/scenes/core/wave_manager.gd")
 
 # Game state properties
 var hero_template_id: String = "knight" # Default hero for testing
-var world_seed: int
+var world_seed: int = 0
 
-var instance_catalog: InstanceCatalog
-var library: Library
-var hero: Hero
-var relic_manager: RelicManager
+var instance_catalog: InstanceCatalog = null
+var library: Library = null
+var hero: Hero = null
+var relic_manager: RelicManager = null
 # Goal system removed - use gremlins instead
-var stats_manager: StatsManager
-var wave_manager
+var stats_manager: StatsManager = null
+var wave_manager: Node = null
 
 # Tourbillon system integration
-var timeline_manager: TimelineManager
-var beat_processor: BeatProcessor
-var mainplate: Mainplate  # Core mainplate entity
+var timeline_manager: TimelineManager = null
+var beat_processor: BeatProcessor = null
+var mainplate: Mainplate = null  # Core mainplate entity
 var starting_deck_size: int = 15
 var starting_hand_size: int = 5
 
@@ -34,7 +34,7 @@ var __activations_allowed: bool = false
 
 
 # Core functionality
-func _ready():
+func _ready() -> void:
 	GlobalSignals.ui_started_game.connect(__on_start_game)
 	GlobalSignals.ui_started_battle.connect(__on_start_battle)
 	GlobalSignals.ui_execute_selected_onto_hovered.connect(__handle_activation)
@@ -111,11 +111,11 @@ func __load_hand() -> void:
 	library.deck.shuffle()
 	library.draw_new_hand(hand_size)
 		
-func __handle_activation(source_instance_id: String, target_instance_id: String):
+func __handle_activation(source_instance_id: String, target_instance_id: String) -> void:
 	GlobalGameManager.activate(source_instance_id, target_instance_id)
 
 
-func __on_start_game():
+func __on_start_game() -> void:
 	reset_game_state()
 	
 	#world_seed = StaticData.get_int("world_seed")
@@ -148,7 +148,7 @@ func __on_start_game():
 	# Start battle
 	__on_start_battle()
 	
-func __on_start_battle():
+func __on_start_battle() -> void:
 	library.deck.shuffle()
 	
 	if hero:
@@ -168,7 +168,7 @@ func __on_start_battle():
 # Air meter time bump handler removed - no longer used
 		
 		
-func __on_card_played(card_instance_id: String):
+func __on_card_played(card_instance_id: String) -> void:
 	var card: Card = instance_catalog.get_instance(card_instance_id) as Card
 	if card == null:
 		assert(false, "Card was null when retrieving from instance catalog: " + card_instance_id)
@@ -177,13 +177,13 @@ func __on_card_played(card_instance_id: String):
 	if card.durability.amount > 0:
 		card.durability.decrement(1)
 		
-func __on_card_discarded(card_instance_id: String):
+func __on_card_discarded(card_instance_id: String) -> void:
 	var card: Card = instance_catalog.get_instance(card_instance_id) as Card
 	if card == null:
 		assert(false, "Card was null when retrieving from instance catalog: " + card_instance_id)
 		return
 		
-func __on_card_destroyed(card_instance_id: String):
+func __on_card_destroyed(card_instance_id: String) -> void:
 	var card: Card = instance_catalog.get_instance(card_instance_id) as Card
 	if card == null:
 		assert(false, "Card was null when retrieving from instance catalog: " + card_instance_id)
@@ -192,7 +192,7 @@ func __on_card_destroyed(card_instance_id: String):
 	GlobalSignals.signal_stats_cards_popped(1)
 	GlobalGameManager.library.move_card_to_zone2(card.instance_id, Library.Zone.ANY, Library.Zone.EXILED)
 			
-func __on_core_slot_activated(card_instance_id: String):
+func __on_core_slot_activated(card_instance_id: String) -> void:
 	var card: Card = instance_catalog.get_instance(card_instance_id) as Card
 	if card == null:
 		assert(false, "Card was null when retrieving from instance catalog: " + card_instance_id)
@@ -201,16 +201,16 @@ func __on_core_slot_activated(card_instance_id: String):
 	# Don't decrement durability for Tourbillon cards - they stay on the mainplate
 	# card.durability.decrement(1)  # DISABLED - cards should persist
 
-func __on_core_card_drawn(card_instance_id: String):
+func __on_core_card_drawn(card_instance_id: String) -> void:
 	GlobalSignals.signal_stats_cards_drawn(1)
 
-func allow_activations():
+func allow_activations() -> void:
 	__activations_allowed = true
 	
-func disallow_activations():
+func disallow_activations() -> void:
 	__activations_allowed = false
 	
-func reset_game_state():
+func reset_game_state() -> void:
 	# Clean up existing objects if they exist
 	if instance_catalog:
 		instance_catalog.queue_free()
@@ -247,7 +247,7 @@ func get_selected_card() -> Card:
 		GlobalSelectionManager.get_selected()) as Card
 
 	
-func end_turn():
+func end_turn() -> void:
 	GlobalSignals.signal_core_end_turn()
 	disallow_activations()
 	library.draw_new_hand(hand_size)
@@ -414,7 +414,7 @@ func __spawn_test_gremlin() -> void:
 		return
 	
 	# Pick a random gremlin type with interesting downsides
-	var gremlin_types = [
+	var gremlin_types: Array[String] = [
 		"dust_mite",  # Heat soft cap
 		"drain_gnat",  # Drains random resources
 		"constricting_barrier_gnat",  # Max resource soft cap
@@ -425,7 +425,7 @@ func __spawn_test_gremlin() -> void:
 	
 	if chosen_type in mob_data:
 		var data = mob_data[chosen_type]
-		var gremlin = Gremlin.new()
+		var gremlin: Gremlin = Gremlin.new()
 		gremlin.gremlin_name = data.get("display_name", "Unknown Gremlin")
 		gremlin.max_hp = data.get("max_health", 10)
 		gremlin.current_hp = gremlin.max_hp

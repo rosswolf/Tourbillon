@@ -12,7 +12,7 @@ static func get_enum_name(enum_dict, enum_value) -> String:
 	var index = values.find(enum_value)
 	return keys[index] if index != -1 else "UNKNOWN"
 
-var temp_rng = RandomNumberGenerator.new()
+var temp_rng: RandomNumberGenerator = RandomNumberGenerator.new()
 
 func set_seed(world_seed: int) -> void:
 	temp_rng.seed = world_seed
@@ -50,7 +50,7 @@ func load_image_uid(uid: String) -> Texture2D:
 		print("No UID provided when loading image")
 		return
 	
-	var loaded_texture = load("uid://" + uid) as Texture2D
+	var loaded_texture: Resource = load("uid://" + uid) as Texture2D
 	if loaded_texture:
 		return loaded_texture
 	else:
