@@ -142,8 +142,6 @@ func __on_card_played(card_instance_id: String) -> void:
 		assert(false, "Card was null when retrieving from instance catalog: " + card_instance_id)
 		return	
 	GlobalSignals.signal_stats_cards_played(1)
-	if card.durability.amount > 0:
-		card.durability.decrement(1)
 		
 func __on_card_discarded(card_instance_id: String) -> void:
 	var card: Card = instance_catalog.get_instance(card_instance_id) as Card
@@ -166,8 +164,6 @@ func __on_core_slot_activated(card_instance_id: String) -> void:
 		assert(false, "Card was null when retrieving from instance catalog: " + card_instance_id)
 		return
 	GlobalSignals.signal_stats_slots_activated(1)
-	# Don't decrement durability for Tourbillon cards - they stay on the mainplate
-	# card.durability.decrement(1)  # DISABLED - cards should persist
 
 func __on_core_card_drawn(card_instance_id: String) -> void:
 	GlobalSignals.signal_stats_cards_drawn(1)

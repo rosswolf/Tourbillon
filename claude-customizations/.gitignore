@@ -1,0 +1,23 @@
+# Godot-specific
+.godot/
+*.tmp
+*.translation
+
+# Backup files
+*.backup
+*~
+.compile-check-backup/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Test outputs
+test_results/
+compile_check_report.txt

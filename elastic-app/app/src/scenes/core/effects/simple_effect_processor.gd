@@ -704,12 +704,6 @@ static func _complex_entropy_cascade(_source: Node) -> void:
 	
 	var entropy: float = GlobalGameManager.resource_manager.get_resource(GameResource.Type.PURPLE)
 	if entropy >= 6:
-		# Damage all gears (reduce durability)
-		if GlobalGameManager.mainplate:
-			var all_gears: Array = GlobalGameManager.mainplate.get_all_gears()
-			for gear in all_gears:
-				if gear.has_method("take_durability_damage"):
-					gear.take_durability_damage(1)
 		# Damage all enemies
 		_handle_damage_all(10)
 

@@ -6,7 +6,6 @@
     "display_name": "innovate",
     "rules_text": "buy a card",
     "cursor_image_uid": "bqvm4vgi4c0dn",
-    "durability_max": 5,
     "card_cost": {
       "GameResource.Type.PURPLE_ENERGY": "2"
     },
@@ -20,7 +19,6 @@
     "display_name": "curious",
     "rules_text": "buy a tool",
     "cursor_image_uid": "bqvm4vgi4c0dn",
-    "durability_max": 2,
     "card_cost": {
       "GameResource.Type.GREEN_ENERGY": "2"
     },
@@ -34,7 +32,6 @@
     "display_name": "burst",
     "rules_text": "replenish all colors, draw 3 cards",
     "cursor_image_uid": "bqvm4vgi4c0dn",
-    "durability_max": 3,
     "card_cost": {
       "GameResource.Type.NONE": "0"
     },
@@ -48,7 +45,6 @@
     "display_name": "determination",
     "rules_text": "draw a card",
     "cursor_image_uid": "bqvm4vgi4c0dn",
-    "durability_max": 10,
     "card_cost": {
       "GameResource.Type.BLUE_ENERGY": "2"
     },
@@ -101,7 +97,6 @@
     "display_name": "decide",
     "rules_text": "pick an energy card",
     "cursor_image_uid": "bqvm4vgi4c0dn",
-    "durability_max": 2,
     "card_cost": {
       "GameResource.Type.NONE": "0"
     },
@@ -115,7 +110,6 @@
     "display_name": "cyan",
     "rules_text": "vent all colors",
     "cursor_image_uid": "bqvm4vgi4c0dn",
-    "durability_max": 10,
     "card_cost": {
       "GameResource.Type.BLUE_ENERGY": "1"
     },
@@ -129,7 +123,6 @@
     "display_name": "glimmer",
     "rules_text": "add gold",
     "cursor_image_uid": "bqvm4vgi4c0dn",
-    "durability_max": 10,
     "card_cost": {
       "GameResource.Type.BLUE_ENERGY": "1"
     },
@@ -143,7 +136,6 @@
     "display_name": "chance",
     "rules_text": "add gold",
     "cursor_image_uid": "bqvm4vgi4c0dn",
-    "durability_max": 1,
     "card_cost": {
       "GameResource.Type.GREEN_ENERGY": "1"
     },
@@ -157,7 +149,6 @@
     "display_name": "tumble",
     "rules_text": "replenish purple time, draw 1 card",
     "cursor_image_uid": "bqvm4vgi4c0dn",
-    "durability_max": 3,
     "card_cost": {
       "GameResource.Type.GREEN_ENERGY": "1"
     },
@@ -171,7 +162,6 @@
     "display_name": "roil",
     "rules_text": "replenish blue time, draw 1 card",
     "cursor_image_uid": "bqvm4vgi4c0dn",
-    "durability_max": 3,
     "card_cost": {
       "GameResource.Type.PURPLE_ENERGY": "1"
     },
@@ -185,7 +175,6 @@
     "display_name": "dip",
     "rules_text": "replenish green time, draw 1 card",
     "cursor_image_uid": "bqvm4vgi4c0dn",
-    "durability_max": 3,
     "card_cost": {
       "GameResource.Type.BLUE_ENERGY": "1"
     },
@@ -212,7 +201,6 @@
     "display_name": "grow",
     "rules_text": "green energy capacity +",
     "cursor_image_uid": "bqvm4vgi4c0dn",
-    "durability_max": 1,
     "card_cost": {
       "GameResource.Type.GREEN_ENERGY": "0"
     },
@@ -227,7 +215,6 @@
     "display_name": "bloom",
     "rules_text": "purple energy capacity +",
     "cursor_image_uid": "bqvm4vgi4c0dn",
-    "durability_max": 1,
     "card_cost": {
       "GameResource.Type.PURPLE_ENERGY": "0"
     },
@@ -242,7 +229,6 @@
     "display_name": "expand",
     "rules_text": "blue energy capacity +",
     "cursor_image_uid": "bqvm4vgi4c0dn",
-    "durability_max": 1,
     "card_cost": {
       "GameResource.Type.BLUE_ENERGY": "0"
     },
@@ -257,7 +243,6 @@
     "display_name": "innovate",
     "rules_text": "buy a card",
     "cursor_image_uid": "bqvm4vgi4c0dn",
-    "durability_max": 5,
     "card_cost": {
       "GameResource.Type.PURPLE_ENERGY": "2"
     },
@@ -271,7 +256,6 @@
     "display_name": "curious",
     "rules_text": "buy a tool",
     "cursor_image_uid": "bqvm4vgi4c0dn",
-    "durability_max": 2,
     "card_cost": {
       "GameResource.Type.GREEN_ENERGY": "2"
     },
@@ -285,7 +269,6 @@
     "display_name": "burst",
     "rules_text": "replenish all colors, draw 3 cards",
     "cursor_image_uid": "bqvm4vgi4c0dn",
-    "durability_max": 3,
     "card_cost": {
       "GameResource.Type.NONE": "0"
     },
@@ -299,7 +282,6 @@
     "display_name": "determination",
     "rules_text": "draw a card",
     "cursor_image_uid": "bqvm4vgi4c0dn",
-    "durability_max": 10,
     "card_cost": {
       "GameResource.Type.BLUE_ENERGY": "2"
     },
@@ -352,7 +334,6 @@
     "display_name": "decide",
     "rules_text": "pick an energy card",
     "cursor_image_uid": "bqvm4vgi4c0dn",
-    "durability_max": 2,
     "card_cost": {
       "GameResource.Type.NONE": "0"
     },
@@ -366,7 +347,6 @@
     "display_name": "cyan",
     "rules_text": "vent all colors",
     "cursor_image_uid": "bqvm4vgi4c0dn",
-    "durability_max": 10,
     "card_cost": {
       "GameResource.Type.BLUE_ENERGY": "1"
     },
@@ -380,7 +360,6 @@
     "display_name": "glimmer",
     "rules_text": "add gold",
     "cursor_image_uid": "bqvm4vgi4c0dn",
-    "durability_max": 10,
     "card_cost": {
       "GameResource.Type.BLUE_ENERGY": "1"
     },
@@ -394,7 +373,6 @@
     "display_name": "chance",
     "rules_text": "add gold",
     "cursor_image_uid": "bqvm4vgi4c0dn",
-    "durability_max": 1,
     "card_cost": {
       "GameResource.Type.GREEN_ENERGY": "1"
     },
@@ -408,7 +386,6 @@
     "display_name": "tumble",
     "rules_text": "replenish purple time, draw 1 card",
     "cursor_image_uid": "bqvm4vgi4c0dn",
-    "durability_max": 3,
     "card_cost": {
       "GameResource.Type.GREEN_ENERGY": "1"
     },
@@ -422,7 +399,6 @@
     "display_name": "roil",
     "rules_text": "replenish blue time, draw 1 card",
     "cursor_image_uid": "bqvm4vgi4c0dn",
-    "durability_max": 3,
     "card_cost": {
       "GameResource.Type.PURPLE_ENERGY": "1"
     },
@@ -436,7 +412,6 @@
     "display_name": "dip",
     "rules_text": "replenish green time, draw 1 card",
     "cursor_image_uid": "bqvm4vgi4c0dn",
-    "durability_max": 3,
     "card_cost": {
       "GameResource.Type.BLUE_ENERGY": "1"
     },
@@ -502,7 +477,6 @@
     "display_name": "pulse",
     "rules_text": "draw 1 card every 15 beats",
     "cursor_image_uid": "bqvm4vgi4c0dn",
-    "durability_max": 5,
     "card_cost": {
       "GameResource.Type.PURPLE_ENERGY": "2"
     },
@@ -529,7 +503,6 @@
     "display_name": "cultivate",
     "rules_text": "draw 2 cards every 25 beats",
     "cursor_image_uid": "bqvm4vgi4c0dn",
-    "durability_max": 3,
     "card_cost": {
       "GameResource.Type.GREEN_ENERGY": "1"
     },
@@ -543,7 +516,6 @@
     "display_name": "ripple",
     "rules_text": "draw 1 card every 8 beats",
     "cursor_image_uid": "bqvm4vgi4c0dn",
-    "durability_max": 8,
     "card_cost": {
       "GameResource.Type.BLUE_ENERGY": "1"
     },
@@ -612,7 +584,6 @@
     "display_name": "flourish",
     "rules_text": "draw 3 cards every 30 beats",
     "cursor_image_uid": "bqvm4vgi4c0dn",
-    "durability_max": 4,
     "card_cost": {
       "GameResource.Type.GREEN_ENERGY": "2"
     },
@@ -639,7 +610,6 @@
     "display_name": "ember",
     "rules_text": "draw 1 card every 12 beats",
     "cursor_image_uid": "bqvm4vgi4c0dn",
-    "durability_max": 6,
     "card_cost": {
       "GameResource.Type.RED_ENERGY": "3"
     },
@@ -666,7 +636,6 @@
     "display_name": "patience",
     "rules_text": "draw 2 cards every 20 beats",
     "cursor_image_uid": "bqvm4vgi4c0dn",
-    "durability_max": 10,
     "card_cost": {
       "GameResource.Type.WHITE_ENERGY": "2"
     },
@@ -706,7 +675,6 @@
     "display_name": "analyze",
     "rules_text": "draw 1 card every 6 beats",
     "cursor_image_uid": "bqvm4vgi4c0dn",
-    "durability_max": 12,
     "card_cost": {
       "GameResource.Type.PRECISION": "1"
     },
@@ -720,7 +688,6 @@
     "display_name": "accelerate",
     "rules_text": "draw 1 card, then 2 more every 15 beats",
     "cursor_image_uid": "bqvm4vgi4c0dn",
-    "durability_max": 5,
     "card_cost": {
       "GameResource.Type.MOMENTUM": "2"
     },
@@ -788,7 +755,6 @@
     "display_name": "perpetual",
     "rules_text": "draw 1 card every 5 beats forever",
     "cursor_image_uid": "bqvm4vgi4c0dn",
-    "durability_max": 99,
     "card_cost": {
       "GameResource.Type.MOMENTUM": "4"
     },

@@ -44,23 +44,11 @@ var exemptions = {
 func _init() -> void:
 	print("[COMPILE CHECK] Starting comprehensive compilation check...")
 	
-	# Check for command line arguments for specific files
-	var args = OS.get_cmdline_args()
-	var specific_files: Array[String] = []
+	# Check all autoloads can be accessed
+	check_autoloads()
 	
-	for arg in args:
-		if arg.ends_with(".gd") and FileAccess.file_exists(arg):
-			specific_files.append(arg)
-	
-	if specific_files.size() > 0:
-		print("[COMPILE CHECK] Checking specific files: ", specific_files)
-		check_specific_files(specific_files)
-	else:
-		# Check all autoloads can be accessed
-		check_autoloads()
-		
-		# Check all scripts compile
-		check_all_scripts()
+	# Check all scripts compile
+	check_all_scripts()
 	
 	# Report results
 	if errors_found.size() > 0 or warnings_found.size() > 0:
@@ -96,24 +84,6 @@ func _init() -> void:
 		print("  ✓ Type safety enforcement")
 		print("  ✓ Function signature validation")
 		quit(0)
-
-func check_specific_files(files: Array[String]) -> void:
-	print("[COMPILE CHECK] Checking ", files.size(), " specific file(s)...")
-	
-	for file_path in files:
-		# Convert to res:// path if needed
-		var res_path: String = file_path
-		if not res_path.begins_with("res://"):
-			# Try to convert absolute path to res:// path
-			if file_path.contains("/src/"):
-				res_path = "res://src/" + file_path.split("/src/")[1]
-			elif file_path.contains("/app/"):
-				res_path = "res://" + file_path.split("/app/")[1]
-			else:
-				res_path = "res://" + file_path.get_file()
-		
-		print("  Checking: ", res_path)
-		_check_script(res_path)
 
 func check_autoloads() -> void:
 	print("[COMPILE CHECK] Checking autoloads...")
@@ -283,9 +253,9 @@ func _check_private_access(line: String, line_num: int, script_path: String, thi
 	regex.compile(r'\b(\w+)\.__(\w+)')
 	
 	var matches = regex.search_all(cleaned_line)
-	for match_item in matches:
-		var object_name = match_item.get_string(1)
-		var private_var = "__" + match_item.get_string(2)
+	for match in matches:
+		var object_name = match.get_string(1)
+		var private_var = "__" + match.get_string(2)
 		
 		# Allow self references and super references
 		if object_name in ["self", "super"]:
@@ -305,10 +275,10 @@ func _check_private_access(line: String, line_num: int, script_path: String, thi
 	method_regex.compile(r'\b(\w+)\.__(\w+)\.(\w+)\(')
 	
 	var method_matches = method_regex.search_all(cleaned_line)
-	for match_item in method_matches:
-		var object_name = match_item.get_string(1)
-		var private_var = "__" + match_item.get_string(2)
-		var method_name = match_item.get_string(3)
+	for match in method_matches:
+		var object_name = match.get_string(1)
+		var private_var = "__" + match.get_string(2)
+		var method_name = match.get_string(3)
 		
 		# Allow self references and super references
 		if object_name in ["self", "super"]:
@@ -381,9 +351,9 @@ func _check_variable_type(line: String, line_num: int, script_path: String) -> v
 	# Look for var/const without type annotation
 	var_regex.compile(r'^(var|const)\s+(\w+)\s*=')
 	
-	var match_result = var_regex.search(line)
-	if match_result:
-		var var_name = match_result.get_string(2)
+	var match = var_regex.search(line)
+	if match:
+		var var_name = match.get_string(2)
 		# Check if there's a type annotation
 		if not line.contains(var_name + ":"):
 			errors_found.append(script_path + ":" + str(line_num) + 
@@ -392,9 +362,9 @@ func _check_variable_type(line: String, line_num: int, script_path: String) -> v
 	
 	# Also check for just declaration without initialization but missing type
 	var_regex.compile(r'^(var|const)\s+(\w+)\s*$')
-	var match_result2 = var_regex.search(line)
-	if match_result2:
-		var var_name = match_result2.get_string(2)
+	match = var_regex.search(line)
+	if match:
+		var var_name = match.get_string(2)
 		errors_found.append(script_path + ":" + str(line_num) + 
 			" - Variable '" + var_name + "' declared without type. Should be: var " + 
 			var_name + ": Type")
@@ -475,8 +445,8 @@ func _check_custom_type_usage(line: String, line_num: int, script_path: String) 
 	type_regex.compile(r':\s*([A-Z]\w+)')
 	
 	var matches = type_regex.search_all(line)
-	for match_item in matches:
-		var type_name = match_item.get_string(1)
+	for match in matches:
+		var type_name = match.get_string(1)
 		
 		# Skip if it's a known type
 		if type_name in valid_types:

@@ -27,8 +27,6 @@ var __slot_effect: MoveDescriptorEffect
 
 var trigger_resource: GameResource.Type = GameResource.Type.UNKNOWN
 
-var durability: CappedResource
-
 # Tourbillon-specific fields (cards become gears when played)
 var time_cost: int = 2  # Cost in ticks to play this card
 var production_interval: int = 3  # Fires every X ticks (30 beats)
@@ -112,7 +110,6 @@ class CardBuilder extends Entity.EntityBuilder:
 	var __slot_effect: String
 	var __instinct_effect: String
 	var __trigger_resource: GameResource.Type = GameResource.Type.UNKNOWN
-	var __max_durability: int = StaticData.get_int("default_card_durability")
 	
 	func with_group_template_id(group_template_id: String) -> CardBuilder:
 		__group_template_id = group_template_id
@@ -149,9 +146,6 @@ class CardBuilder extends Entity.EntityBuilder:
 			__required_resources[key] = num_required
 		return self
 	
-	func with_durability(durability_in: int) -> CardBuilder:
-		__max_durability = durability_in
-		return self
 
 
 	func build() -> Card:
@@ -173,9 +167,6 @@ class CardBuilder extends Entity.EntityBuilder:
 		card.cost = cost
 		card.trigger_resource = __trigger_resource
 		
-		var on_change: Callable = func(value): if value == 0: GlobalSignals.signal_core_card_destroyed(card.instance_id)
-		var none: Callable = func(value): pass
-		card.durability = CappedResource.new(__max_durability, __max_durability, on_change, none, true)
 		return card
 
 static func load_card(group_template_id: String, card_template_id: String) -> Card:
@@ -249,7 +240,6 @@ static func build_new_card_from_template(card_template_id: String, card_template
 		# Use template_id for each character's default card 
 		builder.with_instance_id(card_template_id)
 	
-	builder.with_durability(int(card_template_data.get("durability_max", 1)))
 	#builder.with_card_cost(card_template_data.get("card_cost"))
 	
 	# Handle rules_text - might be a dictionary from JSON parsing
