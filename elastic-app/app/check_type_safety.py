@@ -46,6 +46,9 @@ class TypeSafetyChecker:
             # Style override comment
             'style_override': re.compile(r'#\s*STYLEOVERRIDE\s*(?:\(([^)]+)\))?'),
             
+            # Type exemption comment for untyped containers
+            'type_exemption': re.compile(r'#\s*TYPE_EXEMPTION\s*(?:\(([^)]+)\))?'),
+            
             # @onready declarations
             'onready_untyped': re.compile(r'@onready\s+var\s+(\w+)\s*='),
             'onready_typed': re.compile(r'@onready\s+var\s+\w+\s*:\s*\w+'),
@@ -78,6 +81,8 @@ class TypeSafetyChecker:
         
         override_active = False
         override_reason = ""
+        type_exemption_active = False
+        type_exemption_reason = ""
         in_multiline_string = False
         
         for line_num, line in enumerate(lines, 1):
@@ -88,7 +93,7 @@ class TypeSafetyChecker:
             if in_multiline_string:
                 continue
                 
-            # Skip comments (except style override)
+            # Skip comments (except style override and type exemption)
             if line.strip().startswith('#'):
                 override_match = self.patterns['style_override'].search(line)
                 if override_match:
@@ -96,6 +101,13 @@ class TypeSafetyChecker:
                     override_reason = override_match.group(1) or "No reason provided"
                     if self.verbose:
                         print(f"  Style override active at line {line_num}: {override_reason}")
+                    
+                type_exemption_match = self.patterns['type_exemption'].search(line)
+                if type_exemption_match:
+                    type_exemption_active = True
+                    type_exemption_reason = type_exemption_match.group(1) or "No reason provided"
+                    if self.verbose:
+                        print(f"  Type exemption active at line {line_num}: {type_exemption_reason}")
                 continue
             
             # Skip empty lines
@@ -120,9 +132,15 @@ class TypeSafetyChecker:
             # Check for various violations
             self._check_variable_typing(line, line_num, filepath)
             self._check_function_typing(line, line_num, filepath)
-            self._check_collection_typing(line, line_num, filepath)
+            self._check_collection_typing(line, line_num, filepath, type_exemption_active)
             self._check_nested_dictionary(line, line_num, filepath)
             self._check_onready_typing(line, line_num, filepath)
+            
+            # Reset type exemption after use (it only applies to the next line)
+            if type_exemption_active:
+                type_exemption_active = False
+                if self.verbose:
+                    print(f"  Type exemption used at line {line_num}")
         
         # Add this file's errors to the cumulative lists
         self.all_errors.extend(self.errors)
@@ -246,25 +264,76 @@ class TypeSafetyChecker:
                             f"Function parameter '{param_name}' with default value should still have explicit type"
                         ))
     
-    def _check_collection_typing(self, line: str, line_num: int, filepath: Path) -> None:
+    def _check_collection_typing(self, line: str, line_num: int, filepath: Path, type_exemption_active: bool = False) -> None:
         """Check for untyped arrays and dictionaries."""
-        # Check for untyped arrays
-        if '[]' in line and 'Array[' not in line:
-            if 'var ' in line or ': Array' in line:
+        # Skip if TYPE_EXEMPTION is active
+        if type_exemption_active:
+            return
+            
+        # More comprehensive untyped Array check
+        # Match patterns like: var x: Array, func foo() -> Array, func bar(x: Array)
+        if re.search(r'\bArray\b(?!\[)', line):
+            # Skip if it's in a comment or string
+            if not self._is_in_string_or_comment(line, 'Array'):
                 self.errors.append((
                     str(filepath),
                     line_num,
-                    "Use typed arrays: Array[Type] instead of [] or untyped Array"
+                    "Untyped Array found. Use typed version: Array[ElementType]"
                 ))
         
-        # Check for untyped dictionaries  
-        if '{}' in line and 'Dictionary[' not in line:
-            if 'var ' in line or ': Dictionary' in line:
+        # More comprehensive untyped Dictionary check
+        # Match patterns like: var x: Dictionary, func foo() -> Dictionary
+        if re.search(r'\bDictionary\b(?!\[)', line):
+            # Skip if it's in a comment or string
+            if not self._is_in_string_or_comment(line, 'Dictionary'):
                 self.errors.append((
                     str(filepath),
                     line_num,
-                    "Use typed dictionaries: Dictionary[KeyType, ValueType] instead of {} or untyped Dictionary"
+                    "Untyped Dictionary found. Use typed version: Dictionary[KeyType, ValueType]"
                 ))
+        
+        # Check for empty array literals that should be typed
+        if '[]' in line and 'Array[' not in line:
+            if 'var ' in line and not self._is_in_string_or_comment(line, '[]'):
+                self.errors.append((
+                    str(filepath),
+                    line_num,
+                    "Empty array literal should be typed: Array[Type] instead of []"
+                ))
+        
+        # Check for empty dictionary literals that should be typed
+        if '{}' in line and 'Dictionary[' not in line:
+            if 'var ' in line and not self._is_in_string_or_comment(line, '{}'):
+                self.errors.append((
+                    str(filepath),
+                    line_num,
+                    "Empty dictionary literal should be typed: Dictionary[KeyType, ValueType] instead of {}"
+                ))
+    
+    def _is_in_string_or_comment(self, line: str, text: str) -> bool:
+        """Check if text appears inside a string or comment in the line."""
+        # Simple heuristic - check if text appears after # or inside quotes
+        comment_pos = line.find('#')
+        text_pos = line.find(text)
+        
+        if comment_pos != -1 and text_pos > comment_pos:
+            return True
+            
+        # Check for strings (simplified - doesn't handle all cases)
+        in_string = False
+        quote_char = None
+        for i, char in enumerate(line):
+            if char in ['"', "'"]:
+                if not in_string:
+                    in_string = True
+                    quote_char = char
+                elif char == quote_char:
+                    in_string = False
+                    quote_char = None
+            elif line[i:i+len(text)] == text and in_string:
+                return True
+        
+        return False
     
     def _check_nested_dictionary(self, line: str, line_num: int, filepath: Path) -> None:
         """Check for nested typed dictionaries (Godot limitation)."""

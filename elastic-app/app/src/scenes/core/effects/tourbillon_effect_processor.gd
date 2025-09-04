@@ -298,35 +298,107 @@ static func _effect_consume_max_force(amount: int) -> void:
 				force_resource.subtract(to_consume)
 				consumed += to_consume
 
-# Combat effects
+# Combat effects using unified damage system
 static func _effect_damage(amount: int, target_type: String) -> void:
-	# Note: gremlin_manager is not a property of GlobalGameManager yet
-	# This will need to be added when gremlin system is fully integrated
-	push_warning("Gremlin damage not yet implemented - gremlin_manager not initialized")
-	return
+	if not GlobalGameManager.has("gremlin_manager"):
+		push_warning("No gremlin_manager in GlobalGameManager")
+		return
+	
+	var manager = GlobalGameManager.get("gremlin_manager") as GremlinManager
+	
+	# Create damage packet with any active keywords
+	var keywords: Array[String] = []
+	
+	if GlobalGameManager.has_meta("next_damage_pierce"):
+		keywords.append("pierce")
+		GlobalGameManager.remove_meta("next_damage_pierce")
+	
+	if GlobalGameManager.has_meta("next_damage_pop"):
+		keywords.append("pop")
+		GlobalGameManager.remove_meta("next_damage_pop")
+	
+	if GlobalGameManager.has_meta("next_damage_overkill"):
+		keywords.append("overkill")
+		GlobalGameManager.remove_meta("next_damage_overkill")
+	
+	var source = GlobalGameManager.get("active_gear") if GlobalGameManager.has("active_gear") else null
+	var packet = DamageFactory.create(amount, keywords, source)
+	
+	# Deal damage using unified system
+	match target_type:
+		"all":
+			for gremlin in manager.get_gremlins_in_order():
+				gremlin.receive_damage(packet)
+		"bottommost", "bottom":
+			var target = manager.get_bottommost_gremlin()
+			if target:
+				target.receive_damage(packet)
+		"weakest":
+			var target = manager.get_weakest_gremlin()
+			if target:
+				target.receive_damage(packet)
+		"strongest":
+			var target = manager.get_strongest_gremlin()
+			if target:
+				target.receive_damage(packet)
+		"random":
+			var gremlins = manager.get_gremlins_in_order()
+			if not gremlins.is_empty():
+				var target = gremlins.pick_random()
+				target.receive_damage(packet)
+		_:  # Default to topmost
+			var target = manager.get_topmost_gremlin()
+			if target:
+				target.receive_damage(packet)
 
 static func _effect_damage_all(amount: int) -> void:
-	# Note: gremlin_manager is not a property of GlobalGameManager yet
-	push_warning("Gremlin damage all not yet implemented - gremlin_manager not initialized")
-	return
+	if not GlobalGameManager.has("gremlin_manager"):
+		return
+	
+	var manager = GlobalGameManager.get("gremlin_manager") as GremlinManager
+	var source = GlobalGameManager.get("active_gear") if GlobalGameManager.has("active_gear") else null
+	var packet = DamageFactory.create_basic(amount, source)
+	
+	for gremlin in manager.get_gremlins_in_order():
+		gremlin.receive_damage(packet)
 
 static func _effect_apply_poison(stacks: int) -> void:
-	# Note: gremlin_manager is not a property of GlobalGameManager yet
-	push_warning("Poison not yet implemented - gremlin_manager not initialized")
-	return
+	if not GlobalGameManager.has("gremlin_manager"):
+		return
+	
+	var manager = GlobalGameManager.get("gremlin_manager") as GremlinManager
+	var target = manager.get_topmost_gremlin()
+	
+	if target:
+		# Poison is handled differently - it adds a beat consumer
+		target.apply_poison(stacks)
 
 static func _effect_apply_burn(duration: int) -> void:
-	# Note: gremlin_manager is not a property of GlobalGameManager yet
-	push_warning("Burn not yet implemented - gremlin_manager not initialized")
-	return
+	if not GlobalGameManager.has("gremlin_manager"):
+		return
+	
+	var manager = GlobalGameManager.get("gremlin_manager") as GremlinManager
+	var target = manager.get_topmost_gremlin()
+	if target:
+		target.apply_burn(duration)
+
+static func _effect_execute(threshold: int) -> void:
+	if not GlobalGameManager.has("gremlin_manager"):
+		return
+	
+	var manager = GlobalGameManager.get("gremlin_manager") as GremlinManager
+	
+	for gremlin in manager.get_gremlins_in_order():
+		if gremlin.can_be_executed(threshold):
+			gremlin.execute()
 
 static func _effect_add_shields(amount: int) -> void:
-	# TODO: Implement hero shields
-	push_warning("Shield effect not yet implemented")
+	if GlobalGameManager.hero:
+		GlobalGameManager.hero.add_shields(amount)
 
 static func _effect_heal(amount: int) -> void:
-	# TODO: Implement hero healing
-	push_warning("Heal effect not yet implemented")
+	if GlobalGameManager.hero:
+		GlobalGameManager.hero.heal(amount)
 
 # Cost modifier effects
 static func _effect_modify_tag_cost(tag: String, reduction: float) -> void:

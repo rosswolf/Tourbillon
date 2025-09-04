@@ -94,39 +94,41 @@ func get_strongest_gremlin() -> Gremlin:
 	
 	return strongest
 
-## Deal damage to specific target type
-func deal_damage_to_target(amount: int, target_type: String = "topmost", 
+## Deal damage using unified damage system
+func deal_damage_to_target(packet: DamagePacket, target_type: String = "topmost") -> void:
+	match target_type:
+		"all":
+			for gremlin in get_gremlins_in_order():
+				gremlin.receive_damage(packet)
+		_:
+			var target = _get_target_by_type(target_type)
+			if target:
+				target.receive_damage(packet)
+
+## Legacy damage interface - converts to damage packet
+## @deprecated Use deal_damage_to_target(packet, target_type) instead
+func deal_damage_to_target_legacy(amount: int, target_type: String = "topmost", 
 						   pierce: bool = false, pop: bool = false, 
 						   overkill: bool = false) -> void:
-	var target: Gremlin = null
+	# Legacy support - convert to damage packet
+	var keywords: Array[String] = []
+	if pierce: keywords.append("pierce")
+	if pop: keywords.append("pop")
+	if overkill: keywords.append("overkill")
 	
-	match target_type:
-		"topmost":
-			target = get_topmost_gremlin()
-		"bottommost":
-			target = get_bottommost_gremlin()
-		"weakest":
-			target = get_weakest_gremlin()
-		"strongest":
-			target = get_strongest_gremlin()
-		"all":
-			# AOE damage
-			for gremlin in get_gremlins_in_order():
-				gremlin.take_damage(amount, pierce, pop)
-			return
-	
-	if target:
-		var pre_damage_hp = target.current_hp
-		target.take_damage(amount, pierce, pop)
+	var packet = DamageFactory.create(amount, keywords, null)
+	deal_damage_to_target(packet, target_type)
+
+## Handle overkill damage carrying to next target
+func apply_overkill_damage(original_packet: DamagePacket, excess_damage: int) -> void:
+	var next_target = get_topmost_gremlin()
+	if next_target:
+		# Create new packet for overkill damage
+		var overkill_packet = original_packet.duplicate(true) as DamagePacket
+		overkill_packet.amount = excess_damage
+		overkill_packet.overkill = false  # Prevent infinite chain
 		
-		# Handle overkill
-		if overkill and target.current_hp <= 0:
-			var excess = amount - pre_damage_hp
-			if excess > 0:
-				# Find next gremlin
-				var next_target = get_topmost_gremlin()
-				if next_target:
-					next_target.take_damage(excess, pierce, pop)
+		next_target.receive_damage(overkill_packet)
 
 ## Apply poison to target
 func apply_poison_to_target(stacks: int, target_type: String = "topmost") -> void:
