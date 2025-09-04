@@ -143,8 +143,16 @@ func _check_source_for_errors(source: String, script_path: String) -> void:
 	var lines = source.split("\n")
 	var line_num = 0
 	
+	# Extract the class name for this script to identify self references
+	var this_class_name = _extract_class_name(source)
+	var is_inside_class = false
+	
 	for line in lines:
 		line_num += 1
+		
+		# Track if we're inside the class definition
+		if line.strip_edges().begins_with("class ") and not line.strip_edges().begins_with("class_name"):
+			is_inside_class = true
 		
 		# Check for common issues
 		
@@ -156,7 +164,10 @@ func _check_source_for_errors(source: String, script_path: String) -> void:
 		if ".register_instance(" in line:
 			errors_found.append(script_path + ":" + str(line_num) + " - Using old method: register_instance() - use set_instance() instead")
 		
-		# 3. Check for missing type annotations on functions (basic check)
+		# 3. Check for accessing private variables from other classes
+		_check_private_access(line, line_num, script_path, this_class_name)
+		
+		# 4. Check for missing type annotations on functions (basic check)
 		if line.strip_edges().begins_with("func ") and not "-> " in line:
 			# Check if it's not a special function
 			var func_name = _extract_function_name(line)
@@ -165,6 +176,61 @@ func _check_source_for_errors(source: String, script_path: String) -> void:
 				if func_name not in ["_ready", "_init", "_process", "_physics_process", "_input", "_enter_tree", "_exit_tree"]:
 					# This is now just a warning since we have type safety checker
 					pass
+
+func _check_private_access(line: String, line_num: int, script_path: String, this_class_name: String) -> void:
+	# Skip comments and strings
+	var cleaned_line = _remove_strings_and_comments(line)
+	
+	# Pattern to find private variable access: something.__variable
+	# Look for patterns like: object.__foo, self.__bar, some_var.__baz
+	var regex = RegEx.new()
+	regex.compile(r'\b(\w+)\.__(\w+)')
+	
+	var matches = regex.search_all(cleaned_line)
+	for match in matches:
+		var object_name = match.get_string(1)
+		var private_var = "__" + match.get_string(2)
+		
+		# Allow self references and super references
+		if object_name in ["self", "super"]:
+			continue
+			
+		# Check if it's a variable declaration (var __foo)
+		if "var " + object_name + "." in line:
+			continue
+			
+		# This is accessing a private variable from another object
+		errors_found.append(script_path + ":" + str(line_num) + 
+			" - Illegal access to private variable '" + private_var + 
+			"' of object '" + object_name + "'. Private variables (prefixed with __) cannot be accessed from other classes.")
+
+func _remove_strings_and_comments(line: String) -> String:
+	var result = ""
+	var in_string = false
+	var string_char = ""
+	var i = 0
+	
+	while i < line.length():
+		var c = line[i]
+		
+		# Handle string literals
+		if c == '"' or c == "'":
+			if not in_string:
+				in_string = true
+				string_char = c
+			elif c == string_char and (i == 0 or line[i-1] != "\\"):
+				in_string = false
+				string_char = ""
+		# Handle comments
+		elif c == "#" and not in_string:
+			break  # Rest of line is comment
+		# Add character if not in string
+		elif not in_string:
+			result += c
+			
+		i += 1
+	
+	return result
 
 func _extract_function_name(line: String) -> String:
 	var start = line.find("func ") + 5

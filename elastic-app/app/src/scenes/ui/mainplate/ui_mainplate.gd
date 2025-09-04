@@ -272,7 +272,7 @@ func count_gears_with_tag(tag: String) -> int:
 	for slot in get_occupied_slots():
 		var card: Card = slot.__button_entity.card
 		if card and card.has_meta("tags"):
-			var tags: Array[String] = card.get_meta("tags", []) as Array
+			var tags: Array[String] = card.get_meta("tags", []) as Array[String]
 			if tag in tags:
 				count += 1
 	return count
