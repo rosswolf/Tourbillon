@@ -260,7 +260,7 @@ func __initialize_tourbillon_systems() -> void:
 	
 	# Connect to card playing signals
 	GlobalSignals.core_card_played.connect(__on_tourbillon_card_played)
-	GlobalSignals.core_card_slotted.connect(__on_card_slotted)
+	# Removed __on_card_slotted - this is handled by the UI layer reacting to signals
 	GlobalSignals.core_slot_activated.connect(__on_slot_activated)
 
 ## Called when a card is played (Tourbillon time advancement)
@@ -287,25 +287,8 @@ func __on_tourbillon_card_played(card_id: String) -> void:
 	if not card.on_play_effect.is_empty():
 		SimpleEffectProcessor.process_effects(card.on_play_effect, null)
 
-## Called when a card is slotted on the mainplate
-func __on_card_slotted(slot_id: String) -> void:
-	var slot: EngineSlot = __find_slot_by_id(slot_id)
-	assert(slot != null, "Slot must exist: " + slot_id)
-	
-	assert(slot.__button_entity != null, "Slot must have button entity: " + slot_id)
-	var card: Card = slot.__button_entity.card
-	assert(card != null, "Slot must have card slotted: " + slot_id)
-	
-	# Setup the gear from card data
-	assert(slot != null, "Slot must exist for card setup")
-	# Slots should implement setup_from_card if they accept cards
-	slot.setup_from_card(card)
-	
-	# Process on_place_effect if it exists
-	if not card.on_place_effect.is_empty():
-		SimpleEffectProcessor.process_effects(card.on_place_effect, slot)
-	
-	print("Gear placed: ", card.display_name, " - Interval: ", card.production_interval, " ticks")
+# Card slotting is now handled entirely by the Mainplate entity
+# The UI layer reacts to core_card_slotted signals for visual updates
 
 ## Called when a slot is manually activated
 func __on_slot_activated(slot_id: String) -> void:
@@ -350,11 +333,7 @@ func __advance_time_by_beats(beats: int) -> void:
 	if timeline_manager:
 		timeline_manager.advance_time(beats / 10.0)  # Convert beats to ticks
 
-## Find a slot by its ID
-func __find_slot_by_id(slot_id: String) -> EngineSlot:
-	# TODO: This needs to access the UI mainplate, not the core entity
-	# For now, return null - slots should be found through the UI layer
-	return null
+# Slot finding has been removed - UI layer handles all slot updates via signals from core
 
 ## Get the current tick from Tourbillon system
 func get_current_tick() -> int:

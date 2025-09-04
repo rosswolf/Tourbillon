@@ -372,44 +372,69 @@ func __on_ui_card_dropped_on_slot(card_id: String, button_id: String) -> void:
 
 ## Signal handlers for core events
 
-func __on_core_card_slotted(card_id: String) -> void:
-	print("[UIMainplate] Card slotted signal received for card: ", card_id)
+func __on_core_card_slotted(card_id: String, logical_pos: Vector2i) -> void:
+	print("[UIMainplate] Card slotted signal received for card: ", card_id, " at position: ", logical_pos)
 	
-	# Find the slot where this card was placed by checking the mainplate
-	for slot in gear_slots.values():
-		var logical_pos = grid_mapper.to_logical(slot.grid_position)
-		if logical_pos != null:
-			var card = mainplate.get_card_at(logical_pos)
-			if card and card.instance_id == card_id:
-				print("[UIMainplate] Found card at position ", logical_pos, " in slot ", slot.grid_position)
-				
-				# Use the existing button entity on the slot
-				if slot.__button_entity:
-					# Update the card on the existing button entity
-					slot.__button_entity.card = card
-					print("[UIMainplate] Set card on button entity: ", card.display_name)
-					
-					# Trigger visual update on the slot using the button entity's instance_id
-					slot.__on_card_slotted(slot.__button_entity.instance_id)
-				else:
-					push_warning("[UIMainplate] Slot has no button entity at position ", slot.grid_position)
-				
-				# Don't update bonus visuals here as it might clear the card visual
-				# The bonus was already consumed in core when the card was placed
-				break
+	# Convert logical position to physical using grid mapper
+	var physical_pos = grid_mapper.to_physical(logical_pos)
+	if physical_pos == null:
+		push_error("[UIMainplate] Logical position ", logical_pos, " has no physical mapping!")
+		return
+	
+	# Get the slot at the physical position
+	var slot = gear_slots.get(physical_pos)
+	if not slot:
+		push_error("[UIMainplate] No slot found at physical position ", physical_pos)
+		return
+	
+	# Get the card from the core mainplate
+	var card = mainplate.get_card_at(logical_pos)
+	if not card or card.instance_id != card_id:
+		push_error("[UIMainplate] Card mismatch at position ", logical_pos)
+		return
+	
+	print("[UIMainplate] Updating slot at physical position ", physical_pos, " with card: ", card.display_name)
+	
+	# Use the existing button entity on the slot
+	if slot.__button_entity:
+		# Update the card on the existing button entity
+		slot.__button_entity.card = card
+		print("[UIMainplate] Set card on button entity: ", card.display_name)
+		
+		# Trigger visual update on the slot using the button entity's instance_id
+		slot.__on_card_slotted(slot.__button_entity.instance_id)
+	else:
+		push_warning("[UIMainplate] Slot has no button entity at position ", physical_pos)
 
-func __on_core_card_replaced(old_card_id: String, new_card_id: String) -> void:
-	# Find the slot with the old card and update it
-	for slot in gear_slots.values():
-		if slot.__button_entity and slot.__button_entity.card and slot.__button_entity.card.instance_id == old_card_id:
-			# The core has already updated, just refresh visual
-			var logical_pos = grid_mapper.to_logical(slot.grid_position)
-			if logical_pos != null:
-				var new_card = mainplate.get_card_at(logical_pos)
-				if new_card:
-					slot.__button_entity.card = new_card
-					# Don't emit signal here - replacement shouldn't retrigger bonuses
-			break
+func __on_core_card_replaced(old_card_id: String, new_card_id: String, logical_pos: Vector2i) -> void:
+	print("[UIMainplate] Card replaced signal: ", old_card_id, " -> ", new_card_id, " at ", logical_pos)
+	
+	# Convert logical position to physical
+	var physical_pos = grid_mapper.to_physical(logical_pos)
+	if physical_pos == null:
+		push_error("[UIMainplate] Logical position ", logical_pos, " has no physical mapping!")
+		return
+	
+	# Get the slot at the physical position
+	var slot = gear_slots.get(physical_pos)
+	if not slot:
+		push_error("[UIMainplate] No slot found at physical position ", physical_pos)
+		return
+	
+	# Get the new card from core
+	var new_card = mainplate.get_card_at(logical_pos)
+	if not new_card or new_card.instance_id != new_card_id:
+		push_error("[UIMainplate] Card mismatch at position ", logical_pos)
+		return
+	
+	# Update the slot's button entity
+	if slot.__button_entity:
+		slot.__button_entity.card = new_card
+		print("[UIMainplate] Updated slot with replaced card: ", new_card.display_name)
+		# Trigger visual update (but don't retrigger bonuses)
+		slot.__on_card_slotted(slot.__button_entity.instance_id)
+	else:
+		push_warning("[UIMainplate] Slot has no button entity at position ", physical_pos)
 
 func __on_core_gear_process_beat(card_id: String, context: BeatContext) -> void:
 	# Find slot with this card and update its visual progress

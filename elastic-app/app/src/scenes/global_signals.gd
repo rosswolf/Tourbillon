@@ -140,17 +140,17 @@ signal core_mob_intent_updated(mob_instance_id: String)
 func signal_core_mob_intent_updated(mob_instance_id: String) -> void:
 	core_mob_intent_updated.emit(mob_instance_id)
 
-signal core_card_slotted(slot_instance_id: String)
-func signal_core_card_slotted(slot_instance_id: String) -> void:
-	core_card_slotted.emit(slot_instance_id)
+signal core_card_slotted(card_id: String, position: Vector2i)
+func signal_core_card_slotted(card_id: String, position: Vector2i) -> void:
+	core_card_slotted.emit(card_id, position)
 	
 signal core_card_unslotted(slot_instance_id: String)
 func signal_core_card_unslotted(slot_instance_id: String) -> void:
 	core_card_unslotted.emit(slot_instance_id)
 
-signal core_card_replaced(old_card_id: String, new_card_id: String)
-func signal_core_card_replaced(old_card_id: String, new_card_id: String) -> void:
-	core_card_replaced.emit(old_card_id, new_card_id)
+signal core_card_replaced(old_card_id: String, new_card_id: String, position: Vector2i)
+func signal_core_card_replaced(old_card_id: String, new_card_id: String, position: Vector2i) -> void:
+	core_card_replaced.emit(old_card_id, new_card_id, position)
 
 signal core_gear_process_beat(card_instance_id: String, context: BeatContext)
 func signal_core_gear_process_beat(card_instance_id: String, context: BeatContext) -> void:

@@ -83,8 +83,8 @@ func request_card_placement(card: Card, pos: Vector2i) -> bool:
 		else:
 			card_states[card.instance_id] = CardState.new(card)
 		
-		# Signal replacement for UI update
-		GlobalSignals.signal_core_card_replaced(old_card.instance_id, card.instance_id)
+		# Signal replacement for UI update with position
+		GlobalSignals.signal_core_card_replaced(old_card.instance_id, card.instance_id, pos)
 	else:
 		# New placement
 		card_states[card.instance_id] = CardState.new(card)
@@ -107,8 +107,8 @@ func request_card_placement(card: Card, pos: Vector2i) -> bool:
 		var SimpleEffectProcessor = preload("res://src/scenes/core/effects/simple_effect_processor.gd")
 		SimpleEffectProcessor.process_effects(card.on_place_effect, null)
 	
-	# Signal successful placement (for UI and stats)
-	GlobalSignals.signal_core_card_slotted(card.instance_id)
+	# Signal successful placement with position (for UI and stats)
+	GlobalSignals.signal_core_card_slotted(card.instance_id, pos)
 	GlobalSignals.signal_core_card_played(card.instance_id)
 	GlobalSignals.signal_core_card_removed_from_hand(card.instance_id)
 	
