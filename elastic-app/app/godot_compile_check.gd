@@ -21,9 +21,14 @@ func _init() -> void:
 		print("[COMPILE CHECK] ❌ ERRORS FOUND:")
 		for error in errors_found:
 			print("  " + error)
+		print("")
+		print("[COMPILE CHECK] Private variable access checking is ACTIVE")
+		print("[COMPILE CHECK] Classes cannot access private variables (__prefixed) from other classes")
 		quit(1)
 	else:
 		print("[COMPILE CHECK] ✅ All scripts compile successfully!")
+		print("[COMPILE CHECK] ✅ No private variable access violations found!")
+		print("[COMPILE CHECK] Private variable access checking is ACTIVE")
 		quit(0)
 
 func check_autoloads() -> void:
@@ -167,15 +172,8 @@ func _check_source_for_errors(source: String, script_path: String) -> void:
 		# 3. Check for accessing private variables from other classes
 		_check_private_access(line, line_num, script_path, this_class_name)
 		
-		# 4. Check for missing type annotations on functions (basic check)
-		if line.strip_edges().begins_with("func ") and not "-> " in line:
-			# Check if it's not a special function
-			var func_name = _extract_function_name(line)
-			if func_name != "" and not func_name.begins_with("_"):
-				# Skip lifecycle functions
-				if func_name not in ["_ready", "_init", "_process", "_physics_process", "_input", "_enter_tree", "_exit_tree"]:
-					# This is now just a warning since we have type safety checker
-					pass
+		# 4. Check for undeclared types and missing type annotations
+		_check_type_declarations(line, line_num, script_path)
 
 func _check_private_access(line: String, line_num: int, script_path: String, this_class_name: String) -> void:
 	# Skip comments and strings
@@ -183,6 +181,7 @@ func _check_private_access(line: String, line_num: int, script_path: String, thi
 	
 	# Pattern to find private variable access: something.__variable
 	# Look for patterns like: object.__foo, self.__bar, some_var.__baz
+	# Also catches: card.__instinct_effect.activate()
 	var regex = RegEx.new()
 	regex.compile(r'\b(\w+)\.__(\w+)')
 	
@@ -203,6 +202,25 @@ func _check_private_access(line: String, line_num: int, script_path: String, thi
 		errors_found.append(script_path + ":" + str(line_num) + 
 			" - Illegal access to private variable '" + private_var + 
 			"' of object '" + object_name + "'. Private variables (prefixed with __) cannot be accessed from other classes.")
+	
+	# Also check for calling methods on private variables: something.__variable.method()
+	var method_regex = RegEx.new()
+	method_regex.compile(r'\b(\w+)\.__(\w+)\.(\w+)\(')
+	
+	var method_matches = method_regex.search_all(cleaned_line)
+	for match in method_matches:
+		var object_name = match.get_string(1)
+		var private_var = "__" + match.get_string(2)
+		var method_name = match.get_string(3)
+		
+		# Allow self references and super references
+		if object_name in ["self", "super"]:
+			continue
+			
+		# This is calling a method on a private variable from another object
+		errors_found.append(script_path + ":" + str(line_num) + 
+			" - Illegal method call '" + method_name + "()' on private variable '" + private_var + 
+			"' of object '" + object_name + "'. Private variables cannot be accessed from other classes.")
 
 func _remove_strings_and_comments(line: String) -> String:
 	var result = ""

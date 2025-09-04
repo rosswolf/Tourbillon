@@ -231,6 +231,11 @@ func set_grid_position(pos: Vector2i) -> void:
 
 ## Update the card display when a card is placed or replaced
 func update_card_display(card: Card) -> void:
+	# IMPORTANT: Only update if slot is active - don't change inactive slots
+	if not is_active_slot:
+		push_warning("Trying to update card display on inactive slot at ", grid_position)
+		return
+	
 	if not card:
 		# Clear the display
 		var name_node = get_node_or_null("%Name")
@@ -244,6 +249,12 @@ func update_card_display(card: Card) -> void:
 		%ProgressBar.value = 0
 		%ProgressBar.visible = false
 		return
+	
+	# Ensure slot stays visible when card is placed
+	visible = true
+	# Preserve modulate unless we're a bonus square (which has special colors)
+	if not is_bonus_square:
+		modulate = Color.WHITE
 	
 	# Update the display with card info
 	var name_node = get_node_or_null("%Name")
