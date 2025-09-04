@@ -1,3 +1,11 @@
+# [OUTDATED] Force Mechanical Identity - Simplified
+
+**⚠️ THIS DOCUMENT IS OUTDATED**
+**Date Moved: 2025-09-04**
+**Reason: Forces and colors are unified in the current design. See TOURBILLON_PRD.md Section 3.1 for current force system.**
+
+---
+
 # Force Mechanical Identity - Simplified
 
 ## Core Principle: Each Force Has Exclusive Effects

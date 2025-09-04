@@ -49,10 +49,10 @@ signal ui_time_bump()
 func signal_ui_time_bump() -> void:
 	ui_time_bump.emit()
 
-# New UI->Core signal for card placement requests
-signal ui_request_card_placement(card_id: String, logical_position: Vector2i)
-func signal_ui_request_card_placement(card_id: String, logical_position: Vector2i) -> void:
-	ui_request_card_placement.emit(card_id, logical_position)
+# UI signals for card placement flow
+signal ui_card_dropped_on_slot(card_id: String, button_id: String)
+func signal_ui_card_dropped_on_slot(card_id: String, button_id: String) -> void:
+	ui_card_dropped_on_slot.emit(card_id, button_id)
 
 # Core Signal Functions
 

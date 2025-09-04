@@ -4,18 +4,22 @@ class_name GameResource
 # When adding a new type here, be sure to update the get_resource_background_color function below
 enum Type {
 	UNKNOWN,
-	# Color resources (5)
+	# Force resources (5) - Each force has both a name and color
+	# Heat/Red - Friction and combustion energy
 	RED,
+	HEAT = RED,  # Alias for clarity
+	# Precision/Blue - Control and accuracy
 	BLUE,
+	PRECISION = BLUE,  # Alias for clarity
+	# Momentum/Green - Perpetual motion and growth
 	GREEN,
+	MOMENTUM = GREEN,  # Alias for clarity
+	# Balance/White - Regulation and stability
 	WHITE,
+	BALANCE = WHITE,  # Alias for clarity
+	# Entropy/Purple - Decay and chaos
 	PURPLE,
-	# Force resources (5)
-	HEAT,
-	PRECISION,
-	MOMENTUM,
-	BALANCE,
-	ENTROPY,
+	ENTROPY = PURPLE,  # Alias for clarity
 	# Special
 	INSPIRATION,
 	# Legacy (for backward compatibility)
@@ -52,7 +56,7 @@ class ResourceAccessor:
 			setter.call(getter.call() - amount)
 	
 	var __resources: Dictionary = {
-		# Color resources (5)
+		# Force resources (5) - Only need one accessor per force since colors and names are aliases
 		GameResource.Type.RED: __SpecificResourceAccessor.new(
 			func(): return GlobalGameManager.hero.red.amount if GlobalGameManager.hero and GlobalGameManager.hero.red else 0,
 			func(value): if GlobalGameManager.hero and GlobalGameManager.hero.red: GlobalGameManager.hero.red.amount = value
@@ -72,27 +76,6 @@ class ResourceAccessor:
 		GameResource.Type.PURPLE: __SpecificResourceAccessor.new(
 			func(): return GlobalGameManager.hero.purple.amount if GlobalGameManager.hero and GlobalGameManager.hero.purple else 0,
 			func(value): if GlobalGameManager.hero and GlobalGameManager.hero.purple: GlobalGameManager.hero.purple.amount = value
-		),
-		# Force resources (5)
-		GameResource.Type.HEAT: __SpecificResourceAccessor.new(
-			func(): return GlobalGameManager.hero.heat.amount if GlobalGameManager.hero and GlobalGameManager.hero.heat else 0,
-			func(value): if GlobalGameManager.hero and GlobalGameManager.hero.heat: GlobalGameManager.hero.heat.amount = value
-		),
-		GameResource.Type.PRECISION: __SpecificResourceAccessor.new(
-			func(): return GlobalGameManager.hero.precision.amount if GlobalGameManager.hero and GlobalGameManager.hero.precision else 0,
-			func(value): if GlobalGameManager.hero and GlobalGameManager.hero.precision: GlobalGameManager.hero.precision.amount = value
-		),
-		GameResource.Type.MOMENTUM: __SpecificResourceAccessor.new(
-			func(): return GlobalGameManager.hero.momentum.amount if GlobalGameManager.hero and GlobalGameManager.hero.momentum else 0,
-			func(value): if GlobalGameManager.hero and GlobalGameManager.hero.momentum: GlobalGameManager.hero.momentum.amount = value
-		),
-		GameResource.Type.BALANCE: __SpecificResourceAccessor.new(
-			func(): return GlobalGameManager.hero.balance.amount if GlobalGameManager.hero and GlobalGameManager.hero.balance else 0,
-			func(value): if GlobalGameManager.hero and GlobalGameManager.hero.balance: GlobalGameManager.hero.balance.amount = value
-		),
-		GameResource.Type.ENTROPY: __SpecificResourceAccessor.new(
-			func(): return GlobalGameManager.hero.entropy.amount if GlobalGameManager.hero and GlobalGameManager.hero.entropy else 0,
-			func(value): if GlobalGameManager.hero and GlobalGameManager.hero.entropy: GlobalGameManager.hero.entropy.amount = value
 		),
 	}
 	

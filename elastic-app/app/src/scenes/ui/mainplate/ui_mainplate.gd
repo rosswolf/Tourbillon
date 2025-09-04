@@ -23,6 +23,12 @@ func _ready() -> void:
 	# Don't call super._ready() to avoid default battleground setup
 	GlobalSignals.ui_started_game.connect(__on_start_game_tourbillon)
 	
+	# Add self to group so other components can find us
+	add_to_group("ui_mainplate")
+	
+	# Connect to UI signal for card drops
+	GlobalSignals.ui_card_dropped_on_slot.connect(__on_ui_card_dropped_on_slot)
+	
 	# Connect to core signals for reactive updates
 	GlobalSignals.core_card_slotted.connect(__on_core_card_slotted)
 	GlobalSignals.core_card_replaced.connect(__on_core_card_replaced)
@@ -336,6 +342,33 @@ func reset() -> void:
 	grid_mapper.reset(initial_grid_size)
 	expansions_used = 0
 	__update_slot_visuals()
+
+## Signal handlers for UI events
+
+func __on_ui_card_dropped_on_slot(card_id: String, button_id: String) -> void:
+	# Get the button entity to find its slot position
+	var button = GlobalGameManager.instance_catalog.get_instance(button_id) as EngineButtonEntity
+	if not button or not button.engine_slot:
+		push_error("Invalid button or no engine slot for button: " + button_id)
+		return
+	
+	# Get the card
+	var card = GlobalGameManager.instance_catalog.get_instance(card_id) as Card
+	if not card:
+		push_error("Card not found: " + card_id)
+		return
+		
+	# Convert physical position to logical using our grid mapper
+	var physical_pos = button.engine_slot.grid_position
+	var logical_pos = grid_mapper.to_logical(physical_pos)
+	
+	if logical_pos == null:
+		push_warning("Physical position %s is not in active grid" % physical_pos)
+		return
+		
+	# Now forward to core mainplate with logical position
+	if mainplate:
+		mainplate.request_card_placement(card, logical_pos)
 
 ## Signal handlers for core events
 

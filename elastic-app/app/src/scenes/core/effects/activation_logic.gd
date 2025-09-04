@@ -34,48 +34,24 @@ static func get_type(entity: Entity):
 
 
 static func slot_card_in_button(card: Card, button: EngineButtonEntity) -> bool:
-	# Minimal routing - validate slot and delegate to mainplate
-	if button.engine_slot:
-		if not button.engine_slot.can_accept_card():
-			push_warning("Cannot place card on inactive slot")
-			return false
-	
-	# Get logical position from button's slot
+	# Just validate basic requirements then signal the UI
 	if not button.engine_slot:
 		push_error("Button has no engine slot")
 		return false
-	
-	# Get the UI mainplate to convert physical to logical position
-	var ui_mainplate = get_tree().get_nodes_in_group("ui_mainplate").front() as UIMainplate
-	if not ui_mainplate or not ui_mainplate.grid_mapper:
-		push_error("No UI mainplate or grid mapper found")
-		return false
 		
-	var physical_pos = button.engine_slot.grid_position
-	var logical_pos = ui_mainplate.grid_mapper.to_logical(physical_pos)
-	
-	if logical_pos == null:
-		push_warning("Physical position %s is not in active grid" % physical_pos)
+	if not button.engine_slot.can_accept_card():
+		push_warning("Cannot place card on inactive slot")
 		return false
 	
-	# Delegate ALL business logic to mainplate
-	if GlobalGameManager.mainplate:
-		# The mainplate handles everything:
-		# - Overbuild logic
-		# - Zone moves  
-		# - Bonus squares
-		# - Card state
-		# - Signals
-		var success = GlobalGameManager.mainplate.request_card_placement(card, logical_pos)
-		
-		# Update button reference only if successful
-		if success:
-			button.card = card
-		
-		return success
-	else:
-		push_error("No mainplate found")
-		return false
+	# Signal that a card was dropped on this button
+	# The UI layer will handle coordinate mapping and forward to core
+	GlobalSignals.signal_ui_card_dropped_on_slot(card.instance_id, button.instance_id)
+	
+	# Temporarily store the card reference
+	# The actual placement will be confirmed by core signals
+	button.card = card
+	
+	return true
 	
 static func activate_instinct(card: Card, target: Entity = null) -> bool:
 		

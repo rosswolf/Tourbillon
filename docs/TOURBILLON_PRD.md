@@ -188,33 +188,38 @@ Expansion mechanics:
 
 ## 3. Force System
 
-### 3.1 Five Forces
-Forces represent different types of energy in your clockwork mechanism:
+### 3.1 Five Forces (Colors)
+Forces represent different types of energy in your clockwork mechanism. Each force has both a mechanical name and a color association:
 
-- **Heat** - Friction/Combustion
+- **Heat (Red)** - Friction/Combustion
   - Attack Targeting: **Attack (All)** - Hits all gremlins
   - Direct damage focus, fast intervals, volatile explosive effects
   - Damage Multiplier: **1.25x**
+  - Color: Red represents the heat and fire of friction
 
-- **Precision** - Control/Accuracy
+- **Precision (Blue)** - Control/Accuracy  
   - Attack Targeting: **Attack (Bottom)** - Targets last gremlin in stack
   - Card draw, time manipulation, control and optimization
   - Damage Multiplier: **0.75x**
+  - Color: Blue represents cool calculation and precision
 
-- **Momentum** - Perpetual Motion
+- **Momentum (Green)** - Perpetual Motion
   - Attack Targeting: **Attack (Most HP)** - Targets highest health gremlin
   - Force ramping, scaling effects, self-sustaining cycles
   - Damage Multiplier: **1.0x** (baseline)
+  - Color: Green represents growth and acceleration
 
-- **Balance** - Regulation/Stability
+- **Balance (White)** - Regulation/Stability
   - Attack Targeting: **Attack (Oldest)** - Targets gremlin in combat longest
   - Shields/damage prevention, consistent production, stability focus
   - Damage Multiplier: **0.8x**
+  - Color: White represents purity and equilibrium
 
-- **Entropy** - Decay/Unwinding
+- **Entropy (Purple/Black)** - Decay/Unwinding
   - Attack Targeting: **Attack (Lowest HP)** - Targets weakest gremlin
   - Destroy own gears for benefit, high risk/high reward
   - Damage Multiplier: **1.1x**
+  - Color: Purple/Black represents decay and chaos
 
 **Universal**: All forces can use **Attack (Basic)** - Targets top gremlin in stack
 
@@ -266,28 +271,30 @@ Forces represent different types of energy in your clockwork mechanism:
 - Forces can exist in fractional amounts (rounded to 0.1) for more granularity
 - Forces can accumulate infinitely (no upper limit)
 
-### 3.3 Special Resources
-Special Resources are created by combining Basic Forces and provide access to powerful effects:
+### 3.3 Special Resources (Future Consideration)
+[NOTE: Special combined resources are planned for future expansion but not currently implemented]
 
-- **HEAT** (Red + Blue combination)
+Special Resources could be created by combining Basic Forces for powerful effects:
+
+- **HEAT COMBINED** (Heat/Red + Precision/Blue combination)
   - Damage Multiplier: **1.6x**
-  - Powers pierce damage, momentary effects, and combat specialization
+  - Would power pierce damage, momentary effects, and combat specialization
 
-- **PRECISION** (Blue + White combination)  
+- **PRECISION COMBINED** (Precision/Blue + Balance/White combination)  
   - Damage Multiplier: **1.3x**
-  - Enables targeted effects, card manipulation, and control
+  - Would enable targeted effects, card manipulation, and control
 
-- **MOMENTUM** (Green + Red combination)
+- **MOMENTUM COMBINED** (Momentum/Green + Heat/Red combination)
   - Damage Multiplier: **1.4x** (base, can scale with usage)
-  - Provides acceleration, chains, and scaling effects
+  - Would provide acceleration, chains, and scaling effects
 
-- **BALANCE** (White + Purple combination)
+- **BALANCE COMBINED** (Balance/White + Entropy/Purple combination)
   - Damage Multiplier: **1.2x** 
-  - Enables execution (<10 HP threshold), stability, and control
+  - Would enable execution (<10 HP threshold), stability, and control
 
-- **ENTROPY** (Purple + Green combination)
+- **ENTROPY COMBINED** (Entropy/Purple + Momentum/Green combination)
   - Damage Multiplier: **1.5x**
-  - Powers poison, sacrifice, copying, and rule-breaking effects
+  - Would power poison, sacrifice, copying, and rule-breaking effects
 
 ### 3.4 Damage Balance System
 
@@ -591,20 +598,20 @@ Tags create synergies and define gear identities. Gears typically have 1-4 tags.
 
 ### 7.3 Example Gears
 
-**"Micro Forge" (Heat Common)**
+**"Micro Forge" (Heat/Red Common)**
 - Tags: [Micro, Tool]
 - Cost: 2 Ticks
-- "Fires every 2 Ticks: Produce 1 Heat. Tool gears cost -0.5 Ticks"
+- "Fires every 2 Ticks: Produce 1 Heat/Red. Tool gears cost -0.5 Ticks"
 
-**"Crystal Regulator" (Precision Rare)**
+**"Crystal Regulator" (Precision/Blue Rare)**
 - Tags: [Titan, Crystal]
 - Cost: 8 Ticks
 - "Fires every 12 Ticks: Produce 5 of any single force. Immovable"
 
-**"Shadow Mechanism" (Entropy Uncommon)**
+**"Shadow Mechanism" (Entropy/Purple Uncommon)**
 - Tags: [Beast, Shadow, Chaos]
 - Cost: 4 Ticks
-- "Fires every 3 Ticks: Consume 2 Entropy → 2 damage. +1 damage per Beast, +2 if no adjacent gears"
+- "Fires every 3 Ticks: Consume 2 Entropy/Purple → 2 damage. +1 damage per Beast, +2 if no adjacent gears"
 
 ## 8. Gremlin System (Combat)
 
@@ -716,20 +723,20 @@ Gremlins impose disruptions while infesting your mechanism:
 
 ### 10.3 Starter Gear Examples
 
-**"Basic Chronometer" (1 copy - starts in play)**
+**"Basic Chronometer" (Colorless, 1 copy - starts in play)**
 - Tags: [Tool, Spark]
 - Cost: 2 Ticks
 - "Fires every 6 Ticks: Draw 1 card"
 
-**"Simple Mainspring" (2-3 copies)**
+**"Simple Mainspring" (Various colors, 2-3 copies)**
 - Tags: [Stone]
 - Cost: 3 Ticks
-- "Fires every 3 Ticks: Produce 2 [Force]"
+- "Fires every 3 Ticks: Produce 2 [Force/Color]" (Each copy produces a specific force)
 
-**"Force Converter" (1 copy)**
+**"Force Converter" (Colorless, 1 copy)**
 - Tags: [Forge]
 - Cost: 3 Ticks
-- "Fires every 4 Ticks: Consume 2 any → 3 damage"
+- "Fires every 4 Ticks: Consume 2 any force → 3 damage"
 
 ## 11. Rules Clarifications
 
