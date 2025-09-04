@@ -30,8 +30,14 @@ enum DamageType {
 func get_damage_amount() -> int:
 	return amount
 
-## Create a modified copy of this packet
-func with_modifier(property: String, value) -> DamagePacket:
+## Create a modified copy of this packet with bool property
+func with_bool_modifier(property: String, value: bool) -> DamagePacket:
+	var new_packet = duplicate(true) as DamagePacket
+	new_packet.set(property, value)
+	return new_packet
+
+## Create a modified copy of this packet with int property
+func with_int_modifier(property: String, value: int) -> DamagePacket:
 	var new_packet = duplicate(true) as DamagePacket
 	new_packet.set(property, value)
 	return new_packet
@@ -45,7 +51,7 @@ func _to_string() -> String:
 	if true_damage: keywords.append("true")
 	if poison: keywords.append("poison")
 	
-	var keyword_str = ""
+	var keyword_str: String = ""
 	if not keywords.is_empty():
 		keyword_str = " [" + ", ".join(keywords) + "]"
 	
