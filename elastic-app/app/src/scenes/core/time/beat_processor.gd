@@ -1,4 +1,4 @@
-extends Node
+extends RefCounted
 class_name BeatProcessor
 
 ## Processes all beat-aware entities in deterministic order
@@ -15,8 +15,8 @@ var poison_interval: int = 10  # Poison ticks every 10 beats by default
 ## Additional beat listeners for extensibility
 var registered_listeners: Array[BeatListenerEntity] = []
 
-func _ready() -> void:
-	# References will be set by TimelineManager or GameManager
+func _init() -> void:
+	# References will be set by TimelineManager through setter methods
 	pass
 
 ## Main beat processing - called by TimelineManager

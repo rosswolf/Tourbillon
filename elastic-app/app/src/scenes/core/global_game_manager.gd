@@ -15,7 +15,7 @@ var stats_manager: StatsManager = null
 
 # Tourbillon system integration
 var timeline_manager: TimelineManager = null
-var beat_processor: BeatProcessor = null
+# BeatProcessor is now owned by TimelineManager - access via timeline_manager.get_beat_processor()
 var mainplate: Mainplate = null  # Core mainplate entity
 var starting_deck_size: int = 15
 var starting_hand_size: int = 5
@@ -228,12 +228,8 @@ func end_game() -> void:
 
 ## Initialize Tourbillon time systems
 func __initialize_tourbillon_systems() -> void:
-	# Create and add timeline manager (which creates its own beat processor)
+	# Create timeline manager (not as child since it's RefCounted)
 	timeline_manager = TimelineManager.new()
-	add_child(timeline_manager)
-	
-	# Get the beat processor from timeline manager
-	beat_processor = timeline_manager.beat_processor
 	
 	# Create mainplate entity (4x4 grid)
 	# The builder will automatically register it in the instance catalog
@@ -243,11 +239,11 @@ func __initialize_tourbillon_systems() -> void:
 		.build()
 	add_child(mainplate)
 	
-	# CRITICAL: Connect the mainplate to the beat processor!
-	if beat_processor:
-		beat_processor.set_mainplate(mainplate)
-	else:
-		push_error("BeatProcessor not found in TimelineManager!")
+	# Connect mainplate to timeline's beat processor
+	timeline_manager.set_mainplate(mainplate)
+	
+	# If we have gremlin manager, connect it (will be created later)
+	# timeline_manager.set_gremlin_manager(gremlin_manager)
 	
 	# Connect timeline signals
 	timeline_manager.time_changed.connect(__on_time_changed)
@@ -339,6 +335,12 @@ func get_current_beat() -> int:
 	if timeline_manager:
 		return timeline_manager.get_current_beats()
 	return 0
+
+## Get the beat processor (goes through timeline_manager)
+func get_beat_processor() -> BeatProcessor:
+	if timeline_manager:
+		return timeline_manager.get_beat_processor()
+	return null
 		
 # Convenience Functions for checking resource state
 # Resources should be checked via hero.has_force() or hero.has_forces() methods

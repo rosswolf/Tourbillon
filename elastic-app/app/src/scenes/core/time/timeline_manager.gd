@@ -1,9 +1,10 @@
-extends Node
+extends RefCounted
 class_name TimelineManager
 
 ## Core time tracking system for Tourbillon
 ## Time only advances when cards are played
 ## 1 Tick = 10 Beats for precision
+## Owns and manages the BeatProcessor
 
 # Minimal signals for MVP
 signal time_changed(total_beats: int)      # Any time change
@@ -12,9 +13,33 @@ signal card_ticks_complete()               # Card's time cost fully processed
 var total_beats: int = 0
 var beat_processor: BeatProcessor
 
-func _ready() -> void:
+func _init() -> void:
+	# Create beat processor immediately
 	beat_processor = BeatProcessor.new()
-	add_child(beat_processor)
+
+## Get the beat processor (for external setup)
+func get_beat_processor() -> BeatProcessor:
+	return beat_processor
+
+## Set mainplate reference on beat processor
+func set_mainplate(mainplate: Mainplate) -> void:
+	if beat_processor:
+		beat_processor.set_mainplate(mainplate)
+
+## Set gremlin manager reference on beat processor
+func set_gremlin_manager(manager: GremlinManager) -> void:
+	if beat_processor:
+		beat_processor.set_gremlin_manager(manager)
+
+## Register additional beat listener
+func register_beat_listener(listener: BeatListenerEntity) -> void:
+	if beat_processor:
+		beat_processor.register_listener(listener)
+
+## Unregister a beat listener
+func unregister_beat_listener(listener: BeatListenerEntity) -> void:
+	if beat_processor:
+		beat_processor.unregister_listener(listener)
 
 ## Advance time by the specified number of ticks
 func advance_time(ticks: float) -> void:
@@ -29,31 +54,16 @@ func __advance_beats_instant(beats_to_add: int) -> void:
 	
 	print("Advancing time by ", beats_to_add, " beats")
 	
-	# Process all beats instantly for game logic first
-	var start_beat: int = total_beats
+	# Process all beats instantly
 	for i in range(beats_to_add):
 		total_beats += 1
 		__process_single_beat()
 	
-	# Now animate the UI display
-	__animate_counter(start_beat, total_beats)
+	# Signal time changed with final beat count
+	time_changed.emit(total_beats)
 	
-	# Signal completion immediately (game logic is already done)
+	# Signal completion
 	card_ticks_complete.emit()
-
-## Animate the counter display
-func __animate_counter(from_beat: int, to_beat: int) -> void:
-	var beats_to_show: int = to_beat - from_beat
-	
-	# Show counter animation with slight delays
-	for i in range(beats_to_show):
-		var display_beat: int = from_beat + i + 1
-		time_changed.emit(display_beat)
-		
-		# Add small delay between updates so counting is visible
-		# Faster for more beats, slower for fewer
-		var delay: float = 0.02 if beats_to_show > 10 else 0.05
-		await get_tree().create_timer(delay).timeout
 
 ## Process a single beat
 func __process_single_beat() -> void:

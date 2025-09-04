@@ -153,22 +153,14 @@ func update_progress_display(percent: float, is_ready: bool = false) -> void:
 	%ProgressBar.self_modulate = Color.WHITE
 	%ProgressBar.z_index = 10
 	
-	# Kill any existing update tweens to prevent conflicts
-	if %ProgressBar.has_meta("update_tween"):
-		var old_tween = %ProgressBar.get_meta("update_tween")
-		if old_tween and old_tween.is_valid():
-			old_tween.kill()
-	
-	# Animate smoothly
-	var tween = create_tween()
-	%ProgressBar.set_meta("update_tween", tween)
-	tween.tween_property(%ProgressBar, "value", percent, 0.2)
+	# Just set the value directly - no tweening
+	%ProgressBar.value = percent
 	
 	# Color code based on state
 	if is_ready:
 		%ProgressBar.modulate = Color(1.0, 0.8, 0.0, 1.0)  # Orange when ready
 	else:
-		%ProgressBar.modulate = Color(1.0, 1.0, 0.0, 1.0)  # Yellow when charging
+		%ProgressBar.modulate = Color.WHITE  # White when charging
 
 func __update_progress_display() -> void:
 	# Placeholder for compatibility
@@ -205,7 +197,7 @@ func show_activation_feedback() -> void:
 	%ProgressBar.set_meta("tween", tween)
 	tween.tween_interval(1.0)  # Hold at full for 1 second
 	tween.tween_property(%ProgressBar, "value", 0, 0.3)  # Reset to 0 over 0.3 seconds
-	tween.tween_property(%ProgressBar, "modulate", Color(1.0, 1.0, 0.0, 1.0), 0.1)  # Back to yellow
+	tween.tween_property(%ProgressBar, "modulate", Color.WHITE, 0.1)  # Back to white
 	tween.tween_callback(func(): %ProgressBar.set_meta("activating", false))  # Clear activation flag
 
 ## Reset visual state
@@ -286,7 +278,7 @@ func update_card_display(card: Card) -> void:
 		# Normal progress starting from 0
 		%ProgressBar.value = 0
 		%ProgressBar.visible = true
-		%ProgressBar.modulate = Color(1.0, 1.0, 0.0, 1.0)  # Yellow for charging
+		%ProgressBar.modulate = Color.WHITE  # White for charging
 
 ## Set whether this slot is active (can accept cards)
 func set_active(active: bool) -> void:

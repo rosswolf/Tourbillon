@@ -245,27 +245,27 @@ static func _handle_consume_max(amount: float) -> bool:
 # Damage handlers
 static func _handle_damage(amount: float) -> void:
 	# Target top gremlin by default
-	var gremlins: Array = GlobalGameManager.get_active_gremlins()
+	var gremlins: Array[Node] = GlobalGameManager.get_active_gremlins()
 	if not gremlins.is_empty():
 		var target = gremlins[0]
 		if target.has_method("take_damage"):
 			target.take_damage(amount)
 
 static func _handle_damage_all(amount: float) -> void:
-	var gremlins: Array = GlobalGameManager.get_active_gremlins()
+	var gremlins: Array[Node] = GlobalGameManager.get_active_gremlins()
 	for gremlin in gremlins:
 		if gremlin.has_method("take_damage"):
 			gremlin.take_damage(amount)
 
 static func _handle_damage_random(amount: float) -> void:
-	var gremlins: Array = GlobalGameManager.get_active_gremlins()
+	var gremlins: Array[Node] = GlobalGameManager.get_active_gremlins()
 	if not gremlins.is_empty():
 		var target = gremlins.pick_random()
 		if target.has_method("take_damage"):
 			target.take_damage(amount)
 
 static func _handle_damage_weakest(amount: float) -> void:
-	var gremlins: Array = GlobalGameManager.get_active_gremlins()
+	var gremlins: Array[Node] = GlobalGameManager.get_active_gremlins()
 	if gremlins.is_empty():
 		return
 	
@@ -282,7 +282,7 @@ static func _handle_damage_weakest(amount: float) -> void:
 		weakest.take_damage(amount)
 
 static func _handle_damage_strongest(amount: float) -> void:
-	var gremlins: Array = GlobalGameManager.get_active_gremlins()
+	var gremlins: Array[Node] = GlobalGameManager.get_active_gremlins()
 	if gremlins.is_empty():
 		return
 	
@@ -300,7 +300,7 @@ static func _handle_damage_strongest(amount: float) -> void:
 
 static func _handle_damage_bottom(amount: float) -> void:
 	# Target bottom (last) gremlin
-	var gremlins: Array = GlobalGameManager.get_active_gremlins()
+	var gremlins: Array[Node] = GlobalGameManager.get_active_gremlins()
 	if not gremlins.is_empty():
 		var target = gremlins[-1]
 		if target.has_method("take_damage"):
@@ -308,7 +308,7 @@ static func _handle_damage_bottom(amount: float) -> void:
 
 static func _handle_poison(amount: int) -> void:
 	# Apply poison to top gremlin
-	var gremlins: Array = GlobalGameManager.get_active_gremlins()
+	var gremlins: Array[Node] = GlobalGameManager.get_active_gremlins()
 	if not gremlins.is_empty():
 		var target = gremlins[0]
 		if target.has_method("apply_poison"):
@@ -442,7 +442,7 @@ static func _complex_mega_burst(_source: Node) -> void:
 static func _complex_sacrifice_draw(_source: Node) -> void:
 	# Destroy a random gear to draw 3 cards
 	if GlobalGameManager.mainplate:
-		var all_gears: Array = GlobalGameManager.mainplate.get_all_gears()
+		var all_gears: Array[Node] = GlobalGameManager.mainplate.get_all_gears()
 		if not all_gears.is_empty():
 			var sacrifice = all_gears.pick_random()
 			GlobalGameManager.mainplate.remove_gear(sacrifice)
@@ -472,7 +472,7 @@ static func _complex_micro_synergy(_source: Node) -> void:
 		return
 	
 	var micro_count: int = 0
-	var all_gears: Array = GlobalGameManager.mainplate.get_all_gears()
+	var all_gears: Array[Node] = GlobalGameManager.mainplate.get_all_gears()
 	for gear in all_gears:
 		if gear.has_method("has_tag") and gear.has_tag("MICRO"):
 			micro_count += 1
@@ -486,7 +486,7 @@ static func _complex_beast_pack(_source: Node) -> void:
 		return
 	
 	var beast_count: int = 0
-	var all_gears: Array = GlobalGameManager.mainplate.get_all_gears()
+	var all_gears: Array[Node] = GlobalGameManager.mainplate.get_all_gears()
 	for gear in all_gears:
 		if gear.has_method("has_tag") and gear.has_tag("BEAST"):
 			beast_count += 1
@@ -516,7 +516,7 @@ static func _complex_micro_haste(_source: Node) -> void:
 	if not GlobalGameManager.mainplate:
 		return
 	
-	var all_gears: Array = GlobalGameManager.mainplate.get_all_gears()
+	var all_gears: Array[Node] = GlobalGameManager.mainplate.get_all_gears()
 	for gear in all_gears:
 		if gear.has_method("has_tag") and gear.has_tag("MICRO"):
 			if gear.has_method("modify_interval"):
@@ -539,7 +539,7 @@ static func _complex_order_line(source: Node) -> void:
 	# Check for horizontal or vertical lines of ORDER gears
 	# This is a simplified check - full implementation would check actual lines
 	var order_count: int = 0
-	var all_gears: Array = GlobalGameManager.mainplate.get_all_gears()
+	var all_gears: Array[Node] = GlobalGameManager.mainplate.get_all_gears()
 	for gear in all_gears:
 		if gear.has_method("has_tag") and gear.has_tag("ORDER"):
 			order_count += 1
@@ -575,7 +575,7 @@ static func _complex_forge_support(source: Node) -> void:
 	
 	if source.has_method("get_grid_position"):
 		var pos: Vector2i = source.get_grid_position()
-		var all_gears: Array = GlobalGameManager.mainplate.get_all_gears()
+		var all_gears: Array[Node] = GlobalGameManager.mainplate.get_all_gears()
 		
 		for gear in all_gears:
 			if gear != source and gear.has_method("get_grid_position"):
@@ -613,7 +613,7 @@ static func _complex_crystal_focus(_source: Node) -> void:
 	if not GlobalGameManager.mainplate:
 		return
 	
-	var all_gears: Array = GlobalGameManager.mainplate.get_all_gears()
+	var all_gears: Array[Node] = GlobalGameManager.mainplate.get_all_gears()
 	for gear in all_gears:
 		if gear.has_method("has_tag") and gear.has_tag("CRYSTAL"):
 			# Generate bonus precision equal to current production
@@ -630,7 +630,7 @@ static func _complex_arcane_ritual(_source: Node) -> void:
 		return
 	
 	var arcane_count: int = 0
-	var all_gears: Array = GlobalGameManager.mainplate.get_all_gears()
+	var all_gears: Array[Node] = GlobalGameManager.mainplate.get_all_gears()
 	
 	for gear in all_gears:
 		if gear.has_method("has_tag") and gear.has_tag("ARCANE"):
@@ -646,7 +646,7 @@ static func _complex_mech_automation(_source: Node) -> void:
 	if not GlobalGameManager.mainplate:
 		return
 	
-	var all_gears: Array = GlobalGameManager.mainplate.get_all_gears()
+	var all_gears: Array[Node] = GlobalGameManager.mainplate.get_all_gears()
 	for gear in all_gears:
 		if gear.has_method("has_tag") and gear.has_tag("MECH"):
 			if gear.has_method("set_free_production"):
@@ -732,7 +732,7 @@ static func _complex_row_production(source: Node) -> void:
 	
 	if source.has_method("get_grid_position"):
 		var pos: Vector2i = source.get_grid_position()
-		var all_gears: Array = GlobalGameManager.mainplate.get_all_gears()
+		var all_gears: Array[Node] = GlobalGameManager.mainplate.get_all_gears()
 		
 		for gear in all_gears:
 			if gear.has_method("get_grid_position"):
@@ -748,7 +748,7 @@ static func _complex_column_shield(source: Node) -> void:
 	
 	if source.has_method("get_grid_position"):
 		var pos: Vector2i = source.get_grid_position()
-		var all_gears: Array = GlobalGameManager.mainplate.get_all_gears()
+		var all_gears: Array[Node] = GlobalGameManager.mainplate.get_all_gears()
 		
 		var column_count: int = 0
 		for gear in all_gears:
@@ -803,7 +803,7 @@ static func _complex_destroy_draw(source: Node) -> void:
 	if not GlobalGameManager.mainplate:
 		return
 	
-	var all_gears: Array = GlobalGameManager.mainplate.get_all_gears()
+	var all_gears: Array[Node] = GlobalGameManager.mainplate.get_all_gears()
 	if all_gears.size() > 1:  # Don't destroy last gear
 		# For now, destroy random gear (should be player choice)
 		var target = all_gears.pick_random()
@@ -1122,7 +1122,7 @@ static func _handle_corrupt_gear(count: int) -> void:
 		target.set_meta("corruption_duration", 30)  # 3 ticks
 
 # Gremlin combat handlers
-static func _handle_summon(summon_type) -> void:
+static func _handle_summon(summon_type: float) -> void:
 	print("[Gremlin] Summon: ", summon_type)
 	# Delegate to gremlin manager
 	if GlobalGameManager.has_method("summon_gremlin"):
@@ -1148,7 +1148,7 @@ static func _handle_gremlin_armor(amount: float, source: Node) -> void:
 
 static func _handle_enhance_gremlins(amount: float) -> void:
 	# Enhance all gremlins
-	var gremlins: Array = GlobalGameManager.get_active_gremlins()
+	var gremlins: Array[Node] = GlobalGameManager.get_active_gremlins()
 	print("[Gremlin] Enhancing ", gremlins.size(), " gremlins by ", amount)
 	
 	for gremlin in gremlins:

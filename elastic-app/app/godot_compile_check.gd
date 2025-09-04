@@ -45,7 +45,7 @@ func _init() -> void:
 	print("[COMPILE CHECK] Starting comprehensive compilation check...")
 	
 	# Check for command line arguments for specific files
-	var args = OS.get_cmdline_args()
+	var args: PackedStringArray = OS.get_cmdline_args()
 	var specific_files: Array[String] = []
 	
 	for arg in args:
@@ -119,7 +119,7 @@ func check_autoloads() -> void:
 	print("[COMPILE CHECK] Checking autoloads...")
 	
 	# Check each autoload defined in project.godot
-	var autoloads = [
+	var autoloads: Array[String] = [
 		"StaticData",
 		"GlobalSignals", 
 		"GlobalSelectionManager",
@@ -142,15 +142,15 @@ func check_all_scripts() -> void:
 	print("[COMPILE CHECK] Checking all scripts...")
 	
 	# Check both src and root directory .gd files
-	var src_dir = DirAccess.open("res://src")
+	var src_dir: DirAccess = DirAccess.open("res://src")
 	if src_dir != null:
 		_check_directory_recursive(src_dir, "res://src")
 	
 	# Also check root level .gd files
-	var root_dir = DirAccess.open("res://")
+	var root_dir: DirAccess = DirAccess.open("res://")
 	if root_dir != null:
 		root_dir.list_dir_begin()
-		var file_name = root_dir.get_next()
+		var file_name: String = root_dir.get_next()
 		while file_name != "":
 			if file_name.ends_with(".gd"):
 				_check_script("res://" + file_name)
@@ -159,13 +159,13 @@ func check_all_scripts() -> void:
 
 func _check_directory_recursive(dir: DirAccess, path: String) -> void:
 	dir.list_dir_begin()
-	var file_name = dir.get_next()
+	var file_name: String = dir.get_next()
 	
 	while file_name != "":
-		var full_path = path + "/" + file_name
+		var full_path: String = path + "/" + file_name
 		
 		if dir.current_is_dir() and not file_name.begins_with("."):
-			var subdir = DirAccess.open(full_path)
+			var subdir: DirAccess = DirAccess.open(full_path)
 			if subdir != null:
 				_check_directory_recursive(subdir, full_path)
 		elif file_name.ends_with(".gd"):
@@ -182,7 +182,7 @@ func _check_script(script_path: String) -> void:
 		return
 	
 	# Load and check the script
-	var script = load(script_path)
+	var script: Script = load(script_path)
 	
 	if script == null:
 		errors_found.append("Failed to load script: " + script_path)
@@ -190,11 +190,11 @@ func _check_script(script_path: String) -> void:
 	
 	# For class_name scripts, try to instantiate
 	if script.has_source_code():
-		var source = script.source_code
+		var source: String = script.source_code
 		
 		# Check for class_name declaration
 		if "class_name " in source:
-			var extracted_class_name = _extract_class_name(source)
+			var extracted_class_name: String = _extract_class_name(source)
 			if extracted_class_name != "":
 				_try_instantiate_class(extracted_class_name, script_path)
 		
@@ -202,17 +202,17 @@ func _check_script(script_path: String) -> void:
 		_check_source_for_errors(source, script_path)
 
 func _extract_class_name(source: String) -> String:
-	var lines = source.split("\n")
+	var lines: PackedStringArray = source.split("\n")
 	for line in lines:
 		if line.begins_with("class_name "):
-			var parts = line.split(" ")
+			var parts: PackedStringArray = line.split(" ")
 			if parts.size() >= 2:
 				return parts[1].strip_edges()
 	return ""
 
 func _try_instantiate_class(class_name_str: String, script_path: String) -> void:
 	# Skip certain classes that shouldn't be instantiated directly
-	var skip_classes = [
+	var skip_classes: Array[String] = [
 		"EntityBuilder",
 		"CardBuilder", 
 		"HeroBuilder",
@@ -224,9 +224,9 @@ func _try_instantiate_class(class_name_str: String, script_path: String) -> void
 		return
 	
 	# Try to create instance using ClassDB or script
-	var script = load(script_path)
+	var script: Script = load(script_path)
 	if script != null and script.can_instantiate():
-		var instance = script.new()
+		var instance: Object = script.new()
 		if instance == null:
 			warnings_found.append("Could not instantiate: " + class_name_str + " (" + script_path + ")")
 		else:
@@ -234,19 +234,19 @@ func _try_instantiate_class(class_name_str: String, script_path: String) -> void
 				instance.queue_free()
 
 func _check_source_for_errors(source: String, script_path: String) -> void:
-	var lines = source.split("\n")
-	var line_num = 0
-	var previous_line = ""
+	var lines: PackedStringArray = source.split("\n")
+	var line_num: int = 0
+	var previous_line: String = ""
 	
 	# Extract the class name for this script to identify self references
-	var this_class_name = _extract_class_name(source)
-	var is_inside_class = false
+	var this_class_name: String = _extract_class_name(source)
+	var is_inside_class: bool = false
 	
 	for line in lines:
 		line_num += 1
 		
 		# Check if previous line has an exemption marker
-		var is_line_exempt = _is_line_exempt(previous_line)
+		var is_line_exempt: bool = _is_line_exempt(previous_line)
 		
 		# Track if we're inside the class definition
 		if line.strip_edges().begins_with("class ") and not line.strip_edges().begins_with("class_name"):
@@ -274,18 +274,18 @@ func _check_source_for_errors(source: String, script_path: String) -> void:
 
 func _check_private_access(line: String, line_num: int, script_path: String, this_class_name: String) -> void:
 	# Skip comments and strings
-	var cleaned_line = _remove_strings_and_comments(line)
+	var cleaned_line: String = _remove_strings_and_comments(line)
 	
 	# Pattern to find private variable access: something.__variable
 	# Look for patterns like: object.__foo, self.__bar, some_var.__baz
 	# Also catches: card.__instinct_effect.activate()
-	var regex = RegEx.new()
+	var regex: RegEx = RegEx.new()
 	regex.compile(r'\b(\w+)\.__(\w+)')
 	
-	var matches = regex.search_all(cleaned_line)
+	var matches: Array[RegExMatch] = regex.search_all(cleaned_line)
 	for match_item in matches:
-		var object_name = match_item.get_string(1)
-		var private_var = "__" + match_item.get_string(2)
+		var object_name: String = match_item.get_string(1)
+		var private_var: String = "__" + match_item.get_string(2)
 		
 		# Allow self references and super references
 		if object_name in ["self", "super"]:
@@ -301,14 +301,14 @@ func _check_private_access(line: String, line_num: int, script_path: String, thi
 			"' of object '" + object_name + "'. Private variables (prefixed with __) cannot be accessed from other classes.")
 	
 	# Also check for calling methods on private variables: something.__variable.method()
-	var method_regex = RegEx.new()
+	var method_regex: RegEx = RegEx.new()
 	method_regex.compile(r'\b(\w+)\.__(\w+)\.(\w+)\(')
 	
-	var method_matches = method_regex.search_all(cleaned_line)
+	var method_matches: Array[RegExMatch] = method_regex.search_all(cleaned_line)
 	for match_item in method_matches:
-		var object_name = match_item.get_string(1)
-		var private_var = "__" + match_item.get_string(2)
-		var method_name = match_item.get_string(3)
+		var object_name: String = match_item.get_string(1)
+		var private_var: String = "__" + match_item.get_string(2)
+		var method_name: String = match_item.get_string(3)
 		
 		# Allow self references and super references
 		if object_name in ["self", "super"]:
@@ -320,13 +320,13 @@ func _check_private_access(line: String, line_num: int, script_path: String, thi
 			"' of object '" + object_name + "'. Private variables cannot be accessed from other classes.")
 
 func _remove_strings_and_comments(line: String) -> String:
-	var result = ""
-	var in_string = false
-	var string_char = ""
-	var i = 0
+	var result: String = ""
+	var in_string: bool = false
+	var string_char: String = ""
+	var i: int = 0
 	
 	while i < line.length():
-		var c = line[i]
+		var c: String = line[i]
 		
 		# Handle string literals
 		if c == '"' or c == "'":
@@ -348,7 +348,7 @@ func _remove_strings_and_comments(line: String) -> String:
 	return result
 
 func _check_type_declarations(line: String, line_num: int, script_path: String) -> void:
-	var cleaned_line = _remove_strings_and_comments(line).strip_edges()
+	var cleaned_line: String = _remove_strings_and_comments(line).strip_edges()
 	
 	# Skip empty lines and comments
 	if cleaned_line.is_empty():
@@ -377,13 +377,13 @@ func _check_variable_type(line: String, line_num: int, script_path: String) -> v
 	if line.contains("@onready"):
 		return
 		
-	var var_regex = RegEx.new()
+	var var_regex: RegEx = RegEx.new()
 	# Look for var/const without type annotation
 	var_regex.compile(r'^(var|const)\s+(\w+)\s*=')
 	
-	var match_result = var_regex.search(line)
+	var match_result: RegExMatch = var_regex.search(line)
 	if match_result:
-		var var_name = match_result.get_string(2)
+		var var_name: String = match_result.get_string(2)
 		# Check if there's a type annotation
 		if not line.contains(var_name + ":"):
 			errors_found.append(script_path + ":" + str(line_num) + 
@@ -392,18 +392,18 @@ func _check_variable_type(line: String, line_num: int, script_path: String) -> v
 	
 	# Also check for just declaration without initialization but missing type
 	var_regex.compile(r'^(var|const)\s+(\w+)\s*$')
-	var match_result2 = var_regex.search(line)
+	var match_result2: RegExMatch = var_regex.search(line)
 	if match_result2:
-		var var_name = match_result2.get_string(2)
+		var var_name: String = match_result2.get_string(2)
 		errors_found.append(script_path + ":" + str(line_num) + 
 			" - Variable '" + var_name + "' declared without type. Should be: var " + 
 			var_name + ": Type")
 
 func _check_function_types(line: String, line_num: int, script_path: String) -> void:
-	var func_name = _extract_function_name(line)
+	var func_name: String = _extract_function_name(line)
 	
 	# Skip special Godot functions
-	var godot_functions = [
+	var godot_functions: Array[String] = [
 		"_ready", "_init", "_process", "_physics_process", 
 		"_input", "_unhandled_input", "_enter_tree", "_exit_tree",
 		"_draw", "_gui_input", "_notification", "_to_string"
@@ -418,15 +418,15 @@ func _check_function_types(line: String, line_num: int, script_path: String) -> 
 			" - Function '" + func_name + "' is missing return type annotation. Add '-> Type' or '-> void'")
 	
 	# Extract and check parameters
-	var param_start = line.find("(")
-	var param_end = line.find(")")
+	var param_start: int = line.find("(")
+	var param_end: int = line.find(")")
 	if param_start != -1 and param_end != -1:
-		var params_str = line.substr(param_start + 1, param_end - param_start - 1)
+		var params_str: String = line.substr(param_start + 1, param_end - param_start - 1)
 		if not params_str.is_empty():
 			_check_parameter_types(params_str, func_name, line_num, script_path)
 
 func _check_parameter_types(params_str: String, func_name: String, line_num: int, script_path: String) -> void:
-	var params = params_str.split(",")
+	var params: PackedStringArray = params_str.split(",")
 	
 	for param in params:
 		param = param.strip_edges()
@@ -439,7 +439,7 @@ func _check_parameter_types(params_str: String, func_name: String, line_num: int
 			
 		# Check if parameter has type annotation
 		if not ":" in param:
-			var param_name = param.split("=")[0].strip_edges()  # Handle default values
+			var param_name: String = param.split("=")[0].strip_edges()  # Handle default values
 			if not param_name.is_empty():
 				errors_found.append(script_path + ":" + str(line_num) + 
 					" - Parameter '" + param_name + "' in function '" + func_name + 
@@ -447,7 +447,7 @@ func _check_parameter_types(params_str: String, func_name: String, line_num: int
 
 func _check_custom_type_usage(line: String, line_num: int, script_path: String) -> void:
 	# List of known valid types (builtin + common custom types)
-	var valid_types = [
+	var valid_types: Array[String] = [
 		# Builtin types
 		"int", "float", "bool", "String", "Vector2", "Vector3", "Vector2i", "Vector3i",
 		"Color", "Rect2", "Transform2D", "Transform3D", "Basis", "Quaternion",
@@ -471,12 +471,12 @@ func _check_custom_type_usage(line: String, line_num: int, script_path: String) 
 	]
 	
 	# Check for type declarations using undeclared types
-	var type_regex = RegEx.new()
+	var type_regex: RegEx = RegEx.new()
 	type_regex.compile(r':\s*([A-Z]\w+)')
 	
-	var matches = type_regex.search_all(line)
+	var matches: Array[RegExMatch] = type_regex.search_all(line)
 	for match_item in matches:
-		var type_name = match_item.get_string(1)
+		var type_name: String = match_item.get_string(1)
 		
 		# Skip if it's a known type
 		if type_name in valid_types:
@@ -496,8 +496,8 @@ func _check_custom_type_usage(line: String, line_num: int, script_path: String) 
 			" - Using type '" + type_name + "' - ensure this class is defined with class_name")
 
 func _extract_function_name(line: String) -> String:
-	var start = line.find("func ") + 5
-	var end = line.find("(", start)
+	var start: int = line.find("func ") + 5
+	var end: int = line.find("(", start)
 	if start > 4 and end > start:
 		return line.substr(start, end - start).strip_edges()
 	return ""
@@ -506,7 +506,7 @@ func _extract_function_name(line: String) -> String:
 func _is_file_exempt(file_path: String, exemption_type: String) -> bool:
 	# Check if file is in the specific exemption list
 	if exemption_type in exemptions:
-		var exempt_list = exemptions[exemption_type]
+		var exempt_list: Array = exemptions[exemption_type]
 		if file_path in exempt_list:
 			return true
 	
@@ -519,7 +519,7 @@ func _is_file_exempt(file_path: String, exemption_type: String) -> bool:
 
 func _is_line_exempt(line: String) -> bool:
 	# Check if the line contains any exemption markers
-	var upper_line = line.to_upper()
+	var upper_line: String = line.to_upper()
 	for marker in exemptions["line_exemption_markers"]:
 		if marker.to_upper() in upper_line:
 			return true
