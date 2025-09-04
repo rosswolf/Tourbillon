@@ -6,7 +6,8 @@ enum TriggerType {
 	BLUE
 }
 
-static func get_enum_name(enum_dict: Dictionary, enum_value: int) -> String -> String:
+#TYPE_EXEMPTION(Enum dictionaries are built-in Godot structures)
+static func get_enum_name(enum_dict: Dictionary, enum_value: int) -> String:
 	var keys = enum_dict.keys()
 	var values = enum_dict.values()
 	var index = values.find(enum_value)
@@ -70,7 +71,8 @@ func generate_random_numbers(count: int, target_sum: int) -> Array[int]:
 		printerr("Invalid parameters: target_sum must be between %d and %d for count %d" % [count, count * 3, count])
 		return numbers
 	
-	var valid_combinations: Array[Array] = []
+	#TYPE_EXEMPTION(Nested typed arrays not supported in Godot)
+	var valid_combinations: Array = []
 	
 	# Find all valid combinations
 	# z can be at most min(count, excess_sum/2) since we need y + 2z = excess_sum and y >= 0
@@ -89,7 +91,7 @@ func generate_random_numbers(count: int, target_sum: int) -> Array[int]:
 		return numbers
 	
 	# Pick a random valid combination
-	var combo: Array = valid_combinations[randi() % valid_combinations.size()]
+	var combo: Array[int] = valid_combinations[randi() % valid_combinations.size()]
 	var ones: int = combo[0]
 	var twos: int = combo[1] 
 	var threes: int = combo[2]

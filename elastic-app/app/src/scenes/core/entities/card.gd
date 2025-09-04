@@ -142,6 +142,7 @@ class CardBuilder extends Entity.EntityBuilder:
 		__instinct_effect = move_descriptor
 		return self
 		
+	#TYPE_EXEMPTION(Resource costs from JSON data)
 	func with_card_cost(required_resources: Dictionary) -> CardBuilder:
 		for key in required_resources.keys():
 			var num_required: int = required_resources[key] as int
@@ -218,6 +219,7 @@ static func load_cards(group_template_id: String, card_template_ids: Array[Strin
 			results.append_array(cards)
 	return results
 		
+#TYPE_EXEMPTION(Card template data from JSON)
 static func build_new_card_from_template(card_template_id: String, card_template_data: Dictionary) -> Card:
 	if card_template_id != card_template_data.get("card_template_id"):
 		assert(false, "card template id doesn't match as expected: " + card_template_id +  " " + str(card_template_data.get("card_template_id")))
@@ -252,6 +254,7 @@ static func build_new_card_from_template(card_template_id: String, card_template
 	
 	# Handle rules_text - might be a dictionary from JSON parsing
 	var rules_text_data = card_template_data.get("rules_text", "")
+	#TYPE_EXEMPTION(JSON can contain dictionary for rules text)
 	if rules_text_data is Dictionary:
 		# Convert dictionary back to string format
 		var text_parts: Array[String] = []

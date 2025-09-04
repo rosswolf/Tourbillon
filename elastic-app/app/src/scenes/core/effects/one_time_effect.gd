@@ -4,10 +4,11 @@ class_name OneTimeEffect
 
 # the raw function, unbound and unmodified. 
 var __base_f: Callable
+#TYPE_EXEMPTION(Effect parameters are dynamic)
 var parameters: Dictionary 
 
-var __valid_source_types: Array
-var __valid_target_types: Array
+var __valid_source_types: Array[Script]
+var __valid_target_types: Array[Script]
 
 var __effect_template_id: String
 var effect_template_id: String:
@@ -19,6 +20,7 @@ var cost: Cost:
 	get:
 		return __cost
 		
+#TYPE_EXEMPTION(Effect parameters are dynamic)
 func _init(template_id: String,  params: Dictionary, cost: Cost = null) -> void:
 	var internal_effect: Effect.InternalEffect = Effect.effect_map.get(template_id)
 	if not internal_effect:

@@ -51,7 +51,7 @@ func __build_enum_mappings() -> void:
 	__enum_mappings["GameResource.Type.ENTROPY"] = GameResource.Type.ENTROPY
 	__enum_mappings["GameResource.Type.INSPIRATION"] = GameResource.Type.INSPIRATION
 
-func __add_enum_mapping(prefix: String, enum_dict: Dictionary) -> void:
+func __add_enum_mapping(prefix: String, enum_dict: Dictionary[String, int]) -> void:
 	for key in enum_dict:
 		var full_reference = prefix + "." + key
 		__enum_mappings[full_reference] = enum_dict[key]
@@ -86,8 +86,10 @@ func _ready() -> void:
 	hero_data_indices = build_field_indices(hero_data)
 	wave_data_indices = build_field_indices(wave_data)
 
+#TYPE_EXEMPTION(JSON data structure varies by file)
 func build_field_indices(data_dict: Dictionary) -> Dictionary:
 	"""Build reverse indices for all fields to enable O(1) lookups"""
+	#TYPE_EXEMPTION(Dynamic index structure for JSON data)
 	var indices: Dictionary = {}
 	
 	for primary_key in data_dict:
@@ -131,15 +133,18 @@ func add_index_key_variants(index_keys: Array, value):
 		if value == floor(value):
 			index_keys.append(int(value))
 
+#TYPE_EXEMPTION(JSON parsing returns dynamic structures)
 func load_json_file(path: String) -> Dictionary:
 	if FileAccess.file_exists(path):
 		var datafile = FileAccess.open(path, FileAccess.READ)
 		var parsed_result = JSON.parse_string(datafile.get_as_text())
 		datafile.close()
 		
+		#TYPE_EXEMPTION(JSON can be array or dict)
 		if parsed_result is Array:
 			# Process array of records, resolve enums, and convert to nested dict
 			return resolve_json_data(parsed_result)
+		#TYPE_EXEMPTION(JSON can be array or dict)
 		elif parsed_result is Dictionary:
 			# Process single dictionary and resolve enum references
 			return resolve_json_record(parsed_result)
@@ -150,6 +155,7 @@ func load_json_file(path: String) -> Dictionary:
 		printerr("no file at path: ", path)
 		return {}
 
+#TYPE_EXEMPTION(Checks against various JSON data dictionaries)
 func get_data_type_name(data_dict: Dictionary) -> String:
 	"""Helper to identify which data dictionary is being used"""
 	if data_dict == card_data:
@@ -193,6 +199,7 @@ func get_data_and_indices_for_type(data_type: String) -> Array:
 			printerr("Unknown data type: ", data_type)
 			return [{}, {}]
 
+#TYPE_EXEMPTION(Works with dynamic JSON structures)
 func lookup_in_data(data_dict: Dictionary, field_to_filter: String, filter_value: Variant, field_to_return: String) -> Array:
 	"""Optimized lookup using indices when available"""
 	
@@ -202,7 +209,7 @@ func lookup_in_data(data_dict: Dictionary, field_to_filter: String, filter_value
 	if __lookup_cache.has(cache_key):
 		return __lookup_cache[cache_key]
 	
-	var results: Array = []
+	var results: Array[Variant] = []
 	var indices = null
 	
 	# Try to find appropriate indices for this data_dict
@@ -270,9 +277,10 @@ func resolve_filter_value(filter_value):
 		return parse_enum(filter_value)
 	return filter_value
 
+#TYPE_EXEMPTION(Works with dynamic JSON structures)
 func lookup_in_data_linear(data_dict: Dictionary, field_to_filter: String, filter_value: Variant, field_to_return: String) -> Array:
 	"""Original linear search method as fallback"""
-	var results: Array = []
+	var results: Array[Variant] = []
 	
 	# Try to resolve enum if it's a string that looks like an enum reference
 	var resolved_filter_value = resolve_filter_value(filter_value)
@@ -323,13 +331,16 @@ func __is_enum_reference(value: String) -> bool:
 	__resolved_enum_cache[cache_key] = result
 	return result
 
+#TYPE_EXEMPTION(Processes dynamic JSON array data)
 func resolve_json_data(data: Array) -> Dictionary:
 	"""Process an array of records, resolving enum references in each, then convert to nested dict"""
-	var resolved_data: Array[Dictionary] = []
+	#TYPE_EXEMPTION(Array of JSON records)
+	var resolved_data: Array = []
 	for record in data:
 		resolved_data.append(resolve_json_record(record))
 	return convert_array_to_nested_dict(resolved_data)
 
+#TYPE_EXEMPTION(Processes dynamic JSON record)
 func resolve_json_record(record: Dictionary) -> Dictionary:
 	"""Process a single record, resolving enum references in all values"""
 	var resolved_record: Dictionary = {}
@@ -348,11 +359,13 @@ func resolve_value(value):
 	elif value is float:
 		# Convert floats that are actually integers back to int
 		return normalize_numeric_value(value)
+	#TYPE_EXEMPTION(JSON arrays are dynamic)
 	elif value is Array:
 		var resolved_array: Array[Variant] = []
 		for item in value:
 			resolved_array.append(resolve_value(item))
 		return resolved_array
+	#TYPE_EXEMPTION(JSON objects are dynamic)
 	elif value is Dictionary:
 		var resolved_dict: Dictionary[Variant, Variant] = {}
 		for key in value:
@@ -402,9 +415,11 @@ func resolve_configuration_reference(config_ref: String):
 		printerr("Configuration key '", config_key, "' not found in configuration_data")
 		return config_ref
 
+#TYPE_EXEMPTION(Converts dynamic JSON array to dictionary)
 func convert_array_to_nested_dict(data_array: Array) -> Dictionary:
 	"""Convert array of records to nested dictionary using first field as key"""
-	var result_dict: Dictionary[Variant, Dictionary] = {}
+	#TYPE_EXEMPTION(Dictionary values are dynamic JSON objects)
+	var result_dict: Dictionary = {}
 	
 	for record in data_array:
 		if record.size() > 0:
@@ -429,30 +444,37 @@ static func get_float(config_name: String) -> float:
 	return float(configuration_data[config_name].get("configuration_value"))
 
 # New convenience methods for direct key-based lookups
+#TYPE_EXEMPTION(Returns JSON card data)
 func get_card_by_id(card_id: String) -> Dictionary:
 	"""Direct O(1) lookup for card by ID"""
 	return card_data.get(card_id, {})
 
+#TYPE_EXEMPTION(Returns JSON mob data)
 func get_mob_by_id(mob_id: String) -> Dictionary:
 	"""Direct O(1) lookup for mob by ID"""
 	return mob_data.get(mob_id, {})
 
+#TYPE_EXEMPTION(Returns JSON goals data)
 func get_goals_by_id(wave_id: String) -> Dictionary:
 	"""Direct O(1) lookup for wave by ID"""
 	return goals_data.get(wave_id, {})
 
+#TYPE_EXEMPTION(Returns JSON relic data)
 func get_relic_by_id(relic_id: String) -> Dictionary:
 	"""Direct O(1) lookup for relic by ID"""
 	return relic_data.get(relic_id, {})
 
+#TYPE_EXEMPTION(Returns JSON hero data)
 func get_hero_by_id(hero_id: String) -> Dictionary:
 	"""Direct O(1) lookup for hero by ID"""
 	return hero_data.get(hero_id, {})
 
+#TYPE_EXEMPTION(Returns JSON wave data)
 func get_wave_by_id(wave_id: String) -> Dictionary:
 	"""Direct O(1) lookup for wave by ID"""
 	return wave_data.get(wave_id, {})
 
+#TYPE_EXEMPTION(Returns random JSON wave data)
 func get_random_wave_for_act(act: int) -> Dictionary:
 	"""Get a random non-boss wave for the specified act"""
 	print("[StaticData] Looking for waves for act %d in %d total waves" % [act, wave_data.size()])
@@ -473,9 +495,11 @@ func get_random_wave_for_act(act: int) -> Dictionary:
 	print("[StaticData] No waves found for act %d!" % act)
 	return {}
 
+#TYPE_EXEMPTION(Returns array of dynamic JSON wave objects)
 func get_all_waves_for_act(act: int) -> Array:
 	"""Get all waves for the specified act"""
-	var act_waves: Array[Dictionary] = []
+	#TYPE_EXEMPTION(Array of dynamic JSON wave objects)
+	var act_waves: Array = []
 	for wave_id in wave_data:
 		var wave = wave_data[wave_id]
 		if wave.get("act", 0) == act:
@@ -491,6 +515,7 @@ func clear_enum_cache():
 	"""Clear the enum resolution cache if needed"""
 	__resolved_enum_cache.clear()
 
+#TYPE_EXEMPTION(Returns dynamic cache statistics)
 func get_cache_stats() -> Dictionary:
 	"""Get statistics about cache usage for debugging"""
 	return {

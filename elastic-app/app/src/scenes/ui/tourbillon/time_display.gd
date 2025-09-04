@@ -22,7 +22,7 @@ func _ready() -> void:
 func _on_time_updated(tick_display: String) -> void:
 	print("TimeDisplay received update: ", tick_display)
 	# Parse the tick.beat format from GlobalGameManager
-	var parts: Array[String] = Array(tick_display.split("."), TYPE_STRING, "", null)
+	var parts: Array[String] = tick_display.split(".")
 	if parts.size() == 2:
 		var new_tick: int = int(parts[0])
 		var beat_in_tick: int = int(parts[1])

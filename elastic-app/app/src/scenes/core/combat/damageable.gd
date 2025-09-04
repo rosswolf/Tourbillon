@@ -5,21 +5,21 @@ class_name Damageable
 ## All damageable entities must extend this class
 
 # Properties that affect damage calculation
-@export var max_hp: int = 10
-@export var current_hp: int = 10
-@export var armor: int = 0  # Flat damage reduction
-@export var shields: int = 0  # Absorbs damage before HP
-@export var barrier_count: int = 0  # Absorbs complete hits
+var max_hp: int = 10
+var current_hp: int = 10
+var armor: int = 0  # Flat damage reduction
+var shields: int = 0  # Absorbs damage before HP
+var barrier_count: int = 0  # Absorbs complete hits
 
 # Advanced defenses
-@export var damage_cap: int = 0  # Max damage per hit (0 = no cap)
-@export var damage_resistance: float = 0.0  # Percentage reduction (0.0-1.0)
-@export var reflect_percent: float = 0.0  # Percentage reflected (0.0-1.0)
-@export var execute_immunity_threshold: int = 0  # Can't be executed above this HP
+var damage_cap: int = 0  # Max damage per hit (0 = no cap)
+var damage_resistance: float = 0.0  # Percentage reduction (0.0-1.0)
+var reflect_percent: float = 0.0  # Percentage reflected (0.0-1.0)
+var execute_immunity_threshold: int = 0  # Can't be executed above this HP
 
 # Status flags
-@export var invulnerable: bool = false
-@export var burn_duration: int = 0  # Prevents healing
+var invulnerable: bool = false
+var burn_duration: int = 0  # Prevents healing
 
 # Signals
 signal damage_received(packet: DamagePacket, actual_damage: int)

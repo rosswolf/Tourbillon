@@ -437,7 +437,7 @@ func __spawn_test_gremlin() -> void:
 		# Don't set it manually here anymore
 		
 		# Register and signal
-		instance_catalog.register_instance(gremlin)
+		instance_catalog.set_instance(gremlin)
 		add_child(gremlin)  # Add to scene tree
 		GlobalSignals.signal_core_mob_created(gremlin.instance_id)
 		

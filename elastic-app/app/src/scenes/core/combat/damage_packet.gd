@@ -5,19 +5,19 @@ class_name DamagePacket
 ## The damage amount is already pre-calculated with force multipliers from card data
 
 # Core properties
-@export var amount: int = 0  # Already includes force multipliers
-@export var damage_type: DamageType = DamageType.NORMAL
-@export var source: Node = null  # Who/what caused this damage
+var amount: int = 0  # Already includes force multipliers
+var damage_type: DamageType = DamageType.NORMAL
+var source: Node = null  # Who/what caused this damage
 
 # Damage keywords (from PRD)
-@export var pierce: bool = false  # Ignores armor
-@export var pop: bool = false  # Double damage vs shields
-@export var overkill: bool = false  # Excess carries to next target
-@export var true_damage: bool = false  # Cannot be modified by defenses
-@export var poison: bool = false  # Is this poison damage?
+var pierce: bool = false  # Ignores armor
+var pop: bool = false  # Double damage vs shields
+var overkill: bool = false  # Excess carries to next target
+var true_damage: bool = false  # Cannot be modified by defenses
+var poison: bool = false  # Is this poison damage?
 
 # Metadata
-@export var timestamp_beats: int = 0  # When this damage was created
+var timestamp_beats: int = 0  # When this damage was created
 
 enum DamageType {
 	NORMAL,      # Standard damage

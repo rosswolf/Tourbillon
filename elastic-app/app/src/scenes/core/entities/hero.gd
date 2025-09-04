@@ -105,6 +105,7 @@ func has_force(force_type: GameResource.Type, amount: int) -> bool:
 	return false
 
 ## Check if hero has enough forces for a dictionary of requirements
+#TYPE_EXEMPTION(Force requirements from card data)
 func has_forces(requirements: Dictionary) -> bool:
 	for force_type in requirements:
 		var required_amount = requirements[force_type]
@@ -121,6 +122,7 @@ func consume_force(force_type: GameResource.Type, amount: int) -> bool:
 	return false
 
 ## Consume multiple forces based on requirements dictionary
+#TYPE_EXEMPTION(Force requirements from card data)
 func consume_forces(requirements: Dictionary) -> bool:
 	# First check if we have all requirements
 	if not has_forces(requirements):
@@ -140,6 +142,7 @@ func add_force(force_type: GameResource.Type, amount: int) -> void:
 		resource.add(amount)
 
 ## Add multiple forces from production dictionary
+#TYPE_EXEMPTION(Force production from card data)
 func add_forces(production: Dictionary) -> void:
 	for force_type in production:
 		var amount = production[force_type]

@@ -5,21 +5,20 @@ class_name HeroDamageable
 ## This extends Hero to add Damageable functionality without breaking existing code
 
 # Damageable properties
-@export var max_hp: int = 100
-@export var current_hp: int = 100
-@export var armor: int = 0
-@export var shields: int = 0
-@export var barrier_count: int = 0
+@export var hero_max_hp: int = 100
+var hero_current_hp: int = 100
+var hero_shields: int = 0
+var hero_barrier_count: int = 0
 
 # Advanced defenses
-@export var damage_cap: int = 0
-@export var damage_resistance: float = 0.0
-@export var reflect_percent: float = 0.0
-@export var execute_immunity_threshold: int = 0
+@export var hero_damage_cap: int = 0
+@export var hero_damage_resistance: float = 0.0
+@export var hero_reflect_percent: float = 0.0
+@export var hero_execute_immunity_threshold: int = 0
 
 # Status flags
-@export var invulnerable: bool = false
-@export var burn_duration: int = 0
+@export var hero_invulnerable: bool = false
+var hero_burn_duration: int = 0
 
 # Create internal Damageable to handle damage logic
 var _damage_handler: Damageable
@@ -75,17 +74,17 @@ func heal(amount: int) -> int:
 ## Add shields
 func add_shields(amount: int) -> void:
 	_damage_handler.add_shields(amount)
-	shields = _damage_handler.shields
+	hero_shields = _damage_handler.shields
 
 ## Add barriers
 func add_barriers(count: int) -> void:
 	_damage_handler.add_barriers(count)
-	barrier_count = _damage_handler.barrier_count
+	hero_barrier_count = _damage_handler.barrier_count
 
 ## Apply burn
 func apply_burn(ticks: int) -> void:
 	_damage_handler.apply_burn(ticks)
-	burn_duration = _damage_handler.burn_duration
+	hero_burn_duration = _damage_handler.burn_duration
 
 ## Check if can be executed
 func can_be_executed(threshold: int) -> bool:
@@ -97,24 +96,24 @@ func execute() -> void:
 
 ## Sync properties to damage handler
 func _sync_to_handler() -> void:
-	_damage_handler.max_hp = max_hp
-	_damage_handler.current_hp = current_hp
-	_damage_handler.armor = armor
-	_damage_handler.shields = shields
-	_damage_handler.barrier_count = barrier_count
-	_damage_handler.damage_cap = damage_cap
-	_damage_handler.damage_resistance = damage_resistance
-	_damage_handler.reflect_percent = reflect_percent
-	_damage_handler.execute_immunity_threshold = execute_immunity_threshold
-	_damage_handler.invulnerable = invulnerable
-	_damage_handler.burn_duration = burn_duration
+	_damage_handler.max_hp = hero_max_hp
+	_damage_handler.current_hp = hero_current_hp
+	_damage_handler.armor = armor  # Use inherited armor from BattleEntity
+	_damage_handler.shields = hero_shields
+	_damage_handler.barrier_count = hero_barrier_count
+	_damage_handler.damage_cap = hero_damage_cap
+	_damage_handler.damage_resistance = hero_damage_resistance
+	_damage_handler.reflect_percent = hero_reflect_percent
+	_damage_handler.execute_immunity_threshold = hero_execute_immunity_threshold
+	_damage_handler.invulnerable = hero_invulnerable
+	_damage_handler.burn_duration = hero_burn_duration
 
 ## Sync properties from damage handler
 func _sync_from_handler() -> void:
-	current_hp = _damage_handler.current_hp
-	shields = _damage_handler.shields
-	barrier_count = _damage_handler.barrier_count
-	burn_duration = _damage_handler.burn_duration
+	hero_current_hp = _damage_handler.current_hp
+	hero_shields = _damage_handler.shields
+	hero_barrier_count = _damage_handler.barrier_count
+	hero_burn_duration = _damage_handler.burn_duration
 
 ## Signal handlers
 func _on_damage_received(packet: DamagePacket, actual_damage: int) -> void:
@@ -122,12 +121,12 @@ func _on_damage_received(packet: DamagePacket, actual_damage: int) -> void:
 	pass
 
 func _on_hp_changed(new_hp: int, max: int) -> void:
-	current_hp = new_hp
+	hero_current_hp = new_hp
 	# Could update UI here
 	GlobalSignals.signal_core_hero_hp_changed(new_hp, max)
 
 func _on_shields_changed(new_shields: int) -> void:
-	shields = new_shields
+	hero_shields = new_shields
 
 func _on_barrier_broken() -> void:
 	# Could play sound/animation

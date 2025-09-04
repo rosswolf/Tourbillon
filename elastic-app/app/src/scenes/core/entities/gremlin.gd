@@ -1,16 +1,31 @@
-extends Damageable
+extends BeatListenerEntity
 class_name Gremlin
 
 ## Base class for gremlins - enemies that disrupt the clockwork mechanism
 ## Gremlins impose various constraints and must be defeated to win
-## Now extends Damageable for unified damage handling
+## Uses composition pattern with Damageable for unified damage handling
 
 @export var gremlin_name: String = "Gremlin"
+@export var max_hp: int = 10
 @export var slot_index: int = 0  # Position in gremlin column (0-4)
 @export var moves_string: String = ""  # Downsides/moves from data
 
-# Properties moved to Damageable base class:
-# - max_hp, current_hp, shields, burn_duration, armor, barriers, etc.
+# Damageable properties
+var current_hp: int
+var shields: int = 0
+var armor: int = 0
+var barrier_count: int = 0
+var burn_duration: int = 0
+
+# Advanced defenses
+@export var damage_cap: int = 0
+@export var damage_resistance: float = 0.0
+@export var reflect_percent: float = 0.0
+@export var execute_immunity_threshold: int = 0
+@export var invulnerable: bool = false
+
+# Internal damage handler using composition
+var _damage_handler: Damageable
 
 # Beat consumers for various effects
 var beat_consumers: Array[BeatConsumer] = []
@@ -19,15 +34,26 @@ var beat_consumers: Array[BeatConsumer] = []
 var disruption_interval_beats: int = 50  # Every 5 ticks by default
 var beats_until_disruption: int = 0
 
-# Signals hp_changed, defeated are now in Damageable base class
+signal hp_changed(new_hp: int, max_hp: int)
+signal defeated()
 signal disruption_triggered(gremlin: Gremlin)
 
 func _init() -> void:
-	# Initialize HP from Damageable
 	current_hp = max_hp
 	beats_until_disruption = disruption_interval_beats
 	
+	# Create internal damage handler
+	_damage_handler = Damageable.new()
+	_damage_handler.damage_received.connect(_on_damage_received)
+	_damage_handler.hp_changed.connect(_on_hp_changed)
+	_damage_handler.defeated.connect(_on_defeated_internal)
+	
 func _ready() -> void:
+	# Add damage handler as child
+	if _damage_handler:
+		add_child(_damage_handler)
+		_sync_to_handler()
+	
 	# Process moves/downsides when gremlin spawns
 	if not moves_string.is_empty():
 		GremlinDownsideProcessor.process_gremlin_moves(moves_string, self)
@@ -61,8 +87,17 @@ func process_beat(context: BeatContext) -> void:
 		if beat_number % 10 == 0:  # Each tick
 			burn_duration -= 1
 
+## Main damage interface using unified system
+func receive_damage(packet: DamagePacket) -> int:
+	if not _damage_handler:
+		return 0
+	
+	_sync_to_handler()
+	var damage = _damage_handler.receive_damage(packet)
+	_sync_from_handler()
+	return damage
+
 ## Legacy damage interface - converts to damage packet
-## @deprecated Use receive_damage(packet) instead
 func take_damage(amount: int, pierce: bool = false, pop: bool = false) -> void:
 	var keywords: Array[String] = []
 	if pierce: keywords.append("pierce")
@@ -70,12 +105,6 @@ func take_damage(amount: int, pierce: bool = false, pop: bool = false) -> void:
 	
 	var packet = DamageFactory.create(amount, keywords, null)
 	receive_damage(packet)
-
-## Override to handle gremlin-specific damage modifiers
-func _apply_pre_damage_modifiers(packet: DamagePacket) -> DamagePacket:
-	# Gremlin-specific damage modifications can go here
-	# e.g., resistance to certain damage types
-	return packet
 
 ## Apply poison
 func apply_poison(stacks: int) -> void:
@@ -94,7 +123,11 @@ func apply_poison(stacks: int) -> void:
 		poison_consumer.owner = self
 		beat_consumers.append(poison_consumer)
 
-# apply_burn is now inherited from Damageable
+## Apply burn (prevents healing)
+func apply_burn(ticks: int) -> void:
+	if _damage_handler:
+		_damage_handler.apply_burn(ticks)
+		burn_duration = _damage_handler.burn_duration
 
 ## Get current poison stacks
 func get_poison_stacks() -> int:
@@ -103,7 +136,34 @@ func get_poison_stacks() -> int:
 			return (consumer as PoisonConsumer).get_poison_value()
 	return 0
 
-# heal, add_shields, can_be_executed, and execute are now inherited from Damageable
+## Heal the gremlin
+func heal(amount: int) -> int:
+	if not _damage_handler:
+		return 0
+	_sync_to_handler()
+	var healed = _damage_handler.heal(amount)
+	_sync_from_handler()
+	return healed
+
+## Add shields
+func add_shields(amount: int) -> void:
+	if _damage_handler:
+		_damage_handler.add_shields(amount)
+		shields = _damage_handler.shields
+
+## Check if can be executed
+func can_be_executed(threshold: int) -> bool:
+	if _damage_handler:
+		return _damage_handler.can_be_executed(threshold)
+	return current_hp <= threshold
+
+## Execute the gremlin (instant kill if below threshold)
+func execute() -> void:
+	if _damage_handler:
+		_damage_handler.execute()
+	else:
+		current_hp = 0
+		_on_defeated()
 
 ## Trigger this gremlin's disruption
 func _trigger_disruption() -> void:
@@ -121,9 +181,46 @@ func get_disruption_text() -> String:
 		return "No special effects"
 	return GremlinDownsideProcessor.get_downside_description(moves_string)
 
-## Override defeated handler to remove disruptions
+## Sync properties to damage handler
+func _sync_to_handler() -> void:
+	if not _damage_handler:
+		return
+	_damage_handler.max_hp = max_hp
+	_damage_handler.current_hp = current_hp
+	_damage_handler.armor = armor
+	_damage_handler.shields = shields
+	_damage_handler.barrier_count = barrier_count
+	_damage_handler.damage_cap = damage_cap
+	_damage_handler.damage_resistance = damage_resistance
+	_damage_handler.reflect_percent = reflect_percent
+	_damage_handler.execute_immunity_threshold = execute_immunity_threshold
+	_damage_handler.invulnerable = invulnerable
+	_damage_handler.burn_duration = burn_duration
+
+## Sync properties from damage handler
+func _sync_from_handler() -> void:
+	if not _damage_handler:
+		return
+	current_hp = _damage_handler.current_hp
+	shields = _damage_handler.shields
+	barrier_count = _damage_handler.barrier_count
+	burn_duration = _damage_handler.burn_duration
+
+## Signal handlers from damage handler
+func _on_damage_received(packet: DamagePacket, actual_damage: int) -> void:
+	# Could add gremlin-specific logic here
+	pass
+
+func _on_hp_changed(new_hp: int, max: int) -> void:
+	current_hp = new_hp
+	hp_changed.emit(new_hp, max_hp)
+
+func _on_defeated_internal() -> void:
+	_on_defeated()
+
+## Called when defeated
 func _on_defeated() -> void:
-	super._on_defeated()  # Call parent to emit signal
+	defeated.emit()
 	# Remove disruptions
 	_remove_disruptions()
 
@@ -143,14 +240,16 @@ func remove_beat_consumer(consumer: BeatConsumer) -> void:
 
 ## Reset for new combat
 func reset() -> void:
-	# Reset Damageable properties
 	current_hp = max_hp
 	shields = 0
 	burn_duration = 0
 	barrier_count = 0
-	# Reset gremlin-specific properties
+	armor = 0
 	beats_until_disruption = disruption_interval_beats
 	beat_consumers.clear()
+	
+	if _damage_handler:
+		_sync_to_handler()
 
 ## Override Entity methods
 func _get_type() -> Entity.EntityType:

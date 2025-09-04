@@ -6,10 +6,11 @@ var effect_name: String = ""
 
 class InternalEffect:
 	var __f: Callable
-	var __valid_source_types: Array
-	var __valid_target_types: Array
+	var __valid_source_types: Array[Script]
+	var __valid_target_types: Array[Script]
 	
-	func _init(f: Callable, valid_types: Dictionary[String, Array]) -> void:
+	#TYPE_EXEMPTION(Dictionary values can contain different Array types)
+	func _init(f: Callable, valid_types: Dictionary) -> void:
 		__f = f
 		__valid_source_types = valid_types.get("source", [Entity])
 		__valid_target_types = valid_types.get("target", [Entity])
@@ -24,12 +25,14 @@ enum Intent {
 
 static var effect_map: Dictionary[String, InternalEffect] = {
 	"none":  InternalEffect.new(
+		#TYPE_EXEMPTION(Effect params are dynamic)
 		func(source: Entity, params: Dictionary):
 			return true,
 		{} 
 	),
 	# Legacy time/energy effects removed - use force system instead
 	"draw_card": InternalEffect.new(
+		#TYPE_EXEMPTION(Effect params are dynamic)
 		func(source: Entity, params: Dictionary):
 			var amount = int(params.get("param"))
 			GlobalGameManager.library.draw_card(amount)
@@ -38,6 +41,7 @@ static var effect_map: Dictionary[String, InternalEffect] = {
 	),
 
 	"cooldown":  InternalEffect.new(
+		#TYPE_EXEMPTION(Effect params are dynamic)
 		func(source: Entity, params: Dictionary):
 			var amount: float = float(params.get("param"))
 			var card: Card = params.get("card") as Card
@@ -46,6 +50,7 @@ static var effect_map: Dictionary[String, InternalEffect] = {
 		{"source":[Hero, Card]}
 	),
 	"shop": InternalEffect.new(
+		#TYPE_EXEMPTION(Effect params are dynamic)
 		func(source: Entity, params: Dictionary):
 			var shop_type: String = params.get("param")
 			GlobalSignals.signal_core_card_selection(shop_type, Library.Zone.HAND)
@@ -53,6 +58,7 @@ static var effect_map: Dictionary[String, InternalEffect] = {
 		{"source":[Hero, Card, Goal]}
 	),
 	"add_gold": InternalEffect.new(
+		#TYPE_EXEMPTION(Effect params are dynamic)
 		func(source: Entity, params: Dictionary):
 			var amount: int = int(params.get("param"))
 			GlobalGameManager.hero.gold.increment(amount)
@@ -60,12 +66,14 @@ static var effect_map: Dictionary[String, InternalEffect] = {
 		{"source":[Hero, Card]}
 	),
 	"end_game": InternalEffect.new(
+		#TYPE_EXEMPTION(Effect params are dynamic)
 		func(source: Entity, params: Dictionary):
 			GlobalSignals.signal_core_game_over()
 			return true,
 		{"source":[Hero, Card, Goal]}
 	),
 	"win": InternalEffect.new(
+		#TYPE_EXEMPTION(Effect params are dynamic)
 		func(source: Entity, params: Dictionary):
 			GlobalSignals.signal_core_game_win()
 			return true,
@@ -99,7 +107,7 @@ static var intent_map: Dictionary[String, Intent] = {
 	"aoe3_attack" : Intent.UNKNOWN
 }
 
-static func entity_in_types(source: Entity, valid_types: Array):
+static func entity_in_types(source: Entity, valid_types: Array[Script]):
 	var valid_type_strings: Array[String] = []
 	for type in valid_types:
 		valid_type_strings.append(type._get_type_string())

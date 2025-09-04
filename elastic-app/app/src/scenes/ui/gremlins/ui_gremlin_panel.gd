@@ -71,7 +71,7 @@ func spawn_test_gremlins() -> void:
 			var gremlin = __create_gremlin_from_data(data)
 			if gremlin:
 				gremlin.slot_index = i
-				GlobalGameManager.instance_catalog.register_instance(gremlin)
+				GlobalGameManager.instance_catalog.set_instance(gremlin)
 				GlobalSignals.signal_core_mob_created(gremlin.instance_id)
 
 func __create_gremlin_from_data(data: Dictionary) -> Gremlin:
