@@ -64,8 +64,7 @@ func request_card_placement(card: Card, pos: Vector2i) -> bool:
 		
 		# Process replacement effects on the old card
 		if not old_card.on_replace_effect.is_empty():
-			# Import SimpleEffectProcessor at top of file if needed
-			var SimpleEffectProcessor = preload("res://src/scenes/core/effects/simple_effect_processor.gd")
+			# Use SimpleEffectProcessor directly via class_name
 			SimpleEffectProcessor.process_effects(old_card.on_replace_effect, old_card)
 		
 		# Move old card to graveyard
@@ -104,7 +103,6 @@ func request_card_placement(card: Card, pos: Vector2i) -> bool:
 	
 	# Process on_place_effect if it exists
 	if not card.on_place_effect.is_empty():
-		var SimpleEffectProcessor = preload("res://src/scenes/core/effects/simple_effect_processor.gd")
 		SimpleEffectProcessor.process_effects(card.on_place_effect, null)
 	
 	# Signal successful placement with position (for UI and stats)

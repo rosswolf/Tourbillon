@@ -1,8 +1,7 @@
 extends Node
 class_name ActivationLogic
 
-# Preload SimpleEffectProcessor
-const SimpleEffectProcessor = preload("res://src/scenes/core/effects/simple_effect_processor.gd")
+# SimpleEffectProcessor is available via class_name
 
 static func activate(source: Entity, target: Entity) -> bool:
 	var source_type = get_type(source)

@@ -148,7 +148,6 @@ func __process_effects(effects: String, gremlin: Gremlin) -> void:
 	# Add gremlin context to effects
 	var contextualized = __add_gremlin_context(effects, gremlin)
 	
-	const SimpleEffectProcessor = preload("res://src/scenes/core/effects/simple_effect_processor.gd")
 	SimpleEffectProcessor.process_effects(contextualized, gremlin)
 
 ## Apply passive effects (constraints)

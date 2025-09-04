@@ -1,7 +1,6 @@
 extends Node
 
-# Preload SimpleEffectProcessor
-const SimpleEffectProcessor = preload("res://src/scenes/core/effects/simple_effect_processor.gd")
+# SimpleEffectProcessor is available via class_name
 
 # Game state properties
 var hero_template_id: String = "knight" # Default hero for testing
