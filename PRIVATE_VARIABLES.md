@@ -86,6 +86,50 @@ If you have existing code accessing private variables:
        return false
    ```
 
+## Exemptions
+
+Sometimes you need to bypass these checks for legacy code or special cases. The compile check supports several exemption methods:
+
+### Line-Level Exemptions
+Add a comment on the line before to exempt the next line:
+
+```gdscript
+# EXEMPT: TYPE_CHECK
+var untyped_var = "legacy code"
+
+# EXEMPT: PRIVATE_ACCESS  
+var private = obj.__private_field  # Normally illegal
+
+# EXEMPT: ALL
+func old_function():  # Exempts from all checks
+
+# @compile-check-ignore
+var another_way = "to exempt"
+```
+
+### File-Level Exemptions
+In `godot_compile_check.gd`, add files to exemption lists:
+
+```gdscript
+var exemptions = {
+    "fully_exempt_files": [
+        "res://src/legacy/old_code.gd"  # Skip all checks
+    ],
+    "type_check_exempt": [
+        "res://src/migration/partial.gd"  # Skip type checks only
+    ],
+    "private_var_exempt": [
+        "res://src/special/accessor.gd"  # Allow private access
+    ]
+}
+```
+
+### Pattern-Based Exemptions
+Files matching these patterns are automatically exempted:
+- `test_*.gd` - Test files
+- `mock_*.gd` - Mock objects
+- `*_generated.gd` - Generated code
+
 ## Running the Check
 
 The compile check runs automatically during CI/CD, but you can run it manually:

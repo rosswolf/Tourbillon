@@ -193,8 +193,9 @@ func __set_slot_active(slot: EngineSlot, active: bool) -> void:
 		slot.add_theme_stylebox_override("hover", hover_stylebox)
 		slot.add_theme_stylebox_override("pressed", hover_stylebox)
 	else:
-		# Inactive slots - make them nearly invisible
-		slot.modulate = Color(0.3, 0.3, 0.3, 0.1)
+		# Inactive slots should be completely hidden
+		slot.visible = false
+		slot.modulate = Color(0.3, 0.3, 0.3, 0.0)  # Fully transparent
 		
 		# Remove all style overrides for inactive slots
 		slot.remove_theme_stylebox_override("normal")
@@ -375,10 +376,15 @@ func __on_ui_card_dropped_on_slot(card_id: String, button_id: String) -> void:
 func __on_core_card_slotted(card_id: String, logical_pos: Vector2i) -> void:
 	print("[UIMainplate] Card slotted signal received for card: ", card_id, " at position: ", logical_pos)
 	
+	# Verify the logical position is within our active grid
+	if not grid_mapper.is_valid_logical(logical_pos):
+		push_error("[UIMainplate] Card placed outside active grid at ", logical_pos, "! Grid size: ", grid_mapper.logical_size)
+		return
+	
 	# Convert logical position to physical using grid mapper
 	var physical_pos = grid_mapper.to_physical(logical_pos)
-	if physical_pos == null:
-		push_error("[UIMainplate] Logical position ", logical_pos, " has no physical mapping!")
+	if physical_pos == null or physical_pos.x < 0 or physical_pos.y < 0:
+		push_error("[UIMainplate] Logical position ", logical_pos, " has no valid physical mapping!")
 		return
 	
 	# Get the slot at the physical position
@@ -394,6 +400,14 @@ func __on_core_card_slotted(card_id: String, logical_pos: Vector2i) -> void:
 		return
 	
 	print("[UIMainplate] Updating slot at physical position ", physical_pos, " with card: ", card.display_name)
+	print("[UIMainplate] Slot active state: ", slot.is_active_slot, " modulate: ", slot.modulate, " visible: ", slot.visible)
+	
+	# Ensure the slot is active and visible since it's receiving a card
+	if not slot.is_active_slot:
+		print("[UIMainplate] WARNING: Slot was inactive, activating it for card placement")
+		slot.set_active(true)
+		slot.visible = true
+		slot.modulate = Color.WHITE
 	
 	# Update the slot's card reference
 	if slot.__button_entity:
@@ -402,6 +416,7 @@ func __on_core_card_slotted(card_id: String, logical_pos: Vector2i) -> void:
 		
 		# Signal the slot to update its visuals
 		slot.update_card_display(card)
+		print("[UIMainplate] After update - active: ", slot.is_active_slot, " modulate: ", slot.modulate, " visible: ", slot.visible)
 	else:
 		push_warning("[UIMainplate] Slot has no button entity at position ", physical_pos)
 
