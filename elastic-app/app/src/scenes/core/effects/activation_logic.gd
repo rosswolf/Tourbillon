@@ -44,9 +44,19 @@ static func slot_card_in_button(card: Card, button: EngineButtonEntity) -> bool:
 	if not button.engine_slot:
 		push_error("Button has no engine slot")
 		return false
+	
+	# Get the UI mainplate to convert physical to logical position
+	var ui_mainplate = get_tree().get_nodes_in_group("ui_mainplate").front() as UIMainplate
+	if not ui_mainplate or not ui_mainplate.grid_mapper:
+		push_error("No UI mainplate or grid mapper found")
+		return false
 		
-	var grid_pos = button.engine_slot.grid_position
-	var logical_pos = grid_pos - Vector2i(2, 2)  # Convert to logical coords
+	var physical_pos = button.engine_slot.grid_position
+	var logical_pos = ui_mainplate.grid_mapper.to_logical(physical_pos)
+	
+	if logical_pos == null:
+		push_warning("Physical position %s is not in active grid" % physical_pos)
+		return false
 	
 	# Delegate ALL business logic to mainplate
 	if GlobalGameManager.mainplate:

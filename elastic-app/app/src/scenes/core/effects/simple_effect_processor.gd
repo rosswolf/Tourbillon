@@ -109,6 +109,73 @@ static func _process_single_effect(effect: String, source: Node) -> void:
 		"consume_max":
 			_handle_consume_max(value)
 		
+		# Gremlin constraint effects (caps and limits)
+		"heat_soft_cap", "red_soft_cap":
+			_handle_force_cap(GameResource.Type.HEAT, int(value), false)
+		"precision_soft_cap", "white_soft_cap":
+			_handle_force_cap(GameResource.Type.PRECISION, int(value), false)
+		"momentum_soft_cap", "green_soft_cap":
+			_handle_force_cap(GameResource.Type.MOMENTUM, int(value), false)
+		"balance_soft_cap", "blue_soft_cap":
+			_handle_force_cap(GameResource.Type.BALANCE, int(value), false)
+		"entropy_soft_cap", "purple_soft_cap", "black_soft_cap":
+			_handle_force_cap(GameResource.Type.ENTROPY, int(value), false)
+		
+		"heat_hard_cap", "red_hard_cap":
+			_handle_force_cap(GameResource.Type.HEAT, int(value), true)
+		"precision_hard_cap", "white_hard_cap":
+			_handle_force_cap(GameResource.Type.PRECISION, int(value), true)
+		"momentum_hard_cap", "green_hard_cap":
+			_handle_force_cap(GameResource.Type.MOMENTUM, int(value), true)
+		"balance_hard_cap", "blue_hard_cap":
+			_handle_force_cap(GameResource.Type.BALANCE, int(value), true)
+		"entropy_hard_cap", "purple_hard_cap", "black_hard_cap":
+			_handle_force_cap(GameResource.Type.ENTROPY, int(value), true)
+		
+		"total_forces_cap":
+			_handle_total_forces_cap(int(value))
+		"hand_limit":
+			_handle_hand_limit(int(value))
+		"card_tax":
+			_handle_card_tax(int(value))
+		
+		# Gremlin disruption effects (drains and forced actions)
+		"drain_heat", "drain_red":
+			_handle_drain_force(GameResource.Type.HEAT, value)
+		"drain_precision", "drain_white":
+			_handle_drain_force(GameResource.Type.PRECISION, value)
+		"drain_momentum", "drain_green":
+			_handle_drain_force(GameResource.Type.MOMENTUM, value)
+		"drain_balance", "drain_blue":
+			_handle_drain_force(GameResource.Type.BALANCE, value)
+		"drain_entropy", "drain_purple", "drain_black":
+			_handle_drain_force(GameResource.Type.ENTROPY, value)
+		"drain_random":
+			_handle_drain_random(value)
+		"drain_all":
+			_handle_drain_all(value)
+		"drain_highest":
+			_handle_drain_highest(value)
+		
+		"force_discard":
+			_handle_force_discard(int(value))
+		"destroy_gear":
+			_handle_destroy_gear(int(value))
+		"corrupt_gear":
+			_handle_corrupt_gear(int(value))
+		
+		# Gremlin combat effects
+		"summon":
+			_handle_summon(value)
+		"gremlin_shield":
+			_handle_gremlin_shield(value, source)
+		"gremlin_heal":
+			_handle_gremlin_heal(value, source)
+		"gremlin_armor":
+			_handle_gremlin_armor(value, source)
+		"enhance_gremlins":
+			_handle_enhance_gremlins(value)
+		
 		_:
 			push_warning("Unknown effect type: " + effect_type)
 
@@ -896,3 +963,202 @@ static func can_satisfy_effect(effect_string: String) -> bool:
 						return false
 	
 	return true
+
+# ============================================================================
+# GREMLIN-SPECIFIC EFFECT HANDLERS
+# ============================================================================
+
+# Force cap handlers
+static func _handle_force_cap(force_type: GameResource.Type, cap: int, is_hard: bool) -> void:
+	if not GlobalGameManager.hero:
+		return
+	
+	var resource = GlobalGameManager.hero.get_force_resource(force_type)
+	if not resource:
+		return
+	
+	if is_hard:
+		# Hard cap - immediately reduce if over and set max
+		if resource.current > cap:
+			resource.current = cap
+		resource.max_amount = cap
+		print("[Constraint] Hard cap ", GameResource.Type.keys()[force_type], " at ", cap)
+	else:
+		# Soft cap - set metadata for UI indication
+		resource.set_meta("soft_cap", cap)
+		print("[Constraint] Soft cap ", GameResource.Type.keys()[force_type], " at ", cap)
+
+static func _handle_total_forces_cap(cap: int) -> void:
+	if not GlobalGameManager.hero:
+		return
+	
+	# Apply cap to sum of all forces
+	var total: int = 0
+	for force_type in [GameResource.Type.HEAT, GameResource.Type.PRECISION,
+						GameResource.Type.MOMENTUM, GameResource.Type.BALANCE,
+						GameResource.Type.ENTROPY]:
+		var resource = GlobalGameManager.hero.get_force_resource(force_type)
+		if resource:
+			total += resource.current
+	
+	# If over cap, reduce proportionally
+	if total > cap:
+		var scale: float = float(cap) / float(total)
+		for force_type in [GameResource.Type.HEAT, GameResource.Type.PRECISION,
+							GameResource.Type.MOMENTUM, GameResource.Type.BALANCE,
+							GameResource.Type.ENTROPY]:
+			var resource = GlobalGameManager.hero.get_force_resource(force_type)
+			if resource:
+				resource.current = int(resource.current * scale)
+	
+	print("[Constraint] Total forces capped at ", cap)
+
+static func _handle_hand_limit(limit: int) -> void:
+	if GlobalGameManager.library:
+		GlobalGameManager.library.set_meta("hand_limit", limit)
+		print("[Constraint] Hand limit set to ", limit)
+		
+		# Force discard if over limit
+		var current_hand: int = GlobalGameManager.library.get_hand_size()
+		if current_hand > limit:
+			_handle_force_discard(current_hand - limit)
+
+static func _handle_card_tax(tax: int) -> void:
+	# Store as metadata for card cost calculation
+	if not GlobalGameManager.has_meta("card_tax"):
+		GlobalGameManager.set_meta("card_tax", 0)
+	
+	var current_tax: int = GlobalGameManager.get_meta("card_tax")
+	GlobalGameManager.set_meta("card_tax", current_tax + tax)
+	print("[Constraint] Card tax increased by ", tax)
+
+# Drain handlers
+static func _handle_drain_force(force_type: GameResource.Type, amount: float) -> void:
+	if not GlobalGameManager.hero:
+		return
+	
+	var resource = GlobalGameManager.hero.get_force_resource(force_type)
+	if resource and resource.current > 0:
+		var drained: float = min(amount, resource.current)
+		resource.subtract(drained)
+		print("[Disruption] Drained ", drained, " ", GameResource.Type.keys()[force_type])
+
+static func _handle_drain_random(amount: float) -> void:
+	if not GlobalGameManager.hero:
+		return
+	
+	# Find forces with resources
+	var available_forces: Array[GameResource.Type] = []
+	for force_type in [GameResource.Type.HEAT, GameResource.Type.PRECISION,
+						GameResource.Type.MOMENTUM, GameResource.Type.BALANCE,
+						GameResource.Type.ENTROPY]:
+		var resource = GlobalGameManager.hero.get_force_resource(force_type)
+		if resource and resource.current > 0:
+			available_forces.append(force_type)
+	
+	if not available_forces.is_empty():
+		var chosen = available_forces.pick_random()
+		_handle_drain_force(chosen, amount)
+
+static func _handle_drain_all(amount: float) -> void:
+	if not GlobalGameManager.hero:
+		return
+	
+	for force_type in [GameResource.Type.HEAT, GameResource.Type.PRECISION,
+						GameResource.Type.MOMENTUM, GameResource.Type.BALANCE,
+						GameResource.Type.ENTROPY]:
+		_handle_drain_force(force_type, amount)
+
+static func _handle_drain_highest(amount: float) -> void:
+	if not GlobalGameManager.hero:
+		return
+	
+	var highest_type: GameResource.Type = GameResource.Type.HEAT
+	var highest_amount: float = 0.0
+	
+	for force_type in [GameResource.Type.HEAT, GameResource.Type.PRECISION,
+						GameResource.Type.MOMENTUM, GameResource.Type.BALANCE,
+						GameResource.Type.ENTROPY]:
+		var resource = GlobalGameManager.hero.get_force_resource(force_type)
+		if resource and resource.current > highest_amount:
+			highest_amount = resource.current
+			highest_type = force_type
+	
+	if highest_amount > 0:
+		_handle_drain_force(highest_type, amount)
+
+# Forced action handlers
+static func _handle_force_discard(count: int) -> void:
+	if GlobalGameManager.library:
+		print("[Disruption] Force discard ", count, " cards")
+		# For now, discard random cards (should be player choice UI)
+		for i in count:
+			GlobalGameManager.library.discard_random_card()
+
+static func _handle_destroy_gear(count: int) -> void:
+	if not GlobalGameManager.mainplate:
+		return
+	
+	var gears = GlobalGameManager.mainplate.get_cards_in_order()
+	if gears.is_empty():
+		return
+	
+	print("[Disruption] Destroy ", count, " gears")
+	for i in min(count, gears.size()):
+		# Should be player choice, for now random
+		var target = gears.pick_random()
+		gears.erase(target)
+		# Find position and remove
+		for pos in GlobalGameManager.mainplate.slots:
+			if GlobalGameManager.mainplate.slots[pos] == target:
+				GlobalGameManager.mainplate.remove_card(pos)
+				break
+
+static func _handle_corrupt_gear(count: int) -> void:
+	if not GlobalGameManager.mainplate:
+		return
+	
+	var gears = GlobalGameManager.mainplate.get_cards_in_order()
+	print("[Disruption] Corrupt ", count, " gears")
+	
+	for i in min(count, gears.size()):
+		var target = gears.pick_random()
+		# Apply corruption (disable production for N ticks)
+		target.set_meta("corrupted", true)
+		target.set_meta("corruption_duration", 30)  # 3 ticks
+
+# Gremlin combat handlers
+static func _handle_summon(summon_type) -> void:
+	print("[Gremlin] Summon: ", summon_type)
+	# Delegate to gremlin manager
+	if GlobalGameManager.has_method("summon_gremlin"):
+		GlobalGameManager.summon_gremlin(str(summon_type))
+
+static func _handle_gremlin_shield(amount: float, source: Node) -> void:
+	# Shield the gremlin itself
+	if source and source.has_method("add_shields"):
+		source.add_shields(int(amount))
+		print("[Gremlin] ", source.gremlin_name if source.has("gremlin_name") else "Gremlin", " gains ", amount, " shields")
+
+static func _handle_gremlin_heal(amount: float, source: Node) -> void:
+	# Heal the gremlin itself
+	if source and source.has_method("heal"):
+		source.heal(int(amount))
+		print("[Gremlin] ", source.gremlin_name if source.has("gremlin_name") else "Gremlin", " heals ", amount)
+
+static func _handle_gremlin_armor(amount: float, source: Node) -> void:
+	# Add armor to the gremlin
+	if source and source.has("armor"):
+		source.armor += int(amount)
+		print("[Gremlin] ", source.gremlin_name if source.has("gremlin_name") else "Gremlin", " gains ", amount, " armor")
+
+static func _handle_enhance_gremlins(amount: float) -> void:
+	# Enhance all gremlins
+	var gremlins: Array = GlobalGameManager.get_active_gremlins()
+	print("[Gremlin] Enhancing ", gremlins.size(), " gremlins by ", amount)
+	
+	for gremlin in gremlins:
+		if gremlin.has("armor"):
+			gremlin.armor += int(amount)
+		if gremlin.has_method("add_shields"):
+			gremlin.add_shields(int(amount))
