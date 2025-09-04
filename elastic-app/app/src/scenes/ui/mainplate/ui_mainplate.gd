@@ -91,14 +91,20 @@ func __update_slot_visuals() -> void:
 	if not mainplate or not grid_mapper:
 		return
 	
+	print("[UIMainplate] Updating slot visuals. Grid mapper logical size: ", grid_mapper.logical_size, " offset: ", grid_mapper.offset)
+	
 	# Update all slots based on whether they map to valid logical positions
 	var active_slots: Array[EngineSlot] = []
+	var active_count: int = 0
 	for physical_pos in gear_slots:
 		var slot: EngineSlot = gear_slots[physical_pos]
 		var is_active: bool = grid_mapper.is_active_physical(physical_pos)
 		if is_active:
 			active_slots.append(slot)
+			active_count += 1
 			
+	print("[UIMainplate] Found ", active_count, " active slots out of ", gear_slots.size(), " total slots")
+	
 	# Assign bonus squares in the core mainplate
 	if mainplate:
 		mainplate.assign_random_bonus_squares()
@@ -107,7 +113,9 @@ func __update_slot_visuals() -> void:
 	for physical_pos in gear_slots:
 		var slot: EngineSlot = gear_slots[physical_pos]
 		var is_active: bool = grid_mapper.is_active_physical(physical_pos)
-		__set_slot_active(slot, is_active)
+		if is_active:
+			print("[UIMainplate] Setting slot at ", physical_pos, " as ACTIVE")
+		__set_slot_active(slot, is_active)  # Update visual state
 
 ## Set a slot's active state with visual feedback
 func __set_slot_active(slot: EngineSlot, active: bool) -> void:
@@ -193,16 +201,26 @@ func __set_slot_active(slot: EngineSlot, active: bool) -> void:
 		slot.add_theme_stylebox_override("hover", hover_stylebox)
 		slot.add_theme_stylebox_override("pressed", hover_stylebox)
 	else:
-		# Inactive slots should be completely hidden
-		slot.visible = false
-		slot.modulate = Color(0.3, 0.3, 0.3, 0.0)  # Fully transparent
+		# Inactive slots should be visible but clearly inactive
+		# This maintains the grid structure while showing what's playable
+		slot.visible = true
+		slot.modulate = Color(0.2, 0.2, 0.2, 0.3)  # Very dim, mostly transparent
 		
-		# Remove all style overrides for inactive slots
+		# Remove interactive styling but keep the slot visible
 		slot.remove_theme_stylebox_override("normal")
 		slot.remove_theme_stylebox_override("hover") 
 		slot.remove_theme_stylebox_override("pressed")
 		
-		# Hide MainPanel for inactive slots
+		# Add a simple dark background to show it's inactive
+		var inactive_stylebox: StyleBoxFlat = StyleBoxFlat.new()
+		inactive_stylebox.bg_color = Color(0.1, 0.1, 0.1, 0.2)  # Very dark and transparent
+		inactive_stylebox.border_color = Color(0.05, 0.05, 0.05, 0.3)  # Barely visible border
+		inactive_stylebox.set_border_width_all(1)
+		inactive_stylebox.set_corner_radius_all(5)
+		slot.add_theme_stylebox_override("normal", inactive_stylebox)
+		slot.add_theme_stylebox_override("disabled", inactive_stylebox)
+		
+		# Hide MainPanel content for inactive slots
 		var main_panel = slot.get_node_or_null("%MainPanel")
 		if main_panel:
 			main_panel.visible = false
