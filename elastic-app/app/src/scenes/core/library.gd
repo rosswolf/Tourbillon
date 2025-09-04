@@ -343,7 +343,7 @@ func get_card_ids_in_zone(zone: Zone) -> Array[String]:
 	return zone_obj.get_all_card_ids()
 
 # Helper to get object reference for a zone
-func __get_zone_object(zone: Zone) -> void:
+func __get_zone_object(zone: Zone) -> ZoneCollection:
 	match zone:
 		Zone.RARE_LIBRARY:
 			return rare_library

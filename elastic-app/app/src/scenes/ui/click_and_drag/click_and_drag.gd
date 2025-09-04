@@ -27,7 +27,7 @@ func add_dragging_visual():
 	%HUD.add_child(targeting_visual)
 	targeting_visual.global_position = get_global_mouse_position()
 	
-func remove_dragging_visual() -> void:
+func remove_dragging_visual() -> Variant:
 	if targeting_visual != null:
 		var last_pos = targeting_visual.position
 		targeting_visual.queue_free()

@@ -16,7 +16,7 @@ class AuxilliaryResources:
 		if card:
 			resources[card.trigger_resource] = resources.get(card.trigger_resource, 0) + 1
 	
-	func __can_satisfy_requirement(requirement: GameResource.Type, amount: int) -> void:
+	func __can_satisfy_requirement(requirement: GameResource.Type, amount: int) -> bool:
 		return resources.get(requirement, 0) >= amount
 		
 	func __satisfy_requirement(requirement: GameResource.Type, amount) -> bool:

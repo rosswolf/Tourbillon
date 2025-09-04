@@ -7,6 +7,8 @@ Enforces type safety requirements as defined in CLAUDE.md
 import sys
 import re
 import os
+import subprocess
+import tempfile
 from pathlib import Path
 from typing import List, Tuple, Optional
 
@@ -327,14 +329,97 @@ class TypeSafetyChecker:
             print("✅ All files pass type safety checks!")
 
 
+def check_godot_compilation(verbose: bool = False) -> Tuple[bool, str]:
+    """Check if the Godot project compiles without errors."""
+    print("\n🔧 Checking Godot compilation...")
+    
+    # Use our comprehensive compilation check script if it exists
+    compile_check_script = Path("godot_compile_check.gd")
+    
+    if not compile_check_script.exists():
+        return False, "godot_compile_check.gd not found"
+    
+    try:
+        # Use the comprehensive check
+        cmd = ['timeout', '30', 'godot', '--headless', '--script', 'godot_compile_check.gd']
+        
+        if verbose:
+            print(f"Running: {' '.join(cmd)}")
+        
+        result = subprocess.run(
+            cmd,
+            capture_output=True,
+            text=True,
+            cwd=os.getcwd()
+        )
+        
+        # Parse output for our specific error markers
+        if result.stdout:
+            if "[COMPILE CHECK] ❌ ERRORS FOUND:" in result.stdout:
+                # Extract the error messages
+                error_lines = []
+                capture = False
+                for line in result.stdout.split('\n'):
+                    if "[COMPILE CHECK] ❌ ERRORS FOUND:" in line:
+                        capture = True
+                        continue
+                    if capture and line.strip():
+                        error_lines.append(line.strip())
+                
+                if error_lines:
+                    error_msg = "\n".join(error_lines[:20])  # Show first 20 errors
+                    if len(error_lines) > 20:
+                        error_msg += f"\n... and {len(error_lines) - 20} more errors"
+                    return False, f"Compilation errors found:\n{error_msg}"
+            
+            if "[COMPILE CHECK] ✅ All scripts compile successfully!" in result.stdout:
+                return True, "All scripts compile successfully"
+        
+        # Check for GDScript errors in stderr
+        if result.stderr:
+            # Look for script errors
+            if 'SCRIPT ERROR' in result.stderr or 'Parse Error' in result.stderr or 'Compile Error' in result.stderr:
+                # Extract error messages
+                error_lines = []
+                for line in result.stderr.split('\n'):
+                    if 'ERROR' in line or 'Error' in line:
+                        # Skip some common non-critical errors
+                        if 'already connected' in line:
+                            continue
+                        if 'Mapped:' in line:  # Skip enum mapping messages
+                            continue
+                        error_lines.append(line.strip())
+                
+                if error_lines:
+                    error_msg = "\n".join(error_lines[:10])  # Show first 10 errors
+                    if len(error_lines) > 10:
+                        error_msg += f"\n... and {len(error_lines) - 10} more errors"
+                    return False, f"GDScript errors:\n{error_msg}"
+        
+        # Check exit code
+        if result.returncode == 124:  # Timeout
+            return False, "Godot compilation check timed out after 30 seconds"
+        elif result.returncode == 1:  # Our script returns 1 on error
+            return False, "Compilation check failed (see errors above)"
+        elif result.returncode != 0:
+            return False, f"Godot exited with code {result.returncode}"
+        
+        return True, "Compilation successful"
+        
+    except FileNotFoundError:
+        return False, "Godot executable not found. Make sure 'godot' is in your PATH."
+    except Exception as e:
+        return False, f"Error running Godot: {str(e)}"
+
 def main():
     """Main entry point for the presubmit hook."""
     import argparse
     
-    parser = argparse.ArgumentParser(description="Check GDScript files for type safety")
+    parser = argparse.ArgumentParser(description="Check GDScript files for type safety and compilation")
     parser.add_argument('files', nargs='*', help='Files to check (default: all .gd files)')
     parser.add_argument('--verbose', '-v', action='store_true', help='Verbose output')
     parser.add_argument('--all', '-a', action='store_true', help='Check all .gd files in src/')
+    parser.add_argument('--skip-compile', action='store_true', help='Skip Godot compilation check')
     
     args = parser.parse_args()
     
@@ -389,6 +474,19 @@ def main():
         sys.exit(1)
     else:
         print("\n✅ Type safety check passed!")
+        
+        # Now check Godot compilation
+        if not args.skip_compile:
+            compile_success, compile_msg = check_godot_compilation(args.verbose)
+            
+            if not compile_success:
+                print("\n❌ Godot compilation failed!")
+                print(f"Error: {compile_msg}")
+                sys.exit(1)
+            else:
+                print("\n✅ Godot compilation check passed!")
+        
+        print("\n✅ All checks passed!")
         sys.exit(0)
 
 

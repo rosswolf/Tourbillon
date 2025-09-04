@@ -198,7 +198,7 @@ static func _effect_consume_largest_force(amount: float) -> void:
 	var largest_type = null
 	var largest_amount: int = 0
 	
-	var force_types: Array[String] = [
+	var force_types: Array[GameResource.Type] = [
 		GameResource.Type.RED,
 		GameResource.Type.BLUE,
 		GameResource.Type.GREEN,
@@ -229,7 +229,7 @@ static func _effect_consume_smallest_force(amount: float) -> void:
 	var smallest_type = null
 	var smallest_amount: int = 999999
 	
-	var force_types: Array[String] = [
+	var force_types: Array[GameResource.Type] = [
 		GameResource.Type.RED,
 		GameResource.Type.BLUE,
 		GameResource.Type.GREEN,
@@ -258,7 +258,7 @@ static func _effect_consume_max_force(amount: int) -> void:
 	
 	# Build list of forces with their current amounts
 	var force_amounts: Array[Dictionary] = []
-	var force_types: Array[String] = [
+	var force_types: Array[GameResource.Type] = [
 		GameResource.Type.RED,
 		GameResource.Type.BLUE,
 		GameResource.Type.GREEN,
