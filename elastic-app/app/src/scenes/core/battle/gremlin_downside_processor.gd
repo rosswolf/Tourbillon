@@ -5,7 +5,7 @@ class_name GremlinDownsideProcessor
 ## Downsides are constraints that gremlins impose while active
 
 # Active downsides currently applied
-static var active_downsides: Dictionary = {}  # downside_type -> value
+static var active_downsides: Dictionary[String, int] = {}  # downside_type -> value
 
 # Parse and apply a gremlin's moves/downsides string
 static func process_gremlin_moves(moves_string: String, gremlin: Gremlin) -> void:
@@ -148,7 +148,7 @@ static func _apply_force_cap(force_type: GameResource.Type, cap: int, is_hard: b
 
 # Apply cap to all forces
 static func _apply_all_forces_cap(cap: int, is_hard: bool) -> void:
-	var force_types = [
+	var force_types: Array[GameResource.Type] = [
 		GameResource.Type.HEAT,
 		GameResource.Type.PRECISION,
 		GameResource.Type.MOMENTUM,
@@ -206,8 +206,8 @@ static func _execute_drain(drain_type: String, amount: int) -> void:
 	match drain_type:
 		"random":
 			# Drain from a random force that has resources
-			var available_forces = []
-			var force_types = [
+			var available_forces: Array[GameResource.Type] = []
+			var force_types: Array[GameResource.Type] = [
 				GameResource.Type.HEAT,
 				GameResource.Type.PRECISION,
 				GameResource.Type.MOMENTUM,
@@ -228,7 +228,7 @@ static func _execute_drain(drain_type: String, amount: int) -> void:
 		
 		"all":
 			# Drain from all forces
-			var force_types = [
+			var force_types: Array[GameResource.Type] = [
 				GameResource.Type.HEAT,
 				GameResource.Type.PRECISION,
 				GameResource.Type.MOMENTUM,
@@ -298,7 +298,7 @@ static func recalculate_all_downsides() -> void:
 	
 	# Reset hero resource caps
 	if GlobalGameManager.hero:
-		var force_types = [
+		var force_types: Array[GameResource.Type] = [
 			GameResource.Type.HEAT,
 			GameResource.Type.PRECISION,
 			GameResource.Type.MOMENTUM,
@@ -320,7 +320,7 @@ static func get_downside_description(moves_string: String) -> String:
 	if moves_string.is_empty():
 		return "No special effects"
 	
-	var descriptions = []
+	var descriptions: Array[String] = []
 	var parts = moves_string.split(",")
 	
 	for part in parts:

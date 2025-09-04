@@ -9,7 +9,7 @@ class InternalEffect:
 	var __valid_source_types: Array
 	var __valid_target_types: Array
 	
-	func _init(f: Callable, valid_types: Dictionary[String, Array]):
+	func _init(f: Callable, valid_types: Dictionary[String, Array]) -> void:
 		__f = f
 		__valid_source_types = valid_types.get("source", [Entity])
 		__valid_target_types = valid_types.get("target", [Entity])
@@ -104,18 +104,18 @@ static func entity_in_types(source: Entity, valid_types: Array):
 	for type in valid_types:
 		valid_type_strings.append(type._get_type_string())
 		
-	var type_string = "None"
+	var type_string: String = "None"
 	if source != null:
 		type_string = source._get_type_string()
 	return type_string in valid_type_strings or Entity._get_type_string() in valid_type_strings
 	
 
 
-func __is_valid_source(source: Entity):
+func __is_valid_source(source: Entity) -> bool:
 	assert(false, "sub classes need to override __is_valid_source")
 	return false
 	
-func __is_valid_target(target: Entity):
+func __is_valid_target(target: Entity) -> bool:
 	assert(false, "sub classes need to override __is_valid_target")
 	return false
 	
