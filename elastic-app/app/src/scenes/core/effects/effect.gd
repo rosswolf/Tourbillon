@@ -6,8 +6,10 @@ var effect_name: String = ""
 
 class InternalEffect:
 	var __f: Callable
-	var __valid_source_types: Array[Script]
-	var __valid_target_types: Array[Script]
+	# TYPE EXCEPTION (light assignment)
+	var __valid_source_types: Array
+	# TYPE EXCEPTION (light assignment)
+	var __valid_target_types: Array
 	
 	#TYPE_EXEMPTION(Dictionary values can contain different Array types)
 	func _init(f: Callable, valid_types: Dictionary) -> void:

@@ -1,38 +1,55 @@
 extends Node
 
-var __enum_mappings: Dictionary[String, Variant] = {}
+# TYPE_EXEMPTION (enum type)
+var __enum_mappings: Dictionary = {}
 var __resolved_enum_cache: Dictionary[String, Variant] = {}
-var __lookup_cache: Dictionary[String, Variant] = {}
+# TYPE_EXEMPTION (enum type)
+var __lookup_cache: Dictionary = {}
 
-var card_data: Dictionary[String, Variant] = {}
+# TYPE_EXEMPTION (json type)
+var card_data: Dictionary= {}
 var card_data_path: String = "res://src/scenes/data/card_data.json"
-var card_data_indices: Dictionary[String, int] = {}
+# TYPE_EXEMPTION (enum type)
+var card_data_indices: Dictionary= {}
 
-static var icon_data: Dictionary[String, Variant] = {}
+# TYPE_EXEMPTION (json type)
+static var icon_data: Dictionary = {}
 var icon_data_path: String = "res://src/scenes/data/icon_data.json"
-var icon_data_indices: Dictionary[String, int] = {}
+# TYPE_EXEMPTION (enum type)
+var icon_data_indices: Dictionary = {}
 
-var mob_data: Dictionary[String, Variant] = {}
+# TYPE_EXEMPTION (json type)
+var mob_data: Dictionary= {}
 var mob_data_path: String = "res://src/scenes/data/mob_data.json"
-var mob_data_indices: Dictionary[String, int] = {}
+# TYPE_EXEMPTION (enum type)
+var mob_data_indices: Dictionary = {}
 
-var goals_data: Dictionary[String, Variant] = {}
+# TYPE_EXEMPTION (json type)
+var goals_data: Dictionary = {}
 var goals_data_path: String = "res://src/scenes/data/goals_data.json"
-var goals_data_indices: Dictionary[String, int] = {}
+# TYPE_EXEMPTION (enum type)
+var goals_data_indices: Dictionary = {}
 
-var relic_data: Dictionary[String, Variant] = {}
+# TYPE_EXEMPTION (json type)
+var relic_data: Dictionary = {}
 var relic_data_path: String = "res://src/scenes/data/relic_data.json"
-var relic_data_indices: Dictionary[String, int] = {}
+# TYPE_EXEMPTION (enum type)
+var relic_data_indices: Dictionary = {}
 
-var hero_data: Dictionary[String, Variant] = {}
+# TYPE_EXEMPTION (json type)
+var hero_data: Dictionary = {}
 var hero_data_path: String = "res://src/scenes/data/hero_data.json"
-var hero_data_indices: Dictionary[String, int] = {}
+# TYPE_EXEMPTION (enum type)
+var hero_data_indices: Dictionary = {}
 
-var wave_data: Dictionary[String, Variant] = {}
+# TYPE_EXEMPTION (json type)
+var wave_data: Dictionary = {}
 var wave_data_path: String = "res://wave_data.json"
-var wave_data_indices: Dictionary[String, int] = {}
+# TYPE_EXEMPTION (enum type)
+var wave_data_indices: Dictionary = {}
 
-static var configuration_data: Dictionary[String, Variant] = {}
+# TYPE_EXEMPTION (json type)
+static var configuration_data: Dictionary = {}
 var configuration_data_path: String = "res://src/scenes/data/configuration_data.json"
 
 func _init() -> void:
@@ -51,7 +68,8 @@ func __build_enum_mappings() -> void:
 	__enum_mappings["GameResource.Type.ENTROPY"] = GameResource.Type.ENTROPY
 	__enum_mappings["GameResource.Type.INSPIRATION"] = GameResource.Type.INSPIRATION
 
-func __add_enum_mapping(prefix: String, enum_dict: Dictionary[String, int]) -> void:
+# TYPE EXCEPTION (enum types)
+func __add_enum_mapping(prefix: String, enum_dict: Dictionary) -> void:
 	for key in enum_dict:
 		var full_reference = prefix + "." + key
 		__enum_mappings[full_reference] = enum_dict[key]

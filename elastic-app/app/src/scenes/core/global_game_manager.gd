@@ -1,7 +1,6 @@
 extends Node
 
-# Preload WaveManager
-const WaveManager = preload("res://src/scenes/core/wave_manager.gd")
+
 
 # Game state properties
 var hero_template_id: String = "knight" # Default hero for testing
@@ -13,7 +12,6 @@ var hero: Hero = null
 var relic_manager: RelicManager = null
 # Goal system removed - use gremlins instead
 var stats_manager: StatsManager = null
-var wave_manager: Node = null
 
 # Tourbillon system integration
 var timeline_manager: TimelineManager = null
@@ -44,30 +42,7 @@ func _ready() -> void:
 	GlobalSignals.core_slot_activated.connect(__on_core_slot_activated)
 	# Air meter signals removed - no longer used
 	GlobalSignals.core_card_drawn.connect(__on_core_card_drawn)
-	
-	# Enable process for debug input
-	set_process(true)
 
-func _process(_delta: float) -> void:
-	# Debug input for testing
-	if Input.is_action_just_pressed("ui_page_down"):  # PageDown key
-		print("[DEBUG] PageDown pressed - Advancing time by 1 tick (10 beats)")
-		if timeline_manager:
-			print("[DEBUG] Current tick before: ", timeline_manager.get_current_tick())
-			timeline_manager.advance_time(1)
-			print("[DEBUG] Current tick after: ", timeline_manager.get_current_tick())
-		else:
-			push_error("[DEBUG] No timeline_manager available!")
-	
-	if Input.is_action_just_pressed("ui_page_up"):  # PageUp key  
-		print("[DEBUG] PageUp pressed - Drawing a card")
-		if library:
-			library.draw_card(1)
-	
-	if Input.is_action_just_pressed("ui_end"):  # End key
-		print("[DEBUG] End pressed - Spawning random wave")
-		if wave_manager:
-			wave_manager.spawn_wave()
 
 func __setup_starting_deck() -> void:
 	assert(library != null, "Library must be initialized before setting up starting deck")
@@ -132,9 +107,6 @@ func __on_start_game() -> void:
 		.build()
 	# Goal system removed
 	stats_manager = StatsManager.new()
-	wave_manager = WaveManager.new()
-	add_child(wave_manager)  # Add to scene tree so it can function properly
-	wave_manager.set_act(current_act)
 	
 	# Initialize Tourbillon systems directly
 	print("Initializing Tourbillon systems...")
@@ -154,10 +126,6 @@ func __on_start_battle() -> void:
 	if hero:
 		hero.reset_start_of_battle()
 	__load_hand()
-	
-	# Spawn a random wave for the current act
-	if wave_manager:
-		wave_manager.spawn_wave()
 	
 	#battleground.spawn_new_stage(1)
 	allow_activations()
@@ -317,7 +285,9 @@ func __on_tourbillon_card_played(card_id: String) -> void:
 	
 	# Process on_play_effect if it exists
 	if not card.on_play_effect.is_empty():
-		TourbillonEffectProcessor.process_effect(card.on_play_effect, null, null)
+		pass
+		#TODO FIX
+		#TourbillonEffectProcessor.process_effect(card.on_play_effect, null, null)
 
 ## Called when a card is slotted on the mainplate
 func __on_card_slotted(slot_id: String) -> void:
@@ -336,7 +306,9 @@ func __on_card_slotted(slot_id: String) -> void:
 	
 	# Process on_place_effect if it exists
 	if not card.on_place_effect.is_empty():
-		TourbillonEffectProcessor.process_effect(card.on_place_effect, slot, null)
+		pass
+		#TODO FIX
+		#TourbillonEffectProcessor.process_effect(card.on_place_effect, slot, null)
 	
 	print("Gear placed: ", card.display_name, " - Interval: ", card.production_interval, " ticks")
 

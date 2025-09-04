@@ -59,7 +59,9 @@ static func slot_card_in_button(card: Card, button: EngineButtonEntity) -> bool:
 		# 1. Trigger replacement effects on the old card (if any)
 		# Cards don't have trigger_replacement_effects method - handle via on_replace_effect
 		if not existing_card.on_replace_effect.is_empty():
-			TourbillonEffectProcessor.process_effect(existing_card.on_replace_effect, existing_card, null)
+			pass
+			#TODO FIX
+			#TourbillonEffectProcessor.process_effect(existing_card.on_replace_effect, existing_card, null)
 		
 		# 2. Move the old card to discard pile
 		GlobalGameManager.library.move_card_to_zone2(existing_card.instance_id, Library.Zone.SLOTTED, Library.Zone.GRAVEYARD)

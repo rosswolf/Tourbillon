@@ -238,7 +238,9 @@ func __activate_card(card: Card, pos: Vector2i, context: BeatContext) -> void:
 	
 	# Process on_fire_effect - this handles all production, consumption, and other effects
 	if not card.on_fire_effect.is_empty():
-		TourbillonEffectProcessor.process_effect(card.on_fire_effect, self, null)
+		pass
+		#TODO FIX
+		#TourbillonEffectProcessor.process_effect(card.on_fire_effect, self, null)
 	
 	# Legacy support: Check old force_consumption if effect doesn't exist
 	# TODO: Remove once all cards are migrated to effects
