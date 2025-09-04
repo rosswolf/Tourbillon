@@ -200,9 +200,7 @@ func move_card_to_zone2(card_instance_id: String, from_zone: Zone, to_zone: Zone
 	
 	# Remove from current zone
 	var card: Card = current_zone_obj.remove_card(card_instance_id)
-	if not card:
-		printerr("failed to remove card " + card_instance_id)
-		return false
+	assert(card != null, "Failed to remove card from zone: " + card_instance_id)
 	
 	# Add to new zone
 	var new_zone_obj: ZoneCollection = __get_zone_object(to_zone)

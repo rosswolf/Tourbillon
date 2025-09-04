@@ -23,8 +23,7 @@ var cost: Cost:
 #TYPE_EXEMPTION(Effect parameters are dynamic)
 func _init(template_id: String,  params: Dictionary, cost: Cost = null) -> void:
 	var internal_effect: Effect.InternalEffect = Effect.effect_map.get(template_id)
-	if not internal_effect:
-		assert(0, "missing effect with template id " + template_id)	
+	assert(internal_effect != null, "missing effect with template id " + template_id)	
 		
 	__effect_template_id = template_id
 	__base_f = internal_effect.__f
@@ -43,8 +42,6 @@ func activate(source: Entity) -> bool:
 	if source is Card:
 		parameters["card"] = source
 		return __base_f.call(GlobalGameManager.hero, parameters)
-	elif source is Goal:
-		return __base_f.call(source, parameters)
 	else:
 		assert(false, "Unexpected source type")
 		return false
@@ -53,20 +50,12 @@ func activate(source: Entity) -> bool:
 func __is_valid_source(source: Entity) -> bool:
 	#if _effect_type != EffectType.ACTIVATABLE:
 		#return false
-	var satisfy_target_requirments = Effect.entity_in_types(source, __valid_source_types)
-	if not satisfy_target_requirments:
-		return false
-	else:	
-		return true
+	return Effect.entity_in_types(source, __valid_source_types)
 		
 func __is_valid_target(source: Entity) -> bool:
 	#if _effect_type != EffectType.ACTIVATABLE:
 		#return false
-	var satisfy_target_requirments = Effect.entity_in_types(source, __valid_target_types)
-	if not satisfy_target_requirments:
-		return false
-	else:	
-		return true
+	return Effect.entity_in_types(source, __valid_target_types)
 	
 func __could_satisfy_costs(source: Entity, target: Entity) -> bool:
 	if cost == null:

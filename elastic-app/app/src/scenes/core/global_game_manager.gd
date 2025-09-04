@@ -1,6 +1,7 @@
 extends Node
 
-
+# Preload SimpleEffectProcessor
+const SimpleEffectProcessor = preload("res://src/scenes/core/effects/simple_effect_processor.gd")
 
 # Game state properties
 var hero_template_id: String = "knight" # Default hero for testing
@@ -194,8 +195,7 @@ func reset_game_state() -> void:
 	# goal_manager = null # Removed
 	
 func activate(source_id: String, target_id: String) -> bool:	
-	if not __activations_allowed:
-		return false
+	assert(__activations_allowed, "Activations must be allowed to handle activation") false
 		
 	var source: Entity = GlobalGameManager.instance_catalog.get_instance(source_id)
 	var target: Entity = GlobalGameManager.instance_catalog.get_instance(target_id)
@@ -269,9 +269,7 @@ func __on_tourbillon_card_played(card_id: String) -> void:
 		print("[DEBUG] Card not found in library for ID: ", card_id)
 		# Try to get from instance catalog
 		card = instance_catalog.get_instance(card_id) as Card
-		if not card:
-			print("[ERROR] Card not found anywhere for ID: ", card_id)
-			return
+		assert(card != null, "Card must exist: " + card_id)
 	
 	print("[DEBUG] Card found: ", card.display_name, ", time_cost: ", card.time_cost)
 	
@@ -285,19 +283,16 @@ func __on_tourbillon_card_played(card_id: String) -> void:
 	
 	# Process on_play_effect if it exists
 	if not card.on_play_effect.is_empty():
-		pass
-		#TODO FIX
-		#TourbillonEffectProcessor.process_effect(card.on_play_effect, null, null)
+		SimpleEffectProcessor.process_effects(card.on_play_effect, null)
 
 ## Called when a card is slotted on the mainplate
 func __on_card_slotted(slot_id: String) -> void:
 	var slot: EngineSlot = __find_slot_by_id(slot_id)
-	if not slot:
-		return
+	assert(slot != null, "Slot must exist: " + slot_id)
 	
-	var card: Card = slot.__button_entity.card if slot.__button_entity else null
-	if not card:
-		return
+	assert(slot.__button_entity != null, "Slot must have button entity: " + slot_id)
+	var card: Card = slot.__button_entity.card
+	assert(card != null, "Slot must have card slotted: " + slot_id)
 	
 	# Setup the gear from card data
 	assert(slot != null, "Slot must exist for card setup")
@@ -306,9 +301,7 @@ func __on_card_slotted(slot_id: String) -> void:
 	
 	# Process on_place_effect if it exists
 	if not card.on_place_effect.is_empty():
-		pass
-		#TODO FIX
-		#TourbillonEffectProcessor.process_effect(card.on_place_effect, slot, null)
+		SimpleEffectProcessor.process_effects(card.on_place_effect, slot)
 	
 	print("Gear placed: ", card.display_name, " - Interval: ", card.production_interval, " ticks")
 
