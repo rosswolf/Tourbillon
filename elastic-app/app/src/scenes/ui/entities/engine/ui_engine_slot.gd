@@ -35,7 +35,7 @@ func _ready() -> void:
 	%ProgressBar.value = 0
 	%ProgressBar.visible = true
 	
-func create_card_ui():	
+func create_card_ui() -> void:	
 	if card_preview:  # Already exists, don't create again
 		return
 		
@@ -134,7 +134,7 @@ func _process(delta: float) -> void:
 
 # Cooldown system removed - using beat-based production instead
 
-func pct(numerator: float, denominator: float):
+func pct(numerator: float, denominator: float) -> float:
 	if denominator <= 0.001:
 		return 0.0
 	else:

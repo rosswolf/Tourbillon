@@ -19,10 +19,10 @@ func signal_created() -> void:
 func get_active_status_effects() -> Array[StatusEffect.Type]:
 	return __status_effects.keys()
 	
-func has_status_effect(effect: StatusEffect.Type):
+func has_status_effect(effect: StatusEffect.Type) -> bool:
 	return __status_effects.has(effect) and __status_effects[effect] > 0
 
-func decrement_status_effect(effect: StatusEffect.Type):
+func decrement_status_effect(effect: StatusEffect.Type) -> void:
 	if (effect == StatusEffect.Type.POISONED):
 		var poison_duration = __status_effects.get(effect, 0)
 		health.decrement(poison_duration)

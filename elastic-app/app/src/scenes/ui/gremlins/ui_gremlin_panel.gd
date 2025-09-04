@@ -7,7 +7,7 @@ class_name UiGremlinPanel
 @onready var gremlin_container: VBoxContainer = %GremlinContainer
 
 var ui_gremlin_scene: PackedScene = preload("res://src/scenes/ui/entities/gremlins/ui_gremlin.tscn")
-var active_gremlin_uis: Dictionary = {}  # gremlin_id -> UiGremlin
+var active_gremlin_uis: Dictionary[String, Variant] = {}  # gremlin_id -> UiGremlin
 
 func _ready() -> void:
 	# Connect to gremlin spawn/despawn signals

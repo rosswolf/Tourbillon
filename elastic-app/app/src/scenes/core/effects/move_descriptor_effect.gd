@@ -4,7 +4,7 @@ class_name MoveDescriptorEffect
 var effects: Array[Effect]
 var move_list: Array[MoveParser.MovePiece] = []
 
-func _init(move_descriptor: String, cost: Cost = null):
+func _init(move_descriptor: String, cost: Cost = null) -> void:
 	move_list = MoveParser.parse_move_descriptor(move_descriptor)
 	
 	for move_piece in move_list:
@@ -44,7 +44,7 @@ func __is_valid_target(source: Entity) -> bool:
 			return false	
 	return true
 	
-func activate(source: Entity):
+func activate(source: Entity) -> bool:
 	var result: bool = true
 	for effect in effects:
 		if not effect.activate(source):

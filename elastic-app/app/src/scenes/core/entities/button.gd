@@ -34,7 +34,7 @@ func get_card_instance_id() -> String:
 	else:
 		return ""
 		
-func activate_slot_effect(source: Entity, target: Entity):
+func activate_slot_effect(source: Entity, target: Entity) -> bool:
 	if not card:
 		return false
 	return card.activate_slot_effect(source, target)

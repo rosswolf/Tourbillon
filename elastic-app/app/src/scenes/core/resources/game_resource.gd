@@ -35,7 +35,7 @@ class ResourceAccessor:
 		var getter: Callable
 		var setter: Callable
 		
-		func _init(g: Callable, s: Callable):
+		func _init(g: Callable, s: Callable) -> void:
 			getter = g
 			setter = s
 		

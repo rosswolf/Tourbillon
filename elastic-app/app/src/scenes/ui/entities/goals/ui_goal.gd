@@ -19,7 +19,7 @@ func set_entity_data(entity: Entity) -> void:
 		%Timer.start()
 		
 	
-func pct(numerator: float, denominator: float):
+func pct(numerator: float, denominator: float) -> float:
 	if denominator <= 0.001:
 		return 0.0
 	else:

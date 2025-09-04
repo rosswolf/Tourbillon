@@ -10,7 +10,7 @@ func _ready() -> void:
 	color_rect.modulate.a = 0
 
 
-func go_to_scene(scene: String, fade_color: Color = Color.BLACK, fade_duration: float = switch_duration):
+func go_to_scene(scene: String, fade_color: Color = Color.BLACK, fade_duration: float = switch_duration) -> void:
 	
 	
 	color_rect.mouse_filter = Control.MOUSE_FILTER_STOP

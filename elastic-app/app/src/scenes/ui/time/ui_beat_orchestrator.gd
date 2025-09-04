@@ -136,7 +136,7 @@ func __update_all_progress_bars() -> void:
 
 ## Check for ready gears and create pulsing effect
 func __check_and_pulse_ready_gears() -> void:
-	var ready_positions: Array = []
+	var ready_positions: Array[Vector2i] = []
 	var ready_slots: Array[EngineSlot] = []
 	
 	for slot in registered_slots:

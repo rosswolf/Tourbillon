@@ -6,7 +6,7 @@ class_name Cost
 var requirements: Dictionary[GameResource.Type, int] = {}
 
 class AuxilliaryResources:
-	func _init(source_in: Entity, target_in: Entity):
+	func _init(source_in: Entity, target_in: Entity) -> void:
 		# This might cause issues in the future if we mix resource types between card modalities. 
 		# Right now, a card just provides its resources always, not conditionally based on how it is being affectuated. 
 		# Specifically, if you consume a card that provides a RED_TRIGGER, or if you activate a building with a card,
@@ -19,7 +19,7 @@ class AuxilliaryResources:
 	func __can_satisfy_requirement(requirement: GameResource.Type, amount: int) -> bool:
 		return resources.get(requirement, 0) >= amount
 		
-	func __satisfy_requirement(requirement: GameResource.Type, amount) -> bool:
+	func __satisfy_requirement(requirement: GameResource.Type, amount: int) -> bool:
 		if not __can_satisfy_requirement(requirement, amount):
 			return false
 		else:
@@ -29,7 +29,7 @@ class AuxilliaryResources:
 	var resources: Dictionary[GameResource.Type, int] = {}
 
 
-func _init(resources: Dictionary[GameResource.Type, int]):
+func _init(resources: Dictionary[GameResource.Type, int]) -> void:
 	requirements = resources.duplicate()
 
 func can_satisfy(source: Entity, target: Entity) -> bool:

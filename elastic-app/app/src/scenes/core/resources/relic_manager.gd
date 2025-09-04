@@ -9,5 +9,5 @@ func add_relic(relic_template_id: String) -> Relic:
 	__relics[relic_template_id] = r
 	return r
 	
-func has_relic(relic_template_id: String):
+func has_relic(relic_template_id: String) -> bool:
 	return __relics.has(relic_template_id)

@@ -225,19 +225,20 @@ func reset_game_state() -> void:
 	relic_manager = null
 	# goal_manager = null # Removed
 	
-func activate(source_id: String, target_id: String):	
+func activate(source_id: String, target_id: String) -> bool:	
 	if not __activations_allowed:
-		return
+		return false
 		
 	var source: Entity = GlobalGameManager.instance_catalog.get_instance(source_id)
 	var target: Entity = GlobalGameManager.instance_catalog.get_instance(target_id)
 	
 	if source == null:
 		assert(false, "Null source specified on activate")
-		return
+		return false
 	
 	var result: bool = ActivationLogic.activate(source, target)
 	print("Result of execute: " + str(result))
+	return result
 	
 func get_selected_card() -> Card:
 	if not GlobalSelectionManager.is_card_selected():
@@ -257,7 +258,7 @@ func end_turn() -> void:
 	GlobalSignals.signal_core_begin_turn()
 
 
-func end_game():
+func end_game() -> void:
 	GlobalSignals.signal_core_game_over()
 
 ## Initialize Tourbillon time systems

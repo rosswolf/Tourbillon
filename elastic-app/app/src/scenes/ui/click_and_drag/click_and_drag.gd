@@ -22,7 +22,7 @@ func _input(event: InputEvent) -> void:
 				remove_dragging_visual()
 				
 				
-func add_dragging_visual():
+func add_dragging_visual() -> void:
 	targeting_visual = get_relevant_visual()
 	%HUD.add_child(targeting_visual)
 	targeting_visual.global_position = get_global_mouse_position()

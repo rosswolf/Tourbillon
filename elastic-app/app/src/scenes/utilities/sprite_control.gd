@@ -1,7 +1,7 @@
 extends Control
 var __sprite: AnimatedSprite2D
 
-func set_sprite(sprite: AnimatedSprite2D, size: Vector2):
+func set_sprite(sprite: AnimatedSprite2D, size: Vector2) -> void:
 	
 	%ReferenceAnimatedSprite2D.hide()
 	

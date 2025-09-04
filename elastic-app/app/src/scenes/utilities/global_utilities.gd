@@ -6,7 +6,7 @@ enum TriggerType {
 	BLUE
 }
 
-static func get_enum_name(enum_dict, enum_value) -> String:
+static func get_enum_name(enum_dict: Dictionary, enum_value: int) -> String -> String:
 	var keys = enum_dict.keys()
 	var values = enum_dict.values()
 	var index = values.find(enum_value)

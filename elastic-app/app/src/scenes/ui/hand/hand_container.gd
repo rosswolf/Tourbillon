@@ -13,7 +13,7 @@ extends Control
 
 # Internal variables
 var __cards: Dictionary[String, CardUI]
-var __tween_dict: Dictionary = {}  # Store tweens by card node
+var __tween_dict: Dictionary[String, Variant] = {}  # Store tweens by card node
 var __selected_card: CardUI = null  # Track currently selected/raised card
 
 func _ready() -> void:

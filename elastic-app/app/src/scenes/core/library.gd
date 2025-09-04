@@ -22,7 +22,7 @@ class ZoneCollection:
 	var __cards: Array[Card] = []
 	var __zone_type: int
 	
-	func _init(type: Zone):
+	func _init(type: Zone) -> void:
 		__zone_type = type
 	
 	# Add a card to this zone
@@ -171,7 +171,7 @@ func print_hand_size() -> void:
 	
 	
 # Add a new card to a specific zone
-func add_card_to_zone(card: Card, zone: Zone):
+func add_card_to_zone(card: Card, zone: Zone) -> void:
 	var zone_obj: ZoneCollection = __get_zone_object(zone)
 	zone_obj.add_card(card)
 	card_zone_map[card.instance_id] = zone
@@ -240,7 +240,7 @@ func discard_hand() -> void:
 		GlobalSignals.signal_core_card_removed_from_hand(card.instance_id)
 		# for each card in hand, discard it.  
 		
-func draw_card(how_many: int):
+func draw_card(how_many: int) -> void:
 	for i in range(how_many):
 		if deck.get_count() == 0:
 			for c in graveyard.get_all_cards():
@@ -253,7 +253,7 @@ func draw_card(how_many: int):
 			
 			GlobalSignals.signal_core_card_drawn(next_card.instance_id)
 	
-func draw_new_hand(desired_hand_size: int):
+func draw_new_hand(desired_hand_size: int) -> void:
 	discard_hand()
 	
 	if desired_hand_size > deck.get_count() + graveyard.get_count():

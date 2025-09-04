@@ -254,7 +254,7 @@ static func build_new_card_from_template(card_template_id: String, card_template
 	var rules_text_data = card_template_data.get("rules_text", "")
 	if rules_text_data is Dictionary:
 		# Convert dictionary back to string format
-		var text_parts: Array = []
+		var text_parts: Array[String] = []
 		for key in rules_text_data:
 			text_parts.append(key + ": " + str(rules_text_data[key]))
 		builder.with_rules_text("; ".join(text_parts))
@@ -272,7 +272,7 @@ static func build_new_card_from_template(card_template_id: String, card_template
 	#card.force_cost = card_template_data.get("force_cost", {})
 	
 	# Handle tags - could be array or comma-separated string
-	var tags_data = card_template_data.get("tags", [])
+	var tags_data = card_template_data.get("tags", [] as Array[String])
 	if tags_data is String:
 		var split_tags: PackedStringArray = tags_data.split(",")
 		card.tags = []
@@ -284,7 +284,7 @@ static func build_new_card_from_template(card_template_id: String, card_template
 		card.tags = []
 	
 	# Handle keywords similarly
-	var keywords_data = card_template_data.get("keywords", [])
+	var keywords_data = card_template_data.get("keywords", [] as Array[String])
 	if keywords_data is String and not keywords_data.is_empty():
 		var split_keywords: PackedStringArray = keywords_data.split(",")
 		card.keywords = []

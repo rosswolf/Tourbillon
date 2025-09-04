@@ -8,7 +8,7 @@ var __entity: Entity
 func _ready() -> void:
 	pass	
 	
-func set_entity_data(entity:Entity): 
+func set_entity_data(entity:Entity) -> void: 
 	if not is_node_ready():
 		await self.ready
 		

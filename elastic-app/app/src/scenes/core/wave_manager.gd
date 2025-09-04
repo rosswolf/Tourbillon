@@ -1,12 +1,12 @@
 extends Node
 class_name WaveManager
 
-var current_wave: Dictionary = {}
+var current_wave: Dictionary[String, Variant] = {}
 var current_act: int = 1
 
 func spawn_wave(wave_id: String = "") -> void:
 	print("[WaveManager] spawn_wave called, current_act = %d" % current_act)
-	var wave_data: Dictionary = {}
+	var wave_data: Dictionary = {} as Dictionary[String, Variant]
 	
 	if wave_id.is_empty():
 		print("[WaveManager] Getting random wave for act %d" % current_act)

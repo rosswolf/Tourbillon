@@ -8,7 +8,7 @@ func _ready() -> void:
 	mouse_entered.connect(_on_mouse_entered)
 	mouse_exited.connect(_on_mouse_exited)
 	
-func create_button_entity(engine_slot: EngineSlot, is_activation_button: bool): 
+func create_button_entity(engine_slot: EngineSlot, is_activation_button: bool) -> bool: 
 	if not is_node_ready():
 		await self.ready
 	
@@ -16,6 +16,7 @@ func create_button_entity(engine_slot: EngineSlot, is_activation_button: bool):
 	builder.with_engine_slot(engine_slot)
 	builder.with_is_activation_button(is_activation_button)
 	__button_entity = builder.build()
+	return true
 
 	
 func _on_mouse_entered() -> void:

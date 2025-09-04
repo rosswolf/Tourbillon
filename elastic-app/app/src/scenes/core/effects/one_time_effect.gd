@@ -19,7 +19,7 @@ var cost: Cost:
 	get:
 		return __cost
 		
-func _init(template_id: String,  params: Dictionary, cost: Cost = null):
+func _init(template_id: String,  params: Dictionary, cost: Cost = null) -> void:
 	var internal_effect: Effect.InternalEffect = Effect.effect_map.get(template_id)
 	if not internal_effect:
 		assert(0, "missing effect with template id " + template_id)	
@@ -32,7 +32,7 @@ func _init(template_id: String,  params: Dictionary, cost: Cost = null):
 	parameters = params
 	effect_name = template_id
 
-func activate(source: Entity):
+func activate(source: Entity) -> bool:
 	#print("Taking effect " + __effect_template_id)
 	
 	# TODO(virtual) if we decide to have cards carry effects onto the things they
@@ -45,6 +45,7 @@ func activate(source: Entity):
 		return __base_f.call(source, parameters)
 	else:
 		assert(false, "Unexpected source type")
+		return false
 
 
 func __is_valid_source(source: Entity) -> bool:

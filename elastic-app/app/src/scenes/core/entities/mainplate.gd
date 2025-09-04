@@ -10,7 +10,7 @@ class CardState:
 	var is_ready: bool = false
 	var card_ref: Card
 	
-	func _init(card: Card):
+	func _init(card: Card) -> void:
 		card_ref = card
 		current_beats = card.starting_progress if card.has_meta("starting_progress") else 0
 
@@ -22,9 +22,9 @@ func _get_type() -> Entity.EntityType:
 
 var grid_size: Vector2i = Vector2i(4, 4)  # Current active grid size
 var max_grid_size: Vector2i = Vector2i(8, 8)  # Maximum possible size
-var slots: Dictionary = {}  # Position -> Card mapping
-var card_states: Dictionary = {}  # Card instance_id -> CardState mapping
-var bonus_squares: Dictionary = {}  # Position -> bonus type mapping
+var slots: Dictionary[Vector2i, Card] = {}  # Position -> Card mapping
+var card_states: Dictionary[String, CardState] = {}  # Card instance_id -> CardState mapping
+var bonus_squares: Dictionary[Vector2i, String] = {}  # Position -> bonus type mapping
 var expansions_used: int = 0
 var max_expansions: int = 4
 
@@ -113,7 +113,7 @@ func expand_grid(direction: String) -> bool:
 		"left":
 			if grid_size.x < max_grid_size.x:
 				# Shift all existing cards right
-				var new_slots: Dictionary = {}
+				var new_slots: Dictionary[Vector2i, Card] = {}
 				for pos in slots:
 					new_slots[pos + Vector2i(1, 0)] = slots[pos]
 				slots = new_slots
@@ -123,7 +123,7 @@ func expand_grid(direction: String) -> bool:
 		"up":
 			if grid_size.y < max_grid_size.y:
 				# Shift all existing cards down
-				var new_slots: Dictionary = {}
+				var new_slots: Dictionary[Vector2i, Card] = {}
 				for pos in slots:
 					new_slots[pos + Vector2i(0, 1)] = slots[pos]
 				slots = new_slots

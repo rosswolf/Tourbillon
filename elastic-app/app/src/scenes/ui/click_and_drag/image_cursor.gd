@@ -4,7 +4,7 @@ class_name ImageCursor
 func _ready() -> void:
 	z_index = 4096
 
-func set_cursor_position(pos: Vector2):
+func set_cursor_position(pos: Vector2) -> void:
 	if not is_node_ready():
 		await self.ready
 	global_position = pos
