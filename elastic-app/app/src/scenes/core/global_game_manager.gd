@@ -195,7 +195,9 @@ func reset_game_state() -> void:
 	# goal_manager = null # Removed
 	
 func activate(source_id: String, target_id: String) -> bool:	
-	assert(__activations_allowed, "Activations must be allowed to handle activation") false
+	assert(__activations_allowed, "Activations must be allowed to handle activation")
+	if not __activations_allowed:
+		return false
 		
 	var source: Entity = GlobalGameManager.instance_catalog.get_instance(source_id)
 	var target: Entity = GlobalGameManager.instance_catalog.get_instance(target_id)

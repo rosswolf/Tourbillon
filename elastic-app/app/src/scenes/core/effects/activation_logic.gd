@@ -8,20 +8,8 @@ static func activate(source: Entity, target: Entity) -> bool:
 	var source_type = get_type(source)
 	var target_type = get_type(target)
 	
-	# Handle card being dropped on battleground (which contains the engine slots)
-	# Since there are no instinct effects anymore, cards need to be dropped on ENGINE_BUTTON entities
-	if source_type == Entity.EntityType.CARD and target_type == Entity.EntityType.BATTLEGROUND:
-		var card: Card = source as Card
-		
-		if not card.cost.satisfy(source, target):
-			return false
-		
-		# All cards must be slotted now - no instinct effects exist
-		# This shouldn't happen but provide a clear error message
-		push_warning("Card dropped on battleground instead of engine slot: " + card.display_name)
-		push_warning("Cards must be dropped on specific engine slots to be played")
-		return false
-	elif source_type == Entity.EntityType.CARD and target_type == Entity.EntityType.ENGINE_BUTTON:
+	# Handle card being dropped on engine button (the slot entity)
+	if source_type == Entity.EntityType.CARD and target_type == Entity.EntityType.ENGINE_BUTTON:
 		var card: Card = source as Card
 		var button: EngineButtonEntity = target as EngineButtonEntity
 		
@@ -45,53 +33,39 @@ static func get_type(entity: Entity):
 		return entity._get_type()
 
 
-static func slot_card_in_button(card: Card, button: EngineButtonEntity) -> bool:	
-	# Validate that the slot is active (within the valid grid)
+static func slot_card_in_button(card: Card, button: EngineButtonEntity) -> bool:
+	# Minimal routing - validate slot and delegate to mainplate
 	if button.engine_slot:
-		# EngineSlot always has can_accept_card method
 		if not button.engine_slot.can_accept_card():
 			push_warning("Cannot place card on inactive slot")
 			return false
 	
-	# Check if there's already a card in the slot (overbuild scenario)
-	var existing_card: Card = button.card
-	if existing_card != null:
-		print("[OVERBUILD] Replacing ", existing_card.display_name, " with ", card.display_name)
+	# Get logical position from button's slot
+	if not button.engine_slot:
+		push_error("Button has no engine slot")
+		return false
 		
-		# Handle replacement as described in PRD section 2.0.4
-		# 1. Trigger replacement effects on the old card (if any)
-		# Cards don't have trigger_replacement_effects method - handle via on_replace_effect
-		if not existing_card.on_replace_effect.is_empty():
-			SimpleEffectProcessor.process_effects(existing_card.on_replace_effect, existing_card)
+	var grid_pos = button.engine_slot.grid_position
+	var logical_pos = grid_pos - Vector2i(2, 2)  # Convert to logical coords
+	
+	# Delegate ALL business logic to mainplate
+	if GlobalGameManager.mainplate:
+		# The mainplate handles everything:
+		# - Overbuild logic
+		# - Zone moves  
+		# - Bonus squares
+		# - Card state
+		# - Signals
+		var success = GlobalGameManager.mainplate.request_card_placement(card, logical_pos)
 		
-		# 2. Move the old card to discard pile
-		GlobalGameManager.library.move_card_to_zone2(existing_card.instance_id, Library.Zone.SLOTTED, Library.Zone.GRAVEYARD)
+		# Update button reference only if successful
+		if success:
+			button.card = card
 		
-		# 3. Signal that the old card was unslotted and discarded
-		GlobalSignals.signal_core_card_unslotted(button.instance_id)
-		GlobalSignals.signal_core_card_discarded(existing_card.instance_id)
-		
-		# Clear the slot reference (button.card setter will handle signals)
-		button.card = null
-	
-	# Now slot the new card
-	GlobalGameManager.library.move_card_to_zone2(card.instance_id, Library.Zone.HAND, Library.Zone.SLOTTED)
-	
-	button.card = card
-	GlobalSignals.signal_core_card_removed_from_hand(card.instance_id)
-	
-	if GlobalGameManager.mainplate and button.engine_slot:
-		var grid_pos = button.engine_slot.grid_position
-		var logical_pos = grid_pos - Vector2i(2, 2)
-		if GlobalGameManager.mainplate.is_valid_position(logical_pos):
-			GlobalGameManager.mainplate.place_card(card, logical_pos)
-		else:
-			push_warning("Invalid mainplate position for card placement: ", logical_pos)
-	
-	GlobalSignals.signal_core_card_slotted(button.instance_id)
-	GlobalSignals.signal_core_card_played(card.instance_id)
-	
-	return true
+		return success
+	else:
+		push_error("No mainplate found")
+		return false
 	
 static func activate_instinct(card: Card, target: Entity = null) -> bool:
 		

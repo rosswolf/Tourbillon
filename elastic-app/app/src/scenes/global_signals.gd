@@ -49,6 +49,11 @@ signal ui_time_bump()
 func signal_ui_time_bump() -> void:
 	ui_time_bump.emit()
 
+# New UI->Core signal for card placement requests
+signal ui_request_card_placement(card_id: String, logical_position: Vector2i)
+func signal_ui_request_card_placement(card_id: String, logical_position: Vector2i) -> void:
+	ui_request_card_placement.emit(card_id, logical_position)
+
 # Core Signal Functions
 
 # Goal signals removed - use gremlin system instead

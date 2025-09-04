@@ -213,14 +213,15 @@ func __escapement_compare(a: Vector2i, b: Vector2i) -> bool:
 		return a.y < b.y  # Top rows first
 	return a.x < b.x  # Left columns first
 
-## Request card placement through core Mainplate
+## Request card placement through core Mainplate (UI just forwards request)
 func request_card_placement(card: Card, logical_position: Vector2i) -> bool:
-	# Delegate to core Mainplate
+	# UI should NOT handle any business logic
+	# Just forward the request to core via signal or direct call
 	if not mainplate:
 		return false
 	
-	# Place through core - it will emit signals that we react to
-	return mainplate.place_card(card, logical_position)
+	# Delegate entirely to core - it handles ALL logic and signals back
+	return mainplate.request_card_placement(card, logical_position)
 
 ## Expand the mainplate (between combats or via effects)
 func expand_mainplate(expansion_type: String = "row") -> bool:

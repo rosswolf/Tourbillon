@@ -48,39 +48,75 @@ func get_card_at(pos: Vector2i) -> Card:
 		return slots[pos]
 	return null
 
-## Place a card at position
-func place_card(card: Card, pos: Vector2i) -> bool:
+## Request card placement - handles ALL business logic for placing a card
+func request_card_placement(card: Card, pos: Vector2i) -> bool:
 	if not is_valid_position(pos):
+		push_warning("Invalid position for card placement: " + str(pos))
 		return false
 	
-	# Handle replacement if needed
+	# Check if card can be placed (cost satisfaction happens in ActivationLogic)
+	# Here we just handle the placement logic
+	
+	# Handle replacement if needed (Overbuild)
 	if has_card_at(pos):
 		var old_card = slots[pos]
-		# Transfer state from old card if Overbuild
+		print("[OVERBUILD] Replacing ", old_card.display_name, " with ", card.display_name)
+		
+		# Process replacement effects on the old card
+		if not old_card.on_replace_effect.is_empty():
+			# Import SimpleEffectProcessor at top of file if needed
+			var SimpleEffectProcessor = preload("res://src/scenes/core/effects/simple_effect_processor.gd")
+			SimpleEffectProcessor.process_effects(old_card.on_replace_effect, old_card)
+		
+		# Move old card to graveyard
+		if GlobalGameManager.library:
+			GlobalGameManager.library.move_card_to_zone2(old_card.instance_id, Library.Zone.SLOTTED, Library.Zone.GRAVEYARD)
+		
+		# Signal old card was discarded
+		GlobalSignals.signal_core_card_discarded(old_card.instance_id)
+		
+		# Transfer state if Overbuild tag
 		if card.tags.has("Overbuild") and card_states.has(old_card.instance_id):
 			var old_state = card_states[old_card.instance_id]
 			card_states[card.instance_id] = old_state
 			card_states.erase(old_card.instance_id)
 		else:
-			# Initialize new card state
 			card_states[card.instance_id] = CardState.new(card)
+		
+		# Signal replacement for UI update
 		GlobalSignals.signal_core_card_replaced(old_card.instance_id, card.instance_id)
 	else:
-		# Initialize card state for new placement
+		# New placement
 		card_states[card.instance_id] = CardState.new(card)
 		
-		# Check if this position has a bonus square and trigger it
+		# Check and trigger bonus square
 		if bonus_squares.has(pos):
 			var bonus_type = bonus_squares[pos]
 			__trigger_bonus(bonus_type)
-			# Clear the bonus after use
 			bonus_squares.erase(pos)
-		
-		# Signal that a card was slotted (pass card instance ID)
-		GlobalSignals.signal_core_card_slotted(card.instance_id)
 	
+	# Move card to slotted zone
+	if GlobalGameManager.library:
+		GlobalGameManager.library.move_card_to_zone2(card.instance_id, Library.Zone.HAND, Library.Zone.SLOTTED)
+	
+	# Store card in slot
 	slots[pos] = card
+	
+	# Process on_place_effect if it exists
+	if not card.on_place_effect.is_empty():
+		var SimpleEffectProcessor = preload("res://src/scenes/core/effects/simple_effect_processor.gd")
+		SimpleEffectProcessor.process_effects(card.on_place_effect, null)
+	
+	# Signal successful placement (for UI and stats)
+	GlobalSignals.signal_core_card_slotted(card.instance_id)
+	GlobalSignals.signal_core_card_played(card.instance_id)
+	GlobalSignals.signal_core_card_removed_from_hand(card.instance_id)
+	
 	return true
+
+## Legacy place_card for backwards compatibility - delegates to request_card_placement
+func place_card(card: Card, pos: Vector2i) -> bool:
+	return request_card_placement(card, pos)
 
 ## Remove card from position
 func remove_card(pos: Vector2i) -> Card:
