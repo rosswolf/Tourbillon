@@ -8,11 +8,11 @@ class_name SimpleEffectProcessor
 static func process_effects(effect_string: String, source: Node = null) -> void:
 	if effect_string.is_empty():
 		return
-	
+
 	var effects: Array[String] = []
 	for e in effect_string.split(","):
 		effects.append(e.strip_edges())
-	
+
 	for effect in effects:
 		if effect.is_empty():
 			continue
@@ -24,19 +24,19 @@ static func _process_single_effect(effect: String, source: Node) -> void:
 	if effect.begins_with("complex_"):
 		_process_complex_effect(effect, source)
 		return
-	
+
 	# Parse simple key=value
 	var parts: Array[String] = []
 	for p in effect.split("="):
 		parts.append(p.strip_edges())
-	
+
 	if parts.size() != 2:
 		push_warning("Invalid effect format: " + effect)
 		return
-	
+
 	var effect_type: String = parts[0]
 	var value: float = parts[1].to_float()
-	
+
 	# Route to appropriate handler
 	match effect_type:
 		# Card effects
@@ -46,7 +46,7 @@ static func _process_single_effect(effect: String, source: Node) -> void:
 			_handle_discard(int(value))
 		"mill":
 			_handle_mill(int(value))
-		
+
 		# Generate force effects (no cost) - support both generate_ and add_ prefixes
 		"generate_red", "add_red":
 			_handle_generate_force(GameResource.Type.RED, value)
@@ -58,7 +58,7 @@ static func _process_single_effect(effect: String, source: Node) -> void:
 			_handle_generate_force(GameResource.Type.WHITE, value)
 		"generate_purple", "generate_black", "add_purple", "add_black":
 			_handle_generate_force(GameResource.Type.PURPLE, value)
-		
+
 		# Special forces generation
 		"generate_heat", "add_heat":
 			_handle_generate_force(GameResource.Type.HEAT, value)
@@ -70,7 +70,7 @@ static func _process_single_effect(effect: String, source: Node) -> void:
 			_handle_generate_force(GameResource.Type.BALANCE, value)
 		"generate_entropy", "add_entropy":
 			_handle_generate_force(GameResource.Type.ENTROPY, value)
-		
+
 		# Damage effects with targeting
 		"damage", "damage_top":
 			_handle_damage(value)
@@ -86,13 +86,13 @@ static func _process_single_effect(effect: String, source: Node) -> void:
 			_handle_damage_bottom(value)
 		"poison":
 			_handle_poison(int(value))
-		
+
 		# Defensive effects
 		"heal", "heal_self":
 			_handle_heal(value)
 		"shield", "shield_self":
 			_handle_shield(value)
-		
+
 		# Consume force effects (these should be checked before firing)
 		"consume_red":
 			_handle_consume_force(GameResource.Type.RED, value)
@@ -108,7 +108,7 @@ static func _process_single_effect(effect: String, source: Node) -> void:
 			_handle_consume_any(value)
 		"consume_max":
 			_handle_consume_max(value)
-		
+
 		# Gremlin constraint effects (caps and limits)
 		"heat_soft_cap", "red_soft_cap":
 			_handle_force_cap(GameResource.Type.HEAT, int(value), false)
@@ -120,7 +120,7 @@ static func _process_single_effect(effect: String, source: Node) -> void:
 			_handle_force_cap(GameResource.Type.BALANCE, int(value), false)
 		"entropy_soft_cap", "purple_soft_cap", "black_soft_cap":
 			_handle_force_cap(GameResource.Type.ENTROPY, int(value), false)
-		
+
 		"heat_hard_cap", "red_hard_cap":
 			_handle_force_cap(GameResource.Type.HEAT, int(value), true)
 		"precision_hard_cap", "white_hard_cap":
@@ -131,14 +131,14 @@ static func _process_single_effect(effect: String, source: Node) -> void:
 			_handle_force_cap(GameResource.Type.BALANCE, int(value), true)
 		"entropy_hard_cap", "purple_hard_cap", "black_hard_cap":
 			_handle_force_cap(GameResource.Type.ENTROPY, int(value), true)
-		
+
 		"total_forces_cap":
 			_handle_total_forces_cap(int(value))
 		"hand_limit":
 			_handle_hand_limit(int(value))
 		"card_tax":
 			_handle_card_tax(int(value))
-		
+
 		# Gremlin disruption effects (drains and forced actions)
 		"drain_heat", "drain_red":
 			_handle_drain_force(GameResource.Type.HEAT, value)
@@ -156,14 +156,14 @@ static func _process_single_effect(effect: String, source: Node) -> void:
 			_handle_drain_all(value)
 		"drain_highest":
 			_handle_drain_highest(value)
-		
+
 		"force_discard":
 			_handle_force_discard(int(value))
 		"destroy_gear":
 			_handle_destroy_gear(int(value))
 		"corrupt_gear":
 			_handle_corrupt_gear(int(value))
-		
+
 		# Gremlin combat effects
 		"summon":
 			_handle_summon(value)
@@ -175,7 +175,7 @@ static func _process_single_effect(effect: String, source: Node) -> void:
 			_handle_gremlin_armor(value, source)
 		"enhance_gremlins":
 			_handle_enhance_gremlins(value)
-		
+
 		_:
 			push_warning("Unknown effect type: " + effect_type)
 
@@ -197,12 +197,12 @@ static func _handle_mill(amount: int) -> void:
 static func _handle_generate_force(force_type: GameResource.Type, amount: float) -> void:
 	if GlobalGameManager.hero:
 		GlobalGameManager.hero.add_force(force_type, int(amount))
-		print("Generated ", amount, " of ", GameResource.Type.keys()[force_type])
+		print("[DEBUG] Generated ", amount, " of ", GameResource.Type.keys()[force_type])
 
 static func _handle_consume_force(force_type: GameResource.Type, amount: float) -> bool:
 	if not GlobalGameManager.hero:
 		return false
-	
+
 	if GlobalGameManager.hero.has_force(force_type, int(amount)):
 		GlobalGameManager.hero.consume_force(force_type, int(amount))
 		return true
@@ -211,10 +211,10 @@ static func _handle_consume_force(force_type: GameResource.Type, amount: float) 
 static func _handle_consume_any(amount: float) -> bool:
 	if not GlobalGameManager.hero:
 		return false
-	
+
 	# Try to consume from any available force pool
-	for force_type in [GameResource.Type.RED, GameResource.Type.BLUE, 
-						GameResource.Type.GREEN, GameResource.Type.WHITE, 
+	for force_type in [GameResource.Type.RED, GameResource.Type.BLUE,
+						GameResource.Type.GREEN, GameResource.Type.WHITE,
 						GameResource.Type.PURPLE]:
 		if GlobalGameManager.hero.has_force(force_type, int(amount)):
 			GlobalGameManager.hero.consume_force(force_type, int(amount))
@@ -224,19 +224,19 @@ static func _handle_consume_any(amount: float) -> bool:
 static func _handle_consume_max(amount: float) -> bool:
 	if not GlobalGameManager.hero:
 		return false
-	
+
 	# Consume from the highest pool first
 	var highest_type: GameResource.Type = GameResource.Type.RED
 	var highest_amount: float = 0.0
-	
-	for force_type in [GameResource.Type.RED, GameResource.Type.BLUE, 
-						GameResource.Type.GREEN, GameResource.Type.WHITE, 
+
+	for force_type in [GameResource.Type.RED, GameResource.Type.BLUE,
+						GameResource.Type.GREEN, GameResource.Type.WHITE,
 						GameResource.Type.PURPLE]:
 		var resource = GlobalGameManager.hero.get_force_resource(force_type)
 		if resource and resource.current > highest_amount:
 			highest_amount = resource.current
 			highest_type = force_type
-	
+
 	if highest_amount >= amount:
 		GlobalGameManager.hero.consume_force(highest_type, int(amount))
 		return true
@@ -268,7 +268,7 @@ static func _handle_damage_weakest(amount: float) -> void:
 	var gremlins: Array[Node] = GlobalGameManager.get_active_gremlins()
 	if gremlins.is_empty():
 		return
-	
+
 	var weakest = gremlins[0]
 	var min_hp: float = INF
 	for gremlin in gremlins:
@@ -277,7 +277,7 @@ static func _handle_damage_weakest(amount: float) -> void:
 			if hp < min_hp:
 				min_hp = hp
 				weakest = gremlin
-	
+
 	if weakest and weakest.has_method("take_damage"):
 		weakest.take_damage(amount)
 
@@ -285,7 +285,7 @@ static func _handle_damage_strongest(amount: float) -> void:
 	var gremlins: Array[Node] = GlobalGameManager.get_active_gremlins()
 	if gremlins.is_empty():
 		return
-	
+
 	var strongest = gremlins[0]
 	var max_hp: float = 0
 	for gremlin in gremlins:
@@ -294,7 +294,7 @@ static func _handle_damage_strongest(amount: float) -> void:
 			if hp > max_hp:
 				max_hp = hp
 				strongest = gremlin
-	
+
 	if strongest and strongest.has_method("take_damage"):
 		strongest.take_damage(amount)
 
@@ -349,7 +349,7 @@ static func _process_complex_effect(effect_id: String, source: Node) -> void:
 			_complex_micro_haste(source)
 		"complex_next_free":
 			_complex_next_free(source)
-			
+
 		# Tag synergy effects
 		"complex_order_line":
 			_complex_order_line(source)
@@ -367,7 +367,7 @@ static func _process_complex_effect(effect_id: String, source: Node) -> void:
 			_complex_arcane_ritual(source)
 		"complex_mech_automation":
 			_complex_mech_automation(source)
-		
+
 		# Threshold effects
 		"complex_overheat":
 			_complex_overheat(source)
@@ -379,7 +379,7 @@ static func _process_complex_effect(effect_id: String, source: Node) -> void:
 			_complex_perfect_balance(source)
 		"complex_entropy_cascade":
 			_complex_entropy_cascade(source)
-		
+
 		# Position-based effects
 		"complex_adjacent_trigger":
 			_complex_adjacent_trigger(source)
@@ -389,7 +389,7 @@ static func _process_complex_effect(effect_id: String, source: Node) -> void:
 			_complex_column_shield(source)
 		"complex_diagonal_damage":
 			_complex_diagonal_damage(source)
-		
+
 		# Sacrifice effects
 		"complex_sacrifice_power":
 			_complex_sacrifice_power(source)
@@ -397,7 +397,7 @@ static func _process_complex_effect(effect_id: String, source: Node) -> void:
 			_complex_discard_damage(source)
 		"complex_destroy_draw":
 			_complex_destroy_draw(source)
-		
+
 		# Scaling effects
 		"complex_force_scaling":
 			_complex_force_scaling(source)
@@ -405,7 +405,7 @@ static func _process_complex_effect(effect_id: String, source: Node) -> void:
 			_complex_card_scaling(source)
 		"complex_gear_scaling":
 			_complex_gear_scaling(source)
-		
+
 		# Combo effects
 		"complex_red_blue_combo":
 			_complex_red_blue_combo(source)
@@ -413,7 +413,7 @@ static func _process_complex_effect(effect_id: String, source: Node) -> void:
 			_complex_white_purple_combo(source)
 		"complex_rainbow_burst":
 			_complex_rainbow_burst(source)
-			
+
 		_:
 			push_warning("Unknown complex effect: " + effect_id)
 
@@ -434,8 +434,8 @@ static func _complex_chain_reaction(source: Node) -> void:
 
 static func _complex_mega_burst(_source: Node) -> void:
 	# Generate 3 of each basic force
-	for force_type in [GameResource.Type.RED, GameResource.Type.BLUE, 
-						GameResource.Type.GREEN, GameResource.Type.WHITE, 
+	for force_type in [GameResource.Type.RED, GameResource.Type.BLUE,
+						GameResource.Type.GREEN, GameResource.Type.WHITE,
 						GameResource.Type.PURPLE]:
 		_handle_generate_force(force_type, 3.0)
 
@@ -452,16 +452,16 @@ static func _complex_force_cascade(_source: Node) -> void:
 	# Convert all forces to damage (1:1 ratio)
 	if not GlobalGameManager.hero:
 		return
-	
+
 	var total_damage: float = 0.0
-	for force_type in [GameResource.Type.RED, GameResource.Type.BLUE, 
-						GameResource.Type.GREEN, GameResource.Type.WHITE, 
+	for force_type in [GameResource.Type.RED, GameResource.Type.BLUE,
+						GameResource.Type.GREEN, GameResource.Type.WHITE,
 						GameResource.Type.PURPLE]:
 		var resource = GlobalGameManager.hero.get_force_resource(force_type)
 		if resource and resource.current > 0:
 			total_damage += resource.current
 			resource.current = 0  # Clear the resource
-	
+
 	if total_damage > 0:
 		_handle_damage_all(total_damage)
 
@@ -470,13 +470,13 @@ static func _complex_micro_synergy(_source: Node) -> void:
 	# "If 3+ MICRO gears, deal 7 damage"
 	if not GlobalGameManager.mainplate:
 		return
-	
+
 	var micro_count: int = 0
 	var all_gears: Array[Node] = GlobalGameManager.mainplate.get_all_gears()
 	for gear in all_gears:
 		if gear.has_method("has_tag") and gear.has_tag("MICRO"):
 			micro_count += 1
-	
+
 	if micro_count >= 3:
 		_handle_damage(7)
 
@@ -484,13 +484,13 @@ static func _complex_beast_pack(_source: Node) -> void:
 	# "Deal 2 damage per BEAST gear"
 	if not GlobalGameManager.mainplate:
 		return
-	
+
 	var beast_count: int = 0
 	var all_gears: Array[Node] = GlobalGameManager.mainplate.get_all_gears()
 	for gear in all_gears:
 		if gear.has_method("has_tag") and gear.has_tag("BEAST"):
 			beast_count += 1
-	
+
 	if beast_count > 0:
 		_handle_damage(2 * beast_count)
 
@@ -498,7 +498,7 @@ static func _complex_heat_threshold(_source: Node) -> void:
 	# "If Heat > 5, draw 1 card"
 	if not GlobalGameManager.hero:
 		return
-	
+
 	var resource = GlobalGameManager.hero.get_force_resource(GameResource.Type.HEAT)
 	if resource and resource.current > 5:
 		_handle_draw(1)
@@ -515,7 +515,7 @@ static func _complex_micro_haste(_source: Node) -> void:
 	# This needs to modify gear intervals
 	if not GlobalGameManager.mainplate:
 		return
-	
+
 	var all_gears: Array[Node] = GlobalGameManager.mainplate.get_all_gears()
 	for gear in all_gears:
 		if gear.has_method("has_tag") and gear.has_tag("MICRO"):
@@ -535,7 +535,7 @@ static func _complex_order_line(source: Node) -> void:
 	# "If 3+ ORDER gears form a line, draw 2 cards"
 	if not GlobalGameManager.mainplate or not source:
 		return
-	
+
 	# Check for horizontal or vertical lines of ORDER gears
 	# This is a simplified check - full implementation would check actual lines
 	var order_count: int = 0
@@ -543,7 +543,7 @@ static func _complex_order_line(source: Node) -> void:
 	for gear in all_gears:
 		if gear.has_method("has_tag") and gear.has_tag("ORDER"):
 			order_count += 1
-	
+
 	if order_count >= 3:
 		_handle_draw(2)
 
@@ -551,20 +551,20 @@ static func _complex_chaos_isolation(source: Node) -> void:
 	# "CHAOS gears deal +3 damage if no adjacent gears"
 	if not GlobalGameManager.mainplate or not source:
 		return
-	
+
 	if source.has_method("get_grid_position"):
 		var pos: Vector2i = source.get_grid_position()
 		var adjacent_positions: Array[Vector2i] = [
 			pos + Vector2i.UP, pos + Vector2i.DOWN,
 			pos + Vector2i.LEFT, pos + Vector2i.RIGHT
 		]
-		
+
 		var has_adjacent: bool = false
 		for adj_pos in adjacent_positions:
 			if GlobalGameManager.mainplate.get_gear_at(adj_pos) != null:
 				has_adjacent = true
 				break
-		
+
 		if not has_adjacent and source.has_method("has_tag") and source.has_tag("CHAOS"):
 			_handle_damage(3)
 
@@ -572,11 +572,11 @@ static func _complex_forge_support(source: Node) -> void:
 	# "Other gears in same row produce +1"
 	if not GlobalGameManager.mainplate or not source:
 		return
-	
+
 	if source.has_method("get_grid_position"):
 		var pos: Vector2i = source.get_grid_position()
 		var all_gears: Array[Node] = GlobalGameManager.mainplate.get_all_gears()
-		
+
 		for gear in all_gears:
 			if gear != source and gear.has_method("get_grid_position"):
 				var gear_pos: Vector2i = gear.get_grid_position()
@@ -587,25 +587,25 @@ static func _complex_forge_support(source: Node) -> void:
 static func _complex_void_hunger(_source: Node) -> void:
 	# "Consume 5 any forces → 7 damage"
 	var total_consumed: float = 0.0
-	
+
 	if not GlobalGameManager.hero:
 		return
-	
+
 	# Try to consume 5 forces from any pools
-	for force_type in [GameResource.Type.RED, GameResource.Type.BLUE, 
-						GameResource.Type.GREEN, GameResource.Type.WHITE, 
+	for force_type in [GameResource.Type.RED, GameResource.Type.BLUE,
+						GameResource.Type.GREEN, GameResource.Type.WHITE,
 						GameResource.Type.PURPLE]:
 		var resource = GlobalGameManager.hero.get_force_resource(force_type)
 		if resource:
 			var to_consume: int = min(resource.current, int(5.0 - total_consumed))
-			
+
 			if to_consume > 0:
 				GlobalGameManager.hero.consume_force(force_type, to_consume)
 				total_consumed += to_consume
-		
+
 		if total_consumed >= 5.0:
 			break
-	
+
 	if total_consumed >= 5.0:
 		_handle_damage(7)
 
@@ -613,7 +613,7 @@ static func _complex_crystal_focus(_source: Node) -> void:
 	# "CRYSTAL gears: Double Precision production"
 	if not GlobalGameManager.mainplate:
 		return
-	
+
 	var all_gears: Array[Node] = GlobalGameManager.mainplate.get_all_gears()
 	for gear in all_gears:
 		if gear.has_method("has_tag") and gear.has_tag("CRYSTAL"):
@@ -629,14 +629,14 @@ static func _complex_arcane_ritual(_source: Node) -> void:
 	# "ARCANE gears: If 3+, trigger all gears once"
 	if not GlobalGameManager.mainplate:
 		return
-	
+
 	var arcane_count: int = 0
 	var all_gears: Array[Node] = GlobalGameManager.mainplate.get_all_gears()
-	
+
 	for gear in all_gears:
 		if gear.has_method("has_tag") and gear.has_tag("ARCANE"):
 			arcane_count += 1
-	
+
 	if arcane_count >= 3:
 		for gear in all_gears:
 			if gear.has_method("trigger_production"):
@@ -646,7 +646,7 @@ static func _complex_mech_automation(_source: Node) -> void:
 	# "MECH gears: Produce without consuming this turn"
 	if not GlobalGameManager.mainplate:
 		return
-	
+
 	var all_gears: Array[Node] = GlobalGameManager.mainplate.get_all_gears()
 	for gear in all_gears:
 		if gear.has_method("has_tag") and gear.has_tag("MECH"):
@@ -658,7 +658,7 @@ static func _complex_overheat(_source: Node) -> void:
 	# "If Heat >= 10: Deal 15 damage, lose all Heat"
 	if not GlobalGameManager.hero:
 		return
-	
+
 	var resource = GlobalGameManager.hero.get_force_resource(GameResource.Type.RED)
 	if resource and resource.current >= 10:
 		_handle_damage(15)
@@ -668,7 +668,7 @@ static func _complex_precision_strike(_source: Node) -> void:
 	# "If Precision >= 7: Deal damage equal to Precision to weakest"
 	if not GlobalGameManager.hero:
 		return
-	
+
 	var resource = GlobalGameManager.hero.get_force_resource(GameResource.Type.BLUE)
 	if resource and resource.current >= 7:
 		_handle_damage_weakest(resource.current)
@@ -677,7 +677,7 @@ static func _complex_momentum_avalanche(_source: Node) -> void:
 	# "If Momentum >= 8: Double all Momentum, deal that much damage"
 	if not GlobalGameManager.hero:
 		return
-	
+
 	var resource = GlobalGameManager.hero.get_force_resource(GameResource.Type.GREEN)
 	if resource and resource.current >= 8:
 		var damage_amount = resource.current * 2
@@ -688,20 +688,20 @@ static func _complex_perfect_balance(_source: Node) -> void:
 	# "If all forces equal and > 0: Draw 3, shield 5"
 	if not GlobalGameManager.hero:
 		return
-	
+
 	var red_res = GlobalGameManager.hero.get_force_resource(GameResource.Type.RED)
 	var blue_res = GlobalGameManager.hero.get_force_resource(GameResource.Type.BLUE)
 	var green_res = GlobalGameManager.hero.get_force_resource(GameResource.Type.GREEN)
 	var white_res = GlobalGameManager.hero.get_force_resource(GameResource.Type.WHITE)
 	var purple_res = GlobalGameManager.hero.get_force_resource(GameResource.Type.PURPLE)
-	
+
 	if red_res and blue_res and green_res and white_res and purple_res:
 		var red = red_res.current
 		var blue = blue_res.current
 		var green = green_res.current
 		var white = white_res.current
 		var purple = purple_res.current
-		
+
 		if red > 0 and red == blue and blue == green and green == white and white == purple:
 			_handle_draw(3)
 			_handle_shield(5)
@@ -710,7 +710,7 @@ static func _complex_entropy_cascade(_source: Node) -> void:
 	# "If Entropy >= 6: All gears take 1 damage, deal 10 to all enemies"
 	if not GlobalGameManager.hero:
 		return
-	
+
 	var resource = GlobalGameManager.hero.get_force_resource(GameResource.Type.PURPLE)
 	if resource and resource.current >= 6:
 		# Damage all enemies
@@ -721,14 +721,14 @@ static func _complex_adjacent_trigger(source: Node) -> void:
 	# "Trigger all adjacent gears"
 	if not GlobalGameManager.mainplate or not source:
 		return
-	
+
 	if source.has_method("get_grid_position"):
 		var pos: Vector2i = source.get_grid_position()
 		var adjacent_positions: Array[Vector2i] = [
 			pos + Vector2i.UP, pos + Vector2i.DOWN,
 			pos + Vector2i.LEFT, pos + Vector2i.RIGHT
 		]
-		
+
 		for adj_pos in adjacent_positions:
 			var gear = GlobalGameManager.mainplate.get_gear_at(adj_pos)
 			if gear and gear.has_method("trigger_production"):
@@ -738,11 +738,11 @@ static func _complex_row_production(source: Node) -> void:
 	# "All gears in this row produce immediately"
 	if not GlobalGameManager.mainplate or not source:
 		return
-	
+
 	if source.has_method("get_grid_position"):
 		var pos: Vector2i = source.get_grid_position()
 		var all_gears: Array[Node] = GlobalGameManager.mainplate.get_all_gears()
-		
+
 		for gear in all_gears:
 			if gear.has_method("get_grid_position"):
 				var gear_pos: Vector2i = gear.get_grid_position()
@@ -754,18 +754,18 @@ static func _complex_column_shield(source: Node) -> void:
 	# "All gears in this column gain shield"
 	if not GlobalGameManager.mainplate or not source:
 		return
-	
+
 	if source.has_method("get_grid_position"):
 		var pos: Vector2i = source.get_grid_position()
 		var all_gears: Array[Node] = GlobalGameManager.mainplate.get_all_gears()
-		
+
 		var column_count: int = 0
 		for gear in all_gears:
 			if gear.has_method("get_grid_position"):
 				var gear_pos: Vector2i = gear.get_grid_position()
 				if gear_pos.x == pos.x:  # Same column
 					column_count += 1
-		
+
 		# Shield player based on column gear count
 		_handle_shield(column_count * 2)
 
@@ -773,19 +773,19 @@ static func _complex_diagonal_damage(source: Node) -> void:
 	# "Deal 3 damage per gear on diagonals from this"
 	if not GlobalGameManager.mainplate or not source:
 		return
-	
+
 	if source.has_method("get_grid_position"):
 		var pos: Vector2i = source.get_grid_position()
 		var diagonal_positions: Array[Vector2i] = [
 			pos + Vector2i(1, 1), pos + Vector2i(1, -1),
 			pos + Vector2i(-1, 1), pos + Vector2i(-1, -1)
 		]
-		
+
 		var diagonal_count: int = 0
 		for diag_pos in diagonal_positions:
 			if GlobalGameManager.mainplate.get_gear_at(diag_pos) != null:
 				diagonal_count += 1
-		
+
 		if diagonal_count > 0:
 			_handle_damage(diagonal_count * 3)
 
@@ -811,7 +811,7 @@ static func _complex_destroy_draw(source: Node) -> void:
 	# "Destroy a gear: Draw cards equal to its interval"
 	if not GlobalGameManager.mainplate:
 		return
-	
+
 	var all_gears: Array[Node] = GlobalGameManager.mainplate.get_all_gears()
 	if all_gears.size() > 1:  # Don't destroy last gear
 		# For now, destroy random gear (should be player choice)
@@ -826,15 +826,15 @@ static func _complex_force_scaling(_source: Node) -> void:
 	# "Deal damage equal to total forces"
 	if not GlobalGameManager.hero:
 		return
-	
+
 	var total: float = 0.0
-	for force_type in [GameResource.Type.RED, GameResource.Type.BLUE, 
-						GameResource.Type.GREEN, GameResource.Type.WHITE, 
+	for force_type in [GameResource.Type.RED, GameResource.Type.BLUE,
+						GameResource.Type.GREEN, GameResource.Type.WHITE,
 						GameResource.Type.PURPLE]:
 		var resource = GlobalGameManager.hero.get_force_resource(force_type)
 		if resource:
 			total += resource.current
-	
+
 	if total > 0:
 		_handle_damage(total)
 
@@ -849,11 +849,11 @@ static func _complex_gear_scaling(_source: Node) -> void:
 	# "Produce 1 of each force per gear on mainplate"
 	if not GlobalGameManager.mainplate:
 		return
-	
+
 	var gear_count: int = GlobalGameManager.mainplate.get_all_gears().size()
 	if gear_count > 0:
-		for force_type in [GameResource.Type.RED, GameResource.Type.BLUE, 
-							GameResource.Type.GREEN, GameResource.Type.WHITE, 
+		for force_type in [GameResource.Type.RED, GameResource.Type.BLUE,
+							GameResource.Type.GREEN, GameResource.Type.WHITE,
 							GameResource.Type.PURPLE]:
 			_handle_generate_force(force_type, gear_count)
 
@@ -862,14 +862,14 @@ static func _complex_red_blue_combo(_source: Node) -> void:
 	# "If Red + Blue >= 10: Create HEAT, deal 12 pierce damage"
 	if not GlobalGameManager.hero:
 		return
-	
+
 	var red_res = GlobalGameManager.hero.get_force_resource(GameResource.Type.RED)
 	var blue_res = GlobalGameManager.hero.get_force_resource(GameResource.Type.BLUE)
-	
+
 	if red_res and blue_res:
 		var red = red_res.current
 		var blue = blue_res.current
-		
+
 		if red + blue >= 10:
 			# Consume to create HEAT
 			var to_consume: int = min(red, blue, 5)
@@ -883,14 +883,14 @@ static func _complex_white_purple_combo(_source: Node) -> void:
 	# "If White + Purple >= 10: Create BALANCE, heal 5, shield 5"
 	if not GlobalGameManager.hero:
 		return
-	
+
 	var white_res = GlobalGameManager.hero.get_force_resource(GameResource.Type.WHITE)
 	var purple_res = GlobalGameManager.hero.get_force_resource(GameResource.Type.PURPLE)
-	
+
 	if white_res and purple_res:
 		var white = white_res.current
 		var purple = purple_res.current
-		
+
 		if white + purple >= 10:
 			var to_consume: int = min(white, purple, 5)
 			GlobalGameManager.hero.consume_force(GameResource.Type.WHITE, to_consume)
@@ -903,28 +903,28 @@ static func _complex_rainbow_burst(_source: Node) -> void:
 	# "If have all 5 force types: Consume all, deal that much to all, draw 5"
 	if not GlobalGameManager.hero:
 		return
-	
+
 	var has_all: bool = true
 	var total: float = 0.0
-	
-	for force_type in [GameResource.Type.RED, GameResource.Type.BLUE, 
-						GameResource.Type.GREEN, GameResource.Type.WHITE, 
+
+	for force_type in [GameResource.Type.RED, GameResource.Type.BLUE,
+						GameResource.Type.GREEN, GameResource.Type.WHITE,
 						GameResource.Type.PURPLE]:
 		var resource = GlobalGameManager.hero.get_force_resource(force_type)
 		if not resource or resource.current <= 0:
 			has_all = false
 			break
 		total += resource.current
-	
+
 	if has_all:
 		# Consume all forces
-		for force_type in [GameResource.Type.RED, GameResource.Type.BLUE, 
-							GameResource.Type.GREEN, GameResource.Type.WHITE, 
+		for force_type in [GameResource.Type.RED, GameResource.Type.BLUE,
+							GameResource.Type.GREEN, GameResource.Type.WHITE,
 							GameResource.Type.PURPLE]:
 			var resource = GlobalGameManager.hero.get_force_resource(force_type)
 			if resource:
 				resource.current = 0
-		
+
 		_handle_damage_all(total)
 		_handle_draw(5)
 
@@ -932,23 +932,23 @@ static func _complex_rainbow_burst(_source: Node) -> void:
 static func can_satisfy_effect(effect_string: String) -> bool:
 	if effect_string.is_empty():
 		return true
-	
+
 	var effects: Array[String] = []
 	for e in effect_string.split(","):
 		effects.append(e.strip_edges())
-	
+
 	for effect in effects:
 		if effect.begins_with("consume_") or effect.begins_with("pay_"):
 			var parts: Array[String] = []
 			for p in effect.split("="):
 				parts.append(p.strip_edges())
-			
+
 			if parts.size() != 2:
 				continue
-			
+
 			var effect_type: String = parts[0]
 			var value: float = parts[1].to_float()
-			
+
 			# Check if we can afford the consumption
 			match effect_type:
 				"consume_red", "pay_red":
@@ -970,15 +970,15 @@ static func can_satisfy_effect(effect_string: String) -> bool:
 					if not GlobalGameManager.hero:
 						return false
 					var can_afford_any: bool = false
-					for force_type in [GameResource.Type.RED, GameResource.Type.BLUE, 
-										GameResource.Type.GREEN, GameResource.Type.WHITE, 
+					for force_type in [GameResource.Type.RED, GameResource.Type.BLUE,
+										GameResource.Type.GREEN, GameResource.Type.WHITE,
 										GameResource.Type.PURPLE]:
 						if GlobalGameManager.hero.has_force(force_type, int(value)):
 							can_afford_any = true
 							break
 					if not can_afford_any:
 						return false
-	
+
 	return true
 
 # ============================================================================
@@ -989,26 +989,26 @@ static func can_satisfy_effect(effect_string: String) -> bool:
 static func _handle_force_cap(force_type: GameResource.Type, cap: int, is_hard: bool) -> void:
 	if not GlobalGameManager.hero:
 		return
-	
+
 	var resource = GlobalGameManager.hero.get_force_resource(force_type)
 	if not resource:
 		return
-	
+
 	if is_hard:
 		# Hard cap - immediately reduce if over and set max
 		if resource.current > cap:
 			resource.current = cap
 		resource.max_amount = cap
-		print("[Constraint] Hard cap ", GameResource.Type.keys()[force_type], " at ", cap)
+		print("[DEBUG] [Constraint] Hard cap ", GameResource.Type.keys()[force_type], " at ", cap)
 	else:
 		# Soft cap - set metadata for UI indication
 		resource.set_meta("soft_cap", cap)
-		print("[Constraint] Soft cap ", GameResource.Type.keys()[force_type], " at ", cap)
+		print("[DEBUG] [Constraint] Soft cap ", GameResource.Type.keys()[force_type], " at ", cap)
 
 static func _handle_total_forces_cap(cap: int) -> void:
 	if not GlobalGameManager.hero:
 		return
-	
+
 	# Apply cap to sum of all forces
 	var total: int = 0
 	for force_type in [GameResource.Type.HEAT, GameResource.Type.PRECISION,
@@ -1017,7 +1017,7 @@ static func _handle_total_forces_cap(cap: int) -> void:
 		var resource = GlobalGameManager.hero.get_force_resource(force_type)
 		if resource:
 			total += resource.current
-	
+
 	# If over cap, reduce proportionally
 	if total > cap:
 		var scale: float = float(cap) / float(total)
@@ -1027,14 +1027,14 @@ static func _handle_total_forces_cap(cap: int) -> void:
 			var resource = GlobalGameManager.hero.get_force_resource(force_type)
 			if resource:
 				resource.current = int(resource.current * scale)
-	
-	print("[Constraint] Total forces capped at ", cap)
+
+	print("[DEBUG] [Constraint] Total forces capped at ", cap)
 
 static func _handle_hand_limit(limit: int) -> void:
 	if GlobalGameManager.library:
 		GlobalGameManager.library.set_meta("hand_limit", limit)
-		print("[Constraint] Hand limit set to ", limit)
-		
+		print("[DEBUG] [Constraint] Hand limit set to ", limit)
+
 		# Force discard if over limit
 		var current_hand: int = GlobalGameManager.library.get_hand_size()
 		if current_hand > limit:
@@ -1044,26 +1044,26 @@ static func _handle_card_tax(tax: int) -> void:
 	# Store as metadata for card cost calculation
 	if not GlobalGameManager.has_meta("card_tax"):
 		GlobalGameManager.set_meta("card_tax", 0)
-	
+
 	var current_tax: int = GlobalGameManager.get_meta("card_tax")
 	GlobalGameManager.set_meta("card_tax", current_tax + tax)
-	print("[Constraint] Card tax increased by ", tax)
+	print("[DEBUG] [Constraint] Card tax increased by ", tax)
 
 # Drain handlers
 static func _handle_drain_force(force_type: GameResource.Type, amount: float) -> void:
 	if not GlobalGameManager.hero:
 		return
-	
+
 	var resource = GlobalGameManager.hero.get_force_resource(force_type)
 	if resource and resource.current > 0:
 		var drained: float = min(amount, resource.current)
 		resource.subtract(drained)
-		print("[Disruption] Drained ", drained, " ", GameResource.Type.keys()[force_type])
+		print("[DEBUG] [Disruption] Drained ", drained, " ", GameResource.Type.keys()[force_type])
 
 static func _handle_drain_random(amount: float) -> void:
 	if not GlobalGameManager.hero:
 		return
-	
+
 	# Find forces with resources
 	var available_forces: Array[GameResource.Type] = []
 	for force_type in [GameResource.Type.HEAT, GameResource.Type.PRECISION,
@@ -1072,7 +1072,7 @@ static func _handle_drain_random(amount: float) -> void:
 		var resource = GlobalGameManager.hero.get_force_resource(force_type)
 		if resource and resource.current > 0:
 			available_forces.append(force_type)
-	
+
 	if not available_forces.is_empty():
 		var chosen = available_forces.pick_random()
 		_handle_drain_force(chosen, amount)
@@ -1080,7 +1080,7 @@ static func _handle_drain_random(amount: float) -> void:
 static func _handle_drain_all(amount: float) -> void:
 	if not GlobalGameManager.hero:
 		return
-	
+
 	for force_type in [GameResource.Type.HEAT, GameResource.Type.PRECISION,
 						GameResource.Type.MOMENTUM, GameResource.Type.BALANCE,
 						GameResource.Type.ENTROPY]:
@@ -1089,10 +1089,10 @@ static func _handle_drain_all(amount: float) -> void:
 static func _handle_drain_highest(amount: float) -> void:
 	if not GlobalGameManager.hero:
 		return
-	
+
 	var highest_type: GameResource.Type = GameResource.Type.HEAT
 	var highest_amount: float = 0.0
-	
+
 	for force_type in [GameResource.Type.HEAT, GameResource.Type.PRECISION,
 						GameResource.Type.MOMENTUM, GameResource.Type.BALANCE,
 						GameResource.Type.ENTROPY]:
@@ -1100,14 +1100,14 @@ static func _handle_drain_highest(amount: float) -> void:
 		if resource and resource.current > highest_amount:
 			highest_amount = resource.current
 			highest_type = force_type
-	
+
 	if highest_amount > 0:
 		_handle_drain_force(highest_type, amount)
 
 # Forced action handlers
 static func _handle_force_discard(count: int) -> void:
 	if GlobalGameManager.library:
-		print("[Disruption] Force discard ", count, " cards")
+		print("[DEBUG] [Disruption] Force discard ", count, " cards")
 		# For now, discard random cards (should be player choice UI)
 		for i in count:
 			GlobalGameManager.library.discard_random_card()
@@ -1115,12 +1115,12 @@ static func _handle_force_discard(count: int) -> void:
 static func _handle_destroy_gear(count: int) -> void:
 	if not GlobalGameManager.mainplate:
 		return
-	
+
 	var gears = GlobalGameManager.mainplate.get_cards_in_order()
 	if gears.is_empty():
 		return
-	
-	print("[Disruption] Destroy ", count, " gears")
+
+	print("[DEBUG] [Disruption] Destroy ", count, " gears")
 	for i in min(count, gears.size()):
 		# Should be player choice, for now random
 		var target = gears.pick_random()
@@ -1134,10 +1134,10 @@ static func _handle_destroy_gear(count: int) -> void:
 static func _handle_corrupt_gear(count: int) -> void:
 	if not GlobalGameManager.mainplate:
 		return
-	
+
 	var gears = GlobalGameManager.mainplate.get_cards_in_order()
-	print("[Disruption] Corrupt ", count, " gears")
-	
+	print("[DEBUG] [Disruption] Corrupt ", count, " gears")
+
 	for i in min(count, gears.size()):
 		var target = gears.pick_random()
 		# Apply corruption (disable production for N ticks)
@@ -1146,7 +1146,7 @@ static func _handle_corrupt_gear(count: int) -> void:
 
 # Gremlin combat handlers
 static func _handle_summon(summon_type: float) -> void:
-	print("[Gremlin] Summon: ", summon_type)
+	print("[DEBUG] [Gremlin] Summon: ", summon_type)
 	# Delegate to gremlin manager
 	if GlobalGameManager.has_method("summon_gremlin"):
 		GlobalGameManager.summon_gremlin(str(summon_type))
@@ -1155,25 +1155,25 @@ static func _handle_gremlin_shield(amount: float, source: Node) -> void:
 	# Shield the gremlin itself
 	if source and source.has_method("add_shields"):
 		source.add_shields(int(amount))
-		print("[Gremlin] ", source.gremlin_name if source.has("gremlin_name") else "Gremlin", " gains ", amount, " shields")
+		print("[DEBUG] [Gremlin] ", source.gremlin_name if source.has("gremlin_name") else "Gremlin", " gains ", amount, " shields")
 
 static func _handle_gremlin_heal(amount: float, source: Node) -> void:
 	# Heal the gremlin itself
 	if source and source.has_method("heal"):
 		source.heal(int(amount))
-		print("[Gremlin] ", source.gremlin_name if source.has("gremlin_name") else "Gremlin", " heals ", amount)
+		print("[DEBUG] [Gremlin] ", source.gremlin_name if source.has("gremlin_name") else "Gremlin", " heals ", amount)
 
 static func _handle_gremlin_armor(amount: float, source: Node) -> void:
 	# Add armor to the gremlin
 	if source and source.has("armor"):
 		source.armor += int(amount)
-		print("[Gremlin] ", source.gremlin_name if source.has("gremlin_name") else "Gremlin", " gains ", amount, " armor")
+		print("[DEBUG] [Gremlin] ", source.gremlin_name if source.has("gremlin_name") else "Gremlin", " gains ", amount, " armor")
 
 static func _handle_enhance_gremlins(amount: float) -> void:
 	# Enhance all gremlins
 	var gremlins: Array[Node] = GlobalGameManager.get_active_gremlins()
-	print("[Gremlin] Enhancing ", gremlins.size(), " gremlins by ", amount)
-	
+	print("[DEBUG] [Gremlin] Enhancing ", gremlins.size(), " gremlins by ", amount)
+
 	for gremlin in gremlins:
 		if gremlin.has("armor"):
 			gremlin.armor += int(amount)

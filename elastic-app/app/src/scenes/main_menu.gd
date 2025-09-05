@@ -14,16 +14,16 @@ func _ready() -> void:
 func __play() -> void:
 	GlobalGameManager.hero_template_id = "knight"
 	FadeToBlack.go_to_scene(GAME)
-	
+
 func __show_settings() -> void:
 	settings_container.set_mouse_filter(Control.MOUSE_FILTER_STOP)
 	settings_container.show()
-	
+
 
 func __close_settings() -> void:
 	settings_container.set_mouse_filter(Control.MOUSE_FILTER_IGNORE)
 	settings_container.hide()
-	
-		
+
+
 func __quit() -> void:
 	get_tree().quit()

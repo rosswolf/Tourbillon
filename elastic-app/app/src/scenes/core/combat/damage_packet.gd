@@ -50,9 +50,9 @@ func _to_string() -> String:
 	if overkill: keywords.append("overkill")
 	if true_damage: keywords.append("true")
 	if poison: keywords.append("poison")
-	
+
 	var keyword_str: String = ""
 	if not keywords.is_empty():
 		keyword_str = " [" + ", ".join(keywords) + "]"
-	
+
 	return "DamagePacket(%d %s%s)" % [amount, DamageType.keys()[damage_type], keyword_str]

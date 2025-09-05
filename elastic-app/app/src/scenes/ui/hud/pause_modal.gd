@@ -12,14 +12,14 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
-	
+
 func resume() -> void:
 	hide()
-	get_tree().paused = false 
+	get_tree().paused = false
 	animation_player.play_backwards("blur")
-	
+
 func pause() -> void:
-	show()	
+	show()
 	animation_player.play("blur")
 	get_tree().paused = true
 

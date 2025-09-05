@@ -23,10 +23,10 @@ func _ready() -> void:
 	# Connect to time advancement signals
 	if GlobalGameManager.timeline_manager:
 		GlobalGameManager.timeline_manager.time_changed.connect(__on_time_changed)
-		print("[UIBeatOrchestrator] Connected to timeline_manager")
+		print("[DEBUG] [UIBeatOrchestrator] Connected to timeline_manager")
 	else:
 		push_error("[UIBeatOrchestrator] No timeline_manager found!")
-	
+
 	# This will be the single source of truth for UI beat updates
 	set_process(false)
 
@@ -42,12 +42,12 @@ func unregister_slot(slot: EngineSlot) -> void:
 
 ## Handle time changes from the timeline manager
 func __on_time_changed(total_beats: int) -> void:
-	print("[UIBeatOrchestrator] Time changed signal received. Total beats: ", total_beats, " Current display: ", current_beat_display)
+	print("[DEBUG] [UIBeatOrchestrator] Time changed signal received. Total beats: ", total_beats, " Current display: ", current_beat_display)
 	# Calculate how many beats to animate
 	var beats_to_animate = total_beats - current_beat_display
 	if beats_to_animate > 0:
 		pending_beats += beats_to_animate
-		print("[UIBeatOrchestrator] Beats to animate: ", beats_to_animate, " Pending: ", pending_beats)
+		print("[DEBUG] [UIBeatOrchestrator] Beats to animate: ", beats_to_animate, " Pending: ", pending_beats)
 		if not is_processing_beats:
 			__process_pending_beats()
 
@@ -56,15 +56,15 @@ func __process_pending_beats() -> void:
 	if pending_beats <= 0:
 		is_processing_beats = false
 		return
-	
+
 	is_processing_beats = true
-	
+
 	# Process one beat with orchestrated visuals
 	await __orchestrate_single_beat()
-	
+
 	current_beat_display += 1
 	pending_beats -= 1
-	
+
 	# Continue processing remaining beats
 	if pending_beats > 0:
 		__process_pending_beats()
@@ -75,61 +75,61 @@ func __process_pending_beats() -> void:
 func __orchestrate_single_beat() -> void:
 	# 1. Emit the beat tick for all listeners
 	ui_beat_tick.emit(current_beat_display + 1)
-	
+
 	# Create a visual beat indicator (temporary flash on screen)
 	__show_beat_flash()
-	
+
 	# 2. Update all progress bars simultaneously
 	await __update_all_progress_bars()
-	
+
 	# 3. Check for ready gears and pulse them
 	await __check_and_pulse_ready_gears()
-	
+
 	# 4. Small pause for the "tick" feel
 	await get_tree().create_timer(BEAT_DURATION).timeout
 
 ## Update all registered slots' progress bars in sync
 func __update_all_progress_bars() -> void:
 	var tweens: Array[Tween] = []
-	print("[UIBeatOrchestrator] Updating progress bars for ", registered_slots.size(), " slots")
-	
+	print("[DEBUG] [UIBeatOrchestrator] Updating progress bars for ", registered_slots.size(), " slots")
+
 	for slot in registered_slots:
 		if not is_instance_valid(slot):
 			continue
-			
+
 		# Check if slot has a card
 		if slot.__button_entity and slot.__button_entity.card:
 			# Skip non-producing cards
 			if slot.production_interval_beats <= 0:
 				continue
-				
+
 			# Calculate progress for this slot
 			slot.current_beats = min(slot.current_beats + 1, slot.production_interval_beats)
 			var progress = slot.pct(slot.current_beats, slot.production_interval_beats)
-			print("[UIBeatOrchestrator] Slot at ", slot.grid_position, " progress: ", slot.current_beats, "/", slot.production_interval_beats)
-			
+			print("[DEBUG] [UIBeatOrchestrator] Slot at ", slot.grid_position, " progress: ", slot.current_beats, "/", slot.production_interval_beats)
+
 			# Update the display manually first
 			slot.__update_progress_display()
-			
+
 			# Create synchronized tween
 			var tween = create_tween()
 			tween.set_parallel(true)
-			
+
 			# Animate progress bar
 			if slot.get_node_or_null("%ProgressBar"):
 				var progress_bar = slot.get_node("%ProgressBar")
 				progress_bar.visible = true  # Ensure it's visible
 				tween.tween_property(progress_bar, "value", progress, BEAT_DURATION * 0.8)
-			
+
 			# Add subtle scale pulse for visual feedback
 			tween.tween_property(slot, "scale", Vector2(1.02, 1.02), BEAT_DURATION * 0.4)
 			tween.chain().tween_property(slot, "scale", Vector2(1.0, 1.0), BEAT_DURATION * 0.4)
-			
+
 			tweens.append(tween)
-	
+
 	# Emit progress update signal for other UI elements
 	ui_progress_update.emit(100.0 / 30.0)  # Approximate progress per beat
-	
+
 	# Wait for all tweens to complete
 	if tweens.size() > 0:
 		await tweens[0].finished
@@ -138,11 +138,11 @@ func __update_all_progress_bars() -> void:
 func __check_and_pulse_ready_gears() -> void:
 	var ready_positions: Array[Vector2i] = []
 	var ready_slots: Array[EngineSlot] = []
-	
+
 	for slot in registered_slots:
 		if not is_instance_valid(slot):
 			continue
-			
+
 		# Check if slot has a card and is ready
 		assert(slot != null, "Registered slot must exist")
 		# All slots should implement get_card_instance_id
@@ -153,10 +153,10 @@ func __check_and_pulse_ready_gears() -> void:
 				ready_slots.append(slot)
 				# Slots should have __enter_ready_state for state management
 				slot.__enter_ready_state()
-	
+
 	if ready_positions.size() > 0:
 		ui_gear_ready.emit(ready_positions)
-		
+
 		# Create cascading pulse effect for ready gears
 		for i in range(ready_slots.size()):
 			var slot = ready_slots[i]
@@ -167,11 +167,11 @@ func __check_and_pulse_ready_gears() -> void:
 func __pulse_slot(slot: EngineSlot) -> void:
 	var tween = create_tween()
 	tween.set_parallel(true)
-	
+
 	# Scale pulse
 	tween.tween_property(slot, "scale", Vector2(1.15, 1.15), PULSE_DURATION * 0.5)
 	tween.chain().tween_property(slot, "scale", Vector2(1.0, 1.0), PULSE_DURATION * 0.5)
-	
+
 	# Glow effect
 	var original_modulate = slot.modulate
 	tween.tween_property(slot, "modulate", Color(1.2, 1.3, 1.2), PULSE_DURATION * 0.5)
@@ -180,25 +180,25 @@ func __pulse_slot(slot: EngineSlot) -> void:
 ## Orchestrate a gear firing with visual effects
 func orchestrate_gear_fire(slot: EngineSlot) -> void:
 	ui_gear_fire.emit(slot.grid_position)
-	
+
 	# Immediately reset progress bar to 0 (before any effects)
 	if slot.get_node_or_null("%ProgressBar"):
 		var progress_bar = slot.get_node("%ProgressBar")
 		progress_bar.value = 0
-	
+
 	# Reset the slot's timer
 	slot.current_beats = 0
 	slot.__exit_ready_state()
-	
+
 	# Create firing visual effect
 	var tween = create_tween()
-	
+
 	# Golden flash effect to match activation
 	var activation_color = Color(1.8, 1.5, 1.0, 1.0)  # Bright golden
 	tween.tween_property(slot, "modulate", activation_color, 0.05)
 	tween.tween_property(slot, "modulate", Color(1.3, 1.2, 1.0, 1.0), 0.15)  # Hold golden
 	tween.tween_property(slot, "modulate", Color.WHITE, 0.3)  # Fade to normal
-	
+
 	# Small punch animation for mechanical feel
 	tween.parallel().tween_property(slot, "scale", Vector2(1.1, 1.1), 0.05)
 	tween.tween_property(slot, "scale", Vector2(0.95, 0.95), 0.1)

@@ -17,37 +17,37 @@ var CARD_UI: PackedScene = preload("res://src/scenes/ui/hand/card_ui.tscn")
 
 func _ready() -> void:
 	super._ready()
-	
+
 	create_button_entity(self, false)
-	
+
 	self.pressed.connect(__on_refresh_slot_manually)
-	
+
 	# Hide nodes we don't need yet
 	await get_tree().process_frame
 	top_container.visible = true
 	bottom_container.visible = false
-	
+
 	# Card slotting is now handled via update_card_display() called by UIMainplate
 	GlobalSignals.core_card_unslotted.connect(__on_card_unslotted)
 	GlobalSignals.core_gear_blocked.connect(__on_gear_blocked)
-	
+
 	# Connect to mainplate's progress signal
 	if GlobalGameManager.mainplate:
 		GlobalGameManager.mainplate.gear_progress_updated.connect(__on_gear_progress_updated)
-	
+
 	# Initialize and fix progress bar height
 	%ProgressBar.value = 0
 	%ProgressBar.visible = true
 	%ProgressBar.custom_minimum_size.y = 8  # Set minimum height
 	%ProgressBar.size_flags_vertical = Control.SIZE_FILL  # Allow it to expand
-	
-func create_card_ui() -> void:	
+
+func create_card_ui() -> void:
 	if card_preview:  # Already exists, don't create again
 		return
-		
+
 	card_preview = CARD_UI.instantiate()
 	card_preview.set_card_data(__button_entity.card)
-	
+
 	card_preview.position = Vector2(-170, 0)
 	card_preview.visible = true  # Make sure it's visible
 	# Make the card preview less transparent for better visibility
@@ -59,30 +59,30 @@ func create_card_ui() -> void:
 	var tween = create_tween()
 	tween.tween_property(card_preview, "scale", Vector2(1.25, 1.25), 0.17)
 
-func destroy_card_ui() -> void:	
+func destroy_card_ui() -> void:
 	if not card_preview:  # Nothing to destroy
 		return
-		
+
 	var tween = create_tween()
 	tween.tween_property(card_preview, "scale", Vector2(.75,.75), 0.15)
 	tween.tween_callback(card_preview.queue_free)
 	card_preview = null
-	
+
 # Card slotting now handled via update_card_display() method called by UIMainplate
 func __on_card_unslotted(target_slot_id: String) -> void:
 	if target_slot_id == __button_entity.instance_id:
 		var name_node = get_node_or_null("%Name")
 		if name_node:
 			name_node.text = ""
-		
+
 		var main_panel = get_node_or_null("%MainPanel")
 		if main_panel:
 			main_panel.visible = false
-		
+
 		var progress_bar = get_node_or_null("%ProgressBar")
 		if progress_bar:
 			progress_bar.value = 0
-		
+
 		if card_preview:
 			destroy_card_ui()
 
@@ -96,10 +96,10 @@ func pct(numerator: float, denominator: float) -> float:
 	if denominator <= 0.001:
 		return 0.0
 	else:
-		return 100.0 * numerator / denominator	
-	
+		return 100.0 * numerator / denominator
 
-							
+
+
 # Activation states removed - production state handled by is_ready
 
 func __on_refresh_slot_manually() -> void:
@@ -108,14 +108,14 @@ func __on_refresh_slot_manually() -> void:
 		GlobalSignals.signal_core_slot_activated(__button_entity.card.instance_id)
 		if card_preview:
 			card_preview.refresh()
-		
+
 func _on_mouse_entered() -> void:
 	# Only register as hovered if this slot is active
 	if is_active_slot:
 		super._on_mouse_entered()
 		if __button_entity.get_card_instance_id() != "":
 			create_card_ui()
-		
+
 func _on_mouse_exited() -> void:
 	# Only clear hover if we were actually hovered
 	if is_active_slot:
@@ -128,10 +128,10 @@ func __on_gear_progress_updated(card_instance_id: String, progress_percent: floa
 	# Only update if this is our card
 	if not __button_entity or not __button_entity.card:
 		return
-		
+
 	if __button_entity.card.instance_id != card_instance_id:
 		return
-		
+
 	# Update the progress display
 	update_progress_display(progress_percent, is_ready)
 
@@ -139,10 +139,10 @@ func __on_gear_blocked(card_instance_id: String, is_blocked: bool) -> void:
 	# Only update if this is our card
 	if not __button_entity or not __button_entity.card:
 		return
-		
+
 	if __button_entity.card.instance_id != card_instance_id:
 		return
-	
+
 	# Show red tint if blocked due to missing resources
 	if is_blocked:
 		modulate = Color(1.0, 0.7, 0.7, 1.0)  # Red tint to show it's blocked
@@ -163,28 +163,28 @@ func update_progress_display(percent: float, is_ready: bool = false) -> void:
 	if not %ProgressBar:
 		push_error("[EngineSlot] No ProgressBar node found!")
 		return
-	
+
 	# Skip progress updates for instant activation cards
 	if __button_entity and __button_entity.card and __button_entity.card.production_interval == 0:
 		return
-	
+
 	# Don't update if we're in the middle of activation animation
 	if %ProgressBar.has_meta("activating") and %ProgressBar.get_meta("activating"):
 		return
-		
+
 	%ProgressBar.visible = true
-	
+
 	# Make progress bar more visible
 	%ProgressBar.self_modulate = Color.WHITE
 	%ProgressBar.z_index = 10
-	
+
 	# Ensure progress bar has height
 	if %ProgressBar.custom_minimum_size.y < 8:
 		%ProgressBar.custom_minimum_size.y = 8
-	
+
 	# Set value directly without animation - no tweening
 	%ProgressBar.value = percent
-	
+
 	# Color code based on state
 	if is_ready:
 		%ProgressBar.modulate = Color(1.0, 0.8, 0.0, 1.0)  # Orange when ready
@@ -196,30 +196,30 @@ func update_progress_display(percent: float, is_ready: bool = false) -> void:
 func show_activation_feedback() -> void:
 	if not %ProgressBar or not __button_entity or not __button_entity.card:
 		return
-	
+
 	# Skip for instant activation cards (they have their own animation)
 	if __button_entity.card.production_interval == 0:
 		return
-	
+
 	# Kill any existing tweens to prevent conflicts
 	if has_meta("activation_tween"):
 		var old_tween = get_meta("activation_tween")
 		if old_tween and old_tween.is_valid():
 			old_tween.kill()
-	
+
 	# Immediately reset progress bar to 0
 	%ProgressBar.visible = true
 	%ProgressBar.value = 0
-	
+
 	# Create glow effect on the entire slot
 	var tween = create_tween()
 	set_meta("activation_tween", tween)
-	
+
 	# Bright golden glow to show activation
 	var glow_color = Color(1.5, 1.3, 0.8, 1.0)  # Golden glow
 	tween.tween_property(self, "modulate", glow_color, 0.1)
 	tween.tween_property(self, "modulate", Color.WHITE, 0.4)
-	
+
 	# Add a border/outline effect if we have a panel
 	var panel = get_node_or_null("%Panel")
 	if panel and panel.has_theme_stylebox_override("panel"):
@@ -229,7 +229,7 @@ func show_activation_feedback() -> void:
 			style.set_border_color(Color(1.0, 0.9, 0.4, 1.0))  # Golden border
 			panel.add_theme_stylebox_override("panel", style)
 			# Reset border after glow fades
-			tween.tween_callback(func(): 
+			tween.tween_callback(func():
 				if panel:
 					style.set_border_width_all(1)
 					style.set_border_color(Color(0.5, 0.5, 0.5, 1.0))
@@ -242,13 +242,13 @@ func reset() -> void:
 	if progress_bar:
 		progress_bar.value = 0
 		progress_bar.visible = false
-	
+
 	modulate = Color.WHITE
-	
+
 	var name_node = get_node_or_null("%Name")
 	if name_node:
 		name_node.text = ""
-	
+
 	var main_panel = get_node_or_null("%MainPanel")
 	if main_panel:
 		main_panel.visible = false
@@ -263,48 +263,48 @@ func update_card_display(card: Card) -> void:
 	if not is_active_slot:
 		push_warning("Trying to update card display on inactive slot at ", grid_position)
 		return
-	
+
 	if not card:
 		# Clear the display
 		var name_node = get_node_or_null("%Name")
 		if name_node:
 			name_node.text = ""
-		
+
 		var main_panel = get_node_or_null("%MainPanel")
 		if main_panel:
 			main_panel.visible = false
-		
+
 		%ProgressBar.value = 0
 		%ProgressBar.visible = false
 		return
-	
+
 	# Ensure slot stays visible when card is placed
 	visible = true
 	# Preserve modulate unless we're a bonus square (which has special colors)
 	if not is_bonus_square:
 		modulate = Color.WHITE
-	
+
 	# Update the display with card info
 	var name_node = get_node_or_null("%Name")
 	if name_node:
 		name_node.text = card.display_name
-	
+
 	var main_panel = get_node_or_null("%MainPanel")
 	if main_panel:
 		main_panel.visible = true
-		
+
 		var inner_panel = main_panel.get_node_or_null("PanelContainer")
 		if inner_panel:
 			inner_panel.visible = true
 			inner_panel.modulate = Color(1.0, 1.0, 1.0, 1.0)  # Fully opaque
-	
+
 	# Handle progress bar for instant vs timed cards
 	if card.production_interval == 0:
 		# Instant activation - show full progress briefly
 		%ProgressBar.value = 100
 		%ProgressBar.visible = true
 		%ProgressBar.modulate = Color(1.0, 1.0, 1.0, 1.0)  # White for instant
-		
+
 		# Animate fade out
 		var tween = create_tween()
 		tween.tween_interval(0.3)
@@ -335,7 +335,7 @@ func can_accept_card() -> bool:
 func set_as_bonus_square(type: String = "draw_one_card") -> void:
 	is_bonus_square = true
 	bonus_type = type
-	
+
 	# Add visual indicator for bonus square
 	if type == "draw_one_card":
 		# Regular bonus - yellow tint
@@ -343,7 +343,7 @@ func set_as_bonus_square(type: String = "draw_one_card") -> void:
 	elif type == "draw_two_cards":
 		# Special bonus - purple/magenta tint for draw 2
 		modulate = Color(1.3, 0.9, 1.3)  # Purple tint for draw 2
-		
+
 	# Add a visual marker - could be a label or icon
 	# For now, we'll rely on the border and background color differences
 	# set in UIMainplate's __set_slot_active method

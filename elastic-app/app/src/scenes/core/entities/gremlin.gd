@@ -41,13 +41,13 @@ signal disruption_triggered(gremlin: Gremlin)
 func _init() -> void:
 	current_hp = max_hp
 	beats_until_disruption = disruption_interval_beats
-	
+
 	# Create internal damage handler
 	_damage_handler = Damageable.new()
 	_damage_handler.damage_received.connect(_on_damage_received)
 	_damage_handler.hp_changed.connect(_on_hp_changed)
 	_damage_handler.defeated.connect(_on_defeated_internal)
-	
+
 	# Note: Core objects don't use scene tree - damage handler works without add_child
 	# Defer initial sync and moves processing since exported properties aren't set yet
 	call_deferred("_initialize_gremlin")
@@ -56,7 +56,7 @@ func _initialize_gremlin() -> void:
 	# Sync properties with damage handler
 	if _damage_handler:
 		_sync_to_handler()
-	
+
 	# Process moves/downsides when gremlin spawns
 	if not moves_string.is_empty():
 		GremlinDownsideProcessor.process_gremlin_moves(moves_string, self)
@@ -68,23 +68,23 @@ func process_beat(context: BeatContext) -> void:
 		var consumer = beat_consumers[i]
 		if consumer.is_active:
 			consumer.process_beat(context)
-			
+
 			# Remove exhausted consumers
 			if consumer.should_remove():
 				beat_consumers.remove_at(i)
-	
+
 	# Track beat number for burn effect
 	var beat_number = get_meta("total_beats", 0) + 1
 	set_meta("total_beats", beat_number)
-	
+
 	# Count down to disruption
 	if beats_until_disruption > 0:
 		beats_until_disruption -= 1
-		
+
 		if beats_until_disruption == 0:
 			_trigger_disruption()
 			beats_until_disruption = disruption_interval_beats
-	
+
 	# Process burn effect
 	if burn_duration > 0:
 		if beat_number % 10 == 0:  # Each tick
@@ -94,7 +94,7 @@ func process_beat(context: BeatContext) -> void:
 func receive_damage(packet: DamagePacket) -> int:
 	if not _damage_handler:
 		return 0
-	
+
 	_sync_to_handler()
 	var damage = _damage_handler.receive_damage(packet)
 	_sync_from_handler()
@@ -105,7 +105,7 @@ func take_damage(amount: int, pierce: bool = false, pop: bool = false) -> void:
 	var keywords: Array[String] = []
 	if pierce: keywords.append("pierce")
 	if pop: keywords.append("pop")
-	
+
 	var packet = DamageFactory.create(amount, keywords, "")
 	receive_damage(packet)
 
@@ -113,12 +113,12 @@ func take_damage(amount: int, pierce: bool = false, pop: bool = false) -> void:
 func apply_poison(stacks: int) -> void:
 	# Find existing poison consumer or create new one
 	var poison_consumer: PoisonConsumer = null
-	
+
 	for consumer in beat_consumers:
 		if consumer is PoisonConsumer:
 			poison_consumer = consumer as PoisonConsumer
 			break
-	
+
 	if poison_consumer:
 		poison_consumer.add_poison(stacks)
 	else:
@@ -250,7 +250,7 @@ func reset() -> void:
 	armor = 0
 	beats_until_disruption = disruption_interval_beats
 	beat_consumers.clear()
-	
+
 	if _damage_handler:
 		_sync_to_handler()
 
@@ -273,35 +273,35 @@ class GremlinBuilder extends Entity.EntityBuilder:
 	var __barriers: int = 0
 	var __moves_string: String = ""
 	var __slot_index: int = 0
-	
+
 	func with_name(name: String) -> GremlinBuilder:
 		__gremlin_name = name
 		return self
-	
+
 	func with_hp(hp: int) -> GremlinBuilder:
 		__max_hp = hp
 		return self
-	
+
 	func with_shields(amount: int) -> GremlinBuilder:
 		__shields = amount
 		return self
-	
+
 	func with_armor(amount: int) -> GremlinBuilder:
 		__armor = amount
 		return self
-	
+
 	func with_barriers(count: int) -> GremlinBuilder:
 		__barriers = count
 		return self
-	
+
 	func with_moves(moves: String) -> GremlinBuilder:
 		__moves_string = moves
 		return self
-	
+
 	func with_slot(slot: int) -> GremlinBuilder:
 		__slot_index = slot
 		return self
-	
+
 	func build() -> Gremlin:
 		var gremlin: Gremlin = Gremlin.new()
 		gremlin.gremlin_name = __gremlin_name

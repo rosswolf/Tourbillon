@@ -5,7 +5,7 @@ var resource_labels: Dictionary[GameResource.Type, Label]
 
 func _ready() -> void:
 	GlobalSignals.core_hero_resource_changed.connect(_on_resource_changed)
-	
+
 	# Initialize the resource labels for Tourbillon forces
 	# Color forces
 	if has_node("%RedDisplay"):
@@ -18,7 +18,7 @@ func _ready() -> void:
 		resource_labels[GameResource.Type.WHITE] = %WhiteDisplay
 	if has_node("%PurpleDisplay"):
 		resource_labels[GameResource.Type.PURPLE] = %PurpleDisplay
-	
+
 	# Physical forces
 	if has_node("%HeatDisplay"):
 		resource_labels[GameResource.Type.HEAT] = %HeatDisplay
@@ -34,9 +34,9 @@ func _ready() -> void:
 func _on_resource_changed(type: GameResource.Type, value: int) -> void:
 	if type not in resource_labels:
 		return
-	
+
 	var label = resource_labels[type]
 	label.text = str(value)
-				
 
-	
+
+

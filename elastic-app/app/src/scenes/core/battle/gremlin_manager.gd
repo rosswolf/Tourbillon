@@ -19,33 +19,33 @@ func add_gremlin(gremlin: Gremlin, slot: int = -1) -> bool:
 		if slot == -1:
 			push_error("No empty gremlin slots available")
 			return false
-	
+
 	# Validate slot
 	if slot < 0 or slot >= gremlin_slots.size():
 		push_error("Invalid gremlin slot: " + str(slot))
 		return false
-	
+
 	if gremlin_slots[slot] != null:
 		push_error("Gremlin slot already occupied: " + str(slot))
 		return false
-	
+
 	# Add gremlin
 	gremlin_slots[slot] = gremlin
 	gremlin.slot_index = slot
 	gremlin.defeated.connect(_on_gremlin_defeated.bind(gremlin))
 	active_gremlin_count += 1
-	
+
 	gremlin_added.emit(gremlin, slot)
 	return true
 
 ## Get all active gremlins in order
 func get_gremlins_in_order() -> Array[Gremlin]:
 	var active_gremlins: Array[Gremlin] = []
-	
+
 	for gremlin in gremlin_slots:
 		if gremlin != null and is_instance_valid(gremlin):
 			active_gremlins.append(gremlin)
-	
+
 	return active_gremlins
 
 ## Get gremlin at specific slot
@@ -72,26 +72,26 @@ func get_bottommost_gremlin() -> Gremlin:
 func get_weakest_gremlin() -> Gremlin:
 	var weakest: Gremlin = null
 	var lowest_hp: int = 999999
-	
+
 	for gremlin in gremlin_slots:
 		if gremlin != null and is_instance_valid(gremlin):
 			if gremlin.current_hp < lowest_hp:
 				lowest_hp = gremlin.current_hp
 				weakest = gremlin
-	
+
 	return weakest
 
 ## Get strongest gremlin (highest HP)
 func get_strongest_gremlin() -> Gremlin:
 	var strongest: Gremlin = null
 	var highest_hp: int = 0
-	
+
 	for gremlin in gremlin_slots:
 		if gremlin != null and is_instance_valid(gremlin):
 			if gremlin.current_hp > highest_hp:
 				highest_hp = gremlin.current_hp
 				strongest = gremlin
-	
+
 	return strongest
 
 ## Deal damage using unified damage system
@@ -107,15 +107,15 @@ func deal_damage_to_target(packet: DamagePacket, target_type: String = "topmost"
 
 ## Legacy damage interface - converts to damage packet
 ## @deprecated Use deal_damage_to_target(packet, target_type) instead
-func deal_damage_to_target_legacy(amount: int, target_type: String = "topmost", 
-						   pierce: bool = false, pop: bool = false, 
+func deal_damage_to_target_legacy(amount: int, target_type: String = "topmost",
+						   pierce: bool = false, pop: bool = false,
 						   overkill: bool = false) -> void:
 	# Legacy support - convert to damage packet
 	var keywords: Array[String] = []
 	if pierce: keywords.append("pierce")
 	if pop: keywords.append("pop")
 	if overkill: keywords.append("overkill")
-	
+
 	var packet = DamageFactory.create(amount, keywords, "")
 	deal_damage_to_target(packet, target_type)
 
@@ -127,7 +127,7 @@ func apply_overkill_damage(original_packet: DamagePacket, excess_damage: int) ->
 		var overkill_packet = original_packet.duplicate(true) as DamagePacket
 		overkill_packet.amount = excess_damage
 		overkill_packet.overkill = false  # Prevent infinite chain
-		
+
 		next_target.receive_damage(overkill_packet)
 
 ## Apply poison to target
@@ -180,8 +180,8 @@ func _on_gremlin_defeated(gremlin: Gremlin) -> void:
 	var slot = gremlin.slot_index
 	gremlin_slots[slot] = null
 	active_gremlin_count -= 1
-	
+
 	gremlin_defeated.emit(gremlin, slot)
-	
+
 	if active_gremlin_count == 0:
 		all_gremlins_defeated.emit()

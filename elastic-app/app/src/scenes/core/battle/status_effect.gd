@@ -10,11 +10,11 @@ enum Type {
 	VULNERABLE, # take more damage for n turns
 	WEAK, # attack for less damage for n turns
 	MARKED, # take 1 more damage each time attacked (n turns)
-	POISONED, # end of turn take damage per poison.  (n turns) 
+	POISONED, # end of turn take damage per poison.  (n turns)
 	STUNNED, # do nothing  (n turns)
 	FLYING, # take half damage from attacks unless ranged or counters
 }
 
 #
 #class EffectMap:
-	#var 
+	#var

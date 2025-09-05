@@ -49,58 +49,58 @@ func _init() -> void:
 
 func __setup_starting_deck() -> void:
 	assert(library != null, "Library must be initialized before setting up starting deck")
-	
+
 	# Load all STARTING rarity cards from StaticData
-	print("Loading starter deck...")
+	print("[DEBUG] Loading starter deck...")
 	var starter_count: int = 0
-	
+
 	for card_id in StaticData.card_data:
 		var card_entry: Dictionary = StaticData.card_data[card_id]
-		
+
 		# Check if this is a starter card by looking at keywords
 		var keywords: String = card_entry.get("keywords", "") as String
 		var is_starter: bool = keywords.contains("starter")
-		
+
 		# Alternative: check rarity (in case we want to use rarity-based selection later)
 		# var rarity: Variant = card_entry.get("card_rarity", Card.RarityType.UNKNOWN)
 		# is_starter = (rarity == Card.RarityType.COMMON) if rarity is int else ("COMMON" in str(rarity))
-		
+
 		if is_starter:
 			var group_id: String = card_entry.get("group_template_id", "tourbillon") as String
 			var card: Card = Card.load_card(group_id, card_id as String)
 			if card:
 				library.add_card_to_deck(card)
 				starter_count += 1
-				print("  Added starter card: ", card.display_name)
+				print("[DEBUG]   Added starter card: ", card.display_name)
 			else:
 				push_warning("Failed to load starter card: " + card_id)
-	
-	print("Loaded ", starter_count, " starter cards into deck")
-	
-	# Shuffle deck  
+
+	print("[DEBUG] Loaded ", starter_count, " starter cards into deck")
+
+	# Shuffle deck
 	library.shuffle_libraries()
-	
+
 	# Draw random cards for starting hand
 	library.draw_card(starting_hand_size)
-	
-	print("Drew ", starting_hand_size, " cards for starting hand")
+
+	print("[DEBUG] Drew ", starting_hand_size, " cards for starting hand")
 
 func __load_hand() -> void:
 	library.deck.shuffle()
 	library.draw_new_hand(hand_size)
-		
+
 func __handle_activation(source_instance_id: String, target_instance_id: String) -> void:
 	GlobalGameManager.activate(source_instance_id, target_instance_id)
 
 
 func __on_start_game() -> void:
 	reset_game_state()
-	
+
 	#world_seed = StaticData.get_int("world_seed")
 	world_seed = int(Time.get_unix_time_from_system())
 	seed(world_seed)
 	GlobalUtilities.set_seed(world_seed)
-	
+
 	instance_catalog = InstanceCatalog.new()
 	library = Library.new()
 	relic_manager = RelicManager.new()
@@ -110,57 +110,57 @@ func __on_start_game() -> void:
 		.build()
 	# Goal system removed
 	stats_manager = StatsManager.new()
-	
+
 	# Initialize Tourbillon systems directly
-	print("Initializing Tourbillon systems...")
+	print("[DEBUG] Initializing Tourbillon systems...")
 	__initialize_tourbillon_systems()
-	
+
 	# Load card data and setup deck
 	__setup_starting_deck()
-	
-	print("Tourbillon systems initialized")
-	
+
+	print("[DEBUG] Tourbillon systems initialized")
+
 	# Start battle
 	__on_start_battle()
-	
+
 func __on_start_battle() -> void:
 	library.deck.shuffle()
-	
+
 	if hero:
 		hero.reset_start_of_battle()
 	__load_hand()
-	
+
 	#battleground.spawn_new_stage(1)
 	allow_activations()
 	GlobalSignals.signal_core_begin_turn()
-	
+
 # Air meter expired handler removed - no longer used
-	
+
 # Air meter time bump handler removed - no longer used
-		
-		
+
+
 func __on_card_played(card_instance_id: String) -> void:
 	var card: Card = instance_catalog.get_instance(card_instance_id) as Card
 	if card == null:
 		assert(false, "Card was null when retrieving from instance catalog: " + card_instance_id)
-		return	
+		return
 	GlobalSignals.signal_stats_cards_played(1)
-		
+
 func __on_card_discarded(card_instance_id: String) -> void:
 	var card: Card = instance_catalog.get_instance(card_instance_id) as Card
 	if card == null:
 		assert(false, "Card was null when retrieving from instance catalog: " + card_instance_id)
 		return
-		
+
 func __on_card_destroyed(card_instance_id: String) -> void:
 	var card: Card = instance_catalog.get_instance(card_instance_id) as Card
 	if card == null:
 		assert(false, "Card was null when retrieving from instance catalog: " + card_instance_id)
 		return
-	
+
 	GlobalSignals.signal_stats_cards_popped(1)
 	GlobalGameManager.library.move_card_to_zone2(card.instance_id, Library.Zone.ANY, Library.Zone.EXILED)
-			
+
 func __on_core_slot_activated(card_instance_id: String) -> void:
 	var card: Card = instance_catalog.get_instance(card_instance_id) as Card
 	if card == null:
@@ -173,10 +173,10 @@ func __on_core_card_drawn(card_instance_id: String) -> void:
 
 func allow_activations() -> void:
 	__activations_allowed = true
-	
+
 func disallow_activations() -> void:
 	__activations_allowed = false
-	
+
 func reset_game_state() -> void:
 	# Clean up existing objects if they exist
 	if instance_catalog:
@@ -185,37 +185,37 @@ func reset_game_state() -> void:
 		hero.queue_free()
 	if relic_manager:
 		relic_manager.queue_free()
-	
+
 	instance_catalog = null
 	library = null
 	hero = null
 	relic_manager = null
 	# goal_manager = null # Removed
-	
-func activate(source_id: String, target_id: String) -> bool:	
+
+func activate(source_id: String, target_id: String) -> bool:
 	assert(__activations_allowed, "Activations must be allowed to handle activation")
 	if not __activations_allowed:
 		return false
-		
+
 	var source: Entity = GlobalGameManager.instance_catalog.get_instance(source_id)
 	var target: Entity = GlobalGameManager.instance_catalog.get_instance(target_id)
-	
+
 	if source == null:
 		assert(false, "Null source specified on activate")
 		return false
-	
+
 	var result: bool = ActivationLogic.activate(source, target)
-	print("Result of execute: " + str(result))
+	print("[DEBUG] Result of execute: " + str(result))
 	return result
-	
+
 func get_selected_card() -> Card:
 	if not GlobalSelectionManager.is_card_selected():
 		printerr("Attempted to get selected card when a card was not selected - this should not happen")
-		
+
 	return instance_catalog.get_instance(
 		GlobalSelectionManager.get_selected()) as Card
 
-	
+
 func end_turn() -> void:
 	GlobalSignals.signal_core_end_turn()
 	disallow_activations()
@@ -234,7 +234,7 @@ func __initialize_tourbillon_systems() -> void:
 	# Create timeline manager (not as child since it's RefCounted)
 	timeline_manager = TimelineManager.new()
 	timeline_manager.set_beat_delay(beat_speed_ms)
-	
+
 	# Create mainplate entity (4x4 grid)
 	# The builder will automatically register it in the instance catalog
 	mainplate = Mainplate.MainplateBuilder.new() \
@@ -242,22 +242,22 @@ func __initialize_tourbillon_systems() -> void:
 		.with_max_grid_size(Vector2i(8, 8)) \
 		.build()
 	# Note: Core objects are not added to scene tree - they exist as pure data/logic
-	
+
 	# Connect mainplate signals
 	mainplate.gear_blocked.connect(func(card_id: String, is_blocked: bool):
 		GlobalSignals.signal_core_gear_blocked(card_id, is_blocked)
 	)
-	
+
 	# Connect mainplate to timeline's beat processor
 	timeline_manager.set_mainplate(mainplate)
-	
+
 	# If we have gremlin manager, connect it (will be created later)
 	# timeline_manager.set_gremlin_manager(gremlin_manager)
-	
+
 	# Connect timeline signals
 	timeline_manager.time_changed.connect(__on_time_changed)
 	timeline_manager.card_ticks_complete.connect(__on_card_ticks_complete)
-	
+
 	# Connect to card playing signals
 	GlobalSignals.core_card_played.connect(__on_tourbillon_card_played)
 	# Removed __on_card_slotted - this is handled by the UI layer reacting to signals
@@ -266,27 +266,27 @@ func __initialize_tourbillon_systems() -> void:
 ## Called when a card is played (Tourbillon time advancement)
 func __on_tourbillon_card_played(card_id: String) -> void:
 	print("[DEBUG] Card played signal received for ID: ", card_id)
-	
+
 	# PRD Step 12: Disallow playing another card until all effects resolve
 	disallow_activations()
-	
+
 	var card: Card = library.get_card(card_id)
 	if not card:
 		print("[DEBUG] Card not found in library for ID: ", card_id)
 		# Try to get from instance catalog
 		card = instance_catalog.get_instance(card_id) as Card
 		assert(card != null, "Card must exist: " + card_id)
-	
+
 	print("[DEBUG] Card found: ", card.display_name, ", time_cost: ", card.time_cost)
-	
+
 	# PRD Step 7: Process on_play_effect BEFORE time advances
 	if not card.on_play_effect.is_empty():
 		print("[DEBUG] Processing on_play effect: ", card.on_play_effect)
 		SimpleEffectProcessor.process_effects(card.on_play_effect, card)
-	
+
 	# PRD Step 9: Time advances by card's cost
 	if card.time_cost > 0:
-		print("Card played: ", card.display_name, " - Advancing ", card.time_cost, " ticks")
+		print("[DEBUG] Card played: ", card.display_name, " - Advancing ", card.time_cost, " ticks")
 		timeline_manager.advance_time(card.time_cost)
 		# Wait for time advancement to complete before allowing next card
 		# The card_ticks_complete signal will re-enable activations
@@ -302,13 +302,13 @@ func __on_tourbillon_card_played(card_id: String) -> void:
 func __on_slot_activated(slot_id: String) -> void:
 	# Manual activation could advance time slightly
 	# For now, just log it
-	print("Slot manually activated: ", slot_id)
+	print("[DEBUG] Slot manually activated: ", slot_id)
 
 ## Called when time changes
 func __on_time_changed(total_beats: int) -> void:
 	current_beat = total_beats
 	current_tick = total_beats / 10
-	
+
 	# Update UI with formatted time display
 	var ticks: int = total_beats / 10
 	var beats: int = total_beats % 10
@@ -327,7 +327,7 @@ func __on_card_ticks_complete() -> void:
 ## Process all gears on the mainplate
 func __process_mainplate_gears(context: BeatContext) -> void:
 	assert(mainplate != null, "Mainplate must exist to process beats")
-	
+
 	# Let the core mainplate process the beat
 	# It will emit signals for each card that needs processing
 	mainplate.process_beat(context)
@@ -364,7 +364,7 @@ func get_beat_processor() -> BeatProcessor:
 func get_active_gremlins() -> Array[Node]:
 	# TODO: Implement when gremlin manager exists
 	return []
-		
+
 # Convenience Functions for checking resource state
 # Resources should be checked via hero.has_force() or hero.has_forces() methods
 
@@ -373,13 +373,13 @@ func __spawn_test_gremlin() -> void:
 	if not instance_catalog:
 		push_error("Instance catalog not initialized!")
 		return
-		
+
 	# Load a gremlin from mob_data
 	var mob_data = StaticData.mob_data
 	if not mob_data:
 		push_error("No mob data loaded!")
 		return
-	
+
 	# Pick a random gremlin type with interesting downsides
 	var gremlin_types: Array[String] = [
 		"dust_mite",  # Heat soft cap
@@ -389,7 +389,7 @@ func __spawn_test_gremlin() -> void:
 		"oil_thief"  # Drains all types
 	]
 	var chosen_type = gremlin_types.pick_random()
-	
+
 	if chosen_type in mob_data:
 		var data = mob_data[chosen_type]
 		var gremlin: Gremlin = Gremlin.new()
@@ -398,14 +398,14 @@ func __spawn_test_gremlin() -> void:
 		gremlin.current_hp = gremlin.max_hp
 		gremlin.shields = data.get("max_shields", 0)
 		gremlin.moves_string = data.get("moves", "")  # Set moves/downsides
-		
+
 		# The disruption timing will be set by the moves processor
 		# Don't set it manually here anymore
-		
+
 		# Register and signal
 		instance_catalog.set_instance(gremlin)
 		# Note: Core objects are not added to scene tree - they exist as pure data/logic
 		GlobalSignals.signal_core_mob_created(gremlin.instance_id)
-		
+
 		print("[DEBUG] Spawned gremlin: ", gremlin.gremlin_name, " with ", gremlin.current_hp, " HP")
-	
+

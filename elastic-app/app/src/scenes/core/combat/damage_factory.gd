@@ -10,7 +10,7 @@ static func create(amount: int, keywords: Array[String] = [], source_instance_id
 	packet.amount = amount  # This value already has force multipliers baked in
 	packet.source_instance_id = source_instance_id
 	packet.timestamp_beats = GlobalGameManager.current_beat if GlobalGameManager else 0
-	
+
 	# Apply keywords
 	for keyword in keywords:
 		match keyword.to_lower():
@@ -25,7 +25,7 @@ static func create(amount: int, keywords: Array[String] = [], source_instance_id
 				packet.damage_type = DamagePacket.DamageType.POISON
 			"true", "true_damage":
 				packet.true_damage = true
-	
+
 	return packet
 
 ## Create basic damage packet
@@ -37,19 +37,19 @@ static func from_effect(effect_string: String, source_instance_id: String = "") 
 	var packet = DamagePacket.new()
 	packet.source_instance_id = source_instance_id
 	packet.timestamp_beats = GlobalGameManager.current_beat if GlobalGameManager else 0
-	
+
 	# Parse effect string for damage amount and keywords
 	# e.g., "damage=5,pierce,pop" or just "5,pierce"
 	var parts = effect_string.split(",")
-	
+
 	for part in parts:
 		var trimmed = part.strip_edges()
-		
+
 		if trimmed.contains("="):
 			var kv = trimmed.split("=")
 			var key = kv[0].strip_edges()
 			var value = kv[1].strip_edges()
-			
+
 			match key.to_lower():
 				"damage", "amount":
 					packet.amount = int(value)
@@ -72,7 +72,7 @@ static func from_effect(effect_string: String, source_instance_id: String = "") 
 					packet.damage_type = DamagePacket.DamageType.POISON
 				"true", "true_damage":
 					packet.true_damage = true
-	
+
 	return packet
 
 ## Create an execute packet

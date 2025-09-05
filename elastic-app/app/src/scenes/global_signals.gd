@@ -3,7 +3,7 @@ extends Node
 
 # As a general principle, we should produce and consume from core -> UI, or from UI -> core,
 # Signals that are from UI->UI or core->core should be carefully thought out and understood why
-# Ui -> UI may happen when the 2nd UI aspect is only visual, not logical.  
+# Ui -> UI may happen when the 2nd UI aspect is only visual, not logical.
 
 signal ui_started_game()
 func signal_ui_started_game() -> void:
@@ -12,7 +12,7 @@ func signal_ui_started_game() -> void:
 signal ui_started_battle()
 func signal_ui_started_battle() -> void:
 	ui_started_battle.emit()
-		
+
 signal ui_quit_to_main()
 func signal_ui_quit_to_main() -> void:
 	ui_quit_to_main.emit()
@@ -63,7 +63,7 @@ func signal_ui_card_dropped_on_slot(card_id: String, button_id: String) -> void:
 
 
 
-	
+
 # Core Signal Functions
 
 
@@ -78,20 +78,20 @@ func signal_core_end_turn() -> void:
 signal core_end_battle()
 func signal_core_end_battle() -> void:
 	core_end_battle.emit()
-	
+
 signal core_game_over()
 func signal_core_game_over() -> void:
 	core_game_over.emit()
-	
+
 signal core_game_win()
 func signal_core_game_win() -> void:
 	core_game_win.emit()
-	
+
 signal core_arena_created(size: int)
 func signal_core_arena_created(size: int) -> void:
 	core_arena_created.emit(size)
 
-	
+
 signal core_activation_with_non_activatable_source(source_id: String)
 func signal_core_activation_with_non_activatable_source(source_id: String) -> void:
 	core_activation_with_non_activatable_source.emit(source_id)
@@ -143,7 +143,7 @@ func signal_core_mob_intent_updated(mob_instance_id: String) -> void:
 signal core_card_slotted(card_id: String, position: Vector2i)
 func signal_core_card_slotted(card_id: String, position: Vector2i) -> void:
 	core_card_slotted.emit(card_id, position)
-	
+
 signal core_card_unslotted(slot_instance_id: String)
 func signal_core_card_unslotted(slot_instance_id: String) -> void:
 	core_card_unslotted.emit(slot_instance_id)
@@ -172,7 +172,7 @@ func signal_core_slot_activated(trigger_card_id: String) -> void:
 signal core_card_selection(selection_id, landing_zone: Library.Zone)
 func signal_core_card_selection(selection_id: String, landing_zone: Library.Zone) -> void:
 	core_card_selection.emit(selection_id, landing_zone)
-	
+
 signal core_card_drawn(card_instance_id: String)
 func signal_core_card_drawn(card_instance_id: String) -> void:
 	core_card_drawn.emit(card_instance_id)
@@ -184,7 +184,7 @@ func signal_core_card_played(card_instance_id: String) -> void:
 signal core_card_played_but_cant_satisfy_cost(card_instance_id: String)
 func signal_core_card_played_but_cant_satisfy_cost(card_instance_id: String) -> void:
 	core_card_played_but_cant_satisfy_cost.emit(card_instance_id)
-	
+
 signal core_missing_resource(type: GameResource.Type)
 func signal_core_missing_resource(type: GameResource.Type) -> void:
 	core_missing_resource.emit(type)
@@ -192,11 +192,11 @@ func signal_core_missing_resource(type: GameResource.Type) -> void:
 signal core_card_discarded(card_instance_id: String)
 func signal_core_card_discarded(card_instance_id: String) -> void:
 	core_card_discarded.emit(card_instance_id)
-	
+
 signal core_card_destroyed(card_instance_id: String)
 func signal_core_card_destroyed(card_instance_id: String) -> void:
 	core_card_destroyed.emit(card_instance_id)
-	
+
 signal core_card_removed_from_hand(card_instance_id: String)
 func signal_core_card_removed_from_hand(card_instance_id: String) -> void:
 	core_card_removed_from_hand.emit(card_instance_id)
@@ -227,16 +227,16 @@ func signal_core_battleground_targeting_preview_changed(space_index: int) -> voi
 
 signal stats_cards_drawn(amount: int)
 func signal_stats_cards_drawn(amount: int) -> void:
-	stats_cards_drawn.emit(amount)		
-	
+	stats_cards_drawn.emit(amount)
+
 signal stats_cards_popped(amount: int)
 func signal_stats_cards_popped(amount: int) -> void:
 	stats_cards_popped.emit(amount)
 
 signal stats_cards_played(amount: int)
 func signal_stats_cards_played(amount: int) -> void:
-	stats_cards_played.emit(amount)	
-	
+	stats_cards_played.emit(amount)
+
 signal stats_cards_slotted(amount: int)
 func signal_stats_cards_slotted(amount: int) -> void:
 	stats_cards_slotted.emit(amount)
@@ -244,7 +244,7 @@ func signal_stats_cards_slotted(amount: int) -> void:
 signal stats_slots_activated(amount: int)
 func signal_stats_slots_activated(amount: int) -> void:
 	stats_slots_activated.emit(amount)
-	
+
 signal stats_energy_spent(amount: int)
 func signal_stats_energy_spent(amount: int) -> void:
 	stats_energy_spent.emit(amount)

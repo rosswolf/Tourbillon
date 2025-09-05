@@ -2,10 +2,10 @@ extends Effect
 
 class_name OneTimeEffect
 
-# the raw function, unbound and unmodified. 
+# the raw function, unbound and unmodified.
 var __base_f: Callable
 #TYPE_EXEMPTION(Effect parameters are dynamic)
-var parameters: Dictionary 
+var parameters: Dictionary
 
 var __valid_source_types: Array[Script]
 var __valid_target_types: Array[Script]
@@ -19,12 +19,12 @@ var __cost: Cost
 var cost: Cost:
 	get:
 		return __cost
-		
+
 #TYPE_EXEMPTION(Effect parameters are dynamic)
 func _init(template_id: String,  params: Dictionary, cost: Cost = null) -> void:
 	var internal_effect: Effect.InternalEffect = Effect.effect_map.get(template_id)
-	assert(internal_effect != null, "missing effect with template id " + template_id)	
-		
+	assert(internal_effect != null, "missing effect with template id " + template_id)
+
 	__effect_template_id = template_id
 	__base_f = internal_effect.__f
 	__valid_source_types = internal_effect.__valid_source_types
@@ -35,10 +35,10 @@ func _init(template_id: String,  params: Dictionary, cost: Cost = null) -> void:
 
 func activate(source: Entity) -> bool:
 	#print("Taking effect " + __effect_template_id)
-	
+
 	# TODO(virtual) if we decide to have cards carry effects onto the things they
-	# activate.. then unpack them here and put them in paramters.  
-	
+	# activate.. then unpack them here and put them in paramters.
+
 	if source is Card:
 		parameters["card"] = source
 		return __base_f.call(GlobalGameManager.hero, parameters)
@@ -51,18 +51,18 @@ func __is_valid_source(source: Entity) -> bool:
 	#if _effect_type != EffectType.ACTIVATABLE:
 		#return false
 	return Effect.entity_in_types(source, __valid_source_types)
-		
+
 func __is_valid_target(source: Entity) -> bool:
 	#if _effect_type != EffectType.ACTIVATABLE:
 		#return false
 	return Effect.entity_in_types(source, __valid_target_types)
-	
+
 func __could_satisfy_costs(source: Entity, target: Entity) -> bool:
 	if cost == null:
 		return true
 	else:
 		return cost.can_satisfy(source, target)
-		
+
 func __execute_satisfy_costs(source: Entity, target: Entity) -> bool:
 	if cost == null:
 		return true

@@ -13,7 +13,7 @@ class CardState:
 	var current_beats: int = 0
 	var is_ready: bool = false
 	var card_ref: Card
-	
+
 	func _init(card: Card) -> void:
 		card_ref = card
 		current_beats = card.starting_progress if card.has_meta("starting_progress") else 0
@@ -64,73 +64,73 @@ func request_card_placement(card: Card, pos: Vector2i) -> bool:
 	if not is_valid_position(pos):
 		push_warning("Invalid position for card placement: " + str(pos))
 		return false
-	
+
 	# PRD Steps 1-5: Handle replacement if needed (Overbuild)
 	var old_state: CardState = null
 	if has_card_at(pos):
 		var old_card = slots[pos]
-		print("[OVERBUILD] Replacing ", old_card.display_name, " with ", card.display_name)
-		
+		print("[DEBUG] [OVERBUILD] Replacing ", old_card.display_name, " with ", card.display_name)
+
 		# PRD Step 2: Slot remembers state of old gear
 		if card_states.has(old_card.instance_id):
 			old_state = card_states[old_card.instance_id]
-		
+
 		# PRD Step 3: Old gear's "when replaced" effects trigger
 		if not old_card.on_replace_effect.is_empty():
 			SimpleEffectProcessor.process_effects(old_card.on_replace_effect, old_card)
-		
+
 		# PRD Step 4: Old gear moved to discard
 		if GlobalGameManager.library:
 			GlobalGameManager.library.move_card_to_zone2(old_card.instance_id, Library.Zone.SLOTTED, Library.Zone.GRAVEYARD)
-		
+
 		# PRD Step 5: Old gear's "when destroyed" effects trigger
 		if not old_card.on_destroy_effect.is_empty():
 			SimpleEffectProcessor.process_effects(old_card.on_destroy_effect, old_card)
-		
+
 		# Signal old card was discarded/destroyed
 		GlobalSignals.signal_core_card_discarded(old_card.instance_id)
 		GlobalSignals.signal_core_card_destroyed(old_card.instance_id)
-		
+
 		# Clear old state (will be restored if Overbuild)
 		card_states.erase(old_card.instance_id)
-		
+
 		# Signal replacement for UI update
 		GlobalSignals.signal_core_card_replaced(old_card.instance_id, card.instance_id, pos)
-	
+
 	# PRD Step 6: New gear played on movement plate
 	slots[pos] = card
-	
+
 	# Handle state for new card
 	if card.tags.has("Overbuild") and old_state:
 		# Overbuild inherits timer from replaced gear
 		card_states[card.instance_id] = old_state
-		print("[OVERBUILD] Inherited timer progress: ", old_state.current_beats)
+		print("[DEBUG] [OVERBUILD] Inherited timer progress: ", old_state.current_beats)
 	else:
 		# PRD Step 8: Slot "memory" of old gear is cleared (new state)
 		card_states[card.instance_id] = CardState.new(card)
-	
+
 	# Check and trigger bonus square
 	if bonus_squares.has(pos):
 		var bonus_type = bonus_squares[pos]
 		__trigger_bonus(bonus_type)
 		bonus_squares.erase(pos)
-	
+
 	# Move card from hand to slotted zone
 	if GlobalGameManager.library:
 		GlobalGameManager.library.move_card_to_zone2(card.instance_id, Library.Zone.HAND, Library.Zone.SLOTTED)
-	
+
 	# Process on_place_effect if it exists (different from on_play)
 	if not card.on_place_effect.is_empty():
 		SimpleEffectProcessor.process_effects(card.on_place_effect, card)
-	
+
 	# Signal successful placement
 	GlobalSignals.signal_core_card_slotted(card.instance_id, pos)
-	
+
 	# PRD Step 7: New gear's "when played" effects trigger (handled by global_game_manager)
 	# PRD Step 9: Time advances (handled by global_game_manager)
 	GlobalSignals.signal_core_card_played(card.instance_id)
 	GlobalSignals.signal_core_card_removed_from_hand(card.instance_id)
-	
+
 	return true
 
 ## Legacy place_card for backwards compatibility - delegates to request_card_placement
@@ -141,7 +141,7 @@ func place_card(card: Card, pos: Vector2i) -> bool:
 func remove_card(pos: Vector2i) -> Card:
 	if not slots.has(pos):
 		return null
-	
+
 	var card = slots[pos]
 	slots.erase(pos)
 	# Clean up card state
@@ -153,7 +153,7 @@ func remove_card(pos: Vector2i) -> Card:
 func expand_grid(direction: String) -> bool:
 	if expansions_used >= max_expansions:
 		return false
-	
+
 	match direction:
 		"right":
 			if grid_size.x < max_grid_size.x:
@@ -185,27 +185,27 @@ func expand_grid(direction: String) -> bool:
 				grid_size.y += 1
 				expansions_used += 1
 				return true
-	
+
 	return false
 
 ## Get all cards in Escapement Order (top-to-bottom, left-to-right)
 func get_cards_in_order() -> Array[Card]:
 	var cards: Array[Card] = []
-	
+
 	for pos in __get_positions_in_order():
 		if has_card_at(pos):
 			cards.append(get_card_at(pos))
-	
+
 	return cards
 
 ## Get all positions in Escapement Order
 func __get_positions_in_order() -> Array[Vector2i]:
 	var positions: Array[Vector2i] = []
-	
+
 	for y in range(grid_size.y):
 		for x in range(grid_size.x):
 			positions.append(Vector2i(x, y))
-	
+
 	return positions
 
 ## Process all gears for a beat
@@ -218,23 +218,23 @@ func process_beat(context: BeatContext) -> void:
 			if card_states.has(card.instance_id) and card.production_interval > 0:
 				var state = card_states[card.instance_id]
 				state.current_beats += 1
-				
+
 				# Check if card is ready (before potential activation)
 				var interval_in_beats = card.production_interval * 10
 				state.is_ready = state.current_beats >= interval_in_beats
-				
+
 				# Calculate and emit progress update
 				var progress_percent = (state.current_beats * 100.0) / interval_in_beats
 				gear_progress_updated.emit(card.instance_id, progress_percent, state.is_ready)
-				
+
 				# Check if card is ready but blocked by resources
 				if state.is_ready and not card.on_fire_effect.is_empty():
 					var can_activate = SimpleEffectProcessor.can_satisfy_effect(card.on_fire_effect)
 					gear_blocked.emit(card.instance_id, not can_activate)
-			
+
 			# Signal UI update BEFORE activation (so it sees the full progress)
 			GlobalSignals.signal_core_gear_process_beat(card.instance_id, context)
-			
+
 			# Check if card should activate on this beat
 			if __should_card_activate(card, pos, context):
 				__activate_card(card, pos, context)
@@ -250,19 +250,19 @@ func count_cards_with_tag(tag: String) -> int:
 ## Get adjacent positions to a given position
 func get_adjacent_positions(pos: Vector2i) -> Array[Vector2i]:
 	var adjacent: Array[Vector2i] = []
-	
+
 	var offsets: Array[Vector2i] = [
 		Vector2i(-1, 0),  # Left
 		Vector2i(1, 0),   # Right
 		Vector2i(0, -1),  # Up
 		Vector2i(0, 1)    # Down
 	]
-	
+
 	for offset in offsets:
 		var adj_pos = pos + offset
 		if is_valid_position(adj_pos):
 			adjacent.append(adj_pos)
-	
+
 	return adjacent
 
 ## Check if a position is isolated (no adjacent cards)
@@ -276,13 +276,13 @@ func is_isolated(pos: Vector2i) -> bool:
 func __should_card_activate(card: Card, pos: Vector2i, context: BeatContext) -> bool:
 	if not card_states.has(card.instance_id):
 		return false
-		
+
 	var state = card_states[card.instance_id]
-	
+
 	# Non-producing cards don't activate
 	if card.production_interval <= 0:
 		return false
-	
+
 	# Check if ready to activate
 	var interval_in_beats = card.production_interval * 10  # Convert ticks to beats
 	if state.current_beats >= interval_in_beats:
@@ -293,16 +293,16 @@ func __should_card_activate(card: Card, pos: Vector2i, context: BeatContext) -> 
 		elif GlobalGameManager.hero and not card.force_consumption.is_empty():
 			return GlobalGameManager.hero.has_forces(card.force_consumption)
 		return true
-	
+
 	return false
 
 ## Activate a card's effect
 func __activate_card(card: Card, pos: Vector2i, context: BeatContext) -> void:
 	if not card_states.has(card.instance_id):
 		return
-		
+
 	var state = card_states[card.instance_id]
-	
+
 	# Process on_fire_effect - this handles all production, consumption, and other effects
 	if not card.on_fire_effect.is_empty():
 		# Check one more time that we can satisfy (in case resources changed)
@@ -311,20 +311,20 @@ func __activate_card(card: Card, pos: Vector2i, context: BeatContext) -> void:
 			return
 		# Process the effect (consume resources and apply effects)
 		SimpleEffectProcessor.process_effects(card.on_fire_effect, card)
-	
+
 	# Legacy support: Check old force_consumption if effect doesn't exist
 	# TODO: Remove once all cards are migrated to effects
 	elif GlobalGameManager.hero and not card.force_consumption.is_empty():
 		if not GlobalGameManager.hero.consume_forces(card.force_consumption):
 			return  # Can't consume, stay ready
-	
+
 	# Signal activation for stats/UI
 	GlobalSignals.signal_core_slot_activated(card.instance_id)
-	
+
 	# Reset timer
 	state.current_beats = 0
 	state.is_ready = false
-	
+
 	# Emit progress reset
 	gear_progress_updated.emit(card.instance_id, 0.0, false)
 
@@ -356,26 +356,26 @@ func assign_random_bonus_squares() -> void:
 			var pos: Vector2i = Vector2i(x, y)
 			if not has_card_at(pos):
 				empty_positions.append(pos)
-	
+
 	if empty_positions.is_empty():
 		return
-	
+
 	# Calculate how many bonus squares (1/3 of empty slots, minimum 1)
 	var bonus_count = max(1, empty_positions.size() / 3)
-	
+
 	# Shuffle positions
 	empty_positions.shuffle()
-	
+
 	# Assign bonuses
 	for i in range(min(bonus_count, empty_positions.size())):
 		var pos = empty_positions[i]
 		# First bonus is special (draws 2), rest draw 1
 		if i == 0:
 			set_bonus_square(pos, "draw_two_cards")
-			print("[Mainplate] Special bonus square at ", pos)
+			print("[DEBUG] [Mainplate] Special bonus square at ", pos)
 		else:
 			set_bonus_square(pos, "draw_one_card")
-			print("[Mainplate] Bonus square at ", pos)
+			print("[DEBUG] [Mainplate] Bonus square at ", pos)
 
 ## Trigger bonus effect
 func __trigger_bonus(bonus_type: String) -> void:
@@ -383,24 +383,24 @@ func __trigger_bonus(bonus_type: String) -> void:
 		"draw_one_card":
 			if GlobalGameManager.library:
 				GlobalGameManager.library.draw_card(1)
-				print("[Mainplate] Bonus triggered: Draw 1 card")
+				print("[DEBUG] [Mainplate] Bonus triggered: Draw 1 card")
 		"draw_two_cards":
 			if GlobalGameManager.library:
 				GlobalGameManager.library.draw_card(2)
-				print("[Mainplate] SPECIAL bonus triggered: Draw 2 cards")
+				print("[DEBUG] [Mainplate] SPECIAL bonus triggered: Draw 2 cards")
 
 class MainplateBuilder extends Entity.EntityBuilder:
 	var __grid_size: Vector2i = Vector2i(4, 4)
 	var __max_grid_size: Vector2i = Vector2i(8, 8)
-	
+
 	func with_grid_size(size: Vector2i) -> MainplateBuilder:
 		__grid_size = size
 		return self
-	
+
 	func with_max_grid_size(size: Vector2i) -> MainplateBuilder:
 		__max_grid_size = size
 		return self
-	
+
 	func build() -> Mainplate:
 		var mainplate: Mainplate = Mainplate.new()
 		super.build_entity(mainplate)

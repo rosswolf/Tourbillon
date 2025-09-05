@@ -8,7 +8,7 @@ func set_cursor_position(pos: Vector2) -> void:
 	if not is_node_ready():
 		await self.ready
 	global_position = pos
-	
+
 func _physics_process(delta: float) -> void:
 	global_position = get_global_mouse_position()
 

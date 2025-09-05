@@ -24,8 +24,8 @@ var amount: int:
 		if __amount != new_amount:
 			__amount = new_amount
 			__on_change.call(__amount)
-			
-					
+
+
 var __can_die: bool = false
 
 func _init(starting_amount: int, max_amount: int, on_change: Callable, on_max_change: Callable, can_die: bool = false) -> void:
@@ -34,18 +34,18 @@ func _init(starting_amount: int, max_amount: int, on_change: Callable, on_max_ch
 	__max_amount = max_amount
 	amount = starting_amount
 	__can_die = can_die
-	
+
 func increment(delta: int) -> void:
 	amount = amount + delta
-	
+
 func decrement(delta: int) -> void:
 	amount = amount - delta
 
 func have_enough(cost: int) -> bool:
-	return amount >= cost 
-	
+	return amount >= cost
+
 # After init, need some way of sending the starting resource amount to the status bar
 func send_signal() -> void:
 	__on_change.call(__amount)
 	__on_max_change.call(__max_amount)
-	
+

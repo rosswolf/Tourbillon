@@ -4,7 +4,7 @@ class_name Library
 # Zones for cards
 enum Zone {
 	UNKNOWN,
-	ANY, # Used to specify this can come from any zone.  
+	ANY, # Used to specify this can come from any zone.
 	RARE_LIBRARY,
 	UNCOMMON_LIBRARY,
 	COMMON_LIBRARY,
@@ -21,19 +21,19 @@ enum Zone {
 class ZoneCollection:
 	var __cards: Array[Card] = []
 	var __zone_type: int
-	
+
 	func _init(type: Zone) -> void:
 		__zone_type = type
-	
+
 	# Add a card to this zone
 	func add_card(card: Card) -> void:
 		__cards.append(card)
-	
+
 	# Add an array of cards to this zone
 	func add_cards(cards: Array[Card]) -> void:
 		for card in cards:
 			__cards.append(card)
-		
+
 	# Remove a card from this zone
 	func remove_card(card_instance_id: String) -> Card:
 		for i in range(__cards.size()):
@@ -42,45 +42,45 @@ class ZoneCollection:
 				__cards.remove_at(i)
 				return card
 		return null
-	
+
 	# Get a card by instance ID
 	func get_card(card_instance_id: String) -> Card:
 		for card in __cards:
 			if card.instance_id == card_instance_id:
 				return card
 		return null
-	
+
 	func get_all_cards() -> Array[Card]:
 		return __cards.duplicate()
-		
+
 	# Check if this zone contains a card
 	func contains_card(card_instance_id: String) -> bool:
 		for card in __cards:
 			if card.instance_id == card_instance_id:
 				return true
 		return false
-	
+
 	# Get all card IDs in this zone
 	func get_all_card_ids() -> Array[String]:
 		var ids: Array[String] = []
 		for card in __cards:
 			ids.append(card.instance_id)
 		return ids
-	
+
 	# Get count of cards
 	func get_count() -> int:
 		return __cards.size()
-	
+
 	# Shuffle cards in this zone
 	func shuffle() -> void:
 		__cards.shuffle()
-	
+
 	# Get the top card without removing it
 	func peek_top() -> Card:
 		if __cards.size() > 0:
 			return __cards[0]
 		return null
-	
+
 	# Remove and return the top card
 	func draw_top() -> Card:
 		if __cards.size() > 0:
@@ -88,7 +88,7 @@ class ZoneCollection:
 			__cards.remove_at(0)
 			return card
 		return null
-	
+
 	# Get cards by template ID
 	func get_cards_by_template(template_id: String) -> Array[Card]:
 		var result: Array[Card] = []
@@ -96,7 +96,7 @@ class ZoneCollection:
 			if card.card_template_id == template_id:
 				result.append(card)
 		return result
-		
+
 	func clear() -> void:
 		__cards = []
 
@@ -139,7 +139,7 @@ func _init() -> void:
 	deck = ZoneCollection.new(Zone.DECK)
 	exiled = ZoneCollection.new(Zone.EXILED)
 	slotted = ZoneCollection.new(Zone.SLOTTED)
-	
+
 	max_hand_size = StaticData.get_int("max_hand_size")
 	card_selection_count =  StaticData.get_int("starting_card_selection_count")
 	rare_chance =  StaticData.get_float("starting_rare_card_chance")
@@ -148,71 +148,71 @@ func _init() -> void:
 	initial_uncommon_chance = uncommon_chance
 
 # Initialize with a set of cards
-func initialize_cards(rare_cards: Array[Card], uncommon_cards: Array[Card], 
+func initialize_cards(rare_cards: Array[Card], uncommon_cards: Array[Card],
 		common_cards: Array[Card], default_cards: Array[Card], starting_cards: Array[Card]):
 	clear_all_zones()
-		
+
 	for card in rare_cards:
-		add_card_to_zone(card, Zone.RARE_LIBRARY)	
+		add_card_to_zone(card, Zone.RARE_LIBRARY)
 	for card in uncommon_cards:
-		add_card_to_zone(card, Zone.UNCOMMON_LIBRARY)		
+		add_card_to_zone(card, Zone.UNCOMMON_LIBRARY)
 	for card in common_cards:
 		add_card_to_zone(card, Zone.COMMON_LIBRARY)
 	for card in default_cards:
 		add_card_to_zone(card, Zone.DEFAULT_LIBRARY)
-	
+
 	add_cards_to_deck(starting_cards)
-		
+
 	shuffle_libraries()
-	
+
 func print_hand_size() -> void:
-	print(hand.get_count())
-	
-	
-	
+	print("[DEBUG] " + str(hand.get_count()))
+
+
+
 # Add a new card to a specific zone
 func add_card_to_zone(card: Card, zone: Zone) -> void:
 	var zone_obj: ZoneCollection = __get_zone_object(zone)
 	zone_obj.add_card(card)
 	card_zone_map[card.instance_id] = zone
-	
+
 	# Ensure card is registered in the instance catalog
 	if GlobalGameManager.instance_catalog != null:
 		if not GlobalGameManager.instance_catalog.has_instance(card.instance_id):
 			GlobalGameManager.instance_catalog.set_instance(card as Node)
-	
 
-# Move a card from specified zone to its current zone.  
+
+# Move a card from specified zone to its current zone.
 func move_card_to_zone2(card_instance_id: String, from_zone: Zone, to_zone: Zone, override_limit: bool = false) -> bool:
 	var c: Card = GlobalGameManager.instance_catalog.get_instance(card_instance_id) as Card
-	
-	print(" Moving card " + card_instance_id + " " + c.display_name + " from: " + GlobalUtilities.get_enum_name(Library.Zone, from_zone) + " to: " + GlobalUtilities.get_enum_name(Library.Zone, to_zone) )
-	
+
+	print("[DEBUG]  Moving card " + card_instance_id + " " + c.display_name + " from: " + GlobalUtilities.get_enum_name(Library.Zone, from_zone) + " to: " + GlobalUtilities.get_enum_name(Library.Zone, to_zone) )
+
 	assert(card_zone_map.has(card_instance_id), "Card " + card_instance_id + " must be in card_zone_map")
-		
+
 	# Get current zone
 	var current_zone: Zone = card_zone_map[card_instance_id]
 	var current_zone_obj: ZoneCollection = __get_zone_object(current_zone)
-	
+
 	if from_zone != Library.Zone.ANY and current_zone != from_zone:
-		print("not moving card as it wasn't in the expected zone.  This may be ok.")
+		print("[DEBUG] not moving card as it wasn't in the expected zone.  This may be ok.")
 		return false
-	
+
 	# Remove from current zone
 	var card: Card = current_zone_obj.remove_card(card_instance_id)
 	assert(card != null, "Failed to remove card from zone: " + card_instance_id)
-	
+
 	# Add to new zone
 	var new_zone_obj: ZoneCollection = __get_zone_object(to_zone)
 	if new_zone_obj.__zone_type == Zone.HAND and hand.get_count() >= max_hand_size and not override_limit:
-		print("hit max hand size")
+		print("[DEBUG] hit max hand size")
 		return false
-		
+
 	new_zone_obj.add_card(card)
-	
+
 	# Update zone map
 	card_zone_map[card_instance_id] = to_zone
-	
+
 	return true
 
 func add_card_to_deck(card: Card) -> void:
@@ -221,12 +221,12 @@ func add_card_to_deck(card: Card) -> void:
 		#print("Attempted to draw card but at max hand size: %s" % [str(max_hand_size)])
 		#GlobalSignals.core_max_hand_size_reached()
 		#return null
-	
+
 	# Add to deck
 	add_card_to_zone(card, Zone.DECK)
 	#deck.add_card(card)
 	#card_zone_map[card.instance_id] = Zone.DECK
-	
+
 # Add multiple cards
 func add_cards_to_deck(cards: Array[Card]) -> void:
 	for card in cards:
@@ -236,77 +236,77 @@ func discard_hand() -> void:
 	for card in hand.get_all_cards():
 		move_card_to_zone2(card.instance_id, Zone.HAND, Zone.GRAVEYARD)
 		GlobalSignals.signal_core_card_removed_from_hand(card.instance_id)
-		# for each card in hand, discard it.  
-		
+		# for each card in hand, discard it.
+
 func draw_card(how_many: int) -> void:
 	for i in range(how_many):
 		if deck.get_count() == 0:
 			for c in graveyard.get_all_cards():
 				move_card_to_zone2(c.instance_id, Zone.GRAVEYARD, Zone.DECK)
 			deck.shuffle()
-		
+
 		var next_card: Card = deck.draw_top()
 		if next_card:
 			add_card_to_zone(next_card, Zone.HAND)
-			
+
 			GlobalSignals.signal_core_card_drawn(next_card.instance_id)
-	
+
 func draw_new_hand(desired_hand_size: int) -> void:
 	discard_hand()
-	
+
 	if desired_hand_size > deck.get_count() + graveyard.get_count():
 		desired_hand_size = deck.get_count() + graveyard.get_count()
-		#assert(false, "not enough cards to draw the desired hand size " + str(hand_size))	
-	
+		#assert(false, "not enough cards to draw the desired hand size " + str(hand_size))
+
 	draw_card(desired_hand_size)
-	
-func get_cards_for_selection(selection_id: String) -> Array[Card]:	
+
+func get_cards_for_selection(selection_id: String) -> Array[Card]:
 	var selectable_cards: Array[Card] = []
-	
+
 	while selectable_cards.size() < card_selection_count:
 		var roll: float = randf() # Random float between 0.0 and 1.0
-		print("rare chance is: " + str(rare_chance))
-		print("uncommon chance is: " + str(uncommon_chance))
-		
+		print("[DEBUG] rare chance is: " + str(rare_chance))
+		print("[DEBUG] uncommon chance is: " + str(uncommon_chance))
+
 		if roll < rare_chance and rare_library.get_count() > 0:
 			var selected: Card = __get_card_for_selection(selectable_cards, rare_library)
 			if selected != null: selectable_cards.append(selected)
 			rare_chance = initial_rare_chance
 			continue
-			
+
 		if roll < uncommon_chance and uncommon_library.get_count() > 0:
 			var selected: Card = __get_card_for_selection(selectable_cards, uncommon_library)
 			if selected != null: selectable_cards.append(selected)
 			uncommon_chance = initial_uncommon_chance
 			continue
-			
+
 		if common_library.get_count() == 0:
 			# TODO: how to handle this edge case?
 			printerr("Common library is empty when selecting a card (this should not happen)")
-			
+
 		selectable_cards.append(__get_card_for_selection(selectable_cards, common_library))
 		rare_chance += 0.01
 		uncommon_chance += 0.01
-	
+
 	return selectable_cards
 
-func __get_card_for_selection(selectable_cards: Array[Card], card_library: ZoneCollection) -> Card:	
+func __get_card_for_selection(selectable_cards: Array[Card], card_library: ZoneCollection) -> Card:
 	var rejected_cards: Array[Card] = []
 	var selected_card: Card = null
-	
+
 	while card_library.get_count() > 0:
 		var candidate_card: Card = card_library.draw_top()
 
-		if card_template_already_selected(candidate_card.template_id, selectable_cards): 
+		if card_template_already_selected(candidate_card.template_id, selectable_cards):
 			rejected_cards.append(candidate_card)
 		else:
 			selected_card = candidate_card
 			break
-	
+
 	if selected_card == null:
 		assert(false, "Failed to select a unique card from library (this should not happen once we have a lot of cards): " + str(card_library.__zone_type))
 		# TODO: figure out how we should handle this later
-		
+
 	# Add the rejected cards back in to the bottom of the library
 	card_library.add_cards(rejected_cards)
 	return selected_card
@@ -316,25 +316,25 @@ func card_template_already_selected(candidate_template_id: String, selectable_ca
 		if card.template_id == candidate_template_id:
 			return true
 	return false
-				
+
 func shuffle_libraries() -> void:
 	rare_library.shuffle()
 	uncommon_library.shuffle()
 	common_library.shuffle()
-	
+
 # Get a card by its instance ID
 func get_card(card_instance_id: String) -> Card:
 	var zone: Zone = card_zone_map.get(card_instance_id) as Zone
 	if zone == null:
 		return null
-		
+
 	var zone_obj: ZoneCollection = __get_zone_object(zone)
 	return zone_obj.get_card(card_instance_id)
 
 # Get current zone of a card
 func get_card_zone(card_instance_id: String) -> Zone:
 	return card_zone_map.get(card_instance_id)
-	
+
 # Get all cards in a zone
 func get_card_ids_in_zone(zone: Zone) -> Array[String]:
 	var zone_obj: ZoneCollection = __get_zone_object(zone)
@@ -378,4 +378,4 @@ func clear_all_zones() -> void:
 	card_zone_map.clear()
 	deck.clear()
 
-	
+

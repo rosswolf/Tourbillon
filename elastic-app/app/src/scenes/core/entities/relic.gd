@@ -15,7 +15,7 @@ static func load_relic(relic_template_id: String) -> Relic:
 	if relic_data == null:
 		assert(false, "Relic template not found: " + relic_template_id)
 		return null
-	
+
 	var builder = Relic.RelicBuilder.new()
 	builder.with_template_id(relic_template_id)
 	builder.with_display_name(relic_data.get("display_name"))
@@ -23,25 +23,25 @@ static func load_relic(relic_template_id: String) -> Relic:
 	builder.with_image_name(relic_data.get("image_name"))
 	builder.with_starting_value(str(int(relic_data.get("starting_value"))))
 	return builder.build()
-	
+
 class RelicBuilder extends Entity.EntityBuilder:
 	var __description: String
 	var __image_name: String
 	var __starting_value: String
-	
+
 	func with_description(description: String) -> RelicBuilder:
 		__description = description
 		return self
-	
+
 	func with_image_name(image_name: String) -> RelicBuilder:
 		__image_name = image_name
 		return self
-	
+
 	func with_starting_value(value: String) -> RelicBuilder:
 		__starting_value = value
 		return self
-			
-					
+
+
 	func build() -> Relic:
 		var relic: Relic = Relic.new()
 		super.build_entity(relic)

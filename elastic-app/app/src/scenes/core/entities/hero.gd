@@ -25,9 +25,9 @@ var entropy: CappedResource
 func _init() -> void:
 	# Initialize all 10 resources with proper signal callbacks
 	var noop = func(v): pass
-	
+
 	# Color resources with signal emission
-	red = CappedResource.new(0, 10, 
+	red = CappedResource.new(0, 10,
 		func(v): GlobalSignals.signal_core_hero_resource_changed(GameResource.Type.RED, v),
 		noop)
 	blue = CappedResource.new(0, 10,
@@ -42,7 +42,7 @@ func _init() -> void:
 	purple = CappedResource.new(0, 10,
 		func(v): GlobalSignals.signal_core_hero_resource_changed(GameResource.Type.PURPLE, v),
 		noop)
-	
+
 	# Force resources with signal emission
 	heat = CappedResource.new(0, 10,
 		func(v): GlobalSignals.signal_core_hero_resource_changed(GameResource.Type.HEAT, v),
@@ -127,12 +127,12 @@ func consume_forces(requirements: Dictionary) -> bool:
 	# First check if we have all requirements
 	if not has_forces(requirements):
 		return false
-	
+
 	# Then consume them all
 	for force_type in requirements:
 		var amount = requirements[force_type]
 		consume_force(force_type, amount)
-	
+
 	return true
 
 ## Add to a specific force
@@ -148,13 +148,13 @@ func add_forces(production: Dictionary) -> void:
 		var amount = production[force_type]
 		add_force(force_type, amount)
 
-	
+
 func signal_moved(new_position: int) -> void:
 	GlobalSignals.signal_core_hero_moved(instance_id, new_position)
 
 func signal_created() -> void:
 	GlobalSignals.signal_core_hero_created(instance_id)
-			
+
 func __generate_instance_id() -> String:
 	return "hero" + str(Time.get_unix_time_from_system()) + "_" + str(randi())
 
@@ -164,18 +164,18 @@ static func load_hero(hero_template_id: String) -> Hero:
 	if hero_data == null:
 		assert(false, "Hero template not found: " + hero_template_id)
 		return null
-	
+
 	var builder = Hero.HeroBuilder.new()
 	builder.with_template_id(hero_template_id)
 	builder.with_display_name(hero_data.get("display_name"))
 	builder.with_image_name(hero_data.get("image_name"))
-	
+
 	# Set starting stats
 	# Gold/Inspiration handled as resource, not in builder
 
 	return builder.build()
 
-func construct_capped_resource(starting_value: int, max_value: int, can_die: bool, type: GameResource.Type, 
+func construct_capped_resource(starting_value: int, max_value: int, can_die: bool, type: GameResource.Type,
 		max_type: GameResource.Type = GameResource.Type.UNKNOWN):
 	var on_max_change: Callable = func(dummy): pass
 	var on_change: Callable = func(value): GlobalSignals.signal_core_hero_resource_changed(type, value)
@@ -185,7 +185,7 @@ func construct_capped_resource(starting_value: int, max_value: int, can_die: boo
 	cr.send_signal()
 	return cr
 
-				
+
 class HeroBuilder extends Entity.EntityBuilder:
 	var __image_name: String
 	var __starting_health: int
@@ -195,21 +195,21 @@ class HeroBuilder extends Entity.EntityBuilder:
 	var __starting_relic: String
 	var __starting_training_points: int
 	var __starting_instinct: int
-	
-	
+
+
 	func with_image_name(image_name: String) -> HeroBuilder:
 		__image_name = image_name
 		return self
-		
-	
+
+
 	func build() -> Hero:
 		var default_max: int = 9000
-		
+
 		var hero: Hero = Hero.new()
 		super.build_entity(hero)
-		
+
 		hero.image_name = __image_name
 		hero.starting_relic = __starting_relic
 		# Resources are initialized in _init(), not in builder
-		
+
 		return hero

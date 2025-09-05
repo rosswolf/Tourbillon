@@ -53,7 +53,7 @@ func get_active_physical_positions() -> Array[Vector2i]:
 ## Expand the logical grid
 func expand(expansion_type: String = "row") -> bool:
 	var new_size: Vector2i = logical_size
-	
+
 	match expansion_type:
 		"row":
 			new_size.y += 1
@@ -64,11 +64,11 @@ func expand(expansion_type: String = "row") -> bool:
 			new_size.y += 1
 		_:
 			return false
-	
+
 	# Check if expansion would exceed physical bounds
 	if new_size.x > physical_size.x or new_size.y > physical_size.y:
 		return false
-	
+
 	logical_size = new_size
 	__calculate_offset()
 	return true

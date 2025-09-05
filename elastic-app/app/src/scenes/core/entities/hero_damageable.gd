@@ -27,14 +27,14 @@ func _init() -> void:
 	super._init()
 	_damage_handler = Damageable.new()
 	# Note: Core objects don't use scene tree - damage handler works without add_child
-	
+
 	# Connect signals from damage handler
 	_damage_handler.damage_received.connect(_on_damage_received)
 	_damage_handler.hp_changed.connect(_on_hp_changed)
 	_damage_handler.shields_changed.connect(_on_shields_changed)
 	_damage_handler.barrier_broken.connect(_on_barrier_broken)
 	_damage_handler.defeated.connect(_on_defeated)
-	
+
 	# Sync properties with damage handler immediately
 	# This needs to be deferred since exported properties aren't set yet in _init
 	call_deferred("_sync_to_handler")
@@ -42,16 +42,16 @@ func _init() -> void:
 ## Main damage interface
 func receive_damage(packet: DamagePacket) -> int:
 	_sync_to_handler()
-	
+
 	# Apply hero-specific damage modifiers
 	var modified_packet = _apply_hero_modifiers(packet)
-	
+
 	# Let damage handler process it
 	var damage = _damage_handler.receive_damage(modified_packet)
-	
+
 	# Sync back from handler
 	_sync_from_handler()
-	
+
 	return damage
 
 ## Apply hero-specific damage modifiers
@@ -61,7 +61,7 @@ func _apply_hero_modifiers(packet: DamagePacket) -> DamagePacket:
 		var modified = packet.duplicate(true) as DamagePacket
 		# Add 20% resistance if we have high Balance
 		_damage_handler.damage_resistance = max(_damage_handler.damage_resistance, 0.2)
-	
+
 	return packet
 
 ## Heal the hero

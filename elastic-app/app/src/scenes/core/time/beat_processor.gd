@@ -23,13 +23,13 @@ func _init() -> void:
 func process_beat(context: BeatContext) -> void:
 	# Phase 1: Process gears in Escapement Order
 	__process_gears_phase(context)
-	
+
 	# Phase 2: Process gremlins (they handle their own poison)
 	__process_gremlins_phase(context)
-	
+
 	# Phase 3: Process additional listeners
 	__process_listeners_phase(context)
-	
+
 	# Phase 4: Check victory/loss conditions
 	__check_end_conditions(context)
 
@@ -37,40 +37,40 @@ func process_beat(context: BeatContext) -> void:
 func __process_gears_phase(context: BeatContext) -> void:
 	if not mainplate:
 		return
-		
+
 	phase_started.emit("gears")
-	
+
 	# Let the mainplate handle processing its cards
 	# It will emit signals for each card in Escapement Order
 	mainplate.process_beat(context)
-	
+
 	phase_completed.emit("gears")
 
 ## Phase 2: Process all gremlins
 func __process_gremlins_phase(context: BeatContext) -> void:
 	if not gremlin_manager:
 		return
-		
+
 	phase_started.emit("gremlins")
-	
+
 	var gremlins = gremlin_manager.get_gremlins_in_order()
 	for gremlin in gremlins:
 		if gremlin and is_instance_valid(gremlin):
 			gremlin.process_beat(context)
-	
+
 	phase_completed.emit("gremlins")
 
 ## Phase 3: Process additional listeners
 func __process_listeners_phase(context: BeatContext) -> void:
 	phase_started.emit("listeners")
-	
+
 	# Sort by priority for consistent ordering
 	registered_listeners.sort_custom(__compare_priority)
-	
+
 	for listener in registered_listeners:
 		if listener and listener.is_active():
 			listener.process_beat(context)
-	
+
 	phase_completed.emit("listeners")
 
 ## Phase 4: Check end conditions
@@ -113,7 +113,7 @@ func __check_victory() -> bool:
 	# Victory when all gremlins defeated
 	return false
 
-## Check loss conditions  
+## Check loss conditions
 func __check_loss() -> bool:
 	# TODO: Implement loss check
 	# Loss when hand empty after card resolution

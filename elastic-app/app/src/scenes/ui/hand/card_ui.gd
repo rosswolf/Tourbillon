@@ -28,31 +28,32 @@ func _ready() -> void:
 	gui_input.connect(_on_gui_input)
 	mouse_entered.connect(__on_mouse_entered)
 	mouse_exited.connect(__on_mouse_exited)
-	
+
 	# Set initial pivot point for rotation
 	pivot_offset = size / 2
-	
+
 # Set card data and update UI
 func set_card_data(card: Card) -> void:
 	if not is_node_ready():
 		await self.ready
-		
-	card_data = card
-	
-	
-	# Cards with production are considered "slot" cards (green background)
-	if card.production_interval > 0:
-		card_background.texture =  PreloadScenes.CARD_BACKGROUND_UIDS["green_card"]
 
-	
+	card_data = card
+
+
+	# Cards with production are considered "slot" cards (green background)
+	# DISABLED: Green background was making all gear cards look green
+	# if card.production_interval > 0:
+	#	card_background.texture =  PreloadScenes.CARD_BACKGROUND_UIDS["green_card"]
+
+
 	# Update UI elements
 	card_title.text = card.display_name
 	card_description.text = card.rules_text
-	
+
 	# Show tick cost in gray circle (time_cost field)
 	if tick_cost_label:
 		tick_cost_label.text = str(card.time_cost) if card.time_cost > 0 else "0"
-	
+
 	# Calculate and show efficiency (for cards with production_interval)
 	if efficiency_label:
 		if card.production_interval > 0:
@@ -65,25 +66,28 @@ func set_card_data(card: Card) -> void:
 		else:
 			# 0 or other invalid values - shouldn't happen but handle gracefully
 			efficiency_label.text = ""
-		
+
 	# Energy cost icons can be added later if needed
 	# add_slot_icon(energy_icons[card.cost.get_energy_color()], str(card.cost.get_energy_cost()), %TopHBoxContainer, GameIcon.TextSize.SMALL)
-	
+
 	# Cards with production interval are "buildings"
-	if card.production_interval > 0:
-		is_building.visible = true
-	else:
+	# DISABLED: "IsBuilding" indicator was showing as a box in corner
+	# if card.production_interval > 0:
+	#	is_building.visible = true
+	# else:
+	#	is_building.visible = false
+	if is_building:
 		is_building.visible = false
-		
+
 
 func refresh() -> void:
 	card_title.text = card_data.display_name
 	card_description.text = card_data.rules_text
-	
+
 	# Update tick cost display
 	if tick_cost_label:
 		tick_cost_label.text = str(card_data.time_cost) if card_data.time_cost > 0 else "0"
-	
+
 	# Update efficiency display
 	if efficiency_label:
 		if card_data.production_interval > 0:
@@ -98,24 +102,24 @@ func refresh() -> void:
 
 func add_slot_icon(icon_image: String, value: String, container: Container, font_size: GameIcon.TextSize) -> void:
 	var slot_icon: SlotIcon = PreloadScenes.ICONS["slot"].instantiate()
-		
+
 	if not UidManager.SLOT_ICON_UIDS.has(name):
-		print("Couldn't load icon because not in SLOT_ICON_UIDS: " + name)
-	
+		print("[DEBUG] Couldn't load icon because not in SLOT_ICON_UIDS: " + name)
+
 	slot_icon.set_slot_image(icon_image)
 	container.add_child(slot_icon)
 	await get_tree().process_frame
 	# Wait for the node to initialize, then set the label text
-	slot_icon.set_string_text(value, font_size, Color.BLACK)	
+	slot_icon.set_string_text(value, font_size, Color.BLACK)
 
-					
+
 # These mouse events are reached first, then the functions in the HandContainer second
 func __on_mouse_entered() -> void:
 	GlobalSignals.signal_ui_card_hovered(card_data.instance_id)
 
 func __on_mouse_exited() -> void:
 	GlobalSignals.signal_ui_card_unhovered(card_data.instance_id)
-	
+
 func _on_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT:

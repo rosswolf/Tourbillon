@@ -6,21 +6,21 @@ var move_list: Array[MoveParser.MovePiece] = []
 
 func _init(move_descriptor: String, cost: Cost = null) -> void:
 	move_list = MoveParser.parse_move_descriptor(move_descriptor)
-	
+
 	for move_piece in move_list:
 		var effect: Effect = OneTimeEffect.new(move_piece.name, {"param": move_piece.value}, null)
 		effects.append(effect)
 		effect_name = effect_name + move_piece.name + " "
-	
+
 	# Make sure we add the overall cost if needed
 	if cost != null:
 		effects.append(OneTimeEffect.new("none", {}, cost))
-	
+
 func __could_satisfy_costs(source: Entity, target: Entity) -> bool:
 	for effect in effects:
 		if not effect.__could_satisfy_costs(source, target):
 			return false
-			
+
 	return true
 
 func __execute_satisfy_costs(source: Entity, target: Entity) -> bool:
@@ -29,29 +29,29 @@ func __execute_satisfy_costs(source: Entity, target: Entity) -> bool:
 			# This should be guarded by one_time_effect checking satisfy before executing satisfy
 			assert(false, "failed to satisfy costs for effect, this shouldn't happen")
 			return false
-			
+
 	return true
-	
+
 func __is_valid_source(source: Entity) -> bool:
 	for effect in effects:
 		if not effect.__is_valid_source(source):
-			return false	
+			return false
 	return true
-	
+
 func __is_valid_target(source: Entity) -> bool:
 	for effect in effects:
 		if not effect.__is_valid_target(source):
-			return false	
+			return false
 	return true
-	
+
 func activate(source: Entity) -> bool:
 	var result: bool = true
 	for effect in effects:
 		if not effect.activate(source):
 			result = false
-			
+
 	return result
-	
+
 func get_intent_amount() -> int:
 	var result: int = -1
 	for move_piece in move_list:
@@ -63,6 +63,6 @@ func get_intent_amount() -> int:
 			else:
 				result += int(move_piece.value) * move_piece.repeat
 	return result
-	
+
 static func load_empty_move() -> MoveDescriptorEffect:
 	return MoveDescriptorEffect.new("none=0")

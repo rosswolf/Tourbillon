@@ -66,7 +66,7 @@ func _create_floating_text(text: String, position: Vector2, color: Color) -> voi
 		label.modulate = color
 		label.position = position
 		add_child(label)
-		
+
 		# Animate it floating up and fading
 		var tween = create_tween()
 		tween.set_parallel(true)
@@ -96,9 +96,9 @@ func _create_impact_particles(position: Vector2, color: Color) -> void:
 	particles.scale_amount_min = 0.5
 	particles.scale_amount_max = 1.5
 	particles.color = color
-	
+
 	add_child(particles)
-	
+
 	# Clean up after emission
 	await particles.finished
 	particles.queue_free()
@@ -119,9 +119,9 @@ func _create_production_particles(position: Vector2, color: Color) -> void:
 	particles.scale_amount_min = 0.8
 	particles.scale_amount_max = 1.2
 	particles.color = color
-	
+
 	add_child(particles)
-	
+
 	# Clean up after emission
 	await particles.finished
 	particles.queue_free()
@@ -143,9 +143,9 @@ func _create_status_particles(position: Vector2, color: Color, status_type: Stri
 	particles.scale_amount_min = 0.5
 	particles.scale_amount_max = 1.0
 	particles.color = color
-	
+
 	add_child(particles)
-	
+
 	# Clean up after emission
 	await particles.finished
 	particles.queue_free()
@@ -168,7 +168,7 @@ func _get_force_name(force_type: GameResource.Type) -> String:
 ## Show effect at a specific slot
 func show_slot_effect(slot: EngineSlot, effect_type: String, value: Variant = null) -> void:
 	var slot_position = slot.global_position + slot.size / 2
-	
+
 	match effect_type:
 		"fire":
 			_create_production_particles(slot_position, Color.WHITE)

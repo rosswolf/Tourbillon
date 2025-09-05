@@ -29,28 +29,28 @@ enum Type {
 	NONE
 }
 
-		
+
 class ResourceAccessor:
 	class __SpecificResourceAccessor:
 		var getter: Callable
 		var setter: Callable
-		
+
 		func _init(g: Callable, s: Callable) -> void:
 			getter = g
 			setter = s
-		
+
 		func get_value() -> int:
 			return getter.call() as int
-			
+
 		func set_value(value: int) -> void:
 			setter.call(value)
-			
+
 		func increment(amount: int = 1) -> void:
 			setter.call(getter.call() + amount)
-			
+
 		func decrement(amount: int = 1) -> void:
 			setter.call(getter.call() - amount)
-	
+
 	var __resources: Dictionary = {
 		# Color resources (5)
 		GameResource.Type.RED: __SpecificResourceAccessor.new(
@@ -95,13 +95,13 @@ class ResourceAccessor:
 			func(value): if GlobalGameManager.hero and GlobalGameManager.hero.entropy: GlobalGameManager.hero.entropy.amount = value
 		),
 	}
-	
+
 	func get_count(resource_type: GameResource.Type) -> int:
 		assert(__resources.has(resource_type), "Resource type must exist: " + str(resource_type))
 		return __resources[resource_type].get_value()
-		
+
 	func increment(resource_type: GameResource.Type, amount: int = 1) -> void:
 		__resources[resource_type].increment(amount)
-		
+
 	func decrement(resource_type: GameResource.Type, amount: int = 1) -> void:
 		__resources[resource_type].decrement(amount)

@@ -10,13 +10,13 @@ class InternalEffect:
 	var __valid_source_types: Array
 	# TYPE EXCEPTION (light assignment)
 	var __valid_target_types: Array
-	
+
 	#TYPE_EXEMPTION(Dictionary values can contain different Array types)
 	func _init(f: Callable, valid_types: Dictionary) -> void:
 		__f = f
 		__valid_source_types = valid_types.get("source", [Entity])
 		__valid_target_types = valid_types.get("target", [Entity])
-						
+
 enum Intent {
 	UNKNOWN,
 	ATTACK_MELEE,
@@ -30,7 +30,7 @@ static var effect_map: Dictionary[String, InternalEffect] = {
 		#TYPE_EXEMPTION(Effect params are dynamic)
 		func(source: Entity, params: Dictionary):
 			return true,
-		{} 
+		{}
 	),
 	# Legacy time/energy effects removed - use force system instead
 	"draw_card": InternalEffect.new(
@@ -113,23 +113,23 @@ static func entity_in_types(source: Entity, valid_types: Array[Script]):
 	var valid_type_strings: Array[String] = []
 	for type in valid_types:
 		valid_type_strings.append(type._get_type_string())
-		
+
 	var type_string: String = "None"
 	if source != null:
 		type_string = source._get_type_string()
 	return type_string in valid_type_strings or Entity._get_type_string() in valid_type_strings
-	
+
 
 
 func __is_valid_source(source: Entity) -> bool:
 	assert(false, "sub classes need to override __is_valid_source")
 	return false
-	
+
 func __is_valid_target(target: Entity) -> bool:
 	assert(false, "sub classes need to override __is_valid_target")
 	return false
-	
+
 func __could_satisfy_costs(source: Entity, target: Entity) -> bool:
 	assert(false, "sub classes need to override __could_satisfy_costs")
 	return false
-	
+

@@ -11,13 +11,13 @@ static var active_downsides: Dictionary[String, int] = {}  # downside_type -> va
 static func process_gremlin_moves(moves_string: String, gremlin: Gremlin) -> void:
 	if moves_string.is_empty():
 		return
-	
+
 	var parts = moves_string.split(",")
 	for part in parts:
 		var trimmed = part.strip_edges()
 		if trimmed.is_empty():
 			continue
-		
+
 		_process_single_downside(trimmed, gremlin)
 
 # Process a single downside effect
@@ -27,10 +27,10 @@ static func _process_single_downside(downside: String, gremlin: Gremlin) -> void
 	if parts.size() != 2:
 		push_warning("Invalid downside format: " + downside)
 		return
-	
+
 	var downside_type = parts[0].strip_edges()
 	var value_str = parts[1].strip_edges()
-	
+
 	# Special handling for ticks (timing)
 	if downside_type == "ticks":
 		var ticks = int(value_str)
@@ -42,10 +42,10 @@ static func _process_single_downside(downside: String, gremlin: Gremlin) -> void
 			gremlin.disruption_interval_beats = ticks * 10  # Convert to beats
 			gremlin.beats_until_disruption = gremlin.disruption_interval_beats
 		return
-	
+
 	# Parse the value
 	var value = _parse_value(value_str)
-	
+
 	# Apply the downside
 	match downside_type:
 		# Resource caps (soft = can exceed temporarily, hard = absolute limit)
@@ -59,7 +59,7 @@ static func _process_single_downside(downside: String, gremlin: Gremlin) -> void
 			_apply_force_cap(GameResource.Type.BALANCE, value, false)
 		"entropy_soft_cap", "black_soft_cap":
 			_apply_force_cap(GameResource.Type.ENTROPY, value, false)
-		
+
 		"heat_hard_cap", "red_hard_cap":
 			_apply_force_cap(GameResource.Type.HEAT, value, true)
 		"precision_hard_cap", "white_hard_cap":
@@ -70,12 +70,12 @@ static func _process_single_downside(downside: String, gremlin: Gremlin) -> void
 			_apply_force_cap(GameResource.Type.BALANCE, value, true)
 		"entropy_hard_cap", "black_hard_cap":
 			_apply_force_cap(GameResource.Type.ENTROPY, value, true)
-		
+
 		"max_resource_soft_cap":
 			_apply_all_forces_cap(value, false)
 		"max_resource_hard_cap":
 			_apply_all_forces_cap(value, true)
-		
+
 		# Drains (periodic resource loss)
 		"drain_random":
 			gremlin.set_meta("drain_type", "random")
@@ -98,17 +98,17 @@ static func _process_single_downside(downside: String, gremlin: Gremlin) -> void
 		"drain_entropy", "drain_black":
 			gremlin.set_meta("drain_type", "entropy")
 			gremlin.set_meta("drain_amount", value)
-		
+
 		# Card penalties
 		"card_cost_penalty":
 			_apply_card_cost_penalty(value)
 		"force_discard":
 			gremlin.set_meta("force_discard", value)
-		
+
 		# Summons
 		"summon":
 			gremlin.set_meta("summon_type", value_str)
-		
+
 		_:
 			push_warning("Unknown downside type: " + downside_type)
 
@@ -124,13 +124,13 @@ static func _parse_value(value_str: String):
 # Apply a force cap
 static func _apply_force_cap(force_type: GameResource.Type, cap: int, is_hard: bool) -> void:
 	var cap_key = _get_force_name(force_type) + ("_hard_cap" if is_hard else "_soft_cap")
-	
+
 	# Track the lowest cap if multiple gremlins apply caps
 	if cap_key in active_downsides:
 		active_downsides[cap_key] = min(active_downsides[cap_key], cap)
 	else:
 		active_downsides[cap_key] = cap
-	
+
 	# Apply the cap to the hero's resource
 	if GlobalGameManager.hero:
 		var resource = GlobalGameManager.hero.get_force_resource(force_type)
@@ -143,8 +143,8 @@ static func _apply_force_cap(force_type: GameResource.Type, cap: int, is_hard: b
 			else:
 				# Soft cap - just set a visual indicator, allow temporary exceeding
 				resource.set_meta("soft_cap", cap)
-	
-	print("[Downside] Applied ", cap_key, " = ", cap)
+
+	print("[DEBUG] [Downside] Applied ", cap_key, " = ", cap)
 
 # Apply cap to all forces
 static func _apply_all_forces_cap(cap: int, is_hard: bool) -> void:
@@ -155,14 +155,14 @@ static func _apply_all_forces_cap(cap: int, is_hard: bool) -> void:
 		GameResource.Type.BALANCE,
 		GameResource.Type.ENTROPY
 	]
-	
+
 	for force_type in force_types:
 		_apply_force_cap(force_type, cap, is_hard)
 
 # Apply card cost penalty
 static func _apply_card_cost_penalty(penalty: int) -> void:
 	active_downsides["card_cost_penalty"] = active_downsides.get("card_cost_penalty", 0) + penalty
-	print("[Downside] Card cost penalty: +", penalty)
+	print("[DEBUG] [Downside] Card cost penalty: +", penalty)
 
 # Get force name for display
 static func _get_force_name(force_type: GameResource.Type) -> String:
@@ -187,12 +187,12 @@ static func trigger_disruption(gremlin: Gremlin) -> void:
 		var drain_type = gremlin.get_meta("drain_type")
 		var drain_amount = gremlin.get_meta("drain_amount", 1)
 		_execute_drain(drain_type, drain_amount)
-	
+
 	# Check for force discard
 	if gremlin.has_meta("force_discard"):
 		var discard_count = gremlin.get_meta("force_discard", 1)
 		_force_discard_cards(discard_count)
-	
+
 	# Check for summons
 	if gremlin.has_meta("summon_type"):
 		var summon_type = gremlin.get_meta("summon_type")
@@ -202,7 +202,7 @@ static func trigger_disruption(gremlin: Gremlin) -> void:
 static func _execute_drain(drain_type: String, amount: int) -> void:
 	if not GlobalGameManager.hero:
 		return
-	
+
 	match drain_type:
 		"random":
 			# Drain from a random force that has resources
@@ -214,18 +214,18 @@ static func _execute_drain(drain_type: String, amount: int) -> void:
 				GameResource.Type.BALANCE,
 				GameResource.Type.ENTROPY
 			]
-			
+
 			for force_type in force_types:
 				var resource = GlobalGameManager.hero.get_force_resource(force_type)
 				if resource and resource.current > 0:
 					available_forces.append(force_type)
-			
+
 			if available_forces.size() > 0:
 				var chosen = available_forces.pick_random()
 				var resource = GlobalGameManager.hero.get_force_resource(chosen)
 				resource.subtract(amount)
-				print("[Disruption] Drained ", amount, " ", _get_force_name(chosen))
-		
+				print("[DEBUG] [Disruption] Drained ", amount, " ", _get_force_name(chosen))
+
 		"all":
 			# Drain from all forces
 			var force_types: Array[GameResource.Type] = [
@@ -235,13 +235,13 @@ static func _execute_drain(drain_type: String, amount: int) -> void:
 				GameResource.Type.BALANCE,
 				GameResource.Type.ENTROPY
 			]
-			
+
 			for force_type in force_types:
 				var resource = GlobalGameManager.hero.get_force_resource(force_type)
 				if resource and resource.current > 0:
 					resource.subtract(min(amount, resource.current))
-			print("[Disruption] Drained ", amount, " from all forces")
-		
+			print("[DEBUG] [Disruption] Drained ", amount, " from all forces")
+
 		"heat", "precision", "momentum", "balance", "entropy":
 			# Drain specific force
 			var force_type = _get_force_type_from_name(drain_type)
@@ -249,7 +249,7 @@ static func _execute_drain(drain_type: String, amount: int) -> void:
 				var resource = GlobalGameManager.hero.get_force_resource(force_type)
 				if resource:
 					resource.subtract(min(amount, resource.current))
-					print("[Disruption] Drained ", amount, " ", drain_type)
+					print("[DEBUG] [Disruption] Drained ", amount, " ", drain_type)
 
 # Get force type from name
 static func _get_force_type_from_name(name: String) -> GameResource.Type:
@@ -270,8 +270,8 @@ static func _get_force_type_from_name(name: String) -> GameResource.Type:
 # Force discard cards
 static func _force_discard_cards(count: int) -> void:
 	# TODO: Implement forced discard UI
-	print("[Disruption] Force discard ", count, " cards")
-	
+	print("[DEBUG] [Disruption] Force discard ", count, " cards")
+
 	# For now, discard random cards from hand
 	if GlobalGameManager.library:
 		for i in count:
@@ -279,7 +279,7 @@ static func _force_discard_cards(count: int) -> void:
 
 # Summon a gremlin
 static func _summon_gremlin(summon_type: String) -> void:
-	print("[Disruption] Summon gremlin: ", summon_type)
+	print("[DEBUG] [Disruption] Summon gremlin: ", summon_type)
 	# This will call back to spawn logic
 	# TODO: Implement summon logic
 
@@ -287,7 +287,7 @@ static func _summon_gremlin(summon_type: String) -> void:
 static func remove_gremlin_downsides(gremlin: Gremlin) -> void:
 	# For now, we'd need to track which gremlin applied which downside
 	# This is a simplified version - in production, track per-gremlin downsides
-	
+
 	# Recalculate all downsides from remaining gremlins
 	recalculate_all_downsides()
 
@@ -295,7 +295,7 @@ static func remove_gremlin_downsides(gremlin: Gremlin) -> void:
 static func recalculate_all_downsides() -> void:
 	# Clear current downsides
 	active_downsides.clear()
-	
+
 	# Reset hero resource caps
 	if GlobalGameManager.hero:
 		var force_types: Array[GameResource.Type] = [
@@ -305,13 +305,13 @@ static func recalculate_all_downsides() -> void:
 			GameResource.Type.BALANCE,
 			GameResource.Type.ENTROPY
 		]
-		
+
 		for force_type in force_types:
 			var resource = GlobalGameManager.hero.get_force_resource(force_type)
 			if resource:
 				resource.max_amount = 99  # Reset to default max
 				resource.remove_meta("soft_cap")
-	
+
 	# TODO: Re-apply downsides from all active gremlins
 	# This requires accessing the gremlin manager to get all active gremlins
 
@@ -319,22 +319,22 @@ static func recalculate_all_downsides() -> void:
 static func get_downside_description(moves_string: String) -> String:
 	if moves_string.is_empty():
 		return "No special effects"
-	
+
 	var descriptions: Array[String] = []
 	var parts = moves_string.split(",")
-	
+
 	for part in parts:
 		var trimmed = part.strip_edges()
 		if trimmed.is_empty():
 			continue
-		
+
 		var kv = trimmed.split("=")
 		if kv.size() != 2:
 			continue
-		
+
 		var type = kv[0]
 		var value = kv[1]
-		
+
 		match type:
 			"ticks":
 				continue  # Don't show timing
@@ -364,8 +364,8 @@ static func get_downside_description(moves_string: String) -> String:
 				descriptions.append("Discard " + value + " cards")
 			"summon":
 				descriptions.append("Summons " + value)
-	
+
 	if descriptions.is_empty():
 		return "No special effects"
-	
+
 	return ", ".join(descriptions)

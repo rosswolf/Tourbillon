@@ -46,16 +46,16 @@ var __is_active: bool = false
 func activate(gremlin: Gremlin) -> void:
 	if __is_active:
 		return
-	
+
 	__is_active = true
 	__current_duration = 0
 	__trigger_count = 0
 	__ticks_until_trigger = trigger_interval
-	
+
 	# Process enter effects
 	if not on_enter_effects.is_empty():
 		__process_effects(on_enter_effects, gremlin)
-	
+
 	# Apply passive effects immediately
 	if not passive_effects.is_empty():
 		__apply_passive_effects(passive_effects, gremlin)
@@ -64,13 +64,13 @@ func activate(gremlin: Gremlin) -> void:
 func deactivate(gremlin: Gremlin) -> void:
 	if not __is_active:
 		return
-	
+
 	__is_active = false
-	
+
 	# Process exit effects
 	if not on_exit_effects.is_empty():
 		__process_effects(on_exit_effects, gremlin)
-	
+
 	# Remove passive effects
 	if not passive_effects.is_empty():
 		__remove_passive_effects(passive_effects, gremlin)
@@ -79,43 +79,43 @@ func deactivate(gremlin: Gremlin) -> void:
 func process_tick(gremlin: Gremlin) -> bool:
 	if not __is_active:
 		return false
-	
+
 	__current_duration += 1
-	
+
 	# Check if move duration expired
 	if duration_ticks > 0 and __current_duration >= duration_ticks:
 		return true  # Signal transition needed
-	
+
 	# Process triggers
 	if trigger_interval > 0:
 		__ticks_until_trigger -= 1
 		if __ticks_until_trigger <= 0:
 			__execute_trigger(gremlin)
 			__ticks_until_trigger = trigger_interval
-			
+
 			# Check max triggers
 			if max_triggers > 0 and __trigger_count >= max_triggers:
 				return true  # Signal transition needed
-	
+
 	# Check transition conditions
 	return __check_transition_condition(gremlin)
 
 ## Get display text for this move's effects
 func get_effect_description() -> String:
 	var parts: Array[String] = []
-	
+
 	if not passive_effects.is_empty():
 		parts.append("Passive: " + __describe_effects(passive_effects))
-	
+
 	if not trigger_effects.is_empty() and trigger_interval > 0:
 		var trigger_text = "Every " + str(trigger_interval) + " ticks: " + __describe_effects(trigger_effects)
 		if max_triggers > 0:
 			trigger_text += " (x" + str(max_triggers) + ")"
 		parts.append(trigger_text)
-	
+
 	if not description.is_empty():
 		parts.append(description)
-	
+
 	return "\n".join(parts)
 
 ## Check if this move is currently active
@@ -135,10 +135,10 @@ func get_trigger_progress() -> float:
 ## Execute a trigger
 func __execute_trigger(gremlin: Gremlin) -> void:
 	__trigger_count += 1
-	
+
 	if not trigger_effects.is_empty():
 		__process_effects(trigger_effects, gremlin)
-	
+
 	# Signal for UI update
 	if gremlin:
 		gremlin.disruption_triggered.emit(gremlin)
@@ -147,7 +147,7 @@ func __execute_trigger(gremlin: Gremlin) -> void:
 func __process_effects(effects: String, gremlin: Gremlin) -> void:
 	# Add gremlin context to effects
 	var contextualized = __add_gremlin_context(effects, gremlin)
-	
+
 	SimpleEffectProcessor.process_effects(contextualized, gremlin)
 
 ## Apply passive effects (constraints)
@@ -158,13 +158,13 @@ func __apply_passive_effects(effects: String, gremlin: Gremlin) -> void:
 		var effect = part.strip_edges()
 		if effect.is_empty():
 			continue
-		
+
 		# Store constraint on gremlin for later removal
 		if not gremlin.has_meta("active_constraints"):
 			gremlin.set_meta("active_constraints", [])
 		var constraints: Array = gremlin.get_meta("active_constraints")
 		constraints.append(effect)
-		
+
 		# Apply through processor
 		__process_effects(effect, gremlin)
 
@@ -174,7 +174,7 @@ func __remove_passive_effects(effects: String, gremlin: Gremlin) -> void:
 	# For now, mark for recalculation
 	if gremlin.has_meta("active_constraints"):
 		gremlin.remove_meta("active_constraints")
-	
+
 	# Trigger global constraint recalculation
 	GremlinDownsideProcessor.recalculate_all_downsides()
 
@@ -182,7 +182,7 @@ func __remove_passive_effects(effects: String, gremlin: Gremlin) -> void:
 func __check_transition_condition(gremlin: Gremlin) -> bool:
 	if transition_condition.is_empty():
 		return false
-	
+
 	match transition_condition:
 		"health_below":
 			return gremlin.current_hp < transition_value
@@ -202,31 +202,31 @@ func __check_transition_condition(gremlin: Gremlin) -> bool:
 func __add_gremlin_context(effects: String, gremlin: Gremlin) -> String:
 	# Replace placeholders with actual values
 	var result = effects
-	
+
 	if gremlin:
 		result = result.replace("{hp}", str(gremlin.current_hp))
 		result = result.replace("{max_hp}", str(gremlin.max_hp))
 		result = result.replace("{slot}", str(gremlin.slot_index))
 		result = result.replace("{name}", gremlin.gremlin_name)
-	
+
 	return result
 
 ## Generate human-readable effect descriptions
 func __describe_effects(effects: String) -> String:
 	var descriptions: Array[String] = []
 	var parts = effects.split(",")
-	
+
 	for part in parts:
 		var effect = part.strip_edges()
 		if effect.is_empty():
 			continue
-		
+
 		# Parse effect type and value
 		var kv = effect.split("=")
 		if kv.size() == 2:
 			var type = kv[0]
 			var value = kv[1]
-			
+
 			match type:
 				"heat_cap", "red_cap":
 					descriptions.append("Heat capped at " + value)
@@ -254,7 +254,7 @@ func __describe_effects(effects: String) -> String:
 					descriptions.append(effect)
 		else:
 			descriptions.append(effect)
-	
+
 	return ", ".join(descriptions)
 
 # ============================================================================
@@ -264,23 +264,23 @@ func __describe_effects(effects: String) -> String:
 ## Create a move from a simple string format
 static func from_string(move_string: String, move_id: String = "") -> GremlinMove:
 	var move = GremlinMove.new()
-	
+
 	if move_id.is_empty():
 		move.move_id = "move_" + str(Time.get_unix_time_from_system())
 	else:
 		move.move_id = move_id
-	
+
 	# Parse format: "passive:effect1,effect2|tick=N:effect3,effect4"
 	var sections = move_string.split("|")
-	
+
 	for section in sections:
 		var parts = section.split(":")
 		if parts.size() < 2:
 			continue
-		
+
 		var timing = parts[0].strip_edges()
 		var effects = parts[1].strip_edges()
-		
+
 		if timing == "passive":
 			move.passive_effects = effects
 			move.trigger_interval = 0
@@ -292,7 +292,7 @@ static func from_string(move_string: String, move_id: String = "") -> GremlinMov
 			move.on_enter_effects = effects
 		elif timing == "exit":
 			move.on_exit_effects = effects
-	
+
 	return move
 
 ## Create a simple passive constraint move

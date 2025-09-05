@@ -32,22 +32,22 @@ signal defeated()
 func receive_damage(packet: DamagePacket) -> int:
 	if invulnerable:
 		return 0
-	
+
 	# Pre-damage checks
 	var modified_packet = _apply_pre_damage_modifiers(packet)
-	
+
 	# Calculate damage
 	var damage_result = _calculate_damage(modified_packet)
-	
+
 	# Apply damage
 	var actual_damage = _apply_damage(damage_result, modified_packet)
-	
+
 	# Post-damage effects
 	_apply_post_damage_effects(modified_packet, actual_damage)
-	
+
 	# Emit signals
 	damage_received.emit(modified_packet, actual_damage)
-	
+
 	return actual_damage
 
 ## Pre-damage modification hook (override in subclasses)
@@ -58,45 +58,45 @@ func _apply_pre_damage_modifiers(packet: DamagePacket) -> DamagePacket:
 func _calculate_damage(packet: DamagePacket) -> DamageResult:
 	var result = DamageResult.new()
 	result.packet = packet
-	
+
 	var damage = packet.get_damage_amount()
-	
+
 	# Apply damage cap
 	if damage_cap > 0:
 		damage = min(damage, damage_cap)
-	
+
 	# Apply resistance (not for true damage or pierce)
 	if not packet.true_damage and not packet.pierce:
 		damage = int(damage * (1.0 - damage_resistance))
-	
+
 	# Check barriers first (complete absorption)
 	if barrier_count > 0 and not packet.pierce:
 		result.barriers_broken = 1
 		result.total_prevented = damage
 		return result
-	
+
 	# Apply armor (unless pierce)
 	if not packet.pierce and not packet.poison:
 		var armor_reduction = min(armor, damage)
 		damage -= armor_reduction
 		result.armor_absorbed = armor_reduction
-	
+
 	# Apply to shields first (unless pierce)
 	if shields > 0 and not packet.pierce:
 		var shield_damage = damage
-		
+
 		# Pop keyword doubles damage vs shields
 		if packet.pop:
 			shield_damage *= 2
-		
+
 		var shields_lost = min(shields, shield_damage)
 		result.shields_lost = shields_lost
 		damage -= shields_lost
-		
+
 		# Pop doubles remaining damage too
 		if packet.pop and damage > 0:
 			damage *= 2
-	
+
 	result.final_damage = max(0, damage)
 	return result
 
@@ -107,21 +107,21 @@ func _apply_damage(result: DamageResult, packet: DamagePacket) -> int:
 		barrier_count -= result.barriers_broken
 		barrier_broken.emit()
 		return 0  # Barrier absorbed everything
-	
+
 	# Remove shields
 	if result.shields_lost > 0:
 		shields -= result.shields_lost
 		shields_changed.emit(shields)
-	
+
 	# Apply HP damage
 	if result.final_damage > 0:
 		current_hp -= result.final_damage
 		hp_changed.emit(current_hp, max_hp)
-		
+
 		# Check defeat
 		if current_hp <= 0:
 			_on_defeated()
-	
+
 	return result.final_damage
 
 ## Post-damage effects (reflect, overkill, etc)
@@ -131,7 +131,7 @@ func _apply_post_damage_effects(packet: DamagePacket, actual_damage: int) -> voi
 		var reflected = int(actual_damage * reflect_percent)
 		if reflected > 0:
 			_reflect_damage(packet.source, reflected)
-	
+
 	# Handle overkill
 	if packet.overkill and current_hp <= 0:
 		var excess = abs(current_hp)
@@ -142,7 +142,7 @@ func _apply_post_damage_effects(packet: DamagePacket, actual_damage: int) -> voi
 func heal(amount: int) -> int:
 	if burn_duration > 0:
 		return 0  # Can't heal while burned
-	
+
 	var healed = min(amount, max_hp - current_hp)
 	current_hp += healed
 	hp_changed.emit(current_hp, max_hp)

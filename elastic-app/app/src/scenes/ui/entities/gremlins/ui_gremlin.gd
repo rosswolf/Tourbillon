@@ -28,31 +28,31 @@ func set_entity_data(entity: Entity) -> void:
 	if not gremlin:
 		push_error("Entity is not a Gremlin!")
 		return
-	
+
 	# Connect to gremlin's signals
 	gremlin.hp_changed.connect(__on_hp_changed)
 	gremlin.defeated.connect(__on_defeated)
 	gremlin.disruption_triggered.connect(__on_disruption_triggered)
-	
+
 	# Set initial display
 	__update_display()
 
 func __update_display() -> void:
 	if not gremlin:
 		return
-	
+
 	# Update name
 	if name_label:
 		name_label.text = gremlin.gremlin_name
-	
+
 	# Update HP display
 	if hp_label:
 		hp_label.text = "%d/%d" % [gremlin.current_hp, gremlin.max_hp]
-	
+
 	if hp_bar:
 		hp_bar.max_value = gremlin.max_hp
 		hp_bar.value = gremlin.current_hp
-		
+
 		# Color code based on HP percentage
 		var hp_percent = float(gremlin.current_hp) / float(gremlin.max_hp)
 		if hp_percent > 0.5:
@@ -61,7 +61,7 @@ func __update_display() -> void:
 			hp_bar.modulate = Color.YELLOW
 		else:
 			hp_bar.modulate = Color.RED
-	
+
 	# Update shields
 	if shield_label:
 		if gremlin.shields > 0:
@@ -69,7 +69,7 @@ func __update_display() -> void:
 			shield_label.visible = true
 		else:
 			shield_label.visible = false
-	
+
 	# Update disruption info
 	if disruption_label:
 		# Show the gremlin's disruption effect
@@ -78,7 +78,7 @@ func __update_display() -> void:
 func __get_disruption_text() -> String:
 	# Get the downside description from the gremlin
 	var downside_text = gremlin.get_disruption_text()
-	
+
 	# Add timing info if there's a periodic disruption
 	if gremlin.disruption_interval_beats > 0:
 		if gremlin.beats_until_disruption > 0:
@@ -87,12 +87,12 @@ func __get_disruption_text() -> String:
 			downside_text += " (in %d.%d)" % [ticks_remaining, beats_remaining]
 		else:
 			downside_text += " (NOW!)"
-	
+
 	return downside_text
 
 func __on_hp_changed(new_hp: int, max_hp: int) -> void:
 	__update_display()
-	
+
 	# Flash red when damaged
 	if new_hp < gremlin.current_hp:
 		var tween = create_tween()
@@ -113,7 +113,7 @@ func __on_disruption_triggered(gremlin: Gremlin) -> void:
 		var tween = create_tween()
 		tween.tween_property(self, "modulate", Color(1.5, 0.8, 1.5), 0.2)
 		tween.tween_property(self, "modulate", Color.WHITE, 0.3)
-		
+
 		# Update display to show disruption effect
 		__update_display()
 

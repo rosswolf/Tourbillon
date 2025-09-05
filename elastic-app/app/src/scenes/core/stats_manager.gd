@@ -14,10 +14,10 @@ func setup_stats_listeners() -> void:
 		if signal_name.begins_with("stats_"):
 			# Initialize stat to 0
 			stats[signal_name] = 0
-			
+
 			# Connect to the signal
 			GlobalSignals.connect(signal_name, _on_stat_signal.bind(signal_name))
-			print("Connected to signal: ", signal_name, " -> stat: ", signal_name)
+			print("[DEBUG] Connected to signal: ", signal_name, " -> stat: ", signal_name)
 
 # Handle incoming stat signals
 func _on_stat_signal(amount: int, signal_name: String, ) -> void:
@@ -28,4 +28,4 @@ func _on_stat_signal(amount: int, signal_name: String, ) -> void:
 func print_stats() -> void:
 	print("=== Current Stats ===")
 	for stat_name in stats:
-		print("  ", stat_name, ": ", stats[stat_name])
+		print("[DEBUG]   ", stat_name, ": ", stats[stat_name])

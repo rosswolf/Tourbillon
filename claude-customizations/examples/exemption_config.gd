@@ -7,44 +7,44 @@ var exemptions = {
 		# Third-party addons
 		"res://addons/dialogic/plugin.gd",
 		"res://addons/gut/gut.gd",
-		
+
 		# Generated files
 		"res://src/generated/network_protocol.gd",
 		"res://src/generated/save_system.gd",
-		
+
 		# Legacy code pending removal
 		"res://src/deprecated/old_inventory.gd"
 	],
-	
+
 	# Files exempt from type checking
 	"type_check_exempt": [
 		# Migration in progress
 		"res://src/player/player_controller.gd",
 		"res://src/enemies/enemy_base.gd",
-		
+
 		# Interfacing with untyped APIs
 		"res://src/network/legacy_client.gd",
-		
+
 		# Complex generics not yet supported
 		"res://src/utils/object_pool.gd"
 	],
-	
+
 	# Files exempt from private variable checks
 	"private_var_exempt": [
 		# Debug and development tools
 		"res://src/debug/inspector.gd",
 		"res://src/debug/console.gd",
 		"res://src/tools/level_editor.gd",
-		
+
 		# Reflection/serialization systems
 		"res://src/save/serializer.gd",
 		"res://src/modding/mod_loader.gd",
-		
+
 		# Unit tests that need private access
 		"res://tests/unit/player_test.gd",
 		"res://tests/unit/inventory_test.gd"
 	],
-	
+
 	# Patterns in file paths to exempt (substring matching)
 	"path_patterns_exempt": [
 		# Test files
@@ -52,60 +52,60 @@ var exemptions = {
 		"_test.gd",        # Files ending with _test.gd
 		"/tests/",         # Anything in tests directories
 		"/test/",          # Alternative test directory
-		
+
 		# Mock objects
 		"mock_",           # Mock implementations
 		"_mock.gd",        # Alternative mock naming
 		"/mocks/",         # Mock directories
-		
+
 		# Generated code
 		"_generated",      # Generated file suffix
 		".g.gd",           # Alternative generated suffix
 		"/generated/",     # Generated directories
-		
+
 		# Third-party code
 		"/addons/",        # All addons
 		"/vendor/",        # Vendor libraries
 		"/external/",      # External dependencies
-		
+
 		# Build and temp files
 		"/build/",         # Build outputs
 		"/temp/",          # Temporary files
 		"/.tmp/",          # Hidden temp
-		
+
 		# Examples and demos
 		"/examples/",      # Example code
 		"/demos/",         # Demo projects
 		"/samples/",       # Sample implementations
-		
+
 		# Platform-specific code that may have different standards
 		"/android/",       # Android-specific
 		"/ios/",           # iOS-specific
 		"/web/",           # Web-specific
 	],
-	
+
 	# Special comment markers that exempt the next line
 	"line_exemption_markers": [
 		# Type check exemptions
 		"# EXEMPT: TYPE_CHECK",
 		"# EXEMPT: TYPE",
 		"# @no-type-check",
-		
+
 		# Private access exemptions
 		"# EXEMPT: PRIVATE_ACCESS",
 		"# EXEMPT: PRIVATE",
 		"# @allow-private",
-		
+
 		# Complete exemptions
 		"# EXEMPT: ALL",
 		"# @compile-check-ignore",
 		"# @no-check",
-		
+
 		# Legacy markers (for gradual migration)
 		"# LEGACY:",
 		"# DEPRECATED:",
 		"# TODO: TYPES",
-		
+
 		# Generated code markers
 		"# GENERATED:",
 		"# AUTO-GENERATED:",
@@ -130,7 +130,7 @@ var temporary_storage = {}
 func process_item(item: Item) -> void:
 	# EXEMPT: PRIVATE_ACCESS - Need internal state for caching
 	var internal = item.__internal_id
-	
+
 	# Regular typed code continues
 	var processed: bool = _handle_item(item)
 

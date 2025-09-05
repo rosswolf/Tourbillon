@@ -24,7 +24,7 @@ func _ready() -> void:
 	pressed.connect(__on_pressed)
 	mouse_entered.connect(__on_mouse_entered)
 	mouse_exited.connect(__on_mouse_exited)
-	
+
 	# Start with empty visuals
 	__update_empty_visual()
 
@@ -67,7 +67,7 @@ func set_empty_visual() -> void:
 func show_progress(percent: float, is_ready: bool = false) -> void:
 	progress_bar.visible = true
 	progress_bar.value = percent
-	
+
 	# Color based on state
 	if is_ready:
 		progress_bar.modulate = Color(0.0, 1.0, 0.0, 1.0)  # Green

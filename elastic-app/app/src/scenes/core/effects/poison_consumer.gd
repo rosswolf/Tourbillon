@@ -20,9 +20,9 @@ func add_poison(amount: int) -> void:
 func process_beat(context: BeatContext) -> void:
 	if poison_value <= 0:
 		return
-	
+
 	beats_until_trigger -= 1
-	
+
 	if beats_until_trigger <= 0:
 		_trigger_poison()
 		beats_until_trigger = trigger_interval
@@ -36,7 +36,7 @@ func _trigger_poison() -> void:
 			owner.receive_damage(packet)
 		else:
 			push_warning("PoisonConsumer: owner doesn't support receive_damage: ", owner.get_class())
-		
+
 		# Reduce poison by 1 after dealing damage
 		poison_value = max(0, poison_value - 1)
 
