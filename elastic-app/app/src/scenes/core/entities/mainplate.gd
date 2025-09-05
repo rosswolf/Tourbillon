@@ -4,6 +4,9 @@ class_name Mainplate
 ## Core entity representing the Tourbillon mainplate (gear grid)
 ## Manages the logical grid state and slot positions
 
+# Progress update signal - emitted every beat for UI updates
+signal gear_progress_updated(card_instance_id: String, progress_percent: float, is_ready: bool)
+
 ## Inner class to track card state
 class CardState:
 	var current_beats: int = 0
@@ -46,6 +49,12 @@ func has_card_at(pos: Vector2i) -> bool:
 func get_card_at(pos: Vector2i) -> Card:
 	if slots.has(pos):
 		return slots[pos]
+	return null
+
+## Get card state for a specific card
+func get_card_state(card_instance_id: String) -> CardState:
+	if card_states.has(card_instance_id):
+		return card_states[card_instance_id]
 	return null
 
 ## Request card placement - handles ALL business logic for placing a card
@@ -201,6 +210,10 @@ func process_beat(context: BeatContext) -> void:
 				# Check if card is ready (before potential activation)
 				var interval_in_beats = card.production_interval * 10
 				state.is_ready = state.current_beats >= interval_in_beats
+				
+				# Calculate and emit progress update
+				var progress_percent = (state.current_beats * 100.0) / interval_in_beats
+				gear_progress_updated.emit(card.instance_id, progress_percent, state.is_ready)
 			
 			# Signal UI update BEFORE activation (so it sees the full progress)
 			GlobalSignals.signal_core_gear_process_beat(card.instance_id, context)
@@ -287,6 +300,10 @@ func __activate_card(card: Card, pos: Vector2i, context: BeatContext) -> void:
 	
 	# Reset timer
 	state.current_beats = 0
+	state.is_ready = false
+	
+	# Emit progress reset
+	gear_progress_updated.emit(card.instance_id, 0.0, false)
 
 ## Set a position as a bonus square
 func set_bonus_square(pos: Vector2i, bonus_type: String) -> void:

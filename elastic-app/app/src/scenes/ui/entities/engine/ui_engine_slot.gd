@@ -29,7 +29,10 @@ func _ready() -> void:
 	
 	# Card slotting is now handled via update_card_display() called by UIMainplate
 	GlobalSignals.core_card_unslotted.connect(__on_card_unslotted)
-	GlobalSignals.core_gear_process_beat.connect(__on_gear_process_beat)
+	
+	# Connect to mainplate's progress signal
+	if GlobalGameManager.mainplate:
+		GlobalGameManager.mainplate.gear_progress_updated.connect(__on_gear_progress_updated)
 	
 	# Initialize progress bar
 	%ProgressBar.value = 0
@@ -117,17 +120,17 @@ func _on_mouse_exited() -> void:
 	if card_preview:
 		destroy_card_ui()
 
-## Handle beat processing signal from core - only visual updates
-func __on_gear_process_beat(card_instance_id: String, context: BeatContext) -> void:
-	# Only update visuals if this is our card
+## Handle progress updates from mainplate
+func __on_gear_progress_updated(card_instance_id: String, progress_percent: float, is_ready: bool) -> void:
+	# Only update if this is our card
 	if not __button_entity or not __button_entity.card:
 		return
 		
 	if __button_entity.card.instance_id != card_instance_id:
 		return
 		
-	# Just update visual progress - core handles logic
-	__update_progress_display()
+	# Update the progress display
+	update_progress_display(progress_percent, is_ready)
 
 
 
@@ -162,9 +165,6 @@ func update_progress_display(percent: float, is_ready: bool = false) -> void:
 	else:
 		%ProgressBar.modulate = Color.WHITE  # White when charging
 
-func __update_progress_display() -> void:
-	# Placeholder for compatibility
-	pass
 
 ## Show activation feedback - full bar that holds then resets
 func show_activation_feedback() -> void:

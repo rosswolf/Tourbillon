@@ -32,7 +32,6 @@ func _ready() -> void:
 	# Connect to core signals for reactive updates
 	GlobalSignals.core_card_slotted.connect(__on_core_card_slotted)
 	GlobalSignals.core_card_replaced.connect(__on_core_card_replaced)
-	GlobalSignals.core_gear_process_beat.connect(__on_core_gear_process_beat)
 	GlobalSignals.core_slot_activated.connect(__on_core_slot_activated)
 	
 	# Create the UI beat orchestrator for synchronized updates
@@ -468,21 +467,7 @@ func __on_core_card_replaced(old_card_id: String, new_card_id: String, logical_p
 	else:
 		push_warning("[UIMainplate] Slot has no button entity at position ", physical_pos)
 
-func __on_core_gear_process_beat(card_id: String, context: BeatContext) -> void:
-	# Find slot with this card and update its visual progress
-	for slot in gear_slots.values():
-		if slot.__button_entity and slot.__button_entity.card and slot.__button_entity.card.instance_id == card_id:
-			# Update visual progress based on core state
-			if mainplate and mainplate.card_states.has(card_id):
-				var state = mainplate.card_states[card_id]
-				var card = slot.__button_entity.card
-				if card.production_interval > 0:
-					var interval_beats = card.production_interval * 10
-					var percent = (state.current_beats * 100.0) / interval_beats
-					# Clamp percent to 0-100 range
-					percent = clamp(percent, 0.0, 100.0)
-					slot.update_progress_display(percent, state.is_ready)
-			break
+# Removed - slots now get updates directly from Mainplate's gear_progress_updated signal
 
 func __on_core_slot_activated(card_id: String) -> void:
 	# Visual feedback for activation
