@@ -24,6 +24,7 @@ var starting_hand_size: int = 5
 var current_beat: int = 0  # Current beat count
 var current_tick: int = 0  # Current tick = current_beat / 10
 var is_paused: bool = false
+var beat_speed_ms: float = 50.0  # Milliseconds between beats for smooth playback
 
 var hand_size: int = 5
 var current_act: int = 1
@@ -232,6 +233,7 @@ func end_game() -> void:
 func __initialize_tourbillon_systems() -> void:
 	# Create timeline manager (not as child since it's RefCounted)
 	timeline_manager = TimelineManager.new()
+	timeline_manager.set_beat_delay(beat_speed_ms)
 	
 	# Create mainplate entity (4x4 grid)
 	# The builder will automatically register it in the instance catalog
