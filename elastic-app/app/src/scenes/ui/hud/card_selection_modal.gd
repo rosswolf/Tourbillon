@@ -10,7 +10,9 @@ var cards: Array[Card] = []
 func _ready() -> void:
 	hide()
 	process_mode = Node.PROCESS_MODE_WHEN_PAUSED
+	# Connect to both old and new card selection signals
 	GlobalSignals.core_card_selection.connect(__on_card_selection)
+	GlobalSignals.ui_show_card_selection.connect(__on_show_card_selection)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -81,5 +83,56 @@ func __on_card_button_pressed(card: Card, target_zone: Library.Zone) -> void:
 
 	GlobalGameManager.library.shuffle_libraries()
 
+	resume()
+
+## New handler for wave reward card selection
+func __on_show_card_selection(reward_cards: Array[Card]) -> void:
+	get_tree().paused = true
+
+	# Clear existing cards
+	for child in hbox.get_children():
+		child.queue_free()
+
+	hbox.alignment = BoxContainer.ALIGNMENT_CENTER
+	cards = reward_cards
+
+	# Add each card as a selectable button
+	for card in cards:
+		__add_reward_card_button(card)
+
+	show()
+	animation_player.play("blur")
+
+func __add_reward_card_button(card: Card) -> void:
+	var card_ui: CardUI = PreloadScenes.NODES["card_ui"].instantiate()
+	card_ui.set_card_data(card)
+	card_ui.mouse_filter = Control.MOUSE_FILTER_IGNORE # Disable mouse input on CardUI so button receives clicks
+
+	add_child(card_ui)
+	await get_tree().process_frame  # Wait for layout
+
+	var button: Button = Button.new()
+	button.name = "RewardCardButton" + card.instance_id
+	button.flat = true  # Remove button styling
+	button.custom_minimum_size = Vector2(140, 200)
+	button.size = Vector2(140, 200)
+
+	button.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	button.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	button.pressed.connect(__on_reward_card_selected.bind(card))
+
+	# Remove CardUI from temporary parent and add to button
+	card_ui.reparent(button)
+	hbox.add_child(button)
+
+func __on_reward_card_selected(selected_card: Card) -> void:
+	print("[CardSelectionModal] Reward card selected: ", selected_card.display_name)
+	
+	# Emit signal to notify wave manager
+	GlobalSignals.signal_ui_card_selection_made(selected_card)
+	
+	# Clear the selection
+	cards.clear()
+	
 	resume()
 
