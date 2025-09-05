@@ -167,24 +167,38 @@ func add_index_key_variants(index_keys: Array, value):
 
 #TYPE_EXEMPTION(JSON parsing returns dynamic structures)
 func load_json_file(path: String) -> Dictionary:
+	print("[DEBUG] [StaticData] Attempting to load file: ", path)
 	if FileAccess.file_exists(path):
+		print("[DEBUG] [StaticData] File exists, opening...")
 		var datafile = FileAccess.open(path, FileAccess.READ)
-		var parsed_result = JSON.parse_string(datafile.get_as_text())
+		if datafile == null:
+			printerr("[ERROR] [StaticData] Failed to open file: ", path)
+			return {}
+		
+		var file_content = datafile.get_as_text()
+		print("[DEBUG] [StaticData] File size: ", file_content.length(), " chars")
+		var parsed_result = JSON.parse_string(file_content)
 		datafile.close()
+
+		if parsed_result == null:
+			printerr("[ERROR] [StaticData] JSON parsing failed for: ", path)
+			return {}
 
 		#TYPE_EXEMPTION(JSON can be array or dict)
 		if parsed_result is Array:
+			print("[DEBUG] [StaticData] Processing array of ", parsed_result.size(), " records")
 			# Process array of records, resolve enums, and convert to nested dict
 			return resolve_json_data(parsed_result)
 		#TYPE_EXEMPTION(JSON can be array or dict)
 		elif parsed_result is Dictionary:
+			print("[DEBUG] [StaticData] Processing dictionary with ", parsed_result.size(), " keys")
 			# Process single dictionary and resolve enum references
 			return resolve_json_record(parsed_result)
 		else:
-			printerr("Error: unexpected data type from json parse")
+			printerr("[ERROR] [StaticData] Unexpected data type from json parse: ", typeof(parsed_result))
 			return {}
 	else:
-		printerr("no file at path: ", path)
+		printerr("[ERROR] [StaticData] No file at path: ", path)
 		return {}
 
 #TYPE_EXEMPTION(Checks against various JSON data dictionaries)
@@ -458,13 +472,16 @@ func convert_array_to_nested_dict(data_array: Array) -> Dictionary:
 			# Get the first key in the record
 			var first_key = record.keys()[0]
 			var key_value = record[first_key]
+			
+			print("[DEBUG] [convert_array_to_nested_dict] First key: '", first_key, "', value: '", key_value, "'")
 
 			# Use the value of the first field as the dictionary key
 			result_dict[key_value] = record
 		else:
 			printerr("Empty record found in data array")
 			return {}
-
+	
+	print("[DEBUG] [convert_array_to_nested_dict] Final dictionary has ", result_dict.size(), " keys")
 	return result_dict
 
 # Convenience method for getting an integer configuration_data value
@@ -484,7 +501,11 @@ func get_card_by_id(card_id: String) -> Dictionary:
 #TYPE_EXEMPTION(Returns JSON mob data)
 func get_mob_by_id(mob_id: String) -> Dictionary:
 	"""Direct O(1) lookup for mob by ID"""
-	return mob_data.get(mob_id, {})
+	print("[DEBUG] [StaticData] Looking for mob_id: '", mob_id, "'")
+	print("[DEBUG] [StaticData] mob_data keys: ", mob_data.keys())
+	var result = mob_data.get(mob_id, {})
+	print("[DEBUG] [StaticData] Found mob: ", result)
+	return result
 
 #TYPE_EXEMPTION(Returns JSON goals data)
 func get_goals_by_id(wave_id: String) -> Dictionary:
