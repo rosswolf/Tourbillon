@@ -137,8 +137,8 @@ static func _apply_force_cap(force_type: GameResource.Type, cap: int, is_hard: b
 		if resource:
 			if is_hard:
 				# Hard cap - immediately reduce if over
-				if resource.current > cap:
-					resource.current = cap
+				if resource.amount > cap:
+					resource.amount = cap
 				resource.max_amount = cap
 			else:
 				# Soft cap - just set a visual indicator, allow temporary exceeding
@@ -217,7 +217,7 @@ static func _execute_drain(drain_type: String, amount: int) -> void:
 
 			for force_type in force_types:
 				var resource = GlobalGameManager.hero.get_force_resource(force_type)
-				if resource and resource.current > 0:
+				if resource and resource.amount > 0:
 					available_forces.append(force_type)
 
 			if available_forces.size() > 0:
@@ -238,8 +238,8 @@ static func _execute_drain(drain_type: String, amount: int) -> void:
 
 			for force_type in force_types:
 				var resource = GlobalGameManager.hero.get_force_resource(force_type)
-				if resource and resource.current > 0:
-					resource.subtract(min(amount, resource.current))
+				if resource and resource.amount > 0:
+					resource.subtract(min(amount, resource.amount))
 			print("[DEBUG] [Disruption] Drained ", amount, " from all forces")
 
 		"heat", "precision", "momentum", "balance", "entropy":
@@ -248,7 +248,7 @@ static func _execute_drain(drain_type: String, amount: int) -> void:
 			if force_type != null:
 				var resource = GlobalGameManager.hero.get_force_resource(force_type)
 				if resource:
-					resource.subtract(min(amount, resource.current))
+					resource.subtract(min(amount, resource.amount))
 					print("[DEBUG] [Disruption] Drained ", amount, " ", drain_type)
 
 # Get force type from name

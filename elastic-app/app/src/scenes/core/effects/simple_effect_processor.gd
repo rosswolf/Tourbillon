@@ -233,8 +233,8 @@ static func _handle_consume_max(amount: float) -> bool:
 						GameResource.Type.GREEN, GameResource.Type.WHITE,
 						GameResource.Type.PURPLE]:
 		var resource = GlobalGameManager.hero.get_force_resource(force_type)
-		if resource and resource.current > highest_amount:
-			highest_amount = resource.current
+		if resource and resource.amount > highest_amount:
+			highest_amount = resource.amount
 			highest_type = force_type
 
 	if highest_amount >= amount:
@@ -458,9 +458,9 @@ static func _complex_force_cascade(_source: Node) -> void:
 						GameResource.Type.GREEN, GameResource.Type.WHITE,
 						GameResource.Type.PURPLE]:
 		var resource = GlobalGameManager.hero.get_force_resource(force_type)
-		if resource and resource.current > 0:
-			total_damage += resource.current
-			resource.current = 0  # Clear the resource
+		if resource and resource.amount > 0:
+			total_damage += resource.amount
+			resource.amount = 0  # Clear the resource
 
 	if total_damage > 0:
 		_handle_damage_all(total_damage)
@@ -500,7 +500,7 @@ static func _complex_heat_threshold(_source: Node) -> void:
 		return
 
 	var resource = GlobalGameManager.hero.get_force_resource(GameResource.Type.HEAT)
-	if resource and resource.current > 5:
+	if resource and resource.amount > 5:
 		_handle_draw(1)
 
 # Cost modifier complex effects
@@ -597,7 +597,7 @@ static func _complex_void_hunger(_source: Node) -> void:
 						GameResource.Type.PURPLE]:
 		var resource = GlobalGameManager.hero.get_force_resource(force_type)
 		if resource:
-			var to_consume: int = min(resource.current, int(5.0 - total_consumed))
+			var to_consume: int = min(resource.amount, int(5.0 - total_consumed))
 
 			if to_consume > 0:
 				GlobalGameManager.hero.consume_force(force_type, to_consume)
@@ -660,9 +660,9 @@ static func _complex_overheat(_source: Node) -> void:
 		return
 
 	var resource = GlobalGameManager.hero.get_force_resource(GameResource.Type.RED)
-	if resource and resource.current >= 10:
+	if resource and resource.amount >= 10:
 		_handle_damage(15)
-		resource.current = 0
+		resource.amount = 0
 
 static func _complex_precision_strike(_source: Node) -> void:
 	# "If Precision >= 7: Deal damage equal to Precision to weakest"
@@ -670,8 +670,8 @@ static func _complex_precision_strike(_source: Node) -> void:
 		return
 
 	var resource = GlobalGameManager.hero.get_force_resource(GameResource.Type.BLUE)
-	if resource and resource.current >= 7:
-		_handle_damage_weakest(resource.current)
+	if resource and resource.amount >= 7:
+		_handle_damage_weakest(resource.amount)
 
 static func _complex_momentum_avalanche(_source: Node) -> void:
 	# "If Momentum >= 8: Double all Momentum, deal that much damage"
@@ -679,9 +679,9 @@ static func _complex_momentum_avalanche(_source: Node) -> void:
 		return
 
 	var resource = GlobalGameManager.hero.get_force_resource(GameResource.Type.GREEN)
-	if resource and resource.current >= 8:
-		var damage_amount = resource.current * 2
-		resource.current = damage_amount  # Double the momentum
+	if resource and resource.amount >= 8:
+		var damage_amount = resource.amount * 2
+		resource.amount = damage_amount  # Double the momentum
 		_handle_damage(damage_amount)
 
 static func _complex_perfect_balance(_source: Node) -> void:
@@ -712,7 +712,7 @@ static func _complex_entropy_cascade(_source: Node) -> void:
 		return
 
 	var resource = GlobalGameManager.hero.get_force_resource(GameResource.Type.PURPLE)
-	if resource and resource.current >= 6:
+	if resource and resource.amount >= 6:
 		# Damage all enemies
 		_handle_damage_all(10)
 
@@ -833,7 +833,7 @@ static func _complex_force_scaling(_source: Node) -> void:
 						GameResource.Type.PURPLE]:
 		var resource = GlobalGameManager.hero.get_force_resource(force_type)
 		if resource:
-			total += resource.current
+			total += resource.amount
 
 	if total > 0:
 		_handle_damage(total)
@@ -911,10 +911,10 @@ static func _complex_rainbow_burst(_source: Node) -> void:
 						GameResource.Type.GREEN, GameResource.Type.WHITE,
 						GameResource.Type.PURPLE]:
 		var resource = GlobalGameManager.hero.get_force_resource(force_type)
-		if not resource or resource.current <= 0:
+		if not resource or resource.amount <= 0:
 			has_all = false
 			break
-		total += resource.current
+		total += resource.amount
 
 	if has_all:
 		# Consume all forces
@@ -923,7 +923,7 @@ static func _complex_rainbow_burst(_source: Node) -> void:
 							GameResource.Type.PURPLE]:
 			var resource = GlobalGameManager.hero.get_force_resource(force_type)
 			if resource:
-				resource.current = 0
+				resource.amount = 0
 
 		_handle_damage_all(total)
 		_handle_draw(5)
@@ -996,8 +996,8 @@ static func _handle_force_cap(force_type: GameResource.Type, cap: int, is_hard: 
 
 	if is_hard:
 		# Hard cap - immediately reduce if over and set max
-		if resource.current > cap:
-			resource.current = cap
+		if resource.amount > cap:
+			resource.amount = cap
 		resource.max_amount = cap
 		print("[DEBUG] [Constraint] Hard cap ", GameResource.Type.keys()[force_type], " at ", cap)
 	else:
@@ -1016,7 +1016,7 @@ static func _handle_total_forces_cap(cap: int) -> void:
 						GameResource.Type.ENTROPY]:
 		var resource = GlobalGameManager.hero.get_force_resource(force_type)
 		if resource:
-			total += resource.current
+			total += resource.amount
 
 	# If over cap, reduce proportionally
 	if total > cap:
@@ -1026,7 +1026,7 @@ static func _handle_total_forces_cap(cap: int) -> void:
 							GameResource.Type.ENTROPY]:
 			var resource = GlobalGameManager.hero.get_force_resource(force_type)
 			if resource:
-				resource.current = int(resource.current * scale)
+				resource.amount = int(resource.amount * scale)
 
 	print("[DEBUG] [Constraint] Total forces capped at ", cap)
 
@@ -1055,8 +1055,8 @@ static func _handle_drain_force(force_type: GameResource.Type, amount: float) ->
 		return
 
 	var resource = GlobalGameManager.hero.get_force_resource(force_type)
-	if resource and resource.current > 0:
-		var drained: float = min(amount, resource.current)
+	if resource and resource.amount > 0:
+		var drained: float = min(amount, resource.amount)
 		resource.subtract(drained)
 		print("[DEBUG] [Disruption] Drained ", drained, " ", GameResource.Type.keys()[force_type])
 
@@ -1070,7 +1070,7 @@ static func _handle_drain_random(amount: float) -> void:
 						GameResource.Type.MOMENTUM, GameResource.Type.BALANCE,
 						GameResource.Type.ENTROPY]:
 		var resource = GlobalGameManager.hero.get_force_resource(force_type)
-		if resource and resource.current > 0:
+		if resource and resource.amount > 0:
 			available_forces.append(force_type)
 
 	if not available_forces.is_empty():
@@ -1097,8 +1097,8 @@ static func _handle_drain_highest(amount: float) -> void:
 						GameResource.Type.MOMENTUM, GameResource.Type.BALANCE,
 						GameResource.Type.ENTROPY]:
 		var resource = GlobalGameManager.hero.get_force_resource(force_type)
-		if resource and resource.current > highest_amount:
-			highest_amount = resource.current
+		if resource and resource.amount > highest_amount:
+			highest_amount = resource.amount
 			highest_type = force_type
 
 	if highest_amount > 0:
