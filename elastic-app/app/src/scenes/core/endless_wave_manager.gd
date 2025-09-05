@@ -179,83 +179,97 @@ func _on_all_gremlins_defeated() -> void:
 func _show_card_reward() -> void:
 	print("[WaveManager] Showing card selection reward")
 	
-	# Get 3 random cards for selection
-	var available_cards = _get_reward_card_pool()
-	var selected_cards: Array[Card] = []
+	# Get 3 cards for selection
+	var reward_cards = _get_reward_card_pool()
 	
-	# Pick 3 random cards
-	for i in range(min(3, available_cards.size())):
-		var index = randi() % available_cards.size()
-		selected_cards.append(available_cards[index])
-		available_cards.remove_at(index)
+	if reward_cards.is_empty():
+		print("[WARNING] No reward cards generated, starting next wave")
+		start_next_wave()
+		return
 	
-	# Store cards for selection
-	if GlobalGameManager.library:
-		# For now, just add the first card directly to deck
-		# TODO: Implement proper card selection UI
-		if selected_cards.size() > 0:
-			var chosen_card = selected_cards[0]
-			GlobalGameManager.library.add_card_to_deck(chosen_card)
-			reward_card_selected.emit(chosen_card)
-			print("[EndlessWaveManager] Added reward card to deck: ", chosen_card.display_name)
+	# Show card selection UI with the 3 cards
+	# The UI will call back to us when selection is made
+	GlobalSignals.signal_ui_show_card_selection(reward_cards)
+	print("[EndlessWaveManager] Showing card selection with ", reward_cards.size(), " cards")
 	
-	# After card is selected, the modal will close and we continue
-	# Connect to know when selection is done
-	if not GlobalSignals.core_card_drawn.is_connected(_on_reward_selected):
-		GlobalSignals.core_card_drawn.connect(_on_reward_selected, CONNECT_ONE_SHOT)
+	# Connect to handle the selection result
+	if not GlobalSignals.ui_card_selection_made.is_connected(_on_reward_selected):
+		GlobalSignals.ui_card_selection_made.connect(_on_reward_selected, CONNECT_ONE_SHOT)
 
 ## Get pool of cards available as rewards
 func _get_reward_card_pool() -> Array[Card]:
 	var cards: Array[Card] = []
 	
-	# Get cards from the common/uncommon/rare libraries
-	if GlobalGameManager.library:
-		# Weight by rarity
-		var rarity_weights = {
-			"common": 60,
-			"uncommon": 30,
-			"rare": 10
-		}
+	# Get cards directly from StaticData instead of library zones
+	if StaticData.card_data.is_empty():
+		print("[ERROR] No card data loaded!")
+		return cards
+	
+	# Weight by rarity
+	var rarity_weights = {
+		"common": 60,
+		"uncommon": 30,
+		"rare": 10
+	}
+	
+	# Higher waves have better rewards
+	if current_wave >= 5:
+		rarity_weights["rare"] = 20
+		rarity_weights["uncommon"] = 40
+		rarity_weights["common"] = 40
+	
+	# Build weighted pool
+	for i in range(3):  # We need 3 cards
+		var roll = randi() % 100
+		var card: Card
 		
-		# Higher waves have better rewards
-		if current_wave >= 5:
-			rarity_weights["rare"] = 20
-			rarity_weights["uncommon"] = 40
-			rarity_weights["common"] = 40
+		var target_rarity: String
+		if roll < rarity_weights["rare"]:
+			target_rarity = "RARE"
+		elif roll < rarity_weights["rare"] + rarity_weights["uncommon"]:
+			target_rarity = "UNCOMMON"  
+		else:
+			target_rarity = "COMMON"
 		
-		# Build weighted pool
-		for i in range(3):  # We need 3 cards
-			var roll = randi() % 100
-			var card: Card
+		# Get all cards of target rarity from StaticData
+		var matching_cards: Array[String] = []
+		for card_id in StaticData.card_data:
+			var card_entry: Dictionary = StaticData.card_data[card_id]
+			var rarity = card_entry.get("card_rarity", "COMMON")
 			
-			if roll < rarity_weights["rare"]:
-				# Get a rare card
-				var rare_cards = GlobalGameManager.library.get_cards_in_zone(Library.Zone.RARE_LIBRARY)
-				if rare_cards.size() > 0:
-					card = _create_card_from_template(rare_cards[randi() % rare_cards.size()])
-			elif roll < rarity_weights["rare"] + rarity_weights["uncommon"]:
-				# Get an uncommon card
-				var uncommon_cards = GlobalGameManager.library.get_cards_in_zone(Library.Zone.UNCOMMON_LIBRARY)
-				if uncommon_cards.size() > 0:
-					card = _create_card_from_template(uncommon_cards[randi() % uncommon_cards.size()])
-			
-			# Default to common
-			if not card:
-				var common_cards = GlobalGameManager.library.get_cards_in_zone(Library.Zone.COMMON_LIBRARY)
-				if common_cards.size() > 0:
-					card = _create_card_from_template(common_cards[randi() % common_cards.size()])
+			# Handle both string and enum formats
+			var rarity_str = str(rarity).to_upper()
+			if rarity_str.contains(target_rarity):
+				matching_cards.append(card_id)
+		
+		# Pick a random card from matching ones
+		if matching_cards.size() > 0:
+			var chosen_id = matching_cards[randi() % matching_cards.size()]
+			var group_id = StaticData.card_data[chosen_id].get("group_template_id", "tourbillon")
+			card = Card.load_card(group_id, chosen_id)
 			
 			if card:
 				cards.append(card)
+			else:
+				print("[WARNING] Failed to load card: ", chosen_id)
 	
-	# Fallback: create some basic cards if no library
-	if cards.is_empty():
-		for i in range(3):
-			var card = Card.new()
-			card.display_name = "Test Card " + str(i)
-			card.rules_text = "Test effect"
-			card.rarity = Card.RarityType.COMMON
-			cards.append(card)
+	# If we couldn't get 3 cards, fill remaining slots with any available cards
+	while cards.size() < 3:
+		var all_card_ids = StaticData.card_data.keys()
+		if all_card_ids.size() > 0:
+			var random_id = all_card_ids[randi() % all_card_ids.size()]
+			var group_id = StaticData.card_data[random_id].get("group_template_id", "tourbillon")
+			var fallback_card = Card.load_card(group_id, random_id)
+			if fallback_card:
+				cards.append(fallback_card)
+			else:
+				break  # Avoid infinite loop if card loading is broken
+		else:
+			break
+	
+	print("[DEBUG] Generated ", cards.size(), " reward cards")
+	for card in cards:
+		print("  - ", card.display_name, " (", card.rarity, ")")
 	
 	return cards
 
@@ -278,8 +292,14 @@ func _create_card_from_template(template_card: Card) -> Card:
 	return new_card
 
 ## Called when a reward card is selected
-func _on_reward_selected(card_id: String) -> void:
-	print("[WaveManager] Card reward selected, starting next wave")
+func _on_reward_selected(selected_card: Card) -> void:
+	print("[WaveManager] Card reward selected: ", selected_card.display_name)
+	
+	# Add the selected card to the player's deck
+	if GlobalGameManager.library and selected_card:
+		GlobalGameManager.library.add_card_to_deck(selected_card)
+		reward_card_selected.emit(selected_card)
+		print("[EndlessWaveManager] Added reward card to deck: ", selected_card.display_name)
 	
 	# Small delay before next wave
 	await get_tree().create_timer(1.0).timeout

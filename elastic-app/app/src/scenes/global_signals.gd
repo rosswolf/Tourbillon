@@ -269,3 +269,12 @@ func signal_ui_time_updated(tick_display: String) -> void:
 signal ui_card_ticks_resolved()
 func signal_ui_card_ticks_resolved() -> void:
 	ui_card_ticks_resolved.emit()
+
+# Card Selection UI Signals
+signal ui_show_card_selection(cards: Array[Card])
+func signal_ui_show_card_selection(cards: Array[Card]) -> void:
+	ui_show_card_selection.emit(cards)
+
+signal ui_card_selection_made(selected_card: Card)
+func signal_ui_card_selection_made(selected_card: Card) -> void:
+	ui_card_selection_made.emit(selected_card)
