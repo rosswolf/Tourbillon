@@ -156,6 +156,27 @@ func _build_moves_string(gremlin_data: Dictionary) -> String:
 	if gremlin_data.has("moves_string") and not gremlin_data["moves_string"].is_empty():
 		return gremlin_data["moves_string"]
 	
+	# Build from individual move_1 through move_6 fields
+	var moves: Array[String] = []
+	var tick_values: Array[int] = []
+	
+	for i in range(1, 7):  # Check move_1 through move_6
+		var move_key = "move_" + str(i)
+		var tick_key = "move_" + str(i) + "_ticks"
+		
+		if gremlin_data.has(move_key) and not gremlin_data[move_key].is_empty():
+			var move = gremlin_data[move_key]
+			var ticks = gremlin_data.get(tick_key, 0)
+			moves.append(move)
+			tick_values.append(ticks)
+	
+	# Store tick values as metadata for the gremlin to use
+	if moves.size() > 0:
+		# Store moves and their timings separately
+		gremlin_data["move_timings"] = tick_values
+		# Join all moves with comma separator for the processor
+		return ",".join(moves)
+	
 	# Otherwise build from move_cycle if present
 	if gremlin_data.has("move_cycle"):
 		# Convert move_cycle to moves_string format

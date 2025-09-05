@@ -108,6 +108,11 @@ static func _process_single_downside(downside: String, gremlin: Gremlin) -> void
 		# Summons
 		"summon":
 			gremlin.set_meta("summon_type", value_str)
+		
+		# Attack moves
+		"attack":
+			gremlin.set_meta("attack_damage", value)
+			gremlin.set_meta("has_attack", true)
 
 		_:
 			push_warning("Unknown downside type: " + downside_type)
@@ -197,6 +202,11 @@ static func trigger_disruption(gremlin: Gremlin) -> void:
 	if gremlin.has_meta("summon_type"):
 		var summon_type = gremlin.get_meta("summon_type")
 		_summon_gremlin(summon_type)
+	
+	# Check for attack damage
+	if gremlin.has_meta("has_attack") and gremlin.get_meta("has_attack"):
+		var damage = gremlin.get_meta("attack_damage", 1)
+		_execute_attack(damage)
 
 # Execute drain effect
 static func _execute_drain(drain_type: String, amount: int) -> void:
@@ -283,6 +293,19 @@ static func _summon_gremlin(summon_type: String) -> void:
 	# This will call back to spawn logic
 	# TODO: Implement summon logic
 
+# Execute attack damage on hero
+static func _execute_attack(damage: int) -> void:
+	if not GlobalGameManager.hero:
+		return
+	
+	print("[DEBUG] [Disruption] Gremlin attacks for ", damage, " damage")
+	
+	# Deal damage to the hero
+	var hero = GlobalGameManager.hero
+	if hero.hp:
+		hero.hp.decrement(damage)
+		GlobalSignals.signal_core_hero_damaged(damage)
+
 # Remove a gremlin's downsides when defeated
 static func remove_gremlin_downsides(gremlin: Gremlin) -> void:
 	# For now, we'd need to track which gremlin applied which downside
@@ -364,6 +387,8 @@ static func get_downside_description(moves_string: String) -> String:
 				descriptions.append("Discard " + value + " cards")
 			"summon":
 				descriptions.append("Summons " + value)
+			"attack":
+				descriptions.append("Attack: " + value + " damage")
 
 	if descriptions.is_empty():
 		return "No special effects"
