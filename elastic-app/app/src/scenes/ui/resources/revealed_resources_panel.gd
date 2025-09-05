@@ -6,6 +6,8 @@ var resources_containers: Dictionary[GameResource.Type, PanelContainer] = {}
 
 func _ready() -> void:
 	print("[RevealedResourcesPanel] _ready() called")
+	print("[RevealedResourcesPanel] Panel visible: ", visible)
+	print("[RevealedResourcesPanel] Parent visible: ", get_parent().visible if get_parent() else "no parent")
 	var resource_template: PanelContainer = %ResourceContainerTemplate
 	print("[RevealedResourcesPanel] Template found: ", resource_template != null)
 	
