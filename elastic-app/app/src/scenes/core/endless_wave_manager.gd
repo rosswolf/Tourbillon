@@ -41,8 +41,10 @@ func _load_wave_data() -> void:
 	
 	# Load from StaticData
 	if StaticData.wave_data:
-		for wave in StaticData.wave_data:
-			var wave_id = wave.get("wave_id", "")
+		for wave_id in StaticData.wave_data:
+			var wave = StaticData.wave_data[wave_id]
+			if not wave is Dictionary:
+				continue
 			var difficulty = wave.get("difficulty", 0)
 			
 			# Store wave data
