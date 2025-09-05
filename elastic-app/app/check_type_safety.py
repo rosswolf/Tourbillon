@@ -402,15 +402,17 @@ def check_godot_compilation(verbose: bool = False) -> Tuple[bool, str]:
     """Check if the Godot project compiles without errors."""
     print("\n🔧 Checking Godot compilation...")
     
-    # Use our comprehensive compilation check script if it exists
-    compile_check_script = Path("godot_compile_check.gd")
+    # Use our smart compilation check script if it exists, fall back to old one
+    compile_check_script = Path("smart_compile_check.gd")
+    if not compile_check_script.exists():
+        compile_check_script = Path("godot_compile_check.gd")
     
     if not compile_check_script.exists():
-        return False, "godot_compile_check.gd not found"
+        return False, "Neither smart_compile_check.gd nor godot_compile_check.gd found"
     
     try:
-        # Use the comprehensive check
-        cmd = ['timeout', '30', 'godot', '--headless', '--script', 'godot_compile_check.gd']
+        # Use the compilation check
+        cmd = ['timeout', '30', 'godot', '--headless', '--script', str(compile_check_script)]
         
         if verbose:
             print(f"Running: {' '.join(cmd)}")
@@ -544,9 +546,8 @@ def main():
     else:
         print("\n✅ Type safety check passed!")
         
-        # Skip Godot compilation check for now due to autoload issues
-        # TODO: Re-enable once autoload dependencies are resolved
-        if False:  # was: if not args.skip_compile:
+        # Run Godot compilation check with smart dependency resolution
+        if not args.skip_compile:
             compile_success, compile_msg = check_godot_compilation(args.verbose)
             
             if not compile_success:
