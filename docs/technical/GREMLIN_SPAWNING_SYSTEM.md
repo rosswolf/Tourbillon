@@ -79,18 +79,32 @@ From the wave sheet, here are some example wave configurations:
 
 ### Entity Integration
 
-Following the existing pattern in `workjam3.5/app/libraries_submodules/common/core/entities/mob.gd`:
+Following the existing pattern in `workjam3.5/app/libraries_submodules/common/core/entities/`:
 
 ```gdscript
-# Gremlins extend the Mob class which extends BattleEntity
-extends Mob
+# Gremlins extend BattleEntity directly (like Mob does)
+extends BattleEntity
 class_name Gremlin
 
-# Additional properties for Tourbillon gremlins
+# Core gremlin properties for Tourbillon
+var archetype: String = ""
+var size_category: String = ""
+
+# Defense properties
+var armor: int = 0
+var shields: int = 0
+var has_barrier: bool = false
+var barrier_count: int = 0
+var damage_cap: int = 0
+var reflect_percent: float = 0.0
+var execute_immunity_threshold: int = 0
+
+# Move cycle management
 var move_cycle: Array[GremlinMove] = []
+var current_move: GremlinMove = null
 var current_move_index: int = 0
-var current_move_timer: float = 0.0  # In Beats
-var trigger_count: int = 0
+var move_timer_beats: float = 0.0
+var triggers_this_move: int = 0
 
 # Constraint tracking
 var active_constraints: Dictionary = {}  # constraint_type -> value
@@ -161,24 +175,11 @@ func spawn_wave(wave_composition: String) -> Array[Gremlin]:
 
 Location: `elastic-app/app/src/core/entities/gremlin.gd`
 
+The complete Gremlin class implementation (extends BattleEntity as shown above):
+
 ```gdscript
-extends Mob
+extends BattleEntity
 class_name Gremlin
-
-# Move cycle management
-var move_cycle: Array[GremlinMove] = []
-var current_move: GremlinMove = null
-var move_timer_beats: float = 0.0
-var triggers_this_move: int = 0
-
-# Gremlin-specific properties from schema
-var archetype: String = ""
-var size_category: String = ""
-var has_barrier: bool = false
-var barrier_count: int = 0
-var damage_cap: int = 0
-var reflect_percent: float = 0.0
-var execute_immunity_threshold: int = 0
 
 func _init():
     Signals.time_advanced.connect(_on_time_advanced)
