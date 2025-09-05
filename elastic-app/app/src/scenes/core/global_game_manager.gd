@@ -28,6 +28,13 @@ var beat_speed_ms: float = 20.0  # Milliseconds between beats for smooth playbac
 
 var hand_size: int = 5
 var current_act: int = 1
+
+func _ready() -> void:
+	# Initialize GremlinSpawnController as autoload
+	if not GremlinSpawnController.instance:
+		var spawn_controller = GremlinSpawnController.new()
+		add_child(spawn_controller)
+		print("[DEBUG] [GlobalGameManager] Created GremlinSpawnController instance")
 var __activations_allowed: bool = false
 
 # Endless wave management
@@ -135,6 +142,12 @@ func __on_start_battle() -> void:
 	__load_hand()
 
 	#battleground.spawn_new_stage(1)
+	
+	# Initialize GremlinSpawnController before wave manager
+	if not GremlinSpawnController.instance:
+		var spawn_controller = GremlinSpawnController.new()
+		add_child(spawn_controller)
+		print("[DEBUG] [GlobalGameManager] Created GremlinSpawnController instance in battle start")
 	
 	# Initialize endless wave manager and start first wave
 	if not endless_wave_manager:
