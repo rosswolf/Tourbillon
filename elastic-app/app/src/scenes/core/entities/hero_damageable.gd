@@ -98,7 +98,7 @@ func execute() -> void:
 func _sync_to_handler() -> void:
 	_damage_handler.max_hp = hero_max_hp
 	_damage_handler.current_hp = hero_current_hp
-	_damage_handler.armor = armor  # Use inherited armor from BattleEntity
+	_damage_handler.armor = armor.amount if armor else 0  # Get amount from CappedResource
 	_damage_handler.shields = hero_shields
 	_damage_handler.barrier_count = hero_barrier_count
 	_damage_handler.damage_cap = hero_damage_cap
