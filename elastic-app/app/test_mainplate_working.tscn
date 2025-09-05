@@ -1,9 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://mainplate-working-test"]
-
-[ext_resource type="PackedScene" uid="uid://b8apg4aqwojm7" path="res://src/scenes/game.tscn" id="1_game"]
-[ext_resource type="Script" path="res://test_mainplate_working.gd" id="2_script"]
-
-[node name="MainplateWorkingTest" type="Node"]
-script = ExtResource("2_script")
-
-[node name="Game" parent="." instance=ExtResource("1_game")]
