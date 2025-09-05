@@ -8,11 +8,17 @@ Gremlins execute moves in sequence, with each move having a tick countdown. The 
 ### Move Queue Structure
 Each gremlin has up to 6 moves (`move_1` through `move_6`) with corresponding tick timings (`move_1_ticks` through `move_6_ticks`).
 
-**Move Types:**
-- **Passive (0 ticks)**: Always active, no countdown (e.g., `heat_soft_cap=4`)
-- **Triggered (N ticks)**: Countdown to activation (e.g., `attack=3` at 10 ticks)
-- **Persistent**: Effects that remain after triggering (e.g., caps, penalties)
-- **Instant**: Effects that fire once and complete (e.g., attack, drain, summon)
+**Move Types by Duration:**
+- **Always Active (0 ticks)**: No countdown, effect remains active until gremlin moves to next move or dies
+- **Timed Effects (N ticks)**: Effect is active for N ticks, then advances to next move
+  - Persistent effects (caps, penalties): Active during their tick duration
+  - Triggered actions (attack, drain, summon): Fire when countdown reaches 0
+
+**Examples:**
+- `heat_soft_cap=4` at 0 ticks: Cap always active, never advances (single-move gremlin)
+- `heat_soft_cap=4` at 5 ticks: Cap active for 5 ticks, then moves to next effect
+- `attack=3` at 10 ticks: Countdown from 10, attacks when reaching 0, then advances
+- `card_cost_penalty=1` at 8 ticks: Penalty active for 8 ticks, then next move
 
 ### Move Cycle Behavior
 
@@ -20,16 +26,20 @@ Each gremlin has up to 6 moves (`move_1` through `move_6`) with corresponding ti
 INITIALIZATION:
 ├── Load move_1 as current_move
 ├── Set ticks_until_action = move_1_ticks
-├── If move_1_ticks == 0 → Apply passive effect immediately
+├── Apply move_1's effect (caps, penalties start immediately)
+├── If move_1_ticks == 0 → Effect stays active, no advancement
 └── Display current move in UI
 
 EACH TICK:
-├── Decrement ticks_until_action
-├── Update progress bar (current/max)
+├── If ticks_until_action > 0:
+│   ├── Decrement ticks_until_action
+│   └── Update progress bar (current/max)
 ├── When ticks_until_action reaches 0:
-│   ├── Execute current move effect
+│   ├── For triggered actions (attack/drain/summon): Execute action
+│   ├── For persistent effects: Remove effect
 │   ├── Advance to next move in sequence
 │   ├── Load next move's tick count
+│   ├── Apply next move's effect (if persistent)
 │   └── Reset progress bar
 └── Continue cycle
 
@@ -155,21 +165,45 @@ Tick 15: Force discard, load "Attack: 2 damage"
 Tick 30: Attack for 2, loop back to penalty
 ```
 
-### Rust Speck (Passive + Active)
+### Rust Speck (Always Active + Triggered)
 ```
-move_1: precision_soft_cap=3 @ 0 ticks (passive)
+move_1: precision_soft_cap=3 @ 0 ticks (always active)
 move_2: attack=3 @ 6 ticks
 
 Cycle:
-Tick 0: Apply cap (always active), show "Attack: 3" counting down
-Tick 6: Attack for 3, continue showing attack countdown
-(Cap remains active throughout)
+Tick 0: Apply cap (stays active forever since 0 ticks)
+Never advances from move_1 since it has 0 ticks
+Attack never happens because we're stuck on move_1
+
+ISSUE: This doesn't work! Need to reconsider 0-tick moves in cycles.
+```
+
+### Rust Speck (Fixed Design)
+```
+move_1: precision_soft_cap=3 @ 10 ticks
+move_2: attack=3 @ 6 ticks
+
+Cycle:
+Tick 0: Apply precision cap, countdown from 10
+Tick 10: Remove cap, load attack, countdown from 6
+Tick 16: Attack for 3, loop back to cap
+Tick 26: Apply cap again...
 ```
 
 ## Special Cases
 
+### Handling 0-Tick Moves
+**Problem:** A move with 0 ticks would never advance, blocking the cycle.
+
+**Solution Options:**
+1. **Treat 0 ticks as "always on" background effect** - Not part of the cycle, always active
+2. **Minimum 1 tick for cycle moves** - Force all cycle moves to have at least 1 tick
+3. **Special "passive" slot** - Separate from the move cycle
+
+**Recommended:** Option 1 - Moves with 0 ticks are extracted as background effects that are always active while the gremlin lives. The actual cycle only includes moves with tick counts > 0.
+
 ### Multiple Passives
-If a gremlin has multiple passive effects (0 ticks), they all apply immediately and remain active. The UI shows the first non-passive move as "current".
+If a gremlin has multiple passive effects (0 ticks), they all apply immediately as background effects. The move cycle only contains moves with tick counts > 0.
 
 ### Empty Slots
 If a gremlin has gaps (e.g., move_1, move_3, no move_2), only defined moves are added to the queue.

@@ -702,7 +702,8 @@ Gremlins execute moves in sequence, with each move having its own tick countdown
 
 **Move Types:**
 
-**Passive Effects (0 ticks):**
+**Background Effects (0 ticks):**
+Always active while gremlin lives, not part of move cycle:
 - Force caps - caps don't stack, take lowest
 - Production taxes
 - Placement restrictions
@@ -712,7 +713,8 @@ Gremlins execute moves in sequence, with each move having its own tick countdown
 - Production modifiers stack additively
 - Decay triggers
 
-**Triggered Actions (N ticks):**
+**Cycled Moves (N ticks where N > 0):**
+Part of the move rotation, each active for N ticks:
 - Attack player directly (deals damage when timer reaches 0)
 - Drain forces (removes resources when triggered)
 - Corrupt gears
@@ -725,7 +727,7 @@ Gremlins execute moves in sequence, with each move having its own tick countdown
 **Example Move Cycles:**
 - Basic Gnat: Attack=1 (3 ticks) → Attack=1 (3 ticks) → repeat
 - Gear Tick: Card cost +1 (5 ticks) → Force discard (10 ticks) → Attack=2 (15 ticks) → repeat
-- Rust Speck: Precision cap=3 (passive) + Attack=3 (6 ticks) → repeat
+- Dust Mite: Heat cap=4 (always active, 0 ticks) + Attack=2 (4 ticks cycling)
 
 ### 8.2 Gremlin Types
 
