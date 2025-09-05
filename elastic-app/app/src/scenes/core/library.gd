@@ -352,6 +352,10 @@ func get_card_ids_in_zone(zone: Zone) -> Array[String]:
 	var zone_obj: ZoneCollection = __get_zone_object(zone)
 	return zone_obj.get_all_card_ids()
 
+func get_cards_in_zone(zone: Zone) -> Array[Card]:
+	var zone_obj: ZoneCollection = __get_zone_object(zone)
+	return zone_obj.get_all_cards()
+
 # Helper to get object reference for a zone
 func __get_zone_object(zone: Zone) -> ZoneCollection:
 	match zone:
