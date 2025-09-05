@@ -48,4 +48,3 @@ func have_enough(cost: int) -> bool:
 func send_signal() -> void:
 	__on_change.call(__amount)
 	__on_max_change.call(__max_amount)
-

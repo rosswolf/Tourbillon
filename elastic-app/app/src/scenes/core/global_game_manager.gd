@@ -408,4 +408,3 @@ func __spawn_test_gremlin() -> void:
 		GlobalSignals.signal_core_mob_created(gremlin.instance_id)
 
 		print("[DEBUG] Spawned gremlin: ", gremlin.gremlin_name, " with ", gremlin.current_hp, " HP")
-

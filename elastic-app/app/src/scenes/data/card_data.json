@@ -5,10 +5,10 @@
     "display_name": "starter_chronometer",
     "tags": "TOOL,SPARK",
     "rules_text": {
-      "Every 4 Ticks": "Draw 1 card"
+      "Every 8 Ticks": "Draw 1 card"
     },
     "card_rarity": "Card.RarityType.STARTER",
-    "production_interval": 4,
+    "production_interval": 8,
     "keywords": "starter",
     "starting_progress": 0,
     "group_template_id": "tourbillon",
@@ -22,10 +22,10 @@
     "display_name": "starter_red_gen",
     "tags": "STONE,SPARK",
     "rules_text": {
-      "Every 3 Ticks": "Produce 2.5 Red"
+      "Every 6 Ticks": "Produce 2.5 Red"
     },
     "card_rarity": "Card.RarityType.STARTER",
-    "production_interval": 3,
+    "production_interval": 6,
     "keywords": "starter",
     "starting_progress": 0,
     "group_template_id": "tourbillon",
@@ -39,10 +39,10 @@
     "display_name": "starter_blue_gen",
     "tags": "CRYSTAL",
     "rules_text": {
-      "Every 3 Ticks": "Produce 2 Blue"
+      "Every 6 Ticks": "Produce 2 Blue"
     },
     "card_rarity": "Card.RarityType.STARTER",
-    "production_interval": 3,
+    "production_interval": 6,
     "keywords": "starter",
     "starting_progress": 0,
     "group_template_id": "tourbillon",
@@ -56,10 +56,10 @@
     "display_name": "starter_green_gen",
     "tags": "MECH",
     "rules_text": {
-      "Every 3 Ticks": "Produce 2 Green"
+      "Every 6 Ticks": "Produce 2 Green"
     },
     "card_rarity": "Card.RarityType.STARTER",
-    "production_interval": 3,
+    "production_interval": 6,
     "keywords": "starter",
     "starting_progress": 0,
     "group_template_id": "tourbillon",
@@ -73,10 +73,10 @@
     "display_name": "starter_white_gen",
     "tags": "STONE",
     "rules_text": {
-      "Every 3 Ticks": "Produce 2 White"
+      "Every 6 Ticks": "Produce 2 White"
     },
     "card_rarity": "Card.RarityType.STARTER",
-    "production_interval": 3,
+    "production_interval": 6,
     "keywords": "starter",
     "starting_progress": 0,
     "group_template_id": "tourbillon",
@@ -90,10 +90,10 @@
     "display_name": "starter_black_gen",
     "tags": "DUST",
     "rules_text": {
-      "Every 3 Ticks": "Produce 1.5 Black"
+      "Every 6 Ticks": "Produce 1.5 Black"
     },
     "card_rarity": "Card.RarityType.STARTER",
-    "production_interval": 3,
+    "production_interval": 6,
     "keywords": "starter",
     "starting_progress": 0,
     "group_template_id": "tourbillon",
@@ -107,10 +107,10 @@
     "display_name": "starter_heat_conv",
     "tags": "FORGE",
     "rules_text": {
-      "Every 4 Ticks": "Consume 1 Red + 1 Blue â Produce 1 HEAT"
+      "Every 8 Ticks": "Consume 1 Red + 1 Blue -> Produce 1 HEAT"
     },
     "card_rarity": "Card.RarityType.STARTER",
-    "production_interval": 4,
+    "production_interval": 8,
     "keywords": "starter",
     "starting_progress": 0,
     "group_template_id": "tourbillon",
@@ -124,10 +124,10 @@
     "display_name": "starter_momentum_conv",
     "tags": "MECH",
     "rules_text": {
-      "Every 4 Ticks": "Consume 1 Red + 1 Green â Produce 1 MOMENTUM"
+      "Every 8 Ticks": "Consume 1 Red + 1 Green -> Produce 1 MOMENTUM"
     },
     "card_rarity": "Card.RarityType.STARTER",
-    "production_interval": 4,
+    "production_interval": 8,
     "keywords": "starter",
     "starting_progress": 0,
     "group_template_id": "tourbillon",
@@ -155,7 +155,7 @@
     "time_cost": 2,
     "display_name": "starter_emergency",
     "tags": "SPARK",
-    "rules_text": "Consume 4 Largest â Deal 2 damage",
+    "rules_text": "Consume 4 Largest -> Deal 2 damage",
     "card_rarity": "Card.RarityType.STARTER",
     "production_interval": 1,
     "keywords": "starter",
@@ -170,10 +170,9 @@
     "time_cost": 4,
     "display_name": "starter_balanced",
     "tags": "ORDER",
-    "rules_text": "Consume 3 Smallest â Deal 2 damage",
-    "card_rarity": "Card.RarityType.STARTER",
+    "rules_text": "Consume 3 Smallest -> Deal 2 damage",
+    "card_rarity": "Card.RarityType.RARE",
     "production_interval": 1,
-    "keywords": "starter",
     "starting_progress": 0,
     "group_template_id": "tourbillon",
     "on_fire_effect": "pay_smallest=3,damage=2",
@@ -186,11 +185,10 @@
     "display_name": "starter_heat_blast",
     "tags": "SPARK",
     "rules_text": {
-      "MOMENTARY": "Consume 2 HEAT â Deal 4 damage"
+      "MOMENTARY": "Consume 2 HEAT -> Deal 4 damage"
     },
-    "card_rarity": "Card.RarityType.STARTER",
+    "card_rarity": "Card.RarityType.RARE",
     "production_interval": 1,
-    "keywords": "starter",
     "starting_progress": 0,
     "group_template_id": "tourbillon",
     "on_fire_effect": "momentary=true,pay_heat=2,damage=4",
@@ -202,10 +200,9 @@
     "time_cost": 3,
     "display_name": "starter_flex_draw",
     "tags": "TOOL",
-    "rules_text": "Consume 3 Largest â Draw 1 card",
-    "card_rarity": "Card.RarityType.STARTER",
+    "rules_text": "Consume 3 Largest -> Draw 1 card",
+    "card_rarity": "Card.RarityType.RARE",
     "production_interval": 1,
-    "keywords": "starter",
     "starting_progress": 0,
     "group_template_id": "tourbillon",
     "on_fire_effect": "pay_largest=3,draw=1",
@@ -344,7 +341,7 @@
     "display_name": "Heat Forge",
     "tags": "FORGE",
     "rules_text": {
-      "Every 4 Ticks": "Consume 1.5 Red + 1 Blue â Produce 1 HEAT"
+      "Every 4 Ticks": "Consume 1.5 Red + 1 Blue -> Produce 1 HEAT"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
@@ -358,7 +355,7 @@
     "display_name": "Quick Forge",
     "tags": "FORGE,MICRO",
     "rules_text": {
-      "Every 3 Ticks": "Consume 1.5 Red + 0.5 Blue â Produce 1 HEAT"
+      "Every 3 Ticks": "Consume 1.5 Red + 0.5 Blue -> Produce 1 HEAT"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
@@ -372,7 +369,7 @@
     "display_name": "Efficient Forge",
     "tags": "FORGE,ORDER",
     "rules_text": {
-      "Every 5 Ticks": "Consume 2 Red + 1.5 Blue â Produce 2 HEAT"
+      "Every 5 Ticks": "Consume 2 Red + 1.5 Blue -> Produce 2 HEAT"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 5,
@@ -386,7 +383,7 @@
     "display_name": "Speed Engine",
     "tags": "MECH",
     "rules_text": {
-      "Every 4 Ticks": "Consume 1 Red + 1 Green â Produce 1 MOMENTUM"
+      "Every 4 Ticks": "Consume 1 Red + 1 Green -> Produce 1 MOMENTUM"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
@@ -400,7 +397,7 @@
     "display_name": "Turbo Core",
     "tags": "MECH,MICRO",
     "rules_text": {
-      "Every 3 Ticks": "Consume 1.5 Red + 0.5 Green â Produce 1 MOMENTUM"
+      "Every 3 Ticks": "Consume 1.5 Red + 0.5 Green -> Produce 1 MOMENTUM"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
@@ -414,7 +411,7 @@
     "display_name": "Acceleration Chamber",
     "tags": "MECH,TITAN",
     "rules_text": {
-      "Every 5 Ticks": "Consume 2 Red + 2 Green â Produce 2.5 MOMENTUM"
+      "Every 5 Ticks": "Consume 2 Red + 2 Green -> Produce 2.5 MOMENTUM"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 5,
@@ -428,7 +425,7 @@
     "display_name": "Adaptive Forge",
     "tags": "FORGE,TOOL",
     "rules_text": {
-      "Every 4 Ticks": "Consume 3 Largest â Produce 1 HEAT"
+      "Every 4 Ticks": "Consume 3 Largest -> Produce 1 HEAT"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
@@ -442,7 +439,7 @@
     "display_name": "Emergency Converter",
     "tags": "CHAOS",
     "rules_text": {
-      "Every 5 Ticks": "Consume 4 Smallest â Produce 1 HEAT"
+      "Every 5 Ticks": "Consume 4 Smallest -> Produce 1 HEAT"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 5,
@@ -455,7 +452,7 @@
     "time_cost": 2,
     "display_name": "Flame Strike",
     "tags": "SPARK",
-    "rules_text": "Consume 2 Red â Deal 1 damage",
+    "rules_text": "Consume 2 Red -> Deal 1 damage",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -467,7 +464,7 @@
     "time_cost": 3,
     "display_name": "Fire Blast",
     "tags": "SPARK",
-    "rules_text": "Consume 3.5 Red â Deal 2 damage",
+    "rules_text": "Consume 3.5 Red -> Deal 2 damage",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -479,7 +476,7 @@
     "time_cost": 4,
     "display_name": "Inferno",
     "tags": "SPARK,CHAOS",
-    "rules_text": "Consume 5 Red â Deal 3 damage",
+    "rules_text": "Consume 5 Red -> Deal 3 damage",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -492,7 +489,7 @@
     "display_name": "Perfect Combustion",
     "tags": "SPARK,ORDER",
     "rules_text": {
-      "Consume 1 Red â Deal 1 damage (rare 1": "1)"
+      "Consume 1 Red -> Deal 1 damage (rare 1": "1)"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
@@ -505,7 +502,7 @@
     "time_cost": 3,
     "display_name": "Thermal Blast",
     "tags": "SPARK,TITAN",
-    "rules_text": "Consume 2.5 HEAT â Deal 5 damage",
+    "rules_text": "Consume 2.5 HEAT -> Deal 5 damage",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -517,7 +514,7 @@
     "time_cost": 4,
     "display_name": "Balanced Burn",
     "tags": "ORDER",
-    "rules_text": "Consume 3 Smallest â Deal 2 damage",
+    "rules_text": "Consume 3 Smallest -> Deal 2 damage",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -529,7 +526,7 @@
     "time_cost": 3,
     "display_name": "Toxic Flame",
     "tags": "SPARK,DUST",
-    "rules_text": "Consume 2.5 Red â Deal 1 damage, apply 1 POISON",
+    "rules_text": "Consume 2.5 Red -> Deal 1 damage, apply 1 POISON",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -541,7 +538,7 @@
     "time_cost": 3,
     "display_name": "Tar Trap",
     "tags": "DUST",
-    "rules_text": "Consume 2 Red â Deal 1 damage, SLOW target 3 ticks",
+    "rules_text": "Consume 2 Red -> Deal 1 damage, SLOW target 3 ticks",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -553,7 +550,7 @@
     "time_cost": 3,
     "display_name": "Desperate Search",
     "tags": "TOOL",
-    "rules_text": "Consume 3 Red â Draw 1 card",
+    "rules_text": "Consume 3 Red -> Draw 1 card",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -565,7 +562,7 @@
     "time_cost": 5,
     "display_name": "Burning Knowledge",
     "tags": "TOOL,SPARK",
-    "rules_text": "Consume 5.5 Red â Draw 2 cards",
+    "rules_text": "Consume 5.5 Red -> Draw 2 cards",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -578,7 +575,7 @@
     "display_name": "Knowledge Furnace",
     "tags": "TOOL,FORGE",
     "rules_text": {
-      "Every 4 Ticks": "Consume 3 Red â Draw 1 card"
+      "Every 4 Ticks": "Consume 3 Red -> Draw 1 card"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
@@ -591,7 +588,7 @@
     "time_cost": 4,
     "display_name": "Heated Research",
     "tags": "TOOL",
-    "rules_text": "Consume 2.5 HEAT â Draw 2 cards",
+    "rules_text": "Consume 2.5 HEAT -> Draw 2 cards",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -618,7 +615,7 @@
     "display_name": "Overflow Furnace",
     "tags": "STONE",
     "rules_text": {
-      "Every 3 Ticks": "Consume 3 Largest â Produce 2.5 Red"
+      "Every 3 Ticks": "Consume 3 Largest -> Produce 2.5 Red"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
@@ -631,7 +628,7 @@
     "time_cost": 4,
     "display_name": "Emergency Burn",
     "tags": "CHAOS",
-    "rules_text": "Consume 5 Largest â Deal 2 damage",
+    "rules_text": "Consume 5 Largest -> Deal 2 damage",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -644,7 +641,7 @@
     "display_name": "Balanced Flame",
     "tags": "ORDER",
     "rules_text": {
-      "Every 3 Ticks": "Consume 2 Smallest â Produce 1.5 Red"
+      "Every 3 Ticks": "Consume 2 Smallest -> Produce 1.5 Red"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
@@ -657,7 +654,7 @@
     "time_cost": 4,
     "display_name": "Equilibrium Strike",
     "tags": "ORDER,SPARK",
-    "rules_text": "Consume 4 Smallest â Deal 2 damage",
+    "rules_text": "Consume 4 Smallest -> Deal 2 damage",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -669,7 +666,7 @@
     "time_cost": 4,
     "display_name": "Fusion Burn",
     "tags": "CHAOS,SPARK",
-    "rules_text": "Consume 2 Red + 2 Largest â Deal 3 damage",
+    "rules_text": "Consume 2 Red + 2 Largest -> Deal 3 damage",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -682,7 +679,7 @@
     "display_name": "Hybrid Forge",
     "tags": "FORGE",
     "rules_text": {
-      "Every 5 Ticks": "Consume 1 Red + 3 Smallest â 1.5 HEAT"
+      "Every 5 Ticks": "Consume 1 Red + 3 Smallest -> 1.5 HEAT"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 5,
@@ -723,7 +720,7 @@
     "time_cost": 5,
     "display_name": "Cost Reducer",
     "tags": "MECH,ORDER",
-    "rules_text": "Consume 2 MOMENTUM â Next 3 cards cost -1 tick",
+    "rules_text": "Consume 2 MOMENTUM -> Next 3 cards cost -1 tick",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -735,7 +732,7 @@
     "time_cost": 3,
     "display_name": "Ignite",
     "tags": "SPARK",
-    "rules_text": "Consume 2.5 Red â Apply BURN 3 to target",
+    "rules_text": "Consume 2.5 Red -> Apply BURN 3 to target",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -916,7 +913,7 @@
     "display_name": "Steam Engine",
     "tags": "MECH",
     "rules_text": {
-      "Every 4 Ticks": "Consume 1 Blue + 1 Red â Produce 1 HEAT"
+      "Every 4 Ticks": "Consume 1 Blue + 1 Red -> Produce 1 HEAT"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
@@ -930,7 +927,7 @@
     "display_name": "Quick Steam",
     "tags": "MECH,MICRO",
     "rules_text": {
-      "Every 3 Ticks": "Consume 1.5 Blue + 0.5 Red â Produce 1 HEAT"
+      "Every 3 Ticks": "Consume 1.5 Blue + 0.5 Red -> Produce 1 HEAT"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
@@ -944,7 +941,7 @@
     "display_name": "Efficient Steam",
     "tags": "MECH,ORDER",
     "rules_text": {
-      "Every 5 Ticks": "Consume 1.5 Blue + 1.5 Red â Produce 2 HEAT"
+      "Every 5 Ticks": "Consume 1.5 Blue + 1.5 Red -> Produce 2 HEAT"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 5,
@@ -958,7 +955,7 @@
     "display_name": "Precision Lathe",
     "tags": "TOOL",
     "rules_text": {
-      "Every 4 Ticks": "Consume 1 Blue + 1 White â Produce 1 PRECISION"
+      "Every 4 Ticks": "Consume 1 Blue + 1 White -> Produce 1 PRECISION"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
@@ -972,7 +969,7 @@
     "display_name": "Quick Calibration",
     "tags": "TOOL,MICRO",
     "rules_text": {
-      "Every 3 Ticks": "Consume 1.5 Blue + 0.5 White â Produce 1 PRECISION"
+      "Every 3 Ticks": "Consume 1.5 Blue + 0.5 White -> Produce 1 PRECISION"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
@@ -986,7 +983,7 @@
     "display_name": "Perfect Calibration",
     "tags": "TOOL,ORDER",
     "rules_text": {
-      "Every 5 Ticks": "Consume 2 Blue + 1.5 White â Produce 2.5 PRECISION"
+      "Every 5 Ticks": "Consume 2 Blue + 1.5 White -> Produce 2.5 PRECISION"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 5,
@@ -1000,7 +997,7 @@
     "display_name": "Adaptive Crystal",
     "tags": "CRYSTAL,TOOL",
     "rules_text": {
-      "Every 4 Ticks": "Consume 3 Largest â Produce 1 PRECISION"
+      "Every 4 Ticks": "Consume 3 Largest -> Produce 1 PRECISION"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
@@ -1014,7 +1011,7 @@
     "display_name": "Emergency Converter",
     "tags": "CHAOS",
     "rules_text": {
-      "Every 5 Ticks": "Consume 4 Smallest â Produce 1 PRECISION"
+      "Every 5 Ticks": "Consume 4 Smallest -> Produce 1 PRECISION"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 5,
@@ -1027,7 +1024,7 @@
     "time_cost": 2,
     "display_name": "Scripture",
     "tags": "TOOL,ORDER",
-    "rules_text": "Consume 2 White â Draw 1 card",
+    "rules_text": "Consume 2 White -> Draw 1 card",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -1040,7 +1037,7 @@
     "display_name": "Wisdom Engine",
     "tags": "ORDER,TOOL",
     "rules_text": {
-      "Every 3 Ticks": "Consume 2 White â Draw 1 card"
+      "Every 3 Ticks": "Consume 2 White -> Draw 1 card"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
@@ -1054,7 +1051,7 @@
     "display_name": "Archive",
     "tags": "TOOL,ORDER",
     "rules_text": {
-      "Every 5 Ticks": "Consume 3.5 White â Draw 2 cards"
+      "Every 5 Ticks": "Consume 3.5 White -> Draw 2 cards"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 5,
@@ -1067,7 +1064,7 @@
     "time_cost": 4,
     "display_name": "Perfect Knowledge",
     "tags": "TOOL,ORDER",
-    "rules_text": "Consume 2.5 PRECISION â Draw 3 cards",
+    "rules_text": "Consume 2.5 PRECISION -> Draw 3 cards",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -1079,7 +1076,7 @@
     "time_cost": 4,
     "display_name": "Balanced Scripture",
     "tags": "ORDER,TOOL",
-    "rules_text": "Consume 3 Smallest â Draw 1 card",
+    "rules_text": "Consume 3 Smallest -> Draw 1 card",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -1105,7 +1102,7 @@
     "time_cost": 3,
     "display_name": "Frost Shard",
     "tags": "CRYSTAL",
-    "rules_text": "Consume 3 Blue â Deal 1 damage",
+    "rules_text": "Consume 3 Blue -> Deal 1 damage",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -1117,7 +1114,7 @@
     "time_cost": 5,
     "display_name": "Ice Storm",
     "tags": "CRYSTAL,CHAOS",
-    "rules_text": "Consume 5.5 Blue â Deal 2 damage",
+    "rules_text": "Consume 5.5 Blue -> Deal 2 damage",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -1130,7 +1127,7 @@
     "display_name": "Surgical Strike",
     "tags": "TOOL",
     "rules_text": {
-      "Consume 1.5 PRECISION â TARGETED": "Deal 2 damage"
+      "Consume 1.5 PRECISION -> TARGETED": "Deal 2 damage"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
@@ -1144,7 +1141,7 @@
     "display_name": "Perfect Shot",
     "tags": "TOOL,ORDER",
     "rules_text": {
-      "Consume 2.5 PRECISION â TARGETED": "Deal 3 damage"
+      "Consume 2.5 PRECISION -> TARGETED": "Deal 3 damage"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
@@ -1157,7 +1154,7 @@
     "time_cost": 4,
     "display_name": "Steam Blast",
     "tags": "MECH",
-    "rules_text": "Consume 1.5 HEAT â Deal 3 damage",
+    "rules_text": "Consume 1.5 HEAT -> Deal 3 damage",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -1169,7 +1166,7 @@
     "time_cost": 5,
     "display_name": "Balanced Strike",
     "tags": "ORDER",
-    "rules_text": "Consume 4 Smallest â Deal 2 damage",
+    "rules_text": "Consume 4 Smallest -> Deal 2 damage",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -1238,7 +1235,7 @@
     "display_name": "Momentum Engine",
     "tags": "MECH",
     "rules_text": {
-      "Every 4 Ticks": "Consume 1 Green + 1 Red â Produce 1 MOMENTUM"
+      "Every 4 Ticks": "Consume 1 Green + 1 Red -> Produce 1 MOMENTUM"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
@@ -1252,7 +1249,7 @@
     "display_name": "Quick Momentum",
     "tags": "MECH,MICRO",
     "rules_text": {
-      "Every 3 Ticks": "Consume 1.5 Green + 0.5 Red â Produce 1 MOMENTUM"
+      "Every 3 Ticks": "Consume 1.5 Green + 0.5 Red -> Produce 1 MOMENTUM"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
@@ -1266,7 +1263,7 @@
     "display_name": "Chaos Engine",
     "tags": "CHAOS",
     "rules_text": {
-      "Every 4 Ticks": "Consume 1 Green + 1 Black â Produce 1 ENTROPY"
+      "Every 4 Ticks": "Consume 1 Green + 1 Black -> Produce 1 ENTROPY"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
@@ -1280,7 +1277,7 @@
     "display_name": "Quick Decay",
     "tags": "CHAOS,MICRO",
     "rules_text": {
-      "Every 3 Ticks": "Consume 1.5 Green + 0.5 Black â Produce 1 ENTROPY"
+      "Every 3 Ticks": "Consume 1.5 Green + 0.5 Black -> Produce 1 ENTROPY"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
@@ -1350,7 +1347,7 @@
     "display_name": "Precision Core",
     "tags": "TOOL",
     "rules_text": {
-      "Every 4 Ticks": "Consume 1 White + 1 Blue â Produce 1 PRECISION"
+      "Every 4 Ticks": "Consume 1 White + 1 Blue -> Produce 1 PRECISION"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
@@ -1364,7 +1361,7 @@
     "display_name": "Quick Precision",
     "tags": "TOOL,MICRO",
     "rules_text": {
-      "Every 3 Ticks": "Consume 1.5 White + 0.5 Blue â Produce 1 PRECISION"
+      "Every 3 Ticks": "Consume 1.5 White + 0.5 Blue -> Produce 1 PRECISION"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
@@ -1378,7 +1375,7 @@
     "display_name": "Balance Engine",
     "tags": "STONE",
     "rules_text": {
-      "Every 4 Ticks": "Consume 1 White + 1 Black â Produce 1 BALANCE"
+      "Every 4 Ticks": "Consume 1 White + 1 Black -> Produce 1 BALANCE"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
@@ -1392,7 +1389,7 @@
     "display_name": "Quick Balance",
     "tags": "STONE,MICRO",
     "rules_text": {
-      "Every 3 Ticks": "Consume 1.5 White + 0.5 Black â Produce 1 BALANCE"
+      "Every 3 Ticks": "Consume 1.5 White + 0.5 Black -> Produce 1 BALANCE"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
@@ -1462,7 +1459,7 @@
     "display_name": "Stability Engine",
     "tags": "STONE",
     "rules_text": {
-      "Every 4 Ticks": "Consume 1 Black + 1 White â Produce 1 BALANCE"
+      "Every 4 Ticks": "Consume 1 Black + 1 White -> Produce 1 BALANCE"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
@@ -1476,7 +1473,7 @@
     "display_name": "Quick Stability",
     "tags": "STONE,MICRO",
     "rules_text": {
-      "Every 3 Ticks": "Consume 1.5 Black + 0.5 White â Produce 1 BALANCE"
+      "Every 3 Ticks": "Consume 1.5 Black + 0.5 White -> Produce 1 BALANCE"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
@@ -1490,7 +1487,7 @@
     "display_name": "Chaos Core",
     "tags": "CHAOS",
     "rules_text": {
-      "Every 4 Ticks": "Consume 1 Black + 1 Green â Produce 1 ENTROPY"
+      "Every 4 Ticks": "Consume 1 Black + 1 Green -> Produce 1 ENTROPY"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
@@ -1504,7 +1501,7 @@
     "display_name": "Quick Chaos",
     "tags": "CHAOS,MICRO",
     "rules_text": {
-      "Every 3 Ticks": "Consume 1.5 Black + 0.5 Green â Produce 1 ENTROPY"
+      "Every 3 Ticks": "Consume 1.5 Black + 0.5 Green -> Produce 1 ENTROPY"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
@@ -1517,7 +1514,7 @@
     "time_cost": 4,
     "display_name": "Desperate Draw",
     "tags": "CHAOS",
-    "rules_text": "Consume 3 Red â Draw 1 card",
+    "rules_text": "Consume 3 Red -> Draw 1 card",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -1529,7 +1526,7 @@
     "time_cost": 5,
     "display_name": "Blazing Insights",
     "tags": "SPARK",
-    "rules_text": "Consume 6 Red â Draw 2 cards",
+    "rules_text": "Consume 6 Red -> Draw 2 cards",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -1541,7 +1538,7 @@
     "time_cost": 4,
     "display_name": "Heat Surge",
     "tags": "SPARK",
-    "rules_text": "Consume 2 HEAT â Draw 1 card",
+    "rules_text": "Consume 2 HEAT -> Draw 1 card",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -1553,7 +1550,7 @@
     "time_cost": 4,
     "display_name": "Momentum Rush",
     "tags": "MECH",
-    "rules_text": "Consume 2 MOMENTUM â Draw 1 card",
+    "rules_text": "Consume 2 MOMENTUM -> Draw 1 card",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -1565,7 +1562,7 @@
     "time_cost": 3,
     "display_name": "Heat Blast",
     "tags": "SPARK",
-    "rules_text": "Consume 3 HEAT â Deal 5 damage",
+    "rules_text": "Consume 3 HEAT -> Deal 5 damage",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -1577,7 +1574,7 @@
     "time_cost": 4,
     "display_name": "Heat Wave",
     "tags": "SPARK",
-    "rules_text": "Consume 2 HEAT â Deal 3 damage to all",
+    "rules_text": "Consume 2 HEAT -> Deal 3 damage to all",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -1590,7 +1587,7 @@
     "display_name": "Heat Engine",
     "tags": "FORGE",
     "rules_text": {
-      "Every 4 Ticks": "Consume 1 HEAT â Produce 3 Red"
+      "Every 4 Ticks": "Consume 1 HEAT -> Produce 3 Red"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
@@ -1603,7 +1600,7 @@
     "time_cost": 3,
     "display_name": "Heat Amplifier",
     "tags": "TOOL",
-    "rules_text": "Consume 1 HEAT â Next damage +3",
+    "rules_text": "Consume 1 HEAT -> Next damage +3",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -1615,7 +1612,7 @@
     "time_cost": 2,
     "display_name": "Momentum Strike",
     "tags": "WEAPON",
-    "rules_text": "Consume 1 MOMENTUM â Deal 2 damage",
+    "rules_text": "Consume 1 MOMENTUM -> Deal 2 damage",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -1627,7 +1624,7 @@
     "time_cost": 4,
     "display_name": "Momentum Chain",
     "tags": "CHAIN",
-    "rules_text": "Consume 2 MOMENTUM â Trigger all Red gears",
+    "rules_text": "Consume 2 MOMENTUM -> Trigger all Red gears",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -1682,7 +1679,7 @@
     "display_name": "Heat Refinery",
     "tags": "FORGE",
     "rules_text": {
-      "Every 3 Ticks": "Consume 2 Red + 1 Blue â Produce 2 HEAT"
+      "Every 3 Ticks": "Consume 2 Red + 1 Blue -> Produce 2 HEAT"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
@@ -1696,7 +1693,7 @@
     "display_name": "Momentum Factory",
     "tags": "MECH",
     "rules_text": {
-      "Every 3 Ticks": "Consume 2 Red + 1 Green â Produce 2 MOMENTUM"
+      "Every 3 Ticks": "Consume 2 Red + 1 Green -> Produce 2 MOMENTUM"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
@@ -1710,7 +1707,7 @@
     "display_name": "Dual Converter",
     "tags": "TOOL",
     "rules_text": {
-      "Every 4 Ticks": "Consume 3 Red â Produce 1 HEAT + 1 MOMENTUM"
+      "Every 4 Ticks": "Consume 3 Red -> Produce 1 HEAT + 1 MOMENTUM"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
@@ -1723,7 +1720,7 @@
     "time_cost": 5,
     "display_name": "Burn Everything",
     "tags": "CHAOS",
-    "rules_text": "Consume 5 Red â Deal 2 damage to all",
+    "rules_text": "Consume 5 Red -> Deal 2 damage to all",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -1735,7 +1732,7 @@
     "time_cost": 4,
     "display_name": "Critical Strike",
     "tags": "WEAPON",
-    "rules_text": "Consume 4 Red â Deal 3 damage",
+    "rules_text": "Consume 4 Red -> Deal 3 damage",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -1747,7 +1744,7 @@
     "time_cost": 2,
     "display_name": "Emergency Power",
     "tags": "TOOL",
-    "rules_text": "Consume 4 Smallest â Produce 3 Red",
+    "rules_text": "Consume 4 Smallest -> Produce 3 Red",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -1773,7 +1770,7 @@
     "time_cost": 5,
     "display_name": "Pyroclasm",
     "tags": "CHAOS",
-    "rules_text": "Consume 7 Red â Deal 4 damage to all",
+    "rules_text": "Consume 7 Red -> Deal 4 damage to all",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -1786,7 +1783,7 @@
     "display_name": "Heat Sink",
     "tags": "TOOL",
     "rules_text": {
-      "Every 3 Ticks": "Consume 1 HEAT â Produce 2 Red"
+      "Every 3 Ticks": "Consume 1 HEAT -> Produce 2 Red"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
@@ -1799,7 +1796,7 @@
     "time_cost": 2,
     "display_name": "Double Tap",
     "tags": "WEAPON",
-    "rules_text": "Consume 3 Red â Deal 1 damage twice",
+    "rules_text": "Consume 3 Red -> Deal 1 damage twice",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -1811,7 +1808,7 @@
     "time_cost": 3,
     "display_name": "Resource Burn",
     "tags": "SPARK",
-    "rules_text": "Consume 2 Largest â Deal 2 damage",
+    "rules_text": "Consume 2 Largest -> Deal 2 damage",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -1837,7 +1834,7 @@
     "time_cost": 3,
     "display_name": "Heat Exchange",
     "tags": "TOOL",
-    "rules_text": "Consume 1 HEAT â Produce 3 Red",
+    "rules_text": "Consume 1 HEAT -> Produce 3 Red",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -1849,7 +1846,7 @@
     "time_cost": 3,
     "display_name": "Momentum Transfer",
     "tags": "MECH",
-    "rules_text": "Consume 1 MOMENTUM â Produce 3 Red",
+    "rules_text": "Consume 1 MOMENTUM -> Produce 3 Red",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -1873,7 +1870,7 @@
     "time_cost": 4,
     "display_name": "Slow Burn",
     "tags": "SPARK,SLOW",
-    "rules_text": "Consume 2 Red â Deal 1 damage, SLOW target",
+    "rules_text": "Consume 2 Red -> Deal 1 damage, SLOW target",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -1885,7 +1882,7 @@
     "time_cost": 3,
     "display_name": "Momentum Punch",
     "tags": "WEAPON",
-    "rules_text": "Consume 1 MOMENTUM â Deal 3 damage",
+    "rules_text": "Consume 1 MOMENTUM -> Deal 3 damage",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -1898,7 +1895,7 @@
     "display_name": "Resource Converter",
     "tags": "TOOL",
     "rules_text": {
-      "Every 3 Ticks": "Consume 3 Largest â Produce 2 Red"
+      "Every 3 Ticks": "Consume 3 Largest -> Produce 2 Red"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
@@ -1911,7 +1908,7 @@
     "time_cost": 2,
     "display_name": "Divine of Ideas",
     "tags": "ORDER",
-    "rules_text": "Consume 2 White â Draw 1 card",
+    "rules_text": "Consume 2 White -> Draw 1 card",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -1923,7 +1920,7 @@
     "time_cost": 4,
     "display_name": "Order of Wisdom",
     "tags": "ORDER",
-    "rules_text": "Consume 4 White â Draw 2 cards",
+    "rules_text": "Consume 4 White -> Draw 2 cards",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -1935,7 +1932,7 @@
     "time_cost": 3,
     "display_name": "Precise Draw",
     "tags": "MICRO",
-    "rules_text": "Consume 1 PRECISION â Draw 1 card",
+    "rules_text": "Consume 1 PRECISION -> Draw 1 card",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -1947,7 +1944,7 @@
     "time_cost": 3,
     "display_name": "Heat Exchange",
     "tags": "TOOL",
-    "rules_text": "Consume 1 HEAT â Draw 1 card",
+    "rules_text": "Consume 1 HEAT -> Draw 1 card",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -1974,7 +1971,7 @@
     "display_name": "Wisdom Vault",
     "tags": "TOOL,ORDER",
     "rules_text": {
-      "Every 3 Ticks": "Consume 2 White â Draw 1 card"
+      "Every 3 Ticks": "Consume 2 White -> Draw 1 card"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
@@ -1987,7 +1984,7 @@
     "time_cost": 3,
     "display_name": "Precision Strike",
     "tags": "WEAPON",
-    "rules_text": "Consume 2 PRECISION â Deal 3 damage",
+    "rules_text": "Consume 2 PRECISION -> Deal 3 damage",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -1999,7 +1996,7 @@
     "time_cost": 2,
     "display_name": "Precision Shield",
     "tags": "TOOL",
-    "rules_text": "Consume 1 PRECISION â Prevent 3 damage",
+    "rules_text": "Consume 1 PRECISION -> Prevent 3 damage",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -2011,7 +2008,7 @@
     "time_cost": 3,
     "display_name": "Precision Boost",
     "tags": "MICRO",
-    "rules_text": "Consume 1 PRECISION â All Blue production +1",
+    "rules_text": "Consume 1 PRECISION -> All Blue production +1",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -2023,7 +2020,7 @@
     "time_cost": 3,
     "display_name": "Divine Control",
     "tags": "TOOL,ORDER",
-    "rules_text": "Consume 2 HEAT â Draw 2 cards",
+    "rules_text": "Consume 2 HEAT -> Draw 2 cards",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -2036,7 +2033,7 @@
     "display_name": "Heat Conversion",
     "tags": "TOOL",
     "rules_text": {
-      "Every 3 Ticks": "Consume 1 HEAT â Produce 3 Blue"
+      "Every 3 Ticks": "Consume 1 HEAT -> Produce 3 Blue"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
@@ -2092,7 +2089,7 @@
     "display_name": "Heat Condenser",
     "tags": "TOOL",
     "rules_text": {
-      "Every 3 Ticks": "Consume 2 Blue + 1 Red â Produce 2 HEAT"
+      "Every 3 Ticks": "Consume 2 Blue + 1 Red -> Produce 2 HEAT"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
@@ -2106,7 +2103,7 @@
     "display_name": "Precision Lathe",
     "tags": "MICRO",
     "rules_text": {
-      "Every 3 Ticks": "Consume 2 Blue + 1 White â Produce 2 PRECISION"
+      "Every 3 Ticks": "Consume 2 Blue + 1 White -> Produce 2 PRECISION"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
@@ -2120,7 +2117,7 @@
     "display_name": "Dual Processor",
     "tags": "TOOL",
     "rules_text": {
-      "Every 4 Ticks": "Consume 3 Blue â Produce 1 HEAT + 1 PRECISION"
+      "Every 4 Ticks": "Consume 3 Blue -> Produce 1 HEAT + 1 PRECISION"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
@@ -2148,7 +2145,7 @@
     "display_name": "Heat Font II",
     "tags": "TOOL,ORDER",
     "rules_text": {
-      "Every 3 Ticks": "Consume 1 HEAT â Draw 1 card"
+      "Every 3 Ticks": "Consume 1 HEAT -> Draw 1 card"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
@@ -2161,7 +2158,7 @@
     "time_cost": 4,
     "display_name": "Thought Acceleration",
     "tags": "HASTE",
-    "rules_text": "Consume 3 Blue â All draw effects trigger",
+    "rules_text": "Consume 3 Blue -> All draw effects trigger",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -2221,7 +2218,7 @@
     "time_cost": 5,
     "display_name": "Growth Draw",
     "tags": "BEAST",
-    "rules_text": "Consume 3 Green â Draw 1 card",
+    "rules_text": "Consume 3 Green -> Draw 1 card",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -2233,7 +2230,7 @@
     "time_cost": 6,
     "display_name": "Wild Insights",
     "tags": "CHAOS",
-    "rules_text": "Consume 6 Green â Draw 2 cards",
+    "rules_text": "Consume 6 Green -> Draw 2 cards",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -2245,7 +2242,7 @@
     "time_cost": 4,
     "display_name": "Momentum Draw",
     "tags": "MECH",
-    "rules_text": "Consume 2 MOMENTUM â Draw 1 card",
+    "rules_text": "Consume 2 MOMENTUM -> Draw 1 card",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -2257,7 +2254,7 @@
     "time_cost": 4,
     "display_name": "Entropic Draw",
     "tags": "VOID",
-    "rules_text": "Consume 2 ENTROPY â Draw 1 card",
+    "rules_text": "Consume 2 ENTROPY -> Draw 1 card",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -2269,7 +2266,7 @@
     "time_cost": 3,
     "display_name": "Momentum Growth",
     "tags": "BEAST",
-    "rules_text": "Consume 1 MOMENTUM â Produce 3 Green",
+    "rules_text": "Consume 1 MOMENTUM -> Produce 3 Green",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -2281,7 +2278,7 @@
     "time_cost": 4,
     "display_name": "Rampage",
     "tags": "BEAST",
-    "rules_text": "Consume 2 MOMENTUM â Deal 4 damage",
+    "rules_text": "Consume 2 MOMENTUM -> Deal 4 damage",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -2293,7 +2290,7 @@
     "time_cost": 3,
     "display_name": "Entropy Bloom",
     "tags": "VOID",
-    "rules_text": "Consume 1 ENTROPY â Produce 3 Green",
+    "rules_text": "Consume 1 ENTROPY -> Produce 3 Green",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -2305,7 +2302,7 @@
     "time_cost": 4,
     "display_name": "Toxic Growth",
     "tags": "POISON",
-    "rules_text": "Consume 1 ENTROPY â Apply 3 POISON",
+    "rules_text": "Consume 1 ENTROPY -> Apply 3 POISON",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -2360,7 +2357,7 @@
     "display_name": "Momentum Mill",
     "tags": "MECH",
     "rules_text": {
-      "Every 3 Ticks": "Consume 2 Green + 1 Red â Produce 2 MOMENTUM"
+      "Every 3 Ticks": "Consume 2 Green + 1 Red -> Produce 2 MOMENTUM"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
@@ -2374,7 +2371,7 @@
     "display_name": "Entropy Pit",
     "tags": "VOID",
     "rules_text": {
-      "Every 3 Ticks": "Consume 2 Green + 1 Black â Produce 2 ENTROPY"
+      "Every 3 Ticks": "Consume 2 Green + 1 Black -> Produce 2 ENTROPY"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
@@ -2388,7 +2385,7 @@
     "display_name": "Dual Growth",
     "tags": "BEAST",
     "rules_text": {
-      "Every 4 Ticks": "Consume 3 Green â Produce 1 MOMENTUM + 1 ENTROPY"
+      "Every 4 Ticks": "Consume 3 Green -> Produce 1 MOMENTUM + 1 ENTROPY"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
@@ -2455,7 +2452,7 @@
     "time_cost": 5,
     "display_name": "Beast Rampage",
     "tags": "BEAST",
-    "rules_text": "Consume 5 Green â Deal 3 damage to all",
+    "rules_text": "Consume 5 Green -> Deal 3 damage to all",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -2467,7 +2464,7 @@
     "time_cost": 4,
     "display_name": "Poison Cloud",
     "tags": "POISON,VOID",
-    "rules_text": "Consume 1 ENTROPY â Apply 2 POISON to all",
+    "rules_text": "Consume 1 ENTROPY -> Apply 2 POISON to all",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -2543,7 +2540,7 @@
     "time_cost": 2,
     "display_name": "Ordered Draw",
     "tags": "ORDER",
-    "rules_text": "Consume 2 White â Draw 1 card",
+    "rules_text": "Consume 2 White -> Draw 1 card",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -2555,7 +2552,7 @@
     "time_cost": 4,
     "display_name": "Light of Knowledge",
     "tags": "MICRO",
-    "rules_text": "Consume 4 White â Draw 2 cards",
+    "rules_text": "Consume 4 White -> Draw 2 cards",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -2567,7 +2564,7 @@
     "time_cost": 3,
     "display_name": "Precise Planning",
     "tags": "MICRO",
-    "rules_text": "Consume 1 PRECISION â Draw 1 card",
+    "rules_text": "Consume 1 PRECISION -> Draw 1 card",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -2579,7 +2576,7 @@
     "time_cost": 3,
     "display_name": "Balanced Draw",
     "tags": "ORDER",
-    "rules_text": "Consume 1 BALANCE â Draw 1 card",
+    "rules_text": "Consume 1 BALANCE -> Draw 1 card",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -2605,7 +2602,7 @@
     "time_cost": 3,
     "display_name": "Precision Heal",
     "tags": "MICRO",
-    "rules_text": "Consume 1 PRECISION â Heal 3 HP",
+    "rules_text": "Consume 1 PRECISION -> Heal 3 HP",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -2617,7 +2614,7 @@
     "time_cost": 2,
     "display_name": "Precision Shield",
     "tags": "TOOL",
-    "rules_text": "Consume 1 PRECISION â Block 3 damage",
+    "rules_text": "Consume 1 PRECISION -> Block 3 damage",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -2629,7 +2626,7 @@
     "time_cost": 3,
     "display_name": "Balanced Strike",
     "tags": "ORDER",
-    "rules_text": "Consume 1 BALANCE â Deal 2 damage",
+    "rules_text": "Consume 1 BALANCE -> Deal 2 damage",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -2641,7 +2638,7 @@
     "time_cost": 2,
     "display_name": "Balanced Defense",
     "tags": "ORDER",
-    "rules_text": "Consume 1 BALANCE â Block 4 damage",
+    "rules_text": "Consume 1 BALANCE -> Block 4 damage",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -2696,7 +2693,7 @@
     "display_name": "Precision Mill",
     "tags": "MICRO",
     "rules_text": {
-      "Every 3 Ticks": "Consume 2 White + 1 Blue â Produce 2 PRECISION"
+      "Every 3 Ticks": "Consume 2 White + 1 Blue -> Produce 2 PRECISION"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
@@ -2710,7 +2707,7 @@
     "display_name": "Balance Forge",
     "tags": "ORDER",
     "rules_text": {
-      "Every 3 Ticks": "Consume 2 White + 1 Black â Produce 2 BALANCE"
+      "Every 3 Ticks": "Consume 2 White + 1 Black -> Produce 2 BALANCE"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
@@ -2724,7 +2721,7 @@
     "display_name": "Dual Order",
     "tags": "ORDER",
     "rules_text": {
-      "Every 4 Ticks": "Consume 3 White â Produce 1 PRECISION + 1 BALANCE"
+      "Every 4 Ticks": "Consume 3 White -> Produce 1 PRECISION + 1 BALANCE"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
@@ -2751,7 +2748,7 @@
     "time_cost": 3,
     "display_name": "Healing Light",
     "tags": "ORDER",
-    "rules_text": "Consume 3 White â Heal 2 HP",
+    "rules_text": "Consume 3 White -> Heal 2 HP",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -2763,7 +2760,7 @@
     "time_cost": 4,
     "display_name": "Shield Wall",
     "tags": "STONE",
-    "rules_text": "Consume 4 White â Block 5 damage",
+    "rules_text": "Consume 4 White -> Block 5 damage",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -2811,7 +2808,7 @@
     "time_cost": 3,
     "display_name": "Poison Dust",
     "tags": "POISON,DUST",
-    "rules_text": "Consume 2 Black â Apply 2 POISON",
+    "rules_text": "Consume 2 Black -> Apply 2 POISON",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -2823,7 +2820,7 @@
     "time_cost": 4,
     "display_name": "Entropic Poison",
     "tags": "POISON,VOID",
-    "rules_text": "Consume 1 ENTROPY â Apply 4 POISON",
+    "rules_text": "Consume 1 ENTROPY -> Apply 4 POISON",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -2849,7 +2846,7 @@
     "time_cost": 5,
     "display_name": "Void Draw",
     "tags": "VOID",
-    "rules_text": "Consume 3 Black â Draw 1 card",
+    "rules_text": "Consume 3 Black -> Draw 1 card",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -2861,7 +2858,7 @@
     "time_cost": 6,
     "display_name": "Dust Insights",
     "tags": "DUST",
-    "rules_text": "Consume 6 Black â Draw 2 cards",
+    "rules_text": "Consume 6 Black -> Draw 2 cards",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -2873,7 +2870,7 @@
     "time_cost": 4,
     "display_name": "Balanced Draw",
     "tags": "ORDER",
-    "rules_text": "Consume 2 BALANCE â Draw 1 card",
+    "rules_text": "Consume 2 BALANCE -> Draw 1 card",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -2885,7 +2882,7 @@
     "time_cost": 4,
     "display_name": "Entropic Draw",
     "tags": "VOID",
-    "rules_text": "Consume 2 ENTROPY â Draw 1 card",
+    "rules_text": "Consume 2 ENTROPY -> Draw 1 card",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -2897,7 +2894,7 @@
     "time_cost": 3,
     "display_name": "Balanced Void",
     "tags": "VOID,ORDER",
-    "rules_text": "Consume 1 BALANCE â Produce 3 Black",
+    "rules_text": "Consume 1 BALANCE -> Produce 3 Black",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -2909,7 +2906,7 @@
     "time_cost": 3,
     "display_name": "Dark Balance",
     "tags": "ORDER",
-    "rules_text": "Consume 1 BALANCE â Block 3 damage",
+    "rules_text": "Consume 1 BALANCE -> Block 3 damage",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -2921,7 +2918,7 @@
     "time_cost": 3,
     "display_name": "Entropic Void",
     "tags": "VOID",
-    "rules_text": "Consume 1 ENTROPY â Produce 3 Black",
+    "rules_text": "Consume 1 ENTROPY -> Produce 3 Black",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -2933,7 +2930,7 @@
     "time_cost": 4,
     "display_name": "Chaos Strike",
     "tags": "CHAOS",
-    "rules_text": "Consume 2 ENTROPY â Deal 5 damage",
+    "rules_text": "Consume 2 ENTROPY -> Deal 5 damage",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -2988,7 +2985,7 @@
     "display_name": "Balance Mill",
     "tags": "ORDER",
     "rules_text": {
-      "Every 3 Ticks": "Consume 2 Black + 1 White â Produce 2 BALANCE"
+      "Every 3 Ticks": "Consume 2 Black + 1 White -> Produce 2 BALANCE"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
@@ -3002,7 +2999,7 @@
     "display_name": "Entropy Pit",
     "tags": "VOID",
     "rules_text": {
-      "Every 3 Ticks": "Consume 2 Black + 1 Green â Produce 2 ENTROPY"
+      "Every 3 Ticks": "Consume 2 Black + 1 Green -> Produce 2 ENTROPY"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
@@ -3016,7 +3013,7 @@
     "display_name": "Dual Void",
     "tags": "VOID",
     "rules_text": {
-      "Every 4 Ticks": "Consume 3 Black â Produce 1 BALANCE + 1 ENTROPY"
+      "Every 4 Ticks": "Consume 3 Black -> Produce 1 BALANCE + 1 ENTROPY"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
@@ -3043,7 +3040,7 @@
     "time_cost": 3,
     "display_name": "Shadow Strike",
     "tags": "VOID",
-    "rules_text": "Consume 3 Black â Deal 2 damage",
+    "rules_text": "Consume 3 Black -> Deal 2 damage",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -3055,7 +3052,7 @@
     "time_cost": 4,
     "display_name": "Dust Storm",
     "tags": "DUST",
-    "rules_text": "Consume 5 Black â Deal 2 damage to all",
+    "rules_text": "Consume 5 Black -> Deal 2 damage to all",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -3157,7 +3154,7 @@
     "time_cost": 3,
     "display_name": "Momentum Surge",
     "tags": "MECH",
-    "rules_text": "Consume 1 MOMENTUM â FASTER 3, Draw 1",
+    "rules_text": "Consume 1 MOMENTUM -> FASTER 3, Draw 1",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -3170,7 +3167,7 @@
     "display_name": "Turbo Boost",
     "tags": "MECH,SPARK",
     "rules_text": {
-      "MOMENTARY": "Consume 2 Green â FASTER 2"
+      "MOMENTARY": "Consume 2 Green -> FASTER 2"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
@@ -3198,7 +3195,7 @@
     "display_name": "Void Motor",
     "tags": "MECH,VOID",
     "rules_text": {
-      "Every 4 Ticks": "Consume 2 Green + 1 Black â Produce 2 MOMENTUM"
+      "Every 4 Ticks": "Consume 2 Green + 1 Black -> Produce 2 MOMENTUM"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
@@ -3212,7 +3209,7 @@
     "display_name": "Wild Converter",
     "tags": "BEAST,CHAOS",
     "rules_text": {
-      "Every 3 Ticks": "Consume 3 Smallest â Produce 1 MOMENTUM"
+      "Every 3 Ticks": "Consume 3 Smallest -> Produce 1 MOMENTUM"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
@@ -3239,7 +3236,7 @@
     "time_cost": 3,
     "display_name": "Speed Burst",
     "tags": "MECH,SPARK",
-    "rules_text": "Consume 2 Green â FASTER 2, Draw 1",
+    "rules_text": "Consume 2 Green -> FASTER 2, Draw 1",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -3434,7 +3431,7 @@
     "display_name": "Quick Convert",
     "tags": "MECH,MICRO",
     "rules_text": {
-      "Every 2 Ticks": "Consume 1 Green â 0.5 MOMENTUM"
+      "Every 2 Ticks": "Consume 1 Green -> 0.5 MOMENTUM"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 2,
@@ -3448,7 +3445,7 @@
     "display_name": "Beast Power",
     "tags": "BEAST,MECH",
     "rules_text": {
-      "Every 4 Ticks": "Consume 2 Green + 1 Red â 2 MOMENTUM"
+      "Every 4 Ticks": "Consume 2 Green + 1 Red -> 2 MOMENTUM"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
@@ -3462,7 +3459,7 @@
     "display_name": "Titan Engine",
     "tags": "MECH,TITAN",
     "rules_text": {
-      "Every 5 Ticks": "Consume 3 Green â 2.5 MOMENTUM"
+      "Every 5 Ticks": "Consume 3 Green -> 2.5 MOMENTUM"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 5,
@@ -3476,7 +3473,7 @@
     "display_name": "Wild Engine",
     "tags": "BEAST,MECH,CHAOS",
     "rules_text": {
-      "Every 3 Ticks": "Consume 2 Largest â 1 MOMENTUM"
+      "Every 3 Ticks": "Consume 2 Largest -> 1 MOMENTUM"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
@@ -3490,7 +3487,7 @@
     "display_name": "Forest Fire",
     "tags": "BEAST,SPARK",
     "rules_text": {
-      "Every 4 Ticks": "Consume 2 Green + 1 Red â 1 HEAT"
+      "Every 4 Ticks": "Consume 2 Green + 1 Red -> 1 HEAT"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
@@ -3504,7 +3501,7 @@
     "display_name": "Burning Grove",
     "tags": "BEAST,CHAOS",
     "rules_text": {
-      "Every 5 Ticks": "Consume 3 Green â 1.5 HEAT"
+      "Every 5 Ticks": "Consume 3 Green -> 1.5 HEAT"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 5,
@@ -3518,7 +3515,7 @@
     "display_name": "Natural Order",
     "tags": "BEAST,ORDER",
     "rules_text": {
-      "Every 4 Ticks": "Consume 2 Green + 1 Blue â 1 PRECISION"
+      "Every 4 Ticks": "Consume 2 Green + 1 Blue -> 1 PRECISION"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
@@ -3532,7 +3529,7 @@
     "display_name": "World Tree",
     "tags": "BEAST,TITAN,VOID",
     "rules_text": {
-      "Every 6 Ticks": "Consume 4 Green â 1 HEAT + 1 MOMENTUM"
+      "Every 6 Ticks": "Consume 4 Green -> 1 HEAT + 1 MOMENTUM"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 6,
@@ -3546,7 +3543,7 @@
     "display_name": "Toxic Converter",
     "tags": "BEAST,POISON",
     "rules_text": {
-      "Every 3 Ticks": "Consume 2 Green â 1 MOMENTUM + poison 1"
+      "Every 3 Ticks": "Consume 2 Green -> 1 MOMENTUM + poison 1"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
@@ -3559,7 +3556,7 @@
     "time_cost": 2,
     "display_name": "Vine Whip",
     "tags": "BEAST",
-    "rules_text": "Consume 2 Green â Deal 2 damage",
+    "rules_text": "Consume 2 Green -> Deal 2 damage",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -3571,7 +3568,7 @@
     "time_cost": 3,
     "display_name": "Nature Strike",
     "tags": "BEAST",
-    "rules_text": "Consume 3 Green â Deal 3 damage",
+    "rules_text": "Consume 3 Green -> Deal 3 damage",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -3583,7 +3580,7 @@
     "time_cost": 2,
     "display_name": "Speed Strike",
     "tags": "MECH",
-    "rules_text": "Consume 1 MOMENTUM â Deal 2 damage",
+    "rules_text": "Consume 1 MOMENTUM -> Deal 2 damage",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -3595,7 +3592,7 @@
     "time_cost": 3,
     "display_name": "Velocity Blast",
     "tags": "MECH,SPARK",
-    "rules_text": "Consume 1.5 MOMENTUM â Deal 3 damage, HASTE 10%",
+    "rules_text": "Consume 1.5 MOMENTUM -> Deal 3 damage, HASTE 10%",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -3607,7 +3604,7 @@
     "time_cost": 4,
     "display_name": "Titan Charge",
     "tags": "MECH,TITAN",
-    "rules_text": "Consume 2 MOMENTUM â Deal 5 damage",
+    "rules_text": "Consume 2 MOMENTUM -> Deal 5 damage",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -3619,7 +3616,7 @@
     "time_cost": 3,
     "display_name": "Adaptive Strike",
     "tags": "BEAST,TOOL",
-    "rules_text": "Consume 3 Largest â Deal 2 damage",
+    "rules_text": "Consume 3 Largest -> Deal 2 damage",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -3631,7 +3628,7 @@
     "time_cost": 2,
     "display_name": "Quick Strike",
     "tags": "BEAST,MICRO",
-    "rules_text": "Consume 2 Smallest â Deal 1 damage, draw 1",
+    "rules_text": "Consume 2 Smallest -> Deal 1 damage, draw 1",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -3643,7 +3640,7 @@
     "time_cost": 3,
     "display_name": "Venom Strike",
     "tags": "BEAST,POISON",
-    "rules_text": "Consume 2 Green â Deal 1 damage + poison 2",
+    "rules_text": "Consume 2 Green -> Deal 1 damage + poison 2",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -3656,7 +3653,7 @@
     "display_name": "Quick Bite",
     "tags": "BEAST,MICRO",
     "rules_text": {
-      "MOMENTARY": "Consume 1 Green â Deal 1 damage"
+      "MOMENTARY": "Consume 1 Green -> Deal 1 damage"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
@@ -3669,7 +3666,7 @@
     "time_cost": 3,
     "display_name": "Natural Wisdom",
     "tags": "BEAST,TOOL",
-    "rules_text": "Consume 3 Green â Draw 2",
+    "rules_text": "Consume 3 Green -> Draw 2",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -3681,7 +3678,7 @@
     "time_cost": 2,
     "display_name": "Quick Study",
     "tags": "MECH,TOOL",
-    "rules_text": "Consume 2 Green â Draw 1",
+    "rules_text": "Consume 2 Green -> Draw 1",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -3693,7 +3690,7 @@
     "time_cost": 3,
     "display_name": "Speed Read",
     "tags": "MECH,TOOL",
-    "rules_text": "Consume 1 MOMENTUM â Draw 2",
+    "rules_text": "Consume 1 MOMENTUM -> Draw 2",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -3924,7 +3921,7 @@
     "display_name": "Holy Fire",
     "tags": "ORDER,SPARK",
     "rules_text": {
-      "Every 4 Ticks": "Consume 2 White + 1 Red â 1 HEAT"
+      "Every 4 Ticks": "Consume 2 White + 1 Red -> 1 HEAT"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
@@ -3938,7 +3935,7 @@
     "display_name": "Perfect Order",
     "tags": "ORDER,CRYSTAL",
     "rules_text": {
-      "Every 4 Ticks": "Consume 2 White + 1 Blue â 1 PRECISION"
+      "Every 4 Ticks": "Consume 2 White + 1 Blue -> 1 PRECISION"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
@@ -3952,7 +3949,7 @@
     "display_name": "Ordered March",
     "tags": "ORDER,MECH",
     "rules_text": {
-      "Every 4 Ticks": "Consume 2 White + 1 Green â 1 MOMENTUM"
+      "Every 4 Ticks": "Consume 2 White + 1 Green -> 1 MOMENTUM"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
@@ -3965,7 +3962,7 @@
     "time_cost": 2,
     "display_name": "Stone Strike",
     "tags": "STONE",
-    "rules_text": "Consume 2 White â Deal 2 damage",
+    "rules_text": "Consume 2 White -> Deal 2 damage",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -3977,7 +3974,7 @@
     "time_cost": 3,
     "display_name": "Pillar Slam",
     "tags": "STONE",
-    "rules_text": "Consume 3 White â Deal 3 damage",
+    "rules_text": "Consume 3 White -> Deal 3 damage",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -3989,7 +3986,7 @@
     "time_cost": 4,
     "display_name": "Foundation Crush",
     "tags": "STONE,ORDER",
-    "rules_text": "Consume 4 White â Deal 4 damage",
+    "rules_text": "Consume 4 White -> Deal 4 damage",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -4001,7 +3998,7 @@
     "time_cost": 3,
     "display_name": "Structured Attack",
     "tags": "ORDER,TOOL",
-    "rules_text": "Consume 3 Smallest â Deal 2 damage",
+    "rules_text": "Consume 3 Smallest -> Deal 2 damage",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -4013,7 +4010,7 @@
     "time_cost": 4,
     "display_name": "Emergency Strike",
     "tags": "STONE,CHAOS",
-    "rules_text": "Consume 4 Largest â Deal 3 damage",
+    "rules_text": "Consume 4 Largest -> Deal 3 damage",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -4026,7 +4023,7 @@
     "display_name": "Quick Strike",
     "tags": "MICRO,STONE",
     "rules_text": {
-      "MOMENTARY": "Consume 1 White â Deal 1 damage"
+      "MOMENTARY": "Consume 1 White -> Deal 1 damage"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
@@ -4039,7 +4036,7 @@
     "time_cost": 2,
     "display_name": "Study",
     "tags": "TOOL",
-    "rules_text": "Consume 2 White â Draw 1",
+    "rules_text": "Consume 2 White -> Draw 1",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -4051,7 +4048,7 @@
     "time_cost": 3,
     "display_name": "Research",
     "tags": "TOOL,ORDER",
-    "rules_text": "Consume 3 White â Draw 2",
+    "rules_text": "Consume 3 White -> Draw 2",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -4172,7 +4169,7 @@
     "display_name": "Stone Bolt",
     "tags": "STONE",
     "rules_text": {
-      "MOMENTARY": "Consume 2 White â Deal 2 damage"
+      "MOMENTARY": "Consume 2 White -> Deal 2 damage"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
@@ -4185,7 +4182,7 @@
     "time_cost": 3,
     "display_name": "Marble Strike",
     "tags": "STONE,ORDER",
-    "rules_text": "Consume 3 White â Deal 3 damage, draw 1",
+    "rules_text": "Consume 3 White -> Deal 3 damage, draw 1",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -4197,7 +4194,7 @@
     "time_cost": 4,
     "display_name": "Granite Crush",
     "tags": "STONE,TITAN",
-    "rules_text": "Consume 4 White â Deal 5 damage",
+    "rules_text": "Consume 4 White -> Deal 5 damage",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -4209,7 +4206,7 @@
     "time_cost": 3,
     "display_name": "Holy Fire",
     "tags": "ORDER,SPARK",
-    "rules_text": "Consume 1 HEAT â Deal 3 damage",
+    "rules_text": "Consume 1 HEAT -> Deal 3 damage",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -4221,7 +4218,7 @@
     "time_cost": 3,
     "display_name": "Charging Strike",
     "tags": "STONE,MECH",
-    "rules_text": "Consume 1 MOMENTUM â Deal 3 damage",
+    "rules_text": "Consume 1 MOMENTUM -> Deal 3 damage",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -4233,7 +4230,7 @@
     "time_cost": 4,
     "display_name": "Perfect Shot",
     "tags": "ORDER,CRYSTAL",
-    "rules_text": "Consume 1 PRECISION â Deal 4 damage",
+    "rules_text": "Consume 1 PRECISION -> Deal 4 damage",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -4245,7 +4242,7 @@
     "time_cost": 2,
     "display_name": "Adaptive Blow",
     "tags": "STONE,CHAOS",
-    "rules_text": "Consume 2 Largest â Deal 2 damage",
+    "rules_text": "Consume 2 Largest -> Deal 2 damage",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -4257,7 +4254,7 @@
     "time_cost": 3,
     "display_name": "Calculated Strike",
     "tags": "ORDER,TOOL",
-    "rules_text": "Consume 3 Smallest â Deal 3 damage",
+    "rules_text": "Consume 3 Smallest -> Deal 3 damage",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -4270,7 +4267,7 @@
     "display_name": "Light Forge",
     "tags": "ORDER,FORGE",
     "rules_text": {
-      "Every 3 Ticks": "Consume 2 White + 1 Red â 1.5 HEAT"
+      "Every 3 Ticks": "Consume 2 White + 1 Red -> 1.5 HEAT"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
@@ -4284,7 +4281,7 @@
     "display_name": "Divine Furnace",
     "tags": "ORDER,TITAN",
     "rules_text": {
-      "Every 5 Ticks": "Consume 4 White â 2 HEAT"
+      "Every 5 Ticks": "Consume 4 White -> 2 HEAT"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 5,
@@ -4298,7 +4295,7 @@
     "display_name": "Ordered Engine",
     "tags": "ORDER,MECH",
     "rules_text": {
-      "Every 3 Ticks": "Consume 2 White + 1 Green â 1.5 MOMENTUM"
+      "Every 3 Ticks": "Consume 2 White + 1 Green -> 1.5 MOMENTUM"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
@@ -4312,7 +4309,7 @@
     "display_name": "Stone Engine",
     "tags": "STONE,MECH",
     "rules_text": {
-      "Every 4 Ticks": "Consume 3 White â 1.5 MOMENTUM"
+      "Every 4 Ticks": "Consume 3 White -> 1.5 MOMENTUM"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
@@ -4326,7 +4323,7 @@
     "display_name": "Crystal Order",
     "tags": "ORDER,CRYSTAL",
     "rules_text": {
-      "Every 3 Ticks": "Consume 2 White + 1 Blue â 1.5 PRECISION"
+      "Every 3 Ticks": "Consume 2 White + 1 Blue -> 1.5 PRECISION"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
@@ -4340,7 +4337,7 @@
     "display_name": "Perfect Calculation",
     "tags": "ORDER,TOOL",
     "rules_text": {
-      "Every 4 Ticks": "Consume 3 White â 1 PRECISION"
+      "Every 4 Ticks": "Consume 3 White -> 1 PRECISION"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
@@ -4354,7 +4351,7 @@
     "display_name": "Divine Balance",
     "tags": "ORDER,TITAN",
     "rules_text": {
-      "Every 5 Ticks": "Consume 5 White â 1 HEAT + 1 MOMENTUM + 1 PRECISION"
+      "Every 5 Ticks": "Consume 5 White -> 1 HEAT + 1 MOMENTUM + 1 PRECISION"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 5,
@@ -4492,7 +4489,7 @@
     "display_name": "Void Converter",
     "tags": "VOID",
     "rules_text": {
-      "Every 3 Ticks": "Consume 2 Black â 1 VOID"
+      "Every 3 Ticks": "Consume 2 Black -> 1 VOID"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
@@ -4506,7 +4503,7 @@
     "display_name": "Abyssal Gate",
     "tags": "VOID,TITAN",
     "rules_text": {
-      "Every 4 Ticks": "Consume 3 Black â 2 VOID"
+      "Every 4 Ticks": "Consume 3 Black -> 2 VOID"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
@@ -4520,7 +4517,7 @@
     "display_name": "Dark Forge",
     "tags": "VOID,FORGE",
     "rules_text": {
-      "Every 4 Ticks": "Consume 2 Black + 1 Red â 1.5 HEAT"
+      "Every 4 Ticks": "Consume 2 Black + 1 Red -> 1.5 HEAT"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
@@ -4534,7 +4531,7 @@
     "display_name": "Shadow Engine",
     "tags": "SHADOW,MECH",
     "rules_text": {
-      "Every 4 Ticks": "Consume 2 Black + 1 Green â 1.5 MOMENTUM"
+      "Every 4 Ticks": "Consume 2 Black + 1 Green -> 1.5 MOMENTUM"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
@@ -4548,7 +4545,7 @@
     "display_name": "Void Crystal",
     "tags": "VOID,CRYSTAL",
     "rules_text": {
-      "Every 4 Ticks": "Consume 2 Black + 1 Blue â 1.5 PRECISION"
+      "Every 4 Ticks": "Consume 2 Black + 1 Blue -> 1.5 PRECISION"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
@@ -4562,7 +4559,7 @@
     "display_name": "Adaptive Void",
     "tags": "VOID,TOOL",
     "rules_text": {
-      "Every 3 Ticks": "Consume 3 Largest â 1 VOID"
+      "Every 3 Ticks": "Consume 3 Largest -> 1 VOID"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
@@ -4576,7 +4573,7 @@
     "display_name": "Shadow Choice",
     "tags": "SHADOW,CHAOS",
     "rules_text": {
-      "Every 4 Ticks": "Consume 4 Smallest â 1.5 VOID"
+      "Every 4 Ticks": "Consume 4 Smallest -> 1.5 VOID"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
@@ -4590,7 +4587,7 @@
     "display_name": "Toxic Converter",
     "tags": "POISON,DUST",
     "rules_text": {
-      "Every 3 Ticks": "Consume 2 Black â 1 MOMENTUM + poison 2"
+      "Every 3 Ticks": "Consume 2 Black -> 1 MOMENTUM + poison 2"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
@@ -4604,7 +4601,7 @@
     "display_name": "Master of Void",
     "tags": "VOID,TITAN",
     "rules_text": {
-      "Every 6 Ticks": "Consume 5 Black â 2 VOID + 1 HEAT + 1 MOMENTUM"
+      "Every 6 Ticks": "Consume 5 Black -> 2 VOID + 1 HEAT + 1 MOMENTUM"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 6,
@@ -4617,7 +4614,7 @@
     "time_cost": 2,
     "display_name": "Shadow Strike",
     "tags": "SHADOW",
-    "rules_text": "Consume 2 Black â Deal 2 damage",
+    "rules_text": "Consume 2 Black -> Deal 2 damage",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -4629,7 +4626,7 @@
     "time_cost": 3,
     "display_name": "Void Blast",
     "tags": "VOID",
-    "rules_text": "Consume 3 Black â Deal 3 damage",
+    "rules_text": "Consume 3 Black -> Deal 3 damage",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -4641,7 +4638,7 @@
     "time_cost": 4,
     "display_name": "Dark Assault",
     "tags": "VOID,CHAOS",
-    "rules_text": "Consume 4 Black â Deal 5 damage",
+    "rules_text": "Consume 4 Black -> Deal 5 damage",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -4653,7 +4650,7 @@
     "time_cost": 3,
     "display_name": "Void Strike",
     "tags": "VOID",
-    "rules_text": "Consume 1 VOID â Deal 4 damage",
+    "rules_text": "Consume 1 VOID -> Deal 4 damage",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -4665,7 +4662,7 @@
     "time_cost": 4,
     "display_name": "Abyssal Crush",
     "tags": "VOID,TITAN",
-    "rules_text": "Consume 2 VOID â Deal 7 damage",
+    "rules_text": "Consume 2 VOID -> Deal 7 damage",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -4677,7 +4674,7 @@
     "time_cost": 3,
     "display_name": "Toxic Strike",
     "tags": "POISON,DUST",
-    "rules_text": "Consume 2 Black â Deal 1 damage + poison 3",
+    "rules_text": "Consume 2 Black -> Deal 1 damage + poison 3",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -4689,7 +4686,7 @@
     "time_cost": 3,
     "display_name": "Adaptive Dark",
     "tags": "VOID,CHAOS",
-    "rules_text": "Consume 3 Largest â Deal 3 damage",
+    "rules_text": "Consume 3 Largest -> Deal 3 damage",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -4701,7 +4698,7 @@
     "time_cost": 2,
     "display_name": "Quick Void",
     "tags": "VOID,MICRO",
-    "rules_text": "Consume 2 Smallest â Deal 2 damage",
+    "rules_text": "Consume 2 Smallest -> Deal 2 damage",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -4714,7 +4711,7 @@
     "display_name": "Quick Shadow",
     "tags": "SHADOW,MICRO",
     "rules_text": {
-      "MOMENTARY": "Consume 1 Black â Deal 1 damage"
+      "MOMENTARY": "Consume 1 Black -> Deal 1 damage"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
@@ -4727,7 +4724,7 @@
     "time_cost": 3,
     "display_name": "Dark Fire",
     "tags": "VOID,SPARK",
-    "rules_text": "Consume 1 HEAT â Deal 3 damage + poison 1",
+    "rules_text": "Consume 1 HEAT -> Deal 3 damage + poison 1",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -4739,7 +4736,7 @@
     "time_cost": 2,
     "display_name": "Dark Knowledge",
     "tags": "VOID,TOOL",
-    "rules_text": "Consume 2 Black â Draw 1",
+    "rules_text": "Consume 2 Black -> Draw 1",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -4751,7 +4748,7 @@
     "time_cost": 3,
     "display_name": "Void Study",
     "tags": "VOID,TOOL",
-    "rules_text": "Consume 3 Black â Draw 2",
+    "rules_text": "Consume 3 Black -> Draw 2",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -4791,7 +4788,7 @@
     "time_cost": 3,
     "display_name": "Divine Knowledge",
     "tags": "ORDER,TOOL",
-    "rules_text": "Consume 3 White â Draw 2",
+    "rules_text": "Consume 3 White -> Draw 2",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -4803,7 +4800,7 @@
     "time_cost": 2,
     "display_name": "Quick Scripture",
     "tags": "ORDER,MICRO",
-    "rules_text": "Consume 2 White â Draw 1",
+    "rules_text": "Consume 2 White -> Draw 1",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -4829,7 +4826,7 @@
     "time_cost": 5,
     "display_name": "Ancient Tablets",
     "tags": "STONE,TITAN",
-    "rules_text": "Consume 4 White â Draw 3",
+    "rules_text": "Consume 4 White -> Draw 3",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -4953,7 +4950,7 @@
     "time_cost": 3,
     "display_name": "Crystal Shards",
     "tags": "CRYSTAL",
-    "rules_text": "Consume 2 Blue â Deal 1 damage per CRYSTAL",
+    "rules_text": "Consume 2 Blue -> Deal 1 damage per CRYSTAL",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -4965,7 +4962,7 @@
     "time_cost": 4,
     "display_name": "Tool Strike",
     "tags": "TOOL,WEAPON",
-    "rules_text": "Consume 3 Blue â Deal 2 damage +1 per TOOL",
+    "rules_text": "Consume 3 Blue -> Deal 2 damage +1 per TOOL",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -4977,7 +4974,7 @@
     "time_cost": 3,
     "display_name": "Calculated Shot",
     "tags": "ORDER",
-    "rules_text": "Consume 1 PRECISION â Deal 3 damage, if 3+ ORDER deal 4",
+    "rules_text": "Consume 1 PRECISION -> Deal 3 damage, if 3+ ORDER deal 4",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -4989,7 +4986,7 @@
     "time_cost": 2,
     "display_name": "Micro Missiles",
     "tags": "MICRO",
-    "rules_text": "Consume 1.5 Blue â Deal 1 damage, MICRO cards cost 1 less this turn",
+    "rules_text": "Consume 1.5 Blue -> Deal 1 damage, MICRO cards cost 1 less this turn",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -5001,7 +4998,7 @@
     "time_cost": 5,
     "display_name": "Arcane Blast",
     "tags": "ARCANE",
-    "rules_text": "Consume 4 Blue â Deal 5 damage to all with < 3 HP",
+    "rules_text": "Consume 4 Blue -> Deal 5 damage to all with < 3 HP",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -5013,7 +5010,7 @@
     "time_cost": 4,
     "display_name": "Precision Engine",
     "tags": "MECH,CRYSTAL",
-    "rules_text": "Consume 2 PRECISION â Deal 4 damage, all MECH HASTE 20%",
+    "rules_text": "Consume 2 PRECISION -> Deal 4 damage, all MECH HASTE 20%",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -5025,7 +5022,7 @@
     "time_cost": 3,
     "display_name": "Tool Research",
     "tags": "TOOL",
-    "rules_text": "Consume 2 Blue â Draw 1 +1 per 2 TOOL",
+    "rules_text": "Consume 2 Blue -> Draw 1 +1 per 2 TOOL",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -5037,7 +5034,7 @@
     "time_cost": 4,
     "display_name": "Crystal Clarity",
     "tags": "CRYSTAL",
-    "rules_text": "Consume 3 Blue â Draw 2, +1 if 4+ CRYSTAL",
+    "rules_text": "Consume 3 Blue -> Draw 2, +1 if 4+ CRYSTAL",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -5049,7 +5046,7 @@
     "time_cost": 2,
     "display_name": "Ordered Thoughts",
     "tags": "ORDER,MICRO",
-    "rules_text": "Consume 1.5 Blue â Draw 1, ORDER cards cost 1 less",
+    "rules_text": "Consume 1.5 Blue -> Draw 1, ORDER cards cost 1 less",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -5075,7 +5072,7 @@
     "time_cost": 3,
     "display_name": "Precise Studies",
     "tags": "CRYSTAL,TOOL",
-    "rules_text": "Consume 1 PRECISION â Draw 2",
+    "rules_text": "Consume 1 PRECISION -> Draw 2",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
@@ -5088,7 +5085,7 @@
     "display_name": "Crystal Refinery",
     "tags": "CRYSTAL,FORGE",
     "rules_text": {
-      "Every 3 Ticks": "Consume 1 Blue per CRYSTAL â That much PRECISION"
+      "Every 3 Ticks": "Consume 1 Blue per CRYSTAL -> That much PRECISION"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
@@ -5102,7 +5099,7 @@
     "display_name": "Tool Converter",
     "tags": "TOOL,MECH",
     "rules_text": {
-      "Every 4 Ticks": "Consume 2 Blue â 1 PRECISION, TOOL cards produce +0.5"
+      "Every 4 Ticks": "Consume 2 Blue -> 1 PRECISION, TOOL cards produce +0.5"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
@@ -5116,7 +5113,7 @@
     "display_name": "Perfect Conversion",
     "tags": "ORDER",
     "rules_text": {
-      "Every 4 Ticks": "If 3+ ORDER, consume 2 Blue â 2 PRECISION"
+      "Every 4 Ticks": "If 3+ ORDER, consume 2 Blue -> 2 PRECISION"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
@@ -5130,7 +5127,7 @@
     "display_name": "Micro Refinery",
     "tags": "MICRO,CRYSTAL",
     "rules_text": {
-      "Every 2 Ticks": "Consume 1 Blue â 0.5 PRECISION"
+      "Every 2 Ticks": "Consume 1 Blue -> 0.5 PRECISION"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 2,
@@ -5144,7 +5141,7 @@
     "display_name": "Arcane Transmutation",
     "tags": "ARCANE",
     "rules_text": {
-      "Every 5 Ticks": "Consume 3 Blue â 2 PRECISION + 1 HEAT"
+      "Every 5 Ticks": "Consume 3 Blue -> 2 PRECISION + 1 HEAT"
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 5,

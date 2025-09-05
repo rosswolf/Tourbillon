@@ -14,7 +14,3 @@ func __on_start_game() -> void:
 		var engine_slot_scene: PackedScene = preload("res://src/scenes/ui/entities/engine/ui_engine_slot.tscn")
 		var slot_instance: EngineSlot = engine_slot_scene.instantiate()
 		%SlotGridContainer.add_child(slot_instance)
-
-
-
-

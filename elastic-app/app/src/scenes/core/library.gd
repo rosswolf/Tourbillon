@@ -377,5 +377,3 @@ func clear_all_zones() -> void:
 	common_library.clear()
 	card_zone_map.clear()
 	deck.clear()
-
-

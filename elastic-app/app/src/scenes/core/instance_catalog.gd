@@ -22,4 +22,3 @@ func clear_instance(instance_id: String, delete: bool) -> void:
 	if entity and delete and entity.has_method("delete"):
 		entity.call("delete")
 	__instance_catalog.erase(instance_id)
-

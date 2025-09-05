@@ -132,4 +132,3 @@ func __is_valid_target(target: Entity) -> bool:
 func __could_satisfy_costs(source: Entity, target: Entity) -> bool:
 	assert(false, "sub classes need to override __could_satisfy_costs")
 	return false
-

@@ -55,4 +55,3 @@ static func slot_card_in_button(card: Card, button: EngineButtonEntity) -> bool:
 static func activate_instinct(card: Card, target: Entity = null) -> bool:
 
 	return card.activate_instinct_effect(card, target)
-

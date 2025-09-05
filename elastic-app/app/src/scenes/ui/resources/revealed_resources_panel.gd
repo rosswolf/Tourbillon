@@ -71,4 +71,3 @@ func __on_resource_changed(changing_resource: GameResource.Type, new_amount: int
 		resources_containers[changing_resource].visible = true
 	else:
 		print("[DEBUG] [RevealedResourcesPanel] Keeping hidden (amount is 0): ", GameResource.Type.keys()[changing_resource])
-

@@ -302,4 +302,3 @@ static func build_new_card_from_template(card_template_id: String, card_template
 	card.conditional_effect = card_template_data.get("conditional_effect", "")
 
 	return card
-
