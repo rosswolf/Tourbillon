@@ -139,9 +139,6 @@ func __on_hp_changed(new_hp: int, max_hp: int) -> void:
 		tween.tween_property(self, "modulate", Color.WHITE, 0.2)
 
 func __on_defeated() -> void:
-	# Stop filling
-	fill_speed = 0.0
-	
 	# Animate defeat
 	var tween = create_tween()
 	tween.set_parallel(true)
