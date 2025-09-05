@@ -302,7 +302,6 @@ func __on_time_changed(total_beats: int) -> void:
 	# Convert beats to milliseconds display (each beat = 100ms)
 	var milliseconds: int = beats * 100
 	var time_display: String = "%d.%03d" % [ticks, milliseconds]
-	print("Updating time display: ", time_display, " (total beats: ", total_beats, ")")
 	GlobalSignals.signal_ui_time_updated(time_display)
 
 ## Called when card's time cost is fully processed
