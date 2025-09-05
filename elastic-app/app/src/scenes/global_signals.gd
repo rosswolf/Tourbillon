@@ -152,9 +152,13 @@ signal core_card_replaced(old_card_id: String, new_card_id: String, position: Ve
 func signal_core_card_replaced(old_card_id: String, new_card_id: String, position: Vector2i) -> void:
 	core_card_replaced.emit(old_card_id, new_card_id, position)
 
-signal core_gear_process_beat(card_instance_id: String, context: BeatContext)
-func signal_core_gear_process_beat(card_instance_id: String, context: BeatContext) -> void:
+signal core_gear_process_beat(card_instance_id: String, context: Variant)
+func signal_core_gear_process_beat(card_instance_id: String, context: Variant) -> void:
 	core_gear_process_beat.emit(card_instance_id, context)
+
+signal core_gear_blocked(card_instance_id: String, is_blocked: bool)
+func signal_core_gear_blocked(card_instance_id: String, is_blocked: bool) -> void:
+	core_gear_blocked.emit(card_instance_id, is_blocked)
 
 signal core_slot_add_cooldown(instance_id: String, duration: float)
 func signal_core_slot_add_cooldown(instance_id: String, duration: float) -> void:

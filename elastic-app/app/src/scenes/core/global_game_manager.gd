@@ -243,6 +243,11 @@ func __initialize_tourbillon_systems() -> void:
 		.build()
 	# Note: Core objects are not added to scene tree - they exist as pure data/logic
 	
+	# Connect mainplate signals
+	mainplate.gear_blocked.connect(func(card_id: String, is_blocked: bool):
+		GlobalSignals.signal_core_gear_blocked(card_id, is_blocked)
+	)
+	
 	# Connect mainplate to timeline's beat processor
 	timeline_manager.set_mainplate(mainplate)
 	
@@ -261,6 +266,10 @@ func __initialize_tourbillon_systems() -> void:
 ## Called when a card is played (Tourbillon time advancement)
 func __on_tourbillon_card_played(card_id: String) -> void:
 	print("[DEBUG] Card played signal received for ID: ", card_id)
+	
+	# PRD Step 12: Disallow playing another card until all effects resolve
+	disallow_activations()
+	
 	var card: Card = library.get_card(card_id)
 	if not card:
 		print("[DEBUG] Card not found in library for ID: ", card_id)
@@ -270,17 +279,21 @@ func __on_tourbillon_card_played(card_id: String) -> void:
 	
 	print("[DEBUG] Card found: ", card.display_name, ", time_cost: ", card.time_cost)
 	
-	# Check if card has time cost
+	# PRD Step 7: Process on_play_effect BEFORE time advances
+	if not card.on_play_effect.is_empty():
+		print("[DEBUG] Processing on_play effect: ", card.on_play_effect)
+		SimpleEffectProcessor.process_effects(card.on_play_effect, card)
+	
+	# PRD Step 9: Time advances by card's cost
 	if card.time_cost > 0:
-		# Advance time by the card's time cost
 		print("Card played: ", card.display_name, " - Advancing ", card.time_cost, " ticks")
 		timeline_manager.advance_time(card.time_cost)
+		# Wait for time advancement to complete before allowing next card
+		# The card_ticks_complete signal will re-enable activations
 	else:
 		print("[DEBUG] Card has no time cost, not advancing time")
-	
-	# Process on_play_effect if it exists
-	if not card.on_play_effect.is_empty():
-		SimpleEffectProcessor.process_effects(card.on_play_effect, null)
+		# Re-enable activations immediately if no time to process
+		allow_activations()
 
 # Card slotting is now handled entirely by the Mainplate entity
 # The UI layer reacts to core_card_slotted signals for visual updates
@@ -306,6 +319,8 @@ func __on_time_changed(total_beats: int) -> void:
 
 ## Called when card's time cost is fully processed
 func __on_card_ticks_complete() -> void:
+	# PRD Step 12: All effects have resolved, allow playing another card
+	allow_activations()
 	# Signal UI that card processing is done
 	GlobalSignals.signal_ui_card_ticks_resolved()
 

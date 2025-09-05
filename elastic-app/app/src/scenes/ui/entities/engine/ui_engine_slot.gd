@@ -29,6 +29,7 @@ func _ready() -> void:
 	
 	# Card slotting is now handled via update_card_display() called by UIMainplate
 	GlobalSignals.core_card_unslotted.connect(__on_card_unslotted)
+	GlobalSignals.core_gear_blocked.connect(__on_gear_blocked)
 	
 	# Connect to mainplate's progress signal
 	if GlobalGameManager.mainplate:
@@ -133,6 +134,25 @@ func __on_gear_progress_updated(card_instance_id: String, progress_percent: floa
 		
 	# Update the progress display
 	update_progress_display(progress_percent, is_ready)
+
+func __on_gear_blocked(card_instance_id: String, is_blocked: bool) -> void:
+	# Only update if this is our card
+	if not __button_entity or not __button_entity.card:
+		return
+		
+	if __button_entity.card.instance_id != card_instance_id:
+		return
+	
+	# Show red tint if blocked due to missing resources
+	if is_blocked:
+		modulate = Color(1.0, 0.7, 0.7, 1.0)  # Red tint to show it's blocked
+		# Also make the progress bar red
+		if %ProgressBar:
+			%ProgressBar.modulate = Color(1.0, 0.6, 0.6, 1.0)
+	else:
+		modulate = Color.WHITE  # Normal color
+		if %ProgressBar:
+			%ProgressBar.modulate = Color.WHITE
 
 
 

@@ -6,6 +6,7 @@ class_name Mainplate
 
 # Progress update signal - emitted every beat for UI updates
 signal gear_progress_updated(card_instance_id: String, progress_percent: float, is_ready: bool)
+signal gear_blocked(card_instance_id: String, is_blocked: bool)  # Gear ready but can't fire due to resources
 
 ## Inner class to track card state
 class CardState:
@@ -58,64 +59,75 @@ func get_card_state(card_instance_id: String) -> CardState:
 	return null
 
 ## Request card placement - handles ALL business logic for placing a card
+## Follows PRD Section 2.0.4 Card Play Sequence
 func request_card_placement(card: Card, pos: Vector2i) -> bool:
 	if not is_valid_position(pos):
 		push_warning("Invalid position for card placement: " + str(pos))
 		return false
 	
-	# Check if card can be placed (cost satisfaction happens in ActivationLogic)
-	# Here we just handle the placement logic
-	
-	# Handle replacement if needed (Overbuild)
+	# PRD Steps 1-5: Handle replacement if needed (Overbuild)
+	var old_state: CardState = null
 	if has_card_at(pos):
 		var old_card = slots[pos]
 		print("[OVERBUILD] Replacing ", old_card.display_name, " with ", card.display_name)
 		
-		# Process replacement effects on the old card
+		# PRD Step 2: Slot remembers state of old gear
+		if card_states.has(old_card.instance_id):
+			old_state = card_states[old_card.instance_id]
+		
+		# PRD Step 3: Old gear's "when replaced" effects trigger
 		if not old_card.on_replace_effect.is_empty():
-			# Use SimpleEffectProcessor directly via class_name
 			SimpleEffectProcessor.process_effects(old_card.on_replace_effect, old_card)
 		
-		# Move old card to graveyard
+		# PRD Step 4: Old gear moved to discard
 		if GlobalGameManager.library:
 			GlobalGameManager.library.move_card_to_zone2(old_card.instance_id, Library.Zone.SLOTTED, Library.Zone.GRAVEYARD)
 		
-		# Signal old card was discarded
+		# PRD Step 5: Old gear's "when destroyed" effects trigger
+		if not old_card.on_destroy_effect.is_empty():
+			SimpleEffectProcessor.process_effects(old_card.on_destroy_effect, old_card)
+		
+		# Signal old card was discarded/destroyed
 		GlobalSignals.signal_core_card_discarded(old_card.instance_id)
+		GlobalSignals.signal_core_card_destroyed(old_card.instance_id)
 		
-		# Transfer state if Overbuild tag
-		if card.tags.has("Overbuild") and card_states.has(old_card.instance_id):
-			var old_state = card_states[old_card.instance_id]
-			card_states[card.instance_id] = old_state
-			card_states.erase(old_card.instance_id)
-		else:
-			card_states[card.instance_id] = CardState.new(card)
+		# Clear old state (will be restored if Overbuild)
+		card_states.erase(old_card.instance_id)
 		
-		# Signal replacement for UI update with position
+		# Signal replacement for UI update
 		GlobalSignals.signal_core_card_replaced(old_card.instance_id, card.instance_id, pos)
-	else:
-		# New placement
-		card_states[card.instance_id] = CardState.new(card)
-		
-		# Check and trigger bonus square
-		if bonus_squares.has(pos):
-			var bonus_type = bonus_squares[pos]
-			__trigger_bonus(bonus_type)
-			bonus_squares.erase(pos)
 	
-	# Move card to slotted zone
+	# PRD Step 6: New gear played on movement plate
+	slots[pos] = card
+	
+	# Handle state for new card
+	if card.tags.has("Overbuild") and old_state:
+		# Overbuild inherits timer from replaced gear
+		card_states[card.instance_id] = old_state
+		print("[OVERBUILD] Inherited timer progress: ", old_state.current_beats)
+	else:
+		# PRD Step 8: Slot "memory" of old gear is cleared (new state)
+		card_states[card.instance_id] = CardState.new(card)
+	
+	# Check and trigger bonus square
+	if bonus_squares.has(pos):
+		var bonus_type = bonus_squares[pos]
+		__trigger_bonus(bonus_type)
+		bonus_squares.erase(pos)
+	
+	# Move card from hand to slotted zone
 	if GlobalGameManager.library:
 		GlobalGameManager.library.move_card_to_zone2(card.instance_id, Library.Zone.HAND, Library.Zone.SLOTTED)
 	
-	# Store card in slot
-	slots[pos] = card
-	
-	# Process on_place_effect if it exists
+	# Process on_place_effect if it exists (different from on_play)
 	if not card.on_place_effect.is_empty():
-		SimpleEffectProcessor.process_effects(card.on_place_effect, null)
+		SimpleEffectProcessor.process_effects(card.on_place_effect, card)
 	
-	# Signal successful placement with position (for UI and stats)
+	# Signal successful placement
 	GlobalSignals.signal_core_card_slotted(card.instance_id, pos)
+	
+	# PRD Step 7: New gear's "when played" effects trigger (handled by global_game_manager)
+	# PRD Step 9: Time advances (handled by global_game_manager)
 	GlobalSignals.signal_core_card_played(card.instance_id)
 	GlobalSignals.signal_core_card_removed_from_hand(card.instance_id)
 	
@@ -214,6 +226,11 @@ func process_beat(context: BeatContext) -> void:
 				# Calculate and emit progress update
 				var progress_percent = (state.current_beats * 100.0) / interval_in_beats
 				gear_progress_updated.emit(card.instance_id, progress_percent, state.is_ready)
+				
+				# Check if card is ready but blocked by resources
+				if state.is_ready and not card.on_fire_effect.is_empty():
+					var can_activate = SimpleEffectProcessor.can_satisfy_effect(card.on_fire_effect)
+					gear_blocked.emit(card.instance_id, not can_activate)
 			
 			# Signal UI update BEFORE activation (so it sees the full progress)
 			GlobalSignals.signal_core_gear_process_beat(card.instance_id, context)
@@ -269,8 +286,11 @@ func __should_card_activate(card: Card, pos: Vector2i, context: BeatContext) -> 
 	# Check if ready to activate
 	var interval_in_beats = card.production_interval * 10  # Convert ticks to beats
 	if state.current_beats >= interval_in_beats:
-		# Check force requirements
-		if GlobalGameManager.hero and not card.force_consumption.is_empty():
+		# Check if the on_fire_effect can be satisfied (includes resource consumption)
+		if not card.on_fire_effect.is_empty():
+			return SimpleEffectProcessor.can_satisfy_effect(card.on_fire_effect)
+		# Legacy: Check force requirements if no on_fire_effect
+		elif GlobalGameManager.hero and not card.force_consumption.is_empty():
 			return GlobalGameManager.hero.has_forces(card.force_consumption)
 		return true
 	
@@ -285,9 +305,12 @@ func __activate_card(card: Card, pos: Vector2i, context: BeatContext) -> void:
 	
 	# Process on_fire_effect - this handles all production, consumption, and other effects
 	if not card.on_fire_effect.is_empty():
-		pass
-		#TODO FIX
-		#TourbillonEffectProcessor.process_effect(card.on_fire_effect, self, null)
+		# Check one more time that we can satisfy (in case resources changed)
+		if not SimpleEffectProcessor.can_satisfy_effect(card.on_fire_effect):
+			# Can't consume resources, keep the gear at ready state
+			return
+		# Process the effect (consume resources and apply effects)
+		SimpleEffectProcessor.process_effects(card.on_fire_effect, card)
 	
 	# Legacy support: Check old force_consumption if effect doesn't exist
 	# TODO: Remove once all cards are migrated to effects
