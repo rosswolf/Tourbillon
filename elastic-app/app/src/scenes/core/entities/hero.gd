@@ -101,7 +101,7 @@ func get_force_resource(force_type: GameResource.Type) -> CappedResource:
 func has_force(force_type: GameResource.Type, amount: int) -> bool:
 	var resource = get_force_resource(force_type)
 	if resource:
-		return resource.current >= amount
+		return resource.amount >= amount
 	return false
 
 ## Check if hero has enough forces for a dictionary of requirements
@@ -116,7 +116,7 @@ func has_forces(requirements: Dictionary) -> bool:
 ## Consume a specific amount of a force
 func consume_force(force_type: GameResource.Type, amount: int) -> bool:
 	var resource = get_force_resource(force_type)
-	if resource and resource.current >= amount:
+	if resource and resource.amount >= amount:
 		resource.subtract(amount)
 		return true
 	return false
