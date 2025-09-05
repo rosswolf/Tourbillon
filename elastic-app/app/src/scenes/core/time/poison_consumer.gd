@@ -38,7 +38,7 @@ func _apply_poison_damage() -> void:
 		var gremlin = owner as Gremlin
 		
 		# Create poison damage packet
-		var packet = DamageFactory.create(poison_stacks, ["poison"], "Poison")
+		var packet = DamageFactory.create_poison(poison_stacks, "Poison")
 		var actual_damage = gremlin.receive_damage(packet)
 		
 		poison_tick.emit(actual_damage)

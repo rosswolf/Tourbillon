@@ -23,12 +23,12 @@ func _ready() -> void:
 
 ## Spawn a gremlin from a template ID in mob_data
 func spawn_gremlin(template_id: String, slot_index: int = -1) -> Gremlin:
-	var mob_data_source = StaticData.get_data_source("mob_data")
-	if not mob_data_source:
+	# Access mob_data directly from StaticData
+	if not StaticData.mob_data:
 		push_error("mob_data not loaded in StaticData")
 		return null
 	
-	var gremlin_data = mob_data_source.get(template_id, {})
+	var gremlin_data = StaticData.get_mob_by_id(template_id)
 	
 	if gremlin_data.is_empty():
 		push_error("Gremlin template not found: " + template_id)
@@ -160,13 +160,13 @@ func _convert_move_cycle_to_string(move_cycle: Array) -> String:
 
 ## Register gremlin with game systems
 func _register_gremlin(gremlin: Gremlin) -> void:
-	# Register with EntityManager if it exists
-	if EntityManager.instance:
-		EntityManager.register_entity(gremlin)
+	# TODO: Implement EntityManager singleton for entity tracking
+	# if EntityManager.instance:
+	#     EntityManager.register_entity(gremlin)
 	
-	# Register with BeatManager for beat processing
-	if BeatManager.instance:
-		BeatManager.register_listener(gremlin)
+	# Register with TimelineManager for beat processing
+	if TimelineManager.instance:
+		TimelineManager.register_beat_listener(gremlin)
 	
 	# Could also register with UI systems here
 	# if BattleUI.instance:
@@ -174,11 +174,13 @@ func _register_gremlin(gremlin: Gremlin) -> void:
 
 ## Unregister gremlin from game systems
 func _unregister_gremlin(gremlin: Gremlin) -> void:
-	if EntityManager.instance:
-		EntityManager.unregister_entity(gremlin.instance_id)
+	# TODO: Implement EntityManager singleton for entity tracking
+	# if EntityManager.instance:
+	#     EntityManager.unregister_entity(gremlin.instance_id)
 	
-	if BeatManager.instance:
-		BeatManager.unregister_listener(gremlin)
+	# Unregister from TimelineManager
+	if TimelineManager.instance:
+		TimelineManager.unregister_beat_listener(gremlin)
 
 ## Handle gremlin defeated
 func _on_gremlin_defeated(gremlin: Gremlin) -> void:
