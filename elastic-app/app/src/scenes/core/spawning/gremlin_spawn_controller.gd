@@ -144,6 +144,9 @@ func spawn_wave(wave_composition: String) -> Array[Gremlin]:
 func clear_all_gremlins() -> void:
 	for gremlin in active_gremlins:
 		if is_instance_valid(gremlin):
+			# Disconnect signal if connected
+			if gremlin.defeated.is_connected(_on_gremlin_defeated):
+				gremlin.defeated.disconnect(_on_gremlin_defeated)
 			_unregister_gremlin(gremlin)
 			gremlin.queue_free()
 	
@@ -267,7 +270,15 @@ func _unregister_gremlin(gremlin: Gremlin) -> void:
 
 ## Handle gremlin defeated
 func _on_gremlin_defeated(gremlin: Gremlin) -> void:
+	# Validate gremlin is valid
+	if not is_instance_valid(gremlin):
+		return
+	
 	print("Gremlin defeated: ", gremlin.gremlin_name)
+	
+	# Disconnect signal if connected
+	if gremlin.defeated.is_connected(_on_gremlin_defeated):
+		gremlin.defeated.disconnect(_on_gremlin_defeated)
 	
 	# Remove from active list
 	active_gremlins.erase(gremlin)

@@ -49,7 +49,10 @@ func __add_gremlin_ui(gremlin: Gremlin) -> void:
 func __on_gremlin_defeated(gremlin_id: String) -> void:
 	if gremlin_id in active_gremlin_uis:
 		# The UI will handle its own removal animation
+		var ui = active_gremlin_uis[gremlin_id]
+		# Clear reference immediately to prevent double-processing
 		active_gremlin_uis.erase(gremlin_id)
+		# UI component handles its own fade-out and queue_free
 
 
 

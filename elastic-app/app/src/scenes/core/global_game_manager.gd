@@ -457,5 +457,5 @@ func __on_deck_exhausted() -> void:
 	print("[DEBUG] Deck exhausted - dealing 1 damage to hero")
 	# Deal 1 damage to hero for trying to draw from empty deck
 	if hero:
-		var damage_packet = DamagePacket.new(1, null, "Deck Exhaustion")
+		var damage_packet = DamageFactory.create(1, [], "deck_exhaustion")
 		hero.receive_damage(damage_packet)

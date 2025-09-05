@@ -316,14 +316,14 @@ static func _handle_damage(amount: float) -> void:
 	var gremlins: Array[Node] = GlobalGameManager.get_active_gremlins()
 	if not gremlins.is_empty():
 		var target = gremlins[0]
-		if target.has_method("receive_damage"):
+		if target and is_instance_valid(target) and target.has_method("receive_damage"):
 			var packet = DamageFactory.create_basic(int(amount))
 			target.receive_damage(packet)
 
 static func _handle_damage_all(amount: float) -> void:
 	var gremlins: Array[Node] = GlobalGameManager.get_active_gremlins()
 	for gremlin in gremlins:
-		if gremlin.has_method("receive_damage"):
+		if gremlin and is_instance_valid(gremlin) and gremlin.has_method("receive_damage"):
 			var packet = DamageFactory.create_basic(int(amount))
 			gremlin.receive_damage(packet)
 
@@ -331,7 +331,7 @@ static func _handle_damage_random(amount: float) -> void:
 	var gremlins: Array[Node] = GlobalGameManager.get_active_gremlins()
 	if not gremlins.is_empty():
 		var target = gremlins.pick_random()
-		if target.has_method("receive_damage"):
+		if target and is_instance_valid(target) and target.has_method("receive_damage"):
 			var packet = DamageFactory.create_basic(int(amount))
 			target.receive_damage(packet)
 
@@ -340,16 +340,16 @@ static func _handle_damage_weakest(amount: float) -> void:
 	if gremlins.is_empty():
 		return
 
-	var weakest = gremlins[0]
+	var weakest = null
 	var min_hp: float = INF
 	for gremlin in gremlins:
-		if gremlin.has("current_hp"):
+		if gremlin and is_instance_valid(gremlin) and gremlin.has("current_hp"):
 			var hp: float = gremlin.current_hp
 			if hp < min_hp:
 				min_hp = hp
 				weakest = gremlin
 
-	if weakest and weakest.has_method("receive_damage"):
+	if weakest and is_instance_valid(weakest) and weakest.has_method("receive_damage"):
 		var packet = DamageFactory.create_basic(int(amount))
 		weakest.receive_damage(packet)
 
@@ -358,16 +358,16 @@ static func _handle_damage_strongest(amount: float) -> void:
 	if gremlins.is_empty():
 		return
 
-	var strongest = gremlins[0]
+	var strongest = null
 	var max_hp: float = 0
 	for gremlin in gremlins:
-		if gremlin.has("current_hp"):
+		if gremlin and is_instance_valid(gremlin) and gremlin.has("current_hp"):
 			var hp: float = gremlin.current_hp
 			if hp > max_hp:
 				max_hp = hp
 				strongest = gremlin
 
-	if strongest and strongest.has_method("receive_damage"):
+	if strongest and is_instance_valid(strongest) and strongest.has_method("receive_damage"):
 		var packet = DamageFactory.create_basic(int(amount))
 		strongest.receive_damage(packet)
 
@@ -376,7 +376,7 @@ static func _handle_damage_bottom(amount: float) -> void:
 	var gremlins: Array[Node] = GlobalGameManager.get_active_gremlins()
 	if not gremlins.is_empty():
 		var target = gremlins[-1]
-		if target.has_method("receive_damage"):
+		if target and is_instance_valid(target) and target.has_method("receive_damage"):
 			var packet = DamageFactory.create_basic(int(amount))
 			target.receive_damage(packet)
 
@@ -385,7 +385,7 @@ static func _handle_poison(amount: int) -> void:
 	var gremlins: Array[Node] = GlobalGameManager.get_active_gremlins()
 	if not gremlins.is_empty():
 		var target = gremlins[0]
-		if target.has_method("apply_poison"):
+		if target and is_instance_valid(target) and target.has_method("apply_poison"):
 			target.apply_poison(amount)
 
 # Pierce damage handlers (ignores armor)
@@ -393,14 +393,14 @@ static func _handle_pierce_damage(amount: float) -> void:
 	var gremlins: Array[Node] = GlobalGameManager.get_active_gremlins()
 	if not gremlins.is_empty():
 		var target = gremlins[0]
-		if target.has_method("receive_damage"):
+		if target and is_instance_valid(target) and target.has_method("receive_damage"):
 			var packet = DamageFactory.create(int(amount), ["pierce"])
 			target.receive_damage(packet)
 
 static func _handle_pierce_damage_all(amount: float) -> void:
 	var gremlins: Array[Node] = GlobalGameManager.get_active_gremlins()
 	for gremlin in gremlins:
-		if gremlin.has_method("receive_damage"):
+		if gremlin and is_instance_valid(gremlin) and gremlin.has_method("receive_damage"):
 			var packet = DamageFactory.create(int(amount), ["pierce"])
 			gremlin.receive_damage(packet)
 
@@ -408,19 +408,19 @@ static func _handle_pierce_damage_random(amount: float) -> void:
 	var gremlins: Array[Node] = GlobalGameManager.get_active_gremlins()
 	if not gremlins.is_empty():
 		var target = gremlins.pick_random()
-		if target.has_method("receive_damage"):
+		if target and is_instance_valid(target) and target.has_method("receive_damage"):
 			var packet = DamageFactory.create(int(amount), ["pierce"])
 			target.receive_damage(packet)
 
 static func _handle_pierce_damage_weakest(amount: float) -> void:
 	var target = _find_weakest_gremlin()
-	if target and target.has_method("receive_damage"):
+	if target and is_instance_valid(target) and target.has_method("receive_damage"):
 		var packet = DamageFactory.create(int(amount), ["pierce"])
 		target.receive_damage(packet)
 
 static func _handle_pierce_damage_strongest(amount: float) -> void:
 	var target = _find_strongest_gremlin()
-	if target and target.has_method("receive_damage"):
+	if target and is_instance_valid(target) and target.has_method("receive_damage"):
 		var packet = DamageFactory.create(int(amount), ["pierce"])
 		target.receive_damage(packet)
 
@@ -529,10 +529,10 @@ static func _find_weakest_gremlin() -> Node:
 	if gremlins.is_empty():
 		return null
 	
-	var weakest = gremlins[0]
+	var weakest = null
 	var min_hp: float = INF
 	for gremlin in gremlins:
-		if gremlin.has("current_hp"):
+		if gremlin and is_instance_valid(gremlin) and gremlin.has("current_hp"):
 			var hp: float = gremlin.current_hp
 			if hp < min_hp:
 				min_hp = hp
@@ -544,10 +544,10 @@ static func _find_strongest_gremlin() -> Node:
 	if gremlins.is_empty():
 		return null
 	
-	var strongest = gremlins[0]
+	var strongest = null
 	var max_hp: float = 0
 	for gremlin in gremlins:
-		if gremlin.has("current_hp"):
+		if gremlin and is_instance_valid(gremlin) and gremlin.has("current_hp"):
 			var hp: float = gremlin.current_hp
 			if hp > max_hp:
 				max_hp = hp

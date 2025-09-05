@@ -149,7 +149,10 @@ func are_all_defeated() -> bool:
 ## Reset for new combat
 func reset() -> void:
 	for i in range(gremlin_slots.size()):
-		if gremlin_slots[i]:
+		if gremlin_slots[i] and is_instance_valid(gremlin_slots[i]):
+			# Disconnect signal if connected
+			if gremlin_slots[i].defeated.is_connected(_on_gremlin_defeated):
+				gremlin_slots[i].defeated.disconnect(_on_gremlin_defeated)
 			gremlin_slots[i].queue_free()
 			gremlin_slots[i] = null
 	active_gremlin_count = 0
@@ -177,7 +180,20 @@ func _get_target_by_type(target_type: String) -> Gremlin:
 
 ## Internal: Handle gremlin defeat
 func _on_gremlin_defeated(gremlin: Gremlin) -> void:
+	# Validate gremlin is valid
+	if not is_instance_valid(gremlin):
+		return
+	
 	var slot = gremlin.slot_index
+	
+	# Ensure slot is valid
+	if slot < 0 or slot >= gremlin_slots.size():
+		return
+	
+	# Disconnect signal if connected
+	if gremlin.defeated.is_connected(_on_gremlin_defeated):
+		gremlin.defeated.disconnect(_on_gremlin_defeated)
+	
 	gremlin_slots[slot] = null
 	active_gremlin_count -= 1
 
