@@ -387,8 +387,15 @@ func get_beat_processor() -> BeatProcessor:
 
 ## Get active gremlins (for effect processor)
 func get_active_gremlins() -> Array[Node]:
-	# TODO: Implement when gremlin manager exists
-	return []
+	if not GremlinSpawnController.instance:
+		return []
+	
+	# Get gremlins from spawn controller and convert to Array[Node]
+	var gremlins = GremlinSpawnController.instance.get_active_gremlins()
+	var nodes: Array[Node] = []
+	for gremlin in gremlins:
+		nodes.append(gremlin)
+	return nodes
 
 # Convenience Functions for checking resource state
 # Resources should be checked via hero.has_force() or hero.has_forces() methods
