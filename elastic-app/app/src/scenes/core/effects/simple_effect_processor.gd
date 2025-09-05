@@ -51,6 +51,8 @@ static func _process_single_effect(effect: String, source: Node) -> void:
 			_handle_discard(int(value))
 		"mill":
 			_handle_mill(int(value))
+		"self_destruct":
+			_handle_self_destruct(source, int(value))
 
 		# Generate force effects (no cost) - support both generate_ and add_ prefixes
 		"generate_red", "add_red":
@@ -276,6 +278,37 @@ static func _handle_discard(amount: int) -> void:
 static func _handle_mill(amount: int) -> void:
 	if GlobalGameManager.library:
 		GlobalGameManager.library.mill_cards(amount)
+
+static func _handle_self_destruct(source: Node, value: int) -> void:
+	# Self-destruct the source card/gear after its effect completes
+	if not source:
+		return
+	
+	if not source is Card:
+		push_warning("self_destruct called on non-Card: ", source.get_class())
+		return
+	
+	var card = source as Card
+	print("[DEBUG] [self_destruct] Destroying ", card.display_name, " after effect")
+	
+	# Remove from mainplate if it's slotted there
+	if GlobalGameManager.mainplate:
+		var pos = GlobalGameManager.mainplate.get_card_position(card.instance_id)
+		if pos != Vector2i(-1, -1):
+			GlobalGameManager.mainplate.remove_card_by_id(card.instance_id)
+			print("[DEBUG] [self_destruct] Removed from mainplate at position ", pos)
+	
+	# Move to graveyard
+	if GlobalGameManager.library:
+		GlobalGameManager.library.move_card_to_zone2(card.instance_id, Library.Zone.SLOTTED, Library.Zone.GRAVEYARD)
+	
+	# Trigger destroy effects if any
+	if not card.on_destroy_effect.is_empty():
+		process_effects(card.on_destroy_effect, card)
+	
+	# Signal destruction
+	GlobalSignals.signal_core_card_destroyed(card.instance_id)
+	GlobalSignals.signal_core_card_discarded(card.instance_id)
 
 # Force generation handlers
 static func _handle_generate_force(force_type: GameResource.Type, amount: float) -> void:
