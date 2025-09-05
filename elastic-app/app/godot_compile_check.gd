@@ -259,7 +259,8 @@ func _check_source_for_errors(source: String, script_path: String) -> void:
 			warnings_found.append(script_path + ":" + str(line_num) + " - Suspicious method call: set_map()")
 		
 		# 2. Using old/removed methods
-		if ".register_instance(" in line and not is_line_exempt:
+		# Check for register_instance usage (but skip this check file itself)
+		if ".register_instance(" in line and not is_line_exempt and not script_path.ends_with("godot_compile_check.gd"):
 			errors_found.append(script_path + ":" + str(line_num) + " - Using old method: register_instance() - use set_instance() instead")
 		
 		# 3. Check for accessing private variables from other classes
