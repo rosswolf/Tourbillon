@@ -164,9 +164,9 @@ func _register_gremlin(gremlin: Gremlin) -> void:
 	# if EntityManager.instance:
 	#     EntityManager.register_entity(gremlin)
 	
-	# Register with TimelineManager for beat processing
-	if TimelineManager.instance:
-		TimelineManager.register_beat_listener(gremlin)
+	# Register with TimelineManager via GlobalGameManager
+	if GlobalGameManager.timeline_manager:
+		GlobalGameManager.timeline_manager.register_beat_listener(gremlin)
 	
 	# Could also register with UI systems here
 	# if BattleUI.instance:
@@ -178,9 +178,9 @@ func _unregister_gremlin(gremlin: Gremlin) -> void:
 	# if EntityManager.instance:
 	#     EntityManager.unregister_entity(gremlin.instance_id)
 	
-	# Unregister from TimelineManager
-	if TimelineManager.instance:
-		TimelineManager.unregister_beat_listener(gremlin)
+	# Unregister from TimelineManager via GlobalGameManager
+	if GlobalGameManager.timeline_manager:
+		GlobalGameManager.timeline_manager.unregister_beat_listener(gremlin)
 
 ## Handle gremlin defeated
 func _on_gremlin_defeated(gremlin: Gremlin) -> void:
