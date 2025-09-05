@@ -77,10 +77,27 @@ Service Account Details (from GOOGLE_SHEETS.md):
 - **Key File**: `~/Code/google-sheets-mcp/service-account-key.json`
 - **Access**: Editor (read/write)
 
-## Quick Reference Commands
+## How to Update Game Data
+
+### IMPORTANT: Manual Spreadsheet Editing Required
+
+**Claude cannot directly update Google Sheets via API.** You must:
+
+1. **Open the Google Sheets URL directly in your browser**
+2. **Manually edit the spreadsheet cells**
+3. **Then sync changes back to JSON**
+
+### Spreadsheet URLs for Manual Editing:
+- **Mob Data**: https://docs.google.com/spreadsheets/d/1TlOn39AXlw0y2tlkE4kvIpvoZ9SpNQTkDGgOptvqSgM/edit
+- **Card Data**: https://docs.google.com/spreadsheets/d/1zoNrBnX2od6nrTL3G4wS_QMYig69laRn0XYH-KOUqTk/edit
+
+### Quick Reference Commands
 
 ```bash
-# CRITICAL: To update game data, run this from the data directory:
+# STEP 1: MANUALLY EDIT THE GOOGLE SHEETS (Claude cannot do this)
+# Open the URLs above and make your changes
+
+# STEP 2: After manual edits, sync from sheets to JSON:
 cd src/scenes/data
 python3 json_exporter.py
 
@@ -93,6 +110,7 @@ python3 json_exporter.py
 # - Edit JSON files manually
 # - Use JavaScript to update JSON files
 # - Modify mob_data.json directly
+# - Attempt to update Google Sheets via API (not supported)
 
 # Check for non-ASCII characters
 grep -P '[^\x00-\x7F]' card_data.json
