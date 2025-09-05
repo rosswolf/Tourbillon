@@ -1,29 +1,18 @@
 # Known Issues
 
-## Property Checker False Positives
+## ~~Property Checker False Positives~~ (FIXED)
 
-**Issue**: The pre-commit property checker shows errors for properties that actually exist in the code.
+**Issue**: ~~The pre-commit property checker shows errors for properties that actually exist in the code.~~
 
-**Affected Files**:
-- `card.gd` - Effect properties (on_ready_effect, on_replace_effect, etc.)
-- `card_selection_modal.gd` - Button properties (flat, size_flags_horizontal, etc.)
-- `one_time_effect.gd` - Private properties (__f, __valid_source_types, etc.)
+**Status**: ✅ FIXED - Property checker updated to recognize all property types
 
-**Root Cause**: The PROJECT_INDEX.json indexer isn't properly parsing GDScript class properties, especially:
-1. Properties defined with `var property_name: Type = default`
-2. Godot built-in node properties
-3. Private properties with `__` prefix
+**Resolution**: 
+The property_check.py has been updated to include:
+- Godot built-in Control/Button properties (flat, size_flags_horizontal, etc.)
+- Card effect properties loaded dynamically from JSON
+- Effect subclass private properties
 
-**Impact**: 
-- ✅ **No actual compilation errors** - Code compiles and runs fine
-- ❌ Pre-commit hook shows 14 property errors
-- ⚠️ Must use `--no-verify` to commit
-
-**Workaround**: 
-The property checker has been disabled in the pre-commit hook's exit code calculation. It still runs and shows warnings but doesn't block commits.
-
-**Proper Fix Needed**: 
-Update the GDScript indexer in `~/.claude-code-project-index/scripts/index_utils.py` to properly parse all property declarations.
+The property checker now passes without false positives.
 
 ## Temporary Solutions
 
