@@ -5,27 +5,23 @@ class_name EndlessWaveManager
 ## Spawns waves of gremlins with increasing difficulty
 ## Handles card selection rewards between waves
 
-signal wave_started(wave_number: int, difficulty_tier: String)
+signal wave_started(wave_number: int, difficulty_value: int)
 signal wave_completed(wave_number: int)
 signal reward_card_selected(card: Card)
 signal game_over()
 
 var current_wave: int = 0
-var current_difficulty_tier: String = "easy"
+var current_difficulty_value: int = 0
 var waves_completed: int = 0
 
-# Wave pools by difficulty tier, loaded from wave_data.json
-var wave_pools: Dictionary = {
-	"Trivial": [],
-	"Easy": [],
-	"Medium": [],
-	"Hard": [],
-	"Nightmare": [],
-	"Nightmare+": []
-}
+# Waves sorted by numerical difficulty
+var waves_by_difficulty: Array = []  # Array of wave_ids sorted by difficulty
 
 # All wave data loaded from wave_data.json
 var all_waves: Dictionary = {}
+
+# Difficulty ranges for wave selection
+var difficulty_per_wave: int = 10  # Increase difficulty target by 10 HP per wave
 
 func _ready() -> void:
 	# Load wave data from StaticData
@@ -40,97 +36,112 @@ func _ready() -> void:
 
 ## Load wave data from StaticData
 func _load_wave_data() -> void:
-	# Clear existing pools
-	for tier in wave_pools:
-		wave_pools[tier].clear()
 	all_waves.clear()
+	waves_by_difficulty.clear()
 	
 	# Load from StaticData
 	if StaticData.wave_data:
 		for wave in StaticData.wave_data:
 			var wave_id = wave.get("wave_id", "")
-			var difficulty_tier = wave.get("difficulty_tier", "Unknown")
+			var difficulty = wave.get("difficulty", 0)
 			
 			# Store wave data
 			all_waves[wave_id] = wave
 			
-			# Add to appropriate difficulty pool
-			if difficulty_tier in wave_pools:
-				wave_pools[difficulty_tier].append(wave_id)
+			# Add to sorted array
+			waves_by_difficulty.append({"id": wave_id, "difficulty": difficulty})
+	
+	# Sort by difficulty
+	waves_by_difficulty.sort_custom(func(a, b): return a.difficulty < b.difficulty)
 	
 	print("[EndlessWaveManager] Loaded ", all_waves.size(), " waves")
-	for tier in wave_pools:
-		print("  ", tier, ": ", wave_pools[tier].size(), " waves")
+	print("  Difficulty range: ", 
+		waves_by_difficulty[0].difficulty if waves_by_difficulty.size() > 0 else 0,
+		" to ",
+		waves_by_difficulty[-1].difficulty if waves_by_difficulty.size() > 0 else 0)
 
 ## Start a new run
 func start_new_run() -> void:
 	current_wave = 0
 	waves_completed = 0
-	current_difficulty_tier = "easy"
+	current_difficulty_value = 0
 	start_next_wave()
 
 ## Start the next wave
 func start_next_wave() -> void:
 	current_wave += 1
 	
-	# Determine difficulty tier based on wave number
-	# Progressive difficulty: Trivial -> Easy -> Medium -> Hard -> Nightmare -> Nightmare+
-	if current_wave <= 2:
-		current_difficulty_tier = "Trivial"
-	elif current_wave <= 4:
-		current_difficulty_tier = "Easy"
-	elif current_wave <= 6:
-		current_difficulty_tier = "Medium"
-	elif current_wave <= 9:
-		current_difficulty_tier = "Hard"
-	elif current_wave <= 12:
-		current_difficulty_tier = "Nightmare"
-	else:
-		current_difficulty_tier = "Nightmare+"
+	# Calculate target difficulty for this wave
+	# Start at 5 HP, increase by 10 HP per wave
+	var target_difficulty = 5 + (current_wave - 1) * difficulty_per_wave
 	
-	print("[EndlessWaveManager] Starting wave ", current_wave, " (", current_difficulty_tier, " difficulty)")
+	# Allow a range of +/- 30% for variety
+	var min_difficulty = int(target_difficulty * 0.7)
+	var max_difficulty = int(target_difficulty * 1.3)
+	
+	print("[EndlessWaveManager] Wave ", current_wave, " - Target difficulty: ", target_difficulty, " (range: ", min_difficulty, "-", max_difficulty, ")")
 	
 	# Clear any remaining gremlins
 	if GremlinSpawnController.instance:
 		GremlinSpawnController.instance.clear_all_gremlins()
 	
-	# Get a wave from the appropriate difficulty pool
-	var wave_id = _select_wave_for_tier(current_difficulty_tier)
+	# Select a wave within the difficulty range
+	var wave_id = _select_wave_in_range(min_difficulty, max_difficulty)
 	if not wave_id:
-		print("[EndlessWaveManager] No waves available for tier ", current_difficulty_tier)
+		print("[EndlessWaveManager] No waves available in range, expanding search...")
+		# Expand range if no waves found
+		wave_id = _select_wave_in_range(min_difficulty / 2, max_difficulty * 2)
+	
+	if not wave_id and waves_by_difficulty.size() > 0:
+		# Fallback: pick closest wave to target
+		wave_id = _select_closest_wave(target_difficulty)
+	
+	if not wave_id:
+		print("[EndlessWaveManager] ERROR: No waves available!")
 		return
 		
 	var wave_data = all_waves.get(wave_id, {})
+	current_difficulty_value = wave_data.get("difficulty", 0)
 	var gremlins_str = _get_gremlins_string(wave_data)
 	
-	print("[EndlessWaveManager] Selected wave: ", wave_data.get("display_name", wave_id))
+	print("[EndlessWaveManager] Selected: ", wave_data.get("display_name", wave_id), " (difficulty: ", current_difficulty_value, ")")
 	
 	# Spawn the wave
 	if GremlinSpawnController.instance and not gremlins_str.is_empty():
 		var gremlins = GremlinSpawnController.instance.spawn_wave(gremlins_str)
 		print("[EndlessWaveManager] Spawned ", gremlins.size(), " gremlins")
 	
-	wave_started.emit(current_wave, current_difficulty_tier)
+	wave_started.emit(current_wave, current_difficulty_value)
 
-## Select a wave ID from the given difficulty tier
-func _select_wave_for_tier(tier: String) -> String:
-	var available_waves = wave_pools.get(tier, [])
-	if available_waves.is_empty():
-		# Fallback to easier tier if no waves available
-		if tier == "Nightmare+":
-			return _select_wave_for_tier("Nightmare")
-		elif tier == "Nightmare":
-			return _select_wave_for_tier("Hard")
-		elif tier == "Hard":
-			return _select_wave_for_tier("Medium")
-		elif tier == "Medium":
-			return _select_wave_for_tier("Easy")
-		elif tier == "Easy":
-			return _select_wave_for_tier("Trivial")
+## Select a random wave within a difficulty range
+func _select_wave_in_range(min_diff: int, max_diff: int) -> String:
+	var candidates = []
+	
+	for wave_data in waves_by_difficulty:
+		if wave_data.difficulty >= min_diff and wave_data.difficulty <= max_diff:
+			candidates.append(wave_data.id)
+	
+	if candidates.is_empty():
 		return ""
 	
-	# Pick a random wave from the pool
-	return available_waves[randi() % available_waves.size()]
+	# Pick a random wave from candidates
+	return candidates[randi() % candidates.size()]
+
+## Select the wave closest to target difficulty
+func _select_closest_wave(target_diff: int) -> String:
+	if waves_by_difficulty.is_empty():
+		return ""
+	
+	var best_wave = waves_by_difficulty[0]
+	var best_distance = abs(best_wave.difficulty - target_diff)
+	
+	for wave_data in waves_by_difficulty:
+		var distance = abs(wave_data.difficulty - target_diff)
+		if distance < best_distance:
+			best_distance = distance
+			best_wave = wave_data
+	
+	return best_wave.id
 
 ## Convert wave data to gremlins spawn string
 func _get_gremlins_string(wave_data: Dictionary) -> String:
