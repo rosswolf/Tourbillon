@@ -205,6 +205,10 @@ signal core_hero_resource_changed(type: GameResource.Type, new_amount: int)
 func signal_core_hero_resource_changed(type: GameResource.Type, new_amount: int) -> void:
 	core_hero_resource_changed.emit(type, new_amount)
 
+signal core_hero_damaged(damage: int)
+func signal_core_hero_damaged(damage: int) -> void:
+	core_hero_damaged.emit(damage)
+
 signal core_mob_resource_changed(mob_instance_id: String, type: GameResource.Type, new_amount: int)
 func signal_core_mob_resource_changed(mob_instance_id: String, type: GameResource.Type, new_amount: int) -> void:
 	core_mob_resource_changed.emit(mob_instance_id, type, new_amount)
