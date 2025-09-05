@@ -49,6 +49,13 @@ func _init():
 	# Report results
 	print_results()
 	
+	# Print marker for the Python script to detect
+	if errors_found > 0:
+		print("[COMPILE CHECK] ❌ ERRORS FOUND:")
+		print("  Compilation failed with %d errors" % errors_found)
+	else:
+		print("[COMPILE CHECK] ✅ All scripts compile successfully!")
+	
 	# Exit with appropriate code
 	quit(1 if errors_found > 0 else 0)
 
