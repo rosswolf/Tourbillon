@@ -132,6 +132,10 @@ func __on_start_battle() -> void:
 	__load_hand()
 
 	#battleground.spawn_new_stage(1)
+	
+	# Spawn initial wave of gremlins
+	__spawn_initial_wave()
+	
 	allow_activations()
 	GlobalSignals.signal_core_begin_turn()
 
@@ -368,6 +372,44 @@ func get_active_gremlins() -> Array[Node]:
 
 # Convenience Functions for checking resource state
 # Resources should be checked via hero.has_force() or hero.has_forces() methods
+
+## Spawn initial wave when battle starts
+func __spawn_initial_wave() -> void:
+	print("[DEBUG] Spawning initial wave...")
+	
+	# Create spawn controller if needed
+	if not GremlinSpawnController.instance:
+		var spawn_controller = GremlinSpawnController.new()
+		add_child(spawn_controller)
+	
+	# Create wave manager if needed
+	if not WaveManager.instance:
+		var wave_manager = WaveManager.new()
+		add_child(wave_manager)
+		
+	# Choose which wave to spawn (change this to test different waves)
+	# Tutorial waves:
+	#   wave_1a - "First Contact" - Single dust_mite (HP: 15)
+	#   wave_1b - "Mechanical Disruption" - Single gear_tick 
+	#   wave_1c - "Armored Introduction" - Single rust_speck
+	#   wave_1d - "Swarm Basics" - 3x basic_gnat (HP: 1 each)
+	# Advanced waves:
+	#   wave_2a - "Turtle and Rush" - oil_thief + 2x dust_mite
+	#   boss_1 - "The Rust King's Domain" - rust_king_phase_1 + 2x spring_snapper
+	
+	var wave_id = "wave_1d"  # Change this to spawn different waves
+	
+	# Start the selected wave
+	var wave_started = WaveManager.instance.start_wave(wave_id)
+	
+	if wave_started:
+		print("[DEBUG] Wave started successfully!")
+		var gremlins = GremlinSpawnController.instance.get_active_gremlins()
+		print("[DEBUG] Active gremlins: ", gremlins.size())
+		for gremlin in gremlins:
+			print("[DEBUG]   - ", gremlin.gremlin_name, " (HP: ", gremlin.current_hp, "/", gremlin.max_hp, ")")
+	else:
+		print("[DEBUG] Failed to start wave!")
 
 ## Debug function to spawn a test gremlin
 func __spawn_test_gremlin() -> void:
