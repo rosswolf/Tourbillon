@@ -168,37 +168,59 @@ func add_index_key_variants(index_keys: Array, value):
 #TYPE_EXEMPTION(JSON parsing returns dynamic structures)
 func load_json_file(path: String) -> Dictionary:
 	print("[DEBUG] [StaticData] Attempting to load file: ", path)
-	if FileAccess.file_exists(path):
-		print("[DEBUG] [StaticData] File exists, opening...")
-		var datafile = FileAccess.open(path, FileAccess.READ)
-		if datafile == null:
-			printerr("[ERROR] [StaticData] Failed to open file: ", path)
-			return {}
-		
-		var file_content = datafile.get_as_text()
-		print("[DEBUG] [StaticData] File size: ", file_content.length(), " chars")
-		var parsed_result = JSON.parse_string(file_content)
+	
+	# Check if running in web export and log environment
+	if OS.has_feature("web"):
+		print("[DEBUG] [StaticData] Running in WEB export mode")
+	
+	if not FileAccess.file_exists(path):
+		printerr("[ERROR] [StaticData] File does not exist: ", path)
+		# List available files in the directory for debugging
+		var dir = DirAccess.open("res://src/scenes/data/")
+		if dir:
+			print("[DEBUG] [StaticData] Files in data directory:")
+			dir.list_dir_begin()
+			var file_name = dir.get_next()
+			while file_name != "":
+				print("[DEBUG]   - ", file_name)
+				file_name = dir.get_next()
+		return {}
+	
+	print("[DEBUG] [StaticData] File exists, opening...")
+	var datafile = FileAccess.open(path, FileAccess.READ)
+	if datafile == null:
+		var error = FileAccess.get_open_error()
+		printerr("[ERROR] [StaticData] Failed to open file: ", path, " Error code: ", error)
+		return {}
+	
+	var file_content = datafile.get_as_text()
+	print("[DEBUG] [StaticData] File size: ", file_content.length(), " chars")
+	
+	if file_content.is_empty():
+		printerr("[ERROR] [StaticData] File is empty: ", path)
 		datafile.close()
+		return {}
+	
+	# Parse JSON using the static method
+	var parsed_result = JSON.parse_string(file_content)
+	datafile.close()
+	
+	if parsed_result == null:
+		printerr("[ERROR] [StaticData] JSON parsing failed for: ", path)
+		return {}
 
-		if parsed_result == null:
-			printerr("[ERROR] [StaticData] JSON parsing failed for: ", path)
-			return {}
-
-		#TYPE_EXEMPTION(JSON can be array or dict)
-		if parsed_result is Array:
-			print("[DEBUG] [StaticData] Processing array of ", parsed_result.size(), " records")
-			# Process array of records, resolve enums, and convert to nested dict
-			return resolve_json_data(parsed_result)
-		#TYPE_EXEMPTION(JSON can be array or dict)
-		elif parsed_result is Dictionary:
-			print("[DEBUG] [StaticData] Processing dictionary with ", parsed_result.size(), " keys")
-			# Process single dictionary and resolve enum references
-			return resolve_json_record(parsed_result)
-		else:
-			printerr("[ERROR] [StaticData] Unexpected data type from json parse: ", typeof(parsed_result))
-			return {}
+	#TYPE_EXEMPTION(JSON can be array or dict)
+	if parsed_result is Array:
+		print("[DEBUG] [StaticData] Processing array of ", parsed_result.size(), " records")
+		# Process array of records, resolve enums, and convert to nested dict
+		return resolve_json_data(parsed_result)
+	#TYPE_EXEMPTION(JSON can be array or dict)
+	elif parsed_result is Dictionary:
+		print("[DEBUG] [StaticData] Processing dictionary with ", parsed_result.size(), " keys")
+		# Process single dictionary and resolve enum references
+		return resolve_json_record(parsed_result)
 	else:
-		printerr("[ERROR] [StaticData] No file at path: ", path)
+		printerr("[ERROR] [StaticData] Unexpected data type from json parse: ", typeof(parsed_result))
 		return {}
 
 #TYPE_EXEMPTION(Checks against various JSON data dictionaries)
