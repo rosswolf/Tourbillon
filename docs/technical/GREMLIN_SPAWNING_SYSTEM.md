@@ -14,7 +14,27 @@ In Tourbillon:
 
 ## Data Architecture
 
-### Existing Data Files
+### Google Sheets as Source of Truth
+
+All game data originates from Google Sheets and is synced to local JSON files:
+
+1. **Card Data Sheet**
+   - **Spreadsheet ID**: `1zoNrBnX2od6nrTL3G4wS_QMYig69laRn0XYH-KOUqTk`
+   - **URL**: https://docs.google.com/spreadsheets/d/1zoNrBnX2od6nrTL3G4wS_QMYig69laRn0XYH-KOUqTk/edit
+   - **Sheet**: `card_data`
+
+2. **Wave Data Sheet** 
+   - **Spreadsheet ID**: `1Bv6R-AZtzmG_ycwudZ5Om6dKrJgl6Ut9INw7GTJFUlw`
+   - **Sheet**: Contains wave compositions and difficulty settings
+   - **Sync Script**: `update_wave_sheet.js`
+
+3. **Authentication**
+   - **Service Account**: `claude-sheets-mcp@wnann-dev.iam.gserviceaccount.com`
+   - **Key File**: `~/Code/google-sheets-mcp/service-account-key.json`
+
+### Local Data Files
+
+After syncing from Google Sheets:
 
 1. **mob_data.json** - Complete gremlin definitions including:
    - Basic properties (health, armor, shields, barriers)
@@ -22,7 +42,7 @@ In Tourbillon:
    - Move cycles and timing patterns
    - Archetype classifications (fodder, rush, turtle, disruption, etc.)
 
-2. **Wave data** (from update_wave_sheet.js) - Wave compositions including:
+2. **Wave data** - Wave compositions including:
    - Wave ID and display name
    - Difficulty ratings and tiers
    - Gremlin compositions (pipe-separated lists)
