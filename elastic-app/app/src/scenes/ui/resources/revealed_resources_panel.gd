@@ -34,13 +34,17 @@ func _ready() -> void:
 		var resource_amount: Label = specific_resource.get_node("MarginContainer/HBoxContainer/ResourceAmount")
 		
 		resource_label.text = resource_name + ":"
-		resource_amount.text = ""
+		resource_amount.text = "0"
+		
+		# Start hidden - will be shown when resource changes to non-zero
+		specific_resource.visible = false
 		
 		resources_containers[resource_type] = specific_resource
 		
 		%RevealedResourceVbox.add_child(specific_resource)
-		
-		GlobalSignals.core_hero_resource_changed.connect(__on_resource_changed)
+	
+	# Connect signal ONCE outside the loop
+	GlobalSignals.core_hero_resource_changed.connect(__on_resource_changed)
 
 func __update_label(container: PanelContainer, amount_text: String) -> void:
 	var resource_amount: Label = container.get_node("MarginContainer/HBoxContainer/ResourceAmount")
