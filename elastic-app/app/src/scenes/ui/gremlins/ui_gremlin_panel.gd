@@ -6,7 +6,7 @@ class_name UiGremlinPanel
 
 @onready var gremlin_container: VBoxContainer = %GremlinContainer
 
-var ui_gremlin_scene: PackedScene = preload("res://src/scenes/ui/entities/gremlins/ui_gremlin.tscn")
+var ui_gremlin_scene: PackedScene = preload("res://src/scenes/ui/entities/gremlins/ui_gremlin_new.tscn")
 var active_gremlin_uis: Dictionary[String, Variant] = {}  # gremlin_id -> UiGremlin
 
 func _ready() -> void:
@@ -36,7 +36,7 @@ func __add_gremlin_ui(gremlin: Gremlin) -> void:
 		return  # Already displaying this gremlin
 
 	# Create UI for this gremlin
-	var gremlin_ui = ui_gremlin_scene.instantiate() as UiGremlin
+	var gremlin_ui = ui_gremlin_scene.instantiate() as UiGremlinNew
 	gremlin_container.add_child(gremlin_ui)
 	gremlin_ui.set_entity_data(gremlin)
 

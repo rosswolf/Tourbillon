@@ -1,0 +1,48 @@
+[gd_scene load_steps=2 format=3 uid="uid://bxd5gremlin2"]
+
+[ext_resource type="Script" path="res://src/scenes/ui/entities/gremlins/ui_gremlin_new.gd" id="1_new"]
+
+[node name="UiGremlin" type="PanelContainer"]
+custom_minimum_size = Vector2(250, 80)
+script = ExtResource("1_new")
+
+[node name="ClipContainer" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+clip_contents = true
+
+[node name="BackgroundImage" type="TextureRect" parent="ClipContainer"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+stretch_mode = 6
+expand_mode = 1
+
+[node name="FillRect" type="ColorRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+anchor_right = 0.0
+mouse_filter = 2
+color = Color(1, 1, 1, 0.3)
+
+[node name="NameLabel" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -11.0
+offset_right = 50.0
+offset_bottom = 11.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.8)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 18
+text = "Gremlin Name"
+horizontal_alignment = 1
+vertical_alignment = 1
