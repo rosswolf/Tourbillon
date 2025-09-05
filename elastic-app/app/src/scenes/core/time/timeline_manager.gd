@@ -54,13 +54,12 @@ func __advance_beats_instant(beats_to_add: int) -> void:
 	
 	print("Advancing time by ", beats_to_add, " beats")
 	
-	# Process all beats instantly
+	# Process all beats instantly, emitting time change for each
 	for i in range(beats_to_add):
 		total_beats += 1
 		__process_single_beat()
-	
-	# Signal time changed with final beat count
-	time_changed.emit(total_beats)
+		# Emit time changed for EACH beat so UI can update incrementally
+		time_changed.emit(total_beats)
 	
 	# Signal completion
 	card_ticks_complete.emit()

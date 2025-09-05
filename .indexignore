@@ -1,0 +1,60 @@
+# Asset directories - don't index these
+**/cc0_assets/**
+**/ai_assets/**
+**/kenney_map-pack/**
+**/*_assets/**
+**/assets/**/*.png
+**/assets/**/*.jpg
+**/assets/**/*.jpeg
+**/assets/**/*.svg
+**/assets/**/*.ico
+
+# Audio files
+**/*.wav
+**/*.mp3
+**/*.ogg
+**/*.m4a
+
+# Image files
+**/*.png
+**/*.jpg
+**/*.jpeg
+**/*.gif
+**/*.bmp
+**/*.tiff
+**/*.webp
+**/*.ico
+**/*.svg
+
+# Video files
+**/*.mp4
+**/*.webm
+**/*.avi
+**/*.mov
+
+# Build artifacts
+.import/
+**/build/**
+**/dist/**
+**/.godot/**
+*.tmp
+
+# Test artifacts
+*_test_screenshots/
+test_screenshots/
+**/__pycache__/**
+**/*.pyc
+
+# Dependencies
+node_modules/
+vendor/
+
+# Large data files
+**/*.db
+**/*.sqlite
+**/*.json.backup
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini

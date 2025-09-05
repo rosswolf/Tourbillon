@@ -10,3 +10,9 @@ tests/**/*.log
 tests/**/*.json
 tests/**/*.png
 tests/**/*.htmlnode_modules/
+
+# Project indexes - generated locally
+PROJECT_INDEX.json
+SIMPLE_INDEX.json
+BETTER_INDEX.json
+PROJECT_INDEX_*.json

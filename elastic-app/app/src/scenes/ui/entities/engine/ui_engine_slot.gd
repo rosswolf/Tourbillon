@@ -34,9 +34,11 @@ func _ready() -> void:
 	if GlobalGameManager.mainplate:
 		GlobalGameManager.mainplate.gear_progress_updated.connect(__on_gear_progress_updated)
 	
-	# Initialize progress bar
+	# Initialize and fix progress bar height
 	%ProgressBar.value = 0
 	%ProgressBar.visible = true
+	%ProgressBar.custom_minimum_size.y = 8  # Set minimum height
+	%ProgressBar.size_flags_vertical = Control.SIZE_FILL  # Allow it to expand
 	
 func create_card_ui() -> void:	
 	if card_preview:  # Already exists, don't create again
@@ -155,6 +157,10 @@ func update_progress_display(percent: float, is_ready: bool = false) -> void:
 	# Make progress bar more visible
 	%ProgressBar.self_modulate = Color.WHITE
 	%ProgressBar.z_index = 10
+	
+	# Ensure progress bar has height
+	if %ProgressBar.custom_minimum_size.y < 8:
+		%ProgressBar.custom_minimum_size.y = 8
 	
 	# Just set the value directly - no tweening
 	%ProgressBar.value = percent

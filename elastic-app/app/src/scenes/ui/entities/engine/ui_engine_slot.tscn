@@ -44,6 +44,7 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_4pjec")
 [node name="ProgressBar" type="ProgressBar" parent="MarginContainer/MainPanel"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_vertical = 1
 fill_mode = 3
 show_percentage = false
 
