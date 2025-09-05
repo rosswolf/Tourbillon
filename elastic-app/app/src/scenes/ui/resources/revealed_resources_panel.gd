@@ -5,7 +5,9 @@ var resources_containers: Dictionary[GameResource.Type, PanelContainer] = {}
 
 
 func _ready() -> void:
+	print("[RevealedResourcesPanel] _ready() called")
 	var resource_template: PanelContainer = %ResourceContainerTemplate
+	print("[RevealedResourcesPanel] Template found: ", resource_template != null)
 	
 	
 	# Debug: Print all children to see what names actually exist
@@ -44,21 +46,27 @@ func _ready() -> void:
 		%RevealedResourceVbox.add_child(specific_resource)
 	
 	# Connect signal ONCE outside the loop
+	print("[RevealedResourcesPanel] Containers created: ", resources_containers.size())
 	GlobalSignals.core_hero_resource_changed.connect(__on_resource_changed)
+	print("[RevealedResourcesPanel] Signal connected successfully")
 
 func __update_label(container: PanelContainer, amount_text: String) -> void:
 	var resource_amount: Label = container.get_node("MarginContainer/HBoxContainer/ResourceAmount")
 	resource_amount.text = amount_text
 
 func __on_resource_changed(changing_resource: GameResource.Type, new_amount: int) -> void:
+	print("[RevealedResourcesPanel] Resource changed: ", GameResource.Type.keys()[changing_resource], " = ", new_amount)
 	var container: PanelContainer = resources_containers.get(changing_resource)
 	if container == null:
+		print("[RevealedResourcesPanel] ERROR: No container for resource type: ", changing_resource)
 		assert(false, "unepected resource unhandled " + str(changing_resource))
 		return	
 	
 	__update_label(container, str(new_amount))
 	
 	if new_amount != 0:
-		print("Marking as visible resource: " + str(changing_resource))
+		print("[RevealedResourcesPanel] Making visible: ", GameResource.Type.keys()[changing_resource])
 		resources_containers[changing_resource].visible = true
+	else:
+		print("[RevealedResourcesPanel] Keeping hidden (amount is 0): ", GameResource.Type.keys()[changing_resource])
 	
