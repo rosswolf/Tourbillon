@@ -359,6 +359,11 @@ func get_beat_processor() -> BeatProcessor:
 	if timeline_manager:
 		return timeline_manager.get_beat_processor()
 	return null
+
+## Get active gremlins (for effect processor)
+func get_active_gremlins() -> Array[Node]:
+	# TODO: Implement when gremlin manager exists
+	return []
 		
 # Convenience Functions for checking resource state
 # Resources should be checked via hero.has_force() or hero.has_forces() methods

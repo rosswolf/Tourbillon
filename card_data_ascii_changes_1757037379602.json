@@ -1,0 +1,1434 @@
+{
+  "timestamp": "2025-09-05T01:56:19.602Z",
+  "totalChanges": 238,
+  "changes": [
+    {
+      "row": 8,
+      "column": "E",
+      "original": "Every 4 Ticks: Consume 1 Red + 1 Blue → Produce 1 ...",
+      "converted": "Every 4 Ticks: Consume 1 Red + 1 Blue -> Produce 1..."
+    },
+    {
+      "row": 9,
+      "column": "E",
+      "original": "Every 4 Ticks: Consume 1 Red + 1 Green → Produce 1...",
+      "converted": "Every 4 Ticks: Consume 1 Red + 1 Green -> Produce ..."
+    },
+    {
+      "row": 10,
+      "column": "E",
+      "original": "Consume 3 Largest → Deal 2 damage",
+      "converted": "Consume 3 Largest -> Deal 2 damage"
+    },
+    {
+      "row": 11,
+      "column": "E",
+      "original": "Consume 4 Largest → Deal 2 damage",
+      "converted": "Consume 4 Largest -> Deal 2 damage"
+    },
+    {
+      "row": 12,
+      "column": "E",
+      "original": "Consume 3 Smallest → Deal 2 damage",
+      "converted": "Consume 3 Smallest -> Deal 2 damage"
+    },
+    {
+      "row": 13,
+      "column": "E",
+      "original": "MOMENTARY: Consume 2 HEAT → Deal 4 damage",
+      "converted": "MOMENTARY: Consume 2 HEAT -> Deal 4 damage"
+    },
+    {
+      "row": 14,
+      "column": "E",
+      "original": "Consume 3 Largest → Draw 1 card",
+      "converted": "Consume 3 Largest -> Draw 1 card"
+    },
+    {
+      "row": 24,
+      "column": "E",
+      "original": "Every 4 Ticks: Consume 1.5 Red + 1 Blue → Produce ...",
+      "converted": "Every 4 Ticks: Consume 1.5 Red + 1 Blue -> Produce..."
+    },
+    {
+      "row": 25,
+      "column": "E",
+      "original": "Every 3 Ticks: Consume 1.5 Red + 0.5 Blue → Produc...",
+      "converted": "Every 3 Ticks: Consume 1.5 Red + 0.5 Blue -> Produ..."
+    },
+    {
+      "row": 26,
+      "column": "E",
+      "original": "Every 5 Ticks: Consume 2 Red + 1.5 Blue → Produce ...",
+      "converted": "Every 5 Ticks: Consume 2 Red + 1.5 Blue -> Produce..."
+    },
+    {
+      "row": 27,
+      "column": "E",
+      "original": "Every 4 Ticks: Consume 1 Red + 1 Green → Produce 1...",
+      "converted": "Every 4 Ticks: Consume 1 Red + 1 Green -> Produce ..."
+    },
+    {
+      "row": 28,
+      "column": "E",
+      "original": "Every 3 Ticks: Consume 1.5 Red + 0.5 Green → Produ...",
+      "converted": "Every 3 Ticks: Consume 1.5 Red + 0.5 Green -> Prod..."
+    },
+    {
+      "row": 29,
+      "column": "E",
+      "original": "Every 5 Ticks: Consume 2 Red + 2 Green → Produce 2...",
+      "converted": "Every 5 Ticks: Consume 2 Red + 2 Green -> Produce ..."
+    },
+    {
+      "row": 30,
+      "column": "E",
+      "original": "Every 4 Ticks: Consume 3 Largest → Produce 1 HEAT",
+      "converted": "Every 4 Ticks: Consume 3 Largest -> Produce 1 HEAT"
+    },
+    {
+      "row": 31,
+      "column": "E",
+      "original": "Every 5 Ticks: Consume 4 Smallest → Produce 1 HEAT",
+      "converted": "Every 5 Ticks: Consume 4 Smallest -> Produce 1 HEA..."
+    },
+    {
+      "row": 32,
+      "column": "E",
+      "original": "Consume 2 Red → Deal 1 damage",
+      "converted": "Consume 2 Red -> Deal 1 damage"
+    },
+    {
+      "row": 33,
+      "column": "E",
+      "original": "Consume 3.5 Red → Deal 2 damage",
+      "converted": "Consume 3.5 Red -> Deal 2 damage"
+    },
+    {
+      "row": 34,
+      "column": "E",
+      "original": "Consume 5 Red → Deal 3 damage",
+      "converted": "Consume 5 Red -> Deal 3 damage"
+    },
+    {
+      "row": 35,
+      "column": "E",
+      "original": "Consume 1 Red → Deal 1 damage (rare 1:1)",
+      "converted": "Consume 1 Red -> Deal 1 damage (rare 1:1)"
+    },
+    {
+      "row": 36,
+      "column": "E",
+      "original": "Consume 2.5 HEAT → Deal 5 damage",
+      "converted": "Consume 2.5 HEAT -> Deal 5 damage"
+    },
+    {
+      "row": 37,
+      "column": "E",
+      "original": "Consume 3 Smallest → Deal 2 damage",
+      "converted": "Consume 3 Smallest -> Deal 2 damage"
+    },
+    {
+      "row": 38,
+      "column": "E",
+      "original": "Consume 2.5 Red → Deal 1 damage, apply 1 POISON",
+      "converted": "Consume 2.5 Red -> Deal 1 damage, apply 1 POISON"
+    },
+    {
+      "row": 39,
+      "column": "E",
+      "original": "Consume 2 Red → Deal 1 damage, SLOW target 3 ticks",
+      "converted": "Consume 2 Red -> Deal 1 damage, SLOW target 3 tick..."
+    },
+    {
+      "row": 40,
+      "column": "E",
+      "original": "Consume 3 Red → Draw 1 card",
+      "converted": "Consume 3 Red -> Draw 1 card"
+    },
+    {
+      "row": 41,
+      "column": "E",
+      "original": "Consume 5.5 Red → Draw 2 cards",
+      "converted": "Consume 5.5 Red -> Draw 2 cards"
+    },
+    {
+      "row": 42,
+      "column": "E",
+      "original": "Every 4 Ticks: Consume 3 Red → Draw 1 card",
+      "converted": "Every 4 Ticks: Consume 3 Red -> Draw 1 card"
+    },
+    {
+      "row": 43,
+      "column": "E",
+      "original": "Consume 2.5 HEAT → Draw 2 cards",
+      "converted": "Consume 2.5 HEAT -> Draw 2 cards"
+    },
+    {
+      "row": 45,
+      "column": "E",
+      "original": "Every 3 Ticks: Consume 3 Largest → Produce 2.5 Red",
+      "converted": "Every 3 Ticks: Consume 3 Largest -> Produce 2.5 Re..."
+    },
+    {
+      "row": 46,
+      "column": "E",
+      "original": "Consume 5 Largest → Deal 2 damage",
+      "converted": "Consume 5 Largest -> Deal 2 damage"
+    },
+    {
+      "row": 47,
+      "column": "E",
+      "original": "Every 3 Ticks: Consume 2 Smallest → Produce 1.5 Re...",
+      "converted": "Every 3 Ticks: Consume 2 Smallest -> Produce 1.5 R..."
+    },
+    {
+      "row": 48,
+      "column": "E",
+      "original": "Consume 4 Smallest → Deal 2 damage",
+      "converted": "Consume 4 Smallest -> Deal 2 damage"
+    },
+    {
+      "row": 49,
+      "column": "E",
+      "original": "Consume 2 Red + 2 Largest → Deal 3 damage",
+      "converted": "Consume 2 Red + 2 Largest -> Deal 3 damage"
+    },
+    {
+      "row": 50,
+      "column": "E",
+      "original": "Every 5 Ticks: Consume 1 Red + 3 Smallest → 1.5 HE...",
+      "converted": "Every 5 Ticks: Consume 1 Red + 3 Smallest -> 1.5 H..."
+    },
+    {
+      "row": 53,
+      "column": "E",
+      "original": "Consume 2 MOMENTUM → Next 3 cards cost -1 tick",
+      "converted": "Consume 2 MOMENTUM -> Next 3 cards cost -1 tick"
+    },
+    {
+      "row": 54,
+      "column": "E",
+      "original": "Consume 2.5 Red → Apply BURN 3 to target",
+      "converted": "Consume 2.5 Red -> Apply BURN 3 to target"
+    },
+    {
+      "row": 67,
+      "column": "E",
+      "original": "Every 4 Ticks: Consume 1 Blue + 1 Red → Produce 1 ...",
+      "converted": "Every 4 Ticks: Consume 1 Blue + 1 Red -> Produce 1..."
+    },
+    {
+      "row": 68,
+      "column": "E",
+      "original": "Every 3 Ticks: Consume 1.5 Blue + 0.5 Red → Produc...",
+      "converted": "Every 3 Ticks: Consume 1.5 Blue + 0.5 Red -> Produ..."
+    },
+    {
+      "row": 69,
+      "column": "E",
+      "original": "Every 5 Ticks: Consume 1.5 Blue + 1.5 Red → Produc...",
+      "converted": "Every 5 Ticks: Consume 1.5 Blue + 1.5 Red -> Produ..."
+    },
+    {
+      "row": 70,
+      "column": "E",
+      "original": "Every 4 Ticks: Consume 1 Blue + 1 White → Produce ...",
+      "converted": "Every 4 Ticks: Consume 1 Blue + 1 White -> Produce..."
+    },
+    {
+      "row": 71,
+      "column": "E",
+      "original": "Every 3 Ticks: Consume 1.5 Blue + 0.5 White → Prod...",
+      "converted": "Every 3 Ticks: Consume 1.5 Blue + 0.5 White -> Pro..."
+    },
+    {
+      "row": 72,
+      "column": "E",
+      "original": "Every 5 Ticks: Consume 2 Blue + 1.5 White → Produc...",
+      "converted": "Every 5 Ticks: Consume 2 Blue + 1.5 White -> Produ..."
+    },
+    {
+      "row": 73,
+      "column": "E",
+      "original": "Every 4 Ticks: Consume 3 Largest → Produce 1 PRECI...",
+      "converted": "Every 4 Ticks: Consume 3 Largest -> Produce 1 PREC..."
+    },
+    {
+      "row": 74,
+      "column": "E",
+      "original": "Every 5 Ticks: Consume 4 Smallest → Produce 1 PREC...",
+      "converted": "Every 5 Ticks: Consume 4 Smallest -> Produce 1 PRE..."
+    },
+    {
+      "row": 75,
+      "column": "E",
+      "original": "Consume 2 White → Draw 1 card",
+      "converted": "Consume 2 White -> Draw 1 card"
+    },
+    {
+      "row": 76,
+      "column": "E",
+      "original": "Every 3 Ticks: Consume 2 White → Draw 1 card",
+      "converted": "Every 3 Ticks: Consume 2 White -> Draw 1 card"
+    },
+    {
+      "row": 77,
+      "column": "E",
+      "original": "Every 5 Ticks: Consume 3.5 White → Draw 2 cards",
+      "converted": "Every 5 Ticks: Consume 3.5 White -> Draw 2 cards"
+    },
+    {
+      "row": 78,
+      "column": "E",
+      "original": "Consume 2.5 PRECISION → Draw 3 cards",
+      "converted": "Consume 2.5 PRECISION -> Draw 3 cards"
+    },
+    {
+      "row": 79,
+      "column": "E",
+      "original": "Consume 3 Smallest → Draw 1 card",
+      "converted": "Consume 3 Smallest -> Draw 1 card"
+    },
+    {
+      "row": 81,
+      "column": "E",
+      "original": "Consume 3 Blue → Deal 1 damage",
+      "converted": "Consume 3 Blue -> Deal 1 damage"
+    },
+    {
+      "row": 82,
+      "column": "E",
+      "original": "Consume 5.5 Blue → Deal 2 damage",
+      "converted": "Consume 5.5 Blue -> Deal 2 damage"
+    },
+    {
+      "row": 83,
+      "column": "E",
+      "original": "Consume 1.5 PRECISION → TARGETED: Deal 2 damage",
+      "converted": "Consume 1.5 PRECISION -> TARGETED: Deal 2 damage"
+    },
+    {
+      "row": 84,
+      "column": "E",
+      "original": "Consume 2.5 PRECISION → TARGETED: Deal 3 damage",
+      "converted": "Consume 2.5 PRECISION -> TARGETED: Deal 3 damage"
+    },
+    {
+      "row": 85,
+      "column": "E",
+      "original": "Consume 1.5 HEAT → Deal 3 damage",
+      "converted": "Consume 1.5 HEAT -> Deal 3 damage"
+    },
+    {
+      "row": 86,
+      "column": "E",
+      "original": "Consume 4 Smallest → Deal 2 damage",
+      "converted": "Consume 4 Smallest -> Deal 2 damage"
+    },
+    {
+      "row": 91,
+      "column": "E",
+      "original": "Every 4 Ticks: Consume 1 Green + 1 Red → Produce 1...",
+      "converted": "Every 4 Ticks: Consume 1 Green + 1 Red -> Produce ..."
+    },
+    {
+      "row": 92,
+      "column": "E",
+      "original": "Every 3 Ticks: Consume 1.5 Green + 0.5 Red → Produ...",
+      "converted": "Every 3 Ticks: Consume 1.5 Green + 0.5 Red -> Prod..."
+    },
+    {
+      "row": 93,
+      "column": "E",
+      "original": "Every 4 Ticks: Consume 1 Green + 1 Black → Produce...",
+      "converted": "Every 4 Ticks: Consume 1 Green + 1 Black -> Produc..."
+    },
+    {
+      "row": 94,
+      "column": "E",
+      "original": "Every 3 Ticks: Consume 1.5 Green + 0.5 Black → Pro...",
+      "converted": "Every 3 Ticks: Consume 1.5 Green + 0.5 Black -> Pr..."
+    },
+    {
+      "row": 99,
+      "column": "E",
+      "original": "Every 4 Ticks: Consume 1 White + 1 Blue → Produce ...",
+      "converted": "Every 4 Ticks: Consume 1 White + 1 Blue -> Produce..."
+    },
+    {
+      "row": 100,
+      "column": "E",
+      "original": "Every 3 Ticks: Consume 1.5 White + 0.5 Blue → Prod...",
+      "converted": "Every 3 Ticks: Consume 1.5 White + 0.5 Blue -> Pro..."
+    },
+    {
+      "row": 101,
+      "column": "E",
+      "original": "Every 4 Ticks: Consume 1 White + 1 Black → Produce...",
+      "converted": "Every 4 Ticks: Consume 1 White + 1 Black -> Produc..."
+    },
+    {
+      "row": 102,
+      "column": "E",
+      "original": "Every 3 Ticks: Consume 1.5 White + 0.5 Black → Pro...",
+      "converted": "Every 3 Ticks: Consume 1.5 White + 0.5 Black -> Pr..."
+    },
+    {
+      "row": 107,
+      "column": "E",
+      "original": "Every 4 Ticks: Consume 1 Black + 1 White → Produce...",
+      "converted": "Every 4 Ticks: Consume 1 Black + 1 White -> Produc..."
+    },
+    {
+      "row": 108,
+      "column": "E",
+      "original": "Every 3 Ticks: Consume 1.5 Black + 0.5 White → Pro...",
+      "converted": "Every 3 Ticks: Consume 1.5 Black + 0.5 White -> Pr..."
+    },
+    {
+      "row": 109,
+      "column": "E",
+      "original": "Every 4 Ticks: Consume 1 Black + 1 Green → Produce...",
+      "converted": "Every 4 Ticks: Consume 1 Black + 1 Green -> Produc..."
+    },
+    {
+      "row": 110,
+      "column": "E",
+      "original": "Every 3 Ticks: Consume 1.5 Black + 0.5 Green → Pro...",
+      "converted": "Every 3 Ticks: Consume 1.5 Black + 0.5 Green -> Pr..."
+    },
+    {
+      "row": 111,
+      "column": "E",
+      "original": "Consume 3 Red → Draw 1 card",
+      "converted": "Consume 3 Red -> Draw 1 card"
+    },
+    {
+      "row": 112,
+      "column": "E",
+      "original": "Consume 6 Red → Draw 2 cards",
+      "converted": "Consume 6 Red -> Draw 2 cards"
+    },
+    {
+      "row": 113,
+      "column": "E",
+      "original": "Consume 2 HEAT → Draw 1 card",
+      "converted": "Consume 2 HEAT -> Draw 1 card"
+    },
+    {
+      "row": 114,
+      "column": "E",
+      "original": "Consume 2 MOMENTUM → Draw 1 card",
+      "converted": "Consume 2 MOMENTUM -> Draw 1 card"
+    },
+    {
+      "row": 115,
+      "column": "E",
+      "original": "Consume 3 HEAT → Deal 5 damage",
+      "converted": "Consume 3 HEAT -> Deal 5 damage"
+    },
+    {
+      "row": 116,
+      "column": "E",
+      "original": "Consume 2 HEAT → Deal 3 damage to all",
+      "converted": "Consume 2 HEAT -> Deal 3 damage to all"
+    },
+    {
+      "row": 117,
+      "column": "E",
+      "original": "Every 4 Ticks: Consume 1 HEAT → Produce 3 Red",
+      "converted": "Every 4 Ticks: Consume 1 HEAT -> Produce 3 Red"
+    },
+    {
+      "row": 118,
+      "column": "E",
+      "original": "Consume 1 HEAT → Next damage +3",
+      "converted": "Consume 1 HEAT -> Next damage +3"
+    },
+    {
+      "row": 119,
+      "column": "E",
+      "original": "Consume 1 MOMENTUM → Deal 2 damage",
+      "converted": "Consume 1 MOMENTUM -> Deal 2 damage"
+    },
+    {
+      "row": 120,
+      "column": "E",
+      "original": "Consume 2 MOMENTUM → Trigger all Red gears",
+      "converted": "Consume 2 MOMENTUM -> Trigger all Red gears"
+    },
+    {
+      "row": 124,
+      "column": "E",
+      "original": "Every 3 Ticks: Consume 2 Red + 1 Blue → Produce 2 ...",
+      "converted": "Every 3 Ticks: Consume 2 Red + 1 Blue -> Produce 2..."
+    },
+    {
+      "row": 125,
+      "column": "E",
+      "original": "Every 3 Ticks: Consume 2 Red + 1 Green → Produce 2...",
+      "converted": "Every 3 Ticks: Consume 2 Red + 1 Green -> Produce ..."
+    },
+    {
+      "row": 126,
+      "column": "E",
+      "original": "Every 4 Ticks: Consume 3 Red → Produce 1 HEAT + 1 ...",
+      "converted": "Every 4 Ticks: Consume 3 Red -> Produce 1 HEAT + 1..."
+    },
+    {
+      "row": 127,
+      "column": "E",
+      "original": "Consume 5 Red → Deal 2 damage to all",
+      "converted": "Consume 5 Red -> Deal 2 damage to all"
+    },
+    {
+      "row": 128,
+      "column": "E",
+      "original": "Consume 4 Red → Deal 3 damage",
+      "converted": "Consume 4 Red -> Deal 3 damage"
+    },
+    {
+      "row": 129,
+      "column": "E",
+      "original": "Consume 4 Smallest → Produce 3 Red",
+      "converted": "Consume 4 Smallest -> Produce 3 Red"
+    },
+    {
+      "row": 131,
+      "column": "E",
+      "original": "Consume 7 Red → Deal 4 damage to all",
+      "converted": "Consume 7 Red -> Deal 4 damage to all"
+    },
+    {
+      "row": 132,
+      "column": "E",
+      "original": "Every 3 Ticks: Consume 1 HEAT → Produce 2 Red",
+      "converted": "Every 3 Ticks: Consume 1 HEAT -> Produce 2 Red"
+    },
+    {
+      "row": 133,
+      "column": "E",
+      "original": "Consume 3 Red → Deal 1 damage twice",
+      "converted": "Consume 3 Red -> Deal 1 damage twice"
+    },
+    {
+      "row": 134,
+      "column": "E",
+      "original": "Consume 2 Largest → Deal 2 damage",
+      "converted": "Consume 2 Largest -> Deal 2 damage"
+    },
+    {
+      "row": 136,
+      "column": "E",
+      "original": "Consume 1 HEAT → Produce 3 Red",
+      "converted": "Consume 1 HEAT -> Produce 3 Red"
+    },
+    {
+      "row": 137,
+      "column": "E",
+      "original": "Consume 1 MOMENTUM → Produce 3 Red",
+      "converted": "Consume 1 MOMENTUM -> Produce 3 Red"
+    },
+    {
+      "row": 139,
+      "column": "E",
+      "original": "Consume 2 Red → Deal 1 damage, SLOW target",
+      "converted": "Consume 2 Red -> Deal 1 damage, SLOW target"
+    },
+    {
+      "row": 140,
+      "column": "E",
+      "original": "Consume 1 MOMENTUM → Deal 3 damage",
+      "converted": "Consume 1 MOMENTUM -> Deal 3 damage"
+    },
+    {
+      "row": 141,
+      "column": "E",
+      "original": "Every 3 Ticks: Consume 3 Largest → Produce 2 Red",
+      "converted": "Every 3 Ticks: Consume 3 Largest -> Produce 2 Red"
+    },
+    {
+      "row": 142,
+      "column": "E",
+      "original": "Consume 2 White → Draw 1 card",
+      "converted": "Consume 2 White -> Draw 1 card"
+    },
+    {
+      "row": 143,
+      "column": "E",
+      "original": "Consume 4 White → Draw 2 cards",
+      "converted": "Consume 4 White -> Draw 2 cards"
+    },
+    {
+      "row": 144,
+      "column": "E",
+      "original": "Consume 1 PRECISION → Draw 1 card",
+      "converted": "Consume 1 PRECISION -> Draw 1 card"
+    },
+    {
+      "row": 145,
+      "column": "E",
+      "original": "Consume 1 HEAT → Draw 1 card",
+      "converted": "Consume 1 HEAT -> Draw 1 card"
+    },
+    {
+      "row": 147,
+      "column": "E",
+      "original": "Every 3 Ticks: Consume 2 White → Draw 1 card",
+      "converted": "Every 3 Ticks: Consume 2 White -> Draw 1 card"
+    },
+    {
+      "row": 148,
+      "column": "E",
+      "original": "Consume 2 PRECISION → Deal 3 damage",
+      "converted": "Consume 2 PRECISION -> Deal 3 damage"
+    },
+    {
+      "row": 149,
+      "column": "E",
+      "original": "Consume 1 PRECISION → Prevent 3 damage",
+      "converted": "Consume 1 PRECISION -> Prevent 3 damage"
+    },
+    {
+      "row": 150,
+      "column": "E",
+      "original": "Consume 1 PRECISION → All Blue production +1",
+      "converted": "Consume 1 PRECISION -> All Blue production +1"
+    },
+    {
+      "row": 151,
+      "column": "E",
+      "original": "Consume 2 HEAT → Draw 2 cards",
+      "converted": "Consume 2 HEAT -> Draw 2 cards"
+    },
+    {
+      "row": 152,
+      "column": "E",
+      "original": "Every 3 Ticks: Consume 1 HEAT → Produce 3 Blue",
+      "converted": "Every 3 Ticks: Consume 1 HEAT -> Produce 3 Blue"
+    },
+    {
+      "row": 156,
+      "column": "E",
+      "original": "Every 3 Ticks: Consume 2 Blue + 1 Red → Produce 2 ...",
+      "converted": "Every 3 Ticks: Consume 2 Blue + 1 Red -> Produce 2..."
+    },
+    {
+      "row": 157,
+      "column": "E",
+      "original": "Every 3 Ticks: Consume 2 Blue + 1 White → Produce ...",
+      "converted": "Every 3 Ticks: Consume 2 Blue + 1 White -> Produce..."
+    },
+    {
+      "row": 158,
+      "column": "E",
+      "original": "Every 4 Ticks: Consume 3 Blue → Produce 1 HEAT + 1...",
+      "converted": "Every 4 Ticks: Consume 3 Blue -> Produce 1 HEAT + ..."
+    },
+    {
+      "row": 160,
+      "column": "E",
+      "original": "Every 3 Ticks: Consume 1 HEAT → Draw 1 card",
+      "converted": "Every 3 Ticks: Consume 1 HEAT -> Draw 1 card"
+    },
+    {
+      "row": 161,
+      "column": "E",
+      "original": "Consume 3 Blue → All draw effects trigger",
+      "converted": "Consume 3 Blue -> All draw effects trigger"
+    },
+    {
+      "row": 166,
+      "column": "E",
+      "original": "Consume 3 Green → Draw 1 card",
+      "converted": "Consume 3 Green -> Draw 1 card"
+    },
+    {
+      "row": 167,
+      "column": "E",
+      "original": "Consume 6 Green → Draw 2 cards",
+      "converted": "Consume 6 Green -> Draw 2 cards"
+    },
+    {
+      "row": 168,
+      "column": "E",
+      "original": "Consume 2 MOMENTUM → Draw 1 card",
+      "converted": "Consume 2 MOMENTUM -> Draw 1 card"
+    },
+    {
+      "row": 169,
+      "column": "E",
+      "original": "Consume 2 ENTROPY → Draw 1 card",
+      "converted": "Consume 2 ENTROPY -> Draw 1 card"
+    },
+    {
+      "row": 170,
+      "column": "E",
+      "original": "Consume 1 MOMENTUM → Produce 3 Green",
+      "converted": "Consume 1 MOMENTUM -> Produce 3 Green"
+    },
+    {
+      "row": 171,
+      "column": "E",
+      "original": "Consume 2 MOMENTUM → Deal 4 damage",
+      "converted": "Consume 2 MOMENTUM -> Deal 4 damage"
+    },
+    {
+      "row": 172,
+      "column": "E",
+      "original": "Consume 1 ENTROPY → Produce 3 Green",
+      "converted": "Consume 1 ENTROPY -> Produce 3 Green"
+    },
+    {
+      "row": 173,
+      "column": "E",
+      "original": "Consume 1 ENTROPY → Apply 3 POISON",
+      "converted": "Consume 1 ENTROPY -> Apply 3 POISON"
+    },
+    {
+      "row": 177,
+      "column": "E",
+      "original": "Every 3 Ticks: Consume 2 Green + 1 Red → Produce 2...",
+      "converted": "Every 3 Ticks: Consume 2 Green + 1 Red -> Produce ..."
+    },
+    {
+      "row": 178,
+      "column": "E",
+      "original": "Every 3 Ticks: Consume 2 Green + 1 Black → Produce...",
+      "converted": "Every 3 Ticks: Consume 2 Green + 1 Black -> Produc..."
+    },
+    {
+      "row": 179,
+      "column": "E",
+      "original": "Every 4 Ticks: Consume 3 Green → Produce 1 MOMENTU...",
+      "converted": "Every 4 Ticks: Consume 3 Green -> Produce 1 MOMENT..."
+    },
+    {
+      "row": 184,
+      "column": "E",
+      "original": "Consume 5 Green → Deal 3 damage to all",
+      "converted": "Consume 5 Green -> Deal 3 damage to all"
+    },
+    {
+      "row": 185,
+      "column": "E",
+      "original": "Consume 1 ENTROPY → Apply 2 POISON to all",
+      "converted": "Consume 1 ENTROPY -> Apply 2 POISON to all"
+    },
+    {
+      "row": 191,
+      "column": "E",
+      "original": "Consume 2 White → Draw 1 card",
+      "converted": "Consume 2 White -> Draw 1 card"
+    },
+    {
+      "row": 192,
+      "column": "E",
+      "original": "Consume 4 White → Draw 2 cards",
+      "converted": "Consume 4 White -> Draw 2 cards"
+    },
+    {
+      "row": 193,
+      "column": "E",
+      "original": "Consume 1 PRECISION → Draw 1 card",
+      "converted": "Consume 1 PRECISION -> Draw 1 card"
+    },
+    {
+      "row": 194,
+      "column": "E",
+      "original": "Consume 1 BALANCE → Draw 1 card",
+      "converted": "Consume 1 BALANCE -> Draw 1 card"
+    },
+    {
+      "row": 196,
+      "column": "E",
+      "original": "Consume 1 PRECISION → Heal 3 HP",
+      "converted": "Consume 1 PRECISION -> Heal 3 HP"
+    },
+    {
+      "row": 197,
+      "column": "E",
+      "original": "Consume 1 PRECISION → Block 3 damage",
+      "converted": "Consume 1 PRECISION -> Block 3 damage"
+    },
+    {
+      "row": 198,
+      "column": "E",
+      "original": "Consume 1 BALANCE → Deal 2 damage",
+      "converted": "Consume 1 BALANCE -> Deal 2 damage"
+    },
+    {
+      "row": 199,
+      "column": "E",
+      "original": "Consume 1 BALANCE → Block 4 damage",
+      "converted": "Consume 1 BALANCE -> Block 4 damage"
+    },
+    {
+      "row": 203,
+      "column": "E",
+      "original": "Every 3 Ticks: Consume 2 White + 1 Blue → Produce ...",
+      "converted": "Every 3 Ticks: Consume 2 White + 1 Blue -> Produce..."
+    },
+    {
+      "row": 204,
+      "column": "E",
+      "original": "Every 3 Ticks: Consume 2 White + 1 Black → Produce...",
+      "converted": "Every 3 Ticks: Consume 2 White + 1 Black -> Produc..."
+    },
+    {
+      "row": 205,
+      "column": "E",
+      "original": "Every 4 Ticks: Consume 3 White → Produce 1 PRECISI...",
+      "converted": "Every 4 Ticks: Consume 3 White -> Produce 1 PRECIS..."
+    },
+    {
+      "row": 207,
+      "column": "E",
+      "original": "Consume 3 White → Heal 2 HP",
+      "converted": "Consume 3 White -> Heal 2 HP"
+    },
+    {
+      "row": 208,
+      "column": "E",
+      "original": "Consume 4 White → Block 5 damage",
+      "converted": "Consume 4 White -> Block 5 damage"
+    },
+    {
+      "row": 212,
+      "column": "E",
+      "original": "Consume 2 Black → Apply 2 POISON",
+      "converted": "Consume 2 Black -> Apply 2 POISON"
+    },
+    {
+      "row": 213,
+      "column": "E",
+      "original": "Consume 1 ENTROPY → Apply 4 POISON",
+      "converted": "Consume 1 ENTROPY -> Apply 4 POISON"
+    },
+    {
+      "row": 215,
+      "column": "E",
+      "original": "Consume 3 Black → Draw 1 card",
+      "converted": "Consume 3 Black -> Draw 1 card"
+    },
+    {
+      "row": 216,
+      "column": "E",
+      "original": "Consume 6 Black → Draw 2 cards",
+      "converted": "Consume 6 Black -> Draw 2 cards"
+    },
+    {
+      "row": 217,
+      "column": "E",
+      "original": "Consume 2 BALANCE → Draw 1 card",
+      "converted": "Consume 2 BALANCE -> Draw 1 card"
+    },
+    {
+      "row": 218,
+      "column": "E",
+      "original": "Consume 2 ENTROPY → Draw 1 card",
+      "converted": "Consume 2 ENTROPY -> Draw 1 card"
+    },
+    {
+      "row": 219,
+      "column": "E",
+      "original": "Consume 1 BALANCE → Produce 3 Black",
+      "converted": "Consume 1 BALANCE -> Produce 3 Black"
+    },
+    {
+      "row": 220,
+      "column": "E",
+      "original": "Consume 1 BALANCE → Block 3 damage",
+      "converted": "Consume 1 BALANCE -> Block 3 damage"
+    },
+    {
+      "row": 221,
+      "column": "E",
+      "original": "Consume 1 ENTROPY → Produce 3 Black",
+      "converted": "Consume 1 ENTROPY -> Produce 3 Black"
+    },
+    {
+      "row": 222,
+      "column": "E",
+      "original": "Consume 2 ENTROPY → Deal 5 damage",
+      "converted": "Consume 2 ENTROPY -> Deal 5 damage"
+    },
+    {
+      "row": 226,
+      "column": "E",
+      "original": "Every 3 Ticks: Consume 2 Black + 1 White → Produce...",
+      "converted": "Every 3 Ticks: Consume 2 Black + 1 White -> Produc..."
+    },
+    {
+      "row": 227,
+      "column": "E",
+      "original": "Every 3 Ticks: Consume 2 Black + 1 Green → Produce...",
+      "converted": "Every 3 Ticks: Consume 2 Black + 1 Green -> Produc..."
+    },
+    {
+      "row": 228,
+      "column": "E",
+      "original": "Every 4 Ticks: Consume 3 Black → Produce 1 BALANCE...",
+      "converted": "Every 4 Ticks: Consume 3 Black -> Produce 1 BALANC..."
+    },
+    {
+      "row": 230,
+      "column": "E",
+      "original": "Consume 3 Black → Deal 2 damage",
+      "converted": "Consume 3 Black -> Deal 2 damage"
+    },
+    {
+      "row": 231,
+      "column": "E",
+      "original": "Consume 5 Black → Deal 2 damage to all",
+      "converted": "Consume 5 Black -> Deal 2 damage to all"
+    },
+    {
+      "row": 239,
+      "column": "E",
+      "original": "Consume 1 MOMENTUM → FASTER 3, Draw 1",
+      "converted": "Consume 1 MOMENTUM -> FASTER 3, Draw 1"
+    },
+    {
+      "row": 240,
+      "column": "E",
+      "original": "MOMENTARY: Consume 2 Green → FASTER 2",
+      "converted": "MOMENTARY: Consume 2 Green -> FASTER 2"
+    },
+    {
+      "row": 242,
+      "column": "E",
+      "original": "Every 4 Ticks: Consume 2 Green + 1 Black → Produce...",
+      "converted": "Every 4 Ticks: Consume 2 Green + 1 Black -> Produc..."
+    },
+    {
+      "row": 243,
+      "column": "E",
+      "original": "Every 3 Ticks: Consume 3 Smallest → Produce 1 MOME...",
+      "converted": "Every 3 Ticks: Consume 3 Smallest -> Produce 1 MOM..."
+    },
+    {
+      "row": 245,
+      "column": "E",
+      "original": "Consume 2 Green → FASTER 2, Draw 1",
+      "converted": "Consume 2 Green -> FASTER 2, Draw 1"
+    },
+    {
+      "row": 259,
+      "column": "E",
+      "original": "Every 2 Ticks: Consume 1 Green → 0.5 MOMENTUM",
+      "converted": "Every 2 Ticks: Consume 1 Green -> 0.5 MOMENTUM"
+    },
+    {
+      "row": 260,
+      "column": "E",
+      "original": "Every 4 Ticks: Consume 2 Green + 1 Red → 2 MOMENTU...",
+      "converted": "Every 4 Ticks: Consume 2 Green + 1 Red -> 2 MOMENT..."
+    },
+    {
+      "row": 261,
+      "column": "E",
+      "original": "Every 5 Ticks: Consume 3 Green → 2.5 MOMENTUM",
+      "converted": "Every 5 Ticks: Consume 3 Green -> 2.5 MOMENTUM"
+    },
+    {
+      "row": 262,
+      "column": "E",
+      "original": "Every 3 Ticks: Consume 2 Largest → 1 MOMENTUM",
+      "converted": "Every 3 Ticks: Consume 2 Largest -> 1 MOMENTUM"
+    },
+    {
+      "row": 263,
+      "column": "E",
+      "original": "Every 4 Ticks: Consume 2 Green + 1 Red → 1 HEAT",
+      "converted": "Every 4 Ticks: Consume 2 Green + 1 Red -> 1 HEAT"
+    },
+    {
+      "row": 264,
+      "column": "E",
+      "original": "Every 5 Ticks: Consume 3 Green → 1.5 HEAT",
+      "converted": "Every 5 Ticks: Consume 3 Green -> 1.5 HEAT"
+    },
+    {
+      "row": 265,
+      "column": "E",
+      "original": "Every 4 Ticks: Consume 2 Green + 1 Blue → 1 PRECIS...",
+      "converted": "Every 4 Ticks: Consume 2 Green + 1 Blue -> 1 PRECI..."
+    },
+    {
+      "row": 266,
+      "column": "E",
+      "original": "Every 6 Ticks: Consume 4 Green → 1 HEAT + 1 MOMENT...",
+      "converted": "Every 6 Ticks: Consume 4 Green -> 1 HEAT + 1 MOMEN..."
+    },
+    {
+      "row": 267,
+      "column": "E",
+      "original": "Every 3 Ticks: Consume 2 Green → 1 MOMENTUM + pois...",
+      "converted": "Every 3 Ticks: Consume 2 Green -> 1 MOMENTUM + poi..."
+    },
+    {
+      "row": 268,
+      "column": "E",
+      "original": "Consume 2 Green → Deal 2 damage",
+      "converted": "Consume 2 Green -> Deal 2 damage"
+    },
+    {
+      "row": 269,
+      "column": "E",
+      "original": "Consume 3 Green → Deal 3 damage",
+      "converted": "Consume 3 Green -> Deal 3 damage"
+    },
+    {
+      "row": 270,
+      "column": "E",
+      "original": "Consume 1 MOMENTUM → Deal 2 damage",
+      "converted": "Consume 1 MOMENTUM -> Deal 2 damage"
+    },
+    {
+      "row": 271,
+      "column": "E",
+      "original": "Consume 1.5 MOMENTUM → Deal 3 damage, HASTE 10%",
+      "converted": "Consume 1.5 MOMENTUM -> Deal 3 damage, HASTE 10%"
+    },
+    {
+      "row": 272,
+      "column": "E",
+      "original": "Consume 2 MOMENTUM → Deal 5 damage",
+      "converted": "Consume 2 MOMENTUM -> Deal 5 damage"
+    },
+    {
+      "row": 273,
+      "column": "E",
+      "original": "Consume 3 Largest → Deal 2 damage",
+      "converted": "Consume 3 Largest -> Deal 2 damage"
+    },
+    {
+      "row": 274,
+      "column": "E",
+      "original": "Consume 2 Smallest → Deal 1 damage, draw 1",
+      "converted": "Consume 2 Smallest -> Deal 1 damage, draw 1"
+    },
+    {
+      "row": 275,
+      "column": "E",
+      "original": "Consume 2 Green → Deal 1 damage + poison 2",
+      "converted": "Consume 2 Green -> Deal 1 damage + poison 2"
+    },
+    {
+      "row": 276,
+      "column": "E",
+      "original": "MOMENTARY: Consume 1 Green → Deal 1 damage",
+      "converted": "MOMENTARY: Consume 1 Green -> Deal 1 damage"
+    },
+    {
+      "row": 277,
+      "column": "E",
+      "original": "Consume 3 Green → Draw 2",
+      "converted": "Consume 3 Green -> Draw 2"
+    },
+    {
+      "row": 278,
+      "column": "E",
+      "original": "Consume 2 Green → Draw 1",
+      "converted": "Consume 2 Green -> Draw 1"
+    },
+    {
+      "row": 279,
+      "column": "E",
+      "original": "Consume 1 MOMENTUM → Draw 2",
+      "converted": "Consume 1 MOMENTUM -> Draw 2"
+    },
+    {
+      "row": 296,
+      "column": "E",
+      "original": "Every 4 Ticks: Consume 2 White + 1 Red → 1 HEAT",
+      "converted": "Every 4 Ticks: Consume 2 White + 1 Red -> 1 HEAT"
+    },
+    {
+      "row": 297,
+      "column": "E",
+      "original": "Every 4 Ticks: Consume 2 White + 1 Blue → 1 PRECIS...",
+      "converted": "Every 4 Ticks: Consume 2 White + 1 Blue -> 1 PRECI..."
+    },
+    {
+      "row": 298,
+      "column": "E",
+      "original": "Every 4 Ticks: Consume 2 White + 1 Green → 1 MOMEN...",
+      "converted": "Every 4 Ticks: Consume 2 White + 1 Green -> 1 MOME..."
+    },
+    {
+      "row": 299,
+      "column": "E",
+      "original": "Consume 2 White → Deal 2 damage",
+      "converted": "Consume 2 White -> Deal 2 damage"
+    },
+    {
+      "row": 300,
+      "column": "E",
+      "original": "Consume 3 White → Deal 3 damage",
+      "converted": "Consume 3 White -> Deal 3 damage"
+    },
+    {
+      "row": 301,
+      "column": "E",
+      "original": "Consume 4 White → Deal 4 damage",
+      "converted": "Consume 4 White -> Deal 4 damage"
+    },
+    {
+      "row": 302,
+      "column": "E",
+      "original": "Consume 3 Smallest → Deal 2 damage",
+      "converted": "Consume 3 Smallest -> Deal 2 damage"
+    },
+    {
+      "row": 303,
+      "column": "E",
+      "original": "Consume 4 Largest → Deal 3 damage",
+      "converted": "Consume 4 Largest -> Deal 3 damage"
+    },
+    {
+      "row": 304,
+      "column": "E",
+      "original": "MOMENTARY: Consume 1 White → Deal 1 damage",
+      "converted": "MOMENTARY: Consume 1 White -> Deal 1 damage"
+    },
+    {
+      "row": 305,
+      "column": "E",
+      "original": "Consume 2 White → Draw 1",
+      "converted": "Consume 2 White -> Draw 1"
+    },
+    {
+      "row": 306,
+      "column": "E",
+      "original": "Consume 3 White → Draw 2",
+      "converted": "Consume 3 White -> Draw 2"
+    },
+    {
+      "row": 315,
+      "column": "E",
+      "original": "MOMENTARY: Consume 2 White → Deal 2 damage",
+      "converted": "MOMENTARY: Consume 2 White -> Deal 2 damage"
+    },
+    {
+      "row": 316,
+      "column": "E",
+      "original": "Consume 3 White → Deal 3 damage, draw 1",
+      "converted": "Consume 3 White -> Deal 3 damage, draw 1"
+    },
+    {
+      "row": 317,
+      "column": "E",
+      "original": "Consume 4 White → Deal 5 damage",
+      "converted": "Consume 4 White -> Deal 5 damage"
+    },
+    {
+      "row": 318,
+      "column": "E",
+      "original": "Consume 1 HEAT → Deal 3 damage",
+      "converted": "Consume 1 HEAT -> Deal 3 damage"
+    },
+    {
+      "row": 319,
+      "column": "E",
+      "original": "Consume 1 MOMENTUM → Deal 3 damage",
+      "converted": "Consume 1 MOMENTUM -> Deal 3 damage"
+    },
+    {
+      "row": 320,
+      "column": "E",
+      "original": "Consume 1 PRECISION → Deal 4 damage",
+      "converted": "Consume 1 PRECISION -> Deal 4 damage"
+    },
+    {
+      "row": 321,
+      "column": "E",
+      "original": "Consume 2 Largest → Deal 2 damage",
+      "converted": "Consume 2 Largest -> Deal 2 damage"
+    },
+    {
+      "row": 322,
+      "column": "E",
+      "original": "Consume 3 Smallest → Deal 3 damage",
+      "converted": "Consume 3 Smallest -> Deal 3 damage"
+    },
+    {
+      "row": 323,
+      "column": "E",
+      "original": "Every 3 Ticks: Consume 2 White + 1 Red → 1.5 HEAT",
+      "converted": "Every 3 Ticks: Consume 2 White + 1 Red -> 1.5 HEAT"
+    },
+    {
+      "row": 324,
+      "column": "E",
+      "original": "Every 5 Ticks: Consume 4 White → 2 HEAT",
+      "converted": "Every 5 Ticks: Consume 4 White -> 2 HEAT"
+    },
+    {
+      "row": 325,
+      "column": "E",
+      "original": "Every 3 Ticks: Consume 2 White + 1 Green → 1.5 MOM...",
+      "converted": "Every 3 Ticks: Consume 2 White + 1 Green -> 1.5 MO..."
+    },
+    {
+      "row": 326,
+      "column": "E",
+      "original": "Every 4 Ticks: Consume 3 White → 1.5 MOMENTUM",
+      "converted": "Every 4 Ticks: Consume 3 White -> 1.5 MOMENTUM"
+    },
+    {
+      "row": 327,
+      "column": "E",
+      "original": "Every 3 Ticks: Consume 2 White + 1 Blue → 1.5 PREC...",
+      "converted": "Every 3 Ticks: Consume 2 White + 1 Blue -> 1.5 PRE..."
+    },
+    {
+      "row": 328,
+      "column": "E",
+      "original": "Every 4 Ticks: Consume 3 White → 1 PRECISION",
+      "converted": "Every 4 Ticks: Consume 3 White -> 1 PRECISION"
+    },
+    {
+      "row": 329,
+      "column": "E",
+      "original": "Every 5 Ticks: Consume 5 White → 1 HEAT + 1 MOMENT...",
+      "converted": "Every 5 Ticks: Consume 5 White -> 1 HEAT + 1 MOMEN..."
+    },
+    {
+      "row": 339,
+      "column": "E",
+      "original": "Every 3 Ticks: Consume 2 Black → 1 VOID",
+      "converted": "Every 3 Ticks: Consume 2 Black -> 1 VOID"
+    },
+    {
+      "row": 340,
+      "column": "E",
+      "original": "Every 4 Ticks: Consume 3 Black → 2 VOID",
+      "converted": "Every 4 Ticks: Consume 3 Black -> 2 VOID"
+    },
+    {
+      "row": 341,
+      "column": "E",
+      "original": "Every 4 Ticks: Consume 2 Black + 1 Red → 1.5 HEAT",
+      "converted": "Every 4 Ticks: Consume 2 Black + 1 Red -> 1.5 HEAT"
+    },
+    {
+      "row": 342,
+      "column": "E",
+      "original": "Every 4 Ticks: Consume 2 Black + 1 Green → 1.5 MOM...",
+      "converted": "Every 4 Ticks: Consume 2 Black + 1 Green -> 1.5 MO..."
+    },
+    {
+      "row": 343,
+      "column": "E",
+      "original": "Every 4 Ticks: Consume 2 Black + 1 Blue → 1.5 PREC...",
+      "converted": "Every 4 Ticks: Consume 2 Black + 1 Blue -> 1.5 PRE..."
+    },
+    {
+      "row": 344,
+      "column": "E",
+      "original": "Every 3 Ticks: Consume 3 Largest → 1 VOID",
+      "converted": "Every 3 Ticks: Consume 3 Largest -> 1 VOID"
+    },
+    {
+      "row": 345,
+      "column": "E",
+      "original": "Every 4 Ticks: Consume 4 Smallest → 1.5 VOID",
+      "converted": "Every 4 Ticks: Consume 4 Smallest -> 1.5 VOID"
+    },
+    {
+      "row": 346,
+      "column": "E",
+      "original": "Every 3 Ticks: Consume 2 Black → 1 MOMENTUM + pois...",
+      "converted": "Every 3 Ticks: Consume 2 Black -> 1 MOMENTUM + poi..."
+    },
+    {
+      "row": 347,
+      "column": "E",
+      "original": "Every 6 Ticks: Consume 5 Black → 2 VOID + 1 HEAT +...",
+      "converted": "Every 6 Ticks: Consume 5 Black -> 2 VOID + 1 HEAT ..."
+    },
+    {
+      "row": 348,
+      "column": "E",
+      "original": "Consume 2 Black → Deal 2 damage",
+      "converted": "Consume 2 Black -> Deal 2 damage"
+    },
+    {
+      "row": 349,
+      "column": "E",
+      "original": "Consume 3 Black → Deal 3 damage",
+      "converted": "Consume 3 Black -> Deal 3 damage"
+    },
+    {
+      "row": 350,
+      "column": "E",
+      "original": "Consume 4 Black → Deal 5 damage",
+      "converted": "Consume 4 Black -> Deal 5 damage"
+    },
+    {
+      "row": 351,
+      "column": "E",
+      "original": "Consume 1 VOID → Deal 4 damage",
+      "converted": "Consume 1 VOID -> Deal 4 damage"
+    },
+    {
+      "row": 352,
+      "column": "E",
+      "original": "Consume 2 VOID → Deal 7 damage",
+      "converted": "Consume 2 VOID -> Deal 7 damage"
+    },
+    {
+      "row": 353,
+      "column": "E",
+      "original": "Consume 2 Black → Deal 1 damage + poison 3",
+      "converted": "Consume 2 Black -> Deal 1 damage + poison 3"
+    },
+    {
+      "row": 354,
+      "column": "E",
+      "original": "Consume 3 Largest → Deal 3 damage",
+      "converted": "Consume 3 Largest -> Deal 3 damage"
+    },
+    {
+      "row": 355,
+      "column": "E",
+      "original": "Consume 2 Smallest → Deal 2 damage",
+      "converted": "Consume 2 Smallest -> Deal 2 damage"
+    },
+    {
+      "row": 356,
+      "column": "E",
+      "original": "MOMENTARY: Consume 1 Black → Deal 1 damage",
+      "converted": "MOMENTARY: Consume 1 Black -> Deal 1 damage"
+    },
+    {
+      "row": 357,
+      "column": "E",
+      "original": "Consume 1 HEAT → Deal 3 damage + poison 1",
+      "converted": "Consume 1 HEAT -> Deal 3 damage + poison 1"
+    },
+    {
+      "row": 358,
+      "column": "E",
+      "original": "Consume 2 Black → Draw 1",
+      "converted": "Consume 2 Black -> Draw 1"
+    },
+    {
+      "row": 359,
+      "column": "E",
+      "original": "Consume 3 Black → Draw 2",
+      "converted": "Consume 3 Black -> Draw 2"
+    },
+    {
+      "row": 362,
+      "column": "E",
+      "original": "Consume 3 White → Draw 2",
+      "converted": "Consume 3 White -> Draw 2"
+    },
+    {
+      "row": 363,
+      "column": "E",
+      "original": "Consume 2 White → Draw 1",
+      "converted": "Consume 2 White -> Draw 1"
+    },
+    {
+      "row": 365,
+      "column": "E",
+      "original": "Consume 4 White → Draw 3",
+      "converted": "Consume 4 White -> Draw 3"
+    },
+    {
+      "row": 374,
+      "column": "E",
+      "original": "Consume 2 Blue → Deal 1 damage per CRYSTAL",
+      "converted": "Consume 2 Blue -> Deal 1 damage per CRYSTAL"
+    },
+    {
+      "row": 375,
+      "column": "E",
+      "original": "Consume 3 Blue → Deal 2 damage +1 per TOOL",
+      "converted": "Consume 3 Blue -> Deal 2 damage +1 per TOOL"
+    },
+    {
+      "row": 376,
+      "column": "E",
+      "original": "Consume 1 PRECISION → Deal 3 damage, if 3+ ORDER d...",
+      "converted": "Consume 1 PRECISION -> Deal 3 damage, if 3+ ORDER ..."
+    },
+    {
+      "row": 377,
+      "column": "E",
+      "original": "Consume 1.5 Blue → Deal 1 damage, MICRO cards cost...",
+      "converted": "Consume 1.5 Blue -> Deal 1 damage, MICRO cards cos..."
+    },
+    {
+      "row": 378,
+      "column": "E",
+      "original": "Consume 4 Blue → Deal 5 damage to all with < 3 HP",
+      "converted": "Consume 4 Blue -> Deal 5 damage to all with < 3 HP"
+    },
+    {
+      "row": 379,
+      "column": "E",
+      "original": "Consume 2 PRECISION → Deal 4 damage, all MECH HAST...",
+      "converted": "Consume 2 PRECISION -> Deal 4 damage, all MECH HAS..."
+    },
+    {
+      "row": 380,
+      "column": "E",
+      "original": "Consume 2 Blue → Draw 1 +1 per 2 TOOL",
+      "converted": "Consume 2 Blue -> Draw 1 +1 per 2 TOOL"
+    },
+    {
+      "row": 381,
+      "column": "E",
+      "original": "Consume 3 Blue → Draw 2, +1 if 4+ CRYSTAL",
+      "converted": "Consume 3 Blue -> Draw 2, +1 if 4+ CRYSTAL"
+    },
+    {
+      "row": 382,
+      "column": "E",
+      "original": "Consume 1.5 Blue → Draw 1, ORDER cards cost 1 less",
+      "converted": "Consume 1.5 Blue -> Draw 1, ORDER cards cost 1 les..."
+    },
+    {
+      "row": 384,
+      "column": "E",
+      "original": "Consume 1 PRECISION → Draw 2",
+      "converted": "Consume 1 PRECISION -> Draw 2"
+    },
+    {
+      "row": 385,
+      "column": "E",
+      "original": "Every 3 Ticks: Consume 1 Blue per CRYSTAL → That m...",
+      "converted": "Every 3 Ticks: Consume 1 Blue per CRYSTAL -> That ..."
+    },
+    {
+      "row": 386,
+      "column": "E",
+      "original": "Every 4 Ticks: Consume 2 Blue → 1 PRECISION, TOOL ...",
+      "converted": "Every 4 Ticks: Consume 2 Blue -> 1 PRECISION, TOOL..."
+    },
+    {
+      "row": 387,
+      "column": "E",
+      "original": "Every 4 Ticks: If 3+ ORDER, consume 2 Blue → 2 PRE...",
+      "converted": "Every 4 Ticks: If 3+ ORDER, consume 2 Blue -> 2 PR..."
+    },
+    {
+      "row": 388,
+      "column": "E",
+      "original": "Every 2 Ticks: Consume 1 Blue → 0.5 PRECISION",
+      "converted": "Every 2 Ticks: Consume 1 Blue -> 0.5 PRECISION"
+    },
+    {
+      "row": 389,
+      "column": "E",
+      "original": "Every 5 Ticks: Consume 3 Blue → 2 PRECISION + 1 HE...",
+      "converted": "Every 5 Ticks: Consume 3 Blue -> 2 PRECISION + 1 H..."
+    }
+  ]
+}

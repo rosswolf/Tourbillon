@@ -195,34 +195,34 @@ static func _handle_mill(amount: int) -> void:
 
 # Force generation handlers
 static func _handle_generate_force(force_type: GameResource.Type, amount: float) -> void:
-	if GlobalGameManager.resource_manager:
-		GlobalGameManager.resource_manager.increment_resource(force_type, amount)
+	if GlobalGameManager.hero:
+		GlobalGameManager.hero.add_force(force_type, int(amount))
 		print("Generated ", amount, " of ", GameResource.Type.keys()[force_type])
 
 static func _handle_consume_force(force_type: GameResource.Type, amount: float) -> bool:
-	if not GlobalGameManager.resource_manager:
+	if not GlobalGameManager.hero:
 		return false
 	
-	if GlobalGameManager.resource_manager.can_afford_cost(force_type, amount):
-		GlobalGameManager.resource_manager.decrement_resource(force_type, amount)
+	if GlobalGameManager.hero.has_force(force_type, int(amount)):
+		GlobalGameManager.hero.consume_force(force_type, int(amount))
 		return true
 	return false
 
 static func _handle_consume_any(amount: float) -> bool:
-	if not GlobalGameManager.resource_manager:
+	if not GlobalGameManager.hero:
 		return false
 	
 	# Try to consume from any available force pool
 	for force_type in [GameResource.Type.RED, GameResource.Type.BLUE, 
 						GameResource.Type.GREEN, GameResource.Type.WHITE, 
 						GameResource.Type.PURPLE]:
-		if GlobalGameManager.resource_manager.can_afford_cost(force_type, amount):
-			GlobalGameManager.resource_manager.decrement_resource(force_type, amount)
+		if GlobalGameManager.hero.has_force(force_type, int(amount)):
+			GlobalGameManager.hero.consume_force(force_type, int(amount))
 			return true
 	return false
 
 static func _handle_consume_max(amount: float) -> bool:
-	if not GlobalGameManager.resource_manager:
+	if not GlobalGameManager.hero:
 		return false
 	
 	# Consume from the highest pool first
@@ -232,13 +232,13 @@ static func _handle_consume_max(amount: float) -> bool:
 	for force_type in [GameResource.Type.RED, GameResource.Type.BLUE, 
 						GameResource.Type.GREEN, GameResource.Type.WHITE, 
 						GameResource.Type.PURPLE]:
-		var current: float = GlobalGameManager.resource_manager.get_resource(force_type)
-		if current > highest_amount:
-			highest_amount = current
+		var resource = GlobalGameManager.hero.get_force_resource(force_type)
+		if resource and resource.current > highest_amount:
+			highest_amount = resource.current
 			highest_type = force_type
 	
 	if highest_amount >= amount:
-		GlobalGameManager.resource_manager.decrement_resource(highest_type, amount)
+		GlobalGameManager.hero.consume_force(highest_type, int(amount))
 		return true
 	return false
 
@@ -450,17 +450,17 @@ static func _complex_sacrifice_draw(_source: Node) -> void:
 
 static func _complex_force_cascade(_source: Node) -> void:
 	# Convert all forces to damage (1:1 ratio)
-	if not GlobalGameManager.resource_manager:
+	if not GlobalGameManager.hero:
 		return
 	
 	var total_damage: float = 0.0
 	for force_type in [GameResource.Type.RED, GameResource.Type.BLUE, 
 						GameResource.Type.GREEN, GameResource.Type.WHITE, 
 						GameResource.Type.PURPLE]:
-		var amount: float = GlobalGameManager.resource_manager.get_resource(force_type)
-		if amount > 0:
-			GlobalGameManager.resource_manager.set_resource(force_type, 0)
-			total_damage += amount
+		var resource = GlobalGameManager.hero.get_force_resource(force_type)
+		if resource and resource.current > 0:
+			total_damage += resource.current
+			resource.current = 0  # Clear the resource
 	
 	if total_damage > 0:
 		_handle_damage_all(total_damage)
@@ -496,11 +496,11 @@ static func _complex_beast_pack(_source: Node) -> void:
 
 static func _complex_heat_threshold(_source: Node) -> void:
 	# "If Heat > 5, draw 1 card"
-	if not GlobalGameManager.resource_manager:
+	if not GlobalGameManager.hero:
 		return
 	
-	var heat: float = GlobalGameManager.resource_manager.get_resource(GameResource.Type.HEAT)
-	if heat > 5:
+	var resource = GlobalGameManager.hero.get_force_resource(GameResource.Type.HEAT)
+	if resource and resource.current > 5:
 		_handle_draw(1)
 
 # Cost modifier complex effects
@@ -588,19 +588,20 @@ static func _complex_void_hunger(_source: Node) -> void:
 	# "Consume 5 any forces → 7 damage"
 	var total_consumed: float = 0.0
 	
-	if not GlobalGameManager.resource_manager:
+	if not GlobalGameManager.hero:
 		return
 	
 	# Try to consume 5 forces from any pools
 	for force_type in [GameResource.Type.RED, GameResource.Type.BLUE, 
 						GameResource.Type.GREEN, GameResource.Type.WHITE, 
 						GameResource.Type.PURPLE]:
-		var available: float = GlobalGameManager.resource_manager.get_resource(force_type)
-		var to_consume: float = min(available, 5.0 - total_consumed)
-		
-		if to_consume > 0:
-			GlobalGameManager.resource_manager.decrement_resource(force_type, to_consume)
-			total_consumed += to_consume
+		var resource = GlobalGameManager.hero.get_force_resource(force_type)
+		if resource:
+			var to_consume: int = min(resource.current, int(5.0 - total_consumed))
+			
+			if to_consume > 0:
+				GlobalGameManager.hero.consume_force(force_type, to_consume)
+				total_consumed += to_consume
 		
 		if total_consumed >= 5.0:
 			break
@@ -655,55 +656,63 @@ static func _complex_mech_automation(_source: Node) -> void:
 # Threshold complex effects
 static func _complex_overheat(_source: Node) -> void:
 	# "If Heat >= 10: Deal 15 damage, lose all Heat"
-	if not GlobalGameManager.resource_manager:
+	if not GlobalGameManager.hero:
 		return
 	
-	var heat: float = GlobalGameManager.resource_manager.get_resource(GameResource.Type.RED)
-	if heat >= 10:
+	var resource = GlobalGameManager.hero.get_force_resource(GameResource.Type.RED)
+	if resource and resource.current >= 10:
 		_handle_damage(15)
-		GlobalGameManager.resource_manager.set_resource(GameResource.Type.RED, 0)
+		resource.current = 0
 
 static func _complex_precision_strike(_source: Node) -> void:
 	# "If Precision >= 7: Deal damage equal to Precision to weakest"
-	if not GlobalGameManager.resource_manager:
+	if not GlobalGameManager.hero:
 		return
 	
-	var precision: float = GlobalGameManager.resource_manager.get_resource(GameResource.Type.BLUE)
-	if precision >= 7:
-		_handle_damage_weakest(precision)
+	var resource = GlobalGameManager.hero.get_force_resource(GameResource.Type.BLUE)
+	if resource and resource.current >= 7:
+		_handle_damage_weakest(resource.current)
 
 static func _complex_momentum_avalanche(_source: Node) -> void:
 	# "If Momentum >= 8: Double all Momentum, deal that much damage"
-	if not GlobalGameManager.resource_manager:
+	if not GlobalGameManager.hero:
 		return
 	
-	var momentum: float = GlobalGameManager.resource_manager.get_resource(GameResource.Type.GREEN)
-	if momentum >= 8:
-		GlobalGameManager.resource_manager.set_resource(GameResource.Type.GREEN, momentum * 2)
-		_handle_damage(momentum * 2)
+	var resource = GlobalGameManager.hero.get_force_resource(GameResource.Type.GREEN)
+	if resource and resource.current >= 8:
+		var damage_amount = resource.current * 2
+		resource.current = damage_amount  # Double the momentum
+		_handle_damage(damage_amount)
 
 static func _complex_perfect_balance(_source: Node) -> void:
 	# "If all forces equal and > 0: Draw 3, shield 5"
-	if not GlobalGameManager.resource_manager:
+	if not GlobalGameManager.hero:
 		return
 	
-	var red: float = GlobalGameManager.resource_manager.get_resource(GameResource.Type.RED)
-	var blue: float = GlobalGameManager.resource_manager.get_resource(GameResource.Type.BLUE)
-	var green: float = GlobalGameManager.resource_manager.get_resource(GameResource.Type.GREEN)
-	var white: float = GlobalGameManager.resource_manager.get_resource(GameResource.Type.WHITE)
-	var purple: float = GlobalGameManager.resource_manager.get_resource(GameResource.Type.PURPLE)
+	var red_res = GlobalGameManager.hero.get_force_resource(GameResource.Type.RED)
+	var blue_res = GlobalGameManager.hero.get_force_resource(GameResource.Type.BLUE)
+	var green_res = GlobalGameManager.hero.get_force_resource(GameResource.Type.GREEN)
+	var white_res = GlobalGameManager.hero.get_force_resource(GameResource.Type.WHITE)
+	var purple_res = GlobalGameManager.hero.get_force_resource(GameResource.Type.PURPLE)
 	
-	if red > 0 and red == blue and blue == green and green == white and white == purple:
-		_handle_draw(3)
-		_handle_shield(5)
+	if red_res and blue_res and green_res and white_res and purple_res:
+		var red = red_res.current
+		var blue = blue_res.current
+		var green = green_res.current
+		var white = white_res.current
+		var purple = purple_res.current
+		
+		if red > 0 and red == blue and blue == green and green == white and white == purple:
+			_handle_draw(3)
+			_handle_shield(5)
 
 static func _complex_entropy_cascade(_source: Node) -> void:
 	# "If Entropy >= 6: All gears take 1 damage, deal 10 to all enemies"
-	if not GlobalGameManager.resource_manager:
+	if not GlobalGameManager.hero:
 		return
 	
-	var entropy: float = GlobalGameManager.resource_manager.get_resource(GameResource.Type.PURPLE)
-	if entropy >= 6:
+	var resource = GlobalGameManager.hero.get_force_resource(GameResource.Type.PURPLE)
+	if resource and resource.current >= 6:
 		# Damage all enemies
 		_handle_damage_all(10)
 
@@ -815,14 +824,16 @@ static func _complex_destroy_draw(source: Node) -> void:
 # Scaling complex effects
 static func _complex_force_scaling(_source: Node) -> void:
 	# "Deal damage equal to total forces"
-	if not GlobalGameManager.resource_manager:
+	if not GlobalGameManager.hero:
 		return
 	
 	var total: float = 0.0
 	for force_type in [GameResource.Type.RED, GameResource.Type.BLUE, 
 						GameResource.Type.GREEN, GameResource.Type.WHITE, 
 						GameResource.Type.PURPLE]:
-		total += GlobalGameManager.resource_manager.get_resource(force_type)
+		var resource = GlobalGameManager.hero.get_force_resource(force_type)
+		if resource:
+			total += resource.current
 	
 	if total > 0:
 		_handle_damage(total)
@@ -849,40 +860,48 @@ static func _complex_gear_scaling(_source: Node) -> void:
 # Combo complex effects
 static func _complex_red_blue_combo(_source: Node) -> void:
 	# "If Red + Blue >= 10: Create HEAT, deal 12 pierce damage"
-	if not GlobalGameManager.resource_manager:
+	if not GlobalGameManager.hero:
 		return
 	
-	var red: float = GlobalGameManager.resource_manager.get_resource(GameResource.Type.RED)
-	var blue: float = GlobalGameManager.resource_manager.get_resource(GameResource.Type.BLUE)
+	var red_res = GlobalGameManager.hero.get_force_resource(GameResource.Type.RED)
+	var blue_res = GlobalGameManager.hero.get_force_resource(GameResource.Type.BLUE)
 	
-	if red + blue >= 10:
-		# Consume to create HEAT
-		var to_consume: float = min(red, blue, 5)
-		GlobalGameManager.resource_manager.decrement_resource(GameResource.Type.RED, to_consume)
-		GlobalGameManager.resource_manager.decrement_resource(GameResource.Type.BLUE, to_consume)
-		_handle_generate_force(GameResource.Type.HEAT, to_consume)
-		# Pierce damage (would need pierce flag)
-		_handle_damage(12)
+	if red_res and blue_res:
+		var red = red_res.current
+		var blue = blue_res.current
+		
+		if red + blue >= 10:
+			# Consume to create HEAT
+			var to_consume: int = min(red, blue, 5)
+			GlobalGameManager.hero.consume_force(GameResource.Type.RED, to_consume)
+			GlobalGameManager.hero.consume_force(GameResource.Type.BLUE, to_consume)
+			_handle_generate_force(GameResource.Type.HEAT, to_consume)
+			# Pierce damage (would need pierce flag)
+			_handle_damage(12)
 
 static func _complex_white_purple_combo(_source: Node) -> void:
 	# "If White + Purple >= 10: Create BALANCE, heal 5, shield 5"
-	if not GlobalGameManager.resource_manager:
+	if not GlobalGameManager.hero:
 		return
 	
-	var white: float = GlobalGameManager.resource_manager.get_resource(GameResource.Type.WHITE)
-	var purple: float = GlobalGameManager.resource_manager.get_resource(GameResource.Type.PURPLE)
+	var white_res = GlobalGameManager.hero.get_force_resource(GameResource.Type.WHITE)
+	var purple_res = GlobalGameManager.hero.get_force_resource(GameResource.Type.PURPLE)
 	
-	if white + purple >= 10:
-		var to_consume: float = min(white, purple, 5)
-		GlobalGameManager.resource_manager.decrement_resource(GameResource.Type.WHITE, to_consume)
-		GlobalGameManager.resource_manager.decrement_resource(GameResource.Type.PURPLE, to_consume)
-		_handle_generate_force(GameResource.Type.BALANCE, to_consume)
-		_handle_heal(5)
-		_handle_shield(5)
+	if white_res and purple_res:
+		var white = white_res.current
+		var purple = purple_res.current
+		
+		if white + purple >= 10:
+			var to_consume: int = min(white, purple, 5)
+			GlobalGameManager.hero.consume_force(GameResource.Type.WHITE, to_consume)
+			GlobalGameManager.hero.consume_force(GameResource.Type.PURPLE, to_consume)
+			_handle_generate_force(GameResource.Type.BALANCE, to_consume)
+			_handle_heal(5)
+			_handle_shield(5)
 
 static func _complex_rainbow_burst(_source: Node) -> void:
 	# "If have all 5 force types: Consume all, deal that much to all, draw 5"
-	if not GlobalGameManager.resource_manager:
+	if not GlobalGameManager.hero:
 		return
 	
 	var has_all: bool = true
@@ -891,18 +910,20 @@ static func _complex_rainbow_burst(_source: Node) -> void:
 	for force_type in [GameResource.Type.RED, GameResource.Type.BLUE, 
 						GameResource.Type.GREEN, GameResource.Type.WHITE, 
 						GameResource.Type.PURPLE]:
-		var amount: float = GlobalGameManager.resource_manager.get_resource(force_type)
-		if amount <= 0:
+		var resource = GlobalGameManager.hero.get_force_resource(force_type)
+		if not resource or resource.current <= 0:
 			has_all = false
 			break
-		total += amount
+		total += resource.current
 	
 	if has_all:
 		# Consume all forces
 		for force_type in [GameResource.Type.RED, GameResource.Type.BLUE, 
 							GameResource.Type.GREEN, GameResource.Type.WHITE, 
 							GameResource.Type.PURPLE]:
-			GlobalGameManager.resource_manager.set_resource(force_type, 0)
+			var resource = GlobalGameManager.hero.get_force_resource(force_type)
+			if resource:
+				resource.current = 0
 		
 		_handle_damage_all(total)
 		_handle_draw(5)
@@ -931,26 +952,28 @@ static func can_satisfy_effect(effect_string: String) -> bool:
 			# Check if we can afford the consumption
 			match effect_type:
 				"consume_red", "pay_red":
-					if not GlobalGameManager.resource_manager.can_afford_cost(GameResource.Type.RED, value):
+					if not GlobalGameManager.hero or not GlobalGameManager.hero.has_force(GameResource.Type.RED, int(value)):
 						return false
 				"consume_blue", "pay_blue":
-					if not GlobalGameManager.resource_manager.can_afford_cost(GameResource.Type.BLUE, value):
+					if not GlobalGameManager.hero or not GlobalGameManager.hero.has_force(GameResource.Type.BLUE, int(value)):
 						return false
 				"consume_green", "pay_green":
-					if not GlobalGameManager.resource_manager.can_afford_cost(GameResource.Type.GREEN, value):
+					if not GlobalGameManager.hero or not GlobalGameManager.hero.has_force(GameResource.Type.GREEN, int(value)):
 						return false
 				"consume_white", "pay_white":
-					if not GlobalGameManager.resource_manager.can_afford_cost(GameResource.Type.WHITE, value):
+					if not GlobalGameManager.hero or not GlobalGameManager.hero.has_force(GameResource.Type.WHITE, int(value)):
 						return false
 				"consume_purple", "consume_black", "pay_purple", "pay_black":
-					if not GlobalGameManager.resource_manager.can_afford_cost(GameResource.Type.PURPLE, value):
+					if not GlobalGameManager.hero or not GlobalGameManager.hero.has_force(GameResource.Type.PURPLE, int(value)):
 						return false
 				"consume_any", "pay_any":
+					if not GlobalGameManager.hero:
+						return false
 					var can_afford_any: bool = false
 					for force_type in [GameResource.Type.RED, GameResource.Type.BLUE, 
 										GameResource.Type.GREEN, GameResource.Type.WHITE, 
 										GameResource.Type.PURPLE]:
-						if GlobalGameManager.resource_manager.can_afford_cost(force_type, value):
+						if GlobalGameManager.hero.has_force(force_type, int(value)):
 							can_afford_any = true
 							break
 					if not can_afford_any:
