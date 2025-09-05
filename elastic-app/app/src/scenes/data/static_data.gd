@@ -466,12 +466,16 @@ func convert_array_to_nested_dict(data_array: Array) -> Dictionary:
 	"""Convert array of records to nested dictionary using first field as key"""
 	#TYPE_EXEMPTION(Dictionary values are dynamic JSON objects)
 	var result_dict: Dictionary = {}
+	var sample_key = ""
 
 	for record in data_array:
 		if record.size() > 0:
 			# Get the first key in the record
 			var first_key = record.keys()[0]
 			var key_value = record[first_key]
+			
+			if sample_key.is_empty():
+				sample_key = first_key
 
 			# Use the value of the first field as the dictionary key
 			result_dict[key_value] = record
@@ -479,7 +483,7 @@ func convert_array_to_nested_dict(data_array: Array) -> Dictionary:
 			printerr("Empty record found in data array")
 			return {}
 	
-	print("[DEBUG] Created dictionary with ", result_dict.size(), " entries, first key: '", first_key, "'")
+	print("[DEBUG] Created dictionary with ", result_dict.size(), " entries using key: '", sample_key, "'")
 	return result_dict
 
 # Convenience method for getting an integer configuration_data value
