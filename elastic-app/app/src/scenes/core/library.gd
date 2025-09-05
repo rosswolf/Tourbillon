@@ -241,15 +241,27 @@ func discard_hand() -> void:
 func draw_card(how_many: int) -> void:
 	for i in range(how_many):
 		if deck.get_count() == 0:
-			for c in graveyard.get_all_cards():
-				move_card_to_zone2(c.instance_id, Zone.GRAVEYARD, Zone.DECK)
-			deck.shuffle()
+			# Try to reshuffle graveyard into deck
+			if graveyard.get_count() > 0:
+				for c in graveyard.get_all_cards():
+					move_card_to_zone2(c.instance_id, Zone.GRAVEYARD, Zone.DECK)
+				deck.shuffle()
+				print("[DEBUG] Deck exhausted - reshuffled ", graveyard.get_count(), " cards from graveyard")
+			else:
+				# Both deck and graveyard are empty - signal exhaustion
+				print("[DEBUG] DECK EXHAUSTION - Cannot draw card, deck and graveyard empty!")
+				GlobalSignals.signal_core_deck_exhausted()
+				return
 
 		var next_card: Card = deck.draw_top()
 		if next_card:
 			add_card_to_zone(next_card, Zone.HAND)
-
 			GlobalSignals.signal_core_card_drawn(next_card.instance_id)
+		else:
+			# This shouldn't happen after our checks above, but safety check
+			print("[DEBUG] ERROR: draw_top() returned null despite deck having cards!")
+			GlobalSignals.signal_game_over.emit("Deck Error - Unable to draw card!")
+			return
 
 func draw_new_hand(desired_hand_size: int) -> void:
 	discard_hand()

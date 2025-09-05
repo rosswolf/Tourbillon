@@ -221,6 +221,10 @@ signal core_max_hand_size_reached()
 func signal_core_max_hand_size_reached() -> void:
 	core_max_hand_size_reached.emit()
 
+signal core_deck_exhausted()
+func signal_core_deck_exhausted() -> void:
+	core_deck_exhausted.emit()
+
 signal core_battleground_targeting_preview_changed(space_index: int)
 func signal_core_battleground_targeting_preview_changed(space_index: int) -> void:
 	core_battleground_targeting_preview_changed.emit(space_index)

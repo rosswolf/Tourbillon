@@ -45,6 +45,7 @@ func _init() -> void:
 	GlobalSignals.core_slot_activated.connect(__on_core_slot_activated)
 	# Air meter signals removed - no longer used
 	GlobalSignals.core_card_drawn.connect(__on_core_card_drawn)
+	GlobalSignals.core_deck_exhausted.connect(__on_deck_exhausted)
 
 
 func __setup_starting_deck() -> void:
@@ -408,3 +409,7 @@ func __spawn_test_gremlin() -> void:
 		GlobalSignals.signal_core_mob_created(gremlin.instance_id)
 
 		print("[DEBUG] Spawned gremlin: ", gremlin.gremlin_name, " with ", gremlin.current_hp, " HP")
+
+func __on_deck_exhausted() -> void:
+	print("[DEBUG] Deck exhausted - triggering game over")
+	GlobalSignals.signal_core_game_over()

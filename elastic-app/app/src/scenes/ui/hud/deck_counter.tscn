@@ -1,0 +1,69 @@
+[gd_scene load_steps=2 format=3 uid="uid://deck_counter_001"]
+
+[ext_resource type="Script" path="res://src/scenes/ui/hud/deck_counter.gd" id="1_deck_counter"]
+
+[node name="DeckCounter" type="Control"]
+custom_minimum_size = Vector2(120, 60)
+script = ExtResource("1_deck_counter")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 120.0
+offset_bottom = 60.0
+theme_override_constants/separation = 10
+
+[node name="DeckBox" type="Panel" parent="HBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+tooltip_text = "Deck"
+
+[node name="DeckLabel" type="Label" parent="HBoxContainer/DeckBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DeckIcon" type="Label" parent="HBoxContainer/DeckBox"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 0.0
+anchor_bottom = 0.0
+offset_top = 2.0
+offset_right = 50.0
+offset_bottom = 18.0
+text = "Deck"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 10
+
+[node name="GraveyardBox" type="Panel" parent="HBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+tooltip_text = "Graveyard"
+
+[node name="GraveyardLabel" type="Label" parent="HBoxContainer/GraveyardBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GraveyardIcon" type="Label" parent="HBoxContainer/GraveyardBox"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 0.0
+anchor_bottom = 0.0
+offset_top = 2.0
+offset_right = 50.0
+offset_bottom = 18.0
+text = "Grave"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 10
