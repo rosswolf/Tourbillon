@@ -18,7 +18,8 @@
     "can_be_targeted": true,
     "summon_position": "bottom",
     "summon_cap": 0,
-    "move_pattern": "none",
+    "move_1": "attack=1",
+    "move_1_ticks": 2,
     "move_2": "attack=1",
     "move_2_ticks": 3
   },
@@ -41,7 +42,6 @@
     "can_be_targeted": true,
     "summon_position": "bottom",
     "summon_cap": 0,
-    "move_pattern": "none",
     "move_1": "attack=2",
     "move_1_ticks": 5
   },
@@ -64,7 +64,6 @@
     "can_be_targeted": true,
     "summon_position": "bottom",
     "summon_cap": 0,
-    "move_pattern": "passive",
     "move_1": "heat_soft_cap=4",
     "move_1_ticks": 0,
     "move_2": "attack=2",
@@ -89,7 +88,6 @@
     "can_be_targeted": true,
     "summon_position": "bottom",
     "summon_cap": 0,
-    "move_pattern": "cycle",
     "move_1": "drain_random=1",
     "move_1_ticks": 8,
     "move_2": "attack=1",
@@ -114,7 +112,6 @@
     "can_be_targeted": true,
     "summon_position": "bottom",
     "summon_cap": 0,
-    "move_pattern": "passive",
     "move_1": "max_resource_soft_cap=5",
     "move_1_ticks": 0,
     "move_2": "attack=3",
@@ -139,7 +136,6 @@
     "can_be_targeted": true,
     "summon_position": "bottom",
     "summon_cap": 2,
-    "move_pattern": "cycle",
     "move_1": "summon=basic_gnat",
     "move_1_ticks": 12
   },
@@ -162,7 +158,6 @@
     "can_be_targeted": true,
     "summon_position": "bottom",
     "summon_cap": 0,
-    "move_pattern": "passive",
     "move_1": "card_cost_penalty=1",
     "move_1_ticks": 5,
     "move_2": "force_discard=1",
@@ -189,7 +184,6 @@
     "can_be_targeted": true,
     "summon_position": "bottom",
     "summon_cap": 0,
-    "move_pattern": "passive",
     "move_1": "precision_soft_cap=3",
     "move_1_ticks": 0,
     "move_2": "attack=3",
@@ -214,7 +208,6 @@
     "can_be_targeted": true,
     "summon_position": "bottom",
     "summon_cap": 0,
-    "move_pattern": "sequence",
     "move_1": "drain_momentum=2",
     "move_1_ticks": 8,
     "move_2": "summon=basic_gnat",
@@ -241,7 +234,6 @@
     "can_be_targeted": true,
     "summon_position": "bottom",
     "summon_cap": 0,
-    "move_pattern": "sequence",
     "move_1": "max_resource_hard_cap=3",
     "move_1_ticks": 0,
     "move_2": "drain_largest=2",
@@ -270,9 +262,8 @@
     "can_be_targeted": true,
     "summon_position": "bottom",
     "summon_cap": 0,
-    "move_pattern": "cycle",
-    "move_2": "attack=2",
-    "move_2_ticks": 7
+    "move_1": "attack=2",
+    "move_1_ticks": 7
   },
   {
     "template_id": "gnat_spawner",
@@ -292,8 +283,7 @@
     "execute_immunity_threshold": 0,
     "can_be_targeted": true,
     "summon_position": "bottom",
-    "summon_cap": 4,
-    "move_pattern": "cycle"
+    "summon_cap": 4
   },
   {
     "template_id": "gear_grinder",
@@ -314,7 +304,6 @@
     "can_be_targeted": true,
     "summon_position": "bottom",
     "summon_cap": 0,
-    "move_pattern": "sequence",
     "move_1": "card_cost_penalty=2",
     "move_1_ticks": 6,
     "move_2": "force_discard=2",
@@ -343,7 +332,6 @@
     "can_be_targeted": true,
     "summon_position": "bottom",
     "summon_cap": 0,
-    "move_pattern": "sequence",
     "move_3": "attack=3",
     "move_3_ticks": 10
   },
@@ -366,7 +354,6 @@
     "can_be_targeted": false,
     "summon_position": "top",
     "summon_cap": 3,
-    "move_pattern": "cycle",
     "move_1": "summon=random_medium",
     "move_1_ticks": 4,
     "move_2": "attack=2",
@@ -391,9 +378,8 @@
     "can_be_targeted": true,
     "summon_position": "bottom",
     "summon_cap": 0,
-    "move_pattern": "sequence",
-    "move_2": "attack=5",
-    "move_2_ticks": 10
+    "move_1": "attack=5",
+    "move_1_ticks": 10
   },
   {
     "template_id": "temporal_glutton",
@@ -413,8 +399,7 @@
     "execute_immunity_threshold": 0,
     "can_be_targeted": true,
     "summon_position": "bottom",
-    "summon_cap": 5,
-    "move_pattern": "cycle"
+    "summon_cap": 5
   },
   {
     "template_id": "balanced_paradox",
@@ -435,9 +420,8 @@
     "can_be_targeted": true,
     "summon_position": "bottom",
     "summon_cap": 0,
-    "move_pattern": "cycle",
-    "move_2": "attack=7",
-    "move_2_ticks": 12
+    "move_1": "attack=7",
+    "move_1_ticks": 12
   },
   {
     "template_id": "rust_king_phase_1",
@@ -458,11 +442,10 @@
     "can_be_targeted": true,
     "summon_position": "bottom",
     "summon_cap": 0,
-    "move_pattern": "cycle",
-    "move_2": "attack=4",
-    "move_2_ticks": 5,
-    "move_3": "attack=6",
-    "move_3_ticks": 10
+    "move_1": "attack=4",
+    "move_1_ticks": 5,
+    "move_2": "attack=6",
+    "move_2_ticks": 10
   },
   {
     "template_id": "chronophage",
@@ -482,8 +465,7 @@
     "execute_immunity_threshold": 0,
     "can_be_targeted": true,
     "summon_position": "bottom",
-    "summon_cap": 0,
-    "move_pattern": "hp_based"
+    "summon_cap": 0
   },
   {
     "template_id": "grand_saboteur",
@@ -503,8 +485,7 @@
     "execute_immunity_threshold": 0,
     "can_be_targeted": true,
     "summon_position": "bottom",
-    "summon_cap": 0,
-    "move_pattern": "adaptive"
+    "summon_cap": 0
   },
   {
     "template_id": "spark_flea",
@@ -515,7 +496,6 @@
     "max_health": 10,
     "can_be_targeted": true,
     "summon_position": "bottom",
-    "move_pattern": "cycle",
     "move_1": "force_discard=1",
     "move_1_ticks": 6
   },
@@ -528,7 +508,6 @@
     "max_health": 14,
     "can_be_targeted": true,
     "summon_position": "bottom",
-    "move_pattern": "passive",
     "move_1": "precision_hard_cap=2",
     "move_1_ticks": 0
   },
@@ -542,7 +521,6 @@
     "max_armor": 1,
     "can_be_targeted": true,
     "summon_position": "bottom",
-    "move_pattern": "cycle",
     "move_1": "drain_all_types=1",
     "move_1_ticks": 10
   },
@@ -556,8 +534,7 @@
     "max_armor": 8,
     "max_shields": 8,
     "can_be_targeted": true,
-    "summon_position": "bottom",
-    "move_pattern": "cycle"
+    "summon_position": "bottom"
   },
   {
     "template_id": "momentum_thief",
@@ -568,8 +545,7 @@
     "max_health": 28,
     "max_armor": 2,
     "can_be_targeted": true,
-    "summon_position": "bottom",
-    "move_pattern": "cycle"
+    "summon_position": "bottom"
   },
   {
     "template_id": "feedback_loop",
@@ -582,8 +558,7 @@
     "shield_regen": 1,
     "shield_regen_max": 10,
     "can_be_targeted": true,
-    "summon_position": "bottom",
-    "move_pattern": "sequence"
+    "summon_position": "bottom"
   },
   {
     "template_id": "resource_tyrant",
@@ -594,8 +569,7 @@
     "max_health": 70,
     "max_armor": 4,
     "can_be_targeted": true,
-    "summon_position": "bottom",
-    "move_pattern": "sequence"
+    "summon_position": "bottom"
   },
   {
     "template_id": "mirror_warden",
@@ -610,8 +584,7 @@
     "reflect_percent": 50,
     "can_be_targeted": true,
     "summon_position": "bottom",
-    "summon_cap": 3,
-    "move_pattern": "cycle"
+    "summon_cap": 3
   },
   {
     "template_id": "entropic_mass",
@@ -622,7 +595,6 @@
     "max_health": 85,
     "max_armor": 6,
     "can_be_targeted": true,
-    "summon_position": "bottom",
-    "move_pattern": "sequence"
+    "summon_position": "bottom"
   }
 ]
