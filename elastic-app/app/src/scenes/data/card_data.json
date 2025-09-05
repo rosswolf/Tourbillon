@@ -2,7 +2,7 @@
   {
     "card_template_id": "starter_chronometer",
     "time_cost": 2,
-    "display_name": "Basic Chronometer",
+    "display_name": "starter_chronometer",
     "tags": "TOOL,SPARK",
     "rules_text": {
       "Every 4 Ticks": "Draw 1 card"
@@ -19,7 +19,7 @@
   {
     "card_template_id": "starter_red_gen",
     "time_cost": 3,
-    "display_name": "Red Sparkstone",
+    "display_name": "starter_red_gen",
     "tags": "STONE,SPARK",
     "rules_text": {
       "Every 3 Ticks": "Produce 2.5 Red"
@@ -36,7 +36,7 @@
   {
     "card_template_id": "starter_blue_gen",
     "time_cost": 3,
-    "display_name": "Blue Crystal",
+    "display_name": "starter_blue_gen",
     "tags": "CRYSTAL",
     "rules_text": {
       "Every 3 Ticks": "Produce 2 Blue"
@@ -53,7 +53,7 @@
   {
     "card_template_id": "starter_green_gen",
     "time_cost": 3,
-    "display_name": "Green Motor",
+    "display_name": "starter_green_gen",
     "tags": "MECH",
     "rules_text": {
       "Every 3 Ticks": "Produce 2 Green"
@@ -70,7 +70,7 @@
   {
     "card_template_id": "starter_white_gen",
     "time_cost": 3,
-    "display_name": "White Foundation",
+    "display_name": "starter_white_gen",
     "tags": "STONE",
     "rules_text": {
       "Every 3 Ticks": "Produce 2 White"
@@ -87,7 +87,7 @@
   {
     "card_template_id": "starter_black_gen",
     "time_cost": 3,
-    "display_name": "Black Dust",
+    "display_name": "starter_black_gen",
     "tags": "DUST",
     "rules_text": {
       "Every 3 Ticks": "Produce 1.5 Black"
@@ -104,7 +104,7 @@
   {
     "card_template_id": "starter_heat_conv",
     "time_cost": 4,
-    "display_name": "Basic Heat Forge",
+    "display_name": "starter_heat_conv",
     "tags": "FORGE",
     "rules_text": {
       "Every 4 Ticks": "Consume 1 Red + 1 Blue â Produce 1 HEAT"
@@ -121,7 +121,7 @@
   {
     "card_template_id": "starter_momentum_conv",
     "time_cost": 4,
-    "display_name": "Basic Momentum Engine",
+    "display_name": "starter_momentum_conv",
     "tags": "MECH",
     "rules_text": {
       "Every 4 Ticks": "Consume 1 Red + 1 Green â Produce 1 MOMENTUM"
@@ -138,7 +138,7 @@
   {
     "card_template_id": "starter_adaptive",
     "time_cost": 3,
-    "display_name": "Adaptive Strike",
+    "display_name": "starter_adaptive",
     "tags": "CHAOS",
     "rules_text": "Consume 3 Largest â Deal 2 damage",
     "card_rarity": "Card.RarityType.STARTER",
@@ -153,7 +153,7 @@
   {
     "card_template_id": "starter_emergency",
     "time_cost": 2,
-    "display_name": "Emergency Burn",
+    "display_name": "starter_emergency",
     "tags": "SPARK",
     "rules_text": "Consume 4 Largest â Deal 2 damage",
     "card_rarity": "Card.RarityType.STARTER",
@@ -168,7 +168,7 @@
   {
     "card_template_id": "starter_balanced",
     "time_cost": 4,
-    "display_name": "Balanced Attack",
+    "display_name": "starter_balanced",
     "tags": "ORDER",
     "rules_text": "Consume 3 Smallest â Deal 2 damage",
     "card_rarity": "Card.RarityType.STARTER",
@@ -183,7 +183,7 @@
   {
     "card_template_id": "starter_heat_blast",
     "time_cost": 2,
-    "display_name": "Heat Blast",
+    "display_name": "starter_heat_blast",
     "tags": "SPARK",
     "rules_text": {
       "MOMENTARY": "Consume 2 HEAT â Deal 4 damage"
@@ -200,7 +200,7 @@
   {
     "card_template_id": "starter_flex_draw",
     "time_cost": 3,
-    "display_name": "Flexible Draw",
+    "display_name": "starter_flex_draw",
     "tags": "TOOL",
     "rules_text": "Consume 3 Largest â Draw 1 card",
     "card_rarity": "Card.RarityType.STARTER",
