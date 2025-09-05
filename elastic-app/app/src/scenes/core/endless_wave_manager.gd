@@ -14,37 +14,53 @@ var current_wave: int = 0
 var current_difficulty_tier: String = "easy"
 var waves_completed: int = 0
 
-# 3 waves per difficulty tier as requested
-var wave_compositions: Dictionary = {
-	"easy": [
-		"dust_mite",
-		"dust_mite|dust_mite",
-		"dust_mite|oil_thief"
-	],
-	"medium": [
-		"oil_thief|oil_thief",
-		"dust_mite|dust_mite|oil_thief",
-		"dust_mite|gear_grinder"
-	],
-	"hard": [
-		"gear_grinder|gear_grinder",
-		"oil_thief|oil_thief|gear_grinder",
-		"dust_mite|oil_thief|gear_grinder"
-	],
-	"extreme": [
-		"gear_grinder|gear_grinder|gear_grinder",
-		"time_devourer",
-		"time_devourer|gear_grinder"
-	]
+# Wave pools by difficulty tier, loaded from wave_data.json
+var wave_pools: Dictionary = {
+	"Trivial": [],
+	"Easy": [],
+	"Medium": [],
+	"Hard": [],
+	"Nightmare": [],
+	"Nightmare+": []
 }
 
+# All wave data loaded from wave_data.json
+var all_waves: Dictionary = {}
+
 func _ready() -> void:
+	# Load wave data from StaticData
+	_load_wave_data()
+	
 	# Connect to gremlin spawn controller
 	if GremlinSpawnController.instance:
 		GremlinSpawnController.instance.all_gremlins_defeated.connect(_on_all_gremlins_defeated)
 	
 	# Connect to GlobalGameManager
 	GlobalSignals.core_game_over.connect(_on_game_over)
+
+## Load wave data from StaticData
+func _load_wave_data() -> void:
+	# Clear existing pools
+	for tier in wave_pools:
+		wave_pools[tier].clear()
+	all_waves.clear()
+	
+	# Load from StaticData
+	if StaticData.wave_data:
+		for wave in StaticData.wave_data:
+			var wave_id = wave.get("wave_id", "")
+			var difficulty_tier = wave.get("difficulty_tier", "Unknown")
+			
+			# Store wave data
+			all_waves[wave_id] = wave
+			
+			# Add to appropriate difficulty pool
+			if difficulty_tier in wave_pools:
+				wave_pools[difficulty_tier].append(wave_id)
+	
+	print("[EndlessWaveManager] Loaded ", all_waves.size(), " waves")
+	for tier in wave_pools:
+		print("  ", tier, ": ", wave_pools[tier].size(), " waves")
 
 ## Start a new run
 func start_new_run() -> void:
@@ -58,45 +74,79 @@ func start_next_wave() -> void:
 	current_wave += 1
 	
 	# Determine difficulty tier based on wave number
-	# 3 waves per tier: 1-3 easy, 4-6 medium, 7-9 hard, 10+ extreme
-	if current_wave <= 3:
-		current_difficulty_tier = "easy"
+	# Progressive difficulty: Trivial -> Easy -> Medium -> Hard -> Nightmare -> Nightmare+
+	if current_wave <= 2:
+		current_difficulty_tier = "Trivial"
+	elif current_wave <= 4:
+		current_difficulty_tier = "Easy"
 	elif current_wave <= 6:
-		current_difficulty_tier = "medium"
+		current_difficulty_tier = "Medium"
 	elif current_wave <= 9:
-		current_difficulty_tier = "hard"
+		current_difficulty_tier = "Hard"
+	elif current_wave <= 12:
+		current_difficulty_tier = "Nightmare"
 	else:
-		current_difficulty_tier = "extreme"
+		current_difficulty_tier = "Nightmare+"
 	
-	print("[WaveManager] Starting wave ", current_wave, " (", current_difficulty_tier, " difficulty)")
+	print("[EndlessWaveManager] Starting wave ", current_wave, " (", current_difficulty_tier, " difficulty)")
 	
 	# Clear any remaining gremlins
 	if GremlinSpawnController.instance:
 		GremlinSpawnController.instance.clear_all_gremlins()
 	
-	# Get wave composition based on difficulty tier
-	var composition = _get_wave_composition()
+	# Get a wave from the appropriate difficulty pool
+	var wave_id = _select_wave_for_tier(current_difficulty_tier)
+	if not wave_id:
+		print("[EndlessWaveManager] No waves available for tier ", current_difficulty_tier)
+		return
+		
+	var wave_data = all_waves.get(wave_id, {})
+	var gremlins_str = _get_gremlins_string(wave_data)
 	
-	# Spawn the wave (no stat scaling needed - difficulty comes from enemy types)
-	if GremlinSpawnController.instance:
-		var gremlins = GremlinSpawnController.instance.spawn_wave(composition)
-		print("[WaveManager] Spawned ", gremlins.size(), " gremlins for wave ", current_wave)
+	print("[EndlessWaveManager] Selected wave: ", wave_data.get("display_name", wave_id))
+	
+	# Spawn the wave
+	if GremlinSpawnController.instance and not gremlins_str.is_empty():
+		var gremlins = GremlinSpawnController.instance.spawn_wave(gremlins_str)
+		print("[EndlessWaveManager] Spawned ", gremlins.size(), " gremlins")
 	
 	wave_started.emit(current_wave, current_difficulty_tier)
 
-## Get wave composition based on current difficulty tier
-func _get_wave_composition() -> String:
-	var compositions = wave_compositions[current_difficulty_tier]
+## Select a wave ID from the given difficulty tier
+func _select_wave_for_tier(tier: String) -> String:
+	var available_waves = wave_pools.get(tier, [])
+	if available_waves.is_empty():
+		# Fallback to easier tier if no waves available
+		if tier == "Nightmare+":
+			return _select_wave_for_tier("Nightmare")
+		elif tier == "Nightmare":
+			return _select_wave_for_tier("Hard")
+		elif tier == "Hard":
+			return _select_wave_for_tier("Medium")
+		elif tier == "Medium":
+			return _select_wave_for_tier("Easy")
+		elif tier == "Easy":
+			return _select_wave_for_tier("Trivial")
+		return ""
 	
-	# Pick the appropriate wave within the tier
-	# Wave 1-3 use index 0-2 of easy, 4-6 use index 0-2 of medium, etc.
-	var wave_in_tier = (current_wave - 1) % 3
+	# Pick a random wave from the pool
+	return available_waves[randi() % available_waves.size()]
+
+## Convert wave data to gremlins spawn string
+func _get_gremlins_string(wave_data: Dictionary) -> String:
+	var gremlins = wave_data.get("gremlins", "")
 	
-	# Make sure we don't go out of bounds
-	if wave_in_tier >= compositions.size():
-		wave_in_tier = randi() % compositions.size()
+	# Handle both string and array format
+	if gremlins is String:
+		return gremlins
+	elif gremlins is Array:
+		# Join array elements with pipe separator
+		var gremlin_names: Array[String] = []
+		for g in gremlins:
+			gremlin_names.append(str(g))
+		return "|".join(gremlin_names)
 	
-	return compositions[wave_in_tier]
+	return ""
 
 ## Handle all gremlins defeated
 func _on_all_gremlins_defeated() -> void:
