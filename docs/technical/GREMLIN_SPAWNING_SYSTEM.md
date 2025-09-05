@@ -25,8 +25,10 @@ All game data originates from Google Sheets and is synced to local JSON files:
 
 2. **Wave Data Sheet** 
    - **Spreadsheet ID**: `1Bv6R-AZtzmG_ycwudZ5Om6dKrJgl6Ut9INw7GTJFUlw`
+   - **URL**: https://docs.google.com/spreadsheets/d/1Bv6R-AZtzmG_ycwudZ5Om6dKrJgl6Ut9INw7GTJFUlw/edit
    - **Sheet**: Contains wave compositions and difficulty settings
    - **Sync Script**: `update_wave_sheet.js`
+   - **Columns**: wave_id | display_name | act | difficulty | difficulty_tier | archetype | strategy_hint | gremlins | is_boss
 
 3. **Authentication**
    - **Service Account**: `claude-sheets-mcp@wnann-dev.iam.gserviceaccount.com`
@@ -43,10 +45,37 @@ After syncing from Google Sheets:
    - Archetype classifications (fodder, rush, turtle, disruption, etc.)
 
 2. **Wave data** - Wave compositions including:
-   - Wave ID and display name
-   - Difficulty ratings and tiers
-   - Gremlin compositions (pipe-separated lists)
-   - Boss flags and strategy hints
+   - **wave_id**: Unique identifier (e.g., "wave_1a", "boss_1")
+   - **display_name**: Human-readable name (e.g., "First Contact", "The Rust King's Domain")
+   - **act**: Act number (1, 2, 3)
+   - **difficulty**: Numeric difficulty value
+   - **difficulty_tier**: Text tier (Trivial, Easy, Medium, Hard, Nightmare, Nightmare+)
+   - **archetype**: Combat strategy type (e.g., "Rush Threat", "Turtle Threat", "Synergy")
+   - **strategy_hint**: Player guidance text
+   - **gremlins**: Pipe-separated list of gremlin template_ids (e.g., "dust_mite|oil_thief|dust_mite")
+   - **is_boss**: Boolean flag for boss encounters
+
+### Example Wave Data
+
+From the wave sheet, here are some example wave configurations:
+
+#### Tutorial Waves (Act 1)
+- **wave_1a** - "First Contact": Single `dust_mite` (Trivial difficulty)
+  - Teaches soft caps and resource spending pressure
+- **wave_1d** - "Swarm Basics": `basic_gnat|basic_gnat|basic_gnat` 
+  - Teaches AOE vs single-target efficiency
+
+#### Mid-Game Waves (Act 2)  
+- **wave_2a** - "Turtle and Rush": `oil_thief|dust_mite|dust_mite` (Hard)
+  - Tests priority targeting between rush and turtle enemies
+- **wave_2f** - "The Spawning Nightmare": `temporal_glutton|breeding_barrier_gnat` (Nightmare)
+  - Ultimate summoning challenge with protection
+
+#### Boss Encounters
+- **boss_1** - "The Rust King's Domain": `rust_king_phase_1|spring_snapper|spring_snapper` (Nightmare+)
+  - Phase transitions with scaling support
+- **boss_2** - "Temporal Collapse": `chronophage|time_nibbler` (Nightmare+)
+  - Tests all timing and constraint management skills
 
 ### Entity Integration
 
