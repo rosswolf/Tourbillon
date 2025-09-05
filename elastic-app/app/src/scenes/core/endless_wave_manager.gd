@@ -159,9 +159,9 @@ func _get_gremlins_string(wave_data: Dictionary) -> String:
 	var gremlins = wave_data.get("gremlins", "")
 	print("[DEBUG] [_get_gremlins_string] Raw gremlins field: ", gremlins, " (type: ", typeof(gremlins), ")")
 	
-	# If gremlins field has description text, check is_boss field
-	if gremlins is String and (gremlins.contains("Learn") or gremlins.contains("Introduction") or gremlins.contains("Multiple")):
-		print("[DEBUG] [_get_gremlins_string] Gremlins field contains description, checking is_boss")
+	# If gremlins field has description text (contains spaces), check is_boss field instead
+	if gremlins is String and gremlins.contains(" "):
+		print("[DEBUG] [_get_gremlins_string] Gremlins field contains description text, checking is_boss")
 		gremlins = wave_data.get("is_boss", "")
 		print("[DEBUG] [_get_gremlins_string] is_boss field: ", gremlins)
 	
