@@ -91,7 +91,7 @@ Perfect Form: Consume 4 Balance → Gears are Immovable for 5 ticks
 Emergency Reserve: Consume 5 Balance → Draw 3 cards if hand empty
 ```
 
-### 💀 Entropy (Black) - "Sacrifice & Chaos"
+### 💜 Entropy (Purple) - "Sacrifice & Chaos"
 **Consumes for:**
 - Destroying your own gears for benefit
 - Random powerful effects

@@ -50,7 +50,7 @@ Each force has EXCLUSIVE mechanical effects that only it can produce efficiently
 
 ---
 
-### 💀 Entropy (Black) = CHAOS & FLEXIBILITY
+### 💜 Entropy (Purple) = CHAOS & FLEXIBILITY
 **What it does:** Wild card effects
 - Acts as any force (inefficient)
 - Sacrifice your gears for power
@@ -80,7 +80,7 @@ Each force has EXCLUSIVE mechanical effects that only it can produce efficiently
 - Everything fires constantly
 - Pure aggression
 
-**White/Black (Balance + Entropy)**
+**White/Purple (Balance + Entropy)**
 - Defensive grind
 - Sacrifice for value
 - Outlast and poison

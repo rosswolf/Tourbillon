@@ -40,11 +40,11 @@
     "notes": "STARTER"
   },
   {
-    "card_template_id": "starter_black_gen",
+    "card_template_id": "starter_purple_gen",
     "time_cost": "3",
-    "display_name": "starter_black_gen",
+    "display_name": "starter_purple_gen",
     "tags": "DUST",
-    "rules_text": "Every 3 Ticks: Produce 1.5 Black",
+    "rules_text": "Every 3 Ticks: Produce 1.5 Purple",
     "notes": "STARTER"
   },
   {
@@ -732,7 +732,7 @@
     "time_cost": "4",
     "display_name": "Chaos Engine",
     "tags": "CHAOS",
-    "rules_text": "Every 4 Ticks: Consume 1 Green + 1 Black -> Produce 1 ENTROPY",
+    "rules_text": "Every 4 Ticks: Consume 1 Green + 1 Purple -> Produce 1 ENTROPY",
     "notes": "COMMON"
   },
   {
@@ -740,7 +740,7 @@
     "time_cost": "3",
     "display_name": "Quick Decay",
     "tags": "CHAOS,MICRO",
-    "rules_text": "Every 3 Ticks: Consume 1.5 Green + 0.5 Black -> Produce 1 ENTROPY",
+    "rules_text": "Every 3 Ticks: Consume 1.5 Green + 0.5 Purple -> Produce 1 ENTROPY",
     "notes": "COMMON"
   },
   {
@@ -796,7 +796,7 @@
     "time_cost": "4",
     "display_name": "Balance Engine",
     "tags": "STONE",
-    "rules_text": "Every 4 Ticks: Consume 1 White + 1 Black -> Produce 1 BALANCE",
+    "rules_text": "Every 4 Ticks: Consume 1 White + 1 Purple -> Produce 1 BALANCE",
     "notes": "COMMON"
   },
   {
@@ -804,15 +804,15 @@
     "time_cost": "3",
     "display_name": "Quick Balance",
     "tags": "STONE,MICRO",
-    "rules_text": "Every 3 Ticks: Consume 1.5 White + 0.5 Black -> Produce 1 BALANCE",
+    "rules_text": "Every 3 Ticks: Consume 1.5 White + 0.5 Purple -> Produce 1 BALANCE",
     "notes": "COMMON"
   },
   {
     "card_template_id": "black_gen_basic_1",
     "time_cost": "3",
-    "display_name": "Black Void",
+    "display_name": "Purple Void",
     "tags": "DUST",
-    "rules_text": "Every 3 Ticks: Produce 2 Black",
+    "rules_text": "Every 3 Ticks: Produce 2 Purple",
     "notes": "COMMON"
   },
   {
@@ -820,7 +820,7 @@
     "time_cost": "2",
     "display_name": "Quick Decay",
     "tags": "DUST,MICRO",
-    "rules_text": "Every 2 Ticks: Produce 1.5 Black",
+    "rules_text": "Every 2 Ticks: Produce 1.5 Purple",
     "notes": "COMMON"
   },
   {
@@ -828,7 +828,7 @@
     "time_cost": "4",
     "display_name": "Steady Corruption",
     "tags": "DUST,CHAOS",
-    "rules_text": "Every 4 Ticks: Produce 3.5 Black",
+    "rules_text": "Every 4 Ticks: Produce 3.5 Purple",
     "notes": "COMMON"
   },
   {
@@ -836,7 +836,7 @@
     "time_cost": "5",
     "display_name": "Entropy Well",
     "tags": "DUST,TITAN",
-    "rules_text": "Every 5 Ticks: Produce 4 Black",
+    "rules_text": "Every 5 Ticks: Produce 4 Purple",
     "notes": "COMMON"
   },
   {
@@ -844,7 +844,7 @@
     "time_cost": "4",
     "display_name": "Stability Engine",
     "tags": "STONE",
-    "rules_text": "Every 4 Ticks: Consume 1 Black + 1 White -> Produce 1 BALANCE",
+    "rules_text": "Every 4 Ticks: Consume 1 Purple + 1 White -> Produce 1 BALANCE",
     "notes": "COMMON"
   },
   {
@@ -852,7 +852,7 @@
     "time_cost": "3",
     "display_name": "Quick Stability",
     "tags": "STONE,MICRO",
-    "rules_text": "Every 3 Ticks: Consume 1.5 Black + 0.5 White -> Produce 1 BALANCE",
+    "rules_text": "Every 3 Ticks: Consume 1.5 Purple + 0.5 White -> Produce 1 BALANCE",
     "notes": "COMMON"
   },
   {
@@ -860,7 +860,7 @@
     "time_cost": "4",
     "display_name": "Chaos Core",
     "tags": "CHAOS",
-    "rules_text": "Every 4 Ticks: Consume 1 Black + 1 Green -> Produce 1 ENTROPY",
+    "rules_text": "Every 4 Ticks: Consume 1 Purple + 1 Green -> Produce 1 ENTROPY",
     "notes": "COMMON"
   },
   {
@@ -868,7 +868,7 @@
     "time_cost": "3",
     "display_name": "Quick Chaos",
     "tags": "CHAOS,MICRO",
-    "rules_text": "Every 3 Ticks: Consume 1.5 Black + 0.5 Green -> Produce 1 ENTROPY",
+    "rules_text": "Every 3 Ticks: Consume 1.5 Purple + 0.5 Green -> Produce 1 ENTROPY",
     "notes": "COMMON"
   },
   {
@@ -1412,7 +1412,7 @@
     "time_cost": "4",
     "display_name": "Entropy Pit",
     "tags": "VOID",
-    "rules_text": "Every 3 Ticks: Consume 2 Green + 1 Black -> Produce 2 ENTROPY",
+    "rules_text": "Every 3 Ticks: Consume 2 Green + 1 Purple -> Produce 2 ENTROPY",
     "notes": "COMMON"
   },
   {
@@ -1620,7 +1620,7 @@
     "time_cost": "4",
     "display_name": "Balance Forge",
     "tags": "ORDER",
-    "rules_text": "Every 3 Ticks: Consume 2 White + 1 Black -> Produce 2 BALANCE",
+    "rules_text": "Every 3 Ticks: Consume 2 White + 1 Purple -> Produce 2 BALANCE",
     "notes": "COMMON"
   },
   {
@@ -1684,7 +1684,7 @@
     "time_cost": "3",
     "display_name": "Poison Dust",
     "tags": "POISON,DUST",
-    "rules_text": "Consume 2 Black -> Apply 2 POISON",
+    "rules_text": "Consume 2 Purple -> Apply 2 POISON",
     "notes": "COMMON"
   },
   {
@@ -1708,7 +1708,7 @@
     "time_cost": "5",
     "display_name": "Void Draw",
     "tags": "VOID",
-    "rules_text": "Consume 3 Black -> Draw 1 card",
+    "rules_text": "Consume 3 Purple -> Draw 1 card",
     "notes": "COMMON"
   },
   {
@@ -1716,7 +1716,7 @@
     "time_cost": "6",
     "display_name": "Dust Insights",
     "tags": "DUST",
-    "rules_text": "Consume 6 Black -> Draw 2 cards",
+    "rules_text": "Consume 6 Purple -> Draw 2 cards",
     "notes": "COMMON"
   },
   {
@@ -1740,7 +1740,7 @@
     "time_cost": "3",
     "display_name": "Balanced Void",
     "tags": "VOID,ORDER",
-    "rules_text": "Consume 1 BALANCE -> Produce 3 Black",
+    "rules_text": "Consume 1 BALANCE -> Produce 3 Purple",
     "notes": "COMMON"
   },
   {
@@ -1756,7 +1756,7 @@
     "time_cost": "3",
     "display_name": "Entropic Void",
     "tags": "VOID",
-    "rules_text": "Consume 1 ENTROPY -> Produce 3 Black",
+    "rules_text": "Consume 1 ENTROPY -> Produce 3 Purple",
     "notes": "COMMON"
   },
   {
@@ -1772,7 +1772,7 @@
     "time_cost": "4",
     "display_name": "Dust Mine",
     "tags": "DUST",
-    "rules_text": "Every 2 Ticks: Produce 1.5 Black",
+    "rules_text": "Every 2 Ticks: Produce 1.5 Purple",
     "notes": "COMMON"
   },
   {
@@ -1780,7 +1780,7 @@
     "time_cost": "5",
     "display_name": "Void Generator",
     "tags": "VOID",
-    "rules_text": "Every 5 Ticks: Produce 4 Black",
+    "rules_text": "Every 5 Ticks: Produce 4 Purple",
     "notes": "COMMON"
   },
   {
@@ -1788,7 +1788,7 @@
     "time_cost": "6",
     "display_name": "Shadow Core",
     "tags": "VOID",
-    "rules_text": "Every 6 Ticks: Produce 5 Black",
+    "rules_text": "Every 6 Ticks: Produce 5 Purple",
     "notes": "COMMON"
   },
   {
@@ -1796,7 +1796,7 @@
     "time_cost": "4",
     "display_name": "Balance Mill",
     "tags": "ORDER",
-    "rules_text": "Every 3 Ticks: Consume 2 Black + 1 White -> Produce 2 BALANCE",
+    "rules_text": "Every 3 Ticks: Consume 2 Purple + 1 White -> Produce 2 BALANCE",
     "notes": "COMMON"
   },
   {
@@ -1804,7 +1804,7 @@
     "time_cost": "4",
     "display_name": "Entropy Pit",
     "tags": "VOID",
-    "rules_text": "Every 3 Ticks: Consume 2 Black + 1 Green -> Produce 2 ENTROPY",
+    "rules_text": "Every 3 Ticks: Consume 2 Purple + 1 Green -> Produce 2 ENTROPY",
     "notes": "COMMON"
   },
   {
@@ -1812,7 +1812,7 @@
     "time_cost": "5",
     "display_name": "Dual Void",
     "tags": "VOID",
-    "rules_text": "Every 4 Ticks: Consume 3 Black -> Produce 1 BALANCE + 1 ENTROPY",
+    "rules_text": "Every 4 Ticks: Consume 3 Purple -> Produce 1 BALANCE + 1 ENTROPY",
     "notes": "COMMON"
   },
   {
@@ -1820,7 +1820,7 @@
     "time_cost": "5",
     "display_name": "Void Surge",
     "tags": "VOID",
-    "rules_text": "Every 4 Ticks: Produce 3 Black",
+    "rules_text": "Every 4 Ticks: Produce 3 Purple",
     "notes": "COMMON"
   },
   {
@@ -1828,7 +1828,7 @@
     "time_cost": "3",
     "display_name": "Shadow Strike",
     "tags": "VOID",
-    "rules_text": "Consume 3 Black -> Deal 2 damage",
+    "rules_text": "Consume 3 Purple -> Deal 2 damage",
     "notes": "COMMON"
   },
   {
@@ -1836,7 +1836,7 @@
     "time_cost": "4",
     "display_name": "Dust Storm",
     "tags": "DUST",
-    "rules_text": "Consume 5 Black -> Deal 2 damage to all",
+    "rules_text": "Consume 5 Purple -> Deal 2 damage to all",
     "notes": "COMMON"
   },
   {
@@ -1844,7 +1844,7 @@
     "time_cost": "2",
     "display_name": "Shadow Burst",
     "tags": "VOID",
-    "rules_text": "Produce 3 Black",
+    "rules_text": "Produce 3 Purple",
     "notes": "COMMON"
   },
   {
@@ -1924,7 +1924,7 @@
     "time_cost": "4",
     "display_name": "Void Motor",
     "tags": "MECH,VOID",
-    "rules_text": "Every 4 Ticks: Consume 2 Green + 1 Black -> Produce 2 MOMENTUM",
+    "rules_text": "Every 4 Ticks: Consume 2 Green + 1 Purple -> Produce 2 MOMENTUM",
     "notes": "COMMON"
   },
   {
@@ -2636,7 +2636,7 @@
     "time_cost": "2",
     "display_name": "Shadow Pool",
     "tags": "SHADOW",
-    "rules_text": "Every 2 Ticks: Produce 1.5 Black",
+    "rules_text": "Every 2 Ticks: Produce 1.5 Purple",
     "notes": "COMMON"
   },
   {
@@ -2644,7 +2644,7 @@
     "time_cost": "3",
     "display_name": "Void Well",
     "tags": "VOID",
-    "rules_text": "Every 3 Ticks: Produce 2.5 Black",
+    "rules_text": "Every 3 Ticks: Produce 2.5 Purple",
     "notes": "COMMON"
   },
   {
@@ -2652,7 +2652,7 @@
     "time_cost": "4",
     "display_name": "Dust Storm",
     "tags": "DUST",
-    "rules_text": "Every 4 Ticks: Produce 3.5 Black",
+    "rules_text": "Every 4 Ticks: Produce 3.5 Purple",
     "notes": "COMMON"
   },
   {
@@ -2660,7 +2660,7 @@
     "time_cost": "5",
     "display_name": "Abyssal Depths",
     "tags": "VOID,TITAN",
-    "rules_text": "Every 5 Ticks: Produce 4.5 Black",
+    "rules_text": "Every 5 Ticks: Produce 4.5 Purple",
     "notes": "COMMON"
   },
   {
@@ -2668,7 +2668,7 @@
     "time_cost": "6",
     "display_name": "Eternal Void",
     "tags": "VOID,TITAN",
-    "rules_text": "Every 6 Ticks: Produce 6 Black",
+    "rules_text": "Every 6 Ticks: Produce 6 Purple",
     "notes": "COMMON"
   },
   {
@@ -2676,7 +2676,7 @@
     "time_cost": "1",
     "display_name": "Dust Mote",
     "tags": "DUST,MICRO",
-    "rules_text": "Every 2 Ticks: Produce 0.5 Black",
+    "rules_text": "Every 2 Ticks: Produce 0.5 Purple",
     "notes": "COMMON"
   },
   {
@@ -2684,7 +2684,7 @@
     "time_cost": "3",
     "display_name": "Shadow Generator",
     "tags": "SHADOW,ORDER",
-    "rules_text": "Every 3 Ticks: Produce 2 Black",
+    "rules_text": "Every 3 Ticks: Produce 2 Purple",
     "notes": "COMMON"
   },
   {
@@ -2692,7 +2692,7 @@
     "time_cost": "3",
     "display_name": "Toxic Waste",
     "tags": "POISON,DUST",
-    "rules_text": "Every 3 Ticks: Produce 2 Black, poison 1",
+    "rules_text": "Every 3 Ticks: Produce 2 Purple, poison 1",
     "notes": "COMMON"
   },
   {
@@ -2700,7 +2700,7 @@
     "time_cost": "3",
     "display_name": "Void Converter",
     "tags": "VOID",
-    "rules_text": "Every 3 Ticks: Consume 2 Black -> 1 VOID",
+    "rules_text": "Every 3 Ticks: Consume 2 Purple -> 1 VOID",
     "notes": "COMMON"
   },
   {
@@ -2708,7 +2708,7 @@
     "time_cost": "4",
     "display_name": "Abyssal Gate",
     "tags": "VOID,TITAN",
-    "rules_text": "Every 4 Ticks: Consume 3 Black -> 2 VOID",
+    "rules_text": "Every 4 Ticks: Consume 3 Purple -> 2 VOID",
     "notes": "COMMON"
   },
   {
@@ -2716,7 +2716,7 @@
     "time_cost": "4",
     "display_name": "Dark Forge",
     "tags": "VOID,FORGE",
-    "rules_text": "Every 4 Ticks: Consume 2 Black + 1 Red -> 1.5 HEAT",
+    "rules_text": "Every 4 Ticks: Consume 2 Purple + 1 Red -> 1.5 HEAT",
     "notes": "COMMON"
   },
   {
@@ -2724,7 +2724,7 @@
     "time_cost": "4",
     "display_name": "Shadow Engine",
     "tags": "SHADOW,MECH",
-    "rules_text": "Every 4 Ticks: Consume 2 Black + 1 Green -> 1.5 MOMENTUM",
+    "rules_text": "Every 4 Ticks: Consume 2 Purple + 1 Green -> 1.5 MOMENTUM",
     "notes": "COMMON"
   },
   {
@@ -2732,7 +2732,7 @@
     "time_cost": "4",
     "display_name": "Void Crystal",
     "tags": "VOID,CRYSTAL",
-    "rules_text": "Every 4 Ticks: Consume 2 Black + 1 Blue -> 1.5 PRECISION",
+    "rules_text": "Every 4 Ticks: Consume 2 Purple + 1 Blue -> 1.5 PRECISION",
     "notes": "COMMON"
   },
   {
@@ -2756,7 +2756,7 @@
     "time_cost": "3",
     "display_name": "Toxic Converter",
     "tags": "POISON,DUST",
-    "rules_text": "Every 3 Ticks: Consume 2 Black -> 1 MOMENTUM + poison 2",
+    "rules_text": "Every 3 Ticks: Consume 2 Purple -> 1 MOMENTUM + poison 2",
     "notes": "COMMON"
   },
   {
@@ -2764,7 +2764,7 @@
     "time_cost": "6",
     "display_name": "Master of Void",
     "tags": "VOID,TITAN",
-    "rules_text": "Every 6 Ticks: Consume 5 Black -> 2 VOID + 1 HEAT + 1 MOMENTUM",
+    "rules_text": "Every 6 Ticks: Consume 5 Purple -> 2 VOID + 1 HEAT + 1 MOMENTUM",
     "notes": "COMMON"
   },
   {
@@ -2772,7 +2772,7 @@
     "time_cost": "2",
     "display_name": "Shadow Strike",
     "tags": "SHADOW",
-    "rules_text": "Consume 2 Black -> Deal 2 damage",
+    "rules_text": "Consume 2 Purple -> Deal 2 damage",
     "notes": "COMMON"
   },
   {
@@ -2780,7 +2780,7 @@
     "time_cost": "3",
     "display_name": "Void Blast",
     "tags": "VOID",
-    "rules_text": "Consume 3 Black -> Deal 3 damage",
+    "rules_text": "Consume 3 Purple -> Deal 3 damage",
     "notes": "COMMON"
   },
   {
@@ -2788,7 +2788,7 @@
     "time_cost": "4",
     "display_name": "Dark Assault",
     "tags": "VOID,CHAOS",
-    "rules_text": "Consume 4 Black -> Deal 5 damage",
+    "rules_text": "Consume 4 Purple -> Deal 5 damage",
     "notes": "COMMON"
   },
   {
@@ -2812,7 +2812,7 @@
     "time_cost": "3",
     "display_name": "Toxic Strike",
     "tags": "POISON,DUST",
-    "rules_text": "Consume 2 Black -> Deal 1 damage + poison 3",
+    "rules_text": "Consume 2 Purple -> Deal 1 damage + poison 3",
     "notes": "COMMON"
   },
   {
@@ -2836,7 +2836,7 @@
     "time_cost": "1",
     "display_name": "Quick Shadow",
     "tags": "SHADOW,MICRO",
-    "rules_text": "MOMENTARY: Consume 1 Black -> Deal 1 damage",
+    "rules_text": "MOMENTARY: Consume 1 Purple -> Deal 1 damage",
     "notes": "COMMON"
   },
   {
@@ -2852,7 +2852,7 @@
     "time_cost": "2",
     "display_name": "Dark Knowledge",
     "tags": "VOID,TOOL",
-    "rules_text": "Consume 2 Black -> Draw 1",
+    "rules_text": "Consume 2 Purple -> Draw 1",
     "notes": "COMMON"
   },
   {
@@ -2860,7 +2860,7 @@
     "time_cost": "3",
     "display_name": "Void Study",
     "tags": "VOID,TOOL",
-    "rules_text": "Consume 3 Black -> Draw 2",
+    "rules_text": "Consume 3 Purple -> Draw 2",
     "notes": "COMMON"
   },
   {
