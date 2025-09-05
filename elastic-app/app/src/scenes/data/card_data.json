@@ -227,7 +227,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_red=2.5,activate_east=1,generate_green=1"
+    "on_fire_effect": "generate_red=2.5,activate_east=1,generate_green=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_gen_basic_2",
@@ -241,7 +243,9 @@
     "production_interval": 2,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_red=1.5"
+    "on_fire_effect": "generate_red=1.5",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_gen_basic_3",
@@ -255,7 +259,9 @@
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_red=3,activate_west=1,generate_red=1"
+    "on_fire_effect": "generate_red=3,activate_west=1,generate_red=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_gen_basic_4",
@@ -269,7 +275,9 @@
     "production_interval": 5,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_red=4.5,activate_north=1,generate_white=2"
+    "on_fire_effect": "generate_red=4.5,activate_north=1,generate_white=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_gen_basic_5",
@@ -283,7 +291,9 @@
     "production_interval": 2,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_red=1"
+    "on_fire_effect": "generate_red=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_gen_basic_6",
@@ -297,7 +307,9 @@
     "production_interval": 6,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_red=5,activate_south=1,draw=1"
+    "on_fire_effect": "generate_red=5,activate_south=1,draw=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_gen_basic_7",
@@ -311,7 +323,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_red=2,activate_east=1,generate_green=1"
+    "on_fire_effect": "generate_red=2,activate_east=1,generate_green=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_gen_basic_8",
@@ -325,7 +339,9 @@
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_red=3.5,activate_west=1,generate_red=1"
+    "on_fire_effect": "generate_red=3.5,activate_west=1,generate_red=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_gen_basic_12",
@@ -339,7 +355,9 @@
     "production_interval": 7,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_red=7"
+    "on_fire_effect": "generate_red=7",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_conv_heat_1",
@@ -353,7 +371,9 @@
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_heat=1,activate_north=1,generate_white=1"
+    "on_fire_effect": "generate_heat=1,activate_north=1,generate_white=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_conv_heat_2",
@@ -367,7 +387,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_heat=1,activate_south=1,draw=1"
+    "on_fire_effect": "generate_heat=1,activate_south=1,draw=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_conv_heat_3",
@@ -381,7 +403,9 @@
     "production_interval": 5,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_heat=2,activate_east=1,generate_green=2"
+    "on_fire_effect": "generate_heat=2,activate_east=1,generate_green=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_conv_momentum_1",
@@ -395,7 +419,9 @@
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_momentum=1,activate_west=1,generate_red=1"
+    "on_fire_effect": "generate_momentum=1,activate_west=1,generate_red=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_conv_momentum_2",
@@ -409,7 +435,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_momentum=1,activate_north=1,generate_white=1"
+    "on_fire_effect": "generate_momentum=1,activate_north=1,generate_white=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_conv_momentum_3",
@@ -423,7 +451,9 @@
     "production_interval": 5,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_momentum=2.5,activate_south=1,draw=1"
+    "on_fire_effect": "generate_momentum=2.5,activate_south=1,draw=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_conv_flex_1",
@@ -437,7 +467,9 @@
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_heat=1,consume_largest=3"
+    "on_fire_effect": "generate_heat=1,consume_largest=3",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_conv_flex_2",
@@ -451,7 +483,9 @@
     "production_interval": 5,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_heat=1,consume_smallest=4"
+    "on_fire_effect": "generate_heat=1,consume_smallest=4",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_dmg_basic_1",
@@ -463,7 +497,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "damage=1"
+    "on_fire_effect": "damage=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_dmg_basic_2",
@@ -475,7 +511,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "damage=2,activate_east=1,generate_green=1"
+    "on_fire_effect": "damage=2,activate_east=1,generate_green=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_dmg_basic_3",
@@ -487,7 +525,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "damage=3,activate_west=1,generate_red=1"
+    "on_fire_effect": "damage=3,activate_west=1,generate_red=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_dmg_efficient_1",
@@ -501,7 +541,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "damage=1"
+    "on_fire_effect": "damage=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_dmg_heat_2",
@@ -513,7 +555,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "damage=5"
+    "on_fire_effect": "damage=5",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_dmg_smallest_1",
@@ -525,7 +569,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "consume_smallest=3,damage=2"
+    "on_fire_effect": "consume_smallest=3,damage=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_dmg_poison_1",
@@ -537,7 +583,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "consume_red=2.5,damage=1,poison=1"
+    "on_fire_effect": "consume_red=2.5,damage=1,poison=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_draw_basic_1",
@@ -549,7 +597,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "activate_north=1,generate_white=1"
+    "on_fire_effect": "activate_north=1,generate_white=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_draw_basic_2",
@@ -561,7 +611,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "activate_south=1,draw=1"
+    "on_fire_effect": "activate_south=1,draw=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_draw_engine_1",
@@ -575,7 +627,9 @@
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "activate_east=1,generate_green=1"
+    "on_fire_effect": "activate_east=1,generate_green=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_draw_heat_1",
@@ -587,7 +641,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "activate_west=1,generate_red=1"
+    "on_fire_effect": "activate_west=1,generate_red=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_draw_tag_1",
@@ -601,7 +657,9 @@
     "production_interval": 6,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "activate_north=1,generate_white=2"
+    "on_fire_effect": "activate_north=1,generate_white=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_flex_largest_1",
@@ -615,7 +673,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_red=2.5,consume_largest=3"
+    "on_fire_effect": "generate_red=2.5,consume_largest=3",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_flex_largest_2",
@@ -627,7 +687,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "consume_largest=5,damage=2"
+    "on_fire_effect": "consume_largest=5,damage=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_flex_smallest_1",
@@ -641,7 +703,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_red=1.5,consume_smallest=2"
+    "on_fire_effect": "generate_red=1.5,consume_smallest=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_flex_smallest_2",
@@ -653,7 +717,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "consume_smallest=4,damage=2"
+    "on_fire_effect": "consume_smallest=4,damage=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_flex_mixed_1",
@@ -665,7 +731,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "consume_red=2,damage=3"
+    "on_fire_effect": "consume_red=2,damage=3",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_flex_mixed_2",
@@ -679,7 +747,9 @@
     "production_interval": 5,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "consume_red=1"
+    "on_fire_effect": "consume_red=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_key_momentary_1",
@@ -693,7 +763,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "damage=2"
+    "on_fire_effect": "damage=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_key_overbuild_1",
@@ -707,7 +779,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_red=2.5,activate_south=1,draw=1"
+    "on_fire_effect": "generate_red=2.5,activate_south=1,draw=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_key_enabling_1",
@@ -719,7 +793,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "activate_east=1,generate_green=2"
+    "on_fire_effect": "activate_east=1,generate_green=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_key_burn_1",
@@ -731,7 +807,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "activate_west=1,generate_red=1"
+    "on_fire_effect": "activate_west=1,generate_red=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_time_slow_1",
@@ -745,7 +823,9 @@
     "production_interval": 8,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_red=10"
+    "on_fire_effect": "generate_red=10",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_time_trigger_1",
@@ -759,7 +839,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_red=5,activate_north=1,generate_white=1"
+    "on_fire_effect": "generate_red=5,activate_north=1,generate_white=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_combo_position_1",
@@ -773,7 +855,9 @@
     "production_interval": 6,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "damage=1,activate_south=1,draw=1"
+    "on_fire_effect": "damage=1,activate_south=1,draw=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_gen_basic_1",
@@ -787,7 +871,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_blue=2,activate_east=1,generate_green=1"
+    "on_fire_effect": "generate_blue=2,activate_east=1,generate_green=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_gen_basic_2",
@@ -801,7 +887,9 @@
     "production_interval": 2,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_blue=1.5"
+    "on_fire_effect": "generate_blue=1.5",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_gen_basic_3",
@@ -815,7 +903,9 @@
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_blue=3.5,activate_west=1,generate_red=1"
+    "on_fire_effect": "generate_blue=3.5,activate_west=1,generate_red=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_gen_basic_4",
@@ -829,7 +919,9 @@
     "production_interval": 5,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_blue=4,activate_north=1,generate_white=2"
+    "on_fire_effect": "generate_blue=4,activate_north=1,generate_white=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_gen_basic_5",
@@ -843,7 +935,9 @@
     "production_interval": 2,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_blue=1"
+    "on_fire_effect": "generate_blue=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_gen_basic_6",
@@ -857,7 +951,9 @@
     "production_interval": 6,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_blue=5.5,activate_south=1,draw=1"
+    "on_fire_effect": "generate_blue=5.5,activate_south=1,draw=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_gen_basic_7",
@@ -871,7 +967,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_blue=2,activate_east=1,generate_green=1"
+    "on_fire_effect": "generate_blue=2,activate_east=1,generate_green=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_gen_basic_8",
@@ -885,7 +983,9 @@
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_blue=3,activate_west=1,generate_red=1"
+    "on_fire_effect": "generate_blue=3,activate_west=1,generate_red=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_gen_basic_12",
@@ -899,7 +999,9 @@
     "production_interval": 7,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_blue=7"
+    "on_fire_effect": "generate_blue=7",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_conv_heat_1",
@@ -913,7 +1015,9 @@
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_heat=1,activate_north=1,generate_white=1"
+    "on_fire_effect": "generate_heat=1,activate_north=1,generate_white=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_conv_heat_2",
@@ -927,7 +1031,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_heat=1,activate_south=1,draw=1"
+    "on_fire_effect": "generate_heat=1,activate_south=1,draw=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_conv_heat_3",
@@ -941,7 +1047,9 @@
     "production_interval": 5,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_heat=2,activate_east=1,generate_green=2"
+    "on_fire_effect": "generate_heat=2,activate_east=1,generate_green=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_conv_precision_1",
@@ -955,7 +1063,9 @@
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_precision=1,activate_west=1,generate_red=1"
+    "on_fire_effect": "generate_precision=1,activate_west=1,generate_red=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_conv_precision_2",
@@ -969,7 +1079,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_precision=1,activate_north=1,generate_white=1"
+    "on_fire_effect": "generate_precision=1,activate_north=1,generate_white=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_conv_precision_3",
@@ -983,7 +1095,9 @@
     "production_interval": 5,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_precision=2.5,activate_south=1,draw=1"
+    "on_fire_effect": "generate_precision=2.5,activate_south=1,draw=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_conv_flex_1",
@@ -997,7 +1111,9 @@
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_precision=1,consume_largest=3"
+    "on_fire_effect": "generate_precision=1,consume_largest=3",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_conv_flex_2",
@@ -1011,7 +1127,9 @@
     "production_interval": 5,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_precision=1,consume_smallest=4"
+    "on_fire_effect": "generate_precision=1,consume_smallest=4",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_draw_basic_1",
@@ -1022,7 +1140,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_draw_engine_1",
@@ -1036,7 +1156,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "activate_east=1,generate_green=1"
+    "on_fire_effect": "activate_east=1,generate_green=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_draw_engine_2",
@@ -1050,7 +1172,9 @@
     "production_interval": 5,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "activate_west=1,generate_red=2"
+    "on_fire_effect": "activate_west=1,generate_red=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_draw_precision_2",
@@ -1062,7 +1186,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "activate_north=1,generate_white=1"
+    "on_fire_effect": "activate_north=1,generate_white=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_draw_smallest_1",
@@ -1074,7 +1200,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "consume_smallest=3,draw=1"
+    "on_fire_effect": "consume_smallest=3,draw=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_draw_tag_1",
@@ -1088,7 +1216,9 @@
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "activate_south=1,draw=1"
+    "on_fire_effect": "activate_south=1,draw=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_dmg_basic_1",
@@ -1100,7 +1230,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "damage=1,activate_east=1,generate_green=1"
+    "on_fire_effect": "damage=1,activate_east=1,generate_green=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_dmg_basic_2",
@@ -1112,7 +1244,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "damage=2,activate_west=1,generate_red=2"
+    "on_fire_effect": "damage=2,activate_west=1,generate_red=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_dmg_precision_1",
@@ -1126,7 +1260,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "damage=2,activate_north=1,generate_white=1"
+    "on_fire_effect": "damage=2,activate_north=1,generate_white=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_dmg_precision_2",
@@ -1140,7 +1276,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "damage=3,activate_south=1,draw=1"
+    "on_fire_effect": "damage=3,activate_south=1,draw=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_dmg_heat_1",
@@ -1152,7 +1290,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "damage=3,activate_east=1,generate_green=1"
+    "on_fire_effect": "damage=3,activate_east=1,generate_green=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_dmg_smallest_1",
@@ -1164,7 +1304,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "consume_smallest=4,damage=2"
+    "on_fire_effect": "consume_smallest=4,damage=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_gen_basic_1",
@@ -1178,7 +1320,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_green=2.5,activate_west=1,generate_red=1"
+    "on_fire_effect": "generate_green=2.5,activate_west=1,generate_red=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_gen_basic_2",
@@ -1192,7 +1336,9 @@
     "production_interval": 2,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_green=1.5"
+    "on_fire_effect": "generate_green=1.5",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_gen_basic_3",
@@ -1206,7 +1352,9 @@
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_green=3,activate_north=1,generate_white=1"
+    "on_fire_effect": "generate_green=3,activate_north=1,generate_white=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_gen_basic_4",
@@ -1220,7 +1368,9 @@
     "production_interval": 5,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_green=4.5,activate_south=1,draw=1"
+    "on_fire_effect": "generate_green=4.5,activate_south=1,draw=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_conv_momentum_1",
@@ -1234,7 +1384,9 @@
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_momentum=1,activate_east=1,generate_green=1"
+    "on_fire_effect": "generate_momentum=1,activate_east=1,generate_green=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_conv_momentum_2",
@@ -1248,7 +1400,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_momentum=1,activate_west=1,generate_red=1"
+    "on_fire_effect": "generate_momentum=1,activate_west=1,generate_red=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_conv_entropy_1",
@@ -1262,7 +1416,9 @@
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_entropy=1,activate_north=1,generate_white=1"
+    "on_fire_effect": "generate_entropy=1,activate_north=1,generate_white=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_conv_entropy_2",
@@ -1276,7 +1432,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_entropy=1,activate_south=1,draw=1"
+    "on_fire_effect": "generate_entropy=1,activate_south=1,draw=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_gen_basic_1",
@@ -1290,7 +1448,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_white=2,activate_east=1,generate_green=1"
+    "on_fire_effect": "generate_white=2,activate_east=1,generate_green=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_gen_basic_2",
@@ -1304,7 +1464,9 @@
     "production_interval": 2,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_white=1.5"
+    "on_fire_effect": "generate_white=1.5",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_gen_basic_3",
@@ -1318,7 +1480,9 @@
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_white=3.5,activate_west=1,generate_red=1"
+    "on_fire_effect": "generate_white=3.5,activate_west=1,generate_red=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_gen_basic_4",
@@ -1332,7 +1496,9 @@
     "production_interval": 5,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_white=4,activate_north=1,generate_white=2"
+    "on_fire_effect": "generate_white=4,activate_north=1,generate_white=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_conv_precision_1",
@@ -1346,7 +1512,9 @@
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_precision=1,activate_south=1,draw=1"
+    "on_fire_effect": "generate_precision=1,activate_south=1,draw=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_conv_precision_2",
@@ -1360,7 +1528,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_precision=1,activate_east=1,generate_green=1"
+    "on_fire_effect": "generate_precision=1,activate_east=1,generate_green=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_conv_balance_1",
@@ -1374,7 +1544,9 @@
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_balance=1,activate_west=1,generate_red=1"
+    "on_fire_effect": "generate_balance=1,activate_west=1,generate_red=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_conv_balance_2",
@@ -1388,7 +1560,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_balance=1,activate_north=1,generate_white=1"
+    "on_fire_effect": "generate_balance=1,activate_north=1,generate_white=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "Purple_gen_basic_1",
@@ -1402,7 +1576,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_purple=2,activate_south=1,draw=1"
+    "on_fire_effect": "generate_purple=2,activate_south=1,draw=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "Purple_gen_basic_2",
@@ -1416,7 +1592,9 @@
     "production_interval": 2,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_purple=1.5"
+    "on_fire_effect": "generate_purple=1.5",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "Purple_gen_basic_3",
@@ -1430,7 +1608,9 @@
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_purple=3.5,activate_east=1,generate_green=1"
+    "on_fire_effect": "generate_purple=3.5,activate_east=1,generate_green=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "Purple_gen_basic_4",
@@ -1444,7 +1624,9 @@
     "production_interval": 5,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_purple=4,activate_west=1,generate_red=2"
+    "on_fire_effect": "generate_purple=4,activate_west=1,generate_red=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "Purple_conv_balance_1",
@@ -1458,7 +1640,9 @@
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_balance=1,activate_north=1,generate_white=1"
+    "on_fire_effect": "generate_balance=1,activate_north=1,generate_white=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "Purple_conv_balance_2",
@@ -1472,7 +1656,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_balance=1,activate_south=1,draw=1"
+    "on_fire_effect": "generate_balance=1,activate_south=1,draw=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "Purple_conv_entropy_1",
@@ -1486,7 +1672,9 @@
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_entropy=1,activate_east=1,generate_green=1"
+    "on_fire_effect": "generate_entropy=1,activate_east=1,generate_green=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "Purple_conv_entropy_2",
@@ -1500,7 +1688,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_entropy=1,activate_west=1,generate_red=1"
+    "on_fire_effect": "generate_entropy=1,activate_west=1,generate_red=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_draw_desperate",
@@ -1512,7 +1702,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "activate_north=1,generate_white=1"
+    "on_fire_effect": "activate_north=1,generate_white=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_draw_blazing",
@@ -1524,7 +1716,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "activate_south=1,draw=1"
+    "on_fire_effect": "activate_south=1,draw=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_draw_heat_surge",
@@ -1536,7 +1730,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "activate_east=1,generate_green=1"
+    "on_fire_effect": "activate_east=1,generate_green=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_draw_momentum_rush",
@@ -1548,7 +1744,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "activate_west=1,generate_red=1"
+    "on_fire_effect": "activate_west=1,generate_red=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_heat_blast",
@@ -1560,7 +1758,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "damage=5"
+    "on_fire_effect": "damage=5",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_heat_wave",
@@ -1572,7 +1772,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "damage=3,activate_north=1,generate_white=1"
+    "on_fire_effect": "damage=3,activate_north=1,generate_white=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_heat_engine",
@@ -1586,7 +1788,9 @@
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_red=3,activate_south=1,draw=1"
+    "on_fire_effect": "generate_red=3,activate_south=1,draw=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_heat_amplifier",
@@ -1598,7 +1802,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "activate_east=1,generate_green=1"
+    "on_fire_effect": "activate_east=1,generate_green=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_momentum_strike",
@@ -1610,7 +1816,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "damage=2"
+    "on_fire_effect": "damage=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_momentum_chain",
@@ -1622,7 +1830,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "activate_west=1,generate_red=1"
+    "on_fire_effect": "activate_west=1,generate_red=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_ember_mine",
@@ -1636,7 +1846,9 @@
     "production_interval": 2,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_red=1.5,activate_north=1,generate_white=1"
+    "on_fire_effect": "generate_red=1.5,activate_north=1,generate_white=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_flame_crystal",
@@ -1650,7 +1862,9 @@
     "production_interval": 5,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_red=4,activate_south=1,draw=1"
+    "on_fire_effect": "generate_red=4,activate_south=1,draw=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_molten_core",
@@ -1664,7 +1878,9 @@
     "production_interval": 6,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_red=5,activate_east=1,generate_green=2"
+    "on_fire_effect": "generate_red=5,activate_east=1,generate_green=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_heat_refinery",
@@ -1678,7 +1894,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_heat=2,activate_west=1,generate_red=1"
+    "on_fire_effect": "generate_heat=2,activate_west=1,generate_red=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_momentum_factory",
@@ -1692,7 +1910,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_momentum=2,activate_north=1,generate_white=1"
+    "on_fire_effect": "generate_momentum=2,activate_north=1,generate_white=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_dual_converter",
@@ -1706,7 +1926,9 @@
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_heat=1,activate_south=1,draw=1"
+    "on_fire_effect": "generate_heat=1,activate_south=1,draw=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_burn_all",
@@ -1718,7 +1940,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "damage=2,activate_east=1,generate_green=2"
+    "on_fire_effect": "damage=2,activate_east=1,generate_green=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_critical_strike",
@@ -1730,7 +1954,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "damage=3,activate_west=1,generate_red=1"
+    "on_fire_effect": "damage=3,activate_west=1,generate_red=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_emergency_power",
@@ -1742,7 +1968,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_red=3,consume_smallest=4"
+    "on_fire_effect": "generate_red=3,consume_smallest=4",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_inferno_core",
@@ -1756,7 +1984,9 @@
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_red=3"
+    "on_fire_effect": "generate_red=3",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_pyroclasm",
@@ -1768,7 +1998,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "damage=4"
+    "on_fire_effect": "damage=4",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_heat_sink",
@@ -1782,7 +2014,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_red=2"
+    "on_fire_effect": "generate_red=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_double_tap",
@@ -1794,7 +2028,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "damage=1"
+    "on_fire_effect": "damage=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_resource_burn",
@@ -1806,7 +2042,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "consume_largest=2,damage=2"
+    "on_fire_effect": "consume_largest=2,damage=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_flame_wall",
@@ -1820,7 +2058,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "damage=1"
+    "on_fire_effect": "damage=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_heat_exchange",
@@ -1832,7 +2072,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_red=3"
+    "on_fire_effect": "generate_red=3",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_momentum_transfer",
@@ -1844,7 +2086,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_red=3"
+    "on_fire_effect": "generate_red=3",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_ignition",
@@ -1856,7 +2100,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_red=3"
+    "on_fire_effect": "generate_red=3",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_momentum_punch",
@@ -1868,7 +2114,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "damage=3"
+    "on_fire_effect": "damage=3",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "red_resource_converter",
@@ -1882,7 +2130,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_red=2,consume_largest=3"
+    "on_fire_effect": "generate_red=2,consume_largest=3",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_draw_flow",
@@ -1893,7 +2143,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_draw_surge",
@@ -1904,7 +2156,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_draw_precision",
@@ -1915,7 +2169,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_draw_heat_exchange",
@@ -1926,7 +2182,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_draw_engine",
@@ -1939,7 +2197,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_draw_battery",
@@ -1952,7 +2212,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_precision_strike",
@@ -1964,7 +2226,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "damage=3"
+    "on_fire_effect": "damage=3",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_precision_shield",
@@ -1975,7 +2239,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_precision_boost",
@@ -1986,7 +2252,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_heat_control",
@@ -1997,7 +2265,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_heat_conversion",
@@ -2011,7 +2281,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_blue=3"
+    "on_fire_effect": "generate_blue=3",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_crystal_mine",
@@ -2025,7 +2297,9 @@
     "production_interval": 2,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_blue=1.5"
+    "on_fire_effect": "generate_blue=1.5",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_tide_generator",
@@ -2039,7 +2313,9 @@
     "production_interval": 5,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_blue=4"
+    "on_fire_effect": "generate_blue=4",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_deep_well",
@@ -2053,7 +2329,9 @@
     "production_interval": 6,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_blue=5"
+    "on_fire_effect": "generate_blue=5",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_heat_condenser",
@@ -2067,7 +2345,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_heat=2"
+    "on_fire_effect": "generate_heat=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_precision_lathe",
@@ -2081,7 +2361,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_precision=2"
+    "on_fire_effect": "generate_precision=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_dual_processor",
@@ -2095,7 +2377,9 @@
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_heat=1"
+    "on_fire_effect": "generate_heat=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_knowledge_pool",
@@ -2108,7 +2392,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_heat_sink_2",
@@ -2121,7 +2407,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_thought_acceleration",
@@ -2132,7 +2420,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_knowledge_burst",
@@ -2143,7 +2433,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_precision_burst",
@@ -2155,7 +2447,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_precision=2"
+    "on_fire_effect": "generate_precision=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_heat_burst",
@@ -2167,7 +2461,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_heat=2"
+    "on_fire_effect": "generate_heat=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_tide_surge",
@@ -2179,7 +2475,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_blue=4"
+    "on_fire_effect": "generate_blue=4",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_draw_growth",
@@ -2190,7 +2488,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_draw_wild",
@@ -2201,7 +2501,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_draw_momentum",
@@ -2212,7 +2514,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_draw_entropy",
@@ -2223,7 +2527,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_momentum_growth",
@@ -2235,7 +2541,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_green=3"
+    "on_fire_effect": "generate_green=3",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_momentum_rampage",
@@ -2247,7 +2555,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "damage=4"
+    "on_fire_effect": "damage=4",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_entropy_bloom",
@@ -2259,7 +2569,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_green=3"
+    "on_fire_effect": "generate_green=3",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_entropy_poison",
@@ -2271,7 +2583,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "consume_entropy=1,poison=3"
+    "on_fire_effect": "consume_entropy=1,poison=3",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_growth_engine",
@@ -2285,7 +2599,9 @@
     "production_interval": 2,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_green=1.5"
+    "on_fire_effect": "generate_green=1.5",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_wild_generator",
@@ -2299,7 +2615,9 @@
     "production_interval": 5,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_green=4"
+    "on_fire_effect": "generate_green=4",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_jungle_heart",
@@ -2313,7 +2631,9 @@
     "production_interval": 6,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_green=5"
+    "on_fire_effect": "generate_green=5",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_momentum_mill",
@@ -2327,7 +2647,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_momentum=2"
+    "on_fire_effect": "generate_momentum=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_entropy_pit",
@@ -2341,7 +2663,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_entropy=2"
+    "on_fire_effect": "generate_entropy=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_dual_growth",
@@ -2355,7 +2679,9 @@
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_momentum=1"
+    "on_fire_effect": "generate_momentum=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_haste_beast",
@@ -2369,7 +2695,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "damage=2"
+    "on_fire_effect": "damage=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_wild_surge",
@@ -2383,7 +2711,9 @@
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_green=3"
+    "on_fire_effect": "generate_green=3",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_growth_spurt",
@@ -2395,7 +2725,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_green=3"
+    "on_fire_effect": "generate_green=3",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_poison_spores",
@@ -2409,7 +2741,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "poison=1"
+    "on_fire_effect": "poison=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_beast_rampage",
@@ -2421,7 +2755,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "damage=3"
+    "on_fire_effect": "damage=3",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_poison_cloud",
@@ -2433,7 +2769,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "consume_entropy=1,poison=2"
+    "on_fire_effect": "consume_entropy=1,poison=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_beast_fury",
@@ -2445,7 +2783,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "damage=2"
+    "on_fire_effect": "damage=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_momentum_burst",
@@ -2457,7 +2797,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_momentum=2"
+    "on_fire_effect": "generate_momentum=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_entropy_burst",
@@ -2469,7 +2811,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_entropy=2"
+    "on_fire_effect": "generate_entropy=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_immovable_wall",
@@ -2483,7 +2827,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_white=2"
+    "on_fire_effect": "generate_white=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_immovable_order",
@@ -2496,7 +2842,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_draw_order",
@@ -2507,7 +2855,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_draw_light",
@@ -2518,7 +2868,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_draw_precision",
@@ -2529,7 +2881,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_draw_balance",
@@ -2540,7 +2894,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_draw_engine",
@@ -2553,7 +2909,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_precision_heal",
@@ -2564,7 +2922,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_precision_shield",
@@ -2575,7 +2935,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_balance_strike",
@@ -2587,7 +2949,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "damage=2"
+    "on_fire_effect": "damage=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_balance_shield",
@@ -2598,7 +2962,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_light_crystal",
@@ -2612,7 +2978,9 @@
     "production_interval": 2,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_white=1.5"
+    "on_fire_effect": "generate_white=1.5",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_order_foundation",
@@ -2626,7 +2994,9 @@
     "production_interval": 5,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_white=4"
+    "on_fire_effect": "generate_white=4",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_cathedral",
@@ -2640,7 +3010,9 @@
     "production_interval": 6,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_white=5"
+    "on_fire_effect": "generate_white=5",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_precision_mill",
@@ -2654,7 +3026,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_precision=2"
+    "on_fire_effect": "generate_precision=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_balance_forge",
@@ -2668,7 +3042,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_balance=2"
+    "on_fire_effect": "generate_balance=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_dual_order",
@@ -2682,7 +3058,9 @@
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_precision=1"
+    "on_fire_effect": "generate_precision=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_order_surge",
@@ -2696,7 +3074,9 @@
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_white=3"
+    "on_fire_effect": "generate_white=3",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_healing_light",
@@ -2707,7 +3087,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_shield_wall",
@@ -2718,7 +3100,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_light_burst",
@@ -2730,7 +3114,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_white=3"
+    "on_fire_effect": "generate_white=3",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_precision_burst_2",
@@ -2742,7 +3128,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_precision=2"
+    "on_fire_effect": "generate_precision=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_balance_burst",
@@ -2754,7 +3142,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_balance=2"
+    "on_fire_effect": "generate_balance=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "Purple_poison_dust",
@@ -2766,7 +3156,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "consume_purple=2,poison=2"
+    "on_fire_effect": "consume_purple=2,poison=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "Purple_poison_entropy",
@@ -2778,7 +3170,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "consume_entropy=1,poison=4"
+    "on_fire_effect": "consume_entropy=1,poison=4",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "Purple_poison_cloud_2",
@@ -2792,7 +3186,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "poison=1"
+    "on_fire_effect": "poison=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "Purple_draw_void",
@@ -2803,7 +3199,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "Purple_draw_dust",
@@ -2814,7 +3212,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "Purple_draw_balance",
@@ -2825,7 +3225,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "Purple_draw_entropy_2",
@@ -2836,7 +3238,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "Purple_balance_void",
@@ -2848,7 +3252,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_purple=3"
+    "on_fire_effect": "generate_purple=3",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "Purple_balance_shield",
@@ -2859,7 +3265,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "Purple_entropy_void",
@@ -2871,7 +3279,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_purple=3"
+    "on_fire_effect": "generate_purple=3",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "Purple_entropy_damage",
@@ -2883,7 +3293,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "damage=5"
+    "on_fire_effect": "damage=5",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "Purple_dust_mine",
@@ -2897,7 +3309,9 @@
     "production_interval": 2,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_purple=1.5"
+    "on_fire_effect": "generate_purple=1.5",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "Purple_void_generator",
@@ -2911,7 +3325,9 @@
     "production_interval": 5,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_purple=4"
+    "on_fire_effect": "generate_purple=4",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "Purple_shadow_core",
@@ -2925,7 +3341,9 @@
     "production_interval": 6,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_purple=5"
+    "on_fire_effect": "generate_purple=5",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "Purple_balance_mill",
@@ -2939,7 +3357,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_balance=2"
+    "on_fire_effect": "generate_balance=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "Purple_entropy_pit_2",
@@ -2953,7 +3373,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_entropy=2"
+    "on_fire_effect": "generate_entropy=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "Purple_dual_void",
@@ -2967,7 +3389,9 @@
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_balance=1"
+    "on_fire_effect": "generate_balance=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "Purple_void_surge",
@@ -2981,7 +3405,9 @@
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_purple=3"
+    "on_fire_effect": "generate_purple=3",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "Purple_shadow_strike",
@@ -2993,7 +3419,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "damage=2"
+    "on_fire_effect": "damage=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "Purple_dust_storm",
@@ -3005,7 +3433,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "damage=2"
+    "on_fire_effect": "damage=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "Purple_shadow_burst",
@@ -3017,7 +3447,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_purple=3"
+    "on_fire_effect": "generate_purple=3",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "Purple_balance_burst_2",
@@ -3029,7 +3461,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_balance=2"
+    "on_fire_effect": "generate_balance=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "Purple_entropy_burst_2",
@@ -3041,7 +3475,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_entropy=2"
+    "on_fire_effect": "generate_entropy=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "Purple_death_cloud",
@@ -3053,7 +3489,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "poison=1"
+    "on_fire_effect": "poison=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_faster_basic_1",
@@ -3067,7 +3505,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_green=1.5"
+    "on_fire_effect": "generate_green=1.5",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_faster_basic_2",
@@ -3080,7 +3520,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 2,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_faster_basic_3",
@@ -3094,7 +3536,9 @@
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_green=2"
+    "on_fire_effect": "generate_green=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_faster_momentum_1",
@@ -3105,7 +3549,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_faster_instant_1",
@@ -3118,7 +3564,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_faster_titan_1",
@@ -3132,7 +3580,9 @@
     "production_interval": 6,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_green=3"
+    "on_fire_effect": "generate_green=3",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_conv_momentum_5",
@@ -3146,7 +3596,9 @@
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_momentum=2"
+    "on_fire_effect": "generate_momentum=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_conv_flex_3",
@@ -3160,7 +3612,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_momentum=1,consume_smallest=3"
+    "on_fire_effect": "generate_momentum=1,consume_smallest=3",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_beast_buff_1",
@@ -3173,7 +3627,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 2,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_faster_combo_1",
@@ -3184,7 +3640,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_engine_buff_1",
@@ -3197,7 +3655,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_gen_basic_16",
@@ -3211,7 +3671,9 @@
     "production_interval": 2,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_green=1.5"
+    "on_fire_effect": "generate_green=1.5",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_gen_basic_17",
@@ -3225,7 +3687,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_green=2.5"
+    "on_fire_effect": "generate_green=2.5",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_gen_basic_18",
@@ -3239,7 +3703,9 @@
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_green=3.5"
+    "on_fire_effect": "generate_green=3.5",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_gen_basic_19",
@@ -3253,7 +3719,9 @@
     "production_interval": 5,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_green=4.5"
+    "on_fire_effect": "generate_green=4.5",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_gen_basic_20",
@@ -3267,7 +3735,9 @@
     "production_interval": 6,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_green=6"
+    "on_fire_effect": "generate_green=6",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_gen_basic_21",
@@ -3281,7 +3751,9 @@
     "production_interval": 2,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_green=0.5"
+    "on_fire_effect": "generate_green=0.5",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_gen_basic_23",
@@ -3295,7 +3767,9 @@
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_green=3"
+    "on_fire_effect": "generate_green=3",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_gen_basic_24",
@@ -3309,7 +3783,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_green=2"
+    "on_fire_effect": "generate_green=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_gen_basic_25",
@@ -3323,7 +3799,9 @@
     "production_interval": 2,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_green=1"
+    "on_fire_effect": "generate_green=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_gen_basic_27",
@@ -3337,7 +3815,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_green=2"
+    "on_fire_effect": "generate_green=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_gen_basic_28",
@@ -3351,7 +3831,9 @@
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_green=3"
+    "on_fire_effect": "generate_green=3",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_gen_basic_30",
@@ -3365,7 +3847,9 @@
     "production_interval": 7,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_green=8"
+    "on_fire_effect": "generate_green=8",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_conv_momentum_7",
@@ -3378,7 +3862,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 2,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_conv_momentum_8",
@@ -3391,7 +3877,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_conv_momentum_9",
@@ -3404,7 +3892,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 5,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_conv_momentum_10",
@@ -3418,7 +3908,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "consume_largest=2"
+    "on_fire_effect": "consume_largest=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_conv_heat_1",
@@ -3431,7 +3923,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_conv_heat_2",
@@ -3444,7 +3938,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 5,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_conv_precision_1",
@@ -3457,7 +3953,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_conv_all_1",
@@ -3470,7 +3968,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 6,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_conv_poison_1",
@@ -3484,7 +3984,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "consume_green=2"
+    "on_fire_effect": "consume_green=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_dmg_basic_3",
@@ -3496,7 +3998,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "damage=2"
+    "on_fire_effect": "damage=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_dmg_basic_4",
@@ -3508,7 +4012,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "damage=3"
+    "on_fire_effect": "damage=3",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_dmg_momentum_2",
@@ -3520,7 +4026,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "damage=2"
+    "on_fire_effect": "damage=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_dmg_momentum_3",
@@ -3532,7 +4040,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "damage=3"
+    "on_fire_effect": "damage=3",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_dmg_momentum_4",
@@ -3544,7 +4054,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "damage=5"
+    "on_fire_effect": "damage=5",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_dmg_flexible_1",
@@ -3556,7 +4068,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "consume_largest=3,damage=2"
+    "on_fire_effect": "consume_largest=3,damage=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_dmg_flexible_2",
@@ -3568,7 +4082,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "consume_smallest=2,damage=1"
+    "on_fire_effect": "consume_smallest=2,damage=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_dmg_poison_2",
@@ -3580,7 +4096,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "consume_green=2,damage=1"
+    "on_fire_effect": "consume_green=2,damage=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_dmg_momentary_1",
@@ -3594,7 +4112,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "damage=1"
+    "on_fire_effect": "damage=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_draw_basic_1",
@@ -3605,7 +4125,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_draw_basic_2",
@@ -3616,7 +4138,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_draw_momentum_1",
@@ -3627,7 +4151,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_buff_mech_1",
@@ -3640,7 +4166,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_buff_beast_2",
@@ -3653,7 +4181,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_synergy_mech_1",
@@ -3664,7 +4194,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": "-1",
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_synergy_beast_1",
@@ -3675,7 +4207,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": "-1",
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "green_timing_1",
@@ -3686,7 +4220,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": "-1",
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_gen_basic_1",
@@ -3700,7 +4236,9 @@
     "production_interval": 2,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_white=1.5"
+    "on_fire_effect": "generate_white=1.5",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_gen_basic_2",
@@ -3714,7 +4252,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_white=2.5"
+    "on_fire_effect": "generate_white=2.5",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_gen_basic_3",
@@ -3728,7 +4268,9 @@
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_white=3.5"
+    "on_fire_effect": "generate_white=3.5",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_gen_basic_4",
@@ -3742,7 +4284,9 @@
     "production_interval": 5,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_white=4.5"
+    "on_fire_effect": "generate_white=4.5",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_gen_basic_5",
@@ -3756,7 +4300,9 @@
     "production_interval": 6,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_white=6"
+    "on_fire_effect": "generate_white=6",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_gen_basic_6",
@@ -3770,7 +4316,9 @@
     "production_interval": 2,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_white=0.5"
+    "on_fire_effect": "generate_white=0.5",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_gen_basic_7",
@@ -3783,7 +4331,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_gen_basic_8",
@@ -3797,7 +4347,9 @@
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_white=3"
+    "on_fire_effect": "generate_white=3",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_gen_basic_9",
@@ -3811,7 +4363,9 @@
     "production_interval": 2,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_white=1"
+    "on_fire_effect": "generate_white=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_gen_basic_10",
@@ -3825,7 +4379,9 @@
     "production_interval": 5,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_white=5"
+    "on_fire_effect": "generate_white=5",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_gen_micro_1",
@@ -3839,7 +4395,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_white=0.5"
+    "on_fire_effect": "generate_white=0.5",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_conv_heat_1",
@@ -3852,7 +4410,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_conv_precision_1",
@@ -3865,7 +4425,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_conv_momentum_1",
@@ -3878,7 +4440,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_dmg_basic_1",
@@ -3890,7 +4454,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "damage=2"
+    "on_fire_effect": "damage=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_dmg_basic_2",
@@ -3902,7 +4468,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "damage=3"
+    "on_fire_effect": "damage=3",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_dmg_basic_3",
@@ -3914,7 +4482,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "damage=4"
+    "on_fire_effect": "damage=4",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_dmg_flexible_1",
@@ -3926,7 +4496,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "consume_smallest=3,damage=2"
+    "on_fire_effect": "consume_smallest=3,damage=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_dmg_flexible_2",
@@ -3938,7 +4510,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "consume_largest=4,damage=3"
+    "on_fire_effect": "consume_largest=4,damage=3",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_dmg_momentary_1",
@@ -3952,7 +4526,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "damage=1"
+    "on_fire_effect": "damage=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_draw_basic_1",
@@ -3963,7 +4539,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_draw_basic_2",
@@ -3974,7 +4552,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_buff_stone_1",
@@ -3987,7 +4567,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_buff_tool_1",
@@ -4000,7 +4582,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_defense_basic_1",
@@ -4013,7 +4597,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": "-1",
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_synergy_stone_1",
@@ -4024,7 +4610,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": "-1",
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_timing_1",
@@ -4035,7 +4623,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": "-1",
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_crystal_1",
@@ -4049,7 +4639,9 @@
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_white=2"
+    "on_fire_effect": "generate_white=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_spark_1",
@@ -4063,7 +4655,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_white=1"
+    "on_fire_effect": "generate_white=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_mech_1",
@@ -4077,7 +4671,9 @@
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_white=2"
+    "on_fire_effect": "generate_white=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_dmg_basic_4",
@@ -4091,7 +4687,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "damage=2"
+    "on_fire_effect": "damage=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_dmg_basic_5",
@@ -4103,7 +4701,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "damage=3"
+    "on_fire_effect": "damage=3",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_dmg_basic_6",
@@ -4115,7 +4715,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "damage=5"
+    "on_fire_effect": "damage=5",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_dmg_heat_1",
@@ -4127,7 +4729,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "damage=3"
+    "on_fire_effect": "damage=3",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_dmg_momentum_1",
@@ -4139,7 +4743,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "damage=3"
+    "on_fire_effect": "damage=3",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_dmg_precision_1",
@@ -4151,7 +4757,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "damage=4"
+    "on_fire_effect": "damage=4",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_dmg_flexible_3",
@@ -4163,7 +4771,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "consume_largest=2,damage=2"
+    "on_fire_effect": "consume_largest=2,damage=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_dmg_flexible_4",
@@ -4175,7 +4785,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "consume_smallest=3,damage=3"
+    "on_fire_effect": "consume_smallest=3,damage=3",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_conv_heat_2",
@@ -4189,7 +4801,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": ",activate_east=1"
+    "on_fire_effect": ",activate_east=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_conv_heat_3",
@@ -4202,7 +4816,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 5,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_conv_momentum_2",
@@ -4215,7 +4831,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_conv_momentum_3",
@@ -4228,7 +4846,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_conv_precision_2",
@@ -4241,7 +4861,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_conv_precision_3",
@@ -4254,7 +4876,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_conv_all_2",
@@ -4267,7 +4891,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 5,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_synergy_stone_2",
@@ -4279,7 +4905,9 @@
     "production_interval": "-1",
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": ",activate_east=1"
+    "on_fire_effect": ",activate_east=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "Purple_gen_basic_1",
@@ -4293,7 +4921,9 @@
     "production_interval": 2,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_purple=1.5"
+    "on_fire_effect": "generate_purple=1.5",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "Purple_gen_basic_2",
@@ -4307,7 +4937,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_purple=2.5"
+    "on_fire_effect": "generate_purple=2.5",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "Purple_gen_basic_3",
@@ -4321,7 +4953,9 @@
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_purple=3.5"
+    "on_fire_effect": "generate_purple=3.5",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "Purple_gen_basic_4",
@@ -4335,7 +4969,9 @@
     "production_interval": 5,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_purple=4.5"
+    "on_fire_effect": "generate_purple=4.5",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "Purple_gen_basic_5",
@@ -4349,7 +4985,9 @@
     "production_interval": 6,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_purple=6"
+    "on_fire_effect": "generate_purple=6",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "Purple_gen_basic_6",
@@ -4363,7 +5001,9 @@
     "production_interval": 2,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_purple=0.5"
+    "on_fire_effect": "generate_purple=0.5",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "Purple_gen_basic_7",
@@ -4377,7 +5017,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_purple=2"
+    "on_fire_effect": "generate_purple=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "Purple_gen_poison_1",
@@ -4391,7 +5033,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_purple=2"
+    "on_fire_effect": "generate_purple=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "Purple_conv_void_1",
@@ -4405,7 +5049,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": ",activate_north=1"
+    "on_fire_effect": ",activate_north=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "Purple_conv_void_2",
@@ -4418,7 +5064,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "Purple_conv_heat_1",
@@ -4432,7 +5080,9 @@
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": ",activate_east=1"
+    "on_fire_effect": ",activate_east=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "Purple_conv_momentum_1",
@@ -4445,7 +5095,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "Purple_conv_precision_1",
@@ -4458,7 +5110,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "Purple_conv_flex_1",
@@ -4472,7 +5126,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "consume_largest=3"
+    "on_fire_effect": "consume_largest=3",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "Purple_conv_flex_2",
@@ -4486,7 +5142,9 @@
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "consume_smallest=4"
+    "on_fire_effect": "consume_smallest=4",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "Purple_conv_poison_1",
@@ -4500,7 +5158,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "consume_purple=2"
+    "on_fire_effect": "consume_purple=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "Purple_conv_all_1",
@@ -4513,7 +5173,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 6,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "Purple_dmg_basic_1",
@@ -4525,7 +5187,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "damage=2"
+    "on_fire_effect": "damage=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "Purple_dmg_basic_2",
@@ -4537,7 +5201,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "damage=3"
+    "on_fire_effect": "damage=3",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "Purple_dmg_basic_3",
@@ -4549,7 +5215,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "damage=5"
+    "on_fire_effect": "damage=5",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "Purple_dmg_void_1",
@@ -4561,7 +5229,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "damage=4"
+    "on_fire_effect": "damage=4",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "Purple_dmg_void_2",
@@ -4573,7 +5243,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "damage=7"
+    "on_fire_effect": "damage=7",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "Purple_dmg_poison_1",
@@ -4585,7 +5257,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "consume_purple=2,damage=1"
+    "on_fire_effect": "consume_purple=2,damage=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "Purple_dmg_flexible_1",
@@ -4597,7 +5271,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "consume_largest=3,damage=3"
+    "on_fire_effect": "consume_largest=3,damage=3",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "Purple_dmg_flexible_2",
@@ -4609,7 +5285,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "consume_smallest=2,damage=2"
+    "on_fire_effect": "consume_smallest=2,damage=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "Purple_dmg_momentary_1",
@@ -4623,7 +5301,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "damage=1"
+    "on_fire_effect": "damage=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "Purple_dmg_heat_1",
@@ -4635,7 +5315,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "consume_heat=1,damage=3"
+    "on_fire_effect": "consume_heat=1,damage=3",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "Purple_draw_basic_1",
@@ -4646,7 +5328,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "Purple_draw_basic_2",
@@ -4657,7 +5341,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "Purple_buff_void_1",
@@ -4670,7 +5356,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "Purple_buff_dust_1",
@@ -4683,7 +5371,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_draw_basic_5",
@@ -4694,7 +5384,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_draw_basic_6",
@@ -4705,7 +5397,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_draw_order_3",
@@ -4718,7 +5412,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "white_draw_stone_2",
@@ -4729,7 +5425,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_gen_crystal_1",
@@ -4743,7 +5441,9 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_blue=2"
+    "on_fire_effect": "generate_blue=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_gen_crystal_2",
@@ -4757,7 +5457,9 @@
     "production_interval": 2,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_blue=1"
+    "on_fire_effect": "generate_blue=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_gen_tool_1",
@@ -4771,7 +5473,9 @@
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_blue=1"
+    "on_fire_effect": "generate_blue=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_gen_arcane_1",
@@ -4785,7 +5489,9 @@
     "production_interval": 5,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_blue=4"
+    "on_fire_effect": "generate_blue=4",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_gen_order_1",
@@ -4798,7 +5504,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_gen_micro_1",
@@ -4812,7 +5520,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_blue=0.5"
+    "on_fire_effect": "generate_blue=0.5",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_gen_mech_1",
@@ -4826,7 +5536,9 @@
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_blue=3"
+    "on_fire_effect": "generate_blue=3",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_gen_titan_1",
@@ -4840,7 +5552,9 @@
     "production_interval": 6,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_blue=5"
+    "on_fire_effect": "generate_blue=5",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_dmg_crystal_1",
@@ -4852,7 +5566,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "damage=1"
+    "on_fire_effect": "damage=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_dmg_tool_1",
@@ -4864,7 +5580,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "damage=2"
+    "on_fire_effect": "damage=2",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_dmg_precision_1",
@@ -4876,7 +5594,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "damage=3"
+    "on_fire_effect": "damage=3",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_dmg_micro_1",
@@ -4888,7 +5608,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "damage=1"
+    "on_fire_effect": "damage=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_dmg_arcane_1",
@@ -4900,7 +5622,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "damage=5"
+    "on_fire_effect": "damage=5",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_dmg_mech_1",
@@ -4912,7 +5636,9 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "damage=4"
+    "on_fire_effect": "damage=4",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_draw_tool_1",
@@ -4923,7 +5649,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_draw_crystal_1",
@@ -4934,7 +5662,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_draw_order_1",
@@ -4945,7 +5675,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_draw_arcane_1",
@@ -4958,7 +5690,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 5,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_draw_precision_1",
@@ -4969,7 +5703,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_conv_crystal_1",
@@ -4982,7 +5718,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_conv_tool_1",
@@ -4995,7 +5733,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_conv_order_1",
@@ -5008,7 +5748,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_conv_micro_1",
@@ -5021,7 +5763,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 2,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_conv_arcane_1",
@@ -5034,7 +5778,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 5,
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_utility_crystal_1",
@@ -5046,7 +5792,9 @@
     "production_interval": "-1",
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": ",activate_east=1"
+    "on_fire_effect": ",activate_east=1",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_utility_tool_1",
@@ -5057,7 +5805,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": "-1",
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_utility_micro_1",
@@ -5068,7 +5818,9 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": "-1",
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   },
   {
     "card_template_id": "blue_utility_arcane_1",
@@ -5079,6 +5831,8 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": "-1",
     "starting_progress": 0,
-    "group_template_id": "tourbillon"
+    "group_template_id": "tourbillon",
+    "cursor_image_uid": "bqvm4vgi4c0dn",
+    "art_image_uid": "bqvm4vgi4c0dn"
   }
 ]
