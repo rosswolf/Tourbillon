@@ -220,7 +220,16 @@ class IndexedPropertyChecker:
                                 'hp_changed', 'defeated', 'disruption_triggered',
                                 'damage_received', 'shields_changed', 'barrier_broken',
                                 # Common UI properties  
-                                'custom_minimum_size', 'anchor_left', 'anchor_right'
+                                'custom_minimum_size', 'anchor_left', 'anchor_right',
+                                # Control/Button properties that were missing
+                                'flat', 'size_flags_horizontal', 'size_flags_vertical',
+                                'size_flags_stretch_ratio', 'focus_mode', 'disabled',
+                                # Card effect properties (dynamically loaded from JSON)
+                                'on_ready_effect', 'on_replace_effect', 'on_destroy_effect',
+                                'on_discard_effect', 'on_draw_effect', 'on_exhaust_effect',
+                                'passive_effect', 'conditional_effect',
+                                # Effect subclass properties
+                                '__f', '__valid_source_types', '__valid_target_types'
                             }
                             
                             if prop_name not in builtin_props:
