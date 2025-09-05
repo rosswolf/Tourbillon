@@ -2,17 +2,18 @@ extends Resource
 class_name MoveData
 
 ## Data structure for a single gremlin move
+## TIMING: All durations are in TICKS (1 tick = 10 beats = 1 card play)
 
 @export var effect_type: String = ""  # "attack", "drain_random", "heat_soft_cap", etc.
 @export var effect_value: int = 0     # Damage amount, drain amount, cap value
-@export var tick_duration: int = 0    # Ticks until this move completes/triggers
+@export var tick_duration: int = 0    # Duration in TICKS (not beats!)
 @export var is_background: bool = false  # True if tick_duration == 0 (always active)
 
-func _init(type: String = "", value: int = 0, duration: int = 0) -> void:
+func _init(type: String = "", value: int = 0, duration_in_ticks: int = 0) -> void:
 	effect_type = type
 	effect_value = value
-	tick_duration = duration
-	is_background = (duration == 0)
+	tick_duration = duration_in_ticks
+	is_background = (duration_in_ticks == 0)
 
 ## Get a display string for this move
 func get_display_text() -> String:

@@ -65,8 +65,8 @@ func _initialize_gremlin() -> void:
 	if _damage_handler:
 		_sync_to_handler()
 
-	# Process moves/downsides when gremlin spawns
-	if not moves_string.is_empty():
+	# Process moves/downsides when gremlin spawns (only if not using move queue)
+	if not moves_string.is_empty() and move_queue.is_empty():
 		GremlinDownsideProcessor.process_gremlin_moves(moves_string, self)
 
 ## Process beat for gremlin behaviors
@@ -104,9 +104,11 @@ func _process_tick() -> void:
 	# Countdown current move
 	if ticks_until_move_complete > 0:
 		ticks_until_move_complete -= 1
+		print("[DEBUG] ", gremlin_name, " tick! Move: ", current_move.effect_type, " ticks left: ", ticks_until_move_complete)
 		
 		# Check if move completes
 		if ticks_until_move_complete == 0:
+			print("[DEBUG] ", gremlin_name, " completing move: ", current_move.effect_type)
 			_complete_current_move()
 			_advance_to_next_move()
 
@@ -210,6 +212,13 @@ func get_disruption_text() -> String:
 func set_move_queue(moves: Array[MoveData], background: Array[MoveData]) -> void:
 	move_queue = moves
 	background_effects = background
+	
+	print("[DEBUG] Setting move queue for ", gremlin_name)
+	print("[DEBUG] Cycled moves: ", move_queue.size())
+	for i in range(move_queue.size()):
+		var move = move_queue[i]
+		print("[DEBUG]   Move ", i+1, ": ", move.effect_type, "=", move.effect_value, " @ ", move.tick_duration, " ticks")
+	print("[DEBUG] Background effects: ", background_effects.size())
 	
 	# Apply all background effects immediately
 	for effect in background_effects:

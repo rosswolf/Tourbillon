@@ -13,7 +13,6 @@ class_name UiGremlinNew
 
 var gremlin: Gremlin
 var gremlin_images: Array[String] = []
-var total_beats: int = 0  # Track beats for fill progress
 
 func _ready() -> void:
 	super._ready()
@@ -30,12 +29,6 @@ func _ready() -> void:
 		# Start with no fill
 		fill_rect.size.x = 0
 	
-	# Connect to beat signal for fill updates
-	if GlobalGameManager.timeline_manager:
-		GlobalGameManager.timeline_manager.time_changed.connect(_on_beat_changed)
-		print("[UiGremlinNew] Connected to timeline_manager beat updates")
-	else:
-		print("[UiGremlinNew] WARNING: No timeline_manager found!")
 
 func _load_gremlin_images() -> void:
 	var dir = DirAccess.open("res://ai_assets/gremlins/")
@@ -103,47 +96,45 @@ func _get_disruption_text() -> String:
 	if not gremlin:
 		return ""
 	
-	# Get the downside description
-	var downside_text = gremlin.get_disruption_text() if gremlin.has_method("get_disruption_text") else ""
+	# Get the current move description
+	var move_text = gremlin.get_disruption_text() if gremlin.has_method("get_disruption_text") else ""
 	
-	# Add timing info if there's a periodic disruption
-	if gremlin.has_method("get_disruption_interval_beats") and gremlin.disruption_interval_beats > 0:
-		if gremlin.beats_until_disruption > 0:
-			var ticks_remaining = gremlin.beats_until_disruption / 10
-			var beats_remaining = gremlin.beats_until_disruption % 10
-			downside_text += " (in %d.%d)" % [ticks_remaining, beats_remaining]
+	# Add timing info for the current move
+	if gremlin.current_move and gremlin.current_move.tick_duration > 0:
+		if gremlin.ticks_until_move_complete > 0:
+			move_text += " [%d/%d]" % [gremlin.current_move.tick_duration - gremlin.ticks_until_move_complete, 
+										gremlin.current_move.tick_duration]
 		else:
-			downside_text += " (NOW!)"
+			move_text += " [NOW!]"
+	elif gremlin.current_move and gremlin.current_move.is_background:
+		move_text += " [Active]"
 	
-	return downside_text
+	return move_text
 
-func _on_beat_changed(beats: int) -> void:
+
+func _process(_delta: float) -> void:
 	if not gremlin or gremlin.current_hp <= 0:
 		return
 	
-	total_beats = beats
-	
-	# Update fill based on beats (fills over 100 beats = 10 ticks)
-	var fill_progress = float(total_beats % 100) / 100.0
-	
-	# Update fill rect - just set the width based on progress
-	if fill_rect:
-		# Get the parent panel width and set fill width accordingly
-		var panel_width = self.size.x
-		fill_rect.size.x = panel_width * fill_progress
-		
-		# Debug output every 10 beats
-		if total_beats % 10 == 0:
-			print("[UiGremlinNew] Beat ", total_beats, " - Fill: ", fill_progress * 100, "%")
-	
-	# Update effect text
+	# Update effect display
 	if effect_label:
 		effect_label.text = _get_disruption_text()
-
-func _process(_delta: float) -> void:
-	# Update effect display continuously
-	if effect_label and gremlin:
-		effect_label.text = _get_disruption_text()
+	
+	# Update progress bar based on current move
+	if fill_rect and gremlin.current_move:
+		var fill_progress: float = 0.0
+		
+		if gremlin.current_move.tick_duration > 0:
+			# Calculate progress: how many ticks have elapsed
+			var ticks_elapsed = gremlin.current_move.tick_duration - gremlin.ticks_until_move_complete
+			fill_progress = float(ticks_elapsed) / float(gremlin.current_move.tick_duration)
+		else:
+			# Background effect - always show as full
+			fill_progress = 1.0
+		
+		# Update fill width
+		var panel_width = self.size.x
+		fill_rect.size.x = panel_width * fill_progress
 
 func __on_hp_changed(new_hp: int, max_hp: int) -> void:
 	# Update HP display
