@@ -24,7 +24,7 @@ var starting_hand_size: int = 5
 var current_beat: int = 0  # Current beat count
 var current_tick: int = 0  # Current tick = current_beat / 10
 var is_paused: bool = false
-var beat_speed_ms: float = 50.0  # Milliseconds between beats for smooth playback
+var beat_speed_ms: float = 20.0  # Milliseconds between beats for smooth playback (50 beats/sec)
 
 var hand_size: int = 5
 var current_act: int = 1

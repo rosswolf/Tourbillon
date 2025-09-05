@@ -15,7 +15,7 @@ var beat_processor: BeatProcessor
 
 # Beat processing control
 var beats_pending: int = 0  # Beats waiting to be processed
-var beat_delay_ms: float = 50.0  # Milliseconds between beats (50ms = 20 beats/sec)
+var beat_delay_ms: float = 20.0  # Milliseconds between beats (20ms = 50 beats/sec)
 var is_processing_beats: bool = false
 var last_beat_time: float = 0.0
 
