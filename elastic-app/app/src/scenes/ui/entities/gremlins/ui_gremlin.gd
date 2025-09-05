@@ -82,9 +82,11 @@ func __get_disruption_text() -> String:
 	
 	# Add timing info for the current move
 	if gremlin.current_move and gremlin.current_move.tick_duration > 0:
-		if gremlin.ticks_until_move_complete > 0:
-			move_text += " [%d/%d]" % [gremlin.current_move.tick_duration - gremlin.ticks_until_move_complete, 
-										gremlin.current_move.tick_duration]
+		# Convert beats back to ticks for display
+		var ticks_left = ceili(gremlin.beats_until_move_complete / 10.0)
+		var total_ticks = gremlin.current_move.tick_duration
+		if ticks_left > 0:
+			move_text += " [%d/%d]" % [total_ticks - ticks_left, total_ticks]
 		else:
 			move_text += " [NOW!]"
 	elif gremlin.current_move and gremlin.current_move.is_background:
@@ -133,8 +135,11 @@ func _process(_delta: float) -> void:
 	if move_progress_bar and gremlin and gremlin.current_move:
 		if gremlin.current_move.tick_duration > 0:
 			move_progress_bar.visible = true
-			move_progress_bar.max_value = gremlin.current_move.tick_duration
-			move_progress_bar.value = gremlin.current_move.tick_duration - gremlin.ticks_until_move_complete
+			# Use beats for smooth progress
+			var total_beats = gremlin.current_move.tick_duration * 10
+			var beats_elapsed = total_beats - gremlin.beats_until_move_complete
+			move_progress_bar.max_value = total_beats
+			move_progress_bar.value = beats_elapsed
 			
 			# Color based on move type
 			if gremlin.current_move.effect_type == "attack":

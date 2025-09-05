@@ -35,8 +35,7 @@ var move_queue: Array[MoveData] = []
 var background_effects: Array[MoveData] = []  # Always-active effects (0 ticks)
 var current_move_index: int = 0
 var current_move: MoveData = null
-var ticks_until_move_complete: int = 0
-var tick_counter: int = 0  # Counts beats for tick conversion
+var beats_until_move_complete: int = 0  # Track beats for smooth progress
 
 # Disruption properties (deprecated - using move queue now)
 var disruption_interval_beats: int = 50  # Every 5 ticks by default
@@ -85,32 +84,28 @@ func process_beat(context: BeatContext) -> void:
 	var beat_number = get_meta("total_beats", 0) + 1
 	set_meta("total_beats", beat_number)
 
-	# Convert beats to ticks (10 beats = 1 tick)
-	tick_counter += 1
-	if tick_counter >= 10:
-		tick_counter = 0
-		_process_tick()
+	# Count down beats for smooth progress
+	if beats_until_move_complete > 0:
+		beats_until_move_complete -= 1
+		
+		# Check if we complete the move (hit 0)
+		if beats_until_move_complete == 0:
+			_process_tick()
 
 	# Process burn effect
 	if burn_duration > 0:
 		if beat_number % 10 == 0:  # Each tick
 			burn_duration -= 1
 
-## Process one tick of the move cycle
+## Process move completion
 func _process_tick() -> void:
 	if not current_move or move_queue.is_empty():
 		return
 	
-	# Countdown current move
-	if ticks_until_move_complete > 0:
-		ticks_until_move_complete -= 1
-		print("[DEBUG] ", gremlin_name, " tick! Move: ", current_move.effect_type, " ticks left: ", ticks_until_move_complete)
-		
-		# Check if move completes
-		if ticks_until_move_complete == 0:
-			print("[DEBUG] ", gremlin_name, " completing move: ", current_move.effect_type)
-			_complete_current_move()
-			_advance_to_next_move()
+	# Move has completed (beats countdown reached 0)
+	print("[DEBUG] ", gremlin_name, " completing move: ", current_move.effect_type)
+	_complete_current_move()
+	_advance_to_next_move()
 
 ## Main damage interface using unified system
 func receive_damage(packet: DamagePacket) -> int:
@@ -235,7 +230,8 @@ func _load_move_at_index(index: int) -> void:
 		return
 		
 	current_move = move_queue[index]
-	ticks_until_move_complete = current_move.tick_duration
+	# Convert ticks to beats for smooth countdown (1 tick = 10 beats)
+	beats_until_move_complete = current_move.tick_duration * 10
 	
 	# Apply persistent effects immediately
 	if current_move.is_persistent_effect():

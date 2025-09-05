@@ -101,9 +101,11 @@ func _get_disruption_text() -> String:
 	
 	# Add timing info for the current move
 	if gremlin.current_move and gremlin.current_move.tick_duration > 0:
-		if gremlin.ticks_until_move_complete > 0:
-			move_text += " [%d/%d]" % [gremlin.current_move.tick_duration - gremlin.ticks_until_move_complete, 
-										gremlin.current_move.tick_duration]
+		# Convert beats back to ticks for display
+		var ticks_left = ceili(gremlin.beats_until_move_complete / 10.0)
+		var total_ticks = gremlin.current_move.tick_duration
+		if ticks_left > 0:
+			move_text += " [%d/%d]" % [total_ticks - ticks_left, total_ticks]
 		else:
 			move_text += " [NOW!]"
 	elif gremlin.current_move and gremlin.current_move.is_background:
@@ -125,9 +127,10 @@ func _process(_delta: float) -> void:
 		var fill_progress: float = 0.0
 		
 		if gremlin.current_move.tick_duration > 0:
-			# Calculate progress: how many ticks have elapsed
-			var ticks_elapsed = gremlin.current_move.tick_duration - gremlin.ticks_until_move_complete
-			fill_progress = float(ticks_elapsed) / float(gremlin.current_move.tick_duration)
+			# Calculate smooth progress using beats
+			var total_beats = gremlin.current_move.tick_duration * 10
+			var beats_elapsed = total_beats - gremlin.beats_until_move_complete
+			fill_progress = float(beats_elapsed) / float(total_beats)
 		else:
 			# Background effect - always show as full
 			fill_progress = 1.0
