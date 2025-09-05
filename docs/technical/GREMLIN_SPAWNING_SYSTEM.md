@@ -79,37 +79,46 @@ From the wave sheet, here are some example wave configurations:
 
 ### Entity Integration
 
-Following the existing pattern in `workjam3.5/app/libraries_submodules/common/core/entities/`:
+Tourbillon already has a Gremlin class that extends BeatListenerEntity (which extends Entity):
+
+**Location**: `elastic-app/app/src/scenes/core/entities/gremlin.gd`
 
 ```gdscript
-# Gremlins extend BattleEntity directly (like Mob does)
-extends BattleEntity
+# Existing Gremlin class structure
+extends BeatListenerEntity
 class_name Gremlin
 
-# Core gremlin properties for Tourbillon
-var archetype: String = ""
-var size_category: String = ""
+# Core properties (already implemented)
+@export var gremlin_name: String = "Gremlin"
+@export var max_hp: int = 10
+@export var slot_index: int = 0  # Position in gremlin column (0-4)
+@export var moves_string: String = ""  # Downsides/moves from data
 
-# Defense properties
-var armor: int = 0
+# Defense properties (already implemented)
+var current_hp: int
 var shields: int = 0
-var has_barrier: bool = false
+var armor: int = 0
 var barrier_count: int = 0
+var burn_duration: int = 0
 var damage_cap: int = 0
+var damage_resistance: float = 0.0
 var reflect_percent: float = 0.0
 var execute_immunity_threshold: int = 0
+var invulnerable: bool = false
 
-# Move cycle management
-var move_cycle: Array[GremlinMove] = []
-var current_move: GremlinMove = null
-var current_move_index: int = 0
-var move_timer_beats: float = 0.0
-var triggers_this_move: int = 0
+# Uses composition pattern with Damageable for damage handling
+var _damage_handler: Damageable
 
-# Constraint tracking
-var active_constraints: Dictionary = {}  # constraint_type -> value
-var passive_effects: Array[GremlinEffect] = []
+# Beat processing (already integrated with time system)
+func process_beat(context: BeatContext) -> void
 ```
+
+The existing implementation already:
+- Extends BeatListenerEntity for time-based triggers
+- Uses composition with Damageable for unified damage handling
+- Has Builder pattern support via GremlinBuilder
+- Processes moves/downsides via GremlinDownsideProcessor
+- Integrates with the beat/tick time system
 
 ## Spawning System Architecture
 
@@ -171,134 +180,30 @@ func spawn_wave(wave_composition: String) -> Array[Gremlin]:
     return spawned
 ```
 
-### 2. Gremlin Entity Class
+### 2. Spawning Integration with Existing Gremlin Class
 
-Location: `elastic-app/app/src/core/entities/gremlin.gd`
-
-The complete Gremlin class implementation (extends BattleEntity as shown above):
+Since Gremlin already exists with full damage handling and beat processing, spawning only needs to:
 
 ```gdscript
-extends BattleEntity
-class_name Gremlin
-
-func _init():
-    Signals.time_advanced.connect(_on_time_advanced)
-
-func _on_time_advanced(beats: float):
-    if not current_move:
-        return
+# In GremlinSpawnController
+func spawn_from_template(template_id: String) -> Gremlin:
+    var mob_data = StaticData.get_data_source("mob_data").get(template_id, {})
     
-    move_timer_beats += beats
+    # Use existing GremlinBuilder
+    var builder = Gremlin.GremlinBuilder.new()
+    builder.with_name(mob_data.get("display_name", "Unknown"))
+    builder.with_hp(mob_data.get("max_health", 10))
+    builder.with_armor(mob_data.get("max_armor", 0))
+    builder.with_shields(mob_data.get("max_shields", 0))
+    builder.with_barriers(mob_data.get("barrier_count", 0))
+    builder.with_moves(mob_data.get("moves_string", ""))
     
-    # Check for move triggers
-    if current_move.trigger_interval > 0:
-        var trigger_threshold = current_move.trigger_interval * 10  # Convert ticks to beats
-        while move_timer_beats >= trigger_threshold:
-            _trigger_current_move()
-            move_timer_beats -= trigger_threshold
-            triggers_this_move += 1
-            
-            # Check max triggers
-            if current_move.max_triggers > 0 and triggers_this_move >= current_move.max_triggers:
-                _advance_to_next_move()
-                break
+    var gremlin = builder.build()
     
-    # Check for move duration
-    if current_move.duration_ticks > 0:
-        var duration_beats = current_move.duration_ticks * 10
-        if move_timer_beats >= duration_beats:
-            _advance_to_next_move()
-
-func _trigger_current_move():
-    # Apply trigger effects
-    for effect in current_move.trigger_effects:
-        _apply_effect(effect)
+    # Register with beat system
+    BeatManager.register_listener(gremlin)
     
-    # Signal for UI updates
-    Signals.signal_gremlin_triggered(instance_id, current_move.move_name)
-
-func _apply_effect(effect: GremlinEffect):
-    match effect.effect_type:
-        "force_soft_cap":
-            GlobalGameManager.apply_soft_cap(effect.force_types, effect.value)
-        "force_drain":
-            GlobalGameManager.drain_forces(effect.force_types, effect.value)
-        "card_cost_penalty":
-            GlobalGameManager.add_time_penalty(effect.value)
-        "summon_gremlin":
-            GremlinSpawnController.spawn_gremlin(effect.summon_template_id)
-        _:
-            push_warning("Unknown effect type: " + effect.effect_type)
-
-# Builder pattern
-static func build_from_template(gremlin_data: Dictionary) -> Gremlin:
-    var builder = GremlinBuilder.new()
-    
-    builder.with_display_name(gremlin_data.get("display_name", "Unknown")) \
-        .with_archetype(gremlin_data.get("archetype", "basic")) \
-        .with_max_health(gremlin_data.get("max_health", 1)) \
-        .with_armor(gremlin_data.get("max_armor", 0)) \
-        .with_shields(gremlin_data.get("max_shields", 0)) \
-        .with_barrier(
-            gremlin_data.get("has_barrier", false),
-            gremlin_data.get("barrier_count", 0)
-        ) \
-        .with_damage_cap(gremlin_data.get("damage_cap", 0)) \
-        .with_move_cycle(gremlin_data.get("move_cycle", []))
-    
-    return builder.build()
-
-class GremlinBuilder extends Mob.MobBuilder:
-    var _archetype: String = ""
-    var _armor: int = 0
-    var _shields: int = 0
-    var _has_barrier: bool = false
-    var _barrier_count: int = 0
-    var _damage_cap: int = 0
-    var _move_cycle: Array = []
-    
-    func with_archetype(archetype: String) -> GremlinBuilder:
-        _archetype = archetype
-        return self
-    
-    func with_armor(armor: int) -> GremlinBuilder:
-        _armor = armor
-        return self
-    
-    func with_barrier(has_barrier: bool, count: int) -> GremlinBuilder:
-        _has_barrier = has_barrier
-        _barrier_count = count
-        return self
-    
-    func with_move_cycle(moves: Array) -> GremlinBuilder:
-        _move_cycle = moves
-        return self
-    
-    func build() -> Gremlin:
-        var gremlin = Gremlin.new()
-        
-        # Apply base entity properties
-        super.build_entity(gremlin)
-        
-        # Apply gremlin-specific properties
-        gremlin.archetype = _archetype
-        gremlin.armor = _armor
-        gremlin.shields = _shields
-        gremlin.has_barrier = _has_barrier
-        gremlin.barrier_count = _barrier_count
-        gremlin.damage_cap = _damage_cap
-        
-        # Parse and set move cycle
-        for move_data in _move_cycle:
-            var move = GremlinMove.from_dict(move_data)
-            gremlin.move_cycle.append(move)
-        
-        # Initialize first move
-        if gremlin.move_cycle.size() > 0:
-            gremlin.current_move = gremlin.move_cycle[0]
-            gremlin._apply_passive_effects()
-        
-        return gremlin
+    return gremlin
 ```
 
 ### 3. Integration with Time System
