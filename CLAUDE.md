@@ -43,7 +43,7 @@
 6. **ALWAYS provide the diff** after pushing for code review
 
 ### Rules:
-- Maximum 3 pending changes before syncing
+- Maximum 1 pending change per Claude instance - push immediately after each change
 - Never work directly in main worktree
 - Always pull latest before starting new work
 - If you get conflicts, sync with main first
