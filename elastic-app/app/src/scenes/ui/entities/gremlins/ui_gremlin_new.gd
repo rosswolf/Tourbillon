@@ -24,12 +24,18 @@ func _ready() -> void:
 	# Set initial fill
 	if fill_rect:
 		fill_rect.color = Color(1.0, 1.0, 1.0, 0.3)  # Semi-transparent white
-		fill_rect.anchor_right = 0.0
+		fill_rect.visible = true
+		# Ensure fill rect is on top of background but below text
+		fill_rect.z_index = 1
+		# Start with no fill
 		fill_rect.size.x = 0
 	
 	# Connect to beat signal for fill updates
-	if GlobalSignals.has_signal("core_time_changed"):
-		GlobalSignals.core_time_changed.connect(_on_beat_changed)
+	if GlobalGameManager.timeline_manager:
+		GlobalGameManager.timeline_manager.time_changed.connect(_on_beat_changed)
+		print("[UiGremlinNew] Connected to timeline_manager beat updates")
+	else:
+		print("[UiGremlinNew] WARNING: No timeline_manager found!")
 
 func _load_gremlin_images() -> void:
 	var dir = DirAccess.open("res://ai_assets/gremlins/")
@@ -120,10 +126,15 @@ func _on_beat_changed(beats: int) -> void:
 	# Update fill based on beats (fills over 100 beats = 10 ticks)
 	var fill_progress = float(total_beats % 100) / 100.0
 	
-	# Update fill rect
+	# Update fill rect - just set the width based on progress
 	if fill_rect:
-		fill_rect.anchor_right = fill_progress
-		fill_rect.size.x = size.x * fill_progress
+		# Get the parent panel width and set fill width accordingly
+		var panel_width = self.size.x
+		fill_rect.size.x = panel_width * fill_progress
+		
+		# Debug output every 10 beats
+		if total_beats % 10 == 0:
+			print("[UiGremlinNew] Beat ", total_beats, " - Fill: ", fill_progress * 100, "%")
 	
 	# Update effect text
 	if effect_label:
