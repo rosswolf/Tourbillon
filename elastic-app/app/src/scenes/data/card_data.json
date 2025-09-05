@@ -12,7 +12,6 @@
     "keywords": "starter",
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "draw=1",
     "cursor_image_uid": "bqvm4vgi4c0dn",
     "art_image_uid": "bqvm4vgi4c0dn"
   },
@@ -22,14 +21,14 @@
     "display_name": "starter_red_gen",
     "tags": "STONE,SPARK",
     "rules_text": {
-      "Every 6 Ticks": "Produce 2.5 Red"
+      "Every 6 Ticks": "Produce 2.5 Red. Activate North. Generate 1 White."
     },
     "card_rarity": "Card.RarityType.STARTER",
     "production_interval": 6,
     "keywords": "starter",
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_red=2.5",
+    "on_fire_effect": "generate_red=2.5,activate_north=1,generate_white=1",
     "cursor_image_uid": "bqvm4vgi4c0dn",
     "art_image_uid": "bqvm4vgi4c0dn"
   },
@@ -39,14 +38,14 @@
     "display_name": "starter_blue_gen",
     "tags": "CRYSTAL",
     "rules_text": {
-      "Every 6 Ticks": "Produce 2 Blue"
+      "Every 6 Ticks": "Produce 2 Blue. Activate South. Draw 1 card."
     },
     "card_rarity": "Card.RarityType.STARTER",
     "production_interval": 6,
     "keywords": "starter",
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_blue=2",
+    "on_fire_effect": "generate_blue=2,activate_south=1,draw=1",
     "cursor_image_uid": "bqvm4vgi4c0dn",
     "art_image_uid": "bqvm4vgi4c0dn"
   },
@@ -56,14 +55,14 @@
     "display_name": "starter_green_gen",
     "tags": "MECH",
     "rules_text": {
-      "Every 6 Ticks": "Produce 2 Green"
+      "Every 6 Ticks": "Produce 2 Green. Activate East. Generate 1 Green."
     },
     "card_rarity": "Card.RarityType.STARTER",
     "production_interval": 6,
     "keywords": "starter",
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_green=2",
+    "on_fire_effect": "generate_green=2,activate_east=1,generate_green=1",
     "cursor_image_uid": "bqvm4vgi4c0dn",
     "art_image_uid": "bqvm4vgi4c0dn"
   },
@@ -73,14 +72,14 @@
     "display_name": "starter_white_gen",
     "tags": "STONE",
     "rules_text": {
-      "Every 6 Ticks": "Produce 2 White"
+      "Every 6 Ticks": "Produce 2 White. Activate West. Generate 1 Red."
     },
     "card_rarity": "Card.RarityType.STARTER",
     "production_interval": 6,
     "keywords": "starter",
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_white=2",
+    "on_fire_effect": "generate_white=2,activate_west=1,generate_red=1",
     "cursor_image_uid": "bqvm4vgi4c0dn",
     "art_image_uid": "bqvm4vgi4c0dn"
   },
@@ -90,14 +89,14 @@
     "display_name": "starter_black_gen",
     "tags": "DUST",
     "rules_text": {
-      "Every 6 Ticks": "Produce 1.5 Black"
+      "Every 6 Ticks": "Produce 1.5 Black. Activate North. Generate 1 White."
     },
     "card_rarity": "Card.RarityType.STARTER",
     "production_interval": 6,
     "keywords": "starter",
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_black=1.5",
+    "on_fire_effect": "generate_purple=1.5,activate_north=1,generate_white=1",
     "cursor_image_uid": "bqvm4vgi4c0dn",
     "art_image_uid": "bqvm4vgi4c0dn"
   },
@@ -107,14 +106,14 @@
     "display_name": "starter_heat_conv",
     "tags": "FORGE",
     "rules_text": {
-      "Every 8 Ticks": "Consume 1 Red + 1 Blue -> Produce 1 HEAT"
+      "Every 8 Ticks": "Consume 1 Red + 1 Blue -> Produce 1 HEAT. Activate South. Draw 1 card."
     },
     "card_rarity": "Card.RarityType.STARTER",
     "production_interval": 8,
     "keywords": "starter",
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_red=1,generate_heat=1",
+    "on_fire_effect": "generate_heat=1,activate_south=1,draw=1",
     "cursor_image_uid": "bqvm4vgi4c0dn",
     "art_image_uid": "bqvm4vgi4c0dn"
   },
@@ -124,14 +123,13 @@
     "display_name": "starter_momentum_conv",
     "tags": "MECH",
     "rules_text": {
-      "Every 8 Ticks": "Consume 1 Red + 1 Green -> Produce 1 MOMENTUM"
+      "Every 2 Ticks": "Activate North"
     },
     "card_rarity": "Card.RarityType.STARTER",
-    "production_interval": 8,
+    "production_interval": 2,
     "keywords": "starter",
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_red=1,generate_momentum=1",
     "cursor_image_uid": "bqvm4vgi4c0dn",
     "art_image_uid": "bqvm4vgi4c0dn"
   },
@@ -140,13 +138,13 @@
     "time_cost": 3,
     "display_name": "starter_adaptive",
     "tags": "CHAOS",
-    "rules_text": "Consume 3 Largest â Deal 2 damage",
+    "rules_text": "Consume 3 Largest â Deal 5 damage",
     "card_rarity": "Card.RarityType.STARTER",
     "production_interval": 1,
     "keywords": "starter",
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_largest=3,damage=2",
+    "on_fire_effect": "consume_largest=3,damage=5",
     "cursor_image_uid": "bqvm4vgi4c0dn",
     "art_image_uid": "bqvm4vgi4c0dn"
   },
@@ -155,13 +153,13 @@
     "time_cost": 2,
     "display_name": "starter_emergency",
     "tags": "SPARK",
-    "rules_text": "Consume 4 Largest -> Deal 2 damage",
+    "rules_text": "Consume 4 Largest -> Deal 8 damage",
     "card_rarity": "Card.RarityType.STARTER",
     "production_interval": 1,
     "keywords": "starter",
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_largest=4,damage=2",
+    "on_fire_effect": "consume_largest=4,damage=8",
     "cursor_image_uid": "bqvm4vgi4c0dn",
     "art_image_uid": "bqvm4vgi4c0dn"
   },
@@ -170,12 +168,15 @@
     "time_cost": 4,
     "display_name": "starter_balanced",
     "tags": "ORDER",
-    "rules_text": "Consume 3 Smallest -> Deal 2 damage",
+    "rules_text": {
+      "Every 3 ticks": "Consume 1 Smallest -> Deal 2 damage"
+    },
     "card_rarity": "Card.RarityType.RARE",
-    "production_interval": 1,
+    "production_interval": 3,
+    "keywords": "starter",
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_smallest=3,damage=2",
+    "on_fire_effect": "consume_smallest=1,damage=2",
     "cursor_image_uid": "bqvm4vgi4c0dn",
     "art_image_uid": "bqvm4vgi4c0dn"
   },
@@ -185,13 +186,14 @@
     "display_name": "starter_heat_blast",
     "tags": "SPARK",
     "rules_text": {
-      "MOMENTARY": "Consume 2 HEAT -> Deal 4 damage"
+      "MOMENTARY": "Consume 2 HEAT -> Deal 15 damage"
     },
     "card_rarity": "Card.RarityType.RARE",
     "production_interval": 1,
+    "keywords": "starter",
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "momentary=true,pay_heat=2,damage=4",
+    "on_fire_effect": "damage=15",
     "cursor_image_uid": "bqvm4vgi4c0dn",
     "art_image_uid": "bqvm4vgi4c0dn"
   },
@@ -200,12 +202,13 @@
     "time_cost": 3,
     "display_name": "starter_flex_draw",
     "tags": "TOOL",
-    "rules_text": "Consume 3 Largest -> Draw 1 card",
+    "rules_text": "Consume 2 Largest -> Draw 1 card",
     "card_rarity": "Card.RarityType.RARE",
     "production_interval": 1,
+    "keywords": "starter",
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_largest=3,draw=1",
+    "on_fire_effect": "consume_largest=2,draw=1",
     "cursor_image_uid": "bqvm4vgi4c0dn",
     "art_image_uid": "bqvm4vgi4c0dn"
   },
@@ -215,13 +218,13 @@
     "display_name": "Red Furnace",
     "tags": "STONE",
     "rules_text": {
-      "Every 3 Ticks": "Produce 2.5 Red"
+      "Every 3 Ticks": "Produce 2.5 Red. Activate East. Generate 1 Green."
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_red=2.5"
+    "on_fire_effect": "generate_red=2.5,activate_east=1,generate_green=1"
   },
   {
     "card_template_id": "red_gen_basic_2",
@@ -243,13 +246,13 @@
     "display_name": "Steady Flame",
     "tags": "STONE,ORDER",
     "rules_text": {
-      "Every 4 Ticks": "Produce 3 Red"
+      "Every 4 Ticks": "Produce 3 Red. Activate West. Generate 1 Red."
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_red=3"
+    "on_fire_effect": "generate_red=3,activate_west=1,generate_red=1"
   },
   {
     "card_template_id": "red_gen_basic_4",
@@ -257,13 +260,13 @@
     "display_name": "Blast Furnace",
     "tags": "TITAN,STONE",
     "rules_text": {
-      "Every 5 Ticks": "Produce 4.5 Red"
+      "Every 5 Ticks": "Produce 4.5 Red. Activate North. Generate 2 White."
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 5,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_red=4.5"
+    "on_fire_effect": "generate_red=4.5,activate_north=1,generate_white=2"
   },
   {
     "card_template_id": "red_gen_basic_5",
@@ -285,13 +288,13 @@
     "display_name": "Magma Core",
     "tags": "TITAN,CHAOS",
     "rules_text": {
-      "Every 6 Ticks": "Produce 5 Red"
+      "Every 6 Ticks": "Produce 5 Red. Activate South. Draw 1 card."
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 6,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_red=5"
+    "on_fire_effect": "generate_red=5,activate_south=1,draw=1"
   },
   {
     "card_template_id": "red_gen_basic_7",
@@ -299,13 +302,13 @@
     "display_name": "Ember Engine",
     "tags": "MECH",
     "rules_text": {
-      "Every 3 Ticks": "Produce 2 Red"
+      "Every 3 Ticks": "Produce 2 Red. Activate East. Generate 1 Green."
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_red=2"
+    "on_fire_effect": "generate_red=2,activate_east=1,generate_green=1"
   },
   {
     "card_template_id": "red_gen_basic_8",
@@ -313,13 +316,13 @@
     "display_name": "Flame Crystal",
     "tags": "CRYSTAL,SPARK",
     "rules_text": {
-      "Every 4 Ticks": "Produce 3.5 Red"
+      "Every 4 Ticks": "Produce 3.5 Red. Activate West. Generate 1 Red."
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_red=3.5"
+    "on_fire_effect": "generate_red=3.5,activate_west=1,generate_red=1"
   },
   {
     "card_template_id": "red_gen_basic_12",
@@ -341,13 +344,13 @@
     "display_name": "Heat Forge",
     "tags": "FORGE",
     "rules_text": {
-      "Every 4 Ticks": "Consume 1.5 Red + 1 Blue -> Produce 1 HEAT"
+      "Every 4 Ticks": "Consume 1.5 Red + 1 Blue -> Produce 1 HEAT. Activate North. Generate 1 White."
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_red=1.5,generate_heat=1"
+    "on_fire_effect": "generate_heat=1,activate_north=1,generate_white=1"
   },
   {
     "card_template_id": "red_conv_heat_2",
@@ -355,13 +358,13 @@
     "display_name": "Quick Forge",
     "tags": "FORGE,MICRO",
     "rules_text": {
-      "Every 3 Ticks": "Consume 1.5 Red + 0.5 Blue -> Produce 1 HEAT"
+      "Every 3 Ticks": "Consume 1.5 Red + 0.5 Blue -> Produce 1 HEAT. Activate South. Draw 1 card."
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_red=1.5,generate_heat=1"
+    "on_fire_effect": "generate_heat=1,activate_south=1,draw=1"
   },
   {
     "card_template_id": "red_conv_heat_3",
@@ -369,13 +372,13 @@
     "display_name": "Efficient Forge",
     "tags": "FORGE,ORDER",
     "rules_text": {
-      "Every 5 Ticks": "Consume 2 Red + 1.5 Blue -> Produce 2 HEAT"
+      "Every 5 Ticks": "Consume 2 Red + 1.5 Blue -> Produce 2 HEAT. Activate East. Generate 2 Green."
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 5,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_red=2,generate_heat=2"
+    "on_fire_effect": "generate_heat=2,activate_east=1,generate_green=2"
   },
   {
     "card_template_id": "red_conv_momentum_1",
@@ -383,13 +386,13 @@
     "display_name": "Speed Engine",
     "tags": "MECH",
     "rules_text": {
-      "Every 4 Ticks": "Consume 1 Red + 1 Green -> Produce 1 MOMENTUM"
+      "Every 4 Ticks": "Consume 1 Red + 1 Green -> Produce 1 MOMENTUM. Activate West. Generate 1 Red."
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_red=1,generate_momentum=1"
+    "on_fire_effect": "generate_momentum=1,activate_west=1,generate_red=1"
   },
   {
     "card_template_id": "red_conv_momentum_2",
@@ -397,13 +400,13 @@
     "display_name": "Turbo Core",
     "tags": "MECH,MICRO",
     "rules_text": {
-      "Every 3 Ticks": "Consume 1.5 Red + 0.5 Green -> Produce 1 MOMENTUM"
+      "Every 3 Ticks": "Consume 1.5 Red + 0.5 Green -> Produce 1 MOMENTUM. Activate North. Generate 1 White."
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_red=1.5,generate_momentum=1"
+    "on_fire_effect": "generate_momentum=1,activate_north=1,generate_white=1"
   },
   {
     "card_template_id": "red_conv_momentum_3",
@@ -411,13 +414,13 @@
     "display_name": "Acceleration Chamber",
     "tags": "MECH,TITAN",
     "rules_text": {
-      "Every 5 Ticks": "Consume 2 Red + 2 Green -> Produce 2.5 MOMENTUM"
+      "Every 5 Ticks": "Consume 2 Red + 2 Green -> Produce 2.5 MOMENTUM. Activate South. Draw 1 card."
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 5,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_red=2,generate_momentum=2.5"
+    "on_fire_effect": "generate_momentum=2.5,activate_south=1,draw=1"
   },
   {
     "card_template_id": "red_conv_flex_1",
@@ -431,7 +434,7 @@
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_largest=3,generate_heat=1"
+    "on_fire_effect": "generate_heat=1,consume_largest=3"
   },
   {
     "card_template_id": "red_conv_flex_2",
@@ -445,7 +448,7 @@
     "production_interval": 5,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_smallest=4,generate_heat=1"
+    "on_fire_effect": "generate_heat=1,consume_smallest=4"
   },
   {
     "card_template_id": "red_dmg_basic_1",
@@ -457,31 +460,31 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_red=2,damage=1"
+    "on_fire_effect": "damage=1"
   },
   {
     "card_template_id": "red_dmg_basic_2",
     "time_cost": 3,
     "display_name": "Fire Blast",
     "tags": "SPARK",
-    "rules_text": "Consume 3.5 Red -> Deal 2 damage",
+    "rules_text": "Consume 3.5 Red -> Deal 2 damage. Activate East. Generate 1 Green.",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_red=3.5,damage=2"
+    "on_fire_effect": "damage=2,activate_east=1,generate_green=1"
   },
   {
     "card_template_id": "red_dmg_basic_3",
     "time_cost": 4,
     "display_name": "Inferno",
     "tags": "SPARK,CHAOS",
-    "rules_text": "Consume 5 Red -> Deal 3 damage",
+    "rules_text": "Consume 5 Red -> Deal 3 damage. Activate West. Generate 1 Red.",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_red=5,damage=3"
+    "on_fire_effect": "damage=3,activate_west=1,generate_red=1"
   },
   {
     "card_template_id": "red_dmg_efficient_1",
@@ -495,7 +498,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_red=1,damage=1"
+    "on_fire_effect": "damage=1"
   },
   {
     "card_template_id": "red_dmg_heat_2",
@@ -507,7 +510,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_heat=2.5,damage=5"
+    "on_fire_effect": "damage=5"
   },
   {
     "card_template_id": "red_dmg_smallest_1",
@@ -519,7 +522,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_smallest=3,damage=2"
+    "on_fire_effect": "consume_smallest=3,damage=2"
   },
   {
     "card_template_id": "red_dmg_poison_1",
@@ -531,43 +534,31 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "poison=1,pay_red=2.5,damage=1"
-  },
-  {
-    "card_template_id": "red_dmg_slow_1",
-    "time_cost": 3,
-    "display_name": "Tar Trap",
-    "tags": "DUST",
-    "rules_text": "Consume 2 Red -> Deal 1 damage, SLOW target 3 ticks",
-    "card_rarity": "Card.RarityType.COMMON",
-    "production_interval": 1,
-    "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "slow=1,pay_red=2,damage=1"
+    "on_fire_effect": "consume_red=2.5,damage=1,poison=1"
   },
   {
     "card_template_id": "red_draw_basic_1",
     "time_cost": 3,
     "display_name": "Desperate Search",
     "tags": "TOOL",
-    "rules_text": "Consume 3 Red -> Draw 1 card",
+    "rules_text": "Consume 3 Red -> Draw 1 card. Activate North. Generate 1 White.",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_red=3,draw=1"
+    "on_fire_effect": "activate_north=1,generate_white=1"
   },
   {
     "card_template_id": "red_draw_basic_2",
     "time_cost": 5,
     "display_name": "Burning Knowledge",
     "tags": "TOOL,SPARK",
-    "rules_text": "Consume 5.5 Red -> Draw 2 cards",
+    "rules_text": "Consume 5.5 Red -> Draw 2 cards. Activate South. Draw 1 card.",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_red=5.5,draw=2"
+    "on_fire_effect": "activate_south=1,draw=1"
   },
   {
     "card_template_id": "red_draw_engine_1",
@@ -575,25 +566,25 @@
     "display_name": "Knowledge Furnace",
     "tags": "TOOL,FORGE",
     "rules_text": {
-      "Every 4 Ticks": "Consume 3 Red -> Draw 1 card"
+      "Every 4 Ticks": "Consume 3 Red -> Draw 1 card. Activate East. Generate 1 Green."
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_red=3,draw=1"
+    "on_fire_effect": "activate_east=1,generate_green=1"
   },
   {
     "card_template_id": "red_draw_heat_1",
     "time_cost": 4,
     "display_name": "Heated Research",
     "tags": "TOOL",
-    "rules_text": "Consume 2.5 HEAT -> Draw 2 cards",
+    "rules_text": "Consume 2.5 HEAT -> Draw 2 cards. Activate West. Generate 1 Red.",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_heat=2.5,draw=2"
+    "on_fire_effect": "activate_west=1,generate_red=1"
   },
   {
     "card_template_id": "red_draw_tag_1",
@@ -601,13 +592,13 @@
     "display_name": "Spark Library",
     "tags": "SPARK,TOOL",
     "rules_text": {
-      "Every 6 Ticks": "Draw 1 card per 2 SPARK tags"
+      "Every 6 Ticks": "Draw 1 card per 2 SPARK tags. Activate North. Generate 2 White."
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 6,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "draw=1"
+    "on_fire_effect": "activate_north=1,generate_white=2"
   },
   {
     "card_template_id": "red_flex_largest_1",
@@ -621,7 +612,7 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_largest=3,generate_red=2.5"
+    "on_fire_effect": "generate_red=2.5,consume_largest=3"
   },
   {
     "card_template_id": "red_flex_largest_2",
@@ -633,7 +624,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_largest=5,damage=2"
+    "on_fire_effect": "consume_largest=5,damage=2"
   },
   {
     "card_template_id": "red_flex_smallest_1",
@@ -647,7 +638,7 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_smallest=2,generate_red=1.5"
+    "on_fire_effect": "generate_red=1.5,consume_smallest=2"
   },
   {
     "card_template_id": "red_flex_smallest_2",
@@ -659,7 +650,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_smallest=4,damage=2"
+    "on_fire_effect": "consume_smallest=4,damage=2"
   },
   {
     "card_template_id": "red_flex_mixed_1",
@@ -671,7 +662,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_red=2,damage=3"
+    "on_fire_effect": "consume_red=2,damage=3"
   },
   {
     "card_template_id": "red_flex_mixed_2",
@@ -685,7 +676,7 @@
     "production_interval": 5,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_red=1"
+    "on_fire_effect": "consume_red=1"
   },
   {
     "card_template_id": "red_key_momentary_1",
@@ -699,7 +690,7 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "momentary=true,damage=2"
+    "on_fire_effect": "damage=2"
   },
   {
     "card_template_id": "red_key_overbuild_1",
@@ -707,37 +698,37 @@
     "display_name": "Layered Forge",
     "tags": "FORGE",
     "rules_text": {
-      "OVERBUILD, Every 3 Ticks": "Produce 2.5 Red"
+      "OVERBUILD, Every 3 Ticks": "Produce 2.5 Red. Activate South. Draw 1 card."
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "overbuild=true,generate_red=2.5"
+    "on_fire_effect": "generate_red=2.5,activate_south=1,draw=1"
   },
   {
     "card_template_id": "red_key_enabling_1",
     "time_cost": 5,
     "display_name": "Cost Reducer",
     "tags": "MECH,ORDER",
-    "rules_text": "Consume 2 MOMENTUM -> Next 3 cards cost -1 tick",
+    "rules_text": "Consume 2 MOMENTUM -> Next 3 cards cost -1 tick. Activate East. Generate 2 Green.",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_momentum=2"
+    "on_fire_effect": "activate_east=1,generate_green=2"
   },
   {
     "card_template_id": "red_key_burn_1",
     "time_cost": 3,
     "display_name": "Ignite",
     "tags": "SPARK",
-    "rules_text": "Consume 2.5 Red -> Apply BURN 3 to target",
+    "rules_text": "Consume 2.5 Red -> Apply BURN 3 to target. Activate West. Generate 1 Red.",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_red=2.5"
+    "on_fire_effect": "activate_west=1,generate_red=1"
   },
   {
     "card_template_id": "red_time_slow_1",
@@ -759,13 +750,13 @@
     "display_name": "Third Card Flame",
     "tags": "SPARK",
     "rules_text": {
-      "When 3rd card played this combat": "Produce 5 Red"
+      "When 3rd card played this combat": "Produce 5 Red. Activate North. Generate 1 White."
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_red=5"
+    "on_fire_effect": "generate_red=5,activate_north=1,generate_white=1"
   },
   {
     "card_template_id": "red_combo_position_1",
@@ -773,13 +764,13 @@
     "display_name": "Grid Burner",
     "tags": "TITAN,SPARK",
     "rules_text": {
-      "Every 6 Ticks": "Deal 1 damage per row with SPARK"
+      "Every 6 Ticks": "Deal 1 damage per row with SPARK. Activate South. Draw 1 card."
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 6,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "damage=1"
+    "on_fire_effect": "damage=1,activate_south=1,draw=1"
   },
   {
     "card_template_id": "blue_gen_basic_1",
@@ -787,13 +778,13 @@
     "display_name": "Blue Crystal",
     "tags": "CRYSTAL",
     "rules_text": {
-      "Every 3 Ticks": "Produce 2 Blue"
+      "Every 3 Ticks": "Produce 2 Blue. Activate East. Generate 1 Green."
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_blue=2"
+    "on_fire_effect": "generate_blue=2,activate_east=1,generate_green=1"
   },
   {
     "card_template_id": "blue_gen_basic_2",
@@ -815,13 +806,13 @@
     "display_name": "Steady Flow",
     "tags": "CRYSTAL,ORDER",
     "rules_text": {
-      "Every 4 Ticks": "Produce 3.5 Blue"
+      "Every 4 Ticks": "Produce 3.5 Blue. Activate West. Generate 1 Red."
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_blue=3.5"
+    "on_fire_effect": "generate_blue=3.5,activate_west=1,generate_red=1"
   },
   {
     "card_template_id": "blue_gen_basic_4",
@@ -829,13 +820,13 @@
     "display_name": "Crystal Array",
     "tags": "CRYSTAL,TITAN",
     "rules_text": {
-      "Every 5 Ticks": "Produce 4 Blue"
+      "Every 5 Ticks": "Produce 4 Blue. Activate North. Generate 2 White."
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 5,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_blue=4"
+    "on_fire_effect": "generate_blue=4,activate_north=1,generate_white=2"
   },
   {
     "card_template_id": "blue_gen_basic_5",
@@ -857,13 +848,13 @@
     "display_name": "Deep Crystal",
     "tags": "CRYSTAL,VOID",
     "rules_text": {
-      "Every 6 Ticks": "Produce 5.5 Blue"
+      "Every 6 Ticks": "Produce 5.5 Blue. Activate South. Draw 1 card."
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 6,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_blue=5.5"
+    "on_fire_effect": "generate_blue=5.5,activate_south=1,draw=1"
   },
   {
     "card_template_id": "blue_gen_basic_7",
@@ -871,13 +862,13 @@
     "display_name": "Mech Crystal",
     "tags": "MECH,CRYSTAL",
     "rules_text": {
-      "Every 3 Ticks": "Produce 2 Blue"
+      "Every 3 Ticks": "Produce 2 Blue. Activate East. Generate 1 Green."
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_blue=2"
+    "on_fire_effect": "generate_blue=2,activate_east=1,generate_green=1"
   },
   {
     "card_template_id": "blue_gen_basic_8",
@@ -885,13 +876,13 @@
     "display_name": "Arcane Source",
     "tags": "ARCANE,CRYSTAL",
     "rules_text": {
-      "Every 4 Ticks": "Produce 3 Blue"
+      "Every 4 Ticks": "Produce 3 Blue. Activate West. Generate 1 Red."
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_blue=3"
+    "on_fire_effect": "generate_blue=3,activate_west=1,generate_red=1"
   },
   {
     "card_template_id": "blue_gen_basic_12",
@@ -913,13 +904,13 @@
     "display_name": "Steam Engine",
     "tags": "MECH",
     "rules_text": {
-      "Every 4 Ticks": "Consume 1 Blue + 1 Red -> Produce 1 HEAT"
+      "Every 4 Ticks": "Consume 1 Blue + 1 Red -> Produce 1 HEAT. Activate North. Generate 1 White."
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_blue=1,generate_heat=1"
+    "on_fire_effect": "generate_heat=1,activate_north=1,generate_white=1"
   },
   {
     "card_template_id": "blue_conv_heat_2",
@@ -927,13 +918,13 @@
     "display_name": "Quick Steam",
     "tags": "MECH,MICRO",
     "rules_text": {
-      "Every 3 Ticks": "Consume 1.5 Blue + 0.5 Red -> Produce 1 HEAT"
+      "Every 3 Ticks": "Consume 1.5 Blue + 0.5 Red -> Produce 1 HEAT. Activate South. Draw 1 card."
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_blue=1.5,generate_heat=1"
+    "on_fire_effect": "generate_heat=1,activate_south=1,draw=1"
   },
   {
     "card_template_id": "blue_conv_heat_3",
@@ -941,13 +932,13 @@
     "display_name": "Efficient Steam",
     "tags": "MECH,ORDER",
     "rules_text": {
-      "Every 5 Ticks": "Consume 1.5 Blue + 1.5 Red -> Produce 2 HEAT"
+      "Every 5 Ticks": "Consume 1.5 Blue + 1.5 Red -> Produce 2 HEAT. Activate East. Generate 2 Green."
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 5,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_blue=1.5,generate_heat=2"
+    "on_fire_effect": "generate_heat=2,activate_east=1,generate_green=2"
   },
   {
     "card_template_id": "blue_conv_precision_1",
@@ -955,13 +946,13 @@
     "display_name": "Precision Lathe",
     "tags": "TOOL",
     "rules_text": {
-      "Every 4 Ticks": "Consume 1 Blue + 1 White -> Produce 1 PRECISION"
+      "Every 4 Ticks": "Consume 1 Blue + 1 White -> Produce 1 PRECISION. Activate West. Generate 1 Red."
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_blue=1,generate_precision=1"
+    "on_fire_effect": "generate_precision=1,activate_west=1,generate_red=1"
   },
   {
     "card_template_id": "blue_conv_precision_2",
@@ -969,13 +960,13 @@
     "display_name": "Quick Calibration",
     "tags": "TOOL,MICRO",
     "rules_text": {
-      "Every 3 Ticks": "Consume 1.5 Blue + 0.5 White -> Produce 1 PRECISION"
+      "Every 3 Ticks": "Consume 1.5 Blue + 0.5 White -> Produce 1 PRECISION. Activate North. Generate 1 White."
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_blue=1.5,generate_precision=1"
+    "on_fire_effect": "generate_precision=1,activate_north=1,generate_white=1"
   },
   {
     "card_template_id": "blue_conv_precision_3",
@@ -983,13 +974,13 @@
     "display_name": "Perfect Calibration",
     "tags": "TOOL,ORDER",
     "rules_text": {
-      "Every 5 Ticks": "Consume 2 Blue + 1.5 White -> Produce 2.5 PRECISION"
+      "Every 5 Ticks": "Consume 2 Blue + 1.5 White -> Produce 2.5 PRECISION. Activate South. Draw 1 card."
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 5,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_blue=2,generate_precision=2.5"
+    "on_fire_effect": "generate_precision=2.5,activate_south=1,draw=1"
   },
   {
     "card_template_id": "blue_conv_flex_1",
@@ -1003,7 +994,7 @@
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_largest=3,generate_precision=1"
+    "on_fire_effect": "generate_precision=1,consume_largest=3"
   },
   {
     "card_template_id": "blue_conv_flex_2",
@@ -1017,7 +1008,7 @@
     "production_interval": 5,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_smallest=4,generate_precision=1"
+    "on_fire_effect": "generate_precision=1,consume_smallest=4"
   },
   {
     "card_template_id": "white_draw_basic_1",
@@ -1028,8 +1019,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_white=2,draw=1"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "white_draw_engine_1",
@@ -1037,13 +1027,13 @@
     "display_name": "Wisdom Engine",
     "tags": "ORDER,TOOL",
     "rules_text": {
-      "Every 3 Ticks": "Consume 2 White -> Draw 1 card"
+      "Every 3 Ticks": "Consume 2 White -> Draw 1 card. Activate East. Generate 1 Green."
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_white=2,draw=1"
+    "on_fire_effect": "activate_east=1,generate_green=1"
   },
   {
     "card_template_id": "white_draw_engine_2",
@@ -1051,25 +1041,25 @@
     "display_name": "Archive",
     "tags": "TOOL,ORDER",
     "rules_text": {
-      "Every 5 Ticks": "Consume 3.5 White -> Draw 2 cards"
+      "Every 5 Ticks": "Consume 3.5 White -> Draw 2 cards. Activate West. Generate 2 Red."
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 5,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_white=3.5,draw=2"
+    "on_fire_effect": "activate_west=1,generate_red=2"
   },
   {
     "card_template_id": "blue_draw_precision_2",
     "time_cost": 4,
     "display_name": "Perfect Knowledge",
     "tags": "TOOL,ORDER",
-    "rules_text": "Consume 2.5 PRECISION -> Draw 3 cards",
+    "rules_text": "Consume 2.5 PRECISION -> Draw 3 cards. Activate North. Generate 1 White.",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_precision=2.5,draw=3"
+    "on_fire_effect": "activate_north=1,generate_white=1"
   },
   {
     "card_template_id": "white_draw_smallest_1",
@@ -1081,7 +1071,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_smallest=3,draw=1"
+    "on_fire_effect": "consume_smallest=3,draw=1"
   },
   {
     "card_template_id": "blue_draw_tag_1",
@@ -1089,37 +1079,37 @@
     "display_name": "Tool Library",
     "tags": "TOOL",
     "rules_text": {
-      "Every 4 Ticks": "Draw 1 card per 2 TOOL tags"
+      "Every 4 Ticks": "Draw 1 card per 2 TOOL tags. Activate South. Draw 1 card."
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "draw=1"
+    "on_fire_effect": "activate_south=1,draw=1"
   },
   {
     "card_template_id": "blue_dmg_basic_1",
     "time_cost": 3,
     "display_name": "Frost Shard",
     "tags": "CRYSTAL",
-    "rules_text": "Consume 3 Blue -> Deal 1 damage",
+    "rules_text": "Consume 3 Blue -> Deal 1 damage. Activate East. Generate 1 Green.",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_blue=3,damage=1"
+    "on_fire_effect": "damage=1,activate_east=1,generate_green=1"
   },
   {
     "card_template_id": "blue_dmg_basic_2",
     "time_cost": 5,
     "display_name": "Ice Storm",
     "tags": "CRYSTAL,CHAOS",
-    "rules_text": "Consume 5.5 Blue -> Deal 2 damage",
+    "rules_text": "Consume 5.5 Blue -> Deal 2 damage. Activate West. Generate 2 Red.",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_blue=5.5,damage=2"
+    "on_fire_effect": "damage=2,activate_west=1,generate_red=2"
   },
   {
     "card_template_id": "blue_dmg_precision_1",
@@ -1127,13 +1117,13 @@
     "display_name": "Surgical Strike",
     "tags": "TOOL",
     "rules_text": {
-      "Consume 1.5 PRECISION -> TARGETED": "Deal 2 damage"
+      "Consume 1.5 PRECISION -> TARGETED": "Deal 2 damage. Activate North. Generate 1 White."
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "targeted=true,pay_precision=1.5,damage=2"
+    "on_fire_effect": "damage=2,activate_north=1,generate_white=1"
   },
   {
     "card_template_id": "blue_dmg_precision_2",
@@ -1141,25 +1131,25 @@
     "display_name": "Perfect Shot",
     "tags": "TOOL,ORDER",
     "rules_text": {
-      "Consume 2.5 PRECISION -> TARGETED": "Deal 3 damage"
+      "Consume 2.5 PRECISION -> TARGETED": "Deal 3 damage. Activate South. Draw 1 card."
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "targeted=true,pay_precision=2.5,damage=3"
+    "on_fire_effect": "damage=3,activate_south=1,draw=1"
   },
   {
     "card_template_id": "blue_dmg_heat_1",
     "time_cost": 4,
     "display_name": "Steam Blast",
     "tags": "MECH",
-    "rules_text": "Consume 1.5 HEAT -> Deal 3 damage",
+    "rules_text": "Consume 1.5 HEAT -> Deal 3 damage. Activate East. Generate 1 Green.",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_heat=1.5,damage=3"
+    "on_fire_effect": "damage=3,activate_east=1,generate_green=1"
   },
   {
     "card_template_id": "blue_dmg_smallest_1",
@@ -1171,7 +1161,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_smallest=4,damage=2"
+    "on_fire_effect": "consume_smallest=4,damage=2"
   },
   {
     "card_template_id": "green_gen_basic_1",
@@ -1179,13 +1169,13 @@
     "display_name": "Green Turbine",
     "tags": "MECH",
     "rules_text": {
-      "Every 3 Ticks": "Produce 2.5 Green"
+      "Every 3 Ticks": "Produce 2.5 Green. Activate West. Generate 1 Red."
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_green=2.5"
+    "on_fire_effect": "generate_green=2.5,activate_west=1,generate_red=1"
   },
   {
     "card_template_id": "green_gen_basic_2",
@@ -1207,13 +1197,13 @@
     "display_name": "Steady Motor",
     "tags": "MECH,ORDER",
     "rules_text": {
-      "Every 4 Ticks": "Produce 3 Green"
+      "Every 4 Ticks": "Produce 3 Green. Activate North. Generate 1 White."
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_green=3"
+    "on_fire_effect": "generate_green=3,activate_north=1,generate_white=1"
   },
   {
     "card_template_id": "green_gen_basic_4",
@@ -1221,13 +1211,13 @@
     "display_name": "Power Plant",
     "tags": "MECH,TITAN",
     "rules_text": {
-      "Every 5 Ticks": "Produce 4.5 Green"
+      "Every 5 Ticks": "Produce 4.5 Green. Activate South. Draw 1 card."
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 5,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_green=4.5"
+    "on_fire_effect": "generate_green=4.5,activate_south=1,draw=1"
   },
   {
     "card_template_id": "green_conv_momentum_1",
@@ -1235,13 +1225,13 @@
     "display_name": "Momentum Engine",
     "tags": "MECH",
     "rules_text": {
-      "Every 4 Ticks": "Consume 1 Green + 1 Red -> Produce 1 MOMENTUM"
+      "Every 4 Ticks": "Consume 1 Green + 1 Red -> Produce 1 MOMENTUM. Activate East. Generate 1 Green."
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_green=1,generate_momentum=1"
+    "on_fire_effect": "generate_momentum=1,activate_east=1,generate_green=1"
   },
   {
     "card_template_id": "green_conv_momentum_2",
@@ -1249,13 +1239,13 @@
     "display_name": "Quick Momentum",
     "tags": "MECH,MICRO",
     "rules_text": {
-      "Every 3 Ticks": "Consume 1.5 Green + 0.5 Red -> Produce 1 MOMENTUM"
+      "Every 3 Ticks": "Consume 1.5 Green + 0.5 Red -> Produce 1 MOMENTUM. Activate West. Generate 1 Red."
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_green=1.5,generate_momentum=1"
+    "on_fire_effect": "generate_momentum=1,activate_west=1,generate_red=1"
   },
   {
     "card_template_id": "green_conv_entropy_1",
@@ -1263,13 +1253,13 @@
     "display_name": "Chaos Engine",
     "tags": "CHAOS",
     "rules_text": {
-      "Every 4 Ticks": "Consume 1 Green + 1 Black -> Produce 1 ENTROPY"
+      "Every 4 Ticks": "Consume 1 Green + 1 Black -> Produce 1 ENTROPY. Activate North. Generate 1 White."
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_green=1,generate_entropy=1"
+    "on_fire_effect": "generate_entropy=1,activate_north=1,generate_white=1"
   },
   {
     "card_template_id": "green_conv_entropy_2",
@@ -1277,13 +1267,13 @@
     "display_name": "Quick Decay",
     "tags": "CHAOS,MICRO",
     "rules_text": {
-      "Every 3 Ticks": "Consume 1.5 Green + 0.5 Black -> Produce 1 ENTROPY"
+      "Every 3 Ticks": "Consume 1.5 Green + 0.5 Black -> Produce 1 ENTROPY. Activate South. Draw 1 card."
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_green=1.5,generate_entropy=1"
+    "on_fire_effect": "generate_entropy=1,activate_south=1,draw=1"
   },
   {
     "card_template_id": "white_gen_basic_1",
@@ -1291,13 +1281,13 @@
     "display_name": "White Stabilizer",
     "tags": "STONE",
     "rules_text": {
-      "Every 3 Ticks": "Produce 2 White"
+      "Every 3 Ticks": "Produce 2 White. Activate East. Generate 1 Green."
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_white=2"
+    "on_fire_effect": "generate_white=2,activate_east=1,generate_green=1"
   },
   {
     "card_template_id": "white_gen_basic_2",
@@ -1319,13 +1309,13 @@
     "display_name": "Steady Foundation",
     "tags": "STONE,ORDER",
     "rules_text": {
-      "Every 4 Ticks": "Produce 3.5 White"
+      "Every 4 Ticks": "Produce 3.5 White. Activate West. Generate 1 Red."
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_white=3.5"
+    "on_fire_effect": "generate_white=3.5,activate_west=1,generate_red=1"
   },
   {
     "card_template_id": "white_gen_basic_4",
@@ -1333,13 +1323,13 @@
     "display_name": "Harmony Core",
     "tags": "STONE,TITAN",
     "rules_text": {
-      "Every 5 Ticks": "Produce 4 White"
+      "Every 5 Ticks": "Produce 4 White. Activate North. Generate 2 White."
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 5,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_white=4"
+    "on_fire_effect": "generate_white=4,activate_north=1,generate_white=2"
   },
   {
     "card_template_id": "white_conv_precision_1",
@@ -1347,13 +1337,13 @@
     "display_name": "Precision Core",
     "tags": "TOOL",
     "rules_text": {
-      "Every 4 Ticks": "Consume 1 White + 1 Blue -> Produce 1 PRECISION"
+      "Every 4 Ticks": "Consume 1 White + 1 Blue -> Produce 1 PRECISION. Activate South. Draw 1 card."
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_white=1,generate_precision=1"
+    "on_fire_effect": "generate_precision=1,activate_south=1,draw=1"
   },
   {
     "card_template_id": "white_conv_precision_2",
@@ -1361,13 +1351,13 @@
     "display_name": "Quick Precision",
     "tags": "TOOL,MICRO",
     "rules_text": {
-      "Every 3 Ticks": "Consume 1.5 White + 0.5 Blue -> Produce 1 PRECISION"
+      "Every 3 Ticks": "Consume 1.5 White + 0.5 Blue -> Produce 1 PRECISION. Activate East. Generate 1 Green."
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_white=1.5,generate_precision=1"
+    "on_fire_effect": "generate_precision=1,activate_east=1,generate_green=1"
   },
   {
     "card_template_id": "white_conv_balance_1",
@@ -1375,13 +1365,13 @@
     "display_name": "Balance Engine",
     "tags": "STONE",
     "rules_text": {
-      "Every 4 Ticks": "Consume 1 White + 1 Black -> Produce 1 BALANCE"
+      "Every 4 Ticks": "Consume 1 White + 1 Black -> Produce 1 BALANCE. Activate West. Generate 1 Red."
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_white=1,generate_balance=1"
+    "on_fire_effect": "generate_balance=1,activate_west=1,generate_red=1"
   },
   {
     "card_template_id": "white_conv_balance_2",
@@ -1389,13 +1379,13 @@
     "display_name": "Quick Balance",
     "tags": "STONE,MICRO",
     "rules_text": {
-      "Every 3 Ticks": "Consume 1.5 White + 0.5 Black -> Produce 1 BALANCE"
+      "Every 3 Ticks": "Consume 1.5 White + 0.5 Black -> Produce 1 BALANCE. Activate North. Generate 1 White."
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_white=1.5,generate_balance=1"
+    "on_fire_effect": "generate_balance=1,activate_north=1,generate_white=1"
   },
   {
     "card_template_id": "black_gen_basic_1",
@@ -1403,13 +1393,13 @@
     "display_name": "Black Void",
     "tags": "DUST",
     "rules_text": {
-      "Every 3 Ticks": "Produce 2 Black"
+      "Every 3 Ticks": "Produce 2 Black. Activate South. Draw 1 card."
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_black=2"
+    "on_fire_effect": "generate_purple=2,activate_south=1,draw=1"
   },
   {
     "card_template_id": "black_gen_basic_2",
@@ -1423,7 +1413,7 @@
     "production_interval": 2,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_black=1.5"
+    "on_fire_effect": "generate_purple=1.5"
   },
   {
     "card_template_id": "black_gen_basic_3",
@@ -1431,13 +1421,13 @@
     "display_name": "Steady Corruption",
     "tags": "DUST,CHAOS",
     "rules_text": {
-      "Every 4 Ticks": "Produce 3.5 Black"
+      "Every 4 Ticks": "Produce 3.5 Black. Activate East. Generate 1 Green."
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_black=3.5"
+    "on_fire_effect": "generate_purple=3.5,activate_east=1,generate_green=1"
   },
   {
     "card_template_id": "black_gen_basic_4",
@@ -1445,13 +1435,13 @@
     "display_name": "Entropy Well",
     "tags": "DUST,TITAN",
     "rules_text": {
-      "Every 5 Ticks": "Produce 4 Black"
+      "Every 5 Ticks": "Produce 4 Black. Activate West. Generate 2 Red."
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 5,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_black=4"
+    "on_fire_effect": "generate_purple=4,activate_west=1,generate_red=2"
   },
   {
     "card_template_id": "black_conv_balance_1",
@@ -1459,13 +1449,13 @@
     "display_name": "Stability Engine",
     "tags": "STONE",
     "rules_text": {
-      "Every 4 Ticks": "Consume 1 Black + 1 White -> Produce 1 BALANCE"
+      "Every 4 Ticks": "Consume 1 Black + 1 White -> Produce 1 BALANCE. Activate North. Generate 1 White."
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_black=1,generate_balance=1"
+    "on_fire_effect": "generate_balance=1,activate_north=1,generate_white=1"
   },
   {
     "card_template_id": "black_conv_balance_2",
@@ -1473,13 +1463,13 @@
     "display_name": "Quick Stability",
     "tags": "STONE,MICRO",
     "rules_text": {
-      "Every 3 Ticks": "Consume 1.5 Black + 0.5 White -> Produce 1 BALANCE"
+      "Every 3 Ticks": "Consume 1.5 Black + 0.5 White -> Produce 1 BALANCE. Activate South. Draw 1 card."
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_black=1.5,generate_balance=1"
+    "on_fire_effect": "generate_balance=1,activate_south=1,draw=1"
   },
   {
     "card_template_id": "black_conv_entropy_1",
@@ -1487,13 +1477,13 @@
     "display_name": "Chaos Core",
     "tags": "CHAOS",
     "rules_text": {
-      "Every 4 Ticks": "Consume 1 Black + 1 Green -> Produce 1 ENTROPY"
+      "Every 4 Ticks": "Consume 1 Black + 1 Green -> Produce 1 ENTROPY. Activate East. Generate 1 Green."
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_black=1,generate_entropy=1"
+    "on_fire_effect": "generate_entropy=1,activate_east=1,generate_green=1"
   },
   {
     "card_template_id": "black_conv_entropy_2",
@@ -1501,61 +1491,61 @@
     "display_name": "Quick Chaos",
     "tags": "CHAOS,MICRO",
     "rules_text": {
-      "Every 3 Ticks": "Consume 1.5 Black + 0.5 Green -> Produce 1 ENTROPY"
+      "Every 3 Ticks": "Consume 1.5 Black + 0.5 Green -> Produce 1 ENTROPY. Activate West. Generate 1 Red."
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_black=1.5,generate_entropy=1"
+    "on_fire_effect": "generate_entropy=1,activate_west=1,generate_red=1"
   },
   {
     "card_template_id": "red_draw_desperate",
     "time_cost": 4,
     "display_name": "Desperate Draw",
     "tags": "CHAOS",
-    "rules_text": "Consume 3 Red -> Draw 1 card",
+    "rules_text": "Consume 3 Red -> Draw 1 card. Activate North. Generate 1 White.",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_red=3,draw=1"
+    "on_fire_effect": "activate_north=1,generate_white=1"
   },
   {
     "card_template_id": "red_draw_blazing",
     "time_cost": 5,
     "display_name": "Blazing Insights",
     "tags": "SPARK",
-    "rules_text": "Consume 6 Red -> Draw 2 cards",
+    "rules_text": "Consume 6 Red -> Draw 2 cards. Activate South. Draw 1 card.",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_red=6,draw=2"
+    "on_fire_effect": "activate_south=1,draw=1"
   },
   {
     "card_template_id": "red_draw_heat_surge",
     "time_cost": 4,
     "display_name": "Heat Surge",
     "tags": "SPARK",
-    "rules_text": "Consume 2 HEAT -> Draw 1 card",
+    "rules_text": "Consume 2 HEAT -> Draw 1 card. Activate East. Generate 1 Green.",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_heat=2,draw=1"
+    "on_fire_effect": "activate_east=1,generate_green=1"
   },
   {
     "card_template_id": "red_draw_momentum_rush",
     "time_cost": 4,
     "display_name": "Momentum Rush",
     "tags": "MECH",
-    "rules_text": "Consume 2 MOMENTUM -> Draw 1 card",
+    "rules_text": "Consume 2 MOMENTUM -> Draw 1 card. Activate West. Generate 1 Red.",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_momentum=2,draw=1"
+    "on_fire_effect": "activate_west=1,generate_red=1"
   },
   {
     "card_template_id": "red_heat_blast",
@@ -1567,19 +1557,19 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_heat=3,damage=5"
+    "on_fire_effect": "damage=5"
   },
   {
     "card_template_id": "red_heat_wave",
     "time_cost": 4,
     "display_name": "Heat Wave",
     "tags": "SPARK",
-    "rules_text": "Consume 2 HEAT -> Deal 3 damage to all",
+    "rules_text": "Consume 2 HEAT -> Deal 3 damage to all. Activate North. Generate 1 White.",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_heat=2,damage_all=3"
+    "on_fire_effect": "damage=3,activate_north=1,generate_white=1"
   },
   {
     "card_template_id": "red_heat_engine",
@@ -1587,25 +1577,25 @@
     "display_name": "Heat Engine",
     "tags": "FORGE",
     "rules_text": {
-      "Every 4 Ticks": "Consume 1 HEAT -> Produce 3 Red"
+      "Every 4 Ticks": "Consume 1 HEAT -> Produce 3 Red. Activate South. Draw 1 card."
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_heat=1,generate_red=3"
+    "on_fire_effect": "generate_red=3,activate_south=1,draw=1"
   },
   {
     "card_template_id": "red_heat_amplifier",
     "time_cost": 3,
     "display_name": "Heat Amplifier",
     "tags": "TOOL",
-    "rules_text": "Consume 1 HEAT -> Next damage +3",
+    "rules_text": "Consume 1 HEAT -> Next damage +3. Activate East. Generate 1 Green.",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_heat=1"
+    "on_fire_effect": "activate_east=1,generate_green=1"
   },
   {
     "card_template_id": "red_momentum_strike",
@@ -1617,19 +1607,19 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_momentum=1,damage=2"
+    "on_fire_effect": "damage=2"
   },
   {
     "card_template_id": "red_momentum_chain",
     "time_cost": 4,
     "display_name": "Momentum Chain",
     "tags": "CHAIN",
-    "rules_text": "Consume 2 MOMENTUM -> Trigger all Red gears",
+    "rules_text": "Consume 2 MOMENTUM -> Trigger all Red gears. Activate West. Generate 1 Red.",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_momentum=2"
+    "on_fire_effect": "activate_west=1,generate_red=1"
   },
   {
     "card_template_id": "red_ember_mine",
@@ -1637,13 +1627,13 @@
     "display_name": "Ember Mine",
     "tags": "STONE",
     "rules_text": {
-      "Every 2 Ticks": "Produce 1.5 Red"
+      "Every 2 Ticks": "Produce 1.5 Red. Activate North. Generate 1 White."
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 2,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_red=1.5"
+    "on_fire_effect": "generate_red=1.5,activate_north=1,generate_white=1"
   },
   {
     "card_template_id": "red_flame_crystal",
@@ -1651,13 +1641,13 @@
     "display_name": "Flame Crystal",
     "tags": "CRYSTAL",
     "rules_text": {
-      "Every 5 Ticks": "Produce 4 Red"
+      "Every 5 Ticks": "Produce 4 Red. Activate South. Draw 1 card."
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 5,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_red=4"
+    "on_fire_effect": "generate_red=4,activate_south=1,draw=1"
   },
   {
     "card_template_id": "red_molten_core",
@@ -1665,13 +1655,13 @@
     "display_name": "Molten Core",
     "tags": "STONE",
     "rules_text": {
-      "Every 6 Ticks": "Produce 5 Red"
+      "Every 6 Ticks": "Produce 5 Red. Activate East. Generate 2 Green."
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 6,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_red=5"
+    "on_fire_effect": "generate_red=5,activate_east=1,generate_green=2"
   },
   {
     "card_template_id": "red_heat_refinery",
@@ -1679,13 +1669,13 @@
     "display_name": "Heat Refinery",
     "tags": "FORGE",
     "rules_text": {
-      "Every 3 Ticks": "Consume 2 Red + 1 Blue -> Produce 2 HEAT"
+      "Every 3 Ticks": "Consume 2 Red + 1 Blue -> Produce 2 HEAT. Activate West. Generate 1 Red."
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_red=2,generate_heat=2"
+    "on_fire_effect": "generate_heat=2,activate_west=1,generate_red=1"
   },
   {
     "card_template_id": "red_momentum_factory",
@@ -1693,13 +1683,13 @@
     "display_name": "Momentum Factory",
     "tags": "MECH",
     "rules_text": {
-      "Every 3 Ticks": "Consume 2 Red + 1 Green -> Produce 2 MOMENTUM"
+      "Every 3 Ticks": "Consume 2 Red + 1 Green -> Produce 2 MOMENTUM. Activate North. Generate 1 White."
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_red=2,generate_momentum=2"
+    "on_fire_effect": "generate_momentum=2,activate_north=1,generate_white=1"
   },
   {
     "card_template_id": "red_dual_converter",
@@ -1707,37 +1697,37 @@
     "display_name": "Dual Converter",
     "tags": "TOOL",
     "rules_text": {
-      "Every 4 Ticks": "Consume 3 Red -> Produce 1 HEAT + 1 MOMENTUM"
+      "Every 4 Ticks": "Consume 3 Red -> Produce 1 HEAT + 1 MOMENTUM. Activate South. Draw 1 card."
     },
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_red=3,generate_heat=1"
+    "on_fire_effect": "generate_heat=1,activate_south=1,draw=1"
   },
   {
     "card_template_id": "red_burn_all",
     "time_cost": 5,
     "display_name": "Burn Everything",
     "tags": "CHAOS",
-    "rules_text": "Consume 5 Red -> Deal 2 damage to all",
+    "rules_text": "Consume 5 Red -> Deal 2 damage to all. Activate East. Generate 2 Green.",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_red=5,damage_all=2"
+    "on_fire_effect": "damage=2,activate_east=1,generate_green=2"
   },
   {
     "card_template_id": "red_critical_strike",
     "time_cost": 4,
     "display_name": "Critical Strike",
     "tags": "WEAPON",
-    "rules_text": "Consume 4 Red -> Deal 3 damage",
+    "rules_text": "Consume 4 Red -> Deal 3 damage. Activate West. Generate 1 Red.",
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_red=4,damage=3"
+    "on_fire_effect": "damage=3,activate_west=1,generate_red=1"
   },
   {
     "card_template_id": "red_emergency_power",
@@ -1749,7 +1739,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_smallest=4,generate_red=3"
+    "on_fire_effect": "generate_red=3,consume_smallest=4"
   },
   {
     "card_template_id": "red_inferno_core",
@@ -1775,7 +1765,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_red=7,damage_all=4"
+    "on_fire_effect": "damage=4"
   },
   {
     "card_template_id": "red_heat_sink",
@@ -1789,7 +1779,7 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_heat=1,generate_red=2"
+    "on_fire_effect": "generate_red=2"
   },
   {
     "card_template_id": "red_double_tap",
@@ -1801,7 +1791,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_red=3,damage=1"
+    "on_fire_effect": "damage=1"
   },
   {
     "card_template_id": "red_resource_burn",
@@ -1813,7 +1803,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_largest=2,damage=2"
+    "on_fire_effect": "consume_largest=2,damage=2"
   },
   {
     "card_template_id": "red_flame_wall",
@@ -1827,7 +1817,7 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "damage_all=1"
+    "on_fire_effect": "damage=1"
   },
   {
     "card_template_id": "red_heat_exchange",
@@ -1839,7 +1829,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_heat=1,generate_red=3"
+    "on_fire_effect": "generate_red=3"
   },
   {
     "card_template_id": "red_momentum_transfer",
@@ -1851,7 +1841,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_momentum=1,generate_red=3"
+    "on_fire_effect": "generate_red=3"
   },
   {
     "card_template_id": "red_ignition",
@@ -1866,18 +1856,6 @@
     "on_fire_effect": "generate_red=3"
   },
   {
-    "card_template_id": "red_slow_burn",
-    "time_cost": 4,
-    "display_name": "Slow Burn",
-    "tags": "SPARK,SLOW",
-    "rules_text": "Consume 2 Red -> Deal 1 damage, SLOW target",
-    "card_rarity": "Card.RarityType.COMMON",
-    "production_interval": 1,
-    "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "slow=1,pay_red=2,damage=1"
-  },
-  {
     "card_template_id": "red_momentum_punch",
     "time_cost": 3,
     "display_name": "Momentum Punch",
@@ -1887,7 +1865,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_momentum=1,damage=3"
+    "on_fire_effect": "damage=3"
   },
   {
     "card_template_id": "red_resource_converter",
@@ -1901,7 +1879,7 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_largest=3,generate_red=2"
+    "on_fire_effect": "generate_red=2,consume_largest=3"
   },
   {
     "card_template_id": "white_draw_flow",
@@ -1912,8 +1890,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_white=2,draw=1"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "white_draw_surge",
@@ -1924,8 +1901,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_white=4,draw=2"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "blue_draw_precision",
@@ -1936,8 +1912,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_precision=1,draw=1"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "blue_draw_heat_exchange",
@@ -1948,8 +1923,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_heat=1,draw=1"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "blue_draw_engine",
@@ -1962,8 +1936,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "draw=1"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "white_draw_battery",
@@ -1976,8 +1949,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_white=2,draw=1"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "blue_precision_strike",
@@ -1989,7 +1961,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_precision=2,damage=3"
+    "on_fire_effect": "damage=3"
   },
   {
     "card_template_id": "blue_precision_shield",
@@ -2000,8 +1972,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_precision=1,block=3"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "blue_precision_boost",
@@ -2012,8 +1983,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_precision=1"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "white_heat_control",
@@ -2024,8 +1994,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_heat=2,draw=2"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "blue_heat_conversion",
@@ -2039,7 +2008,7 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_heat=1,generate_blue=3"
+    "on_fire_effect": "generate_blue=3"
   },
   {
     "card_template_id": "blue_crystal_mine",
@@ -2095,7 +2064,7 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_blue=2,generate_heat=2"
+    "on_fire_effect": "generate_heat=2"
   },
   {
     "card_template_id": "blue_precision_lathe",
@@ -2109,7 +2078,7 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_blue=2,generate_precision=2"
+    "on_fire_effect": "generate_precision=2"
   },
   {
     "card_template_id": "blue_dual_processor",
@@ -2123,7 +2092,7 @@
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_blue=3,generate_heat=1"
+    "on_fire_effect": "generate_heat=1"
   },
   {
     "card_template_id": "white_knowledge_pool",
@@ -2136,8 +2105,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "draw=1"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "white_heat_sink_2",
@@ -2150,8 +2118,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_heat=1,draw=1"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "blue_thought_acceleration",
@@ -2162,8 +2129,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_blue=3"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "white_knowledge_burst",
@@ -2174,8 +2140,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "draw=2"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "blue_precision_burst",
@@ -2222,8 +2187,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_green=3,draw=1"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "green_draw_wild",
@@ -2234,8 +2198,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_green=6,draw=2"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "green_draw_momentum",
@@ -2246,8 +2209,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_momentum=2,draw=1"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "green_draw_entropy",
@@ -2258,8 +2220,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_entropy=2,draw=1"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "green_momentum_growth",
@@ -2271,7 +2232,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_momentum=1,generate_green=3"
+    "on_fire_effect": "generate_green=3"
   },
   {
     "card_template_id": "green_momentum_rampage",
@@ -2283,7 +2244,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_momentum=2,damage=4"
+    "on_fire_effect": "damage=4"
   },
   {
     "card_template_id": "green_entropy_bloom",
@@ -2295,7 +2256,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_entropy=1,generate_green=3"
+    "on_fire_effect": "generate_green=3"
   },
   {
     "card_template_id": "green_entropy_poison",
@@ -2307,7 +2268,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "poison=3,pay_entropy=1"
+    "on_fire_effect": "consume_entropy=1,poison=3"
   },
   {
     "card_template_id": "green_growth_engine",
@@ -2363,7 +2324,7 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_green=2,generate_momentum=2"
+    "on_fire_effect": "generate_momentum=2"
   },
   {
     "card_template_id": "green_entropy_pit",
@@ -2377,7 +2338,7 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_green=2,generate_entropy=2"
+    "on_fire_effect": "generate_entropy=2"
   },
   {
     "card_template_id": "green_dual_growth",
@@ -2391,7 +2352,7 @@
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_green=3,generate_momentum=1"
+    "on_fire_effect": "generate_momentum=1"
   },
   {
     "card_template_id": "green_haste_beast",
@@ -2405,7 +2366,7 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "haste=30,damage=2"
+    "on_fire_effect": "damage=2"
   },
   {
     "card_template_id": "green_wild_surge",
@@ -2457,7 +2418,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_green=5,damage_all=3"
+    "on_fire_effect": "damage=3"
   },
   {
     "card_template_id": "green_poison_cloud",
@@ -2469,7 +2430,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "poison=2,pay_entropy=1"
+    "on_fire_effect": "consume_entropy=1,poison=2"
   },
   {
     "card_template_id": "green_beast_fury",
@@ -2519,7 +2480,7 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "immovable=true,generate_white=2"
+    "on_fire_effect": "generate_white=2"
   },
   {
     "card_template_id": "white_immovable_order",
@@ -2532,8 +2493,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "immovable=true,block=all"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "white_draw_order",
@@ -2544,8 +2504,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_white=2,draw=1"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "white_draw_light",
@@ -2556,8 +2515,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_white=4,draw=2"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "white_draw_precision",
@@ -2568,8 +2526,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_precision=1,draw=1"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "white_draw_balance",
@@ -2580,8 +2537,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_balance=1,draw=1"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "white_draw_engine",
@@ -2594,8 +2550,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "draw=1"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "white_precision_heal",
@@ -2606,8 +2561,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_precision=1,heal=3"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "white_precision_shield",
@@ -2618,8 +2572,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_precision=1,block=3"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "white_balance_strike",
@@ -2631,7 +2584,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_balance=1,damage=2"
+    "on_fire_effect": "damage=2"
   },
   {
     "card_template_id": "white_balance_shield",
@@ -2642,8 +2595,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_balance=1,block=4"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "white_light_crystal",
@@ -2699,7 +2651,7 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_white=2,generate_precision=2"
+    "on_fire_effect": "generate_precision=2"
   },
   {
     "card_template_id": "white_balance_forge",
@@ -2713,7 +2665,7 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_white=2,generate_balance=2"
+    "on_fire_effect": "generate_balance=2"
   },
   {
     "card_template_id": "white_dual_order",
@@ -2727,7 +2679,7 @@
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_white=3,generate_precision=1"
+    "on_fire_effect": "generate_precision=1"
   },
   {
     "card_template_id": "white_order_surge",
@@ -2752,8 +2704,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_white=3,heal=2"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "white_shield_wall",
@@ -2764,8 +2715,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_white=4,block=5"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "white_light_burst",
@@ -2813,7 +2763,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "poison=2,pay_black=2"
+    "on_fire_effect": "consume_purple=2,poison=2"
   },
   {
     "card_template_id": "black_poison_entropy",
@@ -2825,7 +2775,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "poison=4,pay_entropy=1"
+    "on_fire_effect": "consume_entropy=1,poison=4"
   },
   {
     "card_template_id": "black_poison_cloud_2",
@@ -2850,8 +2800,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_black=3,draw=1"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "black_draw_dust",
@@ -2862,8 +2811,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_black=6,draw=2"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "black_draw_balance",
@@ -2874,8 +2822,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_balance=2,draw=1"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "black_draw_entropy_2",
@@ -2886,8 +2833,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_entropy=2,draw=1"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "black_balance_void",
@@ -2899,7 +2845,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_balance=1,generate_black=3"
+    "on_fire_effect": "generate_purple=3"
   },
   {
     "card_template_id": "black_balance_shield",
@@ -2910,8 +2856,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_balance=1,block=3"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "black_entropy_void",
@@ -2923,7 +2868,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_entropy=1,generate_black=3"
+    "on_fire_effect": "generate_purple=3"
   },
   {
     "card_template_id": "black_entropy_damage",
@@ -2935,7 +2880,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_entropy=2,damage=5"
+    "on_fire_effect": "damage=5"
   },
   {
     "card_template_id": "black_dust_mine",
@@ -2949,7 +2894,7 @@
     "production_interval": 2,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_black=1.5"
+    "on_fire_effect": "generate_purple=1.5"
   },
   {
     "card_template_id": "black_void_generator",
@@ -2963,7 +2908,7 @@
     "production_interval": 5,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_black=4"
+    "on_fire_effect": "generate_purple=4"
   },
   {
     "card_template_id": "black_shadow_core",
@@ -2977,7 +2922,7 @@
     "production_interval": 6,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_black=5"
+    "on_fire_effect": "generate_purple=5"
   },
   {
     "card_template_id": "black_balance_mill",
@@ -2991,7 +2936,7 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_black=2,generate_balance=2"
+    "on_fire_effect": "generate_balance=2"
   },
   {
     "card_template_id": "black_entropy_pit_2",
@@ -3005,7 +2950,7 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_black=2,generate_entropy=2"
+    "on_fire_effect": "generate_entropy=2"
   },
   {
     "card_template_id": "black_dual_void",
@@ -3019,7 +2964,7 @@
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_black=3,generate_balance=1"
+    "on_fire_effect": "generate_balance=1"
   },
   {
     "card_template_id": "black_void_surge",
@@ -3033,7 +2978,7 @@
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_black=3"
+    "on_fire_effect": "generate_purple=3"
   },
   {
     "card_template_id": "black_shadow_strike",
@@ -3045,7 +2990,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_black=3,damage=2"
+    "on_fire_effect": "damage=2"
   },
   {
     "card_template_id": "black_dust_storm",
@@ -3057,7 +3002,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_black=5,damage_all=2"
+    "on_fire_effect": "damage=2"
   },
   {
     "card_template_id": "black_shadow_burst",
@@ -3069,7 +3014,7 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_black=3"
+    "on_fire_effect": "generate_purple=3"
   },
   {
     "card_template_id": "black_balance_burst_2",
@@ -3119,7 +3064,7 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_green=1.5,faster=2"
+    "on_fire_effect": "generate_green=1.5"
   },
   {
     "card_template_id": "green_faster_basic_2",
@@ -3132,8 +3077,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 2,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "faster=1"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "green_faster_basic_3",
@@ -3147,7 +3091,7 @@
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_green=2,faster=1"
+    "on_fire_effect": "generate_green=2"
   },
   {
     "card_template_id": "green_faster_momentum_1",
@@ -3158,8 +3102,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_momentum=1,faster=3,draw=1"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "green_faster_instant_1",
@@ -3172,8 +3115,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "momentary=true,pay_green=2,faster=2"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "green_faster_titan_1",
@@ -3187,7 +3129,7 @@
     "production_interval": 6,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_green=3,faster=3"
+    "on_fire_effect": "generate_green=3"
   },
   {
     "card_template_id": "green_conv_momentum_5",
@@ -3201,7 +3143,7 @@
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_green=2,pay_black=1,generate_momentum=2"
+    "on_fire_effect": "generate_momentum=2"
   },
   {
     "card_template_id": "green_conv_flex_3",
@@ -3215,7 +3157,7 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_smallest=3,generate_momentum=1"
+    "on_fire_effect": "generate_momentum=1,consume_smallest=3"
   },
   {
     "card_template_id": "green_beast_buff_1",
@@ -3228,8 +3170,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 2,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "haste_beast=15"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "green_faster_combo_1",
@@ -3240,8 +3181,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_green=2,faster=2,draw=1"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "green_engine_buff_1",
@@ -3254,8 +3194,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "mech_production_bonus=1"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "green_gen_basic_16",
@@ -3381,7 +3320,7 @@
     "production_interval": 2,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_green=1,haste=5"
+    "on_fire_effect": "generate_green=1"
   },
   {
     "card_template_id": "green_gen_basic_27",
@@ -3395,7 +3334,7 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_green=2,poison=1"
+    "on_fire_effect": "generate_green=2"
   },
   {
     "card_template_id": "green_gen_basic_28",
@@ -3436,8 +3375,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 2,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_green=1,generate_momentum=0.5"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "green_conv_momentum_8",
@@ -3450,8 +3388,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_green=2,pay_red=1,generate_momentum=2"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "green_conv_momentum_9",
@@ -3464,8 +3401,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 5,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_green=3,generate_momentum=2.5"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "green_conv_momentum_10",
@@ -3479,7 +3415,7 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_largest=2,generate_momentum=1"
+    "on_fire_effect": "consume_largest=2"
   },
   {
     "card_template_id": "green_conv_heat_1",
@@ -3492,8 +3428,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_green=2,pay_red=1,generate_heat=1"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "green_conv_heat_2",
@@ -3506,8 +3441,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 5,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_green=3,generate_heat=1.5"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "green_conv_precision_1",
@@ -3520,8 +3454,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_green=2,pay_blue=1,generate_precision=1"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "green_conv_all_1",
@@ -3534,8 +3467,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 6,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_green=4,generate_heat=1,generate_momentum=1"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "green_conv_poison_1",
@@ -3549,7 +3481,7 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_green=2,generate_momentum=1,poison=1"
+    "on_fire_effect": "consume_green=2"
   },
   {
     "card_template_id": "green_dmg_basic_3",
@@ -3561,7 +3493,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_green=2,damage=2"
+    "on_fire_effect": "damage=2"
   },
   {
     "card_template_id": "green_dmg_basic_4",
@@ -3573,7 +3505,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_green=3,damage=3"
+    "on_fire_effect": "damage=3"
   },
   {
     "card_template_id": "green_dmg_momentum_2",
@@ -3585,7 +3517,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_momentum=1,damage=2"
+    "on_fire_effect": "damage=2"
   },
   {
     "card_template_id": "green_dmg_momentum_3",
@@ -3597,7 +3529,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_momentum=1.5,damage=3,haste=10"
+    "on_fire_effect": "damage=3"
   },
   {
     "card_template_id": "green_dmg_momentum_4",
@@ -3609,7 +3541,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_momentum=2,damage=5"
+    "on_fire_effect": "damage=5"
   },
   {
     "card_template_id": "green_dmg_flexible_1",
@@ -3621,7 +3553,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_largest=3,damage=2"
+    "on_fire_effect": "consume_largest=3,damage=2"
   },
   {
     "card_template_id": "green_dmg_flexible_2",
@@ -3633,7 +3565,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_smallest=2,damage=1,draw=1"
+    "on_fire_effect": "consume_smallest=2,damage=1"
   },
   {
     "card_template_id": "green_dmg_poison_2",
@@ -3645,7 +3577,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_green=2,damage=1,poison=2"
+    "on_fire_effect": "consume_green=2,damage=1"
   },
   {
     "card_template_id": "green_dmg_momentary_1",
@@ -3659,7 +3591,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "momentary=true,pay_green=1,damage=1"
+    "on_fire_effect": "damage=1"
   },
   {
     "card_template_id": "green_draw_basic_1",
@@ -3670,8 +3602,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_green=3,draw=2"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "green_draw_basic_2",
@@ -3682,8 +3613,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_green=2,draw=1"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "green_draw_momentum_1",
@@ -3694,8 +3624,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_momentum=1,draw=2"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "green_buff_mech_1",
@@ -3708,8 +3637,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "mech_bonus=1"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "green_buff_beast_2",
@@ -3722,8 +3650,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "beast_haste=20"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "green_synergy_mech_1",
@@ -3734,8 +3661,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": "-1",
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "mech_tick_bonus=1"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "green_synergy_beast_1",
@@ -3746,8 +3672,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": "-1",
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "beast_cost_reduction=1"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "green_timing_1",
@@ -3758,8 +3683,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": "-1",
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "instant_fire=true"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "white_gen_basic_1",
@@ -3856,8 +3780,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_white=2"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "white_gen_basic_8",
@@ -3926,8 +3849,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_white=2,pay_red=1,generate_heat=1"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "white_conv_precision_1",
@@ -3940,8 +3862,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_white=2,pay_blue=1,generate_precision=1"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "white_conv_momentum_1",
@@ -3954,8 +3875,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_white=2,pay_green=1,generate_momentum=1"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "white_dmg_basic_1",
@@ -3967,7 +3887,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_white=2,damage=2"
+    "on_fire_effect": "damage=2"
   },
   {
     "card_template_id": "white_dmg_basic_2",
@@ -3979,7 +3899,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_white=3,damage=3"
+    "on_fire_effect": "damage=3"
   },
   {
     "card_template_id": "white_dmg_basic_3",
@@ -3991,7 +3911,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_white=4,damage=4"
+    "on_fire_effect": "damage=4"
   },
   {
     "card_template_id": "white_dmg_flexible_1",
@@ -4003,7 +3923,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_smallest=3,damage=2"
+    "on_fire_effect": "consume_smallest=3,damage=2"
   },
   {
     "card_template_id": "white_dmg_flexible_2",
@@ -4015,7 +3935,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_largest=4,damage=3"
+    "on_fire_effect": "consume_largest=4,damage=3"
   },
   {
     "card_template_id": "white_dmg_momentary_1",
@@ -4029,7 +3949,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "momentary=true,pay_white=1,damage=1"
+    "on_fire_effect": "damage=1"
   },
   {
     "card_template_id": "white_draw_basic_1",
@@ -4040,8 +3960,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_white=2,draw=1"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "white_draw_basic_2",
@@ -4052,8 +3971,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_white=3,draw=2"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "white_buff_stone_1",
@@ -4066,8 +3984,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "stone_damage_bonus=1"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "white_buff_tool_1",
@@ -4080,8 +3997,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "tool_cost_reduction=1"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "white_defense_basic_1",
@@ -4094,8 +4010,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": "-1",
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "momentary=true,block=3"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "white_synergy_stone_1",
@@ -4106,8 +4021,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": "-1",
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "stone_white_bonus=0.5"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "white_timing_1",
@@ -4118,8 +4032,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": "-1",
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "next_cost_reduction=2"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "white_crystal_1",
@@ -4133,7 +4046,7 @@
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_white=2,generate_blue=1"
+    "on_fire_effect": "generate_white=2"
   },
   {
     "card_template_id": "white_spark_1",
@@ -4147,7 +4060,7 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_white=1,generate_red=1"
+    "on_fire_effect": "generate_white=1"
   },
   {
     "card_template_id": "white_mech_1",
@@ -4161,7 +4074,7 @@
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_white=2,generate_green=1"
+    "on_fire_effect": "generate_white=2"
   },
   {
     "card_template_id": "white_dmg_basic_4",
@@ -4175,7 +4088,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "momentary=true,pay_white=2,damage=2"
+    "on_fire_effect": "damage=2"
   },
   {
     "card_template_id": "white_dmg_basic_5",
@@ -4187,7 +4100,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_white=3,damage=3,draw=1"
+    "on_fire_effect": "damage=3"
   },
   {
     "card_template_id": "white_dmg_basic_6",
@@ -4199,7 +4112,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_white=4,damage=5"
+    "on_fire_effect": "damage=5"
   },
   {
     "card_template_id": "white_dmg_heat_1",
@@ -4211,7 +4124,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_heat=1,damage=3"
+    "on_fire_effect": "damage=3"
   },
   {
     "card_template_id": "white_dmg_momentum_1",
@@ -4223,7 +4136,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_momentum=1,damage=3"
+    "on_fire_effect": "damage=3"
   },
   {
     "card_template_id": "white_dmg_precision_1",
@@ -4235,7 +4148,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_precision=1,damage=4"
+    "on_fire_effect": "damage=4"
   },
   {
     "card_template_id": "white_dmg_flexible_3",
@@ -4247,7 +4160,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_largest=2,damage=2"
+    "on_fire_effect": "consume_largest=2,damage=2"
   },
   {
     "card_template_id": "white_dmg_flexible_4",
@@ -4259,7 +4172,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_smallest=3,damage=3"
+    "on_fire_effect": "consume_smallest=3,damage=3"
   },
   {
     "card_template_id": "white_conv_heat_2",
@@ -4273,7 +4186,7 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_white=2,pay_red=1,generate_heat=1.5"
+    "on_fire_effect": ",activate_east=1"
   },
   {
     "card_template_id": "white_conv_heat_3",
@@ -4286,8 +4199,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 5,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_white=4,generate_heat=2"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "white_conv_momentum_2",
@@ -4300,8 +4212,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_white=2,pay_green=1,generate_momentum=1.5"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "white_conv_momentum_3",
@@ -4314,8 +4225,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_white=3,generate_momentum=1.5"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "white_conv_precision_2",
@@ -4328,8 +4238,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_white=2,pay_blue=1,generate_precision=1.5"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "white_conv_precision_3",
@@ -4342,8 +4251,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_white=3,generate_precision=1"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "white_conv_all_2",
@@ -4356,8 +4264,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 5,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_white=5,generate_heat=1,generate_momentum=1,generate_precision=1"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "white_synergy_stone_2",
@@ -4369,7 +4276,7 @@
     "production_interval": "-1",
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "stone_production_bonus=1"
+    "on_fire_effect": ",activate_east=1"
   },
   {
     "card_template_id": "black_gen_basic_1",
@@ -4383,7 +4290,7 @@
     "production_interval": 2,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_black=1.5"
+    "on_fire_effect": "generate_purple=1.5"
   },
   {
     "card_template_id": "black_gen_basic_2",
@@ -4397,7 +4304,7 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_black=2.5"
+    "on_fire_effect": "generate_purple=2.5"
   },
   {
     "card_template_id": "black_gen_basic_3",
@@ -4411,7 +4318,7 @@
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_black=3.5"
+    "on_fire_effect": "generate_purple=3.5"
   },
   {
     "card_template_id": "black_gen_basic_4",
@@ -4425,7 +4332,7 @@
     "production_interval": 5,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_black=4.5"
+    "on_fire_effect": "generate_purple=4.5"
   },
   {
     "card_template_id": "black_gen_basic_5",
@@ -4439,7 +4346,7 @@
     "production_interval": 6,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_black=6"
+    "on_fire_effect": "generate_purple=6"
   },
   {
     "card_template_id": "black_gen_basic_6",
@@ -4453,7 +4360,7 @@
     "production_interval": 2,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_black=0.5"
+    "on_fire_effect": "generate_purple=0.5"
   },
   {
     "card_template_id": "black_gen_basic_7",
@@ -4467,7 +4374,7 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_black=2"
+    "on_fire_effect": "generate_purple=2"
   },
   {
     "card_template_id": "black_gen_poison_1",
@@ -4481,7 +4388,7 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_black=2,poison=1"
+    "on_fire_effect": "generate_purple=2"
   },
   {
     "card_template_id": "black_conv_void_1",
@@ -4495,7 +4402,7 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_black=2,generate_void=1"
+    "on_fire_effect": ",activate_north=1"
   },
   {
     "card_template_id": "black_conv_void_2",
@@ -4508,8 +4415,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_black=3,generate_void=2"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "black_conv_heat_1",
@@ -4523,7 +4429,7 @@
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_black=2,pay_red=1,generate_heat=1.5"
+    "on_fire_effect": ",activate_east=1"
   },
   {
     "card_template_id": "black_conv_momentum_1",
@@ -4536,8 +4442,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_black=2,pay_green=1,generate_momentum=1.5"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "black_conv_precision_1",
@@ -4550,8 +4455,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_black=2,pay_blue=1,generate_precision=1.5"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "black_conv_flex_1",
@@ -4565,7 +4469,7 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_largest=3,generate_void=1"
+    "on_fire_effect": "consume_largest=3"
   },
   {
     "card_template_id": "black_conv_flex_2",
@@ -4579,7 +4483,7 @@
     "production_interval": 4,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_smallest=4,generate_void=1.5"
+    "on_fire_effect": "consume_smallest=4"
   },
   {
     "card_template_id": "black_conv_poison_1",
@@ -4593,7 +4497,7 @@
     "production_interval": 3,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_black=2,generate_momentum=1,poison=2"
+    "on_fire_effect": "consume_purple=2"
   },
   {
     "card_template_id": "black_conv_all_1",
@@ -4606,8 +4510,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 6,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_black=5,generate_void=2,generate_heat=1,generate_momentum=1"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "black_dmg_basic_1",
@@ -4619,7 +4522,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_black=2,damage=2"
+    "on_fire_effect": "damage=2"
   },
   {
     "card_template_id": "black_dmg_basic_2",
@@ -4631,7 +4534,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_black=3,damage=3"
+    "on_fire_effect": "damage=3"
   },
   {
     "card_template_id": "black_dmg_basic_3",
@@ -4643,7 +4546,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_black=4,damage=5"
+    "on_fire_effect": "damage=5"
   },
   {
     "card_template_id": "black_dmg_void_1",
@@ -4655,7 +4558,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_void=1,damage=4"
+    "on_fire_effect": "damage=4"
   },
   {
     "card_template_id": "black_dmg_void_2",
@@ -4667,7 +4570,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_void=2,damage=7"
+    "on_fire_effect": "damage=7"
   },
   {
     "card_template_id": "black_dmg_poison_1",
@@ -4679,7 +4582,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_black=2,damage=1,poison=3"
+    "on_fire_effect": "consume_purple=2,damage=1"
   },
   {
     "card_template_id": "black_dmg_flexible_1",
@@ -4691,7 +4594,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_largest=3,damage=3"
+    "on_fire_effect": "consume_largest=3,damage=3"
   },
   {
     "card_template_id": "black_dmg_flexible_2",
@@ -4703,7 +4606,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_smallest=2,damage=2"
+    "on_fire_effect": "consume_smallest=2,damage=2"
   },
   {
     "card_template_id": "black_dmg_momentary_1",
@@ -4717,7 +4620,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "momentary=true,pay_black=1,damage=1"
+    "on_fire_effect": "damage=1"
   },
   {
     "card_template_id": "black_dmg_heat_1",
@@ -4729,7 +4632,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_heat=1,damage=3,poison=1"
+    "on_fire_effect": "consume_heat=1,damage=3"
   },
   {
     "card_template_id": "black_draw_basic_1",
@@ -4740,8 +4643,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_black=2,draw=1"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "black_draw_basic_2",
@@ -4752,8 +4654,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_black=3,draw=2"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "black_buff_void_1",
@@ -4766,8 +4667,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "void_damage_bonus=1"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "black_buff_dust_1",
@@ -4780,8 +4680,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "dust_production_bonus=1"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "white_draw_basic_5",
@@ -4792,8 +4691,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_white=3,draw=2"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "white_draw_basic_6",
@@ -4804,8 +4702,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_white=2,draw=1"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "white_draw_order_3",
@@ -4818,8 +4715,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "draw=1"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "white_draw_stone_2",
@@ -4830,8 +4726,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_white=4,draw=3"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "blue_gen_crystal_1",
@@ -4900,8 +4795,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "generate_blue=2.5"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "blue_gen_micro_1",
@@ -4955,7 +4849,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_blue=2,damage=1"
+    "on_fire_effect": "damage=1"
   },
   {
     "card_template_id": "blue_dmg_tool_1",
@@ -4967,7 +4861,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_blue=3,damage=2"
+    "on_fire_effect": "damage=2"
   },
   {
     "card_template_id": "blue_dmg_precision_1",
@@ -4979,7 +4873,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_precision=1,damage=3"
+    "on_fire_effect": "damage=3"
   },
   {
     "card_template_id": "blue_dmg_micro_1",
@@ -4991,7 +4885,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_blue=1.5,damage=1"
+    "on_fire_effect": "damage=1"
   },
   {
     "card_template_id": "blue_dmg_arcane_1",
@@ -5003,7 +4897,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_blue=4,damage=5"
+    "on_fire_effect": "damage=5"
   },
   {
     "card_template_id": "blue_dmg_mech_1",
@@ -5015,7 +4909,7 @@
     "production_interval": 1,
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_precision=2,damage=4,haste=20"
+    "on_fire_effect": "damage=4"
   },
   {
     "card_template_id": "blue_draw_tool_1",
@@ -5026,8 +4920,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_blue=2,draw=1"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "blue_draw_crystal_1",
@@ -5038,8 +4931,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_blue=3,draw=2"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "blue_draw_order_1",
@@ -5050,8 +4942,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_blue=1.5,draw=1"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "blue_draw_arcane_1",
@@ -5064,8 +4955,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 5,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "draw=2"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "blue_draw_precision_1",
@@ -5076,8 +4966,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 1,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_precision=1,draw=2"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "blue_conv_crystal_1",
@@ -5090,8 +4979,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 3,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_blue=1,generate_precision=1"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "blue_conv_tool_1",
@@ -5104,8 +4992,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_blue=2,generate_precision=1"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "blue_conv_order_1",
@@ -5118,8 +5005,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 4,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_blue=2,generate_precision=2"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "blue_conv_micro_1",
@@ -5132,8 +5018,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 2,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_blue=1,generate_precision=0.5"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "blue_conv_arcane_1",
@@ -5146,8 +5031,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": 5,
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "pay_blue=3,generate_precision=2,generate_heat=1"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "blue_utility_crystal_1",
@@ -5159,7 +5043,7 @@
     "production_interval": "-1",
     "starting_progress": 0,
     "group_template_id": "tourbillon",
-    "on_fire_effect": "crystal_bonus=0.5"
+    "on_fire_effect": ",activate_east=1"
   },
   {
     "card_template_id": "blue_utility_tool_1",
@@ -5170,8 +5054,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": "-1",
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "tool_double=true"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "blue_utility_micro_1",
@@ -5182,8 +5065,7 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": "-1",
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "micro_haste=1"
+    "group_template_id": "tourbillon"
   },
   {
     "card_template_id": "blue_utility_arcane_1",
@@ -5194,7 +5076,6 @@
     "card_rarity": "Card.RarityType.COMMON",
     "production_interval": "-1",
     "starting_progress": 0,
-    "group_template_id": "tourbillon",
-    "on_fire_effect": "arcane_all_keywords=true"
+    "group_template_id": "tourbillon"
   }
 ]
