@@ -30,7 +30,15 @@ var _damage_handler: Damageable
 # Beat consumers for various effects
 var beat_consumers: Array[BeatConsumer] = []
 
-# Disruption properties
+# Move cycle data
+var move_queue: Array[MoveData] = []
+var background_effects: Array[MoveData] = []  # Always-active effects (0 ticks)
+var current_move_index: int = 0
+var current_move: MoveData = null
+var ticks_until_move_complete: int = 0
+var tick_counter: int = 0  # Counts beats for tick conversion
+
+# Disruption properties (deprecated - using move queue now)
 var disruption_interval_beats: int = 50  # Every 5 ticks by default
 var beats_until_disruption: int = 0
 
@@ -77,18 +85,30 @@ func process_beat(context: BeatContext) -> void:
 	var beat_number = get_meta("total_beats", 0) + 1
 	set_meta("total_beats", beat_number)
 
-	# Count down to disruption
-	if beats_until_disruption > 0:
-		beats_until_disruption -= 1
-
-		if beats_until_disruption == 0:
-			_trigger_disruption()
-			beats_until_disruption = disruption_interval_beats
+	# Convert beats to ticks (10 beats = 1 tick)
+	tick_counter += 1
+	if tick_counter >= 10:
+		tick_counter = 0
+		_process_tick()
 
 	# Process burn effect
 	if burn_duration > 0:
 		if beat_number % 10 == 0:  # Each tick
 			burn_duration -= 1
+
+## Process one tick of the move cycle
+func _process_tick() -> void:
+	if not current_move or move_queue.is_empty():
+		return
+	
+	# Countdown current move
+	if ticks_until_move_complete > 0:
+		ticks_until_move_complete -= 1
+		
+		# Check if move completes
+		if ticks_until_move_complete == 0:
+			_complete_current_move()
+			_advance_to_next_move()
 
 ## Main damage interface using unified system
 func receive_damage(packet: DamagePacket) -> int:
@@ -180,9 +200,82 @@ func _apply_disruption() -> void:
 
 ## Get disruption description for UI
 func get_disruption_text() -> String:
-	if moves_string.is_empty():
-		return "No special effects"
-	return GremlinDownsideProcessor.get_downside_description(moves_string)
+	if current_move:
+		return current_move.get_display_text()
+	if not move_queue.is_empty():
+		return move_queue[0].get_display_text()
+	return "No special effects"
+
+## Set up move queue from parsed data
+func set_move_queue(moves: Array[MoveData], background: Array[MoveData]) -> void:
+	move_queue = moves
+	background_effects = background
+	
+	# Apply all background effects immediately
+	for effect in background_effects:
+		_apply_move_effect(effect, true)
+	
+	# Start with first cycled move if available
+	if not move_queue.is_empty():
+		current_move_index = 0
+		_load_move_at_index(0)
+
+## Load a move from the queue
+func _load_move_at_index(index: int) -> void:
+	if index >= move_queue.size():
+		return
+		
+	current_move = move_queue[index]
+	ticks_until_move_complete = current_move.tick_duration
+	
+	# Apply persistent effects immediately
+	if current_move.is_persistent_effect():
+		_apply_move_effect(current_move, true)
+
+## Complete the current move
+func _complete_current_move() -> void:
+	if not current_move:
+		return
+	
+	# Execute triggered actions
+	if current_move.is_triggered_action():
+		_apply_move_effect(current_move, false)
+	
+	# Remove persistent effects
+	if current_move.is_persistent_effect():
+		_remove_move_effect(current_move)
+
+## Advance to next move in cycle
+func _advance_to_next_move() -> void:
+	current_move_index = (current_move_index + 1) % move_queue.size()
+	_load_move_at_index(current_move_index)
+
+## Apply a move's effect
+func _apply_move_effect(move: MoveData, is_starting: bool) -> void:
+	# Parse effect type and apply through processor
+	var effect_string = move.effect_type + "=" + str(move.effect_value)
+	GremlinDownsideProcessor._process_single_downside(effect_string, self)
+	
+	# For triggered actions that fire at the end
+	if not is_starting and move.is_triggered_action():
+		match move.effect_type:
+			"attack":
+				GremlinDownsideProcessor._execute_attack(move.effect_value)
+			"force_discard":
+				GremlinDownsideProcessor._force_discard_cards(move.effect_value)
+			"summon":
+				GremlinDownsideProcessor._summon_gremlin(move.effect_type.split("=")[1] if "=" in move.effect_type else "basic_gnat")
+			_:
+				# Handle drains
+				if "drain" in move.effect_type:
+					var drain_type = move.effect_type.replace("drain_", "")
+					GremlinDownsideProcessor._execute_drain(drain_type, move.effect_value)
+
+## Remove a move's effect (for persistent effects)
+func _remove_move_effect(move: MoveData) -> void:
+	# This would need to track and remove specific effects
+	# For now, recalculate all downsides
+	GremlinDownsideProcessor.recalculate_all_downsides()
 
 ## Sync properties to damage handler
 func _sync_to_handler() -> void:

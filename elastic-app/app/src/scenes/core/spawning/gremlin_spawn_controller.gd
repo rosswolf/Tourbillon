@@ -58,13 +58,26 @@ func spawn_gremlin(template_id: String, slot_index: int = -1) -> Gremlin:
 		# Auto-assign next available slot
 		builder.with_slot(active_gremlins.size())
 	
-	# Parse moves/downsides string
+	# Parse moves into queue
+	var move_arrays = _parse_moves_to_queue(gremlin_data)
+	var move_queue = move_arrays[0]
+	var background_effects = move_arrays[1]
+	
+	# Store for later application after build
+	gremlin_data["move_queue"] = move_queue
+	gremlin_data["background_effects"] = background_effects
+	
+	# Still pass moves string for legacy compatibility
 	var moves_string = _build_moves_string(gremlin_data)
 	if not moves_string.is_empty():
 		builder.with_moves(moves_string)
 	
 	# Build the gremlin
 	var gremlin = builder.build()
+	
+	# Set up move queue
+	if gremlin_data.has("move_queue") and gremlin_data.has("background_effects"):
+		gremlin.set_move_queue(gremlin_data["move_queue"], gremlin_data["background_effects"])
 	
 	# Set additional properties not in builder
 	if gremlin_data.has("damage_cap"):
@@ -149,6 +162,39 @@ func are_all_defeated() -> bool:
 		if is_instance_valid(gremlin) and gremlin.current_hp > 0:
 			return false
 	return true
+
+## Parse moves into queue and background effects
+func _parse_moves_to_queue(gremlin_data: Dictionary) -> Array:
+	var move_queue: Array[MoveData] = []
+	var background_effects: Array[MoveData] = []
+	
+	for i in range(1, 7):  # Check move_1 through move_6
+		var move_key = "move_" + str(i)
+		var tick_key = "move_" + str(i) + "_ticks"
+		
+		if gremlin_data.has(move_key) and not gremlin_data[move_key].is_empty():
+			var move_str = gremlin_data[move_key]
+			var ticks = gremlin_data.get(tick_key, 0)
+			
+			# Parse move string (format: "effect_type=value")
+			var parts = move_str.split("=")
+			var effect_type = parts[0] if parts.size() > 0 else ""
+			var effect_value = int(parts[1]) if parts.size() > 1 else 0
+			
+			# Special case for summon - store the target type
+			if effect_type == "summon" and parts.size() > 1:
+				effect_type = move_str  # Keep full "summon=basic_gnat"
+				effect_value = 1
+			
+			var move = MoveData.new(effect_type, effect_value, ticks)
+			
+			# Separate background effects (0 ticks) from cycled moves
+			if ticks == 0:
+				background_effects.append(move)
+			else:
+				move_queue.append(move)
+	
+	return [move_queue, background_effects]
 
 ## Build moves string from gremlin data
 func _build_moves_string(gremlin_data: Dictionary) -> String:
