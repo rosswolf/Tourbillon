@@ -7,6 +7,8 @@ static func _get_type_string():
 var image_name: String
 var starting_relic: String
 
+# Player stats
+var hp: CappedResource
 
 # Color resources (5)
 var red: CappedResource
@@ -23,8 +25,13 @@ var balance: CappedResource
 var entropy: CappedResource
 
 func _init() -> void:
-	# Initialize all 10 resources with proper signal callbacks
+	# Initialize all resources with proper signal callbacks
 	var noop = func(v): pass
+
+	# Player HP - starts at 24/24
+	hp = CappedResource.new(24, 24,
+		func(v): GlobalSignals.signal_core_hero_resource_changed(GameResource.Type.HP, v),
+		noop)
 
 	# Color resources with signal emission
 	red = CappedResource.new(0, 10,
@@ -67,11 +74,16 @@ func _get_type() -> Entity.EntityType:
 
 
 func reset_start_of_battle() -> void:
-	pass
+	# Send initial HP signal to update UI
+	if hp:
+		GlobalSignals.signal_core_hero_resource_changed(GameResource.Type.HP, hp.amount)
 
 ## Get a resource by type (colors or forces)
 func get_force_resource(force_type: GameResource.Type) -> CappedResource:
 	match force_type:
+		# Player stats
+		GameResource.Type.HP:
+			return hp
 		# Color resources
 		GameResource.Type.RED:
 			return red

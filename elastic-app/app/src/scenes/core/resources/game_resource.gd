@@ -4,6 +4,8 @@ class_name GameResource
 # When adding a new type here, be sure to update the get_resource_background_color function below
 enum Type {
 	UNKNOWN,
+	# Player stats
+	HP,        # Player health points
 	# Color resources (5) - Basic color-based resources
 	RED,
 	BLUE,
@@ -52,6 +54,11 @@ class ResourceAccessor:
 			setter.call(getter.call() - amount)
 
 	var __resources: Dictionary = {
+		# Player stats
+		GameResource.Type.HP: __SpecificResourceAccessor.new(
+			func(): return GlobalGameManager.hero.hp.amount if GlobalGameManager.hero and GlobalGameManager.hero.hp else 0,
+			func(value): if GlobalGameManager.hero and GlobalGameManager.hero.hp: GlobalGameManager.hero.hp.amount = value
+		),
 		# Color resources (5)
 		GameResource.Type.RED: __SpecificResourceAccessor.new(
 			func(): return GlobalGameManager.hero.red.amount if GlobalGameManager.hero and GlobalGameManager.hero.red else 0,
