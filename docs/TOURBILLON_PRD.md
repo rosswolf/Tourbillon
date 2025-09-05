@@ -117,7 +117,7 @@ Note: Checking every Beat allows for precise timing and off-Tick effects (e.g., 
 ### 2.2 Player Health System
 
 #### 2.2.1 Health and Shields
-- **Starting HP**: Players begin each combat with 100 HP (modifiable by relics/upgrades)
+- **Starting HP**: Players begin each combat with 24 HP (modifiable by relics/upgrades)
 - **Maximum HP**: Can be increased through rewards and upgrades
 - **Shields**: Temporary HP that absorbs damage first before health
 - **Shield Decay**: Shields do not decay between turns but may have decay mechanics from specific effects
@@ -690,10 +690,19 @@ Tags create synergies and define gear identities. Gears typically have 1-4 tags.
 - Destroy effects can target gremlins
 - Gremlins do not have force pools
 
-#### 8.1.2 Gremlin Disruptions
-Gremlins impose disruptions while infesting your mechanism:
+#### 8.1.2 Gremlin Move Cycles
+Gremlins execute moves in sequence, with each move having its own tick countdown:
 
-**Passive Disruptions:**
+**Move System:**
+- Each gremlin has up to 6 moves that cycle in order
+- Each move has a tick timer showing when it will trigger
+- UI displays current move and countdown progress bar
+- When a move triggers, gremlin advances to next move in cycle
+- After last move, cycle loops back to first move
+
+**Move Types:**
+
+**Passive Effects (0 ticks):**
 - Force caps - caps don't stack, take lowest
 - Production taxes
 - Placement restrictions
@@ -703,14 +712,20 @@ Gremlins impose disruptions while infesting your mechanism:
 - Production modifiers stack additively
 - Decay triggers
 
-**Active Sabotage:**
-- Attack player directly (dealing damage every X ticks)
-- Drain forces periodically
+**Triggered Actions (N ticks):**
+- Attack player directly (deals damage when timer reaches 0)
+- Drain forces (removes resources when triggered)
 - Corrupt gears
 - Scramble hand
 - Force discards
 - Jam mechanisms
 - Apply poison/burn to player
+- Summon additional gremlins
+
+**Example Move Cycles:**
+- Basic Gnat: Attack=1 (3 ticks) → Attack=1 (3 ticks) → repeat
+- Gear Tick: Card cost +1 (5 ticks) → Force discard (10 ticks) → Attack=2 (15 ticks) → repeat
+- Rust Speck: Precision cap=3 (passive) + Attack=3 (6 ticks) → repeat
 
 ### 8.2 Gremlin Types
 
@@ -872,7 +887,7 @@ Gremlins impose disruptions while infesting your mechanism:
 - Time advances in Beats - 10 Beats = 1 Tick; all gears check their timers every Beat
 
 ### 12.3 Combat Basics (Fighting Gremlins)
-- Player health - You start with 100 HP; lose when it reaches 0
+- Player health - You start with 24 HP; lose when it reaches 0
 - Shields protect you - Temporary HP that absorbs damage first
 - Gremlins attack back - They deal damage to you every X Ticks
 - Gremlins disrupt your mechanism - Each adds constraints while alive
