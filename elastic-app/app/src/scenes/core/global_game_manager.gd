@@ -454,5 +454,8 @@ func __spawn_test_gremlin() -> void:
 		print("[DEBUG] Spawned gremlin: ", gremlin.gremlin_name, " with ", gremlin.current_hp, " HP")
 
 func __on_deck_exhausted() -> void:
-	print("[DEBUG] Deck exhausted - triggering game over")
-	GlobalSignals.signal_core_game_over()
+	print("[DEBUG] Deck exhausted - dealing 1 damage to hero")
+	# Deal 1 damage to hero for trying to draw from empty deck
+	if hero:
+		var damage_packet = DamagePacket.new(1, null, "Deck Exhaustion")
+		hero.receive_damage(damage_packet)
