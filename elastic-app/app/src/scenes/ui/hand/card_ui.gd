@@ -6,9 +6,10 @@ extends Control
 @onready var card_title: Control = $TitlePanel/Title
 @onready var card_description: Control = $DescriptionPanel/Description
 @onready var icon_container: Container = $IconContainer
-@onready var tick_cost_label: Label = $IconContainer/TopHBoxContainer/TickCostCircle/CenterContainer/TickCostLabel  # Gray circle for tick cost
+@onready var tick_cost_label: Label = $TickCostCircle/CenterContainer/TickCostLabel  # Time cost in top right
 @onready var efficiency_label: Label = null  # Efficiency label removed for now
 @onready var is_building: Control = $IsBuilding
+@onready var tags_container: HBoxContainer = $TagsContainer
 
 var energy_icons: Dictionary[GameResource.Type, String] = {
 	GameResource.Type.GREEN_ENERGY: "green_energy",
@@ -50,9 +51,12 @@ func set_card_data(card: Card) -> void:
 	card_title.text = card.display_name
 	card_description.text = card.rules_text
 
-	# Show tick cost in gray circle (time_cost field)
+	# Show tick cost in top right corner
 	if tick_cost_label:
 		tick_cost_label.text = str(card.time_cost) if card.time_cost > 0 else "0"
+	
+	# Display tags at bottom of card
+	_update_tags()
 
 	# Calculate and show efficiency (for cards with production_interval)
 	if efficiency_label:
@@ -87,6 +91,9 @@ func refresh() -> void:
 	# Update tick cost display
 	if tick_cost_label:
 		tick_cost_label.text = str(card_data.time_cost) if card_data.time_cost > 0 else "0"
+	
+	# Update tags
+	_update_tags()
 
 	# Update efficiency display
 	if efficiency_label:
@@ -119,6 +126,36 @@ func __on_mouse_entered() -> void:
 
 func __on_mouse_exited() -> void:
 	GlobalSignals.signal_ui_card_unhovered(card_data.instance_id)
+
+func _update_tags() -> void:
+	if not tags_container or not card_data:
+		return
+	
+	# Clear existing tags
+	for child in tags_container.get_children():
+		child.queue_free()
+	
+	# Add new tags
+	for tag in card_data.tags:
+		if tag.is_empty():
+			continue
+			
+		var tag_panel = PanelContainer.new()
+		var tag_style = StyleBoxFlat.new()
+		tag_style.bg_color = Color(0.7, 0.7, 0.7, 0.3)  # Light gray with transparency
+		tag_style.border_color = Color(0.5, 0.5, 0.5, 0.5)
+		tag_style.set_border_width_all(1)
+		tag_style.set_corner_radius_all(3)
+		tag_style.set_content_margin_all(2)
+		tag_panel.add_theme_stylebox_override("panel", tag_style)
+		
+		var tag_label = Label.new()
+		tag_label.text = tag
+		tag_label.add_theme_font_size_override("font_size", 8)
+		tag_label.add_theme_color_override("font_color", Color(0.2, 0.2, 0.2, 1))
+		
+		tag_panel.add_child(tag_label)
+		tags_container.add_child(tag_panel)
 
 func _on_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
