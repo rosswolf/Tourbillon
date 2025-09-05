@@ -30,6 +30,9 @@ var hand_size: int = 5
 var current_act: int = 1
 var __activations_allowed: bool = false
 
+# Endless wave management
+var endless_wave_manager: EndlessWaveManager
+
 
 
 # Core functionality
@@ -133,8 +136,12 @@ func __on_start_battle() -> void:
 
 	#battleground.spawn_new_stage(1)
 	
-	# Spawn initial wave of gremlins
-	__spawn_initial_wave()
+	# Initialize endless wave manager and start first wave
+	if not endless_wave_manager:
+		endless_wave_manager = EndlessWaveManager.new()
+		add_child(endless_wave_manager)
+	
+	endless_wave_manager.start_new_run()
 	
 	allow_activations()
 	GlobalSignals.signal_core_begin_turn()
@@ -374,7 +381,9 @@ func get_active_gremlins() -> Array[Node]:
 # Resources should be checked via hero.has_force() or hero.has_forces() methods
 
 ## Spawn initial wave when battle starts
+# Deprecated - now handled by WaveManager in __on_start_battle()
 func __spawn_initial_wave() -> void:
+	return  # No longer used
 	print("[DEBUG] Spawning initial wave...")
 	
 	# Create spawn controller if needed
