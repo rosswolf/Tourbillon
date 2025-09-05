@@ -114,15 +114,40 @@ Note: Checking every Beat allows for precise timing and off-Tick effects (e.g., 
 - Players can play cards as long as they have cards in hand
 - All timing is based on the accumulated time from played cards
 
-### 2.2 Card System
+### 2.2 Player Health System
 
-#### 2.2.1 Deck Composition
+#### 2.2.1 Health and Shields
+- **Starting HP**: Players begin each combat with 100 HP (modifiable by relics/upgrades)
+- **Maximum HP**: Can be increased through rewards and upgrades
+- **Shields**: Temporary HP that absorbs damage first before health
+- **Shield Decay**: Shields do not decay between turns but may have decay mechanics from specific effects
+- **Healing**: Can restore HP but not above maximum
+- **Overheal**: Excess healing converts to shields at 50% rate (10 overheal = 5 shields)
+
+#### 2.2.2 Taking Damage
+- Gremlins can deal direct damage to the player through their active abilities
+- Damage applies to shields first, then HP
+- When HP reaches 0, the run ends (you lose)
+- Some effects may pierce shields (dealing direct HP damage)
+- Poison and other DoT effects typically bypass shields
+
+#### 2.2.3 Victory/Loss Conditions
+- **Victory**: Defeat all gremlins in the encounter
+- **Loss Conditions**:
+  - Player HP reaches 0
+  - Zero cards in hand after full card resolution
+  - Unable to draw when required (deck and discard both empty)
+- Victory takes precedence over loss if simultaneous
+
+### 2.3 Card System
+
+#### 2.3.1 Deck Composition
 - Every card represents a gear that can be placed on the movement plate
 - Starting deck contains approximately 7-8 cards
 - No maximum deck size, but larger decks reduce consistency
-- Maximum hand size: 10 cards (can be expanded by certain effects)
+- Maximum hand size: 7 cards (can be expanded by certain effects)
 
-#### 2.2.2 Card Flow
+#### 2.3.2 Card Flow
 - No automatic draw: Players do NOT draw back up to a maximum hand size
 - Cards are only drawn through gear effects or other abilities
 - When the deck is empty, the discard pile is shuffled to form a new deck
@@ -132,27 +157,27 @@ Note: Checking every Beat allows for precise timing and off-Tick effects (e.g., 
 - Card Draw Balance: Card draw should not be free but with minimal effort should be sustainable
 - Must balance between drawing too many (hand clog) and too few (starvation)
 
-#### 2.2.3 How You Lose
-- **Loss Condition 1**: Zero cards in hand after full card resolution (end of turn)
-- **Loss Condition 2**: Attempt to draw a card when deck and discard are both empty
+#### 2.3.3 Card System Penalties
+- **Empty Hand**: Zero cards in hand after full card resolution causes 10 damage to player
+- **Failed Draw**: When you need to draw but deck and discard are both empty, take 15 damage
 - When you need to draw and deck is empty, shuffle discard into deck first
-- If both deck AND discard are empty when you need to draw, you lose immediately
+- If both deck AND discard are empty when you need to draw, take damage instead of drawing
 - **Grace Period**: Loss from empty hand is checked only after current card fully resolves and all triggered effects complete
 - If pending gear triggers would draw cards, you survive
 - If you achieve victory and loss simultaneously, victory takes precedence
 - This makes card draw a critical resource alongside force production
 - Gremlin discard effects become extremely threatening
 
-### 2.3 Mainplate System (Grid)
+### 2.4 Mainplate System (Grid)
 
-#### 2.3.1 Mainplate Structure
+#### 2.4.1 Mainplate Structure
 - Starting mainplate size: 4x4
 - Mainplate can be expanded through rewards/upgrades
 - Maximum 4 expansions total (could become 8x4, 6x6, 5x7, etc.)
 - Each position can contain one gear
 - Some positions may have placement bonuses
 
-#### 2.3.2 Mainplate Expansion
+#### 2.4.2 Mainplate Expansion
 Expansion mechanics:
 - Between combats: Permanent expansions via rewards or workshops
 - During combat: Temporary expansions possible via card effects
@@ -160,7 +185,7 @@ Expansion mechanics:
 - Existing gears do not shift positions
 - Expansions add rows/columns to edges of current plate
 
-#### 2.3.3 Placement Rules
+#### 2.4.3 Placement Rules
 - Gears can be placed on empty positions
 - Replacement mechanic: Gears can be played on top of existing gears
 - When mainplate is full, you MUST replace an existing gear
@@ -168,7 +193,7 @@ Expansion mechanics:
 - This allows for engine evolution and card recycling
 - No voluntary discarding of cards (unless a card effect specifically allows it)
 
-#### 2.3.4 Position Bonuses
+#### 2.4.4 Position Bonuses
 - Certain plate positions provide bonuses
 - Ongoing bonuses: Always affect any gear on that position
 - Triggered bonuses: Activate once when first gear placed, then disappear
@@ -177,7 +202,7 @@ Expansion mechanics:
 - Examples: "+1 production in this position", "Gears here cost 1 less time", "Draw 1 card when placed"
 - Starting plates should have multiple card draw bonuses to help early game sustainability
 
-#### 2.3.5 The Escapement Order (Priority System)
+#### 2.4.5 The Escapement Order (Priority System)
 - Fixed evaluation order: Top to Bottom, Left to Right
 - When forces are consumed, gears are evaluated in this order
 - Production and consumption happen in this exact sequence each tick
@@ -477,6 +502,14 @@ Tags create synergies and define gear identities. Gears typically have 1-4 tags.
 - **Overbuild**: Inherit timer from replaced gear when played on top
 - **Copy**: Duplicate another gear's text/effects (must specify what is copied)
 - **Bounce**: Return to hand instead of discard when destroyed
+- **Activate [Direction]**: Trigger an adjacent gear in specific direction
+  - **Activate NORTH**: Trigger the gear directly above
+  - **Activate SOUTH**: Trigger the gear directly below
+  - **Activate EAST**: Trigger the gear to the right
+  - **Activate WEST**: Trigger the gear to the left
+  - Activation ignores timer state and forces immediate production
+  - If the target gear requires resources, it must have them available
+  - Chain activations are possible (A activates B, B's effect activates C)
 
 ### 6.3 Trigger Mechanics
 - **On play**: When the gear is played from hand
@@ -641,11 +674,13 @@ Gremlins impose disruptions while infesting your mechanism:
 - Decay triggers
 
 **Active Sabotage:**
+- Attack player directly (dealing damage every X ticks)
 - Drain forces periodically
 - Corrupt gears
 - Scramble hand
 - Force discards
 - Jam mechanisms
+- Apply poison/burn to player
 
 ### 8.2 Gremlin Types
 

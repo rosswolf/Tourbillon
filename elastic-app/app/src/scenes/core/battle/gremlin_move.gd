@@ -1,314 +1,284 @@
-extends Resource
+extends RefCounted
 class_name GremlinMove
 
-## Represents a single move in a gremlin's move cycle
-## Moves define passive constraints, timed triggers, and transition conditions
+## Represents a single move that a gremlin can perform
+## Each move has its own timing and effect
 
-# ============================================================================
-# PUBLIC INTERFACE
-# ============================================================================
+# Move properties
+var move_index: int = 0          # Which move slot this is (1-6)
+var effect_string: String = ""   # e.g., "drain_random=1" or "card_cost_penalty=2"
+var interval_beats: int = 0      # How often this move triggers (in beats, 10 beats = 1 tick)
+var beats_until_trigger: int = 0 # Countdown to next trigger
 
-## Move identification
-@export var move_id: String = ""
-@export var move_name: String = ""
+# Progress tracking
+var is_passive: bool = false      # True if this move is always active (interval_beats == 0)
+var times_triggered: int = 0      # How many times this move has triggered
 
-## Move timing
-@export var duration_ticks: int = 0  # 0 = permanent/until triggered
-@export var trigger_interval: int = 0  # Ticks between triggers (0 = passive only)
-@export var max_triggers: int = 0  # Max times can trigger (0 = unlimited)
+# Visual/UI properties  
+var display_name: String = ""     # User-friendly name like "Drain" or "Summon"
+var display_color: Color = Color.WHITE  # Color for UI representation
 
-## Transition control
-@export var next_move: String = ""  # ID of next move (empty = cycle or end)
-@export var transition_condition: String = ""  # Condition type
-@export var transition_value: int = 0  # Threshold for condition
-
-## Effects (all use simple effect string format)
-@export var passive_effects: String = ""  # Always active during this move
-@export var trigger_effects: String = ""  # Effects on each trigger
-@export var on_enter_effects: String = ""  # When move starts
-@export var on_exit_effects: String = ""  # When move ends
-
-## Display information
-@export var description: String = ""
-@export var icon_path: String = ""
-
-# Internal tracking (not exported)
-var __current_duration: int = 0
-var __trigger_count: int = 0
-var __ticks_until_trigger: int = 0
-var __is_active: bool = false
-
-# ============================================================================
-# PUBLIC METHODS
-# ============================================================================
-
-## Activate this move
-func activate(gremlin: Gremlin) -> void:
-	if __is_active:
-		return
-
-	__is_active = true
-	__current_duration = 0
-	__trigger_count = 0
-	__ticks_until_trigger = trigger_interval
-
-	# Process enter effects
-	if not on_enter_effects.is_empty():
-		__process_effects(on_enter_effects, gremlin)
-
-	# Apply passive effects immediately
-	if not passive_effects.is_empty():
-		__apply_passive_effects(passive_effects, gremlin)
-
-## Deactivate this move
-func deactivate(gremlin: Gremlin) -> void:
-	if not __is_active:
-		return
-
-	__is_active = false
-
-	# Process exit effects
-	if not on_exit_effects.is_empty():
-		__process_effects(on_exit_effects, gremlin)
-
-	# Remove passive effects
-	if not passive_effects.is_empty():
-		__remove_passive_effects(passive_effects, gremlin)
-
-## Process a tick for this move
-func process_tick(gremlin: Gremlin) -> bool:
-	if not __is_active:
-		return false
-
-	__current_duration += 1
-
-	# Check if move duration expired
-	if duration_ticks > 0 and __current_duration >= duration_ticks:
-		return true  # Signal transition needed
-
-	# Process triggers
-	if trigger_interval > 0:
-		__ticks_until_trigger -= 1
-		if __ticks_until_trigger <= 0:
-			__execute_trigger(gremlin)
-			__ticks_until_trigger = trigger_interval
-
-			# Check max triggers
-			if max_triggers > 0 and __trigger_count >= max_triggers:
-				return true  # Signal transition needed
-
-	# Check transition conditions
-	return __check_transition_condition(gremlin)
-
-## Get display text for this move's effects
-func get_effect_description() -> String:
-	var parts: Array[String] = []
-
-	if not passive_effects.is_empty():
-		parts.append("Passive: " + __describe_effects(passive_effects))
-
-	if not trigger_effects.is_empty() and trigger_interval > 0:
-		var trigger_text = "Every " + str(trigger_interval) + " ticks: " + __describe_effects(trigger_effects)
-		if max_triggers > 0:
-			trigger_text += " (x" + str(max_triggers) + ")"
-		parts.append(trigger_text)
-
-	if not description.is_empty():
-		parts.append(description)
-
-	return "\n".join(parts)
-
-## Check if this move is currently active
-func is_active() -> bool:
-	return __is_active
-
-## Get progress towards next trigger
-func get_trigger_progress() -> float:
-	if trigger_interval <= 0:
-		return 0.0
-	return 1.0 - (float(__ticks_until_trigger) / float(trigger_interval))
-
-# ============================================================================
-# PRIVATE METHODS
-# ============================================================================
-
-## Execute a trigger
-func __execute_trigger(gremlin: Gremlin) -> void:
-	__trigger_count += 1
-
-	if not trigger_effects.is_empty():
-		__process_effects(trigger_effects, gremlin)
-
-	# Signal for UI update
-	if gremlin:
-		gremlin.disruption_triggered.emit(gremlin)
-
-## Process effect string through SimpleEffectProcessor
-func __process_effects(effects: String, gremlin: Gremlin) -> void:
-	# Add gremlin context to effects
-	var contextualized = __add_gremlin_context(effects, gremlin)
-
-	SimpleEffectProcessor.process_effects(contextualized, gremlin)
-
-## Apply passive effects (constraints)
-func __apply_passive_effects(effects: String, gremlin: Gremlin) -> void:
-	# Parse and apply constraints
-	var parts = effects.split(",")
-	for part in parts:
-		var effect = part.strip_edges()
-		if effect.is_empty():
-			continue
-
-		# Store constraint on gremlin for later removal
-		if not gremlin.has_meta("active_constraints"):
-			gremlin.set_meta("active_constraints", [])
-		var constraints: Array = gremlin.get_meta("active_constraints")
-		constraints.append(effect)
-
-		# Apply through processor
-		__process_effects(effect, gremlin)
-
-## Remove passive effects when move ends
-func __remove_passive_effects(effects: String, gremlin: Gremlin) -> void:
-	# This requires the constraint manager to track and remove
-	# For now, mark for recalculation
-	if gremlin.has_meta("active_constraints"):
-		gremlin.remove_meta("active_constraints")
-
-	# Trigger global constraint recalculation
-	GremlinDownsideProcessor.recalculate_all_downsides()
-
-## Check if transition condition is met
-func __check_transition_condition(gremlin: Gremlin) -> bool:
-	if transition_condition.is_empty():
-		return false
-
-	match transition_condition:
-		"health_below":
-			return gremlin.current_hp < transition_value
-		"health_percent":
-			var percent = float(gremlin.current_hp) / float(gremlin.max_hp) * 100.0
-			return percent < float(transition_value)
-		"shields_depleted":
-			return gremlin.shields <= 0
-		"trigger_count":
-			return __trigger_count >= transition_value
-		"duration":
-			return __current_duration >= transition_value
-		_:
-			return false
-
-## Add gremlin-specific context to effects
-func __add_gremlin_context(effects: String, gremlin: Gremlin) -> String:
-	# Replace placeholders with actual values
-	var result = effects
-
-	if gremlin:
-		result = result.replace("{hp}", str(gremlin.current_hp))
-		result = result.replace("{max_hp}", str(gremlin.max_hp))
-		result = result.replace("{slot}", str(gremlin.slot_index))
-		result = result.replace("{name}", gremlin.gremlin_name)
-
-	return result
-
-## Generate human-readable effect descriptions
-func __describe_effects(effects: String) -> String:
-	var descriptions: Array[String] = []
-	var parts = effects.split(",")
-
-	for part in parts:
-		var effect = part.strip_edges()
-		if effect.is_empty():
-			continue
-
-		# Parse effect type and value
-		var kv = effect.split("=")
-		if kv.size() == 2:
-			var type = kv[0]
-			var value = kv[1]
-
-			match type:
-				"heat_cap", "red_cap":
-					descriptions.append("Heat capped at " + value)
-				"precision_cap", "white_cap":
-					descriptions.append("Precision capped at " + value)
-				"momentum_cap", "green_cap":
-					descriptions.append("Momentum capped at " + value)
-				"drain_heat", "drain_red":
-					descriptions.append("Drain " + value + " Heat")
-				"drain_all":
-					descriptions.append("Drain " + value + " from all")
-				"card_tax":
-					descriptions.append("Cards cost +" + value + " ticks")
-				"force_discard":
-					descriptions.append("Discard " + value + " cards")
-				"summon":
-					descriptions.append("Summons " + value)
-				"damage":
-					descriptions.append("Deal " + value + " damage")
-				"heal":
-					descriptions.append("Heal " + value + " HP")
-				"shield":
-					descriptions.append("Gain " + value + " shields")
-				_:
-					descriptions.append(effect)
-		else:
-			descriptions.append(effect)
-
-	return ", ".join(descriptions)
-
-# ============================================================================
-# STATIC FACTORY METHODS
-# ============================================================================
-
-## Create a move from a simple string format
-static func from_string(move_string: String, move_id: String = "") -> GremlinMove:
-	var move = GremlinMove.new()
-
-	if move_id.is_empty():
-		move.move_id = "move_" + str(Time.get_unix_time_from_system())
+func _init(index: int = 0, effect: String = "", interval_ticks: int = 0) -> void:
+	move_index = index
+	effect_string = effect
+	
+	# Convert ticks to beats (1 tick = 10 beats)
+	if interval_ticks == 0:
+		is_passive = true
+		interval_beats = -1  # Passive moves don't have intervals
+		beats_until_trigger = -1
 	else:
-		move.move_id = move_id
+		is_passive = false
+		interval_beats = interval_ticks * 10
+		beats_until_trigger = interval_beats
+	
+	# Parse display name and color from effect
+	_parse_display_properties()
 
-	# Parse format: "passive:effect1,effect2|tick=N:effect3,effect4"
-	var sections = move_string.split("|")
+## Reset the move countdown (used when gremlin is created)
+func reset() -> void:
+	times_triggered = 0
+	if not is_passive:
+		beats_until_trigger = interval_beats
 
-	for section in sections:
-		var parts = section.split(":")
-		if parts.size() < 2:
-			continue
+## Update this move's progress for one beat
+## Returns true if the move triggered this beat
+func process_beat() -> bool:
+	if is_passive:
+		return false  # Passive moves don't trigger on beats
+	
+	if beats_until_trigger <= 0:
+		return false  # Shouldn't happen but safety check
+	
+	# Count down
+	beats_until_trigger -= 1
+	
+	# Check if we should trigger
+	if beats_until_trigger == 0:
+		times_triggered += 1
+		beats_until_trigger = interval_beats  # Reset countdown
+		return true  # Signal that this move triggered
+	
+	return false
 
-		var timing = parts[0].strip_edges()
-		var effects = parts[1].strip_edges()
+## Get the current progress toward the next trigger (0.0 to 1.0)
+func get_progress_percent() -> float:
+	if is_passive or interval_beats <= 0:
+		return 0.0
+	
+	return float(interval_beats - beats_until_trigger) / float(interval_beats)
 
-		if timing == "passive":
-			move.passive_effects = effects
-			move.trigger_interval = 0
-		elif timing.begins_with("tick="):
-			var tick_str = timing.substr(5)
-			move.trigger_interval = int(tick_str)
-			move.trigger_effects = effects
-		elif timing == "enter":
-			move.on_enter_effects = effects
-		elif timing == "exit":
-			move.on_exit_effects = effects
+## Get the effect type and value from the effect string
+func get_effect_parts() -> Dictionary:
+	if effect_string.is_empty():
+		return {}
+	
+	var parts = effect_string.split("=")
+	if parts.size() != 2:
+		return {"type": effect_string, "value": ""}
+	
+	return {
+		"type": parts[0].strip_edges(),
+		"value": parts[1].strip_edges()
+	}
 
-	return move
+## Parse display properties based on effect type
+func _parse_display_properties() -> void:
+	var parts = get_effect_parts()
+	if parts.is_empty():
+		return
+	
+	var effect_type = parts.get("type", "")
+	
+	# Set display name and color based on effect type
+	match effect_type:
+		# Resource caps
+		"heat_soft_cap", "red_soft_cap", "heat_hard_cap", "red_hard_cap":
+			display_name = "Heat Cap"
+			display_color = Color(1.0, 0.3, 0.3)  # Red
+		"precision_soft_cap", "white_soft_cap", "precision_hard_cap", "white_hard_cap":
+			display_name = "Precision Cap"
+			display_color = Color(0.95, 0.95, 0.95)  # White
+		"momentum_soft_cap", "green_soft_cap", "momentum_hard_cap", "green_hard_cap":
+			display_name = "Momentum Cap"
+			display_color = Color(0.3, 0.8, 0.3)  # Green
+		"balance_soft_cap", "blue_soft_cap", "balance_hard_cap", "blue_hard_cap":
+			display_name = "Balance Cap"
+			display_color = Color(0.3, 0.3, 1.0)  # Blue
+		"entropy_soft_cap", "black_soft_cap", "entropy_hard_cap", "black_hard_cap":
+			display_name = "Entropy Cap"
+			display_color = Color(0.3, 0.3, 0.3)  # Dark gray
+		"max_resource_soft_cap", "max_resource_hard_cap":
+			display_name = "All Caps"
+			display_color = Color(0.8, 0.8, 0.8)  # Gray
+		
+		# Drains
+		"drain_random":
+			display_name = "Random Drain"
+			display_color = Color(0.9, 0.6, 0.9)  # Purple
+		"drain_all_types":
+			display_name = "Drain All"
+			display_color = Color(0.7, 0.5, 0.9)  # Purple
+		"drain_heat", "drain_red":
+			display_name = "Drain Heat"
+			display_color = Color(1.0, 0.3, 0.3)  # Red
+		"drain_precision", "drain_white":
+			display_name = "Drain Precision"
+			display_color = Color(0.95, 0.95, 0.95)  # White
+		"drain_momentum", "drain_green":
+			display_name = "Drain Momentum"
+			display_color = Color(0.3, 0.8, 0.3)  # Green
+		"drain_balance", "drain_blue":
+			display_name = "Drain Balance"
+			display_color = Color(0.3, 0.3, 1.0)  # Blue
+		"drain_entropy", "drain_black":
+			display_name = "Drain Entropy"
+			display_color = Color(0.3, 0.3, 0.3)  # Dark gray
+		"drain_largest":
+			display_name = "Drain Largest"
+			display_color = Color(0.8, 0.4, 0.8)  # Purple
+		"drain_highest": # Alias
+			display_name = "Drain Highest"
+			display_color = Color(0.8, 0.4, 0.8)  # Purple
+			
+		# Card effects
+		"card_cost_penalty":
+			display_name = "Cost Penalty"
+			display_color = Color(1.0, 0.8, 0.3)  # Yellow
+		"force_discard":
+			display_name = "Discard"
+			display_color = Color(1.0, 0.5, 0.3)  # Orange
+			
+		# Summons
+		"summon":
+			display_name = "Summon"
+			display_color = Color(0.5, 1.0, 0.5)  # Light green
+			
+		# Self buffs
+		"self_gain_armor":
+			display_name = "Gain Armor"
+			display_color = Color(0.6, 0.6, 0.7)  # Steel gray
+		"self_gain_shields":
+			display_name = "Gain Shields"
+			display_color = Color(0.3, 0.7, 1.0)  # Light blue
+		"all_gremlins_gain_shields":
+			display_name = "Group Shields"
+			display_color = Color(0.3, 0.9, 1.0)  # Cyan
+		"all_gremlins_gain_armor":
+			display_name = "Group Armor"
+			display_color = Color(0.7, 0.7, 0.8)  # Light steel
+			
+		_:
+			display_name = _humanize_effect_type(effect_type)
+			display_color = Color.WHITE
 
-## Create a simple passive constraint move
-static func create_constraint(constraint_type: String, value: int) -> GremlinMove:
-	var move = GremlinMove.new()
-	move.move_id = constraint_type + "_constraint"
-	move.move_name = constraint_type.capitalize() + " Constraint"
-	move.passive_effects = constraint_type + "=" + str(value)
-	move.trigger_interval = 0
-	return move
+## Get a formatted countdown string
+func get_countdown_text() -> String:
+	if is_passive:
+		return "(Passive)"
+	
+	if beats_until_trigger <= 0:
+		return "(NOW!)"
+	
+	# Convert beats to ticks.beats format
+	var ticks = beats_until_trigger / 10
+	var beats = beats_until_trigger % 10
+	return "(in %d.%d)" % [ticks, beats]
 
-## Create a simple drain move
-static func create_drain(force_type: String, amount: int, interval_ticks: int) -> GremlinMove:
-	var move = GremlinMove.new()
-	move.move_id = "drain_" + force_type
-	move.move_name = "Drain " + force_type.capitalize()
-	move.trigger_interval = interval_ticks
-	move.trigger_effects = "drain_" + force_type + "=" + str(amount)
-	return move
+## Get the full display text for UI
+func get_display_text() -> String:
+	var parts = get_effect_parts()
+	var value = parts.get("value", "")
+	
+	# Add value to display name if applicable
+	var text = display_name
+	if value != "" and value != "0":
+		# Special formatting for certain types
+		var effect_type = parts.get("type", "")
+		if effect_type == "summon":
+			text = display_name + " " + _humanize_effect_type(value)
+		elif effect_type.ends_with("_cap"):
+			text = display_name + " (" + value + ")"
+		else:
+			text = display_name + " " + value
+	
+	# Add countdown
+	if not is_passive:
+		text += " " + get_countdown_text()
+	
+	return text
+
+## Get description of what this move does
+func get_description() -> String:
+	var parts = get_effect_parts()
+	if parts.is_empty():
+		return "Unknown effect"
+	
+	var effect_type = parts.get("type", "")
+	var value = parts.get("value", "")
+	
+	# Generate description based on effect
+	var desc = _describe_effect(effect_type, value)
+	
+	# Add timing info
+	if not is_passive:
+		var ticks = interval_beats / 10
+		desc += " every %d ticks" % ticks
+	
+	return desc
+
+## Helper to describe an effect in plain language
+func _describe_effect(effect_type: String, value: String) -> String:
+	match effect_type:
+		# Caps
+		"heat_soft_cap", "red_soft_cap":
+			return "Limits Heat to %s" % value
+		"heat_hard_cap", "red_hard_cap":
+			return "Hard caps Heat at %s" % value
+		"max_resource_soft_cap":
+			return "Limits all resources to %s" % value
+		"max_resource_hard_cap":
+			return "Hard caps all resources at %s" % value
+			
+		# Drains
+		"drain_random":
+			return "Drains %s random resource" % value
+		"drain_all_types":
+			return "Drains %s from all resources" % value
+		"drain_largest", "drain_highest":
+			return "Drains %s from largest resource" % value
+		"drain_heat", "drain_red":
+			return "Drains %s Heat" % value
+			
+		# Card effects
+		"card_cost_penalty":
+			return "Cards cost +%s ticks" % value
+		"force_discard":
+			return "Discard %s card(s)" % value
+			
+		# Summons
+		"summon":
+			return "Summons %s" % _humanize_effect_type(value)
+			
+		# Self buffs
+		"self_gain_armor":
+			return "Gains %s armor" % value
+		"self_gain_shields":
+			return "Gains %s shields" % value
+		"all_gremlins_gain_shields":
+			return "All gremlins gain %s shields" % value
+		"all_gremlins_gain_armor":
+			return "All gremlins gain %s armor" % value
+			
+		_:
+			return "%s: %s" % [_humanize_effect_type(effect_type), value]
+
+## Convert snake_case to Title Case
+func _humanize_effect_type(effect_type: String) -> String:
+	var words = effect_type.split("_")
+	var result = ""
+	for word in words:
+		if result != "":
+			result += " "
+		result += word.capitalize()
+	return result

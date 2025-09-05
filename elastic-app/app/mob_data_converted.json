@@ -145,9 +145,9 @@
     "summon_cap": 2,
     "move_pattern": "cycle",
     "__NOEX developer_notes": "Priority target to stop reproduction",
+    "__old_moves": "ticks=12,summon=basic_gnat",
     "move_1": "summon=basic_gnat",
-    "move_1_ticks": 12,
-    "__old_moves": "ticks=12,summon=basic_gnat"
+    "move_1_ticks": 12
   },
   {
     "template_id": "gear_tick",
@@ -171,11 +171,9 @@
     "summon_cap": 0,
     "move_pattern": "passive",
     "__NOEX developer_notes": "Teaches timing pressure and efficiency",
+    "__old_moves": "ticks=0,card_cost_penalty=1",
     "move_1": "card_cost_penalty=1",
-    "move_1_ticks": 5,
-    "move_2": "force_discard=1",
-    "move_2_ticks": 10,
-    "__old_moves": "ticks=0,card_cost_penalty=1"
+    "move_1_ticks": 0
   },
   {
     "template_id": "rust_speck",
@@ -230,10 +228,6 @@
     },
     "move_pattern": "sequence",
     "__NOEX developer_notes": "Must eliminate before drains become unsustainable",
-    "move_1": "drain_momentum=2",
-    "move_1_ticks": 8,
-    "move_2": "summon=basic_gnat",
-    "move_2_ticks": 12,
     "__old_moves": [
       "ticks=8,drain_momentum=2",
       "ticks=6,drain_momentum=3",
@@ -268,10 +262,6 @@
     },
     "move_pattern": "sequence",
     "__NOEX developer_notes": "Hard caps force spending, then drains punish accumulation",
-    "move_1": "max_resource_hard_cap=3",
-    "move_1_ticks": 0,
-    "move_2": "drain_largest=2",
-    "move_2_ticks": 15,
     "__old_moves": [
       "ticks=10,all_forces_hard_cap=6",
       "ticks=3,drain_largest=3",
@@ -370,12 +360,6 @@
     },
     "move_pattern": "sequence",
     "__NOEX developer_notes": "Heavy armor encourages pierce damage strategies",
-    "move_1": "card_cost_penalty=2",
-    "move_1_ticks": 6,
-    "move_2": "force_discard=2",
-    "move_2_ticks": 12,
-    "move_3": "drain_all_types=1",
-    "move_3_ticks": 18,
     "__old_moves": [
       "ticks=12,balance_soft_cap=2",
       "ticks=4,drain_largest=5,self_gain_armor=2",

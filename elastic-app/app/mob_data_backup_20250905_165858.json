@@ -65,11 +65,9 @@
     "can_be_targeted": true,
     "summon_position": "bottom",
     "summon_cap": 0,
+    "moves": "ticks=0,heat_soft_cap=4",
     "move_pattern": "passive",
-    "__NOEX developer_notes": "Forces immediate Heat spending",
-    "__old_moves": "ticks=0,heat_soft_cap=4",
-    "move_1": "heat_soft_cap=4",
-    "move_1_ticks": 0
+    "__NOEX developer_notes": "Forces immediate Heat spending"
   },
   {
     "template_id": "drain_gnat",
@@ -91,11 +89,9 @@
     "can_be_targeted": true,
     "summon_position": "bottom",
     "summon_cap": 0,
+    "moves": "ticks=8,drain_random=1",
     "move_pattern": "cycle",
-    "__NOEX developer_notes": "Low priority unless swarming",
-    "__old_moves": "ticks=8,drain_random=1",
-    "move_1": "drain_random=1",
-    "move_1_ticks": 8
+    "__NOEX developer_notes": "Low priority unless swarming"
   },
   {
     "template_id": "constricting_barrier_gnat",
@@ -117,11 +113,9 @@
     "can_be_targeted": true,
     "summon_position": "bottom",
     "summon_cap": 0,
+    "moves": "ticks=0,max_resource_soft_cap=5",
     "move_pattern": "passive",
-    "__NOEX developer_notes": "High priority for multi-hit removal",
-    "__old_moves": "ticks=0,max_resource_soft_cap=5",
-    "move_1": "max_resource_soft_cap=5",
-    "move_1_ticks": 0
+    "__NOEX developer_notes": "High priority for multi-hit removal"
   },
   {
     "template_id": "breeding_gnat",
@@ -143,11 +137,9 @@
     "can_be_targeted": true,
     "summon_position": "bottom",
     "summon_cap": 2,
+    "moves": "ticks=12,summon=basic_gnat",
     "move_pattern": "cycle",
-    "__NOEX developer_notes": "Priority target to stop reproduction",
-    "move_1": "summon=basic_gnat",
-    "move_1_ticks": 12,
-    "__old_moves": "ticks=12,summon=basic_gnat"
+    "__NOEX developer_notes": "Priority target to stop reproduction"
   },
   {
     "template_id": "gear_tick",
@@ -169,13 +161,9 @@
     "can_be_targeted": true,
     "summon_position": "bottom",
     "summon_cap": 0,
+    "moves": "ticks=0,card_cost_penalty=1",
     "move_pattern": "passive",
-    "__NOEX developer_notes": "Teaches timing pressure and efficiency",
-    "move_1": "card_cost_penalty=1",
-    "move_1_ticks": 5,
-    "move_2": "force_discard=1",
-    "move_2_ticks": 10,
-    "__old_moves": "ticks=0,card_cost_penalty=1"
+    "__NOEX developer_notes": "Teaches timing pressure and efficiency"
   },
   {
     "template_id": "rust_speck",
@@ -197,11 +185,9 @@
     "can_be_targeted": true,
     "summon_position": "bottom",
     "summon_cap": 0,
+    "moves": "ticks=0,precision_soft_cap=3",
     "move_pattern": "passive",
-    "__NOEX developer_notes": "High armor relative to HP teaches armor penetration",
-    "__old_moves": "ticks=0,precision_soft_cap=3",
-    "move_1": "precision_soft_cap=3",
-    "move_1_ticks": 0
+    "__NOEX developer_notes": "High armor relative to HP teaches armor penetration"
   },
   {
     "template_id": "spring_snapper",
@@ -223,22 +209,18 @@
     "can_be_targeted": true,
     "summon_position": "bottom",
     "summon_cap": 0,
+    "moves": [
+      "ticks=8,drain_momentum=2",
+      "ticks=6,drain_momentum=3",
+      "ticks=4,drain_momentum=4"
+    ],
     "moves_dict": {
       "0": "ticks=8,drain_momentum=2",
       "1": "ticks=6,drain_momentum=3",
       "2": "ticks=4,drain_momentum=4"
     },
     "move_pattern": "sequence",
-    "__NOEX developer_notes": "Must eliminate before drains become unsustainable",
-    "move_1": "drain_momentum=2",
-    "move_1_ticks": 8,
-    "move_2": "summon=basic_gnat",
-    "move_2_ticks": 12,
-    "__old_moves": [
-      "ticks=8,drain_momentum=2",
-      "ticks=6,drain_momentum=3",
-      "ticks=4,drain_momentum=4"
-    ]
+    "__NOEX developer_notes": "Must eliminate before drains become unsustainable"
   },
   {
     "template_id": "oil_thief",
@@ -260,6 +242,12 @@
     "can_be_targeted": true,
     "summon_position": "bottom",
     "summon_cap": 0,
+    "moves": [
+      "ticks=10,all_forces_hard_cap=6",
+      "ticks=3,drain_largest=3",
+      "ticks=3,drain_largest=3",
+      "ticks=3,drain_largest=3"
+    ],
     "moves_dict": {
       "0": "ticks=10,all_forces_hard_cap=6",
       "1": "ticks=3,drain_largest=3",
@@ -267,17 +255,7 @@
       "3": "ticks=3,drain_largest=3"
     },
     "move_pattern": "sequence",
-    "__NOEX developer_notes": "Hard caps force spending, then drains punish accumulation",
-    "move_1": "max_resource_hard_cap=3",
-    "move_1_ticks": 0,
-    "move_2": "drain_largest=2",
-    "move_2_ticks": 15,
-    "__old_moves": [
-      "ticks=10,all_forces_hard_cap=6",
-      "ticks=3,drain_largest=3",
-      "ticks=3,drain_largest=3",
-      "ticks=3,drain_largest=3"
-    ]
+    "__NOEX developer_notes": "Hard caps force spending, then drains punish accumulation"
   },
   {
     "template_id": "chaos_imp",
@@ -299,16 +277,16 @@
     "can_be_targeted": true,
     "summon_position": "bottom",
     "summon_cap": 0,
+    "moves": [
+      "ticks=0,amplify_drains=1",
+      "ticks=5,all_gremlins_gain_shields=3"
+    ],
     "moves_dict": {
       "0": "ticks=0,amplify_drains=1",
       "1": "ticks=5,all_gremlins_gain_shields=3"
     },
     "move_pattern": "cycle",
-    "__NOEX developer_notes": "High priority in multi-gremlin encounters",
-    "__old_moves": [
-      "ticks=0,amplify_drains=1",
-      "ticks=5,all_gremlins_gain_shields=3"
-    ]
+    "__NOEX developer_notes": "High priority in multi-gremlin encounters"
   },
   {
     "template_id": "gnat_spawner",
@@ -330,18 +308,18 @@
     "can_be_targeted": true,
     "summon_position": "bottom",
     "summon_cap": 4,
+    "moves": [
+      "ticks=6,summon=dust_mite",
+      "ticks=8,summon=dust_mite,summon=dust_mite",
+      "ticks=10,summon=dust_mite,summon=dust_mite,summon=dust_mite"
+    ],
     "moves_dict": {
       "0": "ticks=6,summon=dust_mite",
       "1": "ticks=8,summon=dust_mite,summon=dust_mite",
       "2": "ticks=10,summon=dust_mite,summon=dust_mite,summon=dust_mite"
     },
     "move_pattern": "cycle",
-    "__NOEX developer_notes": "Tests targeting priorities and AOE strategies",
-    "__old_moves": [
-      "ticks=6,summon=dust_mite",
-      "ticks=8,summon=dust_mite,summon=dust_mite",
-      "ticks=10,summon=dust_mite,summon=dust_mite,summon=dust_mite"
-    ]
+    "__NOEX developer_notes": "Tests targeting priorities and AOE strategies"
   },
   {
     "template_id": "gear_grinder",
@@ -363,24 +341,18 @@
     "can_be_targeted": true,
     "summon_position": "bottom",
     "summon_cap": 0,
+    "moves": [
+      "ticks=12,balance_soft_cap=2",
+      "ticks=4,drain_largest=5,self_gain_armor=2",
+      "ticks=3,drain_largest=6,card_cost_penalty=2"
+    ],
     "moves_dict": {
       "0": "ticks=12,balance_soft_cap=2",
       "1": "ticks=4,drain_largest=5,self_gain_armor=2",
       "2": "ticks=3,drain_largest=6,card_cost_penalty=2"
     },
     "move_pattern": "sequence",
-    "__NOEX developer_notes": "Heavy armor encourages pierce damage strategies",
-    "move_1": "card_cost_penalty=2",
-    "move_1_ticks": 6,
-    "move_2": "force_discard=2",
-    "move_2_ticks": 12,
-    "move_3": "drain_all_types=1",
-    "move_3_ticks": 18,
-    "__old_moves": [
-      "ticks=12,balance_soft_cap=2",
-      "ticks=4,drain_largest=5,self_gain_armor=2",
-      "ticks=3,drain_largest=6,card_cost_penalty=2"
-    ]
+    "__NOEX developer_notes": "Heavy armor encourages pierce damage strategies"
   },
   {
     "template_id": "time_nibbler",
@@ -402,6 +374,14 @@
     "can_be_targeted": true,
     "summon_position": "bottom",
     "summon_cap": 0,
+    "moves": [
+      "ticks=15,all_forces_decay=1",
+      "ticks=10,hand_size_limit=6,no_card_draw",
+      "ticks=2,force_discard=1",
+      "ticks=2,force_discard=1",
+      "ticks=2,force_discard=1",
+      "ticks=2,force_discard=1"
+    ],
     "moves_dict": {
       "0": "ticks=15,all_forces_decay=1",
       "1": "ticks=10,hand_size_limit=6,no_card_draw",
@@ -411,15 +391,7 @@
       "5": "ticks=2,force_discard=1"
     },
     "move_pattern": "sequence",
-    "__NOEX developer_notes": "Damage cap prevents burst strategies, tests adaptation",
-    "__old_moves": [
-      "ticks=15,all_forces_decay=1",
-      "ticks=10,hand_size_limit=6,no_card_draw",
-      "ticks=2,force_discard=1",
-      "ticks=2,force_discard=1",
-      "ticks=2,force_discard=1",
-      "ticks=2,force_discard=1"
-    ]
+    "__NOEX developer_notes": "Damage cap prevents burst strategies, tests adaptation"
   },
   {
     "template_id": "echo_chamber",
@@ -442,11 +414,9 @@
     "target_protection_condition": "while_other_gremlins_exist",
     "summon_position": "top",
     "summon_cap": 3,
+    "moves": "ticks=4,summon=random_medium",
     "move_pattern": "cycle",
-    "__NOEX developer_notes": "Forces clearing minions to expose the real threat",
-    "__old_moves": "ticks=4,summon=random_medium",
-    "move_1": "summon=random_medium",
-    "move_1_ticks": 4
+    "__NOEX developer_notes": "Forces clearing minions to expose the real threat"
   },
   {
     "template_id": "constraint_engine",
@@ -468,6 +438,14 @@
     "can_be_targeted": true,
     "summon_position": "bottom",
     "summon_cap": 0,
+    "moves": [
+      "ticks=8,total_resources_hard_cap=10",
+      "ticks=6,max_resource_hard_cap=4",
+      "ticks=3,drain_all_types=2",
+      "ticks=3,drain_all_types=2",
+      "ticks=3,drain_all_types=2",
+      "ticks=5,all_previous_constraints"
+    ],
     "moves_dict": {
       "0": "ticks=8,total_resources_hard_cap=10",
       "1": "ticks=6,max_resource_hard_cap=4",
@@ -477,15 +455,7 @@
       "5": "ticks=5,all_previous_constraints"
     },
     "move_pattern": "sequence",
-    "__NOEX developer_notes": "Tests mastery of constraint management and efficiency",
-    "__old_moves": [
-      "ticks=8,total_resources_hard_cap=10",
-      "ticks=6,max_resource_hard_cap=4",
-      "ticks=3,drain_all_types=2",
-      "ticks=3,drain_all_types=2",
-      "ticks=3,drain_all_types=2",
-      "ticks=5,all_previous_constraints"
-    ]
+    "__NOEX developer_notes": "Tests mastery of constraint management and efficiency"
   },
   {
     "template_id": "temporal_glutton",
@@ -507,6 +477,12 @@
     "can_be_targeted": true,
     "summon_position": "bottom",
     "summon_cap": 5,
+    "moves": [
+      "ticks=8,summon=random_small",
+      "ticks=6,summon=random_medium",
+      "ticks=8,summon=scaled_large",
+      "ticks=6,summon=random_medium,summon=random_medium"
+    ],
     "moves_dict": {
       "0": "ticks=8,summon=random_small",
       "1": "ticks=6,summon=random_medium",
@@ -514,13 +490,7 @@
       "3": "ticks=6,summon=random_medium,summon=random_medium"
     },
     "move_pattern": "cycle",
-    "__NOEX developer_notes": "Becomes overwhelming if not addressed quickly",
-    "__old_moves": [
-      "ticks=8,summon=random_small",
-      "ticks=6,summon=random_medium",
-      "ticks=8,summon=scaled_large",
-      "ticks=6,summon=random_medium,summon=random_medium"
-    ]
+    "__NOEX developer_notes": "Becomes overwhelming if not addressed quickly"
   },
   {
     "template_id": "balanced_paradox",
@@ -542,18 +512,18 @@
     "can_be_targeted": true,
     "summon_position": "bottom",
     "summon_cap": 0,
+    "moves": [
+      "ticks=0,entropy_hard_cap=1,balance_hard_cap=1",
+      "ticks=4,drain_balance=4,drain_entropy=4",
+      "ticks=0,self_gain_armor=3,all_forces_soft_cap=8"
+    ],
     "moves_dict": {
       "0": "ticks=0,entropy_hard_cap=1,balance_hard_cap=1",
       "1": "ticks=4,drain_balance=4,drain_entropy=4",
       "2": "ticks=0,self_gain_armor=3,all_forces_soft_cap=8"
     },
     "move_pattern": "cycle",
-    "__NOEX developer_notes": "Hard counter to Balance/Entropy execution strategies",
-    "__old_moves": [
-      "ticks=0,entropy_hard_cap=1,balance_hard_cap=1",
-      "ticks=4,drain_balance=4,drain_entropy=4",
-      "ticks=0,self_gain_armor=3,all_forces_soft_cap=8"
-    ]
+    "__NOEX developer_notes": "Hard counter to Balance/Entropy execution strategies"
   },
   {
     "template_id": "rust_king_phase_1",
@@ -577,6 +547,14 @@
     "can_be_targeted": true,
     "summon_position": "bottom",
     "summon_cap": 0,
+    "moves": [
+      "ticks=0,all_forces_decay=2",
+      "ticks=10,total_resources_hard_cap=15",
+      "ticks=3,all_gremlins_gain_armor=2",
+      "ticks=3,all_gremlins_gain_armor=2",
+      "ticks=3,all_gremlins_gain_armor=2",
+      "ticks=3,all_gremlins_gain_armor=2"
+    ],
     "moves_dict": {
       "0": "ticks=0,all_forces_decay=2",
       "1": "ticks=10,total_resources_hard_cap=15",
@@ -588,15 +566,7 @@
     "move_pattern": "cycle",
     "__NOEX developer_notes": {
       "Phase 1": "Resource management under pressure"
-    },
-    "__old_moves": [
-      "ticks=0,all_forces_decay=2",
-      "ticks=10,total_resources_hard_cap=15",
-      "ticks=3,all_gremlins_gain_armor=2",
-      "ticks=3,all_gremlins_gain_armor=2",
-      "ticks=3,all_gremlins_gain_armor=2",
-      "ticks=3,all_gremlins_gain_armor=2"
-    ]
+    }
   },
   {
     "template_id": "chronophage",
@@ -618,6 +588,13 @@
     "can_be_targeted": true,
     "summon_position": "bottom",
     "summon_cap": 0,
+    "moves": [
+      "ticks=2,card_cost_penalty=3,all_forces_decay=3",
+      "ticks=2,drain_all_types=4",
+      "ticks=6,no_draw,shuffle_hand",
+      "ticks=1,force_discard=1",
+      "ticks=0,remove_constraints,self_gain_armor=5"
+    ],
     "moves_dict": {
       "0": "ticks=2,card_cost_penalty=3,all_forces_decay=3",
       "1": "ticks=2,drain_all_types=4",
@@ -626,14 +603,7 @@
       "4": "ticks=0,remove_constraints,self_gain_armor=5"
     },
     "move_pattern": "hp_based",
-    "__NOEX developer_notes": "Escalating constraint puzzle with final survival reward",
-    "__old_moves": [
-      "ticks=2,card_cost_penalty=3,all_forces_decay=3",
-      "ticks=2,drain_all_types=4",
-      "ticks=6,no_draw,shuffle_hand",
-      "ticks=1,force_discard=1",
-      "ticks=0,remove_constraints,self_gain_armor=5"
-    ]
+    "__NOEX developer_notes": "Escalating constraint puzzle with final survival reward"
   },
   {
     "template_id": "grand_saboteur",
@@ -655,16 +625,16 @@
     "can_be_targeted": true,
     "summon_position": "bottom",
     "summon_cap": 0,
+    "moves": [
+      "ticks=6,random_force_hard_cap=3",
+      "ticks=4,copy_recent_card_effect"
+    ],
     "moves_dict": {
       "0": "ticks=6,random_force_hard_cap=3",
       "1": "ticks=4,copy_recent_card_effect"
     },
     "move_pattern": "adaptive",
-    "__NOEX developer_notes": "Punishes over-reliance on single strategies",
-    "__old_moves": [
-      "ticks=6,random_force_hard_cap=3",
-      "ticks=4,copy_recent_card_effect"
-    ]
+    "__NOEX developer_notes": "Punishes over-reliance on single strategies"
   },
   {
     "template_id": "spark_flea",
@@ -675,10 +645,8 @@
     "max_health": 10,
     "can_be_targeted": true,
     "summon_position": "bottom",
-    "move_pattern": "cycle",
-    "__old_moves": "ticks=6,force_discard=1",
-    "move_1": "force_discard=1",
-    "move_1_ticks": 6
+    "moves": "ticks=6,force_discard=1",
+    "move_pattern": "cycle"
   },
   {
     "template_id": "precision_mite",
@@ -689,10 +657,8 @@
     "max_health": 14,
     "can_be_targeted": true,
     "summon_position": "bottom",
-    "move_pattern": "passive",
-    "__old_moves": "ticks=0,precision_hard_cap=2",
-    "move_1": "precision_hard_cap=2",
-    "move_1_ticks": 0
+    "moves": "ticks=0,precision_hard_cap=2",
+    "move_pattern": "passive"
   },
   {
     "template_id": "siphon_tick",
@@ -704,10 +670,8 @@
     "max_armor": 1,
     "can_be_targeted": true,
     "summon_position": "bottom",
-    "move_pattern": "cycle",
-    "__old_moves": "ticks=10,drain_all_types=1",
-    "move_1": "drain_all_types=1",
-    "move_1_ticks": 10
+    "moves": "ticks=10,drain_all_types=1",
+    "move_pattern": "cycle"
   },
   {
     "template_id": "phase_shifter",
@@ -720,15 +684,15 @@
     "max_shields": 8,
     "can_be_targeted": true,
     "summon_position": "bottom",
+    "moves": [
+      "ticks=8,switch_armor_shields",
+      "ticks=8,switch_shields_armor"
+    ],
     "moves_dict": {
       "0": "ticks=8,switch_armor_shields",
       "1": "ticks=8,switch_shields_armor"
     },
-    "move_pattern": "cycle",
-    "__old_moves": [
-      "ticks=8,switch_armor_shields",
-      "ticks=8,switch_shields_armor"
-    ]
+    "move_pattern": "cycle"
   },
   {
     "template_id": "momentum_thief",
@@ -740,15 +704,15 @@
     "max_armor": 2,
     "can_be_targeted": true,
     "summon_position": "bottom",
+    "moves": [
+      "ticks=4,drain_momentum=3,self_gain_shields=3",
+      "ticks=6,momentum_soft_cap=5"
+    ],
     "moves_dict": {
       "0": "ticks=4,drain_momentum=3,self_gain_shields=3",
       "1": "ticks=6,momentum_soft_cap=5"
     },
-    "move_pattern": "cycle",
-    "__old_moves": [
-      "ticks=4,drain_momentum=3,self_gain_shields=3",
-      "ticks=6,momentum_soft_cap=5"
-    ]
+    "move_pattern": "cycle"
   },
   {
     "template_id": "feedback_loop",
@@ -762,17 +726,17 @@
     "shield_regen_max": 10,
     "can_be_targeted": true,
     "summon_position": "bottom",
+    "moves": [
+      "ticks=6,card_cost_penalty=1",
+      "ticks=5,card_cost_penalty=2",
+      "ticks=4,card_cost_penalty=3"
+    ],
     "moves_dict": {
       "0": "ticks=6,card_cost_penalty=1",
       "1": "ticks=5,card_cost_penalty=2",
       "2": "ticks=4,card_cost_penalty=3"
     },
-    "move_pattern": "sequence",
-    "__old_moves": [
-      "ticks=6,card_cost_penalty=1",
-      "ticks=5,card_cost_penalty=2",
-      "ticks=4,card_cost_penalty=3"
-    ]
+    "move_pattern": "sequence"
   },
   {
     "template_id": "resource_tyrant",
@@ -784,17 +748,17 @@
     "max_armor": 4,
     "can_be_targeted": true,
     "summon_position": "bottom",
+    "moves": [
+      "ticks=10,adaptive_hard_caps_all=6",
+      "ticks=5,drain_highest=4",
+      "ticks=5,drain_highest=4"
+    ],
     "moves_dict": {
       "0": "ticks=10,adaptive_hard_caps_all=6",
       "1": "ticks=5,drain_highest=4",
       "2": "ticks=5,drain_highest=4"
     },
-    "move_pattern": "sequence",
-    "__old_moves": [
-      "ticks=10,adaptive_hard_caps_all=6",
-      "ticks=5,drain_highest=4",
-      "ticks=5,drain_highest=4"
-    ]
+    "move_pattern": "sequence"
   },
   {
     "template_id": "mirror_warden",
@@ -810,17 +774,17 @@
     "can_be_targeted": true,
     "summon_position": "bottom",
     "summon_cap": 3,
+    "moves": [
+      "ticks=8,summon=barrier_gnat",
+      "ticks=6,all_gremlins_gain_shields=4",
+      "ticks=4,reflect_increase=25"
+    ],
     "moves_dict": {
       "0": "ticks=8,summon=barrier_gnat",
       "1": "ticks=6,all_gremlins_gain_shields=4",
       "2": "ticks=4,reflect_increase=25"
     },
-    "move_pattern": "cycle",
-    "__old_moves": [
-      "ticks=8,summon=barrier_gnat",
-      "ticks=6,all_gremlins_gain_shields=4",
-      "ticks=4,reflect_increase=25"
-    ]
+    "move_pattern": "cycle"
   },
   {
     "template_id": "entropic_mass",
@@ -832,16 +796,16 @@
     "max_armor": 6,
     "can_be_targeted": true,
     "summon_position": "bottom",
+    "moves": [
+      "ticks=12,entropy_hard_cap=2",
+      "ticks=4,all_forces_decay=1,drain_entropy=3",
+      "ticks=2,all_forces_decay=2"
+    ],
     "moves_dict": {
       "0": "ticks=12,entropy_hard_cap=2",
       "1": "ticks=4,all_forces_decay=1,drain_entropy=3",
       "2": "ticks=2,all_forces_decay=2"
     },
-    "move_pattern": "sequence",
-    "__old_moves": [
-      "ticks=12,entropy_hard_cap=2",
-      "ticks=4,all_forces_decay=1,drain_entropy=3",
-      "ticks=2,all_forces_decay=2"
-    ]
+    "move_pattern": "sequence"
   }
 ]
