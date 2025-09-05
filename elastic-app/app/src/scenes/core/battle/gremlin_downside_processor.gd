@@ -285,7 +285,7 @@ static func _force_discard_cards(count: int) -> void:
 	# For now, discard random cards from hand
 	if GlobalGameManager.library:
 		for i in count:
-			GlobalGameManager.library.discard_random_card()
+			#GlobalGameManager.library.discard_random_card()
 
 # Summon a gremlin
 static func _summon_gremlin(summon_type: String) -> void:
