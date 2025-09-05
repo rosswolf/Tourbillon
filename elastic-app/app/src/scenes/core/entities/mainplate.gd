@@ -149,6 +149,14 @@ func remove_card(pos: Vector2i) -> Card:
 		card_states.erase(card.instance_id)
 	return card
 
+## Remove card by instance ID
+func remove_card_by_id(instance_id: String) -> Card:
+	# Find the position of the card
+	for pos in slots:
+		if slots[pos].instance_id == instance_id:
+			return remove_card(pos)
+	return null
+
 ## Expand the grid
 func expand_grid(direction: String) -> bool:
 	if expansions_used >= max_expansions:

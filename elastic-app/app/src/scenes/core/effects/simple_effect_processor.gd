@@ -39,6 +39,11 @@ static func _process_single_effect(effect: String, source: Node) -> void:
 
 	# Route to appropriate handler
 	match effect_type:
+		# Special flags
+		"momentary":
+			# Mark the source card/gear for destruction after this effect
+			_handle_momentary(source, value > 0)
+			
 		# Card effects
 		"draw":
 			_handle_draw(int(value))
@@ -236,6 +241,19 @@ static func _process_single_effect(effect: String, source: Node) -> void:
 			push_warning("Unknown effect type: " + effect_type)
 
 # Card manipulation handlers
+static func _handle_momentary(source: Node, should_destroy: bool) -> void:
+	# If the source is a card that's been played as a gear, destroy it after firing
+	if should_destroy and source and source is Card:
+		var card = source as Card
+		print("[DEBUG] Momentary card ", card.display_name, " will be destroyed after firing")
+		
+		# Remove from mainplate first
+		if GlobalGameManager.mainplate:
+			GlobalGameManager.mainplate.call_deferred("remove_card_by_id", card.instance_id)
+		
+		# Then destroy the card
+		card.call_deferred("queue_free")
+
 static func _handle_draw(amount: int) -> void:
 	if GlobalGameManager.library:
 		GlobalGameManager.library.draw_card(amount)
