@@ -221,14 +221,10 @@ class IndexedPropertyChecker:
                                 'damage_received', 'shields_changed', 'barrier_broken',
                                 # Common UI properties  
                                 'custom_minimum_size', 'anchor_left', 'anchor_right',
-                                # Control/Button properties that were missing
+                                # Control/Button properties
                                 'flat', 'size_flags_horizontal', 'size_flags_vertical',
                                 'size_flags_stretch_ratio', 'focus_mode', 'disabled',
-                                # Card effect properties (dynamically loaded from JSON)
-                                'on_ready_effect', 'on_replace_effect', 'on_destroy_effect',
-                                'on_discard_effect', 'on_draw_effect', 'on_exhaust_effect',
-                                'passive_effect', 'conditional_effect',
-                                # Effect subclass properties
+                                # InternalEffect properties (nested class)
                                 '__f', '__valid_source_types', '__valid_target_types'
                             }
                             
