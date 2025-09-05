@@ -18,11 +18,20 @@ Before making ANY changes to data files or working with game data, you MUST read
 
 ## Master Data Source
 
-**The Google Sheets spreadsheet is the SINGLE SOURCE OF TRUTH for card data.**
+**The Google Sheets spreadsheets are the SINGLE SOURCE OF TRUTH for all game data.**
 
+**CRITICAL: NEVER manually edit JSON files - they are auto-generated!**
+
+### Card Data
 - **Spreadsheet URL**: https://docs.google.com/spreadsheets/d/1zoNrBnX2od6nrTL3G4wS_QMYig69laRn0XYH-KOUqTk/edit
 - **Sheet Name**: `card_data`
 - **Spreadsheet ID**: `1zoNrBnX2od6nrTL3G4wS_QMYig69laRn0XYH-KOUqTk`
+
+### Mob/Gremlin Data
+- **Spreadsheet URL**: https://docs.google.com/spreadsheets/d/1TlOn39AXlw0y2tlkE4kvIpvoZ9SpNQTkDGgOptvqSgM/edit
+- **Sheet Name**: `mob_data`
+- **Spreadsheet ID**: `1TlOn39AXlw0y2tlkE4kvIpvoZ9SpNQTkDGgOptvqSgM`
+- **Multi-Move System**: Uses `move_1` through `move_6` columns with corresponding `move_X_ticks` for timing
 
 ## Data Files in This Directory
 
@@ -71,11 +80,19 @@ Service Account Details (from GOOGLE_SHEETS.md):
 ## Quick Reference Commands
 
 ```bash
-# Fetch latest from Google Sheets
-node fetch_sheets.cjs
+# CRITICAL: To update game data, run this from the data directory:
+cd src/scenes/data
+python3 json_exporter.py
 
-# Convert to game format
-python3 json_exporter.py --input sheets_data.json --output card_data.json
+# This will:
+# 1. Fetch latest from all Google Sheets
+# 2. Generate all JSON files (card_data.json, mob_data.json, etc.)
+# 3. Apply proper formatting and conversions
+
+# DO NOT:
+# - Edit JSON files manually
+# - Use JavaScript to update JSON files
+# - Modify mob_data.json directly
 
 # Check for non-ASCII characters
 grep -P '[^\x00-\x7F]' card_data.json
@@ -102,3 +119,19 @@ Game Objects
 5. Test changes in game after sync
 
 Remember: The spreadsheet is the source of truth. All JSON files are generated and will be overwritten on next sync.
+
+## Gremlin Multi-Move System
+
+As of September 2025, gremlins use a multi-move system:
+- Each gremlin can have up to 6 independent moves
+- Each move has its own timing (in ticks)
+- Moves are defined in columns `move_1` through `move_6`
+- Timing is in columns `move_1_ticks` through `move_6_ticks`
+- Use `0` ticks for passive/always-on effects
+- Effects use format: `effect_type=value` (e.g., `drain_random=1`)
+
+Example:
+- move_1: `card_cost_penalty=1`, move_1_ticks: `5`
+- move_2: `force_discard=1`, move_2_ticks: `10`
+
+This allows gremlins to have multiple independent abilities with different timings.
