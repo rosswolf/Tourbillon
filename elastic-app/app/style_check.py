@@ -159,7 +159,8 @@ class StyleChecker:
         # Class names should be PascalCase
         class_pattern = re.compile(r'^class_name\s+(\w+)')
         # Function names should be snake_case (with __ prefix for private)
-        func_pattern = re.compile(r'^func\s+(\w+)\s*\(')
+        # Also matches static functions
+        func_pattern = re.compile(r'^(?:static\s+)?func\s+(\w+)\s*\(')
         # Constants should be UPPER_SNAKE_CASE
         const_pattern = re.compile(r'^const\s+(\w+)\s*=')
         # Variables should be snake_case
