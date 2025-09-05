@@ -287,11 +287,13 @@ Forces represent different types of energy in your clockwork mechanism. Each for
 - Higher-tier effects require force conversion
 - Conversions use whole number ratios (2:1, 3:1, etc.)
 - Multi-input recipes for complex effects
-- "Consume X max" effects:
-  - Check if X total forces exist
-  - If not, effect fails completely (no partial consumption)
-  - If yes, consume from highest force pool first
-  - If tied for highest, consume in order: Heat → Precision → Momentum → Balance → Entropy
+- Consumption types:
+  - "Consume X [specific force]": Requires exactly X of that force
+  - "Consume X largest/pay_largest": Consume from the highest force pool
+  - "Consume X smallest/pay_smallest": Consume from the lowest non-zero force pool
+  - "Consume X max": Consume X from highest pool (same as pay_largest)
+- All consumption effects fail completely if resources unavailable (no partial consumption)
+- If tied for highest/lowest, consume in order: Heat → Precision → Momentum → Balance → Entropy
 - Some effects may specify "Consume X of one force" for focused consumption
 - Forces can exist in fractional amounts (rounded to 0.1) for more granularity
 - Forces can accumulate infinitely (no upper limit)
@@ -432,7 +434,7 @@ Tags create synergies and define gear identities. Gears typically have 1-4 tags.
   - "Other gears in same row produce +1"
   - "When placed: permanently upgrade an adjacent gear"
 - **Void**: Consumption, destruction, hunger
-  - "Consume 5 any forces → 7 damage"
+  - "Consume 5 largest → 7 damage" (consume from highest pool)
   - "When a gear is destroyed, Void gears produce"
 
 #### 4.1.2 Thematic Flavor Tags (5 - Non-Opposing)
@@ -799,7 +801,7 @@ Gremlins impose disruptions while infesting your mechanism:
 **"Force Converter" (Colorless, 1 copy)**
 - Tags: [Forge]
 - Cost: 3 Ticks
-- "Fires every 4 Ticks: Consume 2 any force → 3 damage"
+- "Fires every 4 Ticks: Consume 2 largest → 3 damage"
 
 ## 11. Rules Clarifications
 

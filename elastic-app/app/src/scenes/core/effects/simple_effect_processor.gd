@@ -84,8 +84,54 @@ static func _process_single_effect(effect: String, source: Node) -> void:
 			_handle_damage_strongest(value)
 		"damage_bottom":
 			_handle_damage_bottom(value)
+		
+		# Pierce damage effects (ignores armor)
+		"pierce_damage", "pierce_damage_top":
+			_handle_pierce_damage(value)
+		"pierce_damage_all":
+			_handle_pierce_damage_all(value)
+		"pierce_damage_random":
+			_handle_pierce_damage_random(value)
+		"pierce_damage_weakest":
+			_handle_pierce_damage_weakest(value)
+		"pierce_damage_strongest":
+			_handle_pierce_damage_strongest(value)
+		"pierce_damage_bottom":
+			_handle_pierce_damage_bottom(value)
+		
+		# Pop damage effects (double vs shields)
+		"pop_damage", "pop_damage_top":
+			_handle_pop_damage(value)
+		"pop_damage_all":
+			_handle_pop_damage_all(value)
+		"pop_damage_random":
+			_handle_pop_damage_random(value)
+		"pop_damage_weakest":
+			_handle_pop_damage_weakest(value)
+		"pop_damage_strongest":
+			_handle_pop_damage_strongest(value)
+		"pop_damage_bottom":
+			_handle_pop_damage_bottom(value)
+		
+		# Overkill damage (excess carries to next)
+		"overkill_damage":
+			_handle_overkill_damage(value)
+		
+		# Execute effect (instant kill below threshold)
+		"execute":
+			_handle_execute(int(value))
+		"execute_all":
+			_handle_execute_all(int(value))
+		
+		# Poison/DOT effects
 		"poison":
 			_handle_poison(int(value))
+		"poison_all":
+			_handle_poison_all(int(value))
+		"burn":
+			_handle_burn(int(value))
+		"burn_all":
+			_handle_burn_all(int(value))
 
 		# Defensive effects
 		"heal", "heal_self":
@@ -94,20 +140,30 @@ static func _process_single_effect(effect: String, source: Node) -> void:
 			_handle_shield(value)
 
 		# Consume force effects (these should be checked before firing)
-		"consume_red":
+		"consume_red", "pay_red":
 			_handle_consume_force(GameResource.Type.RED, value)
-		"consume_blue":
+		"consume_blue", "pay_blue":
 			_handle_consume_force(GameResource.Type.BLUE, value)
-		"consume_green":
+		"consume_green", "pay_green":
 			_handle_consume_force(GameResource.Type.GREEN, value)
-		"consume_white":
+		"consume_white", "pay_white":
 			_handle_consume_force(GameResource.Type.WHITE, value)
-		"consume_purple", "consume_black":
+		"consume_purple", "consume_black", "pay_purple", "pay_black":
 			_handle_consume_force(GameResource.Type.PURPLE, value)
-		"consume_any":
-			_handle_consume_any(value)
-		"consume_max":
-			_handle_consume_max(value)
+		"consume_heat", "pay_heat":
+			_handle_consume_force(GameResource.Type.HEAT, value)
+		"consume_precision", "pay_precision":
+			_handle_consume_force(GameResource.Type.PRECISION, value)
+		"consume_momentum", "pay_momentum":
+			_handle_consume_force(GameResource.Type.MOMENTUM, value)
+		"consume_balance", "pay_balance":
+			_handle_consume_force(GameResource.Type.BALANCE, value)
+		"consume_entropy", "pay_entropy":
+			_handle_consume_force(GameResource.Type.ENTROPY, value)
+		"consume_max", "pay_largest", "consume_largest":
+			_handle_consume_largest(value)
+		"pay_smallest", "consume_smallest":
+			_handle_consume_smallest(value)
 
 		# Gremlin constraint effects (caps and limits)
 		"heat_soft_cap", "red_soft_cap":
@@ -208,20 +264,7 @@ static func _handle_consume_force(force_type: GameResource.Type, amount: float) 
 		return true
 	return false
 
-static func _handle_consume_any(amount: float) -> bool:
-	if not GlobalGameManager.hero:
-		return false
-
-	# Try to consume from any available force pool
-	for force_type in [GameResource.Type.RED, GameResource.Type.BLUE,
-						GameResource.Type.GREEN, GameResource.Type.WHITE,
-						GameResource.Type.PURPLE]:
-		if GlobalGameManager.hero.has_force(force_type, int(amount)):
-			GlobalGameManager.hero.consume_force(force_type, int(amount))
-			return true
-	return false
-
-static func _handle_consume_max(amount: float) -> bool:
+static func _handle_consume_largest(amount: float) -> bool:
 	if not GlobalGameManager.hero:
 		return false
 
@@ -229,6 +272,7 @@ static func _handle_consume_max(amount: float) -> bool:
 	var highest_type: GameResource.Type = GameResource.Type.RED
 	var highest_amount: float = 0.0
 
+	# Check all basic forces (not special combined forces)
 	for force_type in [GameResource.Type.RED, GameResource.Type.BLUE,
 						GameResource.Type.GREEN, GameResource.Type.WHITE,
 						GameResource.Type.PURPLE]:
@@ -242,27 +286,54 @@ static func _handle_consume_max(amount: float) -> bool:
 		return true
 	return false
 
-# Damage handlers
+static func _handle_consume_smallest(amount: float) -> bool:
+	if not GlobalGameManager.hero:
+		return false
+
+	# Consume from the smallest non-zero pool first
+	var smallest_type: GameResource.Type = GameResource.Type.RED
+	var smallest_amount: float = INF
+	var found_any: bool = false
+
+	# Check all basic forces (not special combined forces)
+	for force_type in [GameResource.Type.RED, GameResource.Type.BLUE,
+						GameResource.Type.GREEN, GameResource.Type.WHITE,
+						GameResource.Type.PURPLE]:
+		var resource = GlobalGameManager.hero.get_force_resource(force_type)
+		if resource and resource.amount > 0 and resource.amount < smallest_amount:
+			smallest_amount = resource.amount
+			smallest_type = force_type
+			found_any = true
+
+	if found_any and smallest_amount >= amount:
+		GlobalGameManager.hero.consume_force(smallest_type, int(amount))
+		return true
+	return false
+
+# Damage handlers - Basic damage
 static func _handle_damage(amount: float) -> void:
 	# Target top gremlin by default
 	var gremlins: Array[Node] = GlobalGameManager.get_active_gremlins()
 	if not gremlins.is_empty():
 		var target = gremlins[0]
-		if target.has_method("take_damage"):
-			target.take_damage(amount)
+		if target.has_method("receive_damage"):
+			var packet = DamageFactory.create_basic(int(amount))
+			target.receive_damage(packet)
 
 static func _handle_damage_all(amount: float) -> void:
 	var gremlins: Array[Node] = GlobalGameManager.get_active_gremlins()
 	for gremlin in gremlins:
-		if gremlin.has_method("take_damage"):
-			gremlin.take_damage(amount)
+		if gremlin.has_method("receive_damage"):
+			var packet = DamageFactory.create_basic(int(amount))
+			gremlin.receive_damage(packet)
 
 static func _handle_damage_random(amount: float) -> void:
 	var gremlins: Array[Node] = GlobalGameManager.get_active_gremlins()
 	if not gremlins.is_empty():
 		var target = gremlins.pick_random()
-		if target.has_method("take_damage"):
-			target.take_damage(amount)
+		if target.has_method("receive_damage"):
+			var packet = DamageFactory.create_basic(int(amount))
+			target.receive_damage(packet)
 
 static func _handle_damage_weakest(amount: float) -> void:
 	var gremlins: Array[Node] = GlobalGameManager.get_active_gremlins()
@@ -272,14 +343,15 @@ static func _handle_damage_weakest(amount: float) -> void:
 	var weakest = gremlins[0]
 	var min_hp: float = INF
 	for gremlin in gremlins:
-		if gremlin.has_method("get_current_hp"):
-			var hp: float = gremlin.get_current_hp()
+		if gremlin.has("current_hp"):
+			var hp: float = gremlin.current_hp
 			if hp < min_hp:
 				min_hp = hp
 				weakest = gremlin
 
-	if weakest and weakest.has_method("take_damage"):
-		weakest.take_damage(amount)
+	if weakest and weakest.has_method("receive_damage"):
+		var packet = DamageFactory.create_basic(int(amount))
+		weakest.receive_damage(packet)
 
 static func _handle_damage_strongest(amount: float) -> void:
 	var gremlins: Array[Node] = GlobalGameManager.get_active_gremlins()
@@ -289,22 +361,24 @@ static func _handle_damage_strongest(amount: float) -> void:
 	var strongest = gremlins[0]
 	var max_hp: float = 0
 	for gremlin in gremlins:
-		if gremlin.has_method("get_current_hp"):
-			var hp: float = gremlin.get_current_hp()
+		if gremlin.has("current_hp"):
+			var hp: float = gremlin.current_hp
 			if hp > max_hp:
 				max_hp = hp
 				strongest = gremlin
 
-	if strongest and strongest.has_method("take_damage"):
-		strongest.take_damage(amount)
+	if strongest and strongest.has_method("receive_damage"):
+		var packet = DamageFactory.create_basic(int(amount))
+		strongest.receive_damage(packet)
 
 static func _handle_damage_bottom(amount: float) -> void:
 	# Target bottom (last) gremlin
 	var gremlins: Array[Node] = GlobalGameManager.get_active_gremlins()
 	if not gremlins.is_empty():
 		var target = gremlins[-1]
-		if target.has_method("take_damage"):
-			target.take_damage(amount)
+		if target.has_method("receive_damage"):
+			var packet = DamageFactory.create_basic(int(amount))
+			target.receive_damage(packet)
 
 static func _handle_poison(amount: int) -> void:
 	# Apply poison to top gremlin
@@ -313,6 +387,172 @@ static func _handle_poison(amount: int) -> void:
 		var target = gremlins[0]
 		if target.has_method("apply_poison"):
 			target.apply_poison(amount)
+
+# Pierce damage handlers (ignores armor)
+static func _handle_pierce_damage(amount: float) -> void:
+	var gremlins: Array[Node] = GlobalGameManager.get_active_gremlins()
+	if not gremlins.is_empty():
+		var target = gremlins[0]
+		if target.has_method("receive_damage"):
+			var packet = DamageFactory.create(int(amount), ["pierce"])
+			target.receive_damage(packet)
+
+static func _handle_pierce_damage_all(amount: float) -> void:
+	var gremlins: Array[Node] = GlobalGameManager.get_active_gremlins()
+	for gremlin in gremlins:
+		if gremlin.has_method("receive_damage"):
+			var packet = DamageFactory.create(int(amount), ["pierce"])
+			gremlin.receive_damage(packet)
+
+static func _handle_pierce_damage_random(amount: float) -> void:
+	var gremlins: Array[Node] = GlobalGameManager.get_active_gremlins()
+	if not gremlins.is_empty():
+		var target = gremlins.pick_random()
+		if target.has_method("receive_damage"):
+			var packet = DamageFactory.create(int(amount), ["pierce"])
+			target.receive_damage(packet)
+
+static func _handle_pierce_damage_weakest(amount: float) -> void:
+	var target = _find_weakest_gremlin()
+	if target and target.has_method("receive_damage"):
+		var packet = DamageFactory.create(int(amount), ["pierce"])
+		target.receive_damage(packet)
+
+static func _handle_pierce_damage_strongest(amount: float) -> void:
+	var target = _find_strongest_gremlin()
+	if target and target.has_method("receive_damage"):
+		var packet = DamageFactory.create(int(amount), ["pierce"])
+		target.receive_damage(packet)
+
+static func _handle_pierce_damage_bottom(amount: float) -> void:
+	var gremlins: Array[Node] = GlobalGameManager.get_active_gremlins()
+	if not gremlins.is_empty():
+		var target = gremlins[-1]
+		if target.has_method("receive_damage"):
+			var packet = DamageFactory.create(int(amount), ["pierce"])
+			target.receive_damage(packet)
+
+# Pop damage handlers (double vs shields)
+static func _handle_pop_damage(amount: float) -> void:
+	var gremlins: Array[Node] = GlobalGameManager.get_active_gremlins()
+	if not gremlins.is_empty():
+		var target = gremlins[0]
+		if target.has_method("receive_damage"):
+			var packet = DamageFactory.create(int(amount), ["pop"])
+			target.receive_damage(packet)
+
+static func _handle_pop_damage_all(amount: float) -> void:
+	var gremlins: Array[Node] = GlobalGameManager.get_active_gremlins()
+	for gremlin in gremlins:
+		if gremlin.has_method("receive_damage"):
+			var packet = DamageFactory.create(int(amount), ["pop"])
+			gremlin.receive_damage(packet)
+
+static func _handle_pop_damage_random(amount: float) -> void:
+	var gremlins: Array[Node] = GlobalGameManager.get_active_gremlins()
+	if not gremlins.is_empty():
+		var target = gremlins.pick_random()
+		if target.has_method("receive_damage"):
+			var packet = DamageFactory.create(int(amount), ["pop"])
+			target.receive_damage(packet)
+
+static func _handle_pop_damage_weakest(amount: float) -> void:
+	var target = _find_weakest_gremlin()
+	if target and target.has_method("receive_damage"):
+		var packet = DamageFactory.create(int(amount), ["pop"])
+		target.receive_damage(packet)
+
+static func _handle_pop_damage_strongest(amount: float) -> void:
+	var target = _find_strongest_gremlin()
+	if target and target.has_method("receive_damage"):
+		var packet = DamageFactory.create(int(amount), ["pop"])
+		target.receive_damage(packet)
+
+static func _handle_pop_damage_bottom(amount: float) -> void:
+	var gremlins: Array[Node] = GlobalGameManager.get_active_gremlins()
+	if not gremlins.is_empty():
+		var target = gremlins[-1]
+		if target.has_method("receive_damage"):
+			var packet = DamageFactory.create(int(amount), ["pop"])
+			target.receive_damage(packet)
+
+# Overkill damage (excess carries to next)
+static func _handle_overkill_damage(amount: float) -> void:
+	var gremlins: Array[Node] = GlobalGameManager.get_active_gremlins()
+	if not gremlins.is_empty():
+		var target = gremlins[0]
+		if target.has_method("receive_damage"):
+			var packet = DamageFactory.create(int(amount), ["overkill"])
+			# Note: Overkill logic should be handled by the damage system
+			target.receive_damage(packet)
+
+# Execute effects (instant kill below threshold)
+static func _handle_execute(threshold: int) -> void:
+	var gremlins: Array[Node] = GlobalGameManager.get_active_gremlins()
+	if not gremlins.is_empty():
+		var target = gremlins[0]
+		if target.has_method("can_be_executed") and target.can_be_executed(threshold):
+			if target.has_method("execute"):
+				target.execute()
+
+static func _handle_execute_all(threshold: int) -> void:
+	var gremlins: Array[Node] = GlobalGameManager.get_active_gremlins()
+	for gremlin in gremlins:
+		if gremlin.has_method("can_be_executed") and gremlin.can_be_executed(threshold):
+			if gremlin.has_method("execute"):
+				gremlin.execute()
+
+# Poison all effect
+static func _handle_poison_all(amount: int) -> void:
+	var gremlins: Array[Node] = GlobalGameManager.get_active_gremlins()
+	for gremlin in gremlins:
+		if gremlin.has_method("apply_poison"):
+			gremlin.apply_poison(amount)
+
+# Burn effects (prevent healing)
+static func _handle_burn(duration: int) -> void:
+	var gremlins: Array[Node] = GlobalGameManager.get_active_gremlins()
+	if not gremlins.is_empty():
+		var target = gremlins[0]
+		if target.has_method("apply_burn"):
+			target.apply_burn(duration)
+
+static func _handle_burn_all(duration: int) -> void:
+	var gremlins: Array[Node] = GlobalGameManager.get_active_gremlins()
+	for gremlin in gremlins:
+		if gremlin.has_method("apply_burn"):
+			gremlin.apply_burn(duration)
+
+# Helper functions
+static func _find_weakest_gremlin() -> Node:
+	var gremlins: Array[Node] = GlobalGameManager.get_active_gremlins()
+	if gremlins.is_empty():
+		return null
+	
+	var weakest = gremlins[0]
+	var min_hp: float = INF
+	for gremlin in gremlins:
+		if gremlin.has("current_hp"):
+			var hp: float = gremlin.current_hp
+			if hp < min_hp:
+				min_hp = hp
+				weakest = gremlin
+	return weakest
+
+static func _find_strongest_gremlin() -> Node:
+	var gremlins: Array[Node] = GlobalGameManager.get_active_gremlins()
+	if gremlins.is_empty():
+		return null
+	
+	var strongest = gremlins[0]
+	var max_hp: float = 0
+	for gremlin in gremlins:
+		if gremlin.has("current_hp"):
+			var hp: float = gremlin.current_hp
+			if hp > max_hp:
+				max_hp = hp
+				strongest = gremlin
+	return strongest
 
 # Defensive handlers
 static func _handle_heal(amount: float) -> void:
@@ -966,17 +1206,48 @@ static func can_satisfy_effect(effect_string: String) -> bool:
 				"consume_purple", "consume_black", "pay_purple", "pay_black":
 					if not GlobalGameManager.hero or not GlobalGameManager.hero.has_force(GameResource.Type.PURPLE, int(value)):
 						return false
-				"consume_any", "pay_any":
+				"consume_heat", "pay_heat":
+					if not GlobalGameManager.hero or not GlobalGameManager.hero.has_force(GameResource.Type.HEAT, int(value)):
+						return false
+				"consume_precision", "pay_precision":
+					if not GlobalGameManager.hero or not GlobalGameManager.hero.has_force(GameResource.Type.PRECISION, int(value)):
+						return false
+				"consume_momentum", "pay_momentum":
+					if not GlobalGameManager.hero or not GlobalGameManager.hero.has_force(GameResource.Type.MOMENTUM, int(value)):
+						return false
+				"consume_balance", "pay_balance":
+					if not GlobalGameManager.hero or not GlobalGameManager.hero.has_force(GameResource.Type.BALANCE, int(value)):
+						return false
+				"consume_entropy", "pay_entropy":
+					if not GlobalGameManager.hero or not GlobalGameManager.hero.has_force(GameResource.Type.ENTROPY, int(value)):
+						return false
+				"consume_max", "pay_largest", "consume_largest":
 					if not GlobalGameManager.hero:
 						return false
-					var can_afford_any: bool = false
+					# Check if any pool has enough
+					var highest: float = 0.0
 					for force_type in [GameResource.Type.RED, GameResource.Type.BLUE,
 										GameResource.Type.GREEN, GameResource.Type.WHITE,
 										GameResource.Type.PURPLE]:
-						if GlobalGameManager.hero.has_force(force_type, int(value)):
-							can_afford_any = true
-							break
-					if not can_afford_any:
+						var resource = GlobalGameManager.hero.get_force_resource(force_type)
+						if resource and resource.amount > highest:
+							highest = resource.amount
+					if highest < value:
+						return false
+				"pay_smallest", "consume_smallest":
+					if not GlobalGameManager.hero:
+						return false
+					# Check if the smallest non-zero pool has enough
+					var smallest: float = INF
+					var found_any: bool = false
+					for force_type in [GameResource.Type.RED, GameResource.Type.BLUE,
+										GameResource.Type.GREEN, GameResource.Type.WHITE,
+										GameResource.Type.PURPLE]:
+						var resource = GlobalGameManager.hero.get_force_resource(force_type)
+						if resource and resource.amount > 0 and resource.amount < smallest:
+							smallest = resource.amount
+							found_any = true
+					if not found_any or smallest < value:
 						return false
 
 	return true
