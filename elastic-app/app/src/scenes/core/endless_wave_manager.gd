@@ -183,18 +183,15 @@ func _show_card_reward() -> void:
 		selected_cards.append(available_cards[index])
 		available_cards.remove_at(index)
 	
-	# Store cards in library's selection zone
+	# Store cards for selection
 	if GlobalGameManager.library:
-		# Clear any previous selection
-		GlobalGameManager.library.clear_zone(Library.Zone.SELECTION)
-		
-		# Add cards to selection zone
-		for card in selected_cards:
-			GlobalGameManager.library.add_card_to_zone(card, Library.Zone.SELECTION)
-		
-		# Trigger the card selection modal
-		# The modal will handle adding the selected card to deck
-		GlobalSignals.signal_core_card_selection("wave_reward", Library.Zone.DECK)
+		# For now, just add the first card directly to deck
+		# TODO: Implement proper card selection UI
+		if selected_cards.size() > 0:
+			var chosen_card = selected_cards[0]
+			GlobalGameManager.library.add_card_to_deck(chosen_card)
+			reward_card_selected.emit(chosen_card)
+			print("[EndlessWaveManager] Added reward card to deck: ", chosen_card.display_name)
 	
 	# After card is selected, the modal will close and we continue
 	# Connect to know when selection is done
@@ -293,6 +290,6 @@ func _on_game_over() -> void:
 func get_difficulty_info() -> Dictionary:
 	return {
 		"wave": current_wave,
-		"difficulty_tier": current_difficulty_tier,
+		"difficulty_value": current_difficulty_value,
 		"waves_completed": waves_completed
 	}
