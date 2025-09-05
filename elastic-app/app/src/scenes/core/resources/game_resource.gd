@@ -18,10 +18,13 @@ enum Type {
 	MOMENTUM,  # Perpetual motion and growth
 	BALANCE,   # Regulation and stability
 	ENTROPY,   # Decay and chaos
-	# Special
-	INSPIRATION,
-	# Legacy (for backward compatibility)
-	GOLD = INSPIRATION,  # Alias for INSPIRATION
+	# Special (Per-run currency)
+	INSPIRATION,  # Currency earned from defeating gremlins, spent at workshops
+	# TODO: Implement INSPIRATION system:
+	# - Award on gremlin defeat (amount based on gremlin difficulty)
+	# - Track separately from forces (doesn't reset between combats)
+	# - Spend at workshops for cards/upgrades
+	# - Reset at end of run
 	PURPLE_TIME,
 	GREEN_TIME,
 	BLUE_TIME,
@@ -100,6 +103,13 @@ class ResourceAccessor:
 		GameResource.Type.ENTROPY: __SpecificResourceAccessor.new(
 			func(): return GlobalGameManager.hero.entropy.amount if GlobalGameManager.hero and GlobalGameManager.hero.entropy else 0,
 			func(value): if GlobalGameManager.hero and GlobalGameManager.hero.entropy: GlobalGameManager.hero.entropy.amount = value
+		),
+		# Special currency
+		# TODO: INSPIRATION implementation
+		# Currently stubbed - will need proper storage that persists between combats
+		GameResource.Type.INSPIRATION: __SpecificResourceAccessor.new(
+			func(): return GlobalGameManager.hero.inspiration.amount if GlobalGameManager.hero and GlobalGameManager.hero.has("inspiration") else 0,
+			func(value): if GlobalGameManager.hero and GlobalGameManager.hero.has("inspiration"): GlobalGameManager.hero.inspiration.amount = value
 		),
 	}
 
