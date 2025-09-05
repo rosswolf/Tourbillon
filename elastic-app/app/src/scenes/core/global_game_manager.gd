@@ -476,8 +476,9 @@ func __spawn_test_gremlin() -> void:
 		print("[DEBUG] Spawned gremlin: ", gremlin.gremlin_name, " with ", gremlin.current_hp, " HP")
 
 func __on_deck_exhausted() -> void:
-	print("[DEBUG] Deck exhausted - dealing 1 damage to hero")
-	# Deal 1 damage to hero for trying to draw from empty deck
+	print("[DEBUG] Deck exhausted - dealing 15 damage to hero (per PRD)")
+	# Deal 15 damage to hero for trying to draw from empty deck and discard
+	# This only triggers when BOTH deck and discard are empty (checked in Library)
 	if hero:
-		var damage_packet = DamageFactory.create(1, [], "deck_exhaustion")
+		var damage_packet = DamageFactory.create(15, [], "deck_exhaustion")
 		hero.receive_damage(damage_packet)

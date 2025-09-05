@@ -217,7 +217,8 @@ class HeroBuilder extends Entity.EntityBuilder:
 	func build() -> Hero:
 		var default_max: int = 9000
 
-		var hero: Hero = Hero.new()
+		# Create HeroDamageable instead of base Hero to support damage system
+		var hero: HeroDamageable = HeroDamageable.new()
 		super.build_entity(hero)
 
 		hero.image_name = __image_name
