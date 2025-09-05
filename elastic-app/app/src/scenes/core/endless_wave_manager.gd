@@ -147,12 +147,17 @@ func _select_closest_wave(target_diff: int) -> String:
 
 ## Convert wave data to gremlins spawn string
 func _get_gremlins_string(wave_data: Dictionary) -> String:
+	# First try gremlins field
 	var gremlins = wave_data.get("gremlins", "")
 	
+	# If gremlins field has description text, check is_boss field
+	if gremlins is String and (gremlins.contains("Learn") or gremlins.contains("Introduction") or gremlins.contains("Multiple")):
+		gremlins = wave_data.get("is_boss", "")
+	
 	# Handle both string and array format
-	if gremlins is String:
+	if gremlins is String and not gremlins.is_empty():
 		return gremlins
-	elif gremlins is Array:
+	elif gremlins is Array and gremlins.size() > 0:
 		# Join array elements with pipe separator
 		var gremlin_names: Array[String] = []
 		for g in gremlins:
