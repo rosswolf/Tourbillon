@@ -181,27 +181,28 @@ func __pulse_slot(slot: EngineSlot) -> void:
 func orchestrate_gear_fire(slot: EngineSlot) -> void:
 	ui_gear_fire.emit(slot.grid_position)
 	
-	# Create firing visual effect
-	var tween = create_tween()
+	# Immediately reset progress bar to 0 (before any effects)
+	if slot.get_node_or_null("%ProgressBar"):
+		var progress_bar = slot.get_node("%ProgressBar")
+		progress_bar.value = 0
 	
-	# Flash effect
-	tween.tween_property(slot, "modulate", Color(2.0, 2.0, 2.0), 0.1)
-	tween.tween_property(slot, "modulate", Color.WHITE, 0.2)
-	
-	# Rotation for mechanical feel
-	tween.parallel().tween_property(slot, "rotation", 0.1, 0.1)
-	tween.tween_property(slot, "rotation", -0.1, 0.1)
-	tween.tween_property(slot, "rotation", 0.0, 0.1)
-	
-	# Reset the slot's timer with visual feedback
+	# Reset the slot's timer
 	slot.current_beats = 0
 	slot.__exit_ready_state()
 	
-	# Animate progress bar reset
-	if slot.get_node_or_null("%ProgressBar"):
-		var progress_bar = slot.get_node("%ProgressBar")
-		var reset_tween = create_tween()
-		reset_tween.tween_property(progress_bar, "value", 0, 0.3)
+	# Create firing visual effect
+	var tween = create_tween()
+	
+	# Golden flash effect to match activation
+	var activation_color = Color(1.8, 1.5, 1.0, 1.0)  # Bright golden
+	tween.tween_property(slot, "modulate", activation_color, 0.05)
+	tween.tween_property(slot, "modulate", Color(1.3, 1.2, 1.0, 1.0), 0.15)  # Hold golden
+	tween.tween_property(slot, "modulate", Color.WHITE, 0.3)  # Fade to normal
+	
+	# Small punch animation for mechanical feel
+	tween.parallel().tween_property(slot, "scale", Vector2(1.1, 1.1), 0.05)
+	tween.tween_property(slot, "scale", Vector2(0.95, 0.95), 0.1)
+	tween.tween_property(slot, "scale", Vector2(1.0, 1.0), 0.15)
 
 ## Show a visual flash to indicate beat tick
 func __show_beat_flash() -> void:

@@ -172,7 +172,7 @@ func update_progress_display(percent: float, is_ready: bool = false) -> void:
 		%ProgressBar.modulate = Color.WHITE  # White when charging
 
 
-## Show activation feedback - full bar that holds then resets
+## Show activation feedback - glow effect with immediate progress reset
 func show_activation_feedback() -> void:
 	if not %ProgressBar or not __button_entity or not __button_entity.card:
 		return
@@ -181,30 +181,40 @@ func show_activation_feedback() -> void:
 	if __button_entity.card.production_interval == 0:
 		return
 	
-	# Mark that we're animating activation
-	%ProgressBar.set_meta("activating", true)
-	
-	# Kill any existing tweens on the progress bar to prevent conflicts
-	if %ProgressBar.has_meta("tween"):
-		var old_tween = %ProgressBar.get_meta("tween")
-		if old_tween and old_tween.is_valid():
-			old_tween.kill()
-	if %ProgressBar.has_meta("update_tween"):
-		var old_tween = %ProgressBar.get_meta("update_tween")
+	# Kill any existing tweens to prevent conflicts
+	if has_meta("activation_tween"):
+		var old_tween = get_meta("activation_tween")
 		if old_tween and old_tween.is_valid():
 			old_tween.kill()
 	
+	# Immediately reset progress bar to 0
 	%ProgressBar.visible = true
-	%ProgressBar.value = 100
-	%ProgressBar.modulate = Color(1.0, 1.0, 1.0, 1.0)  # White/bright for activation
+	%ProgressBar.value = 0
 	
-	# Create a tween sequence: hold full, then reset to empty
+	# Create glow effect on the entire slot
 	var tween = create_tween()
-	%ProgressBar.set_meta("tween", tween)
-	tween.tween_interval(1.0)  # Hold at full for 1 second
-	tween.tween_property(%ProgressBar, "value", 0, 0.3)  # Reset to 0 over 0.3 seconds
-	tween.tween_property(%ProgressBar, "modulate", Color.WHITE, 0.1)  # Back to white
-	tween.tween_callback(func(): %ProgressBar.set_meta("activating", false))  # Clear activation flag
+	set_meta("activation_tween", tween)
+	
+	# Bright golden glow to show activation
+	var glow_color = Color(1.5, 1.3, 0.8, 1.0)  # Golden glow
+	tween.tween_property(self, "modulate", glow_color, 0.1)
+	tween.tween_property(self, "modulate", Color.WHITE, 0.4)
+	
+	# Add a border/outline effect if we have a panel
+	var panel = get_node_or_null("%Panel")
+	if panel and panel.has_theme_stylebox_override("panel"):
+		var style = panel.get_theme_stylebox("panel").duplicate()
+		if style.has_method("set_border_width_all"):
+			style.set_border_width_all(3)
+			style.set_border_color(Color(1.0, 0.9, 0.4, 1.0))  # Golden border
+			panel.add_theme_stylebox_override("panel", style)
+			# Reset border after glow fades
+			tween.tween_callback(func(): 
+				if panel:
+					style.set_border_width_all(1)
+					style.set_border_color(Color(0.5, 0.5, 0.5, 1.0))
+					panel.add_theme_stylebox_override("panel", style)
+			)
 
 ## Reset visual state
 func reset() -> void:
