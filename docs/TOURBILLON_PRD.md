@@ -531,14 +531,17 @@ Tags create synergies and define gear identities. Gears typically have 1-4 tags.
 
 ### 6.5 Combat Mechanics
 - **Damage**: Direct HP reduction to gremlins (can target topmost, bottommost, weakest, AOE)
+- **Heal**: Restore player HP (cannot exceed maximum)
+- **Shield**: Grant temporary HP that absorbs damage first
 - **Poison**: Damage over time (ticks on whole seconds), ignores shields
-- **Pierce**: Ignore armor
+- **Pierce**: Ignore armor/shields
 - **Pop**: Double damage vs shields
 - **Delay**: Delay a gremlin from activating disruptions
 - **Disable**: Disable a gremlin's disruptions for X seconds
 - **Execute**: Instantly kill gremlins below HP threshold
 - **Overkill**: Excess damage carries to next gremlin
-- **Burn**: Gremlins can't heal while burned
+- **Burn**: Target can't heal while burned
+- **Lifesteal**: Damage dealt heals player for X% of damage
 
 ### 6.6 Force Manipulation Mechanics
 - **Efficient**: Increase production amounts
@@ -645,6 +648,31 @@ Tags create synergies and define gear identities. Gears typically have 1-4 tags.
 - Tags: [Beast, Shadow, Chaos]
 - Cost: 4 Ticks
 - "Fires every 3 Ticks: Consume 2 Entropy/Purple → 2 damage. +1 damage per Beast, +2 if no adjacent gears"
+
+**"Chain Driver" (Momentum/Green Common)**
+- Tags: [Mech, Spark]
+- Cost: 2 Ticks
+- "Fires every 4 Ticks: Produce 2 Momentum/Green. Activate SOUTH"
+
+**"Repair Station" (Balance/White Uncommon)**
+- Tags: [Forge, Tool]
+- Cost: 3 Ticks
+- "Fires every 5 Ticks: Consume 3 Balance/White → Heal 8 HP"
+
+**"Shield Generator" (Precision/Blue Common)**
+- Tags: [Crystal, Order]
+- Cost: 2 Ticks
+- "Fires every 3 Ticks: Consume 2 Precision/Blue → Gain 5 Shields. Activate NORTH"
+
+**"Emergency Protocols" (Colorless Rare)**
+- Tags: [Titan, Stone]
+- Cost: 5 Ticks
+- "When played: Heal 15 HP. Fires every 8 Ticks: If HP < 30, gain 10 Shields"
+
+**"Cascade Trigger" (Heat/Red Uncommon)**
+- Tags: [Micro, Chaos]
+- Cost: 1 Tick
+- "When played: Activate EAST. Fires every 2 Ticks: Activate WEST"
 
 ## 8. Gremlin System (Combat)
 
@@ -842,14 +870,19 @@ Gremlins impose disruptions while infesting your mechanism:
 - Time advances in Beats - 10 Beats = 1 Tick; all gears check their timers every Beat
 
 ### 12.3 Combat Basics (Fighting Gremlins)
+- Player health - You start with 100 HP; lose when it reaches 0
+- Shields protect you - Temporary HP that absorbs damage first
+- Gremlins attack back - They deal damage to you every X Ticks
 - Gremlins disrupt your mechanism - Each adds constraints while alive
 - Convert forces to damage - Some gears turn resources into attacks
-- Victory condition - Defeat all gremlins before running out of cards
-- Gremlin timers - Gremlins activate disruptions every X Ticks
+- Healing is possible - Some gears can restore your HP
+- Victory condition - Defeat all gremlins before losing all HP
+- Gremlin timers - Gremlins activate disruptions and attacks every X Ticks
 
 ### 12.4 Advanced Concepts (Strategy Layer)
 - Tags create synergies - Gears with matching tags boost each other
 - Position bonuses - Some movement plate positions grant special effects
+- Directional activation - Some gears can trigger adjacent gears (NORTH/SOUTH/EAST/WEST)
 - Overbuild inherits timers - Ready gears pass their wound-up timer when replaced
 - Inspiration currency - Earn from defeating gremlins, spend at workshops for new cards
 - The Wheel - Each run is an attempt to break the cosmic cycle
