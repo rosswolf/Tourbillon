@@ -23,16 +23,23 @@ func _ready() -> void:
 
 ## Spawn a gremlin from a template ID in mob_data
 func spawn_gremlin(template_id: String, slot_index: int = -1) -> Gremlin:
+	print("[GremlinSpawnController] Attempting to spawn: ", template_id)
+	
 	# Access mob_data directly from StaticData
 	if not StaticData.mob_data:
 		push_error("mob_data not loaded in StaticData")
 		return null
 	
+	print("[GremlinSpawnController] mob_data size: ", StaticData.mob_data.size())
+	
 	var gremlin_data = StaticData.get_mob_by_id(template_id)
 	
 	if gremlin_data.is_empty():
 		push_error("Gremlin template not found: " + template_id)
+		print("[GremlinSpawnController] Available mob IDs: ", StaticData.mob_data.keys())
 		return null
+	
+	print("[GremlinSpawnController] Found mob data for: ", gremlin_data.get("display_name", "Unknown"))
 	
 	# Use existing GremlinBuilder pattern
 	var builder = Gremlin.GremlinBuilder.new()
@@ -86,7 +93,8 @@ func spawn_gremlin(template_id: String, slot_index: int = -1) -> Gremlin:
 	# Emit spawn signal
 	gremlin_spawned.emit(gremlin)
 	
-	print("Spawned gremlin: ", gremlin.gremlin_name, " in slot ", gremlin.slot_index)
+	print("[GremlinSpawnController] Successfully spawned: ", gremlin.gremlin_name, " in slot ", gremlin.slot_index)
+	print("[GremlinSpawnController] Gremlin stats - HP: ", gremlin.current_hp, "/", gremlin.max_hp, ", Armor: ", gremlin.armor, ", Shields: ", gremlin.shields)
 	
 	return gremlin
 
