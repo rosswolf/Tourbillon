@@ -107,13 +107,9 @@ func start_next_wave() -> void:
 	var gremlins_str = _get_gremlins_string(wave_data)
 	
 	print("[EndlessWaveManager] Selected: ", wave_data.get("display_name", wave_id), " (difficulty: ", current_difficulty_value, ")")
-	print("[DEBUG] [EndlessWaveManager] Wave data: ", wave_data)
-	print("[DEBUG] [EndlessWaveManager] Gremlins string: '", gremlins_str, "'")
-	print("[DEBUG] [EndlessWaveManager] GremlinSpawnController.instance: ", GremlinSpawnController.instance)
 	
 	# Spawn the wave
 	if GremlinSpawnController.instance and not gremlins_str.is_empty():
-		print("[DEBUG] [EndlessWaveManager] Calling spawn_wave with: '", gremlins_str, "'")
 		var gremlins = GremlinSpawnController.instance.spawn_wave(gremlins_str)
 		print("[EndlessWaveManager] Spawned ", gremlins.size(), " gremlins")
 	elif GremlinSpawnController.instance == null:
@@ -155,31 +151,18 @@ func _select_closest_wave(target_diff: int) -> String:
 
 ## Convert wave data to gremlins spawn string
 func _get_gremlins_string(wave_data: Dictionary) -> String:
-	# First try gremlins field
 	var gremlins = wave_data.get("gremlins", "")
-	print("[DEBUG] [_get_gremlins_string] Raw gremlins field: ", gremlins, " (type: ", typeof(gremlins), ")")
-	
-	# If gremlins field has description text (contains spaces), check is_boss field instead
-	if gremlins is String and gremlins.contains(" "):
-		print("[DEBUG] [_get_gremlins_string] Gremlins field contains description text, checking is_boss")
-		gremlins = wave_data.get("is_boss", "")
-		print("[DEBUG] [_get_gremlins_string] is_boss field: ", gremlins)
 	
 	# Handle both string and array format
 	if gremlins is String and not gremlins.is_empty():
-		print("[DEBUG] [_get_gremlins_string] Returning string: '", gremlins, "'")
 		return gremlins
 	elif gremlins is Array and gremlins.size() > 0:
-		print("[DEBUG] [_get_gremlins_string] Processing array of ", gremlins.size(), " items: ", gremlins)
 		# Join array elements with pipe separator
 		var gremlin_names: Array[String] = []
 		for g in gremlins:
 			gremlin_names.append(str(g))
-		var result = "|".join(gremlin_names)
-		print("[DEBUG] [_get_gremlins_string] Returning joined string: '", result, "'")
-		return result
+		return "|".join(gremlin_names)
 	
-	print("[DEBUG] [_get_gremlins_string] No valid gremlins found, returning empty string")
 	return ""
 
 ## Handle all gremlins defeated

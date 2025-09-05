@@ -1,30 +1,70 @@
 [
   {
-    "wave_id": "wave_1a",
-    "display_name": "First Contact",
+    "wave_id": "wave_1e",
+    "display_name": "Protected Pest",
     "act": 1,
-    "difficulty": 8,
-    "archetype": "Rush Threat - Single Constraint",
-    "strategy_hint": "Teaches soft caps and resource spending pressure",
-    "gremlins": "dust_mite"
+    "difficulty": 1,
+    "archetype": "Protected Constraint - Multi-Hit Tutorial",
+    "strategy_hint": "Teaches multi-hit strategies vs barriers",
+    "gremlins": "constricting_barrier_gnat"
   },
   {
-    "wave_id": "wave_1b",
-    "display_name": "Mechanical Disruption",
+    "wave_id": "wave_4a",
+    "display_name": "Single Scout",
     "act": 1,
-    "difficulty": 12,
-    "archetype": "Disruption Threat - Timing Penalty",
-    "strategy_hint": "Teaches timing efficiency and card sequencing",
-    "gremlins": "gear_tick"
+    "difficulty": 1,
+    "archetype": "Trivial",
+    "strategy_hint": "Tutorial",
+    "gremlins": "basic_gnat",
+    "is_boss": "basic_gnat"
   },
   {
-    "wave_id": "wave_1c",
-    "display_name": "Armored Introduction",
+    "wave_id": "wave_4c",
+    "display_name": "Barrier Test",
     "act": 1,
-    "difficulty": 9,
-    "archetype": "Turtle Threat - Armor Tutorial",
-    "strategy_hint": "Teaches armor mechanics and sustained damage",
-    "gremlins": "rust_speck"
+    "difficulty": 2,
+    "archetype": "Trivial",
+    "strategy_hint": "Defense Tutorial",
+    "gremlins": [
+      "barrier_gnat",
+      "barrier_gnat"
+    ],
+    "gremlins_dict": {
+      "0": "barrier_gnat",
+      "1": "barrier_gnat"
+    },
+    "is_boss": [
+      "barrier_gnat",
+      "barrier_gnat"
+    ],
+    "is_boss_dict": {
+      "0": "barrier_gnat",
+      "1": "barrier_gnat"
+    }
+  },
+  {
+    "wave_id": "wave_4f",
+    "display_name": "Double Gnats",
+    "act": 1,
+    "difficulty": 2,
+    "archetype": "Trivial",
+    "strategy_hint": "Swarm Intro",
+    "gremlins": [
+      "basic_gnat",
+      "basic_gnat"
+    ],
+    "gremlins_dict": {
+      "0": "basic_gnat",
+      "1": "basic_gnat"
+    },
+    "is_boss": [
+      "basic_gnat",
+      "basic_gnat"
+    ],
+    "is_boss_dict": {
+      "0": "basic_gnat",
+      "1": "basic_gnat"
+    }
   },
   {
     "wave_id": "wave_1d",
@@ -45,13 +85,295 @@
     }
   },
   {
-    "wave_id": "wave_1e",
-    "display_name": "Protected Pest",
+    "wave_id": "wave_5e",
+    "display_name": "Gnat Swarm",
     "act": 1,
-    "difficulty": 1,
-    "archetype": "Protected Constraint - Multi-Hit Tutorial",
-    "strategy_hint": "Teaches multi-hit strategies vs barriers",
-    "gremlins": "constricting_barrier_gnat"
+    "difficulty": 5,
+    "archetype": "Trivial",
+    "strategy_hint": "Pure Swarm",
+    "gremlins": [
+      "basic_gnat",
+      "basic_gnat",
+      "basic_gnat",
+      "basic_gnat",
+      "basic_gnat"
+    ],
+    "gremlins_dict": {
+      "0": "basic_gnat",
+      "1": "basic_gnat",
+      "2": "basic_gnat",
+      "3": "basic_gnat",
+      "4": "basic_gnat"
+    },
+    "is_boss": [
+      "basic_gnat",
+      "basic_gnat",
+      "basic_gnat",
+      "basic_gnat",
+      "basic_gnat"
+    ],
+    "is_boss_dict": {
+      "0": "basic_gnat",
+      "1": "basic_gnat",
+      "2": "basic_gnat",
+      "3": "basic_gnat",
+      "4": "basic_gnat"
+    }
+  },
+  {
+    "wave_id": "wave_1a",
+    "display_name": "First Contact",
+    "act": 1,
+    "difficulty": 8,
+    "archetype": "Rush Threat - Single Constraint",
+    "strategy_hint": "Teaches soft caps and resource spending pressure",
+    "gremlins": "dust_mite"
+  },
+  {
+    "wave_id": "wave_4b",
+    "display_name": "Lone Mite",
+    "act": 1,
+    "difficulty": 8,
+    "archetype": "Trivial",
+    "strategy_hint": "Rush Threat",
+    "gremlins": "dust_mite",
+    "is_boss": "dust_mite"
+  },
+  {
+    "wave_id": "wave_1c",
+    "display_name": "Armored Introduction",
+    "act": 1,
+    "difficulty": 9,
+    "archetype": "Turtle Threat - Armor Tutorial",
+    "strategy_hint": "Teaches armor mechanics and sustained damage",
+    "gremlins": "rust_speck"
+  },
+  {
+    "wave_id": "wave_4d",
+    "display_name": "Sparks Fly",
+    "act": 1,
+    "difficulty": 10,
+    "archetype": "Easy",
+    "strategy_hint": "Damage Tutorial",
+    "gremlins": "spark_flea",
+    "is_boss": "spark_flea"
+  },
+  {
+    "wave_id": "wave_1b",
+    "display_name": "Mechanical Disruption",
+    "act": 1,
+    "difficulty": 12,
+    "archetype": "Disruption Threat - Timing Penalty",
+    "strategy_hint": "Teaches timing efficiency and card sequencing",
+    "gremlins": "gear_tick"
+  },
+  {
+    "wave_id": "wave_5a",
+    "display_name": "Tick Tock",
+    "act": 1,
+    "difficulty": 13,
+    "archetype": "Easy",
+    "strategy_hint": "Mixed Threat",
+    "gremlins": [
+      "gear_tick",
+      "basic_gnat"
+    ],
+    "gremlins_dict": {
+      "0": "gear_tick",
+      "1": "basic_gnat"
+    },
+    "is_boss": [
+      "gear_tick",
+      "basic_gnat"
+    ],
+    "is_boss_dict": {
+      "0": "gear_tick",
+      "1": "basic_gnat"
+    }
+  },
+  {
+    "wave_id": "wave_4e",
+    "display_name": "Precision Strike",
+    "act": 1,
+    "difficulty": 14,
+    "archetype": "Easy",
+    "strategy_hint": "Precision Tutorial",
+    "gremlins": "precision_mite",
+    "is_boss": "precision_mite"
+  },
+  {
+    "wave_id": "wave_5b",
+    "display_name": "Double Dust",
+    "act": 1,
+    "difficulty": 16,
+    "archetype": "Easy",
+    "strategy_hint": "Rush Swarm",
+    "gremlins": [
+      "dust_mite",
+      "dust_mite"
+    ],
+    "gremlins_dict": {
+      "0": "dust_mite",
+      "1": "dust_mite"
+    },
+    "is_boss": [
+      "dust_mite",
+      "dust_mite"
+    ],
+    "is_boss_dict": {
+      "0": "dust_mite",
+      "1": "dust_mite"
+    }
+  },
+  {
+    "wave_id": "wave_5c",
+    "display_name": "Siphon Intro",
+    "act": 1,
+    "difficulty": 17,
+    "archetype": "Easy",
+    "strategy_hint": "Drain Threat",
+    "gremlins": "siphon_tick",
+    "is_boss": "siphon_tick"
+  },
+  {
+    "wave_id": "wave_5d",
+    "display_name": "Mixed Pests",
+    "act": 1,
+    "difficulty": 17,
+    "archetype": "Easy",
+    "strategy_hint": "Varied Threat",
+    "gremlins": [
+      "rust_speck",
+      "dust_mite"
+    ],
+    "gremlins_dict": {
+      "0": "rust_speck",
+      "1": "dust_mite"
+    },
+    "is_boss": [
+      "rust_speck",
+      "dust_mite"
+    ],
+    "is_boss_dict": {
+      "0": "rust_speck",
+      "1": "dust_mite"
+    }
+  },
+  {
+    "wave_id": "wave_5f",
+    "display_name": "Spark and Dust",
+    "act": 1,
+    "difficulty": 18,
+    "archetype": "Easy",
+    "strategy_hint": "Damage Rush",
+    "gremlins": [
+      "spark_flea",
+      "dust_mite"
+    ],
+    "gremlins_dict": {
+      "0": "spark_flea",
+      "1": "dust_mite"
+    },
+    "is_boss": [
+      "spark_flea",
+      "dust_mite"
+    ],
+    "is_boss_dict": {
+      "0": "spark_flea",
+      "1": "dust_mite"
+    }
+  },
+  {
+    "wave_id": "wave_6b",
+    "display_name": "Chaos Begins",
+    "act": 2,
+    "difficulty": 27,
+    "archetype": "Medium",
+    "strategy_hint": "Chaos Threat",
+    "gremlins": "chaos_imp",
+    "is_boss": "chaos_imp"
+  },
+  {
+    "wave_id": "wave_6f",
+    "display_name": "Armored Squad",
+    "act": 2,
+    "difficulty": 27,
+    "archetype": "Medium",
+    "strategy_hint": "Armor Tutorial",
+    "gremlins": [
+      "rust_speck",
+      "rust_speck",
+      "rust_speck"
+    ],
+    "gremlins_dict": {
+      "0": "rust_speck",
+      "1": "rust_speck",
+      "2": "rust_speck"
+    },
+    "is_boss": [
+      "rust_speck",
+      "rust_speck",
+      "rust_speck"
+    ],
+    "is_boss_dict": {
+      "0": "rust_speck",
+      "1": "rust_speck",
+      "2": "rust_speck"
+    }
+  },
+  {
+    "wave_id": "wave_6a",
+    "display_name": "Oil Slick",
+    "act": 2,
+    "difficulty": 28,
+    "archetype": "Medium",
+    "strategy_hint": "Resource Drain",
+    "gremlins": "oil_thief",
+    "is_boss": "oil_thief"
+  },
+  {
+    "wave_id": "wave_6e",
+    "display_name": "Dual Ticks",
+    "act": 2,
+    "difficulty": 29,
+    "archetype": "Medium",
+    "strategy_hint": "Double Disruption",
+    "gremlins": [
+      "gear_tick",
+      "siphon_tick"
+    ],
+    "gremlins_dict": {
+      "0": "gear_tick",
+      "1": "siphon_tick"
+    },
+    "is_boss": [
+      "gear_tick",
+      "siphon_tick"
+    ],
+    "is_boss_dict": {
+      "0": "gear_tick",
+      "1": "siphon_tick"
+    }
+  },
+  {
+    "wave_id": "wave_6c",
+    "display_name": "Spawner Alert",
+    "act": 2,
+    "difficulty": 30,
+    "archetype": "Medium",
+    "strategy_hint": "Spawner Threat",
+    "gremlins": "gnat_spawner",
+    "is_boss": "gnat_spawner"
+  },
+  {
+    "wave_id": "wave_6d",
+    "display_name": "Momentum Steal",
+    "act": 2,
+    "difficulty": 30,
+    "archetype": "Medium",
+    "strategy_hint": "Momentum Drain",
+    "gremlins": "momentum_thief",
+    "is_boss": "momentum_thief"
   },
   {
     "wave_id": "wave_1f",
@@ -61,6 +383,106 @@
     "archetype": "Scaling Threat - Time Pressure",
     "strategy_hint": "Teaches elimination priority and timing",
     "gremlins": "spring_snapper"
+  },
+  {
+    "wave_id": "wave_7a",
+    "display_name": "Spring Attack",
+    "act": 2,
+    "difficulty": 36,
+    "archetype": "Medium",
+    "strategy_hint": "Spring Threat",
+    "gremlins": "spring_snapper",
+    "is_boss": "spring_snapper"
+  },
+  {
+    "wave_id": "wave_7d",
+    "display_name": "Feedback Begin",
+    "act": 2,
+    "difficulty": 36,
+    "archetype": "Medium",
+    "strategy_hint": "Feedback Loop",
+    "gremlins": "feedback_loop",
+    "is_boss": "feedback_loop"
+  },
+  {
+    "wave_id": "wave_7e",
+    "display_name": "Dual Springs",
+    "act": 2,
+    "difficulty": 37,
+    "archetype": "Medium",
+    "strategy_hint": "Double Spring",
+    "gremlins": [
+      "spring_snapper",
+      "basic_gnat"
+    ],
+    "gremlins_dict": {
+      "0": "spring_snapper",
+      "1": "basic_gnat"
+    },
+    "is_boss": [
+      "spring_snapper",
+      "basic_gnat"
+    ],
+    "is_boss_dict": {
+      "0": "spring_snapper",
+      "1": "basic_gnat"
+    }
+  },
+  {
+    "wave_id": "wave_7b",
+    "display_name": "Phase One",
+    "act": 2,
+    "difficulty": 40,
+    "archetype": "Medium",
+    "strategy_hint": "Phase Threat",
+    "gremlins": "phase_shifter",
+    "is_boss": "phase_shifter"
+  },
+  {
+    "wave_id": "wave_2d",
+    "display_name": "Resource Stranglehold",
+    "act": 2,
+    "difficulty": 42,
+    "archetype": "Multi-Constraint Swarm",
+    "strategy_hint": "Tests multi-hit efficiency vs protected constraints",
+    "gremlins": [
+      "constricting_barrier_gnat",
+      "draining_barrier_gnat",
+      "toxic_barrier_gnat"
+    ],
+    "gremlins_dict": {
+      "0": "constricting_barrier_gnat",
+      "1": "draining_barrier_gnat",
+      "2": "toxic_barrier_gnat"
+    }
+  },
+  {
+    "wave_id": "wave_7f",
+    "display_name": "Chaos Patrol",
+    "act": 2,
+    "difficulty": 43,
+    "archetype": "Medium",
+    "strategy_hint": "Chaos Squad",
+    "gremlins": [
+      "chaos_imp",
+      "dust_mite",
+      "dust_mite"
+    ],
+    "gremlins_dict": {
+      "0": "chaos_imp",
+      "1": "dust_mite",
+      "2": "dust_mite"
+    },
+    "is_boss": [
+      "chaos_imp",
+      "dust_mite",
+      "dust_mite"
+    ],
+    "is_boss_dict": {
+      "0": "chaos_imp",
+      "1": "dust_mite",
+      "2": "dust_mite"
+    }
   },
   {
     "wave_id": "wave_2a",
@@ -81,19 +503,65 @@
     }
   },
   {
-    "wave_id": "wave_2b",
-    "display_name": "Synergistic Chaos",
+    "wave_id": "wave_7c",
+    "display_name": "Oil Squad",
     "act": 2,
-    "difficulty": 63,
-    "archetype": "Synergy + Scaling Threat",
-    "strategy_hint": "Tests understanding of force multiplication",
+    "difficulty": 44,
+    "archetype": "Medium",
+    "strategy_hint": "Drain Squad",
     "gremlins": [
-      "chaos_imp",
-      "spring_snapper"
+      "oil_thief",
+      "dust_mite",
+      "dust_mite"
     ],
     "gremlins_dict": {
-      "0": "chaos_imp",
-      "1": "spring_snapper"
+      "0": "oil_thief",
+      "1": "dust_mite",
+      "2": "dust_mite"
+    },
+    "is_boss": [
+      "oil_thief",
+      "dust_mite",
+      "dust_mite"
+    ],
+    "is_boss_dict": {
+      "0": "oil_thief",
+      "1": "dust_mite",
+      "2": "dust_mite"
+    }
+  },
+  {
+    "wave_id": "wave_8b",
+    "display_name": "Echo Test",
+    "act": 2,
+    "difficulty": 55,
+    "archetype": "Hard",
+    "strategy_hint": "Echo Threat",
+    "gremlins": "echo_chamber",
+    "is_boss": "echo_chamber"
+  },
+  {
+    "wave_id": "wave_8c",
+    "display_name": "Double Trouble",
+    "act": 2,
+    "difficulty": 56,
+    "archetype": "Hard",
+    "strategy_hint": "Double Drain",
+    "gremlins": [
+      "oil_thief",
+      "oil_thief"
+    ],
+    "gremlins_dict": {
+      "0": "oil_thief",
+      "1": "oil_thief"
+    },
+    "is_boss": [
+      "oil_thief",
+      "oil_thief"
+    ],
+    "is_boss_dict": {
+      "0": "oil_thief",
+      "1": "oil_thief"
     }
   },
   {
@@ -117,21 +585,311 @@
     }
   },
   {
-    "wave_id": "wave_2d",
-    "display_name": "Resource Stranglehold",
+    "wave_id": "wave_8a",
+    "display_name": "Mirror Match",
     "act": 2,
-    "difficulty": 42,
-    "archetype": "Multi-Constraint Swarm",
-    "strategy_hint": "Tests multi-hit efficiency vs protected constraints",
+    "difficulty": 60,
+    "archetype": "Hard",
+    "strategy_hint": "Mirror Threat",
+    "gremlins": "mirror_warden",
+    "is_boss": "mirror_warden"
+  },
+  {
+    "wave_id": "wave_2b",
+    "display_name": "Synergistic Chaos",
+    "act": 2,
+    "difficulty": 63,
+    "archetype": "Synergy + Scaling Threat",
+    "strategy_hint": "Tests understanding of force multiplication",
     "gremlins": [
-      "constricting_barrier_gnat",
-      "draining_barrier_gnat",
-      "toxic_barrier_gnat"
+      "chaos_imp",
+      "spring_snapper"
     ],
     "gremlins_dict": {
-      "0": "constricting_barrier_gnat",
-      "1": "draining_barrier_gnat",
-      "2": "toxic_barrier_gnat"
+      "0": "chaos_imp",
+      "1": "spring_snapper"
+    }
+  },
+  {
+    "wave_id": "wave_9d",
+    "display_name": "Triple Oil",
+    "act": 2,
+    "difficulty": 64,
+    "archetype": "Hard",
+    "strategy_hint": "Triple Drain",
+    "gremlins": [
+      "oil_thief",
+      "oil_thief",
+      "dust_mite"
+    ],
+    "gremlins_dict": {
+      "0": "oil_thief",
+      "1": "oil_thief",
+      "2": "dust_mite"
+    },
+    "is_boss": [
+      "oil_thief",
+      "oil_thief",
+      "dust_mite"
+    ],
+    "is_boss_dict": {
+      "0": "oil_thief",
+      "1": "oil_thief",
+      "2": "dust_mite"
+    }
+  },
+  {
+    "wave_id": "wave_9a",
+    "display_name": "Time Nibble",
+    "act": 2,
+    "difficulty": 67,
+    "archetype": "Hard",
+    "strategy_hint": "Time Threat",
+    "gremlins": "time_nibbler",
+    "is_boss": "time_nibbler"
+  },
+  {
+    "wave_id": "wave_9b",
+    "display_name": "Resource War",
+    "act": 2,
+    "difficulty": 74,
+    "archetype": "Hard",
+    "strategy_hint": "Resource Control",
+    "gremlins": "resource_tyrant",
+    "is_boss": "resource_tyrant"
+  },
+  {
+    "wave_id": "wave_9c",
+    "display_name": "Mirror Chaos",
+    "act": 2,
+    "difficulty": 75,
+    "archetype": "Hard",
+    "strategy_hint": "Reflect Chaos",
+    "gremlins": [
+      "mirror_warden",
+      "dust_mite",
+      "dust_mite",
+      "dust_mite"
+    ],
+    "gremlins_dict": {
+      "0": "mirror_warden",
+      "1": "dust_mite",
+      "2": "dust_mite",
+      "3": "dust_mite"
+    },
+    "is_boss": [
+      "mirror_warden",
+      "dust_mite",
+      "dust_mite",
+      "dust_mite"
+    ],
+    "is_boss_dict": {
+      "0": "mirror_warden",
+      "1": "dust_mite",
+      "2": "dust_mite",
+      "3": "dust_mite"
+    }
+  },
+  {
+    "wave_id": "wave_9e",
+    "display_name": "Echo Swarm",
+    "act": 2,
+    "difficulty": 79,
+    "archetype": "Hard",
+    "strategy_hint": "Echo Multiple",
+    "gremlins": [
+      "echo_chamber",
+      "dust_mite",
+      "dust_mite",
+      "dust_mite"
+    ],
+    "gremlins_dict": {
+      "0": "echo_chamber",
+      "1": "dust_mite",
+      "2": "dust_mite",
+      "3": "dust_mite"
+    },
+    "is_boss": [
+      "echo_chamber",
+      "dust_mite",
+      "dust_mite",
+      "dust_mite"
+    ],
+    "is_boss_dict": {
+      "0": "echo_chamber",
+      "1": "dust_mite",
+      "2": "dust_mite",
+      "3": "dust_mite"
+    }
+  },
+  {
+    "wave_id": "wave_9f",
+    "display_name": "Dual Phase",
+    "act": 2,
+    "difficulty": 80,
+    "archetype": "Hard",
+    "strategy_hint": "Double Phase",
+    "gremlins": [
+      "phase_shifter",
+      "phase_shifter"
+    ],
+    "gremlins_dict": {
+      "0": "phase_shifter",
+      "1": "phase_shifter"
+    },
+    "is_boss": [
+      "phase_shifter",
+      "phase_shifter"
+    ],
+    "is_boss_dict": {
+      "0": "phase_shifter",
+      "1": "phase_shifter"
+    }
+  },
+  {
+    "wave_id": "wave_10a",
+    "display_name": "Gear Grind",
+    "act": 3,
+    "difficulty": 81,
+    "archetype": "Hard",
+    "strategy_hint": "Grinder Threat",
+    "gremlins": "gear_grinder",
+    "is_boss": "gear_grinder"
+  },
+  {
+    "wave_id": "wave_10e",
+    "display_name": "Grinder Pair",
+    "act": 3,
+    "difficulty": 89,
+    "archetype": "Hard",
+    "strategy_hint": "Grinder Support",
+    "gremlins": [
+      "gear_grinder",
+      "dust_mite"
+    ],
+    "gremlins_dict": {
+      "0": "gear_grinder",
+      "1": "dust_mite"
+    },
+    "is_boss": [
+      "gear_grinder",
+      "dust_mite"
+    ],
+    "is_boss_dict": {
+      "0": "gear_grinder",
+      "1": "dust_mite"
+    }
+  },
+  {
+    "wave_id": "wave_10b",
+    "display_name": "Entropy Rising",
+    "act": 3,
+    "difficulty": 91,
+    "archetype": "Hard",
+    "strategy_hint": "Entropy Threat",
+    "gremlins": "entropic_mass",
+    "is_boss": "entropic_mass"
+  },
+  {
+    "wave_id": "wave_10c",
+    "display_name": "Paradox Found",
+    "act": 3,
+    "difficulty": 93,
+    "archetype": "Hard",
+    "strategy_hint": "Paradox Threat",
+    "gremlins": "balanced_paradox",
+    "is_boss": "balanced_paradox"
+  },
+  {
+    "wave_id": "wave_10f",
+    "display_name": "Time Echo",
+    "act": 3,
+    "difficulty": 95,
+    "archetype": "Hard",
+    "strategy_hint": "Time Echo Combo",
+    "gremlins": [
+      "time_nibbler",
+      "oil_thief"
+    ],
+    "gremlins_dict": {
+      "0": "time_nibbler",
+      "1": "oil_thief"
+    },
+    "is_boss": [
+      "time_nibbler",
+      "oil_thief"
+    ],
+    "is_boss_dict": {
+      "0": "time_nibbler",
+      "1": "oil_thief"
+    }
+  },
+  {
+    "wave_id": "wave_10d",
+    "display_name": "Constraint Test",
+    "act": 3,
+    "difficulty": 98,
+    "archetype": "Hard",
+    "strategy_hint": "Constraint Engine",
+    "gremlins": "constraint_engine",
+    "is_boss": "constraint_engine"
+  },
+  {
+    "wave_id": "wave_11a",
+    "display_name": "Temporal Feast",
+    "act": 3,
+    "difficulty": 114,
+    "archetype": "Nightmare",
+    "strategy_hint": "Temporal Glutton",
+    "gremlins": "temporal_glutton",
+    "is_boss": "temporal_glutton"
+  },
+  {
+    "wave_id": "wave_11c",
+    "display_name": "Resource Chaos",
+    "act": 3,
+    "difficulty": 114,
+    "archetype": "Nightmare",
+    "strategy_hint": "Resource Control",
+    "gremlins": [
+      "resource_tyrant",
+      "phase_shifter"
+    ],
+    "gremlins_dict": {
+      "0": "resource_tyrant",
+      "1": "phase_shifter"
+    },
+    "is_boss": [
+      "resource_tyrant",
+      "phase_shifter"
+    ],
+    "is_boss_dict": {
+      "0": "resource_tyrant",
+      "1": "phase_shifter"
+    }
+  },
+  {
+    "wave_id": "wave_11b",
+    "display_name": "Double Grind",
+    "act": 3,
+    "difficulty": 117,
+    "archetype": "Nightmare",
+    "strategy_hint": "Double Grinder",
+    "gremlins": [
+      "gear_grinder",
+      "spring_snapper"
+    ],
+    "gremlins_dict": {
+      "0": "gear_grinder",
+      "1": "spring_snapper"
+    },
+    "is_boss": [
+      "gear_grinder",
+      "spring_snapper"
+    ],
+    "is_boss_dict": {
+      "0": "gear_grinder",
+      "1": "spring_snapper"
     }
   },
   {
@@ -153,20 +911,134 @@
     }
   },
   {
-    "wave_id": "wave_2f",
-    "display_name": "The Spawning Nightmare",
-    "act": 2,
-    "difficulty": 171,
-    "archetype": "Elite Summoner + Protected Support",
-    "strategy_hint": "Ultimate summoning challenge with protection",
+    "wave_id": "wave_12f",
+    "display_name": "Time War",
+    "act": 3,
+    "difficulty": 134,
+    "archetype": "Nightmare",
+    "strategy_hint": "Time Battle",
+    "gremlins": [
+      "time_nibbler",
+      "time_nibbler"
+    ],
+    "gremlins_dict": {
+      "0": "time_nibbler",
+      "1": "time_nibbler"
+    },
+    "is_boss": [
+      "time_nibbler",
+      "time_nibbler"
+    ],
+    "is_boss_dict": {
+      "0": "time_nibbler",
+      "1": "time_nibbler"
+    }
+  },
+  {
+    "wave_id": "wave_12b",
+    "display_name": "Double Entropy",
+    "act": 3,
+    "difficulty": 150,
+    "archetype": "Nightmare",
+    "strategy_hint": "Double Chaos",
+    "gremlins": [
+      "entropic_mass",
+      "echo_chamber"
+    ],
+    "gremlins_dict": {
+      "0": "entropic_mass",
+      "1": "echo_chamber"
+    },
+    "is_boss": [
+      "entropic_mass",
+      "echo_chamber"
+    ],
+    "is_boss_dict": {
+      "0": "entropic_mass",
+      "1": "echo_chamber"
+    }
+  },
+  {
+    "wave_id": "wave_12c",
+    "display_name": "Constraint Chaos",
+    "act": 3,
+    "difficulty": 153,
+    "archetype": "Nightmare",
+    "strategy_hint": "Limited Chaos",
+    "gremlins": [
+      "constraint_engine",
+      "echo_chamber"
+    ],
+    "gremlins_dict": {
+      "0": "constraint_engine",
+      "1": "echo_chamber"
+    },
+    "is_boss": [
+      "constraint_engine",
+      "echo_chamber"
+    ],
+    "is_boss_dict": {
+      "0": "constraint_engine",
+      "1": "echo_chamber"
+    }
+  },
+  {
+    "wave_id": "wave_12d",
+    "display_name": "Glutton Squad",
+    "act": 3,
+    "difficulty": 154,
+    "archetype": "Nightmare",
+    "strategy_hint": "Temporal Squad",
     "gremlins": [
       "temporal_glutton",
-      "breeding_barrier_gnat"
+      "phase_shifter"
     ],
     "gremlins_dict": {
       "0": "temporal_glutton",
-      "1": "breeding_barrier_gnat"
+      "1": "phase_shifter"
+    },
+    "is_boss": [
+      "temporal_glutton",
+      "phase_shifter"
+    ],
+    "is_boss_dict": {
+      "0": "temporal_glutton",
+      "1": "phase_shifter"
     }
+  },
+  {
+    "wave_id": "wave_12e",
+    "display_name": "Armor War",
+    "act": 3,
+    "difficulty": 155,
+    "archetype": "Nightmare",
+    "strategy_hint": "Heavy Armor",
+    "gremlins": [
+      "gear_grinder",
+      "resource_tyrant"
+    ],
+    "gremlins_dict": {
+      "0": "gear_grinder",
+      "1": "resource_tyrant"
+    },
+    "is_boss": [
+      "gear_grinder",
+      "resource_tyrant"
+    ],
+    "is_boss_dict": {
+      "0": "gear_grinder",
+      "1": "resource_tyrant"
+    }
+  },
+  {
+    "wave_id": "wave_12a",
+    "display_name": "Rust Awakening",
+    "act": 3,
+    "difficulty": 160,
+    "archetype": "Nightmare",
+    "strategy_hint": "Boss Preview",
+    "gremlins": "rust_king_phase_1",
+    "is_boss": "rust_king_phase_1"
   },
   {
     "wave_id": "wave_3a",
@@ -187,6 +1059,22 @@
     }
   },
   {
+    "wave_id": "wave_2f",
+    "display_name": "The Spawning Nightmare",
+    "act": 2,
+    "difficulty": 171,
+    "archetype": "Elite Summoner + Protected Support",
+    "strategy_hint": "Ultimate summoning challenge with protection",
+    "gremlins": [
+      "temporal_glutton",
+      "breeding_barrier_gnat"
+    ],
+    "gremlins_dict": {
+      "0": "temporal_glutton",
+      "1": "breeding_barrier_gnat"
+    }
+  },
+  {
     "wave_id": "wave_3b",
     "display_name": "Echoing Madness",
     "act": 3,
@@ -202,6 +1090,198 @@
       "0": "echo_chamber",
       "1": "chaos_imp",
       "2": "oil_thief"
+    }
+  },
+  {
+    "wave_id": "wave_13b",
+    "display_name": "Double Paradox",
+    "act": 3,
+    "difficulty": 186,
+    "archetype": "Nightmare",
+    "strategy_hint": "Double Paradox",
+    "gremlins": [
+      "balanced_paradox",
+      "balanced_paradox"
+    ],
+    "gremlins_dict": {
+      "0": "balanced_paradox",
+      "1": "balanced_paradox"
+    },
+    "is_boss": [
+      "balanced_paradox",
+      "balanced_paradox"
+    ],
+    "is_boss_dict": {
+      "0": "balanced_paradox",
+      "1": "balanced_paradox"
+    }
+  },
+  {
+    "wave_id": "wave_13d",
+    "display_name": "Entropy Army",
+    "act": 3,
+    "difficulty": 190,
+    "archetype": "Nightmare",
+    "strategy_hint": "Entropy Battle",
+    "gremlins": [
+      "entropic_mass",
+      "entropic_mass",
+      "dust_mite"
+    ],
+    "gremlins_dict": {
+      "0": "entropic_mass",
+      "1": "entropic_mass",
+      "2": "dust_mite"
+    },
+    "is_boss": [
+      "entropic_mass",
+      "entropic_mass",
+      "dust_mite"
+    ],
+    "is_boss_dict": {
+      "0": "entropic_mass",
+      "1": "entropic_mass",
+      "2": "dust_mite"
+    }
+  },
+  {
+    "wave_id": "wave_13a",
+    "display_name": "Chrono Attack",
+    "act": 3,
+    "difficulty": 192,
+    "archetype": "Nightmare",
+    "strategy_hint": "Chronophage",
+    "gremlins": "chronophage",
+    "is_boss": "chronophage"
+  },
+  {
+    "wave_id": "wave_13f",
+    "display_name": "Temporal Army",
+    "act": 3,
+    "difficulty": 195,
+    "archetype": "Nightmare",
+    "strategy_hint": "Time Army",
+    "gremlins": [
+      "temporal_glutton",
+      "gear_grinder"
+    ],
+    "gremlins_dict": {
+      "0": "temporal_glutton",
+      "1": "gear_grinder"
+    },
+    "is_boss": [
+      "temporal_glutton",
+      "gear_grinder"
+    ],
+    "is_boss_dict": {
+      "0": "temporal_glutton",
+      "1": "gear_grinder"
+    }
+  },
+  {
+    "wave_id": "wave_13c",
+    "display_name": "Rust Squad",
+    "act": 3,
+    "difficulty": 196,
+    "archetype": "Nightmare",
+    "strategy_hint": "Rust Army",
+    "gremlins": [
+      "rust_king_phase_1",
+      "spring_snapper"
+    ],
+    "gremlins_dict": {
+      "0": "rust_king_phase_1",
+      "1": "spring_snapper"
+    },
+    "is_boss": [
+      "rust_king_phase_1",
+      "spring_snapper"
+    ],
+    "is_boss_dict": {
+      "0": "rust_king_phase_1",
+      "1": "spring_snapper"
+    }
+  },
+  {
+    "wave_id": "wave_13e",
+    "display_name": "Constraint Army",
+    "act": 3,
+    "difficulty": 196,
+    "archetype": "Nightmare",
+    "strategy_hint": "Double Constraint",
+    "gremlins": [
+      "constraint_engine",
+      "constraint_engine"
+    ],
+    "gremlins_dict": {
+      "0": "constraint_engine",
+      "1": "constraint_engine"
+    },
+    "is_boss": [
+      "constraint_engine",
+      "constraint_engine"
+    ],
+    "is_boss_dict": {
+      "0": "constraint_engine",
+      "1": "constraint_engine"
+    }
+  },
+  {
+    "wave_id": "wave_14a",
+    "display_name": "Sabotage",
+    "act": 3,
+    "difficulty": 208,
+    "archetype": "Nightmare+",
+    "strategy_hint": "Grand Saboteur",
+    "gremlins": "grand_saboteur",
+    "is_boss": "grand_saboteur"
+  },
+  {
+    "wave_id": "wave_14b",
+    "display_name": "Double Chrono",
+    "act": 3,
+    "difficulty": 232,
+    "archetype": "Nightmare+",
+    "strategy_hint": "Chrono Squad",
+    "gremlins": [
+      "chronophage",
+      "phase_shifter"
+    ],
+    "gremlins_dict": {
+      "0": "chronophage",
+      "1": "phase_shifter"
+    },
+    "is_boss": [
+      "chronophage",
+      "phase_shifter"
+    ],
+    "is_boss_dict": {
+      "0": "chronophage",
+      "1": "phase_shifter"
+    }
+  },
+  {
+    "wave_id": "wave_14c",
+    "display_name": "Rust Empire",
+    "act": 3,
+    "difficulty": 241,
+    "archetype": "Nightmare+",
+    "strategy_hint": "Rust Empire",
+    "gremlins": [
+      "rust_king_phase_1",
+      "gear_grinder"
+    ],
+    "gremlins_dict": {
+      "0": "rust_king_phase_1",
+      "1": "gear_grinder"
+    },
+    "is_boss": [
+      "rust_king_phase_1",
+      "gear_grinder"
+    ],
+    "is_boss_dict": {
+      "0": "rust_king_phase_1",
+      "1": "gear_grinder"
     }
   },
   {
@@ -239,830 +1319,5 @@
       "1": "time_nibbler"
     },
     "is_boss": true
-  },
-  {
-    "wave_id": "wave_4a",
-    "display_name": "Single Scout",
-    "act": 1,
-    "difficulty": 1,
-    "archetype": "Trivial",
-    "strategy_hint": "Tutorial",
-    "gremlins": "Learn basic combat",
-    "is_boss": "basic_gnat"
-  },
-  {
-    "wave_id": "wave_4b",
-    "display_name": "Lone Mite",
-    "act": 1,
-    "difficulty": 8,
-    "archetype": "Trivial",
-    "strategy_hint": "Rush Threat",
-    "gremlins": "Introduction to rush enemies",
-    "is_boss": "dust_mite"
-  },
-  {
-    "wave_id": "wave_4c",
-    "display_name": "Barrier Test",
-    "act": 1,
-    "difficulty": 2,
-    "archetype": "Trivial",
-    "strategy_hint": "Defense Tutorial",
-    "gremlins": "Learn about barriers",
-    "is_boss": [
-      "barrier_gnat",
-      "barrier_gnat"
-    ],
-    "is_boss_dict": {
-      "0": "barrier_gnat",
-      "1": "barrier_gnat"
-    }
-  },
-  {
-    "wave_id": "wave_4d",
-    "display_name": "Sparks Fly",
-    "act": 1,
-    "difficulty": 10,
-    "archetype": "Easy",
-    "strategy_hint": "Damage Tutorial",
-    "gremlins": "Introduction to spark damage",
-    "is_boss": "spark_flea"
-  },
-  {
-    "wave_id": "wave_4e",
-    "display_name": "Precision Strike",
-    "act": 1,
-    "difficulty": 14,
-    "archetype": "Easy",
-    "strategy_hint": "Precision Tutorial",
-    "gremlins": "Learn precision mechanics",
-    "is_boss": "precision_mite"
-  },
-  {
-    "wave_id": "wave_4f",
-    "display_name": "Double Gnats",
-    "act": 1,
-    "difficulty": 2,
-    "archetype": "Trivial",
-    "strategy_hint": "Swarm Intro",
-    "gremlins": "Multiple weak enemies",
-    "is_boss": [
-      "basic_gnat",
-      "basic_gnat"
-    ],
-    "is_boss_dict": {
-      "0": "basic_gnat",
-      "1": "basic_gnat"
-    }
-  },
-  {
-    "wave_id": "wave_5a",
-    "display_name": "Tick Tock",
-    "act": 1,
-    "difficulty": 13,
-    "archetype": "Easy",
-    "strategy_hint": "Mixed Threat",
-    "gremlins": "Combination of enemy types",
-    "is_boss": [
-      "gear_tick",
-      "basic_gnat"
-    ],
-    "is_boss_dict": {
-      "0": "gear_tick",
-      "1": "basic_gnat"
-    }
-  },
-  {
-    "wave_id": "wave_5b",
-    "display_name": "Double Dust",
-    "act": 1,
-    "difficulty": 16,
-    "archetype": "Easy",
-    "strategy_hint": "Rush Swarm",
-    "gremlins": "Multiple rush enemies",
-    "is_boss": [
-      "dust_mite",
-      "dust_mite"
-    ],
-    "is_boss_dict": {
-      "0": "dust_mite",
-      "1": "dust_mite"
-    }
-  },
-  {
-    "wave_id": "wave_5c",
-    "display_name": "Siphon Intro",
-    "act": 1,
-    "difficulty": 17,
-    "archetype": "Easy",
-    "strategy_hint": "Drain Threat",
-    "gremlins": "Introduction to resource drain",
-    "is_boss": "siphon_tick"
-  },
-  {
-    "wave_id": "wave_5d",
-    "display_name": "Mixed Pests",
-    "act": 1,
-    "difficulty": 17,
-    "archetype": "Easy",
-    "strategy_hint": "Varied Threat",
-    "gremlins": "Different enemy types",
-    "is_boss": [
-      "rust_speck",
-      "dust_mite"
-    ],
-    "is_boss_dict": {
-      "0": "rust_speck",
-      "1": "dust_mite"
-    }
-  },
-  {
-    "wave_id": "wave_5e",
-    "display_name": "Gnat Swarm",
-    "act": 1,
-    "difficulty": 5,
-    "archetype": "Trivial",
-    "strategy_hint": "Pure Swarm",
-    "gremlins": "Many weak enemies",
-    "is_boss": [
-      "basic_gnat",
-      "basic_gnat",
-      "basic_gnat",
-      "basic_gnat",
-      "basic_gnat"
-    ],
-    "is_boss_dict": {
-      "0": "basic_gnat",
-      "1": "basic_gnat",
-      "2": "basic_gnat",
-      "3": "basic_gnat",
-      "4": "basic_gnat"
-    }
-  },
-  {
-    "wave_id": "wave_5f",
-    "display_name": "Spark and Dust",
-    "act": 1,
-    "difficulty": 18,
-    "archetype": "Easy",
-    "strategy_hint": "Damage Rush",
-    "gremlins": "Fast damage dealing",
-    "is_boss": [
-      "spark_flea",
-      "dust_mite"
-    ],
-    "is_boss_dict": {
-      "0": "spark_flea",
-      "1": "dust_mite"
-    }
-  },
-  {
-    "wave_id": "wave_6a",
-    "display_name": "Oil Slick",
-    "act": 2,
-    "difficulty": 28,
-    "archetype": "Medium",
-    "strategy_hint": "Resource Drain",
-    "gremlins": "Heavy resource drain",
-    "is_boss": "oil_thief"
-  },
-  {
-    "wave_id": "wave_6b",
-    "display_name": "Chaos Begins",
-    "act": 2,
-    "difficulty": 27,
-    "archetype": "Medium",
-    "strategy_hint": "Chaos Threat",
-    "gremlins": "Unpredictable enemy",
-    "is_boss": "chaos_imp"
-  },
-  {
-    "wave_id": "wave_6c",
-    "display_name": "Spawner Alert",
-    "act": 2,
-    "difficulty": 30,
-    "archetype": "Medium",
-    "strategy_hint": "Spawner Threat",
-    "gremlins": "Enemy that creates more",
-    "is_boss": "gnat_spawner"
-  },
-  {
-    "wave_id": "wave_6d",
-    "display_name": "Momentum Steal",
-    "act": 2,
-    "difficulty": 30,
-    "archetype": "Medium",
-    "strategy_hint": "Momentum Drain",
-    "gremlins": "Drains momentum",
-    "is_boss": "momentum_thief"
-  },
-  {
-    "wave_id": "wave_6e",
-    "display_name": "Dual Ticks",
-    "act": 2,
-    "difficulty": 29,
-    "archetype": "Medium",
-    "strategy_hint": "Double Disruption",
-    "gremlins": "Multiple disruptors",
-    "is_boss": [
-      "gear_tick",
-      "siphon_tick"
-    ],
-    "is_boss_dict": {
-      "0": "gear_tick",
-      "1": "siphon_tick"
-    }
-  },
-  {
-    "wave_id": "wave_6f",
-    "display_name": "Armored Squad",
-    "act": 2,
-    "difficulty": 27,
-    "archetype": "Medium",
-    "strategy_hint": "Armor Tutorial",
-    "gremlins": "Learn armor mechanics",
-    "is_boss": [
-      "rust_speck",
-      "rust_speck",
-      "rust_speck"
-    ],
-    "is_boss_dict": {
-      "0": "rust_speck",
-      "1": "rust_speck",
-      "2": "rust_speck"
-    }
-  },
-  {
-    "wave_id": "wave_7a",
-    "display_name": "Spring Attack",
-    "act": 2,
-    "difficulty": 36,
-    "archetype": "Medium",
-    "strategy_hint": "Spring Threat",
-    "gremlins": "Bouncing damage",
-    "is_boss": "spring_snapper"
-  },
-  {
-    "wave_id": "wave_7b",
-    "display_name": "Phase One",
-    "act": 2,
-    "difficulty": 40,
-    "archetype": "Medium",
-    "strategy_hint": "Phase Threat",
-    "gremlins": "Phasing enemy",
-    "is_boss": "phase_shifter"
-  },
-  {
-    "wave_id": "wave_7c",
-    "display_name": "Oil Squad",
-    "act": 2,
-    "difficulty": 44,
-    "archetype": "Medium",
-    "strategy_hint": "Drain Squad",
-    "gremlins": "Multiple drainers",
-    "is_boss": [
-      "oil_thief",
-      "dust_mite",
-      "dust_mite"
-    ],
-    "is_boss_dict": {
-      "0": "oil_thief",
-      "1": "dust_mite",
-      "2": "dust_mite"
-    }
-  },
-  {
-    "wave_id": "wave_7d",
-    "display_name": "Feedback Begin",
-    "act": 2,
-    "difficulty": 36,
-    "archetype": "Medium",
-    "strategy_hint": "Feedback Loop",
-    "gremlins": "Escalating threat",
-    "is_boss": "feedback_loop"
-  },
-  {
-    "wave_id": "wave_7e",
-    "display_name": "Dual Springs",
-    "act": 2,
-    "difficulty": 37,
-    "archetype": "Medium",
-    "strategy_hint": "Double Spring",
-    "gremlins": "Multiple bouncers",
-    "is_boss": [
-      "spring_snapper",
-      "basic_gnat"
-    ],
-    "is_boss_dict": {
-      "0": "spring_snapper",
-      "1": "basic_gnat"
-    }
-  },
-  {
-    "wave_id": "wave_7f",
-    "display_name": "Chaos Patrol",
-    "act": 2,
-    "difficulty": 43,
-    "archetype": "Medium",
-    "strategy_hint": "Chaos Squad",
-    "gremlins": "Unpredictable group",
-    "is_boss": [
-      "chaos_imp",
-      "dust_mite",
-      "dust_mite"
-    ],
-    "is_boss_dict": {
-      "0": "chaos_imp",
-      "1": "dust_mite",
-      "2": "dust_mite"
-    }
-  },
-  {
-    "wave_id": "wave_8a",
-    "display_name": "Mirror Match",
-    "act": 2,
-    "difficulty": 60,
-    "archetype": "Hard",
-    "strategy_hint": "Mirror Threat",
-    "gremlins": "Reflects your actions",
-    "is_boss": "mirror_warden"
-  },
-  {
-    "wave_id": "wave_8b",
-    "display_name": "Echo Test",
-    "act": 2,
-    "difficulty": 55,
-    "archetype": "Hard",
-    "strategy_hint": "Echo Threat",
-    "gremlins": "Repeating patterns",
-    "is_boss": "echo_chamber"
-  },
-  {
-    "wave_id": "wave_8c",
-    "display_name": "Double Trouble",
-    "act": 2,
-    "difficulty": 56,
-    "archetype": "Hard",
-    "strategy_hint": "Double Drain",
-    "gremlins": "Heavy resource pressure",
-    "is_boss": [
-      "oil_thief",
-      "oil_thief"
-    ],
-    "is_boss_dict": {
-      "0": "oil_thief",
-      "1": "oil_thief"
-    }
-  },
-  {
-    "wave_id": "wave_9a",
-    "display_name": "Time Nibble",
-    "act": 2,
-    "difficulty": 67,
-    "archetype": "Hard",
-    "strategy_hint": "Time Threat",
-    "gremlins": "Manipulates time",
-    "is_boss": "time_nibbler"
-  },
-  {
-    "wave_id": "wave_9b",
-    "display_name": "Resource War",
-    "act": 2,
-    "difficulty": 74,
-    "archetype": "Hard",
-    "strategy_hint": "Resource Control",
-    "gremlins": "Controls resources",
-    "is_boss": "resource_tyrant"
-  },
-  {
-    "wave_id": "wave_9c",
-    "display_name": "Mirror Chaos",
-    "act": 2,
-    "difficulty": 75,
-    "archetype": "Hard",
-    "strategy_hint": "Reflect Chaos",
-    "gremlins": "Mirror with support",
-    "is_boss": [
-      "mirror_warden",
-      "dust_mite",
-      "dust_mite",
-      "dust_mite"
-    ],
-    "is_boss_dict": {
-      "0": "mirror_warden",
-      "1": "dust_mite",
-      "2": "dust_mite",
-      "3": "dust_mite"
-    }
-  },
-  {
-    "wave_id": "wave_9d",
-    "display_name": "Triple Oil",
-    "act": 2,
-    "difficulty": 64,
-    "archetype": "Hard",
-    "strategy_hint": "Triple Drain",
-    "gremlins": "Heavy drain pressure",
-    "is_boss": [
-      "oil_thief",
-      "oil_thief",
-      "dust_mite"
-    ],
-    "is_boss_dict": {
-      "0": "oil_thief",
-      "1": "oil_thief",
-      "2": "dust_mite"
-    }
-  },
-  {
-    "wave_id": "wave_9e",
-    "display_name": "Echo Swarm",
-    "act": 2,
-    "difficulty": 79,
-    "archetype": "Hard",
-    "strategy_hint": "Echo Multiple",
-    "gremlins": "Echoing swarm",
-    "is_boss": [
-      "echo_chamber",
-      "dust_mite",
-      "dust_mite",
-      "dust_mite"
-    ],
-    "is_boss_dict": {
-      "0": "echo_chamber",
-      "1": "dust_mite",
-      "2": "dust_mite",
-      "3": "dust_mite"
-    }
-  },
-  {
-    "wave_id": "wave_9f",
-    "display_name": "Dual Phase",
-    "act": 2,
-    "difficulty": 80,
-    "archetype": "Hard",
-    "strategy_hint": "Double Phase",
-    "gremlins": "Multiple phase enemies",
-    "is_boss": [
-      "phase_shifter",
-      "phase_shifter"
-    ],
-    "is_boss_dict": {
-      "0": "phase_shifter",
-      "1": "phase_shifter"
-    }
-  },
-  {
-    "wave_id": "wave_10a",
-    "display_name": "Gear Grind",
-    "act": 3,
-    "difficulty": 81,
-    "archetype": "Hard",
-    "strategy_hint": "Grinder Threat",
-    "gremlins": "Heavy armored enemy",
-    "is_boss": "gear_grinder"
-  },
-  {
-    "wave_id": "wave_10b",
-    "display_name": "Entropy Rising",
-    "act": 3,
-    "difficulty": 91,
-    "archetype": "Hard",
-    "strategy_hint": "Entropy Threat",
-    "gremlins": "Chaos incarnate",
-    "is_boss": "entropic_mass"
-  },
-  {
-    "wave_id": "wave_10c",
-    "display_name": "Paradox Found",
-    "act": 3,
-    "difficulty": 93,
-    "archetype": "Hard",
-    "strategy_hint": "Paradox Threat",
-    "gremlins": "Balanced chaos",
-    "is_boss": "balanced_paradox"
-  },
-  {
-    "wave_id": "wave_10d",
-    "display_name": "Constraint Test",
-    "act": 3,
-    "difficulty": 98,
-    "archetype": "Hard",
-    "strategy_hint": "Constraint Engine",
-    "gremlins": "Limits your options",
-    "is_boss": "constraint_engine"
-  },
-  {
-    "wave_id": "wave_10e",
-    "display_name": "Grinder Pair",
-    "act": 3,
-    "difficulty": 89,
-    "archetype": "Hard",
-    "strategy_hint": "Grinder Support",
-    "gremlins": "Armored with support",
-    "is_boss": [
-      "gear_grinder",
-      "dust_mite"
-    ],
-    "is_boss_dict": {
-      "0": "gear_grinder",
-      "1": "dust_mite"
-    }
-  },
-  {
-    "wave_id": "wave_10f",
-    "display_name": "Time Echo",
-    "act": 3,
-    "difficulty": 95,
-    "archetype": "Hard",
-    "strategy_hint": "Time Echo Combo",
-    "gremlins": "Time and echo combo",
-    "is_boss": [
-      "time_nibbler",
-      "oil_thief"
-    ],
-    "is_boss_dict": {
-      "0": "time_nibbler",
-      "1": "oil_thief"
-    }
-  },
-  {
-    "wave_id": "wave_11a",
-    "display_name": "Temporal Feast",
-    "act": 3,
-    "difficulty": 114,
-    "archetype": "Nightmare",
-    "strategy_hint": "Temporal Glutton",
-    "gremlins": "Devours time",
-    "is_boss": "temporal_glutton"
-  },
-  {
-    "wave_id": "wave_11b",
-    "display_name": "Double Grind",
-    "act": 3,
-    "difficulty": 117,
-    "archetype": "Nightmare",
-    "strategy_hint": "Double Grinder",
-    "gremlins": "Two heavy enemies",
-    "is_boss": [
-      "gear_grinder",
-      "spring_snapper"
-    ],
-    "is_boss_dict": {
-      "0": "gear_grinder",
-      "1": "spring_snapper"
-    }
-  },
-  {
-    "wave_id": "wave_11c",
-    "display_name": "Resource Chaos",
-    "act": 3,
-    "difficulty": 114,
-    "archetype": "Nightmare",
-    "strategy_hint": "Resource Control",
-    "gremlins": "Resource manipulation",
-    "is_boss": [
-      "resource_tyrant",
-      "phase_shifter"
-    ],
-    "is_boss_dict": {
-      "0": "resource_tyrant",
-      "1": "phase_shifter"
-    }
-  },
-  {
-    "wave_id": "wave_12a",
-    "display_name": "Rust Awakening",
-    "act": 3,
-    "difficulty": 160,
-    "archetype": "Nightmare",
-    "strategy_hint": "Boss Preview",
-    "gremlins": "Rust King appears",
-    "is_boss": "rust_king_phase_1"
-  },
-  {
-    "wave_id": "wave_12b",
-    "display_name": "Double Entropy",
-    "act": 3,
-    "difficulty": 150,
-    "archetype": "Nightmare",
-    "strategy_hint": "Double Chaos",
-    "gremlins": "Maximum entropy",
-    "is_boss": [
-      "entropic_mass",
-      "echo_chamber"
-    ],
-    "is_boss_dict": {
-      "0": "entropic_mass",
-      "1": "echo_chamber"
-    }
-  },
-  {
-    "wave_id": "wave_12c",
-    "display_name": "Constraint Chaos",
-    "act": 3,
-    "difficulty": 153,
-    "archetype": "Nightmare",
-    "strategy_hint": "Limited Chaos",
-    "gremlins": "Constraints and chaos",
-    "is_boss": [
-      "constraint_engine",
-      "echo_chamber"
-    ],
-    "is_boss_dict": {
-      "0": "constraint_engine",
-      "1": "echo_chamber"
-    }
-  },
-  {
-    "wave_id": "wave_12d",
-    "display_name": "Glutton Squad",
-    "act": 3,
-    "difficulty": 154,
-    "archetype": "Nightmare",
-    "strategy_hint": "Temporal Squad",
-    "gremlins": "Time devourers",
-    "is_boss": [
-      "temporal_glutton",
-      "phase_shifter"
-    ],
-    "is_boss_dict": {
-      "0": "temporal_glutton",
-      "1": "phase_shifter"
-    }
-  },
-  {
-    "wave_id": "wave_12e",
-    "display_name": "Armor War",
-    "act": 3,
-    "difficulty": 155,
-    "archetype": "Nightmare",
-    "strategy_hint": "Heavy Armor",
-    "gremlins": "Maximum armor",
-    "is_boss": [
-      "gear_grinder",
-      "resource_tyrant"
-    ],
-    "is_boss_dict": {
-      "0": "gear_grinder",
-      "1": "resource_tyrant"
-    }
-  },
-  {
-    "wave_id": "wave_12f",
-    "display_name": "Time War",
-    "act": 3,
-    "difficulty": 134,
-    "archetype": "Nightmare",
-    "strategy_hint": "Time Battle",
-    "gremlins": "Time manipulation",
-    "is_boss": [
-      "time_nibbler",
-      "time_nibbler"
-    ],
-    "is_boss_dict": {
-      "0": "time_nibbler",
-      "1": "time_nibbler"
-    }
-  },
-  {
-    "wave_id": "wave_13a",
-    "display_name": "Chrono Attack",
-    "act": 3,
-    "difficulty": 192,
-    "archetype": "Nightmare",
-    "strategy_hint": "Chronophage",
-    "gremlins": "Time eater",
-    "is_boss": "chronophage"
-  },
-  {
-    "wave_id": "wave_13b",
-    "display_name": "Double Paradox",
-    "act": 3,
-    "difficulty": 186,
-    "archetype": "Nightmare",
-    "strategy_hint": "Double Paradox",
-    "gremlins": "Dual paradox",
-    "is_boss": [
-      "balanced_paradox",
-      "balanced_paradox"
-    ],
-    "is_boss_dict": {
-      "0": "balanced_paradox",
-      "1": "balanced_paradox"
-    }
-  },
-  {
-    "wave_id": "wave_13c",
-    "display_name": "Rust Squad",
-    "act": 3,
-    "difficulty": 196,
-    "archetype": "Nightmare",
-    "strategy_hint": "Rust Army",
-    "gremlins": "King with support",
-    "is_boss": [
-      "rust_king_phase_1",
-      "spring_snapper"
-    ],
-    "is_boss_dict": {
-      "0": "rust_king_phase_1",
-      "1": "spring_snapper"
-    }
-  },
-  {
-    "wave_id": "wave_13d",
-    "display_name": "Entropy Army",
-    "act": 3,
-    "difficulty": 190,
-    "archetype": "Nightmare",
-    "strategy_hint": "Entropy Battle",
-    "gremlins": "Maximum chaos army",
-    "is_boss": [
-      "entropic_mass",
-      "entropic_mass",
-      "dust_mite"
-    ],
-    "is_boss_dict": {
-      "0": "entropic_mass",
-      "1": "entropic_mass",
-      "2": "dust_mite"
-    }
-  },
-  {
-    "wave_id": "wave_13e",
-    "display_name": "Constraint Army",
-    "act": 3,
-    "difficulty": 196,
-    "archetype": "Nightmare",
-    "strategy_hint": "Double Constraint",
-    "gremlins": "Heavy limitations",
-    "is_boss": [
-      "constraint_engine",
-      "constraint_engine"
-    ],
-    "is_boss_dict": {
-      "0": "constraint_engine",
-      "1": "constraint_engine"
-    }
-  },
-  {
-    "wave_id": "wave_13f",
-    "display_name": "Temporal Army",
-    "act": 3,
-    "difficulty": 195,
-    "archetype": "Nightmare",
-    "strategy_hint": "Time Army",
-    "gremlins": "Time manipulation squad",
-    "is_boss": [
-      "temporal_glutton",
-      "gear_grinder"
-    ],
-    "is_boss_dict": {
-      "0": "temporal_glutton",
-      "1": "gear_grinder"
-    }
-  },
-  {
-    "wave_id": "wave_14a",
-    "display_name": "Sabotage",
-    "act": 3,
-    "difficulty": 208,
-    "archetype": "Nightmare+",
-    "strategy_hint": "Grand Saboteur",
-    "gremlins": "Ultimate sabotage",
-    "is_boss": "grand_saboteur"
-  },
-  {
-    "wave_id": "wave_14b",
-    "display_name": "Double Chrono",
-    "act": 3,
-    "difficulty": 232,
-    "archetype": "Nightmare+",
-    "strategy_hint": "Chrono Squad",
-    "gremlins": "Time eater squad",
-    "is_boss": [
-      "chronophage",
-      "phase_shifter"
-    ],
-    "is_boss_dict": {
-      "0": "chronophage",
-      "1": "phase_shifter"
-    }
-  },
-  {
-    "wave_id": "wave_14c",
-    "display_name": "Rust Empire",
-    "act": 3,
-    "difficulty": 241,
-    "archetype": "Nightmare+",
-    "strategy_hint": "Rust Empire",
-    "gremlins": "Rust King empire",
-    "is_boss": [
-      "rust_king_phase_1",
-      "gear_grinder"
-    ],
-    "is_boss_dict": {
-      "0": "rust_king_phase_1",
-      "1": "gear_grinder"
-    }
   }
 ]

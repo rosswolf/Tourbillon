@@ -122,14 +122,11 @@ func spawn_gremlin(template_id: String, slot_index: int = -1) -> Gremlin:
 ## Spawn multiple gremlins from a wave composition string
 func spawn_wave(wave_composition: String) -> Array[Gremlin]:
 	# Parse pipe-separated gremlin list (e.g. "dust_mite|oil_thief|dust_mite")
-	print("[DEBUG] [GremlinSpawnController] spawn_wave called with: '", wave_composition, "'")
 	var gremlin_ids = wave_composition.split("|")
-	print("[DEBUG] [GremlinSpawnController] Split into: ", gremlin_ids)
 	var spawned: Array[Gremlin] = []
 	
 	for i in range(gremlin_ids.size()):
 		var template_id = gremlin_ids[i].strip_edges()
-		print("[DEBUG] [GremlinSpawnController] Processing template_id: '", template_id, "'")
 		if template_id.is_empty():
 			continue
 			
