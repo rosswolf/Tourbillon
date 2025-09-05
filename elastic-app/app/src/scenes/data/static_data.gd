@@ -45,7 +45,7 @@ var hero_data_indices: Dictionary = {}
 
 # TYPE_EXEMPTION (json type)
 var wave_data: Dictionary = {}
-var wave_data_path: String = "res://wave_data.json"
+var wave_data_path: String = "res://src/scenes/data/wave_data.json"
 # TYPE_EXEMPTION (enum type)
 var wave_data_indices: Dictionary = {}
 
