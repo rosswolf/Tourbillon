@@ -351,6 +351,44 @@ func get_bonus_type(pos: Vector2i) -> String:
 		return bonus_squares[pos]
 	return ""
 
+## Get position of a card by instance ID
+func get_card_position(instance_id: String) -> Vector2i:
+	for pos in slots:
+		if slots[pos] and slots[pos].instance_id == instance_id:
+			return pos
+	return Vector2i(-1, -1)  # Invalid position if not found
+
+## Manually trigger a card's activation if it's ready
+func trigger_card_activation(instance_id: String) -> bool:
+	var pos = get_card_position(instance_id)
+	if pos == Vector2i(-1, -1):
+		return false
+	
+	var card = get_card_at(pos)
+	if not card:
+		return false
+	
+	if not card_states.has(instance_id):
+		return false
+		
+	var state = card_states[instance_id]
+	
+	# Check if card can activate (has production interval and effect)
+	if card.production_interval <= 0 or card.on_fire_effect.is_empty():
+		return false
+		
+	# Check if the on_fire_effect can be satisfied
+	if not SimpleEffectProcessor.can_satisfy_effect(card.on_fire_effect):
+		return false
+		
+	# Create a dummy beat context for manual activation
+	var context = BeatContext.new()
+	context.current_beat = 0  # Manual activation
+	
+	# Activate the card
+	__activate_card(card, pos, context)
+	return true
+
 ## Clear all bonus squares
 func clear_bonus_squares() -> void:
 	bonus_squares.clear()

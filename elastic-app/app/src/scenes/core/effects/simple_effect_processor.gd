@@ -237,6 +237,16 @@ static func _process_single_effect(effect: String, source: Node) -> void:
 		"enhance_gremlins":
 			_handle_enhance_gremlins(value)
 
+		# Directional activation effects
+		"activate_north":
+			_handle_activate_north(source, int(value))
+		"activate_south":
+			_handle_activate_south(source, int(value))
+		"activate_east":
+			_handle_activate_east(source, int(value))
+		"activate_west":
+			_handle_activate_west(source, int(value))
+
 		_:
 			push_warning("Unknown effect type: " + effect_type)
 
@@ -688,7 +698,7 @@ static func _complex_chain_reaction(source: Node) -> void:
 			if GlobalGameManager.mainplate:
 				var gear = GlobalGameManager.mainplate.get_gear_at(adj_pos)
 				if gear and gear.has_method("trigger_production"):
-					gear.trigger_production()
+					GlobalGameManager.mainplate.trigger_card_activation(gear.instance_id)
 
 static func _complex_mega_burst(_source: Node) -> void:
 	# Generate 3 of each basic force
@@ -898,7 +908,7 @@ static func _complex_arcane_ritual(_source: Node) -> void:
 	if arcane_count >= 3:
 		for gear in all_gears:
 			if gear.has_method("trigger_production"):
-				gear.trigger_production()
+				GlobalGameManager.mainplate.trigger_card_activation(gear.instance_id)
 
 static func _complex_mech_automation(_source: Node) -> void:
 	# "MECH gears: Produce without consuming this turn"
@@ -990,7 +1000,7 @@ static func _complex_adjacent_trigger(source: Node) -> void:
 		for adj_pos in adjacent_positions:
 			var gear = GlobalGameManager.mainplate.get_gear_at(adj_pos)
 			if gear and gear.has_method("trigger_production"):
-				gear.trigger_production()
+				GlobalGameManager.mainplate.trigger_card_activation(gear.instance_id)
 
 static func _complex_row_production(source: Node) -> void:
 	# "All gears in this row produce immediately"
@@ -1006,7 +1016,7 @@ static func _complex_row_production(source: Node) -> void:
 				var gear_pos: Vector2i = gear.get_grid_position()
 				if gear_pos.y == pos.y:  # Same row
 					if gear.has_method("trigger_production"):
-						gear.trigger_production()
+						GlobalGameManager.mainplate.trigger_card_activation(gear.instance_id)
 
 static func _complex_column_shield(source: Node) -> void:
 	# "All gears in this column gain shield"
@@ -1468,3 +1478,87 @@ static func _handle_enhance_gremlins(amount: float) -> void:
 			gremlin.armor += int(amount)
 		if gremlin.has_method("add_shields"):
 			gremlin.add_shields(int(amount))
+
+# ============================================================================
+# DIRECTIONAL ACTIVATION HANDLERS
+# ============================================================================
+
+# Activate the gear directly north (above) this gear
+static func _handle_activate_north(source: Node, count: int) -> void:
+	if not GlobalGameManager.mainplate or not source:
+		return
+	
+	if source.has_method("get_grid_position"):
+		var pos: Vector2i = source.get_grid_position()
+		var north_pos: Vector2i = pos + Vector2i.UP  # UP is (0, -1)
+		
+		var gear = GlobalGameManager.mainplate.get_card_at(north_pos)
+		if not gear:
+			return
+		
+		# Activate the gear (respecting beat limits via trigger_card_activation)
+		for i in count:
+			print("[DEBUG] Activating gear NORTH of ", source.display_name if source.has("display_name") else "gear", ": ", gear.display_name)
+			if not GlobalGameManager.mainplate.trigger_card_activation(gear.instance_id):
+				print("[DEBUG] Gear NORTH cannot trigger (already triggered or not ready)")
+				break
+
+# Activate the gear directly south (below) this gear
+static func _handle_activate_south(source: Node, count: int) -> void:
+	if not GlobalGameManager.mainplate or not source:
+		return
+	
+	if source.has_method("get_grid_position"):
+		var pos: Vector2i = source.get_grid_position()
+		var south_pos: Vector2i = pos + Vector2i.DOWN  # DOWN is (0, 1)
+		
+		var gear = GlobalGameManager.mainplate.get_card_at(south_pos)
+		if not gear:
+			return
+		
+		# Activate the gear (respecting beat limits via trigger_card_activation)
+		for i in count:
+			print("[DEBUG] Activating gear SOUTH of ", source.display_name if source.has("display_name") else "gear", ": ", gear.display_name)
+			if not GlobalGameManager.mainplate.trigger_card_activation(gear.instance_id):
+				print("[DEBUG] Gear SOUTH cannot trigger (already triggered or not ready)")
+				break
+
+# Activate the gear directly east (right) of this gear
+static func _handle_activate_east(source: Node, count: int) -> void:
+	if not GlobalGameManager.mainplate or not source:
+		return
+	
+	if source.has_method("get_grid_position"):
+		var pos: Vector2i = source.get_grid_position()
+		var east_pos: Vector2i = pos + Vector2i.RIGHT  # RIGHT is (1, 0)
+		
+		var gear = GlobalGameManager.mainplate.get_card_at(east_pos)
+		if not gear:
+			return
+		
+		# Activate the gear (respecting beat limits via trigger_card_activation)
+		for i in count:
+			print("[DEBUG] Activating gear EAST of ", source.display_name if source.has("display_name") else "gear", ": ", gear.display_name)
+			if not GlobalGameManager.mainplate.trigger_card_activation(gear.instance_id):
+				print("[DEBUG] Gear EAST cannot trigger (already triggered or not ready)")
+				break
+
+# Activate the gear directly west (left) of this gear
+static func _handle_activate_west(source: Node, count: int) -> void:
+	if not GlobalGameManager.mainplate or not source:
+		return
+	
+	if source.has_method("get_grid_position"):
+		var pos: Vector2i = source.get_grid_position()
+		var west_pos: Vector2i = pos + Vector2i.LEFT  # LEFT is (-1, 0)
+		
+		var gear = GlobalGameManager.mainplate.get_card_at(west_pos)
+		if not gear:
+			return
+		
+		# Activate the gear (respecting beat limits via trigger_card_activation)
+		for i in count:
+			print("[DEBUG] Activating gear WEST of ", source.display_name if source.has("display_name") else "gear", ": ", gear.display_name)
+			if not GlobalGameManager.mainplate.trigger_card_activation(gear.instance_id):
+				print("[DEBUG] Gear WEST cannot trigger (already triggered or not ready)")
+				break
