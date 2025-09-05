@@ -26,7 +26,7 @@ var _damage_handler: Damageable
 func _init() -> void:
 	super._init()
 	_damage_handler = Damageable.new()
-	add_child(_damage_handler)
+	# Note: Core objects don't use scene tree - damage handler works without add_child
 	
 	# Connect signals from damage handler
 	_damage_handler.damage_received.connect(_on_damage_received)
@@ -34,10 +34,10 @@ func _init() -> void:
 	_damage_handler.shields_changed.connect(_on_shields_changed)
 	_damage_handler.barrier_broken.connect(_on_barrier_broken)
 	_damage_handler.defeated.connect(_on_defeated)
-
-func _ready() -> void:
-	# Sync properties with damage handler
-	_sync_to_handler()
+	
+	# Sync properties with damage handler immediately
+	# This needs to be deferred since exported properties aren't set yet in _init
+	call_deferred("_sync_to_handler")
 
 ## Main damage interface
 func receive_damage(packet: DamagePacket) -> int:

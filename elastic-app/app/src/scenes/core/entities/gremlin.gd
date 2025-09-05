@@ -48,10 +48,13 @@ func _init() -> void:
 	_damage_handler.hp_changed.connect(_on_hp_changed)
 	_damage_handler.defeated.connect(_on_defeated_internal)
 	
-func _ready() -> void:
-	# Add damage handler as child
+	# Note: Core objects don't use scene tree - damage handler works without add_child
+	# Defer initial sync and moves processing since exported properties aren't set yet
+	call_deferred("_initialize_gremlin")
+
+func _initialize_gremlin() -> void:
+	# Sync properties with damage handler
 	if _damage_handler:
-		add_child(_damage_handler)
 		_sync_to_handler()
 	
 	# Process moves/downsides when gremlin spawns

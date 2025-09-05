@@ -32,7 +32,9 @@ var __activations_allowed: bool = false
 
 
 # Core functionality
-func _ready() -> void:
+# Signal connections moved to _init() for immediate availability
+func _init() -> void:
+	# Connect signals immediately on creation
 	GlobalSignals.ui_started_game.connect(__on_start_game)
 	GlobalSignals.ui_started_battle.connect(__on_start_battle)
 	GlobalSignals.ui_execute_selected_onto_hovered.connect(__handle_activation)
@@ -237,7 +239,7 @@ func __initialize_tourbillon_systems() -> void:
 		.with_grid_size(Vector2i(4, 4)) \
 		.with_max_grid_size(Vector2i(8, 8)) \
 		.build()
-	add_child(mainplate)
+	# Note: Core objects are not added to scene tree - they exist as pure data/logic
 	
 	# Connect mainplate to timeline's beat processor
 	timeline_manager.set_mainplate(mainplate)
@@ -381,7 +383,7 @@ func __spawn_test_gremlin() -> void:
 		
 		# Register and signal
 		instance_catalog.set_instance(gremlin)
-		add_child(gremlin)  # Add to scene tree
+		# Note: Core objects are not added to scene tree - they exist as pure data/logic
 		GlobalSignals.signal_core_mob_created(gremlin.instance_id)
 		
 		print("[DEBUG] Spawned gremlin: ", gremlin.gremlin_name, " with ", gremlin.current_hp, " HP")
