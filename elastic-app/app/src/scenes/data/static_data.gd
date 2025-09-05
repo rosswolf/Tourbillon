@@ -5,6 +5,7 @@ var __enum_mappings: Dictionary = {}
 var __resolved_enum_cache: Dictionary[String, Variant] = {}
 # TYPE_EXEMPTION (enum type)
 var __lookup_cache: Dictionary = {}
+var __enum_mappings_built: bool = false
 
 # TYPE_EXEMPTION (json type)
 var card_data: Dictionary= {}
@@ -52,21 +53,30 @@ var wave_data_indices: Dictionary = {}
 static var configuration_data: Dictionary = {}
 var configuration_data_path: String = "res://src/scenes/data/configuration_data.json"
 
-func _init() -> void:
+func __ensure_enum_mappings() -> void:
+	if __enum_mappings_built:
+		return
 	__build_enum_mappings()
+	__enum_mappings_built = true
 
 func __build_enum_mappings() -> void:
 	# Auto-generate mappings from enum definitions
-	__add_enum_mapping("Card.RarityType", Card.RarityType)
-	__add_enum_mapping("GameResource.Type", GameResource.Type)
+	# Use get() to avoid compile-time dependency
+	var card_class = get("Card") 
+	if card_class:
+		__add_enum_mapping("Card.RarityType", card_class.RarityType)
 	
-	# Add individual GameResource.Type mappings for force types (from PRD)
-	__enum_mappings["GameResource.Type.HEAT"] = GameResource.Type.HEAT
-	__enum_mappings["GameResource.Type.PRECISION"] = GameResource.Type.PRECISION
-	__enum_mappings["GameResource.Type.MOMENTUM"] = GameResource.Type.MOMENTUM
-	__enum_mappings["GameResource.Type.BALANCE"] = GameResource.Type.BALANCE
-	__enum_mappings["GameResource.Type.ENTROPY"] = GameResource.Type.ENTROPY
-	__enum_mappings["GameResource.Type.INSPIRATION"] = GameResource.Type.INSPIRATION
+	var resource_class = get("GameResource")
+	if resource_class:
+		__add_enum_mapping("GameResource.Type", resource_class.Type)
+		
+		# Add individual GameResource.Type mappings for force types (from PRD)
+		__enum_mappings["GameResource.Type.HEAT"] = resource_class.Type.HEAT
+		__enum_mappings["GameResource.Type.PRECISION"] = resource_class.Type.PRECISION
+		__enum_mappings["GameResource.Type.MOMENTUM"] = resource_class.Type.MOMENTUM
+		__enum_mappings["GameResource.Type.BALANCE"] = resource_class.Type.BALANCE
+		__enum_mappings["GameResource.Type.ENTROPY"] = resource_class.Type.ENTROPY
+		__enum_mappings["GameResource.Type.INSPIRATION"] = resource_class.Type.INSPIRATION
 
 # TYPE EXCEPTION (enum types)
 func __add_enum_mapping(prefix: String, enum_dict: Dictionary) -> void:
@@ -76,6 +86,9 @@ func __add_enum_mapping(prefix: String, enum_dict: Dictionary) -> void:
 		print("Mapped: ", full_reference, " -> ", enum_dict[key])
 
 func parse_enum(reference: String) -> Variant:
+	# Ensure mappings are built on first use
+	__ensure_enum_mappings()
+	
 	# Use cached result if available
 	if __resolved_enum_cache.has(reference):
 		return __resolved_enum_cache[reference]
@@ -85,6 +98,7 @@ func parse_enum(reference: String) -> Variant:
 	return result
 
 func _ready() -> void:
+	# Load data files (enum mappings will be built lazily when needed)
 	card_data = load_json_file(card_data_path)
 	mob_data = load_json_file(mob_data_path)
 	print("[StaticData] Loaded %d mobs from %s" % [mob_data.size(), mob_data_path])
