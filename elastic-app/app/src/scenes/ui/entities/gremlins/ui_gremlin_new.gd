@@ -5,6 +5,7 @@ class_name UiGremlinNew
 ## Shows time-based fill progress instead of HP
 
 @onready var name_label: Label = %NameLabel
+@onready var hp_label: Label = %HpLabel
 @onready var fill_rect: ColorRect = %FillRect
 @onready var background_image: TextureRect = %BackgroundImage
 @onready var clip_container: Control = %ClipContainer
@@ -84,6 +85,10 @@ func __update_display() -> void:
 	if name_label:
 		name_label.text = gremlin.gremlin_name
 	
+	# Update HP display
+	if hp_label:
+		hp_label.text = "%d/%d" % [gremlin.current_hp, gremlin.max_hp]
+	
 	# Update effect display
 	if effect_label:
 		effect_label.text = _get_disruption_text()
@@ -130,6 +135,10 @@ func _process(_delta: float) -> void:
 		effect_label.text = _get_disruption_text()
 
 func __on_hp_changed(new_hp: int, max_hp: int) -> void:
+	# Update HP display
+	if hp_label:
+		hp_label.text = "%d/%d" % [new_hp, max_hp]
+	
 	if new_hp <= 0:
 		__on_defeated()
 	else:
