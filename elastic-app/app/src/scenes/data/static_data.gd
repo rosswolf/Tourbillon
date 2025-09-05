@@ -472,8 +472,6 @@ func convert_array_to_nested_dict(data_array: Array) -> Dictionary:
 			# Get the first key in the record
 			var first_key = record.keys()[0]
 			var key_value = record[first_key]
-			
-			print("[DEBUG] [convert_array_to_nested_dict] First key: '", first_key, "', value: '", key_value, "'")
 
 			# Use the value of the first field as the dictionary key
 			result_dict[key_value] = record
@@ -481,7 +479,7 @@ func convert_array_to_nested_dict(data_array: Array) -> Dictionary:
 			printerr("Empty record found in data array")
 			return {}
 	
-	print("[DEBUG] [convert_array_to_nested_dict] Final dictionary has ", result_dict.size(), " keys")
+	print("[DEBUG] Created dictionary with ", result_dict.size(), " entries, first key: '", first_key, "'")
 	return result_dict
 
 # Convenience method for getting an integer configuration_data value
@@ -501,10 +499,9 @@ func get_card_by_id(card_id: String) -> Dictionary:
 #TYPE_EXEMPTION(Returns JSON mob data)
 func get_mob_by_id(mob_id: String) -> Dictionary:
 	"""Direct O(1) lookup for mob by ID"""
-	print("[DEBUG] [StaticData] Looking for mob_id: '", mob_id, "'")
-	print("[DEBUG] [StaticData] mob_data keys: ", mob_data.keys())
 	var result = mob_data.get(mob_id, {})
-	print("[DEBUG] [StaticData] Found mob: ", result)
+	if result.is_empty():
+		print("[ERROR] Mob '", mob_id, "' not found. Available: ", mob_data.keys().slice(0, 5))
 	return result
 
 #TYPE_EXEMPTION(Returns JSON goals data)
