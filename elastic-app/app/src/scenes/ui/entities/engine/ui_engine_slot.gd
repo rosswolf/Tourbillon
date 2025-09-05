@@ -162,7 +162,7 @@ func update_progress_display(percent: float, is_ready: bool = false) -> void:
 	if %ProgressBar.custom_minimum_size.y < 8:
 		%ProgressBar.custom_minimum_size.y = 8
 	
-	# Just set the value directly - no tweening
+	# Set value directly without animation - no tweening
 	%ProgressBar.value = percent
 	
 	# Color code based on state
