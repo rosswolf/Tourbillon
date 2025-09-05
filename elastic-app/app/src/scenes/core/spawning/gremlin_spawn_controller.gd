@@ -90,6 +90,14 @@ func spawn_gremlin(template_id: String, slot_index: int = -1) -> Gremlin:
 	# Connect to defeated signal
 	gremlin.defeated.connect(_on_gremlin_defeated.bind(gremlin))
 	
+	# Register with instance catalog for UI access
+	if GlobalGameManager.instance_catalog:
+		GlobalGameManager.instance_catalog.set_instance(gremlin)
+		# Emit signal for UI to create display
+		GlobalSignals.signal_core_mob_created(gremlin.instance_id)
+	else:
+		push_warning("Instance catalog not available - UI won't display gremlin")
+	
 	# Emit spawn signal
 	gremlin_spawned.emit(gremlin)
 	
