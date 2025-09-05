@@ -16,3 +16,4 @@ __pycache__/
 test_*.py
 quick_test.py
 final_test.py
+SIGNATURES.json
