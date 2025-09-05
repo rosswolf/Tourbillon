@@ -397,7 +397,8 @@ func __spawn_initial_wave() -> void:
 	#   wave_2a - "Turtle and Rush" - oil_thief + 2x dust_mite
 	#   boss_1 - "The Rust King's Domain" - rust_king_phase_1 + 2x spring_snapper
 	
-	var wave_id = "wave_1d"  # Change this to spawn different waves
+	# Start with a more interesting mix: tank + rushers
+	var wave_id = "wave_2a"  # oil_thief (tank) + 2x dust_mite (rushers)
 	
 	# Start the selected wave
 	var wave_started = WaveManager.instance.start_wave(wave_id)
