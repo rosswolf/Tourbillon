@@ -1057,7 +1057,7 @@ static func _handle_drain_force(force_type: GameResource.Type, amount: float) ->
 	var resource = GlobalGameManager.hero.get_force_resource(force_type)
 	if resource and resource.amount > 0:
 		var drained: float = min(amount, resource.amount)
-		resource.subtract(drained)
+		resource.decrement(drained)
 		print("[DEBUG] [Disruption] Drained ", drained, " ", GameResource.Type.keys()[force_type])
 
 static func _handle_drain_random(amount: float) -> void:

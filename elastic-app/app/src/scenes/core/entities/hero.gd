@@ -117,7 +117,7 @@ func has_forces(requirements: Dictionary) -> bool:
 func consume_force(force_type: GameResource.Type, amount: int) -> bool:
 	var resource = get_force_resource(force_type)
 	if resource and resource.amount >= amount:
-		resource.subtract(amount)
+		resource.decrement(amount)
 		return true
 	return false
 
@@ -139,7 +139,7 @@ func consume_forces(requirements: Dictionary) -> bool:
 func add_force(force_type: GameResource.Type, amount: int) -> void:
 	var resource = get_force_resource(force_type)
 	if resource:
-		resource.add(amount)
+		resource.increment(amount)
 
 ## Add multiple forces from production dictionary
 #TYPE_EXEMPTION(Force production from card data)

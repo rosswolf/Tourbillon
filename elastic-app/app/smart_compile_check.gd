@@ -367,15 +367,17 @@ func check_script_source(script_path: String, source: String):
 
 	# Check for undefined function calls (common typos)
 	var suspicious_patterns = [
-		{"pattern": r"\\.set_map\\s*\\(", "message": "set_map() doesn't exist on MapCore (use signal_core_map_created)"},
-		{"pattern": r"\\.register_instance\\s*\\(", "message": "register_instance() is deprecated/removed"},
-		{"pattern": r"\\.unregister_instance\\s*\\(", "message": "unregister_instance() is deprecated/removed"},
-		{"pattern": r"\\bpritn\\s*\\(", "message": "Typo: 'pritn' should be 'print'"},
-		{"pattern": r"\\bfucn\\s+", "message": "Typo: 'fucn' should be 'func'"},
-		{"pattern": r"\\bslef\\b", "message": "Typo: 'slef' should be 'self'"},
-		{"pattern": r"\\bretrun\\s+", "message": "Typo: 'retrun' should be 'return'"},
-		{"pattern": r"\\bfales\\b", "message": "Typo: 'fales' should be 'false'"},
-		{"pattern": r"\\btreu\\b", "message": "Typo: 'treu' should be 'true'"}
+		{"pattern": "\\.set_map\\s*\\(", "message": "set_map() doesn't exist on MapCore (use signal_core_map_created)"},
+		{"pattern": "\\.register_instance\\s*\\(", "message": "register_instance() is deprecated/removed"},
+		{"pattern": "\\.unregister_instance\\s*\\(", "message": "unregister_instance() is deprecated/removed"},
+		{"pattern": "resource\\.add\\s*\\(", "message": "CappedResource has no add() method (use increment())"},
+		{"pattern": "resource\\.subtract\\s*\\(", "message": "CappedResource has no subtract() method (use decrement())"},
+		{"pattern": "\\bpritn\\s*\\(", "message": "Typo: 'pritn' should be 'print'"},
+		{"pattern": "\\bfucn\\s+", "message": "Typo: 'fucn' should be 'func'"},
+		{"pattern": "\\bslef\\b", "message": "Typo: 'slef' should be 'self'"}, # EXEMPT
+		{"pattern": "\\bretrun\\s+", "message": "Typo: 'retrun' should be 'return'"}, # EXEMPT
+		{"pattern": "\\bfales\\b", "message": "Typo: 'fales' should be 'false'"}, # EXEMPT
+		{"pattern": "\\btreu\\b", "message": "Typo: 'treu' should be 'true'"} # EXEMPT
 	]
 
 	for pattern_data in suspicious_patterns:

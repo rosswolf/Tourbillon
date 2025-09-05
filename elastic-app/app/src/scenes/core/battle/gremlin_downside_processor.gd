@@ -223,7 +223,7 @@ static func _execute_drain(drain_type: String, amount: int) -> void:
 			if available_forces.size() > 0:
 				var chosen = available_forces.pick_random()
 				var resource = GlobalGameManager.hero.get_force_resource(chosen)
-				resource.subtract(amount)
+				resource.decrement(amount)
 				print("[DEBUG] [Disruption] Drained ", amount, " ", _get_force_name(chosen))
 
 		"all":
@@ -239,7 +239,7 @@ static func _execute_drain(drain_type: String, amount: int) -> void:
 			for force_type in force_types:
 				var resource = GlobalGameManager.hero.get_force_resource(force_type)
 				if resource and resource.amount > 0:
-					resource.subtract(min(amount, resource.amount))
+					resource.decrement(min(amount, resource.amount))
 			print("[DEBUG] [Disruption] Drained ", amount, " from all forces")
 
 		"heat", "precision", "momentum", "balance", "entropy":
@@ -248,7 +248,7 @@ static func _execute_drain(drain_type: String, amount: int) -> void:
 			if force_type != null:
 				var resource = GlobalGameManager.hero.get_force_resource(force_type)
 				if resource:
-					resource.subtract(min(amount, resource.amount))
+					resource.decrement(min(amount, resource.amount))
 					print("[DEBUG] [Disruption] Drained ", amount, " ", drain_type)
 
 # Get force type from name
