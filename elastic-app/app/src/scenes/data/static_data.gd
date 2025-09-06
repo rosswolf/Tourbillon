@@ -98,17 +98,35 @@ func parse_enum(reference: String) -> Variant:
 	return result
 
 func _ready() -> void:
+	print("[DEBUG] [StaticData] Starting data load...")
+	print("[DEBUG] [StaticData] Running on platform: ", OS.get_name())
+	
 	# Load data files (enum mappings will be built lazily when needed)
 	card_data = load_json_file(card_data_path)
+	print("[DEBUG] [StaticData] Card data loaded: %d cards" % [card_data.size()])
+	
 	mob_data = load_json_file(mob_data_path)
-	print("[DEBUG] [StaticData] Loaded %d mobs from %s" % [mob_data.size(), mob_data_path])
+	print("[DEBUG] [StaticData] Mob data loaded: %d mobs" % [mob_data.size()])
+	
 	configuration_data = load_json_file(configuration_data_path)
+	print("[DEBUG] [StaticData] Config data loaded: %d entries" % [configuration_data.size()])
+	
 	icon_data = load_json_file(icon_data_path)
+	print("[DEBUG] [StaticData] Icon data loaded: %d icons" % [icon_data.size()])
+	
 	goals_data = load_json_file(goals_data_path)
+	print("[DEBUG] [StaticData] Goals data loaded: %d goals" % [goals_data.size()])
+	
 	relic_data = load_json_file(relic_data_path)
+	print("[DEBUG] [StaticData] Relic data loaded: %d relics" % [relic_data.size()])
+	
 	hero_data = load_json_file(hero_data_path)
+	print("[DEBUG] [StaticData] Hero data loaded: %d heroes" % [hero_data.size()])
+	
 	wave_data = load_json_file(wave_data_path)
-	print("[DEBUG] [StaticData] Loaded %d waves from %s" % [wave_data.size(), wave_data_path])
+	print("[DEBUG] [StaticData] Wave data loaded: %d waves" % [wave_data.size()])
+	
+	print("[DEBUG] [StaticData] All data files loaded successfully!")
 
 	# Build indices for fast lookups
 	card_data_indices = build_field_indices(card_data)
