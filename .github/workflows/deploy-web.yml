@@ -39,6 +39,7 @@ jobs:
       - name: Import Godot project
         run: |
           cd elastic-app/app
+          rm -rf .godot/
           godot --headless --import
           
       - name: Build for Web
